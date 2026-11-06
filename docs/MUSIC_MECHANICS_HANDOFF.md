@@ -1,7 +1,9 @@
 # Music mechanics — implementation handoff
 
 Prepared November 6, 2026. Current focus: soundtrack progression and music branches.
-Baseline inspected: `fc44c56`; local `main` matched fetched `origin/main` before this handoff. This is a scoped design backlog, not an implemented music system. Keep Fran's existing playtest handoff for the playable baseline.
+Latest source integrated: `fcbc803` from `https://github.com/ethanrxla/Miro`. Official team repository and push destination: `https://github.com/xynprize/Miro.` (`origin`); Ethan’s repository is the read-only source remote (`upstream`). This is a scoped design backlog, not an implemented music system. Keep Fran's existing playtest handoff for the playable baseline.
+
+The detailed [music specification](MUSIC_SPEC.md) is the design reference; this handoff orders its implementation. Preserve its chapter/physical-floor distinction, authored landing triggers, nonblocking suggestions and manual-selection priority. Current five-floor blockouts are implementation structure, not a limit on tower height.
 
 ## User direction
 
@@ -64,13 +66,13 @@ Dependencies: MUSIC-02, MUSIC-03. Deliverable: both branches work across five fl
 
 Acceptance: stealth, offense and mixed play unlock their intended beats, with no duplicate awards from corpses, repeated terminals, dialogue skipping or floor retries.
 
-### MUSIC-05 — Build the soundtrack playback layer
+### MUSIC-05 — Review candidates and build the soundtrack playback layer
 
 Dependencies: MUSIC-01; can proceed with placeholder audio while MUSIC-02–04 are implemented. Deliverable: dedicated music playback and initial licensed loops.
 
-- Select or produce a base beat plus initial stealth/offense variants. Record source, usage rights, loop boundaries, BPM and loudness. No tracks have been chosen yet.
+- Inventory and analyze the supplied Git LFS candidates in `soundselection/beats/`, then have the team audition and shortlist them; keep originals unchanged and put approved selections in `soundselection/finalcutbeats/`. Record measured tempo/key with uncertainty, metadata, loudness and useful section/loop markers. Select a base beat plus initial stealth/offense variants. Record source, usage rights, loop boundaries, BPM and loudness. No tracks have been chosen yet.
 - Add a dedicated music controller/bus, separate from the bounded sound-effects pool. Agree crossfade versus beat/bar-synchronized transitions before implementation; matched tempo/loop structure is required for synchronized layers.
-- Define behavior during acquisition, floor transitions, dialogue, pause, death, retry, boss encounter and ending. Avoid restarting the loop every frame or playing duplicate controllers after scene changes.
+- Author stable `music_region_id` landing/encounter triggers within chapters, including the first intended landing after cell escape (not automatically Chapter 2). Prevent re-entry/jumping from spamming switches; manual selection takes priority over automatic suggestions. Define behavior during acquisition, region/floor transitions, dialogue, pause, death, retry, boss encounter and ending. Avoid restarting the loop every frame or playing duplicate controllers after scene changes.
 - Preserve M's existing mute behavior; clarify whether it becomes global mute and whether independent music/effects volume controls are needed.
 
 Acceptance: loops and branch changes sound clean; effects/dialogue remain readable; mute works across scenes; missing music resources fail safely without interrupting play.
@@ -94,6 +96,6 @@ Acceptance: a player can acquire music, understand both branches, unlock and hea
 - `scripts/intro_player.gd`: current-floor player state and timed blanket behavior. Stealth activation alone is not proof of an undetected objective.
 - `scripts/security_camera.gd`: camera detection; include it in any clean-floor scoring rule.
 - `scripts/sound_fx.gd`: seven sound effects and persisted master-bus mute. No music controller or music assets currently exist.
-- `assets/audio/sources.json`: existing effects provenance. Add equivalent provenance for new music.
+- `assets/audio/sources.json`: existing effects provenance. Add equivalent provenance for new music. Candidate beats already exist under `soundselection/` (Git LFS, excluded from Godot via `.gdignore`); approved runtime music is still absent.
 
 Next implementation task: MUSIC-01, followed by MUSIC-02. Keep tasks reviewable and report implementation separately from proposals. Do not change blanket rules, narrative branches, combat balance or the unrelated level-menu backlog as part of this music work.
