@@ -29,4 +29,4 @@ Validation includes synthetic C-major pitch material, a known 120 BPM click trai
 
 ## Next review
 
-Ask the composer to verify project BPM/key for shortlisted tracks and resolve the outro source file and choose Level 1 section music. YZ33 is supplied; “new beat” is excluded. Audition A/B over identical gameplay excerpts, then choose region boundaries and runtime edits. Use short fades initially where harmonic overlap is questionable; do not claim key-compatible mixing from these estimates alone.
+Ask the composer to verify project BPM/key for shortlisted tracks and resolve the outro source file and plan any additional Level 1 section music. YZ33 is supplied and intended for both the intro and Level 1; “new beat” is excluded. Audition A/B over identical gameplay excerpts, then choose region boundaries and runtime edits. Use short fades initially where harmonic overlap is questionable; do not claim key-compatible mixing from these estimates alone.

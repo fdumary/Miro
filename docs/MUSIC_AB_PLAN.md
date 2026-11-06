@@ -11,7 +11,7 @@ Ethan confirms that the supplied beats are his original compositions and grants 
 ## Candidate sequence A
 
 - Intro: `YZ33.mp3` — supplied and added November 6, 2026. This is distinct from `YZ2.mp3` and `birthday melody YZ.mp3`.
-- Level 1: selection open. Ethan removed “new beat” from consideration; no replacement is assumed.
+- Level 1: `YZ33.mp3`, continuing its intended use from the intro. “New beat” is excluded.
 - Level 2: `DOPE2.mp3`.
 - Level 3: `sum crazy shi_3.mp3`.
 - Level 4: `plane drums nig.wav` or `cyberpunk_2.mp3`; compare these separately.
@@ -48,6 +48,6 @@ A region should carry an ordered list of eligible track IDs, entry/exit triggers
 `tools/analyze_beats.py` provides reproducible metadata and provisional tempo/key estimates in `data/music/beat_analysis.json`. It uses FFmpeg plus Librosa in an isolated Python environment; originals remain unchanged. The report records the method, source hashes, window-level alternatives and uncertainty. It is not a verified beat grid or a final musical-key transcription.
 
 1. Finish automated analysis and review ambiguous tempo/key estimates with the composer.
-2. Identify the intended outro file and choose Level 1 section music; YZ33 is now supplied and “new beat” is excluded.
+2. Identify the intended outro file and plan any additional Level 1 sections around YZ33; YZ33 is now supplied and “new beat” is excluded.
 3. Audition chapter sections using the A/B procedure and record exact excerpt markers.
 4. Feed approved track/region choices into MUSIC-01 and MUSIC-05 in the implementation handoff. Gameplay progression, pickup and branch scoring remain separate ordered tasks.
