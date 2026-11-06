@@ -27,6 +27,7 @@ var speaker_portrait: Control
 var overlay: PanelContainer
 var overlay_label: Label
 var shot_flash: float = 0.0
+var world_features: Node2D
 
 func _ready() -> void:
 	get_node("/root/Campaign").enter_floor(1)
@@ -38,6 +39,7 @@ func _ready() -> void:
 	for guard in guards():
 		guard.level = self
 	build_hud()
+	setup_world_features(1)
 	start_dialogue([
 		["MIRO", "Stone. Iron. A name scratched into the bed: Miro.\nMine... I think. Nothing before this room."],
 		["KEEPER", "Awake again? The Keepers call you a traitor.\nI call you late with my payment. No coin, no medicine."],
@@ -61,9 +63,13 @@ func setup_inputs() -> void:
 				InputMap.action_add_event(action, event)
 
 func controls_locked() -> bool:
-	return paused or not dialogue.is_empty() or completed
+	return paused or not dialogue.is_empty() or completed or (is_instance_valid(world_features) and world_features.modal_open())
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and event.physical_keycode == KEY_F10:
+		get_tree().paused = false
+		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		return
 	if completed and event.is_action_pressed("advance") and not event.is_echo():
 		get_node("/root/Campaign").complete_floor(1, sigil_placed, {"BrotherVoice": brother_heard})
 		get_viewport().set_input_as_handled()
@@ -105,6 +111,8 @@ func _process(delta: float) -> void:
 	status_label.text = "MIRO   " + "♥ ".repeat(maxi(0, player.health)) + "    " + player.detection_state + "\n" + ("1 Shank   2 Blanket   3 C4 ×%d   %s" % [player.c4_count, "Key" if player.has_key else "—"]) if player.has_supplies else "MIRO   ♥ ♥ ♥    CELL 07"
 	if player.has_gun:
 		status_label.text += "  •  Gun ×%d" % player.ammunition
+	if player.suppressor_uses > 0:
+		status_label.text += " • Suppressor %d" % player.suppressor_uses
 	if player.has_supplies:
 		status_label.text += "\n" + player.stealth_status()
 	objective_label.text = objective()
@@ -206,6 +214,8 @@ func nearby(kind: String, maximum: float = 48.0):
 	return null
 
 func context_hint() -> String:
+	if world_features and not world_features.hint().is_empty():
+		return world_features.hint()
 	if controls_locked() or player.is_dead:
 		return ""
 	if nearby("bed") and not player.has_supplies:
@@ -234,6 +244,8 @@ func context_hint() -> String:
 
 func interact() -> void:
 	if controls_locked() or player.is_dead:
+		return
+	if world_features and world_features.try_interact():
 		return
 	var bed = nearby("bed")
 	if bed and not player.has_supplies:
@@ -427,3 +439,10 @@ func build_hud() -> void:
 func _draw() -> void:
 	if shot_flash > 0:
 		draw_circle(to_local($Interactables/CellLock.global_position), (0.4 - shot_flash) * 160, Color(0.95, 0.83, 0.67, shot_flash))
+
+func setup_world_features(number: int) -> void:
+	world_features = Node2D.new()
+	world_features.set_script(load("res://scripts/world_features.gd"))
+	add_child(world_features)
+	world_features.setup(self, number)
+	get_node("/root/MusicDirector").start_floor(number)

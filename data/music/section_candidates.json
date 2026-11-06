@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "status": "agreed placements; runtime playback not implemented",
+  "status": "agreed placements; prototype runtime playback implemented except outro",
   "approved_date": "2026-11-06",
   "design_reference": "docs/MUSIC_TRACKLIST.md",
   "multiple_tracks_per_chapter": true,
@@ -18,7 +18,7 @@
       "chapter": null,
       "role": "intro",
       "file": "YZ33.mp3",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -26,7 +26,7 @@
       "chapter": 1,
       "role": "cell escape",
       "file": "YZ33.mp3",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -34,7 +34,7 @@
       "chapter": 2,
       "role": "exploration / observation",
       "file": "BOBBLEHEAD2.mp3",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -42,7 +42,7 @@
       "chapter": 2,
       "role": "sustained pressure",
       "file": "DOPE2.mp3",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -50,7 +50,7 @@
       "chapter": 3,
       "role": "checkpoint approach",
       "file": "swag.wav",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -58,7 +58,7 @@
       "chapter": 3,
       "role": "checkpoint conflict",
       "file": "sum crazy shi_3.mp3",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -66,7 +66,7 @@
       "chapter": 4,
       "role": "ward traversal",
       "file": "plane drums nig.wav",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -74,7 +74,7 @@
       "chapter": 4,
       "role": "deeper containment / experimentation",
       "file": "cyberpunk_2.mp3",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -82,7 +82,7 @@
       "chapter": 5,
       "role": "final approach and buildup",
       "file": "shit crashed 2.wav",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -90,7 +90,7 @@
       "chapter": 5,
       "role": "active brother combat after dialogue",
       "file": "robot attack.wav",
-      "trigger_status": "requires authored integration",
+      "trigger_status": "prototype integrated; see runtime reference",
       "runtime_excerpt": null
     },
     {
@@ -98,15 +98,16 @@
       "chapter": null,
       "role": "emotional chord progression after fatal exchange",
       "file": null,
-      "trigger_status": "requires authored integration",
+      "trigger_status": "missing composition; combat fades to silence",
       "runtime_excerpt": null
     }
   ],
   "unresolved": [
     "outro source file",
-    "exact region boundaries",
-    "excerpts and loop points",
-    "transition timing",
+    "human pacing/listening approval of region boundaries",
+    "musical excerpts and loop points",
+    "beat-synchronized transitions if desired",
     "relationship to unlock rules and manual selection"
-  ]
+  ],
+  "runtime_reference": "docs/AUDIO_AND_STEALTH_REVIEW.md"
 }

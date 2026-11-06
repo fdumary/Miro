@@ -11,6 +11,7 @@ func _ready() -> void:
 		streams[cue] = load("res://assets/audio/%s.ogg" % cue)
 	for index in range(8):
 		var voice := AudioStreamPlayer.new()
+		voice.bus = "Effects"
 		voice.process_mode = Node.PROCESS_MODE_PAUSABLE
 		add_child(voice)
 		voices.append(voice)

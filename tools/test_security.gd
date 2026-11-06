@@ -26,6 +26,10 @@ func run() -> void:
 		check(guard.alert_state == IntroGuard.State.SEARCH, "Floor alert reaches every guard")
 		guard.set_physics_process(false)
 	level.interact()
+	check(level.world_features.modal_open(), "Terminal requests a password")
+	level.world_features.submit_password("wrong")
+	check(level.hack_remaining == 0, "Wrong password cannot start hack")
+	level.world_features.submit_password("root")
 	await frames(25)
 	check(camera.is_active and not level.milestones.has("RemoteTerminal"), "Hack cannot finish early")
 	level.paused = true

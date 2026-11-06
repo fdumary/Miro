@@ -24,6 +24,7 @@ func _ready() -> void:
 		guard.level = self
 		guard.illness_started = true
 	build_hud()
+	setup_world_features(int(definition.number))
 	if int(definition.number) == 3:
 		for point in [Vector2(450, 180), Vector2(820, 370)]:
 			var camera = load("res://scenes/security_camera.tscn").instantiate()
@@ -35,6 +36,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
+	if not controls_locked() and definition.has("music_region"):
+		var entry: Dictionary = definition.music_region.entry
+		var in_region := player.position.x >= float(entry.get("minimum_x", -INF)) and player.position.y >= float(entry.get("minimum_y", -INF)) and player.position.y <= float(entry.get("maximum_y", INF))
+		var ready_milestone := not entry.has("requires_milestone") or milestones.has(entry.requires_milestone)
+		if in_region and ready_milestone and (not entry.get("requires_landing", true) or player.is_on_floor()):
+			get_node("/root/MusicDirector").second_section(int(definition.number))
 	if hack_remaining > 0 and not controls_locked():
 		if player.is_dead or player.global_position.distance_to(areas.get_node("RemoteTerminal").global_position) >= 48:
 			hack_remaining = 0
@@ -77,6 +84,8 @@ func station_nearby() -> Dictionary:
 	return nearest
 
 func context_hint() -> String:
+	if world_features and not world_features.hint().is_empty():
+		return world_features.hint()
 	if is_instance_valid(brother) and not brother.is_dead:
 		return "[1] Strike during RECOVER • [C] Dodge • Space Jump"
 	if hack_remaining > 0:
@@ -99,6 +108,8 @@ func context_hint() -> String:
 
 func interact() -> void:
 	if controls_locked() or player.is_dead:
+		return
+	if world_features and world_features.try_interact():
 		return
 	var station := station_nearby()
 	if not station.is_empty():
@@ -124,11 +135,14 @@ func interact() -> void:
 				brother.level = self
 				brother.position = player.position + Vector2(85, -10)
 				add_child(brother)
+				get_node("/root/MusicDirector").second_section(5)
 				notify("RUSH / THROW: watch his tell. Dodge with C; strike with 1 during RECOVER.", 8)
 			return
 		if station.id == "RemoteTerminal":
 			pending_milestone = ""
-			if hack_remaining <= 0:
+			if not world_features.terminal_authenticated:
+				world_features.open_terminal()
+			elif hack_remaining <= 0:
 				hack_remaining = 1.0
 			return
 		start_dialogue(station.lines, "milestone")
@@ -181,6 +195,7 @@ func camera_alert(point: Vector2) -> void:
 	notify("CAMERA ALERT • Keepers are searching your last seen position.")
 
 func brother_defeated() -> void:
+	get_node("/root/MusicDirector").silence()
 	milestones["BrotherEncounter"] = true
 	areas.get_node("BrotherEncounter").activated = true
 	areas.get_node("BrotherEncounter").queue_redraw()

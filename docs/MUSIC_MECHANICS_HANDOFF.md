@@ -22,7 +22,7 @@ Recommended defaults for the first prototype: support both pickpocketing and cor
 
 ## Progress — November 6, 2026
 
-MUSIC-05 analysis tooling and a preliminary 17-track report are available; see [analysis method and limits](BEAT_ANALYSIS.md). The [agreed soundtrack placement plan](MUSIC_TRACKLIST.md) and `data/music/section_candidates.json` specify current section order, trigger intent and Ethan’s permission statement; the old A/B sequence is superseded. Levels may use multiple tracks; A/B means listening comparison, not unlock branches. Chapter placements are approved. Exact outro source, excerpt/loop edits, region triggers, in-game playback and scoring remain unfinished. MUSIC-01 remains the first gameplay implementation task.
+MUSIC-05 analysis tooling and a preliminary 17-track report are available; see [analysis method and limits](BEAT_ANALYSIS.md). The [agreed soundtrack placement plan](MUSIC_TRACKLIST.md) and `data/music/section_candidates.json` specify current section order, trigger intent and Ethan’s permission statement; the old A/B sequence is superseded. Levels may use multiple tracks; A/B means listening comparison, not unlock branches. Chapter placements are approved. Prototype region triggers and playback are implemented; see AUDIO_AND_STEALTH_REVIEW.md. Exact outro source, excerpt/loop edits and scoring/unlocks remain unfinished. MUSIC-01 remains the first gameplay implementation task.
 
 ## Ordered tasks
 
@@ -72,6 +72,8 @@ Acceptance: stealth, offense and mixed play unlock their intended beats, with no
 
 ### MUSIC-05 — Review candidates and build the soundtrack playback layer
 
+Prototype complete for review: nine leveled runtime tracks, two-player crossfades, chapter triggers, music ducking and saved bus sliders. Production excerpt/loop editing and listening sign-off remain open.
+
 Dependencies: MUSIC-01; can proceed with placeholder audio while MUSIC-02–04 are implemented. Deliverable: dedicated music playback and initial licensed loops.
 
 - Inventory and analyze the supplied Git LFS candidates in `soundselection/beats/`, then have the team audition and shortlist them; keep originals unchanged and put approved selections in `soundselection/finalcutbeats/`. Record measured tempo/key with uncertainty, metadata, loudness and useful section/loop markers. Select a base beat plus initial stealth/offense variants. Record source, usage rights, loop boundaries, BPM and loudness. Chapter/section choices are established in MUSIC_TRACKLIST.md; exact runtime excerpts, loop points and the outro file remain open.
@@ -99,7 +101,7 @@ Acceptance: a player can acquire music, understand both branches, unlock and hea
 - `scripts/intro_guard.gd`: `die()` already guards duplicate death recording and increments local player casualties. Current casualty count is not a campaign-wide scoring system.
 - `scripts/intro_player.gd`: current-floor player state and timed blanket behavior. Stealth activation alone is not proof of an undetected objective.
 - `scripts/security_camera.gd`: camera detection; include it in any clean-floor scoring rule.
-- `scripts/sound_fx.gd`: seven sound effects and persisted master-bus mute. No music controller or music assets currently exist.
-- `assets/audio/sources.json`: existing effects provenance. Add equivalent provenance for new music. Candidate beats already exist under `soundselection/` (Git LFS, excluded from Godot via `.gdignore`); approved runtime music is still absent.
+- `scripts/sound_fx.gd`: existing effects and persisted master mute. `scripts/music_director.gd` now supplies nine runtime tracks, crossfades, ducking and Music/Effects/Voice buses; `scripts/world_features.gd` supplies prerecorded spatial guard speech and local stealth props.
+- `assets/audio/sources.json`: existing effects provenance. Add equivalent provenance for new music. Candidate beats already exist under `soundselection/` (Git LFS, excluded from Godot via `.gdignore`); runtime copies now live in `assets/audio/music/` with leveling metadata in `data/music/runtime_catalog.json`.
 
 Next implementation task: MUSIC-01, followed by MUSIC-02. Keep tasks reviewable and report implementation separately from proposals. Do not change blanket rules, narrative branches, combat balance or the unrelated level-menu backlog as part of this music work.

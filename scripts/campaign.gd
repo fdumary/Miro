@@ -1,5 +1,6 @@
 extends Node
 ## Session progress; floor results commit only when descending, so retries restore entry state.
+var case_anchors: Dictionary = {}
 var current_floor := 1
 var completed_sigils: Dictionary = {}
 var narrative_milestones: Dictionary = {}
@@ -20,6 +21,8 @@ func launch_floor() -> int:
 	return 1
 
 func enter_floor(number: int) -> void:
+	if number == 1 and current_floor != 1:
+		case_anchors.clear()
 	current_floor = number
 	print("FLOOR_READY: ", number)
 	for floor_number in completed_sigils.keys():

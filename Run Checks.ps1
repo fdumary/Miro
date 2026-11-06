@@ -13,7 +13,8 @@ $checks = @(
     @('res://tools/test_gates_and_loot.gd'),
     @('res://tools/test_timed_stealth.gd'),
     @('res://tools/test_dialogue_layout.gd'),
-    @('res://tools/test_audio.gd')
+    @('res://tools/test_audio.gd'),
+    @('res://tools/test_music_and_world.gd')
 )
 New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'tmp') | Out-Null
 $index = 0

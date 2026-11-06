@@ -21,6 +21,7 @@ func run() -> void:
 		level.player.position = Vector2(300, 232)
 		level.interact()
 		if number == 3:
+			level.world_features.submit_password("root")
 			await frames(65)
 		level.finish_dialogue()
 		if number == 4:
@@ -40,6 +41,9 @@ func run() -> void:
 	check(level.player.has_gun and level.player.ammunition == 2, "Fallen Keeper provides a weapon and two rounds")
 	level.interact()
 	check(level.player.ammunition == 2, "Loot cannot be duplicated")
+	# Once a corpse is empty, E may enter an adjacent hiding prop. Exit before firing.
+	if level.player.in_hiding_spot:
+		level.interact()
 	level.player.fire_gun()
 	check(level.player.ammunition == 1, "Shot consumes one round")
 	print("GATES_LOOT_RESULT: ", checks - failures.size(), "/", checks, " passed")

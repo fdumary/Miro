@@ -1,2 +1,4 @@
 soundselection/**/*.wav filter=lfs diff=lfs merge=lfs -text
 soundselection/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
+assets/audio/music/*.mp3 filter=lfs diff=lfs merge=lfs -text
+assets/audio/voice/*.mp3 filter=lfs diff=lfs merge=lfs -text

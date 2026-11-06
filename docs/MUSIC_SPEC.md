@@ -1,6 +1,6 @@
 # Miro — proposed music system and selection guide
 
-Status: **design proposal only**, based on Ethan's latest direction. No music system, scoring, unlocks, tempo analysis or track selection has been implemented by this handoff. Sound effects and mute already exist separately. Musical taste and final selection remain with Ethan, Miro and the team.
+Status: **design reference with a playable review prototype**. Section placements, tempo/key analysis, runtime music playback, leveling/ducking and audio review controls now exist; see [the current implementation and verification](AUDIO_AND_STEALTH_REVIEW.md). Scoring/unlocks, portable-player acquisition and the outro composition remain unfinished. Proposal language below describes unresolved production behavior, not a claim that every item is implemented. Musical taste and final listening approval remain with Ethan, Miro and the team.
 
 ## Latest team direction — November 6, 2026
 

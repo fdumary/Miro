@@ -29,7 +29,7 @@ func direction_angle() -> float:
 	return facing_angle + sin(sweep_time * 0.7) * 0.4
 
 func detects_player() -> bool:
-	if not is_active or level.player.is_dead or level.player.is_concealed:
+	if not is_active or level.player.is_dead or (level.player.is_concealed or level.player.in_hiding_spot):
 		return false
 	var offset: Vector2 = level.player.global_position - global_position
 	return offset.length() <= detection_range and absf(wrapf(offset.angle() - direction_angle(), -PI, PI)) <= half_angle and level.clear_sight(global_position, level.player.global_position)

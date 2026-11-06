@@ -14,6 +14,8 @@ var detection_state: String = "unseen"
 var has_supplies: bool = false
 var has_key: bool = false
 var has_gun: bool = false
+var suppressor_uses := 0
+var in_hiding_spot := false
 var ammunition: int = 0
 var c4_count: int = 0
 var attack_cooldown: float = 0.0
@@ -41,6 +43,10 @@ func _physics_process(delta: float) -> void:
 	dodge_left = maxf(0.0, dodge_left - delta)
 	attack_flash = maxf(0.0, attack_flash - delta)
 	if level.controls_locked() or is_dead:
+		velocity = Vector2.ZERO
+		update_visual(delta)
+		return
+	if in_hiding_spot:
 		velocity = Vector2.ZERO
 		update_visual(delta)
 		return
@@ -137,6 +143,8 @@ func stealth_status() -> String:
 	return "STEALTH READY [2]"
 
 func shank() -> void:
+	if in_hiding_spot or level.controls_locked() or is_dead:
+		return
 	if not has_supplies:
 		level.notify("Search beneath the bed first. [E]")
 		return
@@ -154,6 +162,8 @@ func shank() -> void:
 				break
 
 func fire_gun() -> void:
+	if in_hiding_spot or level.controls_locked() or is_dead:
+		return
 	if not has_gun or ammunition <= 0:
 		level.notify("No loaded weapon. A fallen Keeper may carry one.")
 		return
@@ -162,9 +172,12 @@ func fire_gun() -> void:
 	ammunition -= 1
 	attack_cooldown = 0.65
 	attack_flash = 0.2
-	get_node("/root/SoundFX").play_sound("shot", -20)
+	var suppressed := suppressor_uses > 0
+	if suppressed:
+		suppressor_uses -= 1
+	get_node("/root/SoundFX").play_sound("shot", -32 if suppressed else -20)
 	end_stealth()
-	level.make_noise(global_position, 600.0)
+	level.make_noise(global_position, 90.0 if suppressed else 600.0)
 	for guard in level.guards():
 		var difference: Vector2 = guard.global_position - global_position
 		if not guard.is_dead and absf(difference.y) < 22 and difference.x * facing > 0 and difference.length() < 320 and level.clear_sight(global_position, guard.global_position):
@@ -181,6 +194,7 @@ func take_damage(amount: int) -> void:
 	var previous_health := health
 	super.take_damage(amount)
 	if health < previous_health:
+		in_hiding_spot = false
 		get_node("/root/SoundFX").play_sound("hit", -16)
 	end_stealth()
 
@@ -202,7 +216,7 @@ func update_visual(delta: float) -> void:
 		sprite.frame = int(animation_time * 8) % 2
 	sprite.flip_h = facing < 0
 	sprite.modulate = Color("8b6d9c") if is_concealed else Color.WHITE
-	sprite.modulate.a = 0.42 if is_concealed else (0.5 if invulnerability_left > 0 and int(animation_time * 20) % 2 == 0 else 1.0)
+	sprite.modulate.a = 0.15 if in_hiding_spot else (0.42 if is_concealed else (0.5 if invulnerability_left > 0 and int(animation_time * 20) % 2 == 0 else 1.0))
 	sprite.rotation = PI / 2 if is_dead else 0.0
 	queue_redraw()
 

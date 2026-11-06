@@ -1,5 +1,9 @@
 # Current gameplay decisions
 
+## Audio and stealth review — November 6, 2026
+
+See [the implemented review spec](AUDIO_AND_STEALTH_REVIEW.md) for soundtrack sections, restrained leveling/ducking, ElevenLabs guard exchanges, case-sensitive root login with fallback, three-shot suppressor cases, enclosed hiding props and the new start/review menu. These additions preserve the existing timed blanket and platform geometry. Musical scoring/unlocks, portable-player acquisition and a final outro track remain open. Current main scene is the menu; F10 returns to it. Earlier menu/audio status below is historical.
+
 ## Playtest handoff clarification — November 6, 2026
 
 Ethan reaffirmed that the blanket is the stealth tool for hiding in shadows when requesting [Fran's handoff](FRAN_PLAYTEST_HANDOFF.md). The build still supports the earlier requested timed activation anywhere. Whether shadows should become mandatory again was not explicitly specified; Fran should record this design question rather than assume the code already restricts activation. No gameplay rule was changed as part of the documentation handoff. An in-game level menu is also an outstanding deliverable; developer floor-launch shortcuts are not that menu.

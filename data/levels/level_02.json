@@ -526,5 +526,13 @@
         236
       ]
     }
-  ]
+  ],
+  "music_region": {
+    "id": "level_2_pressure",
+    "track": "dope2",
+    "entry": {
+      "minimum_y": 330,
+      "requires_landing": true
+    }
+  }
 }

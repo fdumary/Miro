@@ -1,5 +1,7 @@
 # Fran — playtest handoff
 
+**New review increment:** [audio and stealth feature spec](AUDIO_AND_STEALTH_REVIEW.md) supersedes the older no-menu/no-music and one-interaction terminal descriptions below. Test the title menu, separate volumes, both section cues per later chapter, finite voiced conversations/turn-away openings, root login and maintenance-slip fallback, three-shot suppressors and E-entry hiding recesses. The historical baseline checks remain useful; they do not claim manual approval of these additions.
+
 Prepared November 6, 2026. Gameplay baseline: [`83e3e96`](https://github.com/ethanrxla/Miro/commit/83e3e96). This handoff documents the implemented build; unchecked boxes below are **manual tests still to perform**, not claims that they passed.
 
 ## Start here

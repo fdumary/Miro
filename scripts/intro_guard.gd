@@ -22,6 +22,11 @@ var gun_taken: bool = false
 var death_recorded: bool = false
 var sees_player: bool = false
 var body_reported: bool = false
+var guard_name := "Keeper"
+var voice_index := 0
+var conversation_hold := false
+var turn_away_left := 0.0
+var alert_barked := false
 
 func _ready() -> void:
 	add_to_group("guards")
@@ -33,7 +38,7 @@ func can_see_point(point: Vector2, distance_limit: float = 165.0) -> bool:
 	return difference.length() < distance_limit and absf(difference.y) < 45 and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
 
 func detect_player() -> bool:
-	if is_dead or not level or level.player.is_dead or level.player.is_concealed:
+	if is_dead or not level or level.player.is_dead or (level.player.is_concealed or level.player.in_hiding_spot):
 		return false
 	# Prisoners inside the locked cell are not escapees yet.
 	if not level.door_open and level.player.global_position.x < level.get_node("Interactables/CellLock").global_position.x:
@@ -56,6 +61,9 @@ func _physics_process(delta: float) -> void:
 		search_left = 5.0
 		if suspicion >= 1.0:
 			alert_state = State.ALERT
+			if not alert_barked and level.world_features:
+				alert_barked = true
+				level.world_features.bark(self, "alert")
 		else:
 			alert_state = State.SUSPICIOUS
 	elif alert_state == State.ALERT or alert_state == State.SUSPICIOUS:
@@ -68,7 +76,9 @@ func _physics_process(delta: float) -> void:
 			body_reported = true
 			if not sees_player:
 				investigate(body.global_position)
-			level.notify("Keeper: A body... search the gallery! They haven't seen you.")
+			level.notify("%s found %s. The Keepers are searching." % [guard_name, body.guard_name])
+			if level.world_features:
+				level.world_features.bark(self, "body")
 	velocity.x = 0
 	if windup > 0:
 		windup -= delta
@@ -93,6 +103,11 @@ func _physics_process(delta: float) -> void:
 			alert_state = State.PATROL
 			suspicion = 0
 	elif alert_state == State.PATROL:
+		if conversation_hold or turn_away_left > 0:
+			turn_away_left = maxf(0, turn_away_left - delta)
+			velocity.y += 850.0 * delta
+			move_and_slide()
+			return
 		if sick_guard and not illness_started:
 			return
 		if global_position.x <= patrol_left:
@@ -126,6 +141,8 @@ func investigate(point: Vector2) -> void:
 	suspicion = 0.3
 
 func receive_shank() -> void:
+	conversation_hold = false
+	turn_away_left = 0
 	var unaware := alert_state != State.ALERT and not detect_player()
 	health -= 2 if unaware else 1
 	if health <= 0:
@@ -152,6 +169,7 @@ func _draw() -> void:
 	var ink := Color("272744")
 	var blue := Color("494d7e")
 	var pale := Color("f2d3ab")
+	draw_string(ThemeDB.fallback_font, Vector2(-18, -36), guard_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
 	if is_dead:
 		draw_rect(Rect2(-15, 6, 27, 7), blue)
 		draw_rect(Rect2(9, 3, 8, 7), pale)

@@ -1,0 +1,434 @@
+{
+  "symptoms_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George",
+    "model_id": "eleven_multilingual_v2",
+    "text": "Another prisoner coughing. Did the transfer orders say where they go?",
+    "signature": "53f99dca214c98eb346176fb41857c4f72a2396fbe190d2bb6835dfec9627f4b",
+    "leveling": {
+      "source_sha256": "0bea81d9e160380768bb7773351cef6969a080c9d37edd83f5616505d245aa81",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.26",
+        "input_tp": "-4.18",
+        "input_lra": "2.20",
+        "input_thresh": "-33.74",
+        "output_i": "-18.91",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.28",
+        "normalization_type": "dynamic",
+        "target_offset": "0.91"
+      },
+      "output_lufs": "-18.47",
+      "output_true_peak_dbtp": "-1.82"
+    }
+  },
+  "symptoms_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger",
+    "model_id": "eleven_multilingual_v2",
+    "text": "Only the ward number. Nobody tells us what happens after that.",
+    "signature": "7a37e6e7bdc4e73a73f53ae8e7d8e9304dd69e184db3bf8ac8cde8f664bf9cdb",
+    "leveling": {
+      "source_sha256": "44c2eba4ab4c8cc21b55baee9d0b48bba404c286ba7aa83a9d098cc547f95b28",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.64",
+        "input_tp": "-8.10",
+        "input_lra": "2.90",
+        "input_thresh": "-37.07",
+        "output_i": "-18.56",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.10",
+        "normalization_type": "dynamic",
+        "target_offset": "0.56"
+      },
+      "output_lufs": "-19.10",
+      "output_true_peak_dbtp": "-1.92"
+    }
+  },
+  "symptoms_3": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George",
+    "model_id": "eleven_multilingual_v2",
+    "text": "Keep your voice down. I'll check the passage. You watch the stairs.",
+    "signature": "45052ee0db6b58d74a854785080da615c8a29bb9a8e243387c4dcce7f2d47570",
+    "leveling": {
+      "source_sha256": "4277a958e33a4c182676ff681166baef8b82c5f267e94ba50b91a07a06c866f2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.53",
+        "input_tp": "-4.44",
+        "input_lra": "1.90",
+        "input_thresh": "-34.73",
+        "output_i": "-18.77",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.88",
+        "normalization_type": "dynamic",
+        "target_offset": "0.77"
+      },
+      "output_lufs": "-18.56",
+      "output_true_peak_dbtp": "-1.89"
+    }
+  },
+  "password_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George",
+    "model_id": "eleven_multilingual_v2",
+    "text": "I need to log into this terminal. What was the password again?",
+    "signature": "5feb1f7daebe8a3761948513838faf82f37ce1a9f2903ff47c1cea9e2a04f455",
+    "leveling": {
+      "source_sha256": "4817e661b74bde6a65c700c5cb3702fcffdd54fa3f9ac1267984457aa29767d7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.37",
+        "input_tp": "-1.48",
+        "input_lra": "2.80",
+        "input_thresh": "-35.21",
+        "output_i": "-18.97",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.79",
+        "normalization_type": "dynamic",
+        "target_offset": "0.97"
+      },
+      "output_lufs": "-18.52",
+      "output_true_peak_dbtp": "-1.93"
+    }
+  },
+  "password_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger",
+    "model_id": "eleven_multilingual_v2",
+    "text": "Root. All lowercase. R, O, O, T. Same as last shift.",
+    "signature": "4633fffdb3c36dfd9316fbc239c778820189c92bd083ddec209c56b3ac4d59d9",
+    "leveling": {
+      "source_sha256": "9562040539026ed7e168b2bbb7dfeb375c93cb6f498d54518e80fd8f4819414d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.94",
+        "input_tp": "-5.45",
+        "input_lra": "3.70",
+        "input_thresh": "-35.58",
+        "output_i": "-18.68",
+        "output_tp": "-2.00",
+        "output_lra": "2.30",
+        "output_thresh": "-29.26",
+        "normalization_type": "dynamic",
+        "target_offset": "0.68"
+      },
+      "output_lufs": "-18.48",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "password_3": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George",
+    "model_id": "eleven_multilingual_v2",
+    "text": "Right. Once you're in, you can disable both checkpoint cameras.",
+    "signature": "feda8acdcc854e102ab386df35d59f2ce409f9bc6943be815f447da063eb94b1",
+    "leveling": {
+      "source_sha256": "7ba82ace4cd360a7282c407e61ffb8bb1f4bcf4b26810af90aa72085f2c0c428",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.08",
+        "input_tp": "-4.94",
+        "input_lra": "0.60",
+        "input_thresh": "-33.41",
+        "output_i": "-18.29",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.66",
+        "normalization_type": "dynamic",
+        "target_offset": "0.29"
+      },
+      "output_lufs": "-18.23",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "password_4": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger",
+    "model_id": "eleven_multilingual_v2",
+    "text": "I'll watch the far passage. Don't leave the terminal open.",
+    "signature": "0dc554cd8985c219248dcff87eb011366c5d259e8d2a8ee4462e15c946129cff",
+    "leveling": {
+      "source_sha256": "9af9de692055ed6f0465ab696811b9f8104a580b8db80f50e756aa41281beb24",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.92",
+        "input_tp": "-5.68",
+        "input_lra": "0.50",
+        "input_thresh": "-34.92",
+        "output_i": "-18.43",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.43",
+        "normalization_type": "dynamic",
+        "target_offset": "0.43"
+      },
+      "output_lufs": "-18.27",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "ward_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George",
+    "model_id": "eleven_multilingual_v2",
+    "text": "They sealed the ward again. Even our keys won't open that gate.",
+    "signature": "26187cfdac602452cb6292dc9be6a7005ec3cb026ce1475c6290f85d3198299a",
+    "leveling": {
+      "source_sha256": "d92abb2c0bdcd9de3df64705652f4fc64dab737716b79cf7b65c09cd6410e845",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.71",
+        "input_tp": "-2.89",
+        "input_lra": "2.10",
+        "input_thresh": "-34.34",
+        "output_i": "-18.56",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.06",
+        "normalization_type": "dynamic",
+        "target_offset": "0.56"
+      },
+      "output_lufs": "-18.32",
+      "output_true_peak_dbtp": "-1.76"
+    }
+  },
+  "ward_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger",
+    "model_id": "eleven_multilingual_v2",
+    "text": "Read the experiment records first. Then use the manual release.",
+    "signature": "4f3a62f692bc60a2d6356289132332616fff7fd5eb1f7df0cd2dfbb3ee373bb2",
+    "leveling": {
+      "source_sha256": "2b305b7a9e52c1f7716064b2e9f65048b6b1cee6bbb4ea71a75165ee0a0dddd1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.57",
+        "input_tp": "-5.98",
+        "input_lra": "2.50",
+        "input_thresh": "-34.70",
+        "output_i": "-18.91",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.03",
+        "normalization_type": "dynamic",
+        "target_offset": "0.91"
+      },
+      "output_lufs": "-18.75",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "ward_3": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George",
+    "model_id": "eleven_multilingual_v2",
+    "text": "Fine. I'm turning back to the passage. I don't like standing here.",
+    "signature": "e6eca8fe2b503d787f672d13a19041ba358b0b66abb41eab9239d6fa29a357a1",
+    "leveling": {
+      "source_sha256": "c41801a6ba725355cc9c2ca869dd2b57545f6c3edf7f5011e0ffe8fe2386312c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.22",
+        "input_tp": "-2.97",
+        "input_lra": "2.10",
+        "input_thresh": "-33.47",
+        "output_i": "-19.37",
+        "output_tp": "-2.00",
+        "output_lra": "0.80",
+        "output_thresh": "-29.72",
+        "normalization_type": "dynamic",
+        "target_offset": "1.37"
+      },
+      "output_lufs": "-18.96",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "body_0": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George",
+    "model_id": "eleven_multilingual_v2",
+    "text": "No... I know him. We were on shift together. Someone's here!",
+    "signature": "ccb4ee887145bda81447b0f6ad901ac9dd7f9bbff6c7352ebc8ccdde0444cce2",
+    "leveling": {
+      "source_sha256": "6836c5608f65b548a08aedf1a7328600efc131ddf508dd8dbb2fdb99f08bb683",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.44",
+        "input_tp": "-3.36",
+        "input_lra": "1.40",
+        "input_thresh": "-32.84",
+        "output_i": "-18.98",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.34",
+        "normalization_type": "dynamic",
+        "target_offset": "0.98"
+      },
+      "output_lufs": "-18.86",
+      "output_true_peak_dbtp": "-1.91"
+    }
+  },
+  "body_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger",
+    "model_id": "eleven_multilingual_v2",
+    "text": "No... I know him. We were on shift together. Someone's here!",
+    "signature": "51b25da1c300615fa025d0a77322d20e4d2031e839d373b410bb1c3c74a418f1",
+    "leveling": {
+      "source_sha256": "6dc51daf77062170beda1eb313cacac9b37d297c5fa5221261b2d0881fc1cb6e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.08",
+        "input_tp": "-4.63",
+        "input_lra": "0.80",
+        "input_thresh": "-35.43",
+        "output_i": "-18.73",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.13",
+        "normalization_type": "dynamic",
+        "target_offset": "0.73"
+      },
+      "output_lufs": "-18.36",
+      "output_true_peak_dbtp": "-1.80"
+    }
+  },
+  "body_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+    "voice_name": "Callum",
+    "model_id": "eleven_multilingual_v2",
+    "text": "No... I know him. We were on shift together. Someone's here!",
+    "signature": "d260c6bbb064d5be06a8b7a4f2c071994163f3e0e76f97bcab527115106d0e66",
+    "leveling": {
+      "source_sha256": "2f834dbad530c36a8b3ff28df74fe6ffdeb16d3c20b7454e0015a55b298cb74d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.79",
+        "input_tp": "-1.85",
+        "input_lra": "0.70",
+        "input_thresh": "-30.62",
+        "output_i": "-18.28",
+        "output_tp": "-2.00",
+        "output_lra": "0.30",
+        "output_thresh": "-29.22",
+        "normalization_type": "dynamic",
+        "target_offset": "0.28"
+      },
+      "output_lufs": "-18.20",
+      "output_true_peak_dbtp": "-1.87"
+    }
+  },
+  "alert_0": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George",
+    "model_id": "eleven_multilingual_v2",
+    "text": "You there! Stop!",
+    "signature": "f534c0c5efac9fa391d1c8c9d068f71f58ef66a8ee3b7727d4e29f2b4d8ddcff",
+    "leveling": {
+      "source_sha256": "90806c68d67bfd911abc2531c1bf152bd07609dc7d81c29c06867037a5c42c01",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.45",
+        "input_tp": "-4.68",
+        "input_lra": "0.00",
+        "input_thresh": "-32.96",
+        "output_i": "-19.75",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.26",
+        "normalization_type": "linear",
+        "target_offset": "1.75"
+      },
+      "output_lufs": "-19.76",
+      "output_true_peak_dbtp": "-2.03"
+    }
+  },
+  "alert_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger",
+    "model_id": "eleven_multilingual_v2",
+    "text": "You there! Stop!",
+    "signature": "39ba4dee4efc3ac26a9429913c3cf22ef186389f6bcc76edec61ad66ef99d408",
+    "leveling": {
+      "source_sha256": "085062978d1db3a702c822f86614eebfbdc67ac78508c78409755fdc7827a8a7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.18",
+        "input_tp": "-5.14",
+        "input_lra": "0.00",
+        "input_thresh": "-32.59",
+        "output_i": "-19.05",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.46",
+        "normalization_type": "linear",
+        "target_offset": "1.05"
+      },
+      "output_lufs": "-19.06",
+      "output_true_peak_dbtp": "-2.11"
+    }
+  },
+  "alert_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+    "voice_name": "Callum",
+    "model_id": "eleven_multilingual_v2",
+    "text": "You there! Stop!",
+    "signature": "1d0ab78258f84cf5a7329d047da60d6e22821d506bccc718befef315da5dba81",
+    "leveling": {
+      "source_sha256": "c49ba210146c7e477c80b3dac1c24d46b27a5448af0f984140f34e16e6eb3f03",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.06",
+        "input_tp": "-2.52",
+        "input_lra": "0.00",
+        "input_thresh": "-29.50",
+        "output_i": "-18.54",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.98",
+        "normalization_type": "linear",
+        "target_offset": "0.54"
+      },
+      "output_lufs": "-18.54",
+      "output_true_peak_dbtp": "-1.95"
+    }
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "tracks": {
+    "yz33": {
+      "title": "YZ33.mp3",
+      "stream": "res://assets/audio/music/yz33.mp3",
+      "source": "YZ33.mp3",
+      "leveling": {
+        "source_sha256": "2872134e6d3c680b4f57cd8806be4422c1b23512c787f3e7eab7b0260c271de6",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-12.68",
+          "input_tp": "0.03",
+          "input_lra": "4.80",
+          "input_thresh": "-22.90",
+          "output_i": "-20.30",
+          "output_tp": "-7.15",
+          "output_lra": "5.10",
+          "output_thresh": "-30.46",
+          "normalization_type": "dynamic",
+          "target_offset": "0.30"
+        },
+        "output_lufs": "-19.99",
+        "output_true_peak_dbtp": "-7.19"
+      }
+    },
+    "bobblehead": {
+      "title": "BOBBLEHEAD2.mp3",
+      "stream": "res://assets/audio/music/bobblehead.mp3",
+      "source": "BOBBLEHEAD2.mp3",
+      "leveling": {
+        "source_sha256": "352d366c92810c7ae76aa8b57ca5864fb5e894478a48e011a512d3c8cbe24267",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-16.42",
+          "input_tp": "-4.31",
+          "input_lra": "1.70",
+          "input_thresh": "-26.42",
+          "output_i": "-19.50",
+          "output_tp": "-4.81",
+          "output_lra": "1.90",
+          "output_thresh": "-29.50",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.50"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-7.89"
+      }
+    },
+    "dope2": {
+      "title": "DOPE2.mp3",
+      "stream": "res://assets/audio/music/dope2.mp3",
+      "source": "DOPE2.mp3",
+      "leveling": {
+        "source_sha256": "a19553158c50d073fd3a6bb1d5e9b2c839897a54fbcf9bafdc34587fa1c04755",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-17.81",
+          "input_tp": "-4.63",
+          "input_lra": "14.90",
+          "input_thresh": "-28.87",
+          "output_i": "-18.72",
+          "output_tp": "-2.00",
+          "output_lra": "9.80",
+          "output_thresh": "-29.34",
+          "normalization_type": "dynamic",
+          "target_offset": "-1.28"
+        },
+        "output_lufs": "-20.06",
+        "output_true_peak_dbtp": "-1.90"
+      }
+    },
+    "swag": {
+      "title": "swag.wav",
+      "stream": "res://assets/audio/music/swag.mp3",
+      "source": "swag.wav",
+      "leveling": {
+        "source_sha256": "3558f8cdf8a7582e7283d91e3578f0e95ece6f3288d223f65e25b35150b63226",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-14.41",
+          "input_tp": "-0.09",
+          "input_lra": "3.50",
+          "input_thresh": "-24.78",
+          "output_i": "-20.15",
+          "output_tp": "-2.00",
+          "output_lra": "3.00",
+          "output_thresh": "-30.31",
+          "normalization_type": "dynamic",
+          "target_offset": "0.15"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-5.57"
+      }
+    },
+    "sumcrazy": {
+      "title": "sum crazy shi_3.mp3",
+      "stream": "res://assets/audio/music/sumcrazy.mp3",
+      "source": "sum crazy shi_3.mp3",
+      "leveling": {
+        "source_sha256": "493ae081a01952b327b1d79037531df18c61449a26ca3f5d1241e09ad23a5ce1",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-10.99",
+          "input_tp": "2.27",
+          "input_lra": "6.30",
+          "input_thresh": "-20.99",
+          "output_i": "-19.36",
+          "output_tp": "-3.05",
+          "output_lra": "6.40",
+          "output_thresh": "-29.36",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.64"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-6.96"
+      }
+    },
+    "plane_drums": {
+      "title": "plane drums nig.wav",
+      "stream": "res://assets/audio/music/plane_drums.mp3",
+      "source": "plane drums nig.wav",
+      "leveling": {
+        "source_sha256": "f8cf633eee0f268e677bb3f65184848c6f389fc25fea7e773b67d81dd77f57ca",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-10.17",
+          "input_tp": "2.10",
+          "input_lra": "5.10",
+          "input_thresh": "-20.17",
+          "output_i": "-19.40",
+          "output_tp": "-5.36",
+          "output_lra": "5.70",
+          "output_thresh": "-29.40",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.60"
+        },
+        "output_lufs": "-19.99",
+        "output_true_peak_dbtp": "-7.53"
+      }
+    },
+    "cyberpunk": {
+      "title": "cyberpunk_2.mp3",
+      "stream": "res://assets/audio/music/cyberpunk.mp3",
+      "source": "cyberpunk_2.mp3",
+      "leveling": {
+        "source_sha256": "49ab4040c3cc42ebbe464b34c18156b0652b7153a63a00609cf515769f85c040",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-9.64",
+          "input_tp": "2.16",
+          "input_lra": "16.80",
+          "input_thresh": "-21.92",
+          "output_i": "-18.89",
+          "output_tp": "-2.00",
+          "output_lra": "12.90",
+          "output_thresh": "-29.49",
+          "normalization_type": "dynamic",
+          "target_offset": "-1.11"
+        },
+        "output_lufs": "-20.27",
+        "output_true_peak_dbtp": "-3.89"
+      }
+    },
+    "shit_crashed": {
+      "title": "shit crashed 2.wav",
+      "stream": "res://assets/audio/music/shit_crashed.mp3",
+      "source": "shit crashed 2.wav",
+      "leveling": {
+        "source_sha256": "bf3f36aa8403153065fba157bc7fd2c9b5df6b473ab94ea184600bcd5005b961",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-12.60",
+          "input_tp": "1.41",
+          "input_lra": "9.60",
+          "input_thresh": "-23.02",
+          "output_i": "-19.50",
+          "output_tp": "-4.17",
+          "output_lra": "9.60",
+          "output_thresh": "-29.70",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.50"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-5.97"
+      }
+    },
+    "robot_attack": {
+      "title": "robot attack.wav",
+      "stream": "res://assets/audio/music/robot_attack.mp3",
+      "source": "robot attack.wav",
+      "leveling": {
+        "source_sha256": "5f6e97a02a458d7c3c589c0dd431937deb743ccde019dfe28c81eb277bf1626c",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-15.66",
+          "input_tp": "-5.71",
+          "input_lra": "5.30",
+          "input_thresh": "-25.88",
+          "output_i": "-19.36",
+          "output_tp": "-5.87",
+          "output_lra": "4.90",
+          "output_thresh": "-29.53",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.64"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-9.43"
+      }
+    }
+  },
+  "music_bus_db": -6,
+  "duck_db": -8,
+  "fade_seconds": 1.5
+}

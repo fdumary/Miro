@@ -6,3 +6,8 @@ build/
 # Local Python audio-analysis caches
 __pycache__/
 *.pyc
+
+# Local service credentials
+.env
+.env.*
+!.env.example

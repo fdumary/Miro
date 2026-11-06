@@ -35,6 +35,7 @@ func run() -> void:
 			await frames(10)
 			level.interact()
 			if station.id == "RemoteTerminal":
+				level.world_features.submit_password("root")
 				await frames(65)
 			if station.id == "BrotherEncounter":
 				await fight_brother()
