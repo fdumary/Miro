@@ -1,6 +1,6 @@
 # Preliminary beat analysis
 
-Measured locally November 6, 2026. Source: all 16 files in `soundselection/beats/`. Originals are unchanged, with SHA-256 hashes recorded per track. Ethan confirms the supplied compositions are his originals and grants full permission for use in the game.
+Measured locally November 6, 2026. Source: all 17 files in `soundselection/beats/`. Originals are unchanged, with SHA-256 hashes recorded per track. Ethan confirms the supplied compositions are his originals and grants full permission for use in the game.
 
 ## Read the results
 
@@ -29,4 +29,4 @@ Validation includes synthetic C-major pitch material, a known 120 BPM click trai
 
 ## Next review
 
-Ask the composer to verify project BPM/key for shortlisted tracks and resolve the intended YZ33, new-beat and outro source files. Audition A/B over identical gameplay excerpts, then choose region boundaries and runtime edits. Use short fades initially where harmonic overlap is questionable; do not claim key-compatible mixing from these estimates alone.
+Ask the composer to verify project BPM/key for shortlisted tracks and resolve the outro source file and choose Level 1 section music. YZ33 is supplied; “new beat” is excluded. Audition A/B over identical gameplay excerpts, then choose region boundaries and runtime edits. Use short fades initially where harmonic overlap is questionable; do not claim key-compatible mixing from these estimates alone.

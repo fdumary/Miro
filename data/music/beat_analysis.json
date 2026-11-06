@@ -283,6 +283,99 @@
       ]
     },
     {
+      "filename": "YZ33.mp3",
+      "sha256": "2872134e6d3c680b4f57cd8806be4422c1b23512c787f3e7eab7b0260c271de6",
+      "duration_seconds": 142.52,
+      "sample_rate": 44100,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 112.35,
+      "half_time_bpm": 56.17,
+      "double_time_bpm": 224.7,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "B minor",
+          "correlation": 0.4893
+        },
+        {
+          "key": "F# major",
+          "correlation": 0.467
+        },
+        {
+          "key": "F# minor",
+          "correlation": 0.245
+        }
+      ],
+      "key_window_agreement": "0/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 112.35,
+          "tracked_beats": 55,
+          "key_candidates": [
+            {
+              "key": "F# major",
+              "correlation": 0.4089
+            },
+            {
+              "key": "B minor",
+              "correlation": 0.3805
+            },
+            {
+              "key": "C major",
+              "correlation": 0.2318
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 56.26,
+          "length_seconds": 30.0,
+          "bpm": 112.35,
+          "tracked_beats": 55,
+          "key_candidates": [
+            {
+              "key": "F# minor",
+              "correlation": 0.6667
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.5553
+            },
+            {
+              "key": "B minor",
+              "correlation": 0.4912
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 112.52,
+          "length_seconds": 30.0,
+          "bpm": 112.35,
+          "tracked_beats": 15,
+          "key_candidates": [
+            {
+              "key": "C minor",
+              "correlation": 0.3573
+            },
+            {
+              "key": "B minor",
+              "correlation": 0.3471
+            },
+            {
+              "key": "G major",
+              "correlation": 0.2787
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
       "filename": "birthday melody YZ.mp3",
       "sha256": "7e184b54042a736f23bc009a42fb525fe9177a4c3ad9f04e9f549a449a9df8b2",
       "duration_seconds": 132.62,

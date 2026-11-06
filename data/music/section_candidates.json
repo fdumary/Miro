@@ -5,10 +5,10 @@
   "sequence_a": {
     "intro": {
       "requested_title": "YZ33",
-      "file": null
+      "file": "YZ33.mp3"
     },
     "1": {
-      "requested_title": "new beat",
+      "status": "selection open; new beat removed by Ethan",
       "file": null
     },
     "5": {
@@ -34,10 +34,10 @@
   "sequence_b": {
     "intro": {
       "requested_title": "YZ33",
-      "file": null
+      "file": "YZ33.mp3"
     },
     "1": {
-      "requested_title": "new beat",
+      "status": "selection open; new beat removed by Ethan",
       "file": null
     },
     "5": {
