@@ -20,6 +20,10 @@ The device type, scoring values, unlock thresholds, music selection behavior and
 
 Recommended defaults for the first prototype: support both pickpocketing and corpse looting for the device so music never requires a kill; keep kill count as an input to offense scoring rather than a third currency. Use points to unlock music, without spending them. Music should not modify damage, stealth duration or guard hearing. These are proposals, not existing mechanics.
 
+## Progress — November 6, 2026
+
+MUSIC-05 analysis tooling and a preliminary 16-track report are available; see [analysis method and limits](BEAT_ANALYSIS.md). The [A/B section plan](MUSIC_AB_PLAN.md) and `data/music/section_candidates.json` preserve Ethan’s candidates and permission statement. Levels may use multiple tracks; A/B means listening comparison, not unlock branches. Track approval, runtime edits, in-game music playback and scoring are still unimplemented. MUSIC-01 remains the first gameplay implementation task.
+
 ## Ordered tasks
 
 ### MUSIC-01 — Define the scoring and branch contract

@@ -1,0 +1,68 @@
+{
+  "status": "audition candidates; not runtime catalog",
+  "multiple_tracks_per_chapter": true,
+  "ab_means": "listening comparison, not gameplay unlock branches",
+  "sequence_a": {
+    "intro": {
+      "requested_title": "YZ33",
+      "file": null
+    },
+    "1": {
+      "requested_title": "new beat",
+      "file": null
+    },
+    "5": {
+      "file": "robot attack.wav"
+    },
+    "outro": {
+      "requested_title": "emotional chord progression",
+      "file": null
+    },
+    "2": {
+      "file": "DOPE2.mp3"
+    },
+    "3": {
+      "file": "sum crazy shi_3.mp3"
+    },
+    "4": {
+      "alternatives": [
+        "plane drums nig.wav",
+        "cyberpunk_2.mp3"
+      ]
+    }
+  },
+  "sequence_b": {
+    "intro": {
+      "requested_title": "YZ33",
+      "file": null
+    },
+    "1": {
+      "requested_title": "new beat",
+      "file": null
+    },
+    "5": {
+      "file": "robot attack.wav"
+    },
+    "outro": {
+      "requested_title": "emotional chord progression",
+      "file": null
+    },
+    "2": {
+      "file": "BOBBLEHEAD2.mp3"
+    },
+    "3": {
+      "file": "DOPE2.mp3"
+    },
+    "4": {
+      "file": "swag.wav"
+    }
+  },
+  "unassigned_contenders": [
+    "shit crashed 2.wav"
+  ],
+  "source_directory": "soundselection/beats",
+  "rights": {
+    "statement": "Original compositions; full permission for game use granted by Ethan",
+    "date": "2026-11-06"
+  }
+}

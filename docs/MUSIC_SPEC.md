@@ -2,6 +2,10 @@
 
 Status: **design proposal only**, based on Ethan's latest direction. No music system, scoring, unlocks, tempo analysis or track selection has been implemented by this handoff. Sound effects and mute already exist separately. Musical taste and final selection remain with Ethan, Miro and the team.
 
+## Latest team direction — November 6, 2026
+
+See [the section-based A/B plan](MUSIC_AB_PLAN.md) for Ethan’s candidate sequences. Each level may contain multiple tracks. A/B labels describe listening comparisons, not the gameplay unlock branches. Ethan confirms the supplied beats are his original compositions and grants permission for game use. Automated estimates, when generated, live in `data/music/beat_analysis.json`; they require musical verification and do not replace team selection.
+
 ## Intent and terminology
 
 Keep the five narrative **levels/chapters**, but allow each to contain multiple physical **tower floors** and musical sections. A descent within a level can mark a new mood without changing the chapter. Do not interpret a five-level game as a five-story tower.
@@ -68,7 +72,7 @@ Decide whether unlocks persist across attempts or only within a run. Current cam
 
 Dialogue intelligibility and attack cues outrank soundtrack loudness. Avoid rapid track changes between the final offer, combat, fatal exchange and ending. Specify those transitions as one authored sequence.
 
-## Tempo / key analysis plan — not performed yet
+## Tempo / key analysis method and review
 
 Audio-analysis tools can estimate tempo and musical key, but cannot determine which track the team should prefer. Trap half-time/double-time readings and ambiguous tonal material need human checking. Treat estimated BPM/key as evidence for arranging and transitions, not as an automatic quality ranking.
 
@@ -83,7 +87,7 @@ For each candidate, record:
 - Intro/outro lengths, major section timestamps, possible loop points, and whether vocals compete with dialogue.
 - Human mood notes, preferred chapters/regions, and approval status.
 
-Possible analysis tooling includes FFmpeg/ffprobe for metadata/loudness and an offline music-analysis library for tempo/onsets/chroma. Tool availability and results must be verified before claiming any measurement. No BPM, key, energy ranking or matching recommendation has been fabricated for this spec.
+Possible analysis tooling includes FFmpeg/ffprobe for metadata/loudness and an offline music-analysis library for tempo/onsets/chroma. Tool availability and results must be verified before claiming any measurement. Consult the generated analysis JSON for measured estimates and uncertainty; no human listening ranking or final transition recommendation is implied.
 
 Select music by listening to candidates over actual recorded traversal/combat. Compare fit at a common playback loudness. Only then approve runtime edits, loops or excerpts; keep the original candidates unchanged.
 

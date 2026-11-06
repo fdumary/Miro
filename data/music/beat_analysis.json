@@ -1,0 +1,1501 @@
+{
+  "method": "Three up-to-30s windows; HPSS percussion/onset beat tracking; harmonic STFT chroma correlated with Krumhansl major/minor profiles. Tempo octave-folded to 70–140 BPM for comparison; not a verified performance tempo. Correlations are not probabilities. No manual audition or beat-grid verification performed.",
+  "librosa_version": "1.0.0",
+  "rights": "Ethan states these are his original compositions and grants full permission for game use (2026-11-06).",
+  "tracks": [
+    {
+      "filename": "BOBBLEHEAD2.mp3",
+      "sha256": "352d366c92810c7ae76aa8b57ca5864fb5e894478a48e011a512d3c8cbe24267",
+      "duration_seconds": 144.05,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 71.78,
+      "half_time_bpm": 35.89,
+      "double_time_bpm": 143.55,
+      "tempo_window_spread_bpm": 20.52,
+      "key_candidates": [
+        {
+          "key": "F# minor",
+          "correlation": 0.2979
+        },
+        {
+          "key": "G minor",
+          "correlation": 0.2242
+        },
+        {
+          "key": "F# major",
+          "correlation": 0.2015
+        }
+      ],
+      "key_window_agreement": "3/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 143.55,
+          "tracked_beats": 68,
+          "key_candidates": [
+            {
+              "key": "F# minor",
+              "correlation": 0.3682
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.2867
+            },
+            {
+              "key": "G minor",
+              "correlation": 0.187
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 57.02,
+          "length_seconds": 30.0,
+          "bpm": 143.55,
+          "tracked_beats": 66,
+          "key_candidates": [
+            {
+              "key": "F# minor",
+              "correlation": 0.2882
+            },
+            {
+              "key": "G minor",
+              "correlation": 0.2424
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.1731
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 114.05,
+          "length_seconds": 30.0,
+          "bpm": 92.29,
+          "tracked_beats": 47,
+          "key_candidates": [
+            {
+              "key": "F# minor",
+              "correlation": 0.2387
+            },
+            {
+              "key": "G minor",
+              "correlation": 0.2381
+            },
+            {
+              "key": "E minor",
+              "correlation": 0.199
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "DOPE2.mp3",
+      "sha256": "a19553158c50d073fd3a6bb1d5e9b2c839897a54fbcf9bafdc34587fa1c04755",
+      "duration_seconds": 299.36,
+      "sample_rate": 44100,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 129.2,
+      "half_time_bpm": 64.6,
+      "double_time_bpm": 258.4,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "G minor",
+          "correlation": 0.8576
+        },
+        {
+          "key": "D# major",
+          "correlation": 0.7391
+        },
+        {
+          "key": "A# major",
+          "correlation": 0.6655
+        }
+      ],
+      "key_window_agreement": "2/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 42,
+          "key_candidates": [
+            {
+              "key": "D# major",
+              "correlation": 0.7071
+            },
+            {
+              "key": "G minor",
+              "correlation": 0.6636
+            },
+            {
+              "key": "A# major",
+              "correlation": 0.5797
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 134.68,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 63,
+          "key_candidates": [
+            {
+              "key": "G minor",
+              "correlation": 0.8639
+            },
+            {
+              "key": "D# major",
+              "correlation": 0.7233
+            },
+            {
+              "key": "A# major",
+              "correlation": 0.7156
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 269.36,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 59,
+          "key_candidates": [
+            {
+              "key": "G minor",
+              "correlation": 0.916
+            },
+            {
+              "key": "D# major",
+              "correlation": 0.6398
+            },
+            {
+              "key": "A# major",
+              "correlation": 0.5829
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "YZ2.mp3",
+      "sha256": "efd2dfd8ace6a8d7eeba120703894bc9f2d644e3aeb442b81a3e23cc17d0858a",
+      "duration_seconds": 153.47,
+      "sample_rate": 44100,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 92.29,
+      "half_time_bpm": 46.15,
+      "double_time_bpm": 184.58,
+      "tempo_window_spread_bpm": 36.91,
+      "key_candidates": [
+        {
+          "key": "D minor",
+          "correlation": 0.5181
+        },
+        {
+          "key": "A minor",
+          "correlation": 0.4041
+        },
+        {
+          "key": "A# major",
+          "correlation": 0.3637
+        }
+      ],
+      "key_window_agreement": "1/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 92.29,
+          "tracked_beats": 42,
+          "key_candidates": [
+            {
+              "key": "A minor",
+              "correlation": 0.5503
+            },
+            {
+              "key": "D minor",
+              "correlation": 0.4783
+            },
+            {
+              "key": "G minor",
+              "correlation": 0.4045
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 61.73,
+          "length_seconds": 30.0,
+          "bpm": 92.29,
+          "tracked_beats": 43,
+          "key_candidates": [
+            {
+              "key": "D minor",
+              "correlation": 0.5067
+            },
+            {
+              "key": "A# major",
+              "correlation": 0.3367
+            },
+            {
+              "key": "A major",
+              "correlation": 0.1949
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 123.47,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 62,
+          "key_candidates": [
+            {
+              "key": "A minor",
+              "correlation": 0.2412
+            },
+            {
+              "key": "C minor",
+              "correlation": 0.1837
+            },
+            {
+              "key": "A major",
+              "correlation": 0.1553
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "birthday melody YZ.mp3",
+      "sha256": "7e184b54042a736f23bc009a42fb525fe9177a4c3ad9f04e9f549a449a9df8b2",
+      "duration_seconds": 132.62,
+      "sample_rate": 44100,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 112.35,
+      "half_time_bpm": 56.17,
+      "double_time_bpm": 224.7,
+      "tempo_window_spread_bpm": 38.52,
+      "key_candidates": [
+        {
+          "key": "F# minor",
+          "correlation": 0.6099
+        },
+        {
+          "key": "A major",
+          "correlation": 0.5813
+        },
+        {
+          "key": "C# minor",
+          "correlation": 0.5026
+        }
+      ],
+      "key_window_agreement": "1/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 112.35,
+          "tracked_beats": 56,
+          "key_candidates": [
+            {
+              "key": "A major",
+              "correlation": 0.6835
+            },
+            {
+              "key": "C# minor",
+              "correlation": 0.6739
+            },
+            {
+              "key": "F# minor",
+              "correlation": 0.667
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 51.31,
+          "length_seconds": 30.0,
+          "bpm": 73.83,
+          "tracked_beats": 34,
+          "key_candidates": [
+            {
+              "key": "B minor",
+              "correlation": 0.3038
+            },
+            {
+              "key": "D major",
+              "correlation": 0.2635
+            },
+            {
+              "key": "D minor",
+              "correlation": 0.2243
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 102.62,
+          "length_seconds": 30.0,
+          "bpm": 112.35,
+          "tracked_beats": 18,
+          "key_candidates": [
+            {
+              "key": "F# minor",
+              "correlation": 0.7968
+            },
+            {
+              "key": "A major",
+              "correlation": 0.5819
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.4846
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "cyberpunk_2.mp3",
+      "sha256": "49ab4040c3cc42ebbe464b34c18156b0652b7153a63a00609cf515769f85c040",
+      "duration_seconds": 146.5,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 117.45,
+      "half_time_bpm": 58.73,
+      "double_time_bpm": 234.9,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "C minor",
+          "correlation": 0.3309
+        },
+        {
+          "key": "B minor",
+          "correlation": 0.2822
+        },
+        {
+          "key": "G major",
+          "correlation": 0.2009
+        }
+      ],
+      "key_window_agreement": "2/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 117.45,
+          "tracked_beats": 59,
+          "key_candidates": [
+            {
+              "key": "C minor",
+              "correlation": 0.3128
+            },
+            {
+              "key": "B major",
+              "correlation": 0.2205
+            },
+            {
+              "key": "A# minor",
+              "correlation": 0.1854
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 58.25,
+          "length_seconds": 30.0,
+          "bpm": 117.45,
+          "tracked_beats": 57,
+          "key_candidates": [
+            {
+              "key": "B minor",
+              "correlation": 0.3085
+            },
+            {
+              "key": "C minor",
+              "correlation": 0.3046
+            },
+            {
+              "key": "G major",
+              "correlation": 0.2458
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 116.5,
+          "length_seconds": 30.0,
+          "bpm": 117.45,
+          "tracked_beats": 58,
+          "key_candidates": [
+            {
+              "key": "C minor",
+              "correlation": 0.3334
+            },
+            {
+              "key": "B minor",
+              "correlation": 0.2977
+            },
+            {
+              "key": "G major",
+              "correlation": 0.2305
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "dancehall yf_2....📌.mp3",
+      "sha256": "edf97f60a3a08d5f6bcf330e4017f07c3ccb708de729843dff609cd8ac01a603",
+      "duration_seconds": 232.78,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 99.38,
+      "half_time_bpm": 49.69,
+      "double_time_bpm": 198.76,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "D minor",
+          "correlation": 0.4364
+        },
+        {
+          "key": "D major",
+          "correlation": 0.3959
+        },
+        {
+          "key": "A major",
+          "correlation": 0.2289
+        }
+      ],
+      "key_window_agreement": "1/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 48,
+          "key_candidates": [
+            {
+              "key": "D major",
+              "correlation": 0.5223
+            },
+            {
+              "key": "D minor",
+              "correlation": 0.3263
+            },
+            {
+              "key": "G minor",
+              "correlation": 0.3053
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 101.39,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 50,
+          "key_candidates": [
+            {
+              "key": "D major",
+              "correlation": 0.432
+            },
+            {
+              "key": "D minor",
+              "correlation": 0.3967
+            },
+            {
+              "key": "A major",
+              "correlation": 0.2214
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 202.78,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 49,
+          "key_candidates": [
+            {
+              "key": "D minor",
+              "correlation": 0.4366
+            },
+            {
+              "key": "D major",
+              "correlation": 0.23
+            },
+            {
+              "key": "A# major",
+              "correlation": 0.2181
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "hot shit_23.wav",
+      "sha256": "261dabfffaba4f4801d2e0992ac13c5021e6ff5ced38fced2bbbacd6431c1ac8",
+      "duration_seconds": 172.8,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "pcm_f32le",
+      "bpm_estimate": 99.38,
+      "half_time_bpm": 49.69,
+      "double_time_bpm": 198.76,
+      "tempo_window_spread_bpm": 36.62,
+      "key_candidates": [
+        {
+          "key": "G minor",
+          "correlation": 0.4323
+        },
+        {
+          "key": "G major",
+          "correlation": 0.3785
+        },
+        {
+          "key": "C minor",
+          "correlation": 0.2483
+        }
+      ],
+      "key_window_agreement": "3/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 39,
+          "key_candidates": [
+            {
+              "key": "G minor",
+              "correlation": 0.3204
+            },
+            {
+              "key": "G major",
+              "correlation": 0.2492
+            },
+            {
+              "key": "F minor",
+              "correlation": 0.1735
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 71.4,
+          "length_seconds": 30.0,
+          "bpm": 136.0,
+          "tracked_beats": 66,
+          "key_candidates": [
+            {
+              "key": "G minor",
+              "correlation": 0.5879
+            },
+            {
+              "key": "C minor",
+              "correlation": 0.5349
+            },
+            {
+              "key": "G major",
+              "correlation": 0.517
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 142.8,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 48,
+          "key_candidates": [
+            {
+              "key": "G minor",
+              "correlation": 0.3382
+            },
+            {
+              "key": "G major",
+              "correlation": 0.3224
+            },
+            {
+              "key": "G# major",
+              "correlation": 0.232
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "jazzyhall_4.mp3",
+      "sha256": "1ea284aede72c9ca170a2311519c18b8702c2aae12ebfbec5b5cfe50216f4cd1",
+      "duration_seconds": 134.59,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 99.38,
+      "half_time_bpm": 49.69,
+      "double_time_bpm": 198.76,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "A minor",
+          "correlation": 0.703
+        },
+        {
+          "key": "E major",
+          "correlation": 0.5102
+        },
+        {
+          "key": "A major",
+          "correlation": 0.3849
+        }
+      ],
+      "key_window_agreement": "3/3",
+      "key_review": "provisional",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 34,
+          "key_candidates": [
+            {
+              "key": "A minor",
+              "correlation": 0.3895
+            },
+            {
+              "key": "G# minor",
+              "correlation": 0.3175
+            },
+            {
+              "key": "E major",
+              "correlation": 0.3007
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 52.3,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 48,
+          "key_candidates": [
+            {
+              "key": "A minor",
+              "correlation": 0.7921
+            },
+            {
+              "key": "E major",
+              "correlation": 0.5038
+            },
+            {
+              "key": "A major",
+              "correlation": 0.4415
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 104.59,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 26,
+          "key_candidates": [
+            {
+              "key": "A minor",
+              "correlation": 0.7823
+            },
+            {
+              "key": "E major",
+              "correlation": 0.6287
+            },
+            {
+              "key": "E minor",
+              "correlation": 0.5146
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "not new jazz x pinkghost.mp3",
+      "sha256": "a6d614b9a6d3a94d3493c11abb28ca7028ea9b3c1a6d5754ccdf3290e3f45919",
+      "duration_seconds": 121.73,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 71.78,
+      "half_time_bpm": 35.89,
+      "double_time_bpm": 143.55,
+      "tempo_window_spread_bpm": 23.92,
+      "key_candidates": [
+        {
+          "key": "B minor",
+          "correlation": 0.6057
+        },
+        {
+          "key": "F# major",
+          "correlation": 0.5659
+        },
+        {
+          "key": "F# minor",
+          "correlation": 0.5136
+        }
+      ],
+      "key_window_agreement": "3/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 143.55,
+          "tracked_beats": 72,
+          "key_candidates": [
+            {
+              "key": "B minor",
+              "correlation": 0.613
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.5605
+            },
+            {
+              "key": "F# minor",
+              "correlation": 0.5331
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 45.86,
+          "length_seconds": 30.0,
+          "bpm": 143.55,
+          "tracked_beats": 70,
+          "key_candidates": [
+            {
+              "key": "B minor",
+              "correlation": 0.6452
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.612
+            },
+            {
+              "key": "F# minor",
+              "correlation": 0.4563
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 91.73,
+          "length_seconds": 30.0,
+          "bpm": 95.7,
+          "tracked_beats": 47,
+          "key_candidates": [
+            {
+              "key": "B minor",
+              "correlation": 0.4807
+            },
+            {
+              "key": "F# minor",
+              "correlation": 0.476
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.4552
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "plane drums nig.wav",
+      "sha256": "f8cf633eee0f268e677bb3f65184848c6f389fc25fea7e773b67d81dd77f57ca",
+      "duration_seconds": 105.93,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "pcm_f32le",
+      "bpm_estimate": 99.38,
+      "half_time_bpm": 49.69,
+      "double_time_bpm": 198.76,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "F minor",
+          "correlation": 0.4137
+        },
+        {
+          "key": "A minor",
+          "correlation": 0.412
+        },
+        {
+          "key": "E major",
+          "correlation": 0.2611
+        }
+      ],
+      "key_window_agreement": "2/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 49,
+          "key_candidates": [
+            {
+              "key": "F minor",
+              "correlation": 0.4032
+            },
+            {
+              "key": "A minor",
+              "correlation": 0.4029
+            },
+            {
+              "key": "E major",
+              "correlation": 0.248
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 37.97,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 49,
+          "key_candidates": [
+            {
+              "key": "F minor",
+              "correlation": 0.4222
+            },
+            {
+              "key": "A minor",
+              "correlation": 0.3993
+            },
+            {
+              "key": "E major",
+              "correlation": 0.2718
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 75.93,
+          "length_seconds": 30.0,
+          "bpm": 99.38,
+          "tracked_beats": 49,
+          "key_candidates": [
+            {
+              "key": "A minor",
+              "correlation": 0.434
+            },
+            {
+              "key": "F minor",
+              "correlation": 0.4151
+            },
+            {
+              "key": "E major",
+              "correlation": 0.2635
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "reaper beat2.wav",
+      "sha256": "5c7bdb2c24b78bea8e5b8c74ac2d3f26eb585d3451a79077138fbc1b34d490ac",
+      "duration_seconds": 99.1,
+      "sample_rate": 44100,
+      "channels": 2,
+      "codec": "pcm_s24le",
+      "bpm_estimate": 136.0,
+      "half_time_bpm": 68.0,
+      "double_time_bpm": 272.0,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "A minor",
+          "correlation": 0.2635
+        },
+        {
+          "key": "A# minor",
+          "correlation": 0.1461
+        },
+        {
+          "key": "G# minor",
+          "correlation": 0.1376
+        }
+      ],
+      "key_window_agreement": "3/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 136.0,
+          "tracked_beats": 66,
+          "key_candidates": [
+            {
+              "key": "A minor",
+              "correlation": 0.2492
+            },
+            {
+              "key": "G# minor",
+              "correlation": 0.1514
+            },
+            {
+              "key": "A# minor",
+              "correlation": 0.1435
+            }
+          ],
+          "analysis_warnings": [
+            "Trying to estimate tuning from empty frequency set."
+          ]
+        },
+        {
+          "start_seconds": 34.55,
+          "length_seconds": 30.0,
+          "bpm": 136.0,
+          "tracked_beats": 67,
+          "key_candidates": [
+            {
+              "key": "A minor",
+              "correlation": 0.2727
+            },
+            {
+              "key": "A# minor",
+              "correlation": 0.1394
+            },
+            {
+              "key": "G# minor",
+              "correlation": 0.1358
+            }
+          ],
+          "analysis_warnings": [
+            "Trying to estimate tuning from empty frequency set."
+          ]
+        },
+        {
+          "start_seconds": 69.1,
+          "length_seconds": 30.0,
+          "bpm": 136.0,
+          "tracked_beats": 66,
+          "key_candidates": [
+            {
+              "key": "A minor",
+              "correlation": 0.2687
+            },
+            {
+              "key": "A# minor",
+              "correlation": 0.1555
+            },
+            {
+              "key": "G# minor",
+              "correlation": 0.1248
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "robot attack.wav",
+      "sha256": "5f6e97a02a458d7c3c589c0dd431937deb743ccde019dfe28c81eb277bf1626c",
+      "duration_seconds": 268.24,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "pcm_f32le",
+      "bpm_estimate": 136.0,
+      "half_time_bpm": 68.0,
+      "double_time_bpm": 272.0,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "D minor",
+          "correlation": 0.5878
+        },
+        {
+          "key": "A# major",
+          "correlation": 0.5361
+        },
+        {
+          "key": "G minor",
+          "correlation": 0.3905
+        }
+      ],
+      "key_window_agreement": "2/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 136.0,
+          "tracked_beats": 62,
+          "key_candidates": [
+            {
+              "key": "D minor",
+              "correlation": 0.5972
+            },
+            {
+              "key": "G minor",
+              "correlation": 0.5528
+            },
+            {
+              "key": "A# major",
+              "correlation": 0.5103
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 119.12,
+          "length_seconds": 30.0,
+          "bpm": 136.0,
+          "tracked_beats": 65,
+          "key_candidates": [
+            {
+              "key": "D minor",
+              "correlation": 0.5827
+            },
+            {
+              "key": "A# major",
+              "correlation": 0.5321
+            },
+            {
+              "key": "D major",
+              "correlation": 0.3849
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 238.24,
+          "length_seconds": 30.0,
+          "bpm": 136.0,
+          "tracked_beats": 67,
+          "key_candidates": [
+            {
+              "key": "A# major",
+              "correlation": 0.4005
+            },
+            {
+              "key": "D minor",
+              "correlation": 0.4002
+            },
+            {
+              "key": "A major",
+              "correlation": 0.2934
+            }
+          ],
+          "analysis_warnings": [
+            "Trying to estimate tuning from empty frequency set."
+          ]
+        }
+      ]
+    },
+    {
+      "filename": "set me free_2.mp3",
+      "sha256": "81f16636ec10f8c41c586b3d32e8870d3e548714636f106bd01d7d88be505491",
+      "duration_seconds": 148.68,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 103.36,
+      "half_time_bpm": 51.68,
+      "double_time_bpm": 206.72,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "C minor",
+          "correlation": 0.4434
+        },
+        {
+          "key": "C major",
+          "correlation": 0.3166
+        },
+        {
+          "key": "G# major",
+          "correlation": 0.2849
+        }
+      ],
+      "key_window_agreement": "3/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 103.36,
+          "tracked_beats": 49,
+          "key_candidates": [
+            {
+              "key": "C minor",
+              "correlation": 0.4522
+            },
+            {
+              "key": "C major",
+              "correlation": 0.4166
+            },
+            {
+              "key": "F minor",
+              "correlation": 0.3385
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 59.34,
+          "length_seconds": 30.0,
+          "bpm": 103.36,
+          "tracked_beats": 46,
+          "key_candidates": [
+            {
+              "key": "C minor",
+              "correlation": 0.4667
+            },
+            {
+              "key": "F minor",
+              "correlation": 0.3767
+            },
+            {
+              "key": "G# major",
+              "correlation": 0.3527
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 118.68,
+          "length_seconds": 30.0,
+          "bpm": 103.36,
+          "tracked_beats": 53,
+          "key_candidates": [
+            {
+              "key": "C minor",
+              "correlation": 0.3215
+            },
+            {
+              "key": "C# minor",
+              "correlation": 0.2441
+            },
+            {
+              "key": "G# major",
+              "correlation": 0.2289
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "shit crashed 2.wav",
+      "sha256": "bf3f36aa8403153065fba157bc7fd2c9b5df6b473ab94ea184600bcd5005b961",
+      "duration_seconds": 104.52,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "pcm_f32le",
+      "bpm_estimate": 129.2,
+      "half_time_bpm": 64.6,
+      "double_time_bpm": 258.4,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "G major",
+          "correlation": 0.6523
+        },
+        {
+          "key": "C minor",
+          "correlation": 0.56
+        },
+        {
+          "key": "G minor",
+          "correlation": 0.4855
+        }
+      ],
+      "key_window_agreement": "2/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 62,
+          "key_candidates": [
+            {
+              "key": "C minor",
+              "correlation": 0.5393
+            },
+            {
+              "key": "G major",
+              "correlation": 0.4006
+            },
+            {
+              "key": "C major",
+              "correlation": 0.3114
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 37.26,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 64,
+          "key_candidates": [
+            {
+              "key": "G major",
+              "correlation": 0.6025
+            },
+            {
+              "key": "G minor",
+              "correlation": 0.4941
+            },
+            {
+              "key": "C minor",
+              "correlation": 0.4706
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 74.52,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 59,
+          "key_candidates": [
+            {
+              "key": "G major",
+              "correlation": 0.6339
+            },
+            {
+              "key": "G minor",
+              "correlation": 0.5653
+            },
+            {
+              "key": "C minor",
+              "correlation": 0.4881
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "sum crazy shi_3.mp3",
+      "sha256": "493ae081a01952b327b1d79037531df18c61449a26ca3f5d1241e09ad23a5ce1",
+      "duration_seconds": 181.27,
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "mp3",
+      "bpm_estimate": 129.2,
+      "half_time_bpm": 64.6,
+      "double_time_bpm": 258.4,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "C# major",
+          "correlation": 0.4809
+        },
+        {
+          "key": "F# major",
+          "correlation": 0.4677
+        },
+        {
+          "key": "F# minor",
+          "correlation": 0.3975
+        }
+      ],
+      "key_window_agreement": "2/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 62,
+          "key_candidates": [
+            {
+              "key": "C# major",
+              "correlation": 0.5796
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.5441
+            },
+            {
+              "key": "C# minor",
+              "correlation": 0.4133
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 75.64,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 61,
+          "key_candidates": [
+            {
+              "key": "C# major",
+              "correlation": 0.5364
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.5255
+            },
+            {
+              "key": "F# minor",
+              "correlation": 0.5107
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 151.27,
+          "length_seconds": 30.0,
+          "bpm": 129.2,
+          "tracked_beats": 61,
+          "key_candidates": [
+            {
+              "key": "B minor",
+              "correlation": 0.2424
+            },
+            {
+              "key": "F# major",
+              "correlation": 0.2244
+            },
+            {
+              "key": "C# major",
+              "correlation": 0.211
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    },
+    {
+      "filename": "swag.wav",
+      "sha256": "3558f8cdf8a7582e7283d91e3578f0e95ece6f3288d223f65e25b35150b63226",
+      "duration_seconds": 125.9,
+      "sample_rate": 44100,
+      "channels": 2,
+      "codec": "pcm_f32le",
+      "bpm_estimate": 123.05,
+      "half_time_bpm": 61.52,
+      "double_time_bpm": 246.1,
+      "tempo_window_spread_bpm": 0.0,
+      "key_candidates": [
+        {
+          "key": "E minor",
+          "correlation": 0.5914
+        },
+        {
+          "key": "B major",
+          "correlation": 0.4604
+        },
+        {
+          "key": "C major",
+          "correlation": 0.312
+        }
+      ],
+      "key_window_agreement": "3/3",
+      "key_review": "ambiguous — audition required",
+      "windows": [
+        {
+          "start_seconds": 0.0,
+          "length_seconds": 30.0,
+          "bpm": 123.05,
+          "tracked_beats": 53,
+          "key_candidates": [
+            {
+              "key": "E minor",
+              "correlation": 0.6105
+            },
+            {
+              "key": "B major",
+              "correlation": 0.4813
+            },
+            {
+              "key": "E major",
+              "correlation": 0.3509
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 47.95,
+          "length_seconds": 30.0,
+          "bpm": 123.05,
+          "tracked_beats": 60,
+          "key_candidates": [
+            {
+              "key": "E minor",
+              "correlation": 0.5779
+            },
+            {
+              "key": "B major",
+              "correlation": 0.4674
+            },
+            {
+              "key": "C major",
+              "correlation": 0.3043
+            }
+          ],
+          "analysis_warnings": []
+        },
+        {
+          "start_seconds": 95.9,
+          "length_seconds": 30.0,
+          "bpm": 123.05,
+          "tracked_beats": 54,
+          "key_candidates": [
+            {
+              "key": "E minor",
+              "correlation": 0.5736
+            },
+            {
+              "key": "B major",
+              "correlation": 0.4225
+            },
+            {
+              "key": "C major",
+              "correlation": 0.3588
+            }
+          ],
+          "analysis_warnings": []
+        }
+      ]
+    }
+  ]
+}

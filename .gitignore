@@ -2,3 +2,7 @@
 *.tmp
 tmp/
 build/
+
+# Local Python audio-analysis caches
+__pycache__/
+*.pyc

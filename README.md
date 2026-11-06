@@ -3,6 +3,8 @@ Miro's Tower Escape: Last One Standing
 
 **Current focus:** [music mechanics handoff and ordered tasks](docs/MUSIC_MECHANICS_HANDOFF.md) — portable player pickup, stealth/offense points, beat unlocks and soundtrack branches (planned).
 
+[Section-based A/B listening plan](docs/MUSIC_AB_PLAN.md) · [tempo/key analysis data](data/music/beat_analysis.json). Levels may use multiple tracks.
+
 Soundtrack planning: [proposed music spec](docs/MUSIC_SPEC.md). Candidate beats are in `soundselection/beats` (Git LFS); run `git lfs pull` after cloning. Music-system work is proposed, not implemented.
 
 **Fran's playtesting:** [handoff and checklist](docs/FRAN_PLAYTEST_HANDOFF.md) · [report template](docs/PLAYTEST_REPORT_TEMPLATE.md) · [coding-agent prompt](docs/FRAN_AGENT_PROMPT.md).
