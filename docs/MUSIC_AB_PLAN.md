@@ -1,6 +1,6 @@
 # Music section plan and A/B listening test
 
-Updated November 6, 2026. Status: candidate placements, not final runtime selections.
+Historical A/B proposal, superseded November 6, 2026 by the [agreed soundtrack placement plan](MUSIC_TRACKLIST.md). The sequences below are retained as comparison history, not the current chapter order. The listening procedure remains useful for comparing excerpts and transitions.
 
 ## Current direction
 

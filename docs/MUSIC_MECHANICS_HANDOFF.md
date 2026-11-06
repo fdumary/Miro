@@ -22,7 +22,7 @@ Recommended defaults for the first prototype: support both pickpocketing and cor
 
 ## Progress — November 6, 2026
 
-MUSIC-05 analysis tooling and a preliminary 17-track report are available; see [analysis method and limits](BEAT_ANALYSIS.md). The [A/B section plan](MUSIC_AB_PLAN.md) and `data/music/section_candidates.json` preserve Ethan’s candidates and permission statement. Levels may use multiple tracks; A/B means listening comparison, not unlock branches. Track approval, runtime edits, in-game music playback and scoring are still unimplemented. MUSIC-01 remains the first gameplay implementation task.
+MUSIC-05 analysis tooling and a preliminary 17-track report are available; see [analysis method and limits](BEAT_ANALYSIS.md). The [agreed soundtrack placement plan](MUSIC_TRACKLIST.md) and `data/music/section_candidates.json` specify current section order, trigger intent and Ethan’s permission statement; the old A/B sequence is superseded. Levels may use multiple tracks; A/B means listening comparison, not unlock branches. Chapter placements are approved. Exact outro source, excerpt/loop edits, region triggers, in-game playback and scoring remain unfinished. MUSIC-01 remains the first gameplay implementation task.
 
 ## Ordered tasks
 
@@ -74,7 +74,7 @@ Acceptance: stealth, offense and mixed play unlock their intended beats, with no
 
 Dependencies: MUSIC-01; can proceed with placeholder audio while MUSIC-02–04 are implemented. Deliverable: dedicated music playback and initial licensed loops.
 
-- Inventory and analyze the supplied Git LFS candidates in `soundselection/beats/`, then have the team audition and shortlist them; keep originals unchanged and put approved selections in `soundselection/finalcutbeats/`. Record measured tempo/key with uncertainty, metadata, loudness and useful section/loop markers. Select a base beat plus initial stealth/offense variants. Record source, usage rights, loop boundaries, BPM and loudness. No tracks have been chosen yet.
+- Inventory and analyze the supplied Git LFS candidates in `soundselection/beats/`, then have the team audition and shortlist them; keep originals unchanged and put approved selections in `soundselection/finalcutbeats/`. Record measured tempo/key with uncertainty, metadata, loudness and useful section/loop markers. Select a base beat plus initial stealth/offense variants. Record source, usage rights, loop boundaries, BPM and loudness. Chapter/section choices are established in MUSIC_TRACKLIST.md; exact runtime excerpts, loop points and the outro file remain open.
 - Add a dedicated music controller/bus, separate from the bounded sound-effects pool. Agree crossfade versus beat/bar-synchronized transitions before implementation; matched tempo/loop structure is required for synchronized layers.
 - Author stable `music_region_id` landing/encounter triggers within chapters, including the first intended landing after cell escape (not automatically Chapter 2). Prevent re-entry/jumping from spamming switches; manual selection takes priority over automatic suggestions. Define behavior during acquisition, region/floor transitions, dialogue, pause, death, retry, boss encounter and ending. Avoid restarting the loop every frame or playing duplicate controllers after scene changes.
 - Preserve M's existing mute behavior; clarify whether it becomes global mute and whether independent music/effects volume controls are needed.

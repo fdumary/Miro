@@ -4,13 +4,13 @@ Status: **design proposal only**, based on Ethan's latest direction. No music sy
 
 ## Latest team direction — November 6, 2026
 
-See [the section-based A/B plan](MUSIC_AB_PLAN.md) for Ethan’s candidate sequences. Each level may contain multiple tracks. A/B labels describe listening comparisons, not the gameplay unlock branches. Ethan confirms the supplied beats are his original compositions and grants permission for game use. Automated estimates, when generated, live in `data/music/beat_analysis.json`; they require musical verification and do not replace team selection.
+The [agreed soundtrack placement plan](MUSIC_TRACKLIST.md) is authoritative for current chapter/section assignments and supersedes the earlier A/B sequences. Each level may contain multiple tracks. A/B labels describe listening comparisons, not the gameplay unlock branches. Ethan confirms the supplied beats are his original compositions and grants permission for game use. Automated estimates, when generated, live in `data/music/beat_analysis.json`; they require musical verification and do not replace team selection.
 
 ## Intent and terminology
 
 Keep the five narrative **levels/chapters**, but allow each to contain multiple physical **tower floors** and musical sections. A descent within a level can mark a new mood without changing the chapter. Do not interpret a five-level game as a five-story tower.
 
-Some chapters may be long enough for two or three musical selections. Level 3 was an example, not a confirmed placement. Choose chapter length and music changes around its theme, goals and amount of conflict; do not extend traversal solely to play complete songs.
+Some chapters may be long enough for two or three musical selections. Levels 2–5 now each have two agreed section cues; see the placement plan for their order. Choose chapter length and music changes around its theme, goals and amount of conflict; do not extend traversal solely to play complete songs.
 
 ## Candidate library
 
@@ -19,7 +19,7 @@ Some chapters may be long enough for two or three musical selections. Level 3 wa
 - Audio is stored through Git LFS. After cloning or pulling elsewhere, run `git lfs install` and `git lfs pull` to obtain the actual media rather than pointer files.
 - `.gdignore` keeps the unselected collection out of Godot imports and game exports. Once approved, copy only selected runtime versions into a dedicated music asset directory, with source attribution and permission information.
 
-No candidates are ranked or rejected here. Most were described by Ethan as trap-style/aggressive, with only one notably chill beat; that description has not been verified by listening or analysis.
+The placement plan records current selected chapter cues; “new beat” is excluded. Most were described by Ethan as trap-style/aggressive, with only one notably chill beat; that description has not been verified by listening or analysis.
 
 ## Proposed player experience
 

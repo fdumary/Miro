@@ -4,7 +4,7 @@ Measured locally November 6, 2026. Source: all 17 files in `soundselection/beats
 
 ## Read the results
 
-The complete machine-readable report is [beat_analysis.json](../data/music/beat_analysis.json). The [section-based A/B plan](MUSIC_AB_PLAN.md) records placements separately. A chapter may use several tracks; analysis does not assign one song per level or make A/B labels into unlock branches.
+The complete machine-readable report is [beat_analysis.json](../data/music/beat_analysis.json). The [agreed soundtrack placement plan](MUSIC_TRACKLIST.md) records the current placements separately. A chapter may use several tracks; analysis does not assign one song per level or make A/B labels into unlock branches.
 
 Each track includes duration, source codec/sample rate/channels, estimated tempo, half/double-time alternatives, three window-level results and the three highest-scoring key candidates. A low key-profile correlation or disagreement between windows is a reason to audition, not proof of a key change. Correlations are not statistical confidence percentages.
 

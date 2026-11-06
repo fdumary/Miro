@@ -1,66 +1,112 @@
 {
-  "status": "audition candidates; not runtime catalog",
+  "schema_version": 2,
+  "status": "agreed placements; runtime playback not implemented",
+  "approved_date": "2026-11-06",
+  "design_reference": "docs/MUSIC_TRACKLIST.md",
   "multiple_tracks_per_chapter": true,
-  "ab_means": "listening comparison, not gameplay unlock branches",
-  "sequence_a": {
-    "intro": {
-      "requested_title": "YZ33",
-      "file": "YZ33.mp3"
-    },
-    "1": {
-      "file": "YZ33.mp3"
-    },
-    "5": {
-      "file": "robot attack.wav"
-    },
-    "outro": {
-      "requested_title": "emotional chord progression",
-      "file": null
-    },
-    "2": {
-      "file": "DOPE2.mp3"
-    },
-    "3": {
-      "file": "sum crazy shi_3.mp3"
-    },
-    "4": {
-      "alternatives": [
-        "plane drums nig.wav",
-        "cyberpunk_2.mp3"
-      ]
-    }
-  },
-  "sequence_b": {
-    "intro": {
-      "requested_title": "YZ33",
-      "file": "YZ33.mp3"
-    },
-    "1": {
-      "file": "YZ33.mp3"
-    },
-    "5": {
-      "file": "robot attack.wav"
-    },
-    "outro": {
-      "requested_title": "emotional chord progression",
-      "file": null
-    },
-    "2": {
-      "file": "BOBBLEHEAD2.mp3"
-    },
-    "3": {
-      "file": "DOPE2.mp3"
-    },
-    "4": {
-      "file": "swag.wav"
-    }
-  },
-  "unassigned_contenders": [
-    "shit crashed 2.wav"
-  ],
   "source_directory": "soundselection/beats",
   "rights": {
     "statement": "Original compositions; full permission for game use granted by Ethan",
     "date": "2026-11-06"
-  }
+  },
+  "excluded_titles": [
+    "new beat"
+  ],
+  "sections": [
+    {
+      "id": "intro",
+      "chapter": null,
+      "role": "intro",
+      "file": "YZ33.mp3",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "level_1_escape",
+      "chapter": 1,
+      "role": "cell escape",
+      "file": "YZ33.mp3",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "level_2_exploration",
+      "chapter": 2,
+      "role": "exploration / observation",
+      "file": "BOBBLEHEAD2.mp3",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "level_2_pressure",
+      "chapter": 2,
+      "role": "sustained pressure",
+      "file": "DOPE2.mp3",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "level_3_approach",
+      "chapter": 3,
+      "role": "checkpoint approach",
+      "file": "swag.wav",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "level_3_conflict",
+      "chapter": 3,
+      "role": "checkpoint conflict",
+      "file": "sum crazy shi_3.mp3",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "level_4_ward",
+      "chapter": 4,
+      "role": "ward traversal",
+      "file": "plane drums nig.wav",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "level_4_containment",
+      "chapter": 4,
+      "role": "deeper containment / experimentation",
+      "file": "cyberpunk_2.mp3",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "level_5_approach",
+      "chapter": 5,
+      "role": "final approach and buildup",
+      "file": "shit crashed 2.wav",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "level_5_boss",
+      "chapter": 5,
+      "role": "active brother combat after dialogue",
+      "file": "robot attack.wav",
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    },
+    {
+      "id": "outro",
+      "chapter": null,
+      "role": "emotional chord progression after fatal exchange",
+      "file": null,
+      "trigger_status": "requires authored integration",
+      "runtime_excerpt": null
+    }
+  ],
+  "unresolved": [
+    "outro source file",
+    "exact region boundaries",
+    "excerpts and loop points",
+    "transition timing",
+    "relationship to unlock rules and manual selection"
+  ]
 }
