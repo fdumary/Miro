@@ -110,5 +110,19 @@ func run() -> void:
 	# Judas.
 	await load_level("res://scenes/intro.tscn")
 	check(level.get_node("Guards/CorruptKeeper").guard_name == "Judas", "The first Keeper is Judas")
+
+	# Crates: stand on top, or hide inside with E.
+	await frames(6)
+	var crates: Array = level.world_features.props.filter(func(prop): return prop.kind == "crate")
+	check(crates.size() == 3, "Level 1 has three crates")
+	level.door_open = true
+	level.player.position = crates[0].position + Vector2(0, -30)
+	await frames(30)
+	check(level.player.is_on_floor() and level.player.position.y < crates[0].position.y - 10, "Miro can stand on a crate")
+	level.player.position = crates[1].position + Vector2(-20, 0)
+	await frames(30)
+	level.interact()
+	await frames(2)
+	check(level.player.in_hiding_spot, "Miro can hide inside a crate [E]")
 	print("MENUS_PROGRESS_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

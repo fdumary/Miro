@@ -212,6 +212,7 @@ def level_2():
     g.block(44, 45, 14, 15)               # a two-tile step right off the ladder: double jump
     g.put('hide', 33, 16, title='VENT')
     g.put('cover', 25, 16)
+    g.put('hide', 27, 16, title='CRATE')   # stand on it, or hide inside [E]
     g.put('port', 21, 16)
     g.block(18, 18, 15, 15)               # an empty bed frame: hop over
     g.put('camera', 15, 10, facing=1.9)
@@ -304,6 +305,7 @@ def level_3():
     g.block(13, 13, 8, 8)                 # a box of files: hop over
     g.put('camera', 16, 1, facing=1.75, linked=True)
     g.put('cover', 20, 9)
+    g.put('hide', 22, 9, title='CRATE')
     g.put('guard', 28, 9, name='OfficeKeeper', patrol=[24, 32])
     g.block(36, 37, 7, 8)                 # filing cabinets: double jump
     g.put('cover', 40, 9)
@@ -422,6 +424,7 @@ def level_4():
     g.put('cover', 9, 23)
     g.put('guard', 16, 23, name='DoorKeeper', patrol=[12, 22])
     g.put('cover', 25, 23)
+    g.put('hide', 27, 23, title='CRATE')
     g.put('gate', 30, 23, name='WardSeal', rows=[17, 22], unlock='WardRelease')
     g.block(34, 34, 22, 22)               # a linen trolley: hop over
     g.put('hide', 38, 23, title='SHOWER')

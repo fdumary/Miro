@@ -9,6 +9,7 @@ Each level is two sub-floors, one per song, of three storeys each. The route sna
 - **Authored route:** each level has one (`"route"` in the JSON). The tests and the exported playthrough follow it with real inputs: walk, auto-jump, crouch, ladders and E. A level that stops being completable fails the checks.
 - **Z hints:** three per objective (`"hints"` in the JSON). Each press of Z is more direct: a nudge, then where, then exactly what to do. After a minute on the same objective, the bottom strip suggests Z.
 - **Obstacles:** every storey has something to hop over (one-tile crates, bed frames, carts), double-jump over (two-tile stacks), crawl under (Left Ctrl) or climb onto (bunks, raised offices, the drying rack). 7 Nov night added 4 or 5 per level; the routes still pass.
+- **Crates:** stand on top (one-way, on their own physics layer, so they never block a walk, a patrol or a sight line) or press E beside one to hide inside. Three on Level 1, one each on Levels 2–4 (`hide` with title `CRATE` in the layouts).
 - **Off-duty huddle (Level 2, top floor, east end):** three Keepers over a Bible. Climb the bunk behind them for the ammo case.
 
 | Level | Sub-floor A (song A) | Sub-floor B (song B) | Mechanics taught |

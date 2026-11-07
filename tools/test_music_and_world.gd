@@ -18,7 +18,7 @@ func run() -> void:
 	# Overhear the Keepers from a few steps away on their storey.
 	level.player.position = world.actors[0].position + Vector2(220, -2)
 	await frames(3)
-	check(music.catalog.size() == 15 and music.track_id == "bobblehead", "Fifteen runtime tracks; Level 3 starts Bobblehead")
+	check(music.catalog.size() == 24 and music.track_id == "bobblehead", "Twenty-four runtime tracks; Level 3 starts Bobblehead")
 	var beats := [0]
 	var counter := func(_index): beats[0] += 1
 	music.beat.connect(counter)

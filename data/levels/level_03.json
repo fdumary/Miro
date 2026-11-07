@@ -3678,6 +3678,13 @@
     "hides": [
       {
         "position": [
+          630.0,
+          236
+        ],
+        "title": "CRATE"
+      },
+      {
+        "position": [
           1358.0,
           236
         ],

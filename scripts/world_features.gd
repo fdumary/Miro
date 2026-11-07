@@ -145,8 +145,14 @@ func add_props() -> void:
 		for point in authored.cases:
 			spawn_prop(Vector2(point[0], point[1]), "case", "Ammunition case")
 		for hide in authored.hides:
-			spawn_prop(Vector2(hide.position[0], hide.position[1]), "hide", hide.title)
+			if hide.title == "CRATE":
+				spawn_crate(Vector2(hide.position[0], hide.position[1] + 16))
+			else:
+				spawn_prop(Vector2(hide.position[0], hide.position[1]), "hide", hide.title)
 		return
+	if floor_number == 1:
+		for point in LEVEL_ONE_CRATES:
+			spawn_crate(point)
 	# Authored flat-floor anchors only: no random world-coordinate placements.
 	var anchors := [Vector2(910, 236), Vector2(750, 432), Vector2(550, 656)]
 	if floor_number == 1:
@@ -174,6 +180,39 @@ func add_props() -> void:
 		var clear: bool = not level.areas.get_children().any(func(area): return area.global_position.distance_to(point) < 70) and not props.any(func(prop): return prop.global_position.distance_to(point) < 70)
 		if clear and placement_clear(point) and level.has_floor_below(point + Vector2(0, 13)):
 			spawn_prop(point, "hide", entry[1])
+
+## Crates: stand on top (one-way, so they never block a walk or a patrol), or press E beside
+## one to hide inside. `point` is on the floor; it is lifted onto any tile it would overlap.
+const LEVEL_ONE_CRATES := [Vector2(477, 252), Vector2(968, 448), Vector2(530, 672)]
+
+func spawn_crate(point: Vector2) -> void:
+	var tiles := level.get_node_or_null("StoneFloors") as TileMapLayer
+	if tiles:
+		for step in range(8):
+			var blocked := false
+			for offset in [-12.0, 0.0, 12.0]:
+				blocked = blocked or tiles.get_cell_source_id(tiles.local_to_map(tiles.to_local(point + Vector2(offset, -1)))) >= 0
+			if not blocked:
+				break
+			point.y -= tiles.tile_set.tile_size.y
+	var center := point - Vector2(0, 13.5)
+	# The prop sits where every other hiding spot does (16 px above the floor).
+	spawn_prop(point - Vector2(0, 16), "crate", "CRATE")
+	var body := StaticBody2D.new()
+	body.name = "Crate%d" % props.size()
+	body.position = center
+	# Own physics layer (6): Miro lands on it, but sight lines and Keepers ignore it.
+	body.collision_layer = 0
+	body.set_collision_layer_value(6, true)
+	body.collision_mask = 0
+	level.player.set_collision_mask_value(6, true)
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size = Vector2(28, 27)
+	shape.shape = box
+	shape.one_way_collision = true
+	body.add_child(shape)
+	add_child(body)
 
 func spawn_prop(point: Vector2, kind: String, title: String) -> void:
 	var prop := Node2D.new()
