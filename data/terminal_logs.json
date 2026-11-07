@@ -8,12 +8,12 @@
     610,
     432
    ],
-   "file": "intake.md",
+   "file": "Prisoner file 07",
    "pages": [
-    "PRISONER RECORD · M-07\nName: [REDACTED]. Scratches 'MIRO' into surfaces. Permitted.",
-    "Charge: pending review.\nSentence: indefinite, by order of the Ward.",
-    "Visitors: none. Next of kin: one. On staff. File sealed.",
-    "Classification (Ward use only): TEST SUBJECT. Do not record this on the cell card."
+    "PRISONER M-07 · Cell 07\nName: withheld by order of the Ward.",
+    "Charge: pending review.\nSentence: indefinite.",
+    "Visitors: none.\nNext of kin: one, on staff. File sealed.",
+    "Ward classification: TEST SUBJECT.\nKeep this off the cell card. Keepers are not to know."
    ]
   },
   {
@@ -23,11 +23,11 @@
     1400,
     1064
    ],
-   "file": "behaviour_log.md",
+   "file": "Cell 07 night log",
    "pages": [
-    "BEHAVIOUR LOG · PRISONER M-07\nDay 41: Asked his own name. Told 'M-07'. Repeated it politely.",
-    "Day 44: Hums the same four notes when alone. Song not on file.",
-    "Day 52: Holds his meal tray like a baton, wrist turned in. Trained grip?",
+    "NIGHT LOG · CELL 07\nDay 41: M-07 asked his own name. Told 'M-07'. He repeated it politely.",
+    "Day 44: Hums the same four notes when he thinks nobody is listening.",
+    "Day 52: Holds his meal tray like a baton, wrist turned in. Like he was trained.",
     "Flag for Records. Do NOT discuss him with the Keepers on his corridor."
    ]
   },
@@ -38,7 +38,7 @@
     300,
     644
    ],
-   "file": "roster_week_9.txt",
+   "file": "Duty roster",
    "pages": [
     "ROSTER · WEEK 9\nCorridor C: two Keepers off sick. Covered by Corridor D (also coughing).",
     "Reminder: a cough is not a reason to leave your post.",
@@ -52,7 +52,7 @@
     1300,
     448
    ],
-   "file": "cam_audit.log",
+   "file": "Camera audit",
    "pages": [
     "CAMERA AUDIT\n03:12 Feed 4 loops. Same corridor, same moth, forty seconds.",
     "03:14 Unlogged transmission on the prisoner remote band. Source: inside the tower.",
@@ -67,7 +67,7 @@
     1300,
     1260
    ],
-   "file": "revoked.md",
+   "file": "Staff discipline file",
    "pages": [
     "ACCESS REVOKED (excerpt)\nOne Keeper, rank removed, moved to the cells as a resident.",
     "Uniform destroyed. Name struck from the rota and the gate list.",
@@ -82,7 +82,7 @@
     1300,
     448
    ],
-   "file": "M-07_samples.csv",
+   "file": "Ward sample sheet",
    "pages": [
     "SAMPLES · PRISONER M-07 (TEST SUBJECT)\nDraws 29, 30, 31 complete.",
     "Prisoner asked what they are for. Do not answer. Keep the labels out of sight.",
@@ -97,7 +97,7 @@
     900,
     1260
    ],
-   "file": "continuation.md",
+   "file": "Ward Board memo",
    "pages": [
     "MEMO · WARD BOARD\nThe trial continues. Indefinite sentences need no consent form.",
     "Outcomes are for the Board only.",
@@ -112,7 +112,7 @@
     760,
     236
    ],
-   "file": "unsigned_note.txt",
+   "file": "Note on the desk",
    "pages": [
     "Unsigned, left open on the desk.\nHe asked for the guitar again in his sleep.",
     "I tuned it and put it on the stand. If he walks in, he'll know it's his before he knows why.",

@@ -338,7 +338,7 @@ func open_prop(prop: Node2D) -> void:
 		var entry: Dictionary = prop.log_entry
 		var pages: Array = entry.get("pages", [])
 		for page in pages:
-			lines.append(["TOWER RECORDS · " + str(entry.file), str(page)])
+			lines.append(["RECORDS · " + str(entry.file).to_upper(), str(page)])
 		prop.read = true
 		behavior.record("lore_" + str(entry.id), "seeker", 2, "lore", 2)
 	own_dialogue = lines
