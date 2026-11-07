@@ -1,6 +1,8 @@
 # Miro
 Miro's Tower Escape: Last One Standing
 
+Canonical repository: [xynprize/Miro.](https://github.com/xynprize/Miro.) (the name includes the final period). Julia's latest sprites are mapped in the [asset integration guide](docs/JULIA_ASSET_INTEGRATION.md).
+
 **Playable audio/stealth review:** [feature spec and build instructions](docs/AUDIO_AND_STEALTH_REVIEW.md). Start at the review menu; F10 returns to it. Music, voiced guard conversations, root login, suppressor cases and hiding recesses are implemented for review.
 
 **Current focus:** [music mechanics handoff and ordered tasks](docs/MUSIC_MECHANICS_HANDOFF.md) — portable player pickup, stealth/offense points, beat unlocks and soundtrack branches (planned).

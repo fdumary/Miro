@@ -4,7 +4,14 @@ var music: Node
 
 func _ready() -> void:
 	music = get_node("/root/MusicDirector")
-	if "--verify-playthrough" in OS.get_cmdline_user_args() or Array(OS.get_cmdline_user_args()).any(func(arg): return arg.begins_with("--level=")):
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--level="):
+			var number := clampi(argument.trim_prefix("--level=").to_int(), 1, 5)
+			get_node("/root/Campaign").launch_consumed = true
+			# Go directly to the requested scene; avoid nested scene changes from intro._ready().
+			get_tree().call_deferred("change_scene_to_file", "res://scenes/intro.tscn" if number == 1 else "res://scenes/levels/level_%02d.tscn" % number)
+			return
+	if "--verify-playthrough" in OS.get_cmdline_user_args():
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/intro.tscn")
 		return
 	music.review_override = false

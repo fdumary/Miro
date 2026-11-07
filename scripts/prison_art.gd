@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends "res://scripts/environment_props.gd"
 ## Code-native pixel geometry for props pending Julia's final art. No generated bitmaps.
 const INK = Color("272744")
 const BLUE = Color("494d7e")
@@ -40,9 +40,8 @@ func _draw() -> void:
 		torch(point)
 	for point in [Vector2(477, 252), Vector2(968, 448), Vector2(530, 672)]:
 		crate(point)
-	for point in [Vector2(180, 450), Vector2(700, 672), Vector2(1035, 252)]:
-		for i in range(6):
-			draw_rect(Rect2(point.x + i * 4, point.y + (i % 3) * 3, 3, 3), VIOLET.darkened(0.25))
+	for point in [Vector2(350, 448), Vector2(700, 672), Vector2(1035, 252)]:
+		draw_grounded(SHROOMS, point)
 	for point in [Vector2(730, 206), Vector2(295, 402), Vector2(995, 619)]:
 		draw_polyline(PackedVector2Array([point + Vector2(-5, 0), point + Vector2(0, 5), point + Vector2(5, 0)]), WARM, 1)
 	# Chains and an empty hanging cage in the lower vault.
@@ -72,8 +71,4 @@ func torch(point: Vector2) -> void:
 	draw_rect(Rect2(point + Vector2(-1, -5), Vector2(3, 8)), WARM)
 
 func crate(point: Vector2) -> void:
-	draw_rect(Rect2(point + Vector2(-14, -28), Vector2(28, 28)), INK)
-	draw_rect(Rect2(point + Vector2(-12, -26), Vector2(24, 24)), VIOLET.darkened(0.25))
-	draw_rect(Rect2(point + Vector2(-12, -26), Vector2(24, 24)), PINK, false, 2)
-	draw_line(point + Vector2(-10, -24), point + Vector2(10, -4), PINK, 2)
-	draw_line(point + Vector2(10, -24), point + Vector2(-10, -4), PINK, 2)
+	draw_grounded(CRATE, point)

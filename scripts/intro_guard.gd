@@ -1,6 +1,10 @@
 class_name IntroGuard
 extends BaseCharacter
 
+const KEEPER_IDLE = preload("res://assets/characters/standard_keeper_idle.png")
+const KEEPER_WALK = preload("res://assets/characters/standard_keeper_walk.png")
+const KEY_TEXTURE = preload("res://assets/environment/key.png")
+
 enum State { PATROL, SUSPICIOUS, ALERT, SEARCH }
 @export var patrol_left: float = 300.0
 @export var patrol_right: float = 500.0
@@ -166,34 +170,35 @@ func die() -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	var ink := Color("272744")
-	var blue := Color("494d7e")
 	var pale := Color("f2d3ab")
 	draw_string(ThemeDB.fallback_font, Vector2(-18, -36), guard_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
 	if is_dead:
-		draw_rect(Rect2(-15, 6, 27, 7), blue)
-		draw_rect(Rect2(9, 3, 8, 7), pale)
-		draw_line(Vector2(-12, 13), Vector2(17, 13), Color("8b6d9c"), 2)
+		# No dedicated death sheet yet: retain Julia's idle silhouette as a body.
+		draw_set_transform(Vector2(0, 3), PI / 2)
+		draw_texture(KEEPER_IDLE, Vector2(-16, -16))
+		draw_set_transform(Vector2.ZERO)
+		draw_carried_key()
 		return
 	if alert_state != State.PATROL or not sick_guard:
 		var cone := PackedVector2Array([Vector2(0, -8), Vector2(facing * 150, -43), Vector2(facing * 150, 23)])
 		draw_colored_polygon(cone, Color(0.78, 0.62, 0.65, 0.07 if alert_state != State.ALERT else 0.16))
 	var coughing := sick_guard and illness_started and fmod(time, 4.0) < 1.4
-	var bob := 5 if coughing else 0
-	draw_rect(Rect2(-8, -4 + bob, 16, 14), blue)
-	draw_rect(Rect2(-6, -13 + bob, 12, 10), pale)
-	draw_rect(Rect2(-8, -17 + bob, 16, 6), ink)
-	draw_rect(Rect2(-10, -12 + bob, 20, 3), Color("8b6d9c"))
-	draw_rect(Rect2(facing * 4 - 1, -8 + bob, 2, 2), ink)
-	draw_rect(Rect2(-7, 10, 5, 6), ink)
-	draw_rect(Rect2(3, 10, 5, 6), ink)
-	draw_rect(Rect2(-8, 3, 16, 3), Color("c69fa5"))
-	draw_line(Vector2(facing * 9, 0), Vector2(facing * (27 if windup > 0 else 15), -9 if windup > 0 else 8), pale, 2)
+	var moving: bool = absf(velocity.x) > 1 and level != null and not level.controls_locked()
+	var texture: Texture2D = KEEPER_WALK if moving else KEEPER_IDLE
+	var frame := int(time * 8) % 2 if moving else 0
+	# Mirror the art, not the guard's collision, FOV or attached indicators.
+	draw_set_transform(Vector2(0, 15), -facing * 0.12 if coughing else 0.0, Vector2(facing, 0.9 if coughing else 1.0))
+	draw_texture_rect_region(texture, Rect2(-16, -31, 32, 32), Rect2(frame * 32, 0, 32, 32))
+	draw_set_transform(Vector2.ZERO)
+	if windup > 0:
+		draw_line(Vector2(facing * 9, 0), Vector2(facing * 27, -9), pale, 2)
 	if coughing:
 		draw_line(Vector2(facing * 8, 2), Vector2(facing * 6, -4), pale, 3)
 		draw_circle(Vector2(facing * 14, -5 - fmod(time * 9, 12)), 1.5, Color("c69fa5"))
 	if alert_state != State.PATROL:
 		draw_string(ThemeDB.fallback_font, Vector2(-4, -24), "!" if alert_state == State.ALERT else "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 14, pale)
+	draw_carried_key()
+
+func draw_carried_key() -> void:
 	if sick_guard and not key_taken:
-		draw_circle(Vector2(-facing * 9, 5), 2, pale)
-		draw_line(Vector2(-facing * 9, 7), Vector2(-facing * 9, 12), pale, 1)
+		draw_texture(KEY_TEXTURE, Vector2(-facing * 10 - 14, -12))

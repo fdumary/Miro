@@ -4,7 +4,7 @@ Copy the following into your coding agent and append Fran's completed report or 
 
 ---
 
-You are working on `https://github.com/ethanrxla/Miro`. Help Fran playtest and fix the Godot game. Start by inspecting the checkout, Git status and current commit; preserve other people's edits. Read any applicable AGENTS.md, then `docs/FRAN_PLAYTEST_HANDOFF.md`, `docs/GAMEPLAY_DECISIONS.md`, `docs/INTRO.md`, both level source maps, `docs/class.md`, `docs/mirospec.md`, both meeting docs and `docs/miroguide.pdf`. Read Fran's attached findings before changing gameplay.
+You are working on `https://github.com/xynprize/Miro.` (the repository name includes the trailing period). Help Fran playtest and fix the Godot game. Start by inspecting the checkout, Git status and current commit; preserve other people's edits. Read any applicable AGENTS.md, then `docs/FRAN_PLAYTEST_HANDOFF.md`, `docs/GAMEPLAY_DECISIONS.md`, `docs/INTRO.md`, both level source maps, `docs/class.md`, `docs/mirospec.md`, both meeting docs and `docs/miroguide.pdf`. Read Fran's attached findings before changing gameplay.
 
 Your deliverables are reproducible fixes for the assigned issues, updated test coverage where useful, a concise implementation/status update, and a rebuilt verified release when the task requires one. Use `docs/PLAYTEST_REPORT_TEMPLATE.md` to record manual results. Do not mark something manually tested based only on automated output.
 
