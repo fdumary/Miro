@@ -1,5 +1,6 @@
+param([ValidatePattern('^[\w.-]+\.exe$')][string]$ExecutableName = 'Miro.exe')
 $ErrorActionPreference = 'Stop'
-$executable = Join-Path $PSScriptRoot 'build/windows/Miro.exe'
+$executable = Join-Path $PSScriptRoot "build/windows/$ExecutableName"
 if (-not (Test-Path -LiteralPath $executable)) { throw 'Run Build Windows.ps1 first.' }
 New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'tmp') | Out-Null
 foreach ($number in 1..5) {

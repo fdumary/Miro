@@ -151,6 +151,7 @@ func try_interact() -> bool:
 	return true
 
 func _process(delta: float) -> void:
+	queue_redraw()
 	if not is_instance_valid(level) or level.paused:
 		return
 	if is_instance_valid(voice_speaker):
@@ -238,6 +239,10 @@ func abort_conversation() -> void:
 
 func voice_audible() -> bool:
 	return line_left > 0 and is_instance_valid(voice_speaker) and not voice_speaker.is_dead and voice_speaker.global_position.distance_to(level.player.global_position) < 230
+
+func _draw() -> void:
+	if is_instance_valid(level) and not level.controls_locked() and voice_audible():
+		draw_texture_rect(preload("res://assets/library/speech.png"), Rect2(to_local(voice_speaker.global_position) + Vector2(-8, -56), Vector2(16, 16)), false, Color("f2d3ab"))
 
 func build_password_panel() -> void:
 	password_panel = level.panel_at(Vector2(110, 95), Vector2(420, 190))

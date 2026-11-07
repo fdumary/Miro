@@ -1,6 +1,7 @@
 @tool
 class_name IntroArea
 extends Area2D
+const LIBRARY = preload("res://scripts/visual_assets.gd")
 
 @export_enum("bed", "door", "cover", "ladder", "sigil", "exit", "brother", "note") var kind: String = "cover"
 @export var area_size := Vector2(60, 60):
@@ -44,6 +45,7 @@ func _draw() -> void:
 					draw_rect(Rect2(x, -area_size.y / 2, 3, area_size.y), purple)
 				draw_rect(Rect2(-7, -2, 15, 9), pale)
 				draw_circle(Vector2(1, 2), 2, dark)
+				draw_texture_rect(LIBRARY.texture("hazard"), Rect2(-10, -8, 20, 20), false)
 		"cover":
 			draw_rect(Rect2(-area_size / 2, area_size), Color(0.08, 0.08, 0.15, 0.65))
 			draw_arc(Vector2(0, -area_size.y / 2 + 13), 5, 0, PI * 1.7, 12, purple, 1)
@@ -62,11 +64,14 @@ func _draw() -> void:
 		"exit", "brother":
 			draw_rect(Rect2(-22, -50, 44, 76), dark)
 			draw_rect(Rect2(-25, -53, 50, 79), purple, false, 3)
-			for x in range(-16, 20, 8):
-				draw_line(Vector2(x, -49), Vector2(x, 24), pink, 2)
+			draw_texture_rect(LIBRARY.texture("bars"), Rect2(-22, -49, 44, 72), false, pink)
 			if kind == "exit":
 				draw_polyline(PackedVector2Array([Vector2(-8, -12), Vector2(0, -4), Vector2(8, -12)]), pale, 2)
 		"note":
-			draw_rect(Rect2(-7, -9, 14, 18), pale)
-			for y in [-5, 0, 5]:
-				draw_line(Vector2(-4, y), Vector2(4, y), purple, 1)
+			if name == "RemoteTerminal":
+				draw_texture_rect(LIBRARY.texture("terminal"), Rect2(-24, -34, 48, 48), false)
+				draw_circle(Vector2(0, -21), 2, pale if activated else pink)
+			elif name == "WardRelease":
+				draw_texture_rect(LIBRARY.texture("lever"), Rect2(-16, -20, 32, 32), false)
+			else:
+				draw_texture_rect(LIBRARY.texture("record"), Rect2(-9, -12, 18, 24), false)

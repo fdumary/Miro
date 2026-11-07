@@ -74,6 +74,7 @@ func die() -> void:
 	if is_dead:
 		return
 	is_dead = true
+	level.emit_effect("blood", global_position + Vector2(0, 12))
 	projectile_live = false
 	velocity = Vector2.ZERO
 	level.brother_defeated()

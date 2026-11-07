@@ -64,11 +64,7 @@ func window(point: Vector2) -> void:
 func torch(point: Vector2) -> void:
 	for i in range(5, 0, -1):
 		draw_circle(point, float(i * 10), Color(0.95, 0.83, 0.67, 0.012))
-	draw_rect(Rect2(point + Vector2(-3, 4), Vector2(6, 12)), INK)
-	draw_line(point + Vector2(-5, 5), point + Vector2(5, 5), VIOLET, 2)
-	var flicker := int(sin(time * 8 + point.x) * 2)
-	draw_rect(Rect2(point + Vector2(-3, -8 - flicker), Vector2(6, 12 + flicker)), PINK)
-	draw_rect(Rect2(point + Vector2(-1, -5), Vector2(3, 8)), WARM)
+	draw_texture_rect(preload("res://assets/library/torch.png"), Rect2(point + Vector2(-8, -8), Vector2(16, 24)), false)
 
 func crate(point: Vector2) -> void:
 	draw_grounded(CRATE, point)

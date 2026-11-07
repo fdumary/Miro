@@ -4,6 +4,14 @@ extends Node2D
 const CRATE = preload("res://assets/environment/crate.png")
 const SHROOMS = preload("res://assets/environment/shrooms.png")
 
+func _ready() -> void:
+	if has_node("LibraryDressing"):
+		return
+	var dressing := Node2D.new()
+	dressing.name = "LibraryDressing"
+	dressing.set_script(preload("res://scripts/level_dressing.gd"))
+	add_child(dressing)
+
 func draw_grounded(texture: Texture2D, point: Vector2) -> void:
 	var tiles := get_parent().get_node_or_null("StoneFloors") as TileMapLayer
 	if tiles:

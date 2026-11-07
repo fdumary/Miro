@@ -1,0 +1,166 @@
+{
+  "chain_top": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0008.png",
+    "sha256": "c9631ba3b7886b02964af4ff80942abf37d5b26b8c2823b785477d9ab4d35e6a"
+  },
+  "chain": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0039.png",
+    "sha256": "c614928b8d337b9358941e7600a1e44e44e5954d239862a9d86e13fa101f304c"
+  },
+  "chain_end": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0055.png",
+    "sha256": "de0954d8dcc3eddb1f3f217a2a3bb3e77b5a3fe1fcde9b9b4ceb8eeb6151adda"
+  },
+  "pipe": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0058.png",
+    "sha256": "552232329310b72fe76ff1b6b3f3ca62bbd1c0c46bf9cb3b790fc375a623597c"
+  },
+  "pipe_corner": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0076.png",
+    "sha256": "2482accbe1ff6432257f10bfe85f1bcefc065747368f0ecc1af58c328c056832"
+  },
+  "vent": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0011.png",
+    "sha256": "c2c8a2d39733827ba27dca5a18bb6d6030eebc1a50ad8ee242bf36ac2089c40f"
+  },
+  "control": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0027.png",
+    "sha256": "9b719372918d2924b0815beb47ccca243fc48f629d23b37e5f5f8ec21eb64e6c"
+  },
+  "terminal": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0073.png",
+    "sha256": "e806aa2e613cc0a3c2553d85b41894439bba11b57fee1c5b10454d1b17e91c23"
+  },
+  "lever": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0074.png",
+    "sha256": "86c7b61cd2c03d665f1bd75a4e0b89f99fa7e9ef01def287f1f4642082e68f6f"
+  },
+  "warning": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0042.png",
+    "sha256": "761543eae8bf4516d95fdf0aac2369cb382d5d613da443b9523faf916fefe0fd"
+  },
+  "hazard": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0025.png",
+    "sha256": "78afb21a6766286e3e78be280772385a8703abf3239b6d7e2c4fb0a8ac0d0a92"
+  },
+  "beacon": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0064.png",
+    "sha256": "53eb7fd921af6c7020842ba60f154d0c2c07c0defee7a97ddfa96879941ec789"
+  },
+  "beacon_blue": {
+    "source": "2D assets/Pixel Platformer Industrial Expansion/Tiles/tile_0065.png",
+    "sha256": "ea2514c5b9de0f57aaa66dc2576a5e5613419511c4ca2af36544dba06c1eba2e"
+  },
+  "bars": {
+    "source": "2D assets/Tiny Dungeon/Tiles/tile_0041.png",
+    "sha256": "0fbb63362251a29d741280e59f5d9cf29c80c0fcff0532cc9c8530936d873994"
+  },
+  "torch": {
+    "source": "2D assets/Tiny Dungeon/Tiles/tile_0125.png",
+    "sha256": "d576af0d95a09721d174c3f57cb51b3c736e3627330a9bfee110e676d37c3cab"
+  },
+  "bottle": {
+    "source": "2D assets/Tiny Dungeon/Tiles/tile_0113.png",
+    "sha256": "d8b00568696dfc79269a8f47ab8e19ecf6f080140176034cbf8124b4b143d49e"
+  },
+  "flask": {
+    "source": "2D assets/Tiny Dungeon/Tiles/tile_0115.png",
+    "sha256": "ad27340925ae7e936788c22cbd0f7d1922ef5bdd21377f916f1be9af6be4312d"
+  },
+  "cabinet": {
+    "source": "2D assets/Tiny Dungeon/Tiles/tile_0075.png",
+    "sha256": "5fd90e49d9be0c155f1e6a5cb08099fda486ea6fbb266be20b6b97614b96ddd1"
+  },
+  "record": {
+    "source": "2D assets/Generic Items/PNG/Colored/genericItem_color_037.png",
+    "sha256": "b320dc0de59b98a3a5a5149348ea04dc25758b1fa49e8265e1935c5d5845c512"
+  },
+  "microscope": {
+    "source": "2D assets/Generic Items/PNG/Colored/genericItem_color_111.png",
+    "sha256": "d0bef5553c9df67b5243a55c38f2bb130f3da2a95adef2cdfe0aed7ec83d7e59"
+  },
+  "medical_case": {
+    "source": "2D assets/Generic Items/PNG/Colored/genericItem_color_102.png",
+    "sha256": "e18da21988437a8564b3834e406be6ef8a2389b8145596436f97fe5ce5d30de1"
+  },
+  "case": {
+    "source": "2D assets/Generic Items/PNG/Colored/genericItem_color_145.png",
+    "sha256": "cd712551acdbb63d27b14c775e0f7bcebc02490019eb2cfa41da370ccf99a418"
+  },
+  "key_e": {
+    "source": "Icons/Input Prompts Pixel/Tiles/tile_0087.png",
+    "sha256": "9c264ee0d4404002265a0b5584fa24f6f571d77c59dae20606822f570922155e"
+  },
+  "key_w": {
+    "source": "Icons/Input Prompts Pixel/Tiles/tile_0086.png",
+    "sha256": "8220809671d02a0008d284184050bdc9d59f6a2ed06cc203c6b3e7b6970fc893"
+  },
+  "key_a": {
+    "source": "Icons/Input Prompts Pixel/Tiles/tile_0120.png",
+    "sha256": "e4ed3ff891a40a7c0b86593e390b7ed7863ce1b6fa24859aa30aabc9290ec1ba"
+  },
+  "key_1": {
+    "source": "Icons/Input Prompts Pixel/Tiles/tile_0051.png",
+    "sha256": "64cd51e5e773b45f3bc1c535a5f26d3682dfb9a62d72f612ec2a774a0a96d432"
+  },
+  "key_2": {
+    "source": "Icons/Input Prompts Pixel/Tiles/tile_0052.png",
+    "sha256": "830c0962cbf05db625b5965ddd6f031ddbc1446b4f24b77d5273ed6d74f75559"
+  },
+  "key_3": {
+    "source": "Icons/Input Prompts Pixel/Tiles/tile_0053.png",
+    "sha256": "413259790734941c8873cd920e144dc414725e551b44b652fd83004401fc82a1"
+  },
+  "key_4": {
+    "source": "Icons/Input Prompts Pixel/Tiles/tile_0054.png",
+    "sha256": "9d7af8c51c163b652cba36de9e1a4384d0d9c17bf0208f1eb5644373b62dcd37"
+  },
+  "key_esc": {
+    "source": "Icons/Input Prompts Pixel/Tiles/tile_0018.png",
+    "sha256": "d9b744d020aef2e223c121eb54f6b63198cef57c362110dca4c56cb3f2c6abf0"
+  },
+  "panel": {
+    "source": "UI assets/UI Pack - Pixel Adventure/Tiles/Large tiles/Thick outline/tile_0003.png",
+    "sha256": "88d85f33b7eac48489883a60187b3adeabdbd0ab73626065d007a4f1bfe3444b"
+  },
+  "panel_hover": {
+    "source": "UI assets/UI Pack - Pixel Adventure/Tiles/Large tiles/Thick outline/tile_0002.png",
+    "sha256": "a45ade41c60a5977345f98107f297a451c1a1a316ec04a5798ce438c6bd6bd86"
+  },
+  "alert": {
+    "source": "2D assets/Emote Pack/PNG/Pixel/Style 1/emote_exclamation.png",
+    "sha256": "5111d386466a77bc39ee02c5e1ece2d19109f9635462117dd189b5337a98e26b"
+  },
+  "question": {
+    "source": "2D assets/Emote Pack/PNG/Pixel/Style 1/emote_question.png",
+    "sha256": "7097f3f54d02d3914705bb3e9e1dea65bf185f29ad70d6fd2b7031bcef02938d"
+  },
+  "thought": {
+    "source": "2D assets/Emote Pack/PNG/Pixel/Style 5/emote__.png",
+    "sha256": "025c42d2d816609286be5a8e856d1fe62ec86d165fd220eefa0429b9db5ffd27"
+  },
+  "speech": {
+    "source": "2D assets/Emote Pack/PNG/Pixel/Style 1/emote_dots3.png",
+    "sha256": "3c63e9619d9fcd616b7a6783e5cc45ce9ec94cdf2eb3c8fa50c11c5c5984d4e8"
+  },
+  "dust": {
+    "source": "2D assets/Particle Pack/PNG (Transparent)/dirt_01.png",
+    "sha256": "6827a0a32a293ec9570fb98d63963b8dd6e6aaba9e1096afad932e93a378bea9"
+  },
+  "spark": {
+    "source": "2D assets/Particle Pack/PNG (Transparent)/spark_01.png",
+    "sha256": "5902da3a324cad0a4b5a88ce1e3c9cc18fee50922c358ce93d8c9f1ad7708f0a"
+  },
+  "smoke": {
+    "source": "2D assets/Smoke Particles/PNG/White puff/whitePuff00.png",
+    "sha256": "33f894c2279bee9f77874dbfa3c0e9f071a0ee5e1a7065dcc40196029d699f58"
+  },
+  "splat": {
+    "source": "2D assets/Splat Pack/PNG/Default (256px)/splat02.png",
+    "sha256": "e7e3c5a5c581fc5a4f260ec57cf8745ff26cf6ae25be7bd93a8141ef93699b97"
+  },
+  "grass": {
+    "source": "2D assets/Foliage Sprites/PNG/Flat/sprite_0001.png",
+    "sha256": "f68634c0a094efc987991705a1d971ab4e348a85a5b39dbca2d972425d0ea0c8"
+  }
+}

@@ -145,6 +145,7 @@ func investigate(point: Vector2) -> void:
 	suspicion = 0.3
 
 func receive_shank() -> void:
+	level.emit_effect("hit", global_position)
 	conversation_hold = false
 	turn_away_left = 0
 	var unaware := alert_state != State.ALERT and not detect_player()
@@ -166,6 +167,7 @@ func die() -> void:
 	sees_player = false
 	velocity = Vector2.ZERO
 	level.player.casualty_count += 1
+	level.emit_effect("blood", global_position + Vector2(0, 12))
 	level.notify("A body remains. Other Keepers may discover it. [E] Loot")
 	queue_redraw()
 
@@ -196,7 +198,8 @@ func _draw() -> void:
 		draw_line(Vector2(facing * 8, 2), Vector2(facing * 6, -4), pale, 3)
 		draw_circle(Vector2(facing * 14, -5 - fmod(time * 9, 12)), 1.5, Color("c69fa5"))
 	if alert_state != State.PATROL:
-		draw_string(ThemeDB.fallback_font, Vector2(-4, -24), "!" if alert_state == State.ALERT else "?", HORIZONTAL_ALIGNMENT_LEFT, -1, 14, pale)
+		var reaction: Texture2D = preload("res://assets/library/alert.png") if alert_state == State.ALERT else preload("res://assets/library/question.png")
+		draw_texture_rect(reaction, Rect2(-8, -35, 16, 16), false, pale)
 	draw_carried_key()
 
 func draw_carried_key() -> void:

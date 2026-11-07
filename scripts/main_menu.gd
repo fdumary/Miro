@@ -3,6 +3,7 @@ extends Control
 var music: Node
 
 func _ready() -> void:
+	theme = preload("res://scripts/visual_assets.gd").ui_theme()
 	music = get_node("/root/MusicDirector")
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--level="):

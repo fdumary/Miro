@@ -82,7 +82,11 @@ func _physics_process(delta: float) -> void:
 			global_position.x = move_toward(global_position.x, ladder.global_position.x, delta * 120.0)
 	else:
 		velocity.y += 850.0 * delta
+	var was_grounded := is_on_floor()
+	var fall_speed := velocity.y
 	move_and_slide()
+	if not was_grounded and is_on_floor() and fall_speed > 100:
+		level.emit_effect("dust", global_position + Vector2(0, 14))
 	footstep_left = maxf(0, footstep_left - delta)
 	if is_on_floor() and absf(velocity.x) > 20 and footstep_left <= 0:
 		get_node("/root/SoundFX").play_sound("step", -25 if is_concealed else -19)
@@ -196,6 +200,7 @@ func take_damage(amount: int) -> void:
 	if health < previous_health:
 		in_hiding_spot = false
 		get_node("/root/SoundFX").play_sound("hit", -16)
+		level.emit_effect("hit", global_position)
 	end_stealth()
 
 func die() -> void:
