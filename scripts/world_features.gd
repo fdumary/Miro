@@ -36,7 +36,7 @@ var trapdoors: Array[Node2D] = []
 ## Miro's inner voice plays on the Thought bus (long, spacey reverb). Drop clips at
 ## res://assets/audio/voice/thought_<floor>_<id>.mp3 to voice a thought.
 var thought_voice: AudioStreamPlayer
-const NAMES := {1: ["Rowan", "Ivo", "Bram", "Seth"], 2: ["Alden", "Corin", "Dane", "Ellis"], 3: ["Marek", "Oren", "Pavel", "Silas"], 4: ["Tomas", "Ulric", "Venn", "Wren"], 5: ["Yorick", "Zane", "Arlen", "Beck"]}
+const NAMES := {1: ["Rowan", "Ivo", "Bram", "Seth"], 2: ["Alden", "Corin", "Dane", "Ellis", "Garrow", "Hollis", "Jory", "Kell", "Lusk"], 3: ["Marek", "Oren", "Pavel", "Silas", "Teodor", "Ansel", "Brin", "Cato", "Dov"], 4: ["Tomas", "Ulric", "Venn", "Wren", "Edric", "Fane", "Gil", "Hask", "Ivar"], 5: ["Yorick", "Zane", "Arlen", "Beck"]}
 
 func setup(owner_level: Node2D, number: int) -> void:
 	level = owner_level
@@ -71,13 +71,20 @@ func setup(owner_level: Node2D, number: int) -> void:
 	thoughts = JSON.parse_string(FileAccess.get_file_as_string("res://data/inner_dialogue.json"))
 	var keepers: Array[Node] = level.guards()
 	for index in range(keepers.size()):
-		keepers[index].guard_name = NAMES[number][index % 4]
+		keepers[index].guard_name = NAMES[number][index % NAMES[number].size()]
 		keepers[index].voice_index = index % 3
 		if number > 1 and not keepers[index].has_method("begin_recovery"):
 			keepers[index].weapon_kind = ["pistol", "smg"][index % 2]
+	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
 	if config.conversations.has(str(number)) and not keepers.is_empty():
 		var first = keepers[0]
-		if number == 3:
+		var spot = authored.get("conversation")
+		if spot != null:
+			for keeper in keepers:
+				if keeper.name == spot.guard:
+					first = keeper
+			first.position = Vector2(spot.position[0], spot.position[1])
+		elif number == 3:
 			first.position = Vector2(330, 236)
 		var partner = load("res://scenes/guard.tscn").instantiate()
 		partner.name = "ConversationKeeper"
@@ -86,8 +93,8 @@ func setup(owner_level: Node2D, number: int) -> void:
 		partner.patrol_right = partner.position.x + 100
 		partner.level = level
 		partner.illness_started = true
-		partner.guard_name = NAMES[number][3]
-		partner.voice_index = 1
+		partner.guard_name = NAMES[number][NAMES[number].size() - 1]
+		partner.voice_index = (first.voice_index + 1) % 3
 		level.get_node("Guards").add_child(partner)
 		actors = [first, partner]
 		conversation = config.conversations[str(number)]
@@ -99,7 +106,11 @@ func setup(owner_level: Node2D, number: int) -> void:
 	setup_trapdoors()
 	place_props_after_physics()
 	build_password_panel()
-	if number in [1, 2]:
+	if not authored.get("ports", []).is_empty():
+		var port: Array = authored.ports[0]
+		access_point = Vector2(port[0], port[1])
+		spawn_prop(access_point, "access", "SERVICE PORT")
+	elif number in [1, 2]:
 		access_point = Vector2(500, 432) if number == 1 else Vector2(440, 432)
 		spawn_prop(access_point, "access", "SERVICE PORT")
 		if number == 2:
@@ -114,6 +125,14 @@ func place_props_after_physics() -> void:
 	add_props()
 
 func add_props() -> void:
+	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
+	if authored.has("cases"):
+		# Authored layouts place every case and hiding spot by hand (tools/level_layouts.py).
+		for point in authored.cases:
+			spawn_prop(Vector2(point[0], point[1]), "case", "Ammunition case")
+		for hide in authored.hides:
+			spawn_prop(Vector2(hide.position[0], hide.position[1]), "hide", hide.title)
+		return
 	# Authored flat-floor anchors only: no random world-coordinate placements.
 	var anchors := [Vector2(910, 236), Vector2(750, 432), Vector2(550, 656)]
 	if floor_number == 1:
@@ -132,7 +151,7 @@ func add_props() -> void:
 	if not valid.is_empty():
 		var campaign = get_node("/root/Campaign")
 		if not campaign.case_anchors.has(floor_number):
-			campaign.case_anchors[floor_number] = randi_range(0, valid.size() - 1)
+			campaign.case_anchors[floor_number] = 0
 		case_anchor_index = int(campaign.case_anchors[floor_number]) % valid.size()
 		spawn_prop(valid[case_anchor_index], "case", "Ammunition case")
 	# Enclosed wall recesses; no platform or collision geometry is removed.
@@ -202,6 +221,9 @@ func setup_trapdoors() -> void:
 		trap.set_script(preload("res://scripts/trapdoor.gd"))
 		trap.level = level
 		var gates = level.get_node_or_null("Gates")
+		# Authored layouts never put a hatch where it could drop you past a locked gate.
+		if level.get("definition") != null and level.definition.has("features"):
+			gates = null
 		if gates != null:
 			for gate in gates.get_children():
 				if point.x < gate.global_position.x:

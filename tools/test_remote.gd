@@ -24,7 +24,7 @@ func run() -> void:
 		c.run_command("hack")
 		c.run_command("cameras off")
 		check(level.hack_remaining == 0, "Remote cannot bypass local range or authentication")
-		level.player.position = level.world_features.access_point if number == 2 else Vector2(300, 232)
+		level.player.position = level.world_features.access_point if number == 2 else level.areas.get_node("RemoteTerminal").position + Vector2(0, 8)
 		c.run_command("scan")
 		check("local" in c.output.text, "Nearby access point is discoverable")
 		c.run_command("login wrong")

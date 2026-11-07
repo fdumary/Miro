@@ -4,6 +4,8 @@ extends Node2D
 @onready var player: IntroPlayer = $Player
 @onready var areas: Node2D = $Interactables
 var radio_line := ""
+## A cinematic card over the start of a floor or a story beat (scripts/floor_card.gd).
+var card: Control
 var door_open: bool = false
 var sigil_placed: bool = false
 var brother_heard: bool = false
@@ -57,6 +59,7 @@ func _ready() -> void:
 		["KEEPER", "Then I'm not looking. (He turns away, coughing.)\nThe tower doesn't pay me enough to care."],
 		["MIRO", "His hands are shaking. The same marks as the others.\nHe's turned away. This might be my only chance.", "thought"]
 	], "intro")
+	show_card("floor", "01", "THE PRISONER")
 	var launch_floor: int = get_node("/root/Campaign").launch_floor()
 	if launch_floor > 1:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/levels/level_%02d.tscn" % launch_floor)
@@ -116,6 +119,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if not paused:
 		elapsed += delta
+		update_stuck(delta)
 		message_left = maxf(0, message_left - delta)
 		shot_flash = maxf(0, shot_flash - delta)
 	var pursuing := false
@@ -181,14 +185,69 @@ func _process(delta: float) -> void:
 		overlay_label.text += "\n[M] Sound: " + ("OFF" if get_node("/root/SoundFX").muted else "ON")
 	queue_redraw()
 
+## Z: Miro thinks it through. Up to three hints per objective, each press more direct
+## (a nudge, then where, then exactly what to do), so a stuck player is never stuck for long.
+var hint_tiers: Dictionary = {}
+var stuck_key := ""
+var stuck_time := 0.0
+const STUCK_SECONDS := 60.0
+
+const L1_HINTS := {
+	"supplies": ["Something is hidden under my bed. I can feel the shape of it.",
+		"The bed is right here in the cell. Stand at it.",
+		"Walk to the bed in the cell and press E."],
+	"door": ["The Keeper has a key. Or the lock could just stop existing.",
+		"Wait for him to turn away and take the key [E]. Or set a charge on the lock: [2], right click.",
+		"Stand behind the Keeper while he faces away and press E. Or select C4 [2], right click the lock, step back, left click."],
+	"brother": ["The gallery leads to a barred gate. Someone's waiting there.",
+		"Go right along the gallery, past the cells, to the bars.",
+		"Walk right to the barred gate and press E."],
+	"sigil": ["'Leave a mark.' Down where the tower holds itself up.",
+		"Take the ladders down to the lowest floor.",
+		"On the bottom floor, find the support and press E."],
+	"exit": ["The stairs down. Lower right.",
+		"Bottom floor, far right.",
+		"Walk to the lower-right stair gate and press E."],
+}
+
+func hint_key() -> String:
+	if not player.has_supplies:
+		return "supplies"
+	if not door_open:
+		return "door"
+	if not brother_heard:
+		return "brother"
+	if not sigil_placed:
+		return "sigil"
+	return "exit"
+
+func hint_lines(key: String) -> Array:
+	return L1_HINTS.get(key, [])
+
 func z_hint() -> String:
-	var goal := objective()
-	if "\n" in goal:
-		goal = goal.get_slice("\n", 1)
-	var cue := context_hint()
-	if cue.begins_with("[") and not cue.begins_with("[1]"):
-		return goal + "\n" + cue
-	return goal
+	var key := hint_key()
+	var lines: Array = hint_lines(key)
+	if lines.is_empty():
+		var goal := objective()
+		if "\n" in goal:
+			goal = goal.get_slice("\n", 1)
+		return goal
+	var tier := int(hint_tiers.get(key, 0))
+	hint_tiers[key] = mini(tier + 1, lines.size() - 1)
+	stuck_time = 0.0
+	return str(lines[mini(tier, lines.size() - 1)])
+
+## After a minute on the same objective, the bottom strip offers Z.
+func update_stuck(delta: float) -> void:
+	var key := hint_key()
+	if key != stuck_key:
+		stuck_key = key
+		stuck_time = 0.0
+	elif not controls_locked():
+		stuck_time += delta
+
+func stuck() -> bool:
+	return stuck_time >= STUCK_SECONDS
 
 func counts_detection() -> bool:
 	return true
@@ -241,6 +300,20 @@ func speaker_listener():
 		if str(line[0]) != "MIRO":
 			return line
 	return null
+
+func show_card(mode: String, heading: String, title_text: String, detail := "", accent := Color("c69fa5"), length := 3.4) -> void:
+	if is_instance_valid(card):
+		card.finish()
+	card = Control.new()
+	card.set_script(preload("res://scripts/floor_card.gd"))
+	card.mode = mode
+	card.heading = heading
+	card.title_text = title_text
+	card.detail = detail
+	card.accent = accent
+	card.length = length
+	card.level = self
+	hud.add_child(card)
 
 func start_dialogue(lines: Array, event: String = "") -> void:
 	dialogue = lines
@@ -341,6 +414,8 @@ func context_hint() -> String:
 		return "Move carefully • touching a Keeper breaks stealth"
 	if ladder_at(player.global_position):
 		return "[W / S] Climb. Keepers cannot use ladders."
+	if stuck():
+		return "Not sure where to go? [Z] Think it through"
 	return "A / D  Move    Space  Jump    C  Dash    Esc  Controls"
 
 func interact() -> void:

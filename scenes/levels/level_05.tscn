@@ -23,34 +23,34 @@ size = Vector2(28, 952)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lstof"]
 size = Vector2(28, 952)
 
-[node name="TheFoundation" type="Node2D" unique_id=915501866]
+[node name="TheFoundation" type="Node2D" unique_id=1547897096]
 texture_filter = 1
 script = ExtResource("1_kkx70")
 metadata/blueprint = "res://data/levels/level_05.json"
 metadata/chapter = "The Foundation"
 
-[node name="Architecture" type="Node2D" parent="." unique_id=1687010952]
+[node name="Architecture" type="Node2D" parent="." unique_id=611833188]
 script = ExtResource("2_6shqt")
 
-[node name="StoneFloors" type="TileMapLayer" parent="." unique_id=1256003633]
+[node name="StoneFloors" type="TileMapLayer" parent="." unique_id=1599976136]
 tile_map_data = PackedByteArray("AAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAkAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAkAAAAAAAAAAAAHAAkAAQAAAAAAAAAIAAkAAAAAAAAAAAAJAAkAAAAAAAAAAAAKAAkAAAAAAAAAAAALAAkAAAAAAAAAAAAMAAkAAAAAAAAAAAANAAkAAAAAAAAAAAAOAAkAAQAAAAAAAAAPAAkAAAAAAAAAAAAQAAkAAAAAAAAAAAARAAkAAAAAAAAAAAASAAkAAAAAAAAAAAATAAkAAAAAAAAAAAAUAAkAAAAAAAAAAAAVAAkAAQAAAAAAAAAWAAkAAAAAAAAAAAAXAAkAAAAAAAAAAAAYAAkAAAAAAAAAAAAbAAkAAAAAAAAAAAAcAAkAAQAAAAAAAAAdAAkAAAAAAAAAAAAeAAkAAAAAAAAAAAAfAAkAAAAAAAAAAAAgAAkAAAAAAAAAAAAhAAkAAAAAAAAAAAAiAAkAAAAAAAAAAAAjAAkAAQAAAAAAAAAkAAkAAAAAAAAAAAAlAAkAAAAAAAAAAAAmAAkAAAAAAAAAAAAMABAAAAAAAAAAAAANABAAAAAAAAAAAAAOABAAAAAAAAAAAAAPABAAAAAAAAAAAAAQABAAAQAAAAAAAAARABAAAAAAAAAAAAASABAAAAAAAAAAAAATABAAAAAAAAAAAAAUABAAAAAAAAAAAAAVABAAAAAAAAAAAAAWABAAAAAAAAAAAAAXABAAAAAAAAAAAAAYABAAAQAAAAAAAAAZABAAAAAAAAAAAAAaABAAAAAAAAAAAAAbABAAAAAAAAAAAAAcABAAAAAAAAAAAAAdABAAAAAAAAAAAAAeABAAAAAAAAAAAAAfABAAAAAAAAAAAAAgABAAAQAAAAAAAAAhABAAAAAAAAAAAAAiABAAAAAAAAAAAAAjABAAAAAAAAAAAAAkABAAAAAAAAAAAAAlABAAAAAAAAAAAAAmABAAAAAAAAAAAAABABgAAAAAAAAAAAACABgAAAAAAAAAAAADABgAAAAAAAAAAAAEABgAAAAAAAAAAAAFABgAAAAAAAAAAAAGABgAAAAAAAAAAAAHABgAAAAAAAAAAAAIABgAAAAAAAAAAAAJABgAAQAAAAAAAAAKABgAAAAAAAAAAAALABgAAAAAAAAAAAAMABgAAAAAAAAAAAANABgAAAAAAAAAAAAOABgAAAAAAAAAAAAPABgAAAAAAAAAAAAQABgAAAAAAAAAAAARABgAAAAAAAAAAAASABgAAQAAAAAAAAATABgAAAAAAAAAAAAUABgAAAAAAAAAAAAVABgAAAAAAAAAAAAWABgAAAAAAAAAAAAXABgAAAAAAAAAAAAYABgAAAAAAAAAAAAZABgAAAAAAAAAAAAaABgAAAAAAAAAAAAbABgAAQAAAAAAAAAcABgAAAAAAAAAAAAdABgAAAAAAAAAAAAeABgAAAAAAAAAAAAfABgAAAAAAAAAAAAgABgAAAAAAAAAAAAjABgAAAAAAAAAAAAkABgAAQAAAAAAAAAlABgAAAAAAAAAAAAmABgAAAAAAAAAAAABAB8AAAAAAAAAAAACAB8AAAAAAAAAAAADAB8AAAAAAAAAAAAEAB8AAAAAAAAAAAAFAB8AAAAAAAAAAAAGAB8AAQAAAAAAAAAHAB8AAAAAAAAAAAAIAB8AAAAAAAAAAAAJAB8AAAAAAAAAAAAKAB8AAAAAAAAAAAALAB8AAAAAAAAAAAAMAB8AAQAAAAAAAAANAB8AAAAAAAAAAAAOAB8AAAAAAAAAAAAPAB8AAAAAAAAAAAAQAB8AAAAAAAAAAAARAB8AAAAAAAAAAAASAB8AAQAAAAAAAAATAB8AAAAAAAAAAAAUAB8AAAAAAAAAAAAVAB8AAAAAAAAAAAAWAB8AAAAAAAAAAAAXAB8AAAAAAAAAAAAYAB8AAQAAAAAAAAAZAB8AAAAAAAAAAAAaAB8AAAAAAAAAAAAbAB8AAAAAAAAAAAAcAB8AAAAAAAAAAAAdAB8AAAAAAAAAAAAeAB8AAQAAAAAAAAAfAB8AAAAAAAAAAAAgAB8AAAAAAAAAAAAhAB8AAAAAAAAAAAAiAB8AAAAAAAAAAAAjAB8AAAAAAAAAAAAkAB8AAQAAAAAAAAAlAB8AAAAAAAAAAAAmAB8AAAAAAAAAAAAPAAgAAQAAAAAAAAAQAAgAAAAAAAAAAAAPABYAAQAAAAAAAAAQABYAAAAAAAAAAAAbABcAAQAAAAAAAAAaABcAAAAAAAAAAAAcABYAAAAAAAAAAAAdABYAAAAAAAAAAAAeABYAAQAAAAAAAAAfABYAAAAAAAAAAAASAAYAAQAAAAAAAAATAAYAAAAAAAAAAAAUAAYAAAAAAAAAAAA=")
 tile_set = ExtResource("3_de7pb")
 
-[node name="LeftWall" type="StaticBody2D" parent="." unique_id=1570113512]
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=184557861]
 position = Vector2(14, 476)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1033317776]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=159214778]
 shape = SubResource("RectangleShape2D_bcmmy")
 
-[node name="RightWall" type="StaticBody2D" parent="." unique_id=1219323318]
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=916473083]
 position = Vector2(1106, 476)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1350160176]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1436123382]
 shape = SubResource("RectangleShape2D_lstof")
 
-[node name="Interactables" type="Node2D" parent="." unique_id=1388326847]
+[node name="Interactables" type="Node2D" parent="." unique_id=1982699956]
 
-[node name="FirstLadder" type="Area2D" parent="Interactables" unique_id=528416946 instance=ExtResource("4_5j0jk")]
+[node name="FirstLadder" type="Area2D" parent="Interactables" unique_id=1673310129 instance=ExtResource("4_5j0jk")]
 position = Vector2(728, 335)
 collision_layer = 0
 collision_mask = 2
@@ -58,7 +58,7 @@ script = ExtResource("5_vqqq3")
 kind = "ladder"
 area_size = Vector2(40, 230)
 
-[node name="SecondLadder" type="Area2D" parent="Interactables" unique_id=1444914347 instance=ExtResource("4_5j0jk")]
+[node name="SecondLadder" type="Area2D" parent="Interactables" unique_id=836885684 instance=ExtResource("4_5j0jk")]
 position = Vector2(308, 550)
 collision_layer = 0
 collision_mask = 2
@@ -66,56 +66,56 @@ script = ExtResource("5_vqqq3")
 kind = "ladder"
 area_size = Vector2(40, 252)
 
-[node name="Shadow1" type="Area2D" parent="Interactables" unique_id=1220610147 instance=ExtResource("6_nnt6u")]
+[node name="Shadow1" type="Area2D" parent="Interactables" unique_id=2000887591 instance=ExtResource("6_nnt6u")]
 position = Vector2(200, 216)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vqqq3")
 area_size = Vector2(64, 72)
 
-[node name="Shadow2" type="Area2D" parent="Interactables" unique_id=1031475849 instance=ExtResource("6_nnt6u")]
+[node name="Shadow2" type="Area2D" parent="Interactables" unique_id=810369703 instance=ExtResource("6_nnt6u")]
 position = Vector2(385, 216)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vqqq3")
 area_size = Vector2(64, 72)
 
-[node name="Shadow3" type="Area2D" parent="Interactables" unique_id=544276035 instance=ExtResource("6_nnt6u")]
+[node name="Shadow3" type="Area2D" parent="Interactables" unique_id=1762363529 instance=ExtResource("6_nnt6u")]
 position = Vector2(660, 216)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vqqq3")
 area_size = Vector2(64, 72)
 
-[node name="Shadow4" type="Area2D" parent="Interactables" unique_id=843833969 instance=ExtResource("6_nnt6u")]
+[node name="Shadow4" type="Area2D" parent="Interactables" unique_id=794699032 instance=ExtResource("6_nnt6u")]
 position = Vector2(780, 412)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vqqq3")
 area_size = Vector2(64, 72)
 
-[node name="Shadow5" type="Area2D" parent="Interactables" unique_id=1558552032 instance=ExtResource("6_nnt6u")]
+[node name="Shadow5" type="Area2D" parent="Interactables" unique_id=85627624 instance=ExtResource("6_nnt6u")]
 position = Vector2(400, 412)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vqqq3")
 area_size = Vector2(64, 72)
 
-[node name="Shadow6" type="Area2D" parent="Interactables" unique_id=1476739898 instance=ExtResource("6_nnt6u")]
+[node name="Shadow6" type="Area2D" parent="Interactables" unique_id=1578401354 instance=ExtResource("6_nnt6u")]
 position = Vector2(740, 636)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vqqq3")
 area_size = Vector2(64, 72)
 
-[node name="Shadow7" type="Area2D" parent="Interactables" unique_id=91949465 instance=ExtResource("6_nnt6u")]
+[node name="Shadow7" type="Area2D" parent="Interactables" unique_id=1286473797 instance=ExtResource("6_nnt6u")]
 position = Vector2(990, 636)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vqqq3")
 area_size = Vector2(64, 72)
 
-[node name="ThirdLadder" type="Area2D" parent="Interactables" unique_id=1266802749 instance=ExtResource("4_5j0jk")]
+[node name="ThirdLadder" type="Area2D" parent="Interactables" unique_id=416062879 instance=ExtResource("4_5j0jk")]
 position = Vector2(952, 755)
 collision_layer = 0
 collision_mask = 2
@@ -123,21 +123,21 @@ script = ExtResource("5_vqqq3")
 kind = "ladder"
 area_size = Vector2(40, 230)
 
-[node name="Shadow8" type="Area2D" parent="Interactables" unique_id=524280290 instance=ExtResource("6_nnt6u")]
+[node name="Shadow8" type="Area2D" parent="Interactables" unique_id=1455975280 instance=ExtResource("6_nnt6u")]
 position = Vector2(300, 832)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vqqq3")
 area_size = Vector2(64, 72)
 
-[node name="Shadow9" type="Area2D" parent="Interactables" unique_id=1660441447 instance=ExtResource("6_nnt6u")]
+[node name="Shadow9" type="Area2D" parent="Interactables" unique_id=933139604 instance=ExtResource("6_nnt6u")]
 position = Vector2(760, 832)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_vqqq3")
 area_size = Vector2(64, 72)
 
-[node name="Guitar" type="Area2D" parent="Interactables" unique_id=1767915258 instance=ExtResource("7_d4rua")]
+[node name="Guitar" type="Area2D" parent="Interactables" unique_id=1224559722 instance=ExtResource("7_d4rua")]
 position = Vector2(190, 230)
 collision_layer = 0
 collision_mask = 2
@@ -145,7 +145,7 @@ script = ExtResource("5_vqqq3")
 kind = "note"
 area_size = Vector2(40, 54)
 
-[node name="FinalSigil" type="Area2D" parent="Interactables" unique_id=1125018205 instance=ExtResource("8_qqimg")]
+[node name="FinalSigil" type="Area2D" parent="Interactables" unique_id=1227976542 instance=ExtResource("8_qqimg")]
 position = Vector2(300, 230)
 collision_layer = 0
 collision_mask = 2
@@ -153,7 +153,7 @@ script = ExtResource("5_vqqq3")
 kind = "sigil"
 area_size = Vector2(40, 54)
 
-[node name="FinalOffer" type="Area2D" parent="Interactables" unique_id=691640999 instance=ExtResource("9_3war2")]
+[node name="FinalOffer" type="Area2D" parent="Interactables" unique_id=1512673613 instance=ExtResource("9_3war2")]
 position = Vector2(570, 226)
 collision_layer = 0
 collision_mask = 2
@@ -161,7 +161,7 @@ script = ExtResource("5_vqqq3")
 kind = "brother"
 area_size = Vector2(40, 54)
 
-[node name="BrotherEncounter" type="Area2D" parent="Interactables" unique_id=1921874726 instance=ExtResource("9_3war2")]
+[node name="BrotherEncounter" type="Area2D" parent="Interactables" unique_id=1638492327 instance=ExtResource("9_3war2")]
 position = Vector2(560, 846)
 collision_layer = 0
 collision_mask = 2
@@ -169,7 +169,7 @@ script = ExtResource("5_vqqq3")
 kind = "brother"
 area_size = Vector2(40, 54)
 
-[node name="DefeatExchange" type="Area2D" parent="Interactables" unique_id=369104263 instance=ExtResource("7_d4rua")]
+[node name="DefeatExchange" type="Area2D" parent="Interactables" unique_id=615849465 instance=ExtResource("7_d4rua")]
 position = Vector2(430, 846)
 collision_layer = 0
 collision_mask = 2
@@ -177,7 +177,7 @@ script = ExtResource("5_vqqq3")
 kind = "note"
 area_size = Vector2(40, 54)
 
-[node name="ForestViewpoint" type="Area2D" parent="Interactables" unique_id=1954210264 instance=ExtResource("7_d4rua")]
+[node name="ForestViewpoint" type="Area2D" parent="Interactables" unique_id=1200911089 instance=ExtResource("7_d4rua")]
 position = Vector2(880, 846)
 collision_layer = 0
 collision_mask = 2
@@ -185,7 +185,7 @@ script = ExtResource("5_vqqq3")
 kind = "note"
 area_size = Vector2(40, 54)
 
-[node name="StairGate" type="Area2D" parent="Interactables" unique_id=1175791119 instance=ExtResource("10_amq1l")]
+[node name="StairGate" type="Area2D" parent="Interactables" unique_id=746571843 instance=ExtResource("10_amq1l")]
 position = Vector2(1043, 836)
 collision_layer = 0
 collision_mask = 2
@@ -193,42 +193,42 @@ script = ExtResource("5_vqqq3")
 kind = "exit"
 area_size = Vector2(46, 60)
 
-[node name="Gates" type="Node2D" parent="." unique_id=463058776]
+[node name="Gates" type="Node2D" parent="." unique_id=1144177749]
 
-[node name="Hatch1" type="StaticBody2D" parent="Gates" unique_id=242906665 instance=ExtResource("11_636ke")]
+[node name="Hatch1" type="StaticBody2D" parent="Gates" unique_id=932755824 instance=ExtResource("11_636ke")]
 position = Vector2(728, 266)
 collision_mask = 6
 script = ExtResource("12_vgv04")
 unlock_milestone = "NiroRetreat1"
 gate_size = Vector2(56, 28)
 
-[node name="Hatch2" type="StaticBody2D" parent="Gates" unique_id=880804566 instance=ExtResource("11_636ke")]
+[node name="Hatch2" type="StaticBody2D" parent="Gates" unique_id=585746914 instance=ExtResource("11_636ke")]
 position = Vector2(345, 364)
 collision_mask = 6
 script = ExtResource("12_vgv04")
 unlock_milestone = "NiroRetreat2"
 gate_size = Vector2(18, 168)
 
-[node name="Hatch3" type="StaticBody2D" parent="Gates" unique_id=1693876257 instance=ExtResource("11_636ke")]
+[node name="Hatch3" type="StaticBody2D" parent="Gates" unique_id=582681721 instance=ExtResource("11_636ke")]
 position = Vector2(952, 686)
 collision_mask = 6
 script = ExtResource("12_vgv04")
 unlock_milestone = "NiroRetreat3"
 gate_size = Vector2(56, 28)
 
-[node name="StoryProps" type="Node2D" parent="." unique_id=1512134561]
+[node name="StoryProps" type="Node2D" parent="." unique_id=611723204]
 
-[node name="OfficeLab" type="Node2D" parent="StoryProps" unique_id=584041274 instance=ExtResource("13_q5sut")]
+[node name="OfficeLab" type="Node2D" parent="StoryProps" unique_id=1370422802 instance=ExtResource("13_q5sut")]
 position = Vector2(420, 236)
 script = ExtResource("14_2v7ye")
 kind = "ward_chamber"
 
-[node name="DeepLab" type="Node2D" parent="StoryProps" unique_id=1007958992 instance=ExtResource("13_q5sut")]
+[node name="DeepLab" type="Node2D" parent="StoryProps" unique_id=1644805612 instance=ExtResource("13_q5sut")]
 position = Vector2(700, 852)
 script = ExtResource("14_2v7ye")
 kind = "ward_chamber"
 
-[node name="Label_Guitar" type="Label" parent="." unique_id=1836457997]
+[node name="Label_Guitar" type="Label" parent="." unique_id=1475033341]
 offset_left = 140.0
 offset_top = 165.0
 offset_right = 276.0
@@ -239,7 +239,7 @@ text = "Pick up the guitar"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label_FinalSigil" type="Label" parent="." unique_id=1324434164]
+[node name="Label_FinalSigil" type="Label" parent="." unique_id=1340060210]
 offset_left = 250.0
 offset_top = 165.0
 offset_right = 394.0
@@ -250,7 +250,7 @@ text = "Place the final sigil"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label_FinalOffer" type="Label" parent="." unique_id=78061595]
+[node name="Label_FinalOffer" type="Label" parent="." unique_id=538248869]
 offset_left = 520.0
 offset_top = 161.0
 offset_right = 620.0
@@ -261,7 +261,7 @@ text = "Face Niro"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label_BrotherEncounter" type="Label" parent="." unique_id=1434656523]
+[node name="Label_BrotherEncounter" type="Label" parent="." unique_id=758037548]
 offset_left = 510.0
 offset_top = 781.0
 offset_right = 610.0
@@ -272,7 +272,7 @@ text = "Face Niro"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label_DefeatExchange" type="Label" parent="." unique_id=1764292834]
+[node name="Label_DefeatExchange" type="Label" parent="." unique_id=963991489]
 offset_left = 380.0
 offset_top = 781.0
 offset_right = 550.0
@@ -283,7 +283,7 @@ text = "Listen to your brother"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label_ForestViewpoint" type="Label" parent="." unique_id=390871313]
+[node name="Label_ForestViewpoint" type="Label" parent="." unique_id=389997201]
 offset_left = 830.0
 offset_top = 781.0
 offset_right = 1037.0
@@ -294,54 +294,54 @@ text = "Reach the forest viewpoint"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Guards" type="Node2D" parent="." unique_id=1950159626]
+[node name="Guards" type="Node2D" parent="." unique_id=75210549]
 
-[node name="LevelPlan" type="Node2D" parent="." unique_id=115988794]
+[node name="LevelPlan" type="Node2D" parent="." unique_id=2058962558]
 
-[node name="PlayerSpawn" type="Marker2D" parent="LevelPlan" unique_id=712010494]
+[node name="PlayerSpawn" type="Marker2D" parent="LevelPlan" unique_id=61828232]
 position = Vector2(100, 236)
 
-[node name="01_Guitar" type="Marker2D" parent="LevelPlan" unique_id=118257073]
+[node name="01_Guitar" type="Marker2D" parent="LevelPlan" unique_id=1827750135]
 position = Vector2(190, 230)
 metadata/purpose = "5A office: guitar pickup starts Shit Crashed; alarm; wave 1"
 
-[node name="02_FinalSigil" type="Marker2D" parent="LevelPlan" unique_id=1639658778]
+[node name="02_FinalSigil" type="Marker2D" parent="LevelPlan" unique_id=322049545]
 position = Vector2(300, 230)
 metadata/purpose = "Place the final sigil"
 
-[node name="03_Engagement1" type="Marker2D" parent="LevelPlan" unique_id=1440126612]
+[node name="03_Engagement1" type="Marker2D" parent="LevelPlan" unique_id=2102352148]
 position = Vector2(600, 236)
 metadata/purpose = "Wave 1 cleared > Niro #1 (reveal, rush only) > retreat through Hatch1"
 
-[node name="04_Engagement2" type="Marker2D" parent="LevelPlan" unique_id=495363846]
+[node name="04_Engagement2" type="Marker2D" parent="LevelPlan" unique_id=209507986]
 position = Vector2(800, 432)
 metadata/purpose = "Wave 2 > Niro #2 (rush + throw) > retreat through Hatch2"
 
-[node name="05_Engagement3" type="Marker2D" parent="LevelPlan" unique_id=564523847]
+[node name="05_Engagement3" type="Marker2D" parent="LevelPlan" unique_id=1554396524]
 position = Vector2(600, 656)
 metadata/purpose = "Robot Attack; wave 3 > Niro #3 (rush, throw, calls guards) > retreat through Hatch3"
 
-[node name="06_FinalFight" type="Marker2D" parent="LevelPlan" unique_id=249684145]
+[node name="06_FinalFight" type="Marker2D" parent="LevelPlan" unique_id=947584582]
 position = Vector2(560, 852)
 metadata/purpose = "Deepest floor: final fight, Niro beaten not killed"
 
-[node name="07_DefeatExchange" type="Marker2D" parent="LevelPlan" unique_id=335291872]
+[node name="07_DefeatExchange" type="Marker2D" parent="LevelPlan" unique_id=2047036528]
 position = Vector2(430, 852)
 metadata/purpose = "Defeat exchange; Miro leaves alone"
 
-[node name="08_ForestViewpoint" type="Marker2D" parent="LevelPlan" unique_id=1986117113]
+[node name="08_ForestViewpoint" type="Marker2D" parent="LevelPlan" unique_id=1871559390]
 position = Vector2(880, 852)
 metadata/purpose = "Woods, remote detonation, collapse, Set Me Free"
 
-[node name="ForestBackdrop" type="Marker2D" parent="LevelPlan" unique_id=1655102138]
+[node name="ForestBackdrop" type="Marker2D" parent="LevelPlan" unique_id=776976161]
 position = Vector2(900, 820)
 metadata/purpose = "Replace masonry in outdoor segment with authored woods art."
 
-[node name="TowerCollapseCinematic" type="Marker2D" parent="LevelPlan" unique_id=1034045307]
+[node name="TowerCollapseCinematic" type="Marker2D" parent="LevelPlan" unique_id=798336799]
 position = Vector2(1000, 820)
 metadata/purpose = "In-engine cinematic with subtitles and skip; no physics destruction."
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=296514412 instance=ExtResource("15_o7wf0")]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1174565400 instance=ExtResource("15_o7wf0")]
 position = Vector2(100, 236)
 collision_layer = 2
 script = ExtResource("16_mq65u")

@@ -30,9 +30,29 @@ Office (guitar, final sigil) → wave 1 → Niro #1 (reveal, rush) → retreat a
 - MP3 unlocks at 2/5/8/11 stealth points (saved; remote `music`, `play <n>`).
 
 ## UI
-- Forced dialogue is a bubble over the speaker with E to continue; the bottom strip is objectives, cues and notices only. Z gives a hint in Miro's thought bubble.
+- Forced dialogue is a bubble over the speaker with E to continue. The bottom strip is for objectives, cues and notices only.
+- Speech bubbles have a pointed tail. Thought bubbles have a trail of puffs and no name tag. Neither one shows the old "..." icon.
+- Each floor opens on Miro's thought, and the thought is also the cue (no title speaker).
+- Z hints: three per objective (a nudge, then where, then exactly what to do), from the level JSON `"hints"` (Level 1 in `intro_level.gd`). After 60 s on the same objective, the strip suggests "[Z] Think it through".
+
+## Niro over the remote (`scripts/remote_radio.gd`, autoload RemoteRadio)
+- Radio bus: band-pass (420 Hz to 3.4 kHz), LOFI distortion (bitcrush), overdrive, a static bed, and dropouts on a fixed stutter pattern.
+- Plays every remote line: the dialogue lines for NIRO / THE VOICE when anchored to Miro, the kill disappointment, and the Level 5 taunts. Face to face, his clips play dry.
+- Level 5 taunts (`niro.taunts` in `level_05.json`) play whenever he is off screen after the reveal. They come in the authored order, on a bar line, every 6 bars.
+
+## Voices (`data/voice_cast.json`, `tools/generate_voices.py`)
+- The cast: Niro (Callum for now; `--design-niro` makes three designed previews and `--keep-niro N` saves one), the PA (Daniel), and three distinct Keepers (Roger stern, Bill worn out and sick, Liam young and jumpy).
+- eleven_v3 with emotion audio tags per line (`guard_delivery`). Niro's tags are picked per line: pleading, mocking, unhinged.
+- Niro and PA clips are named by a hash of the line, so editing text picks up a new clip. Run it locally with `ELEVENLABS_API_KEY`; `--list` shows the jobs without spending credits.
+
+## Beat sync outside Level 5
+- Keepers turn at patrol ends on a beat line (sick Keepers on every other beat) and lean into each step on the beat. The average speed is unchanged.
+- Cameras sweep over four bars.
+
+## Levels 2–4
+See `docs/LEVEL_DESIGN.md`: two sub-floors per level (one per song), six storeys, authored routes and maps.
 
 ## Tests
-`Run Checks.ps1` (21 suites) plus `tools/run_playthrough_local.gd` (full game, 74 checks). Test and QA runs never write the player's save.
+`Run Checks.ps1` (21 suites) plus `tools/run_playthrough_local.gd` (the full game). `test_remaining_levels.gd` plays each authored level's route with real inputs. Test and QA runs never write the player's save.
 
 See `docs/CUTSCENE_HOOKS.md` for Sunday's art and cutscene hooks.

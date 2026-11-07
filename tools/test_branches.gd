@@ -38,7 +38,7 @@ func run() -> void:
 	var bubble = level.world_features.remote_bubble
 	check(level.world_features.remote_busy() and bubble.tag == "NIRO · remote" and not bubble.text_label.text.is_empty(), "A kill brings Niro's disappointment over the remote, in a remote bubble")
 	level.world_features.remote_left = 0
-	level.get_node("Guards/GalleryKeeper").die()
+	level.get_node("Guards/OfficeKeeper").die()
 	check(not level.world_features.remote_busy() and level.disappointment_heard, "Niro's disappointment is heard once per floor")
 	campaign.enter_floor(2)
 	check(campaign.reputation() == "MISSING", "Retrying an earlier floor restores its entry reputation")

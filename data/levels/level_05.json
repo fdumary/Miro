@@ -628,11 +628,11 @@
   "sources": [
     {
       "path": "docs/mirospec.md",
-      "section": "Level progression \u2014 5: The Foundation"
+      "section": "Level progression — 5: The Foundation"
     },
     {
       "path": "docs/miroguide.pdf",
-      "section": "Page 8 \u2014 five-floor progression and narrative flow"
+      "section": "Page 8 — five-floor progression and narrative flow"
     },
     {
       "path": "docs/class.md",
@@ -734,15 +734,15 @@
       ]
     },
     "taunts": [
-    "Can you hear me? Good. I hate this thing too. It makes me sound like them.",
-    "You're running in circles, Miro. I drew the circles.",
-    "Every Keeper you put to sleep is a report I write tonight. In my handwriting.",
-    "They're not hunting you. They're collecting you. There's a difference. I made sure of it.",
-    "Slow down. Your heart rate's on my screen. You'll tear something I stitched.",
-    "Nobody leaves this tower, Miro. Not the sick. Not the Keepers. Not me.",
-    "Down is the wrong way. Down is where I keep the truth. Come and look, then."
-  ],
-  "retreat_lines": {
+      "Can you hear me? Good. I hate this thing too. It makes me sound like them.",
+      "You're running in circles, Miro. I drew the circles.",
+      "Every Keeper you put to sleep is a report I write tonight. In my handwriting.",
+      "They're not hunting you. They're collecting you. There's a difference. I made sure of it.",
+      "Slow down. Your heart rate's on my screen. You'll tear something I stitched.",
+      "Nobody leaves this tower, Miro. Not the sick. Not the Keepers. Not me.",
+      "Down is the wrong way. Down is where I keep the truth. Come and look, then."
+    ],
+    "retreat_lines": {
       "1": "Not here. Not like this.",
       "2": "You don't understand what's down there.",
       "3": "Then come to the bottom. See what you're breaking."
@@ -810,5 +810,52 @@
         "smg"
       ]
     }
-  ]
+  ],
+  "hints": {
+    "Guitar": [
+      "Something is humming in the office ahead.",
+      "The office is to the right of where I came in. Something's on a stand.",
+      "Walk right into the office and press E at the guitar."
+    ],
+    "FinalSigil": [
+      "One last mark, here at the very bottom.",
+      "The office support is right beside the guitar stand.",
+      "Stand at the support next to the guitar and press E."
+    ],
+    "flow_wave": [
+      "They're coming down the stairs. Don't fight fair.",
+      "Strum the guitar close to them [6, left click]. On the beat it reaches further.",
+      "Select the guitar with 6 or G, get close, left click on the beat. Sleeping Keepers stay down."
+    ],
+    "flow_niro": [
+      "He winds up before he rushes. Watch him, not the room.",
+      "Jump or dodge [C] the rush, then hit him while he recovers.",
+      "When he shows RECOVER, hit him: shank [1] or strum [6]. Dodge with C, then go again."
+    ],
+    "flow_descend": [
+      "He went down through a hatch.",
+      "A hatch on this floor is open now.",
+      "Find the open hatch on this floor and drop through it."
+    ],
+    "flow_final": [
+      "The bottom. Nowhere left for either of us.",
+      "Same as before, faster. Dodge, then punish.",
+      "Wait for RECOVER, hit him, back off. Repeat until he kneels."
+    ],
+    "DefeatExchange": [
+      "He's still talking. Listen.",
+      "Stand beside him.",
+      "Press E beside Niro."
+    ],
+    "ForestViewpoint": [
+      "The woods. Out.",
+      "Right side of the deepest floor.",
+      "Walk right to the opening and press E."
+    ],
+    "exit": [
+      "Out.",
+      "Right side of the deepest floor.",
+      "Walk right and press E."
+    ]
+  }
 }

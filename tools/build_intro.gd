@@ -107,6 +107,9 @@ func build() -> void:
 			floor.set_cell(Vector2i(x, int(band.row)), source, Vector2i.ZERO)
 	for cell in blueprint.shelves:
 		floor.set_cell(Vector2i(int(cell[0]), int(cell[1])), 1 if int(cell[0]) % 3 == 0 else 0, Vector2i.ZERO)
+	# Authored layouts (tools/level_layouts.py) list every tile: [column, row, source].
+	for cell in blueprint.get("tiles", []):
+		floor.set_cell(Vector2i(int(cell[0]), int(cell[1])), int(cell[2]), Vector2i.ZERO)
 	for wall in blueprint.solids:
 		solid(wall.name, point(wall.position), point(wall.size))
 	areas = Node2D.new()

@@ -37,7 +37,21 @@ func _ready() -> void:
 	setup_world_features(int(definition.number))
 	player.controls.has_remote = get_node("/root/Campaign").remote_owned
 	player.controls.remote_unlocked = get_node("/root/Campaign").remote_unlocked
-	if int(definition.number) == 3:
+	var authored: Dictionary = definition.get("features", {})
+	if authored.has("cameras"):
+		# Linked cameras go dark when the checkpoint terminal is reprogrammed; the rest keep sweeping.
+		for entry in authored.cameras:
+			var camera = load("res://scenes/security_camera.tscn").instantiate()
+			camera.position = Vector2(entry.position[0], entry.position[1])
+			camera.facing_angle = float(entry.get("facing", 1.57))
+			camera.level = self
+			add_child(camera)
+			if entry.get("linked", false):
+				connected_cameras.append(camera)
+			elif int(definition.number) == 2 and world_features.practice_camera == null:
+				# Level 2's camera is the practice one: the service port's remote hack turns it off.
+				world_features.practice_camera = camera
+	elif int(definition.number) == 3:
 		for point in [Vector2(450, 180), Vector2(820, 370)]:
 			var camera = load("res://scenes/security_camera.tscn").instantiate()
 			camera.position = point
@@ -54,6 +68,9 @@ func _ready() -> void:
 	var opening: Array = [["MIRO", definition.opening, "thought"]]
 	opening.append_array(setup_branch())
 	start_dialogue(opening)
+	var accents := {2: Color("c69fa5"), 3: Color("8bb5c9"), 4: Color("d8e3ea"), 5: Color("f2d3ab")}
+	var report: String = get_node("/root/Campaign").branch()[reputation].report if int(definition.number) > 2 else ""
+	show_card("floor", "%02d" % int(definition.number), str(definition.title).to_upper(), report, accents.get(int(definition.number), Color("c69fa5")))
 
 func _process(delta: float) -> void:
 	super._process(delta)
@@ -109,9 +126,10 @@ func setup_branch() -> Array:
 		# More armed Keepers: one extra patrol by the stair gate, clear of the ladder landings.
 		var extra = load("res://scenes/guard.tscn").instantiate()
 		extra.name = "HuntedKeeper"
-		extra.position = Vector2(700, 656)
-		extra.patrol_left = 640
-		extra.patrol_right = 760
+		var spot = definition.get("features", {}).get("hunted_guard")
+		extra.position = Vector2(spot.position[0], spot.position[1]) if spot != null else Vector2(700, 656)
+		extra.patrol_left = spot.patrol[0] if spot != null else 640.0
+		extra.patrol_right = spot.patrol[1] if spot != null else 760.0
 		extra.level = self
 		extra.illness_started = true
 		extra.weapon_kind = "pistol"
@@ -157,6 +175,20 @@ func objective() -> String:
 			return "%02d / %s\n%s" % [int(definition.number), definition.title.to_upper(), station.objective]
 	return "%s\nReach the stair gate. [E]" % definition.title
 
+## Z hints come from the blueprint ("hints", keyed by station id, "exit", or L5's flow step).
+func hint_key() -> String:
+	if flow != null and not flow.objective().is_empty():
+		return "flow_" + flow.hint_step()
+	for station in definition.stations:
+		if flow != null and station.id in ["FinalOffer", "BrotherEncounter"] and not milestones.has(station.id):
+			continue
+		if not milestones.has(station.id):
+			return station.id
+	return "exit"
+
+func hint_lines(key: String) -> Array:
+	return definition.get("hints", {}).get(key, [])
+
 func station_nearby() -> Dictionary:
 	var nearest: Dictionary = {}
 	var distance := 48.0
@@ -189,6 +221,8 @@ func context_hint() -> String:
 		return "Move carefully • touching a Keeper breaks stealth"
 	if ladder_at(player.global_position):
 		return "[W / S] Climb"
+	if stuck():
+		return "Not sure where to go? [Z] Think it through"
 	return "A/D Move   Space Jump   C Dash   1–5 Select   Q Blanket   Esc Controls"
 
 func interact() -> void:

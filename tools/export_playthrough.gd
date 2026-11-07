@@ -71,32 +71,11 @@ func run() -> void:
    await foundation_run()
    check(level.completed and not level.player.is_dead, "Floor 5 completed alive")
    continue
-  for station in level.definition.stations:
-   if level.milestones.has(station.id):
-    continue
-   var point := Vector2(station.position[0], station.position[1])
-   if point.y > 300 and level.player.position.y < 300:
-    check(await move_to(level.get_node("Interactables/FirstLadder").position.x, 800, true), "Reach first ladder")
-    await descend(170)
-   if point.y >= 550 and level.player.position.y < 550:
-    check(await move_to(308, 800, true), "Reach second ladder")
-    await descend(190)
-   check(await move_to(point.x, 800, true), "Reach " + station.id)
-   await frames(10)
-   level.interact()
-   if station.id == "RemoteTerminal":
-    level.world_features.submit_password("root")
-    await frames(65)
-   if station.id == "BrotherEncounter":
-    await fight_brother()
-   if station.id == "ForestViewpoint":
-    await frames(850)
-   else:
-    level.finish_dialogue()
-   check(level.milestones.has(station.id), "Complete " + station.id)
-  if number < 5:
-   check(await move_to(1030, 800, true), "Reach exit")
-   level.interact()
+  # Levels 2-4: follow the authored route (tools/level_layouts.py) with real inputs.
+  var runner = preload("res://tools/route_runner.gd").new(self)
+  level.player.health = maxi(level.player.health, 30)
+  var failed: Array[String] = await runner.follow(level)
+  check(failed.is_empty(), "Floor %d authored route %s" % [number, ", ".join(failed)])
   check(level.completed and not level.player.is_dead, "Floor %d completed alive" % number)
  var campaign = get_node("/root/Campaign")
  check(campaign.completed_sigils.size() == 5, "All five sigils committed")

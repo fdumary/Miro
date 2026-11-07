@@ -14,7 +14,9 @@ func run() -> void:
 	await floor_scene(3)
 	var music = root.get_node("MusicDirector")
 	var world = level.world_features
-	level.player.position.x = 160
+	var terminal: Vector2 = level.areas.get_node("RemoteTerminal").position + Vector2(0, 8)
+	# Overhear the Keepers from a few steps away on their storey.
+	level.player.position = world.actors[0].position + Vector2(220, -2)
 	await frames(3)
 	check(music.catalog.size() == 15 and music.track_id == "bobblehead", "Fifteen runtime tracks; Level 3 starts Bobblehead")
 	var beats := [0]
@@ -42,7 +44,7 @@ func run() -> void:
 	check(world.actors.all(func(actor): return actor.facing == 1), "Guards turn away after conversation")
 	for guard in level.guards():
 		guard.set_physics_process(false)
-	level.player.position = Vector2(300, 232)
+	level.player.position = terminal
 	level.interact()
 	check(world.modal_open() and level.controls_locked(), "Terminal opens a focused password form")
 	world.submit_password("ROOT")
@@ -52,9 +54,12 @@ func run() -> void:
 	await frames(65)
 	check(level.connected_cameras.all(func(camera): return not camera.is_active), "Authenticated hack disables cameras")
 	level.finish_dialogue()
+	# Down the checkpoint stairs: landing in the lower sub-floor brings in the second song.
+	var stairs = level.areas.get_node("ThirdLadder")
+	level.player.position = Vector2(stairs.position.x, stairs.position.y + stairs.area_size.y / 2 - 20)
 	await frames(110)
 	check(music.track_id == "cyberpunk", "Cyberpunk takes over on the bar line")
-	level.player.position = Vector2(100, 232)
+	level.player.position = terminal
 	await frames(2)
 	check(music.track_id == "cyberpunk", "Backtracking does not restart approach cue")
 	music.queue_track("swag")
@@ -108,8 +113,8 @@ func run() -> void:
 	check(level.player.ammunition == 5, "Cannot fire from enclosed hiding")
 	world.try_interact()
 	check(not level.player.in_hiding_spot, "E exits hiding")
-	level.player.position = Vector2(500, 656)
-	observer.position = Vector2(700, 656)
+	level.player.position = terminal + Vector2(200, 0)
+	observer.position = terminal + Vector2(400, 0)
 	observer.alert_state = IntroGuard.State.PATROL
 	observer.sees_player = false
 	level.player.facing = -1
@@ -123,7 +128,7 @@ func run() -> void:
 	world.actors[0].die()
 	await frames(3)
 	check(not world.actors[1].conversation_hold, "Death interrupts conversation and releases surviving guard")
-	level.player.position = Vector2(300, 232)
+	level.player.position = level.areas.get_node("RemoteTerminal").position + Vector2(0, 8)
 	world.open_terminal()
 	world.submit_password("root")
 	check(level.hack_remaining > 0, "Missing/dead speakers cannot soft-lock terminal")

@@ -1,8 +1,15 @@
 extends "res://tools/test_intro.gd"
 
+const RouteRunner = preload("res://tools/route_runner.gd")
+
+## Levels 2-4 are authored layouts (tools/level_layouts.py): each is played start to finish by
+## following its route with real inputs (walk, jump, crouch-crawl, ladders, every objective).
+## Level 5 has its own encounter flow, covered end to end by test_brother.gd.
 func run() -> void:
-	# Level 5 has its own encounter flow, covered end to end by test_brother.gd.
+	var only := OS.get_cmdline_user_args()
 	for number in range(2, 5):
+		if not only.is_empty() and str(number) not in only:
+			continue
 		if is_instance_valid(level):
 			level.queue_free()
 			await frames(2)
@@ -10,52 +17,24 @@ func run() -> void:
 		root.add_child(level)
 		current_scene = level
 		await frames(3)
+		check(not level.dialogue.is_empty() and level.dialogue[0][0] == "MIRO" and level.dialogue[0].size() > 2, "Level %d opens on Miro's thought, not a title speaker" % number)
 		level.finish_dialogue()
 		var definition: Dictionary = level.definition
 		check(definition.sources.size() >= 5, "Level %d has per-document references" % number)
 		for source in definition.sources:
 			check(FileAccess.file_exists("res://" + source.path), "Source exists: " + source.path)
+		check(definition.storeys.size() == 6 and definition.world_size[1] > 1000, "Level %d has two sub-floors of three storeys" % number)
 		for station in definition.stations:
-			if level.milestones.has(station.id):
-				continue
-			var point := Vector2(station.position[0], station.position[1])
-			if point.y > 300 and level.player.position.y < 300:
-				var ladder = level.get_node("Interactables/FirstLadder")
-				check(await move_to(ladder.position.x, 800, true), "Level %d reaches first ladder" % number)
-				Input.action_press("climb_down")
-				await frames(170)
-				Input.action_release("climb_down")
-				check(level.player.position.y > 410, "Level %d descends first tier" % number)
-			if point.y >= 550 and level.player.position.y < 550:
-				check(await move_to(308, 800, true), "Level %d reaches second ladder" % number)
-				Input.action_press("climb_down")
-				await frames(190)
-				Input.action_release("climb_down")
-				check(level.player.position.y > 640, "Level %d reaches lower tier" % number)
-			check(await move_to(point.x, 800, true), "Reach " + station.id)
-			await frames(10)
-			level.interact()
-			if station.id == "RemoteTerminal":
-				level.world_features.submit_password("root")
-				await frames(65)
-			if station.id == "BrotherEncounter":
-				await fight_brother()
-			if station.id == "ForestViewpoint":
-				check(is_instance_valid(level.cinematic), "Forest viewpoint starts cinematic")
-				level.cinematic.finish()
-				check(level.completed and level.milestones.has("ForestViewpoint"), "Skip ending applies completion")
-				continue
-			check(not level.dialogue.is_empty(), "Open " + station.id)
-			level.finish_dialogue()
-			check(level.milestones.has(station.id), "Complete/skip " + station.id)
-			var charges: int = level.player.c4_count
-			level.interact()
-			check(level.dialogue.is_empty() and level.player.c4_count == charges, "No duplicate " + station.id)
+			check(definition.hints.has(station.id) and definition.hints[station.id].size() == 3, "Level %d has three Z hints for %s" % [number, station.id])
+		level.player.health = 99
+		var runner = RouteRunner.new(self)
+		var failed: Array[String] = await runner.follow(level)
+		check(failed.is_empty(), "Level %d authored route completes %s" % [number, ", ".join(failed)])
+		for station in definition.stations:
+			check(level.milestones.has(station.id), "Complete " + station.id)
 		check(level.sigil_placed, "Level %d requires its own sigil" % number)
-		if number < 5:
-			check(await move_to(1030, 800, true), "Level %d reaches exit" % number)
-			level.interact()
-		check(level.completed and not level.player.is_dead, "Level %d scaffold traversed alive" % number)
+		check(root.get_node("MusicDirector").section_id == "floor_%d_second" % number, "Level %d second song plays in the lower sub-floor" % number)
+		check(level.completed and not level.player.is_dead, "Level %d traversed alive" % number)
 	print("REMAINING_LEVELS_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)
 

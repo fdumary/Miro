@@ -82,7 +82,29 @@ func run() -> void:
 			for gate in level.get_node("Gates").get_children():
 				gate.unlock()
 			await frames(2)
-		for ladder_name in ["FirstLadder", "SecondLadder"]:
+		var authored: bool = number in [2, 3, 4]
+		if authored:
+			# Every ladder on an authored floor can be climbed back up and stepped off at the top.
+			for ladder in level.areas.get_children():
+				if ladder.kind != "ladder":
+					continue
+				var top: float = ladder.position.y - ladder.area_size.y / 2 + 4 + 28
+				var bottom: float = ladder.position.y + ladder.area_size.y / 2 - 2
+				level.player.position = Vector2(ladder.position.x, bottom - 14)
+				level.player.velocity = Vector2.ZERO
+				await frames(3)
+				Input.action_press("climb_up")
+				await frames(int((bottom - top) / 85.0 * 60) + 40)
+				var toward := "move_right" if ladder.position.x < level.definition.world_size[0] / 2 else "move_left"
+				Input.action_press(toward)
+				await frames(35)
+				Input.action_release("climb_up")
+				Input.action_release(toward)
+				await frames(30)
+				check(level.player.position.y < top and level.player.is_on_floor(), "Floor %d %s can be climbed upward and exited onto its landing" % [number, ladder.name])
+			for hatch in world.trapdoors:
+				check(not is_instance_valid(hatch.route_gate), "Floor %d hatches are placed so they never drop Miro past a locked gate" % number)
+		for ladder_name in ([] if authored else ["FirstLadder", "SecondLadder"]):
 			var ladder = level.areas.get_node(ladder_name)
 			level.player.position = Vector2(ladder.position.x, 432 if ladder_name == "FirstLadder" else 656)
 			level.player.velocity = Vector2.ZERO
@@ -96,18 +118,9 @@ func run() -> void:
 			await frames(30)
 			var ceiling := 260 if ladder_name == "FirstLadder" else 460
 			check(level.player.position.y < ceiling and level.player.is_on_floor(), "Floor %d %s can be climbed upward and exited onto its landing" % [number, ladder_name])
-		if number in [3, 4]:
-			var hatch = world.trapdoors[0]
-			for candidate in world.trapdoors:
-				if is_instance_valid(candidate.route_gate):
-					hatch = candidate
-			hatch.activate()
-			check(not hatch.is_open, "Floor %d hatch cannot strand player behind a locked story gate" % number)
-			hatch.route_gate.unlock()
-			hatch.activate()
-			check(hatch.is_open, "Floor %d hatch unlocks once its return route is open" % number)
 		if number == 3:
-			level.player.position = Vector2(300, 232)
+			var terminal = level.areas.get_node("RemoteTerminal")
+			level.player.position = terminal.position + Vector2(0, 2)
 			level.interact()
 			check(world.password_panel.visible, "Terminal wins E interaction over adjacent trapdoor")
 			world.password_panel.hide()

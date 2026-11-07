@@ -59,6 +59,7 @@ func on_guitar() -> void:
 	get_node("/root/SoundFX").play_sound("gate", -12)
 	level.notify("An alarm. They know exactly where you are. [6] Guitar: click to strum.", 7)
 	guitar_taken.emit()
+	level.show_card("alarm", "", "", "", Color.RED, 2.4)
 	request_wave(0)
 
 func request_wave(index: int) -> void:
@@ -126,6 +127,8 @@ func spawn_niro() -> void:
 	level.brother = boss
 	step = Step.NIRO if engagement <= 3 else Step.FINAL
 	niro_appeared.emit(engagement)
+	if engagement == 1:
+		level.show_card("name", "", "NIRO", "", Color("c69fa5"), 3.0)
 	var lines := appearance_lines(engagement)
 	if not lines.is_empty():
 		level.start_dialogue(lines, "niro_%d" % engagement)
@@ -253,6 +256,18 @@ func objective() -> String:
 			return "05 / THE FOUNDATION\nFollow him down through the open hatch."
 		Step.FINAL_PENDING, Step.FINAL:
 			return "05 / THE FOUNDATION\nThe deepest floor. Face Niro."
+	return ""
+
+func hint_step() -> String:
+	match step:
+		Step.WAVE_PENDING, Step.WAVE:
+			return "wave"
+		Step.NIRO_PENDING, Step.NIRO:
+			return "niro"
+		Step.DESCEND:
+			return "descend"
+		Step.FINAL_PENDING, Step.FINAL:
+			return "final"
 	return ""
 
 func niro_fight_hint() -> String:

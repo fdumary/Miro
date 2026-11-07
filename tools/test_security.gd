@@ -7,19 +7,22 @@ func run() -> void:
 	await frames(3)
 	level.finish_dialogue()
 	var camera = level.connected_cameras[0]
+	var terminal: Vector2 = level.areas.get_node("RemoteTerminal").position
+	var at_terminal := terminal + Vector2(0, 8)
 	camera.set_physics_process(false)
-	camera.position = Vector2(300, 180)
+	camera.facing_angle = 1.57
+	camera.position = terminal + Vector2(0, -50)
 	camera.sweep_time = 0
-	level.player.position = Vector2(300, 232)
+	level.player.position = at_terminal
 	check(camera.detects_player(), "Camera detects exposed player inside cone")
 	level.player.is_concealed = true
 	check(not camera.detects_player(), "Blanket concealment blocks detection")
 	level.player.is_concealed = false
-	level.player.position = Vector2(100, 180)
+	level.player.position = terminal + Vector2(-200, -50)
 	check(not camera.detects_player(), "Outside cone is safe")
-	level.player.position = Vector2(300, 280)
+	level.player.position = terminal + Vector2(0, 50)
 	check(not camera.detects_player(), "Stone floor occludes camera")
-	level.player.position = Vector2(300, 232)
+	level.player.position = at_terminal
 	level.camera_alert(level.player.position)
 	check(level.floor_alerts == 1, "Detection raises floor alert")
 	for guard in level.guards():
@@ -37,10 +40,10 @@ func run() -> void:
 	await frames(70)
 	check(is_equal_approx(remaining, level.hack_remaining), "Pause freezes hack timer")
 	level.paused = false
-	level.player.position = Vector2(100, 232)
+	level.player.position = at_terminal + Vector2(-200, 0)
 	await frames(2)
 	check(level.hack_remaining == 0 and camera.is_active, "Leaving terminal cancels hack")
-	level.player.position = Vector2(300, 232)
+	level.player.position = at_terminal
 	level.interact()
 	await frames(65)
 	for linked in level.connected_cameras:
