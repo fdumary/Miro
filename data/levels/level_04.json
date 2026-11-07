@@ -677,7 +677,7 @@
   ],
   "music_region": {
     "id": "level_4_containment",
-    "track": "cyberpunk",
+    "track": "sumcrazy",
     "entry": {
       "minimum_y": 330,
       "requires_milestone": "WardRelease",

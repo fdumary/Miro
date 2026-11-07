@@ -16,7 +16,13 @@ func run() -> void:
 	var world = level.world_features
 	level.player.position.x = 160
 	await frames(3)
-	check(music.catalog.size() == 9 and music.track_id == "swag", "Nine runtime tracks; Level 3 starts Swag")
+	check(music.catalog.size() == 15 and music.track_id == "bobblehead", "Fifteen runtime tracks; Level 3 starts Bobblehead")
+	var beats := [0]
+	var counter := func(_index): beats[0] += 1
+	music.beat.connect(counter)
+	await frames(80)
+	check(beats[0] >= 2 and absf(music.seconds_per_bar() - 4 * 60.0 / 143.55) < 0.01, "Beat clock ticks at Bobblehead's felt tempo")
+	music.beat.disconnect(counter)
 	for id in music.catalog:
 		var stream = load(music.catalog[id].stream)
 		check(stream is AudioStream and stream.get_length() > 0, "Runtime track decodes: " + id)
@@ -46,10 +52,17 @@ func run() -> void:
 	await frames(65)
 	check(level.connected_cameras.all(func(camera): return not camera.is_active), "Authenticated hack disables cameras")
 	level.finish_dialogue()
-	check(music.track_id == "sumcrazy", "Entering checkpoint selects Sum Crazy Shi")
+	await frames(110)
+	check(music.track_id == "cyberpunk", "Cyberpunk takes over on the bar line")
 	level.player.position = Vector2(100, 232)
 	await frames(2)
-	check(music.track_id == "sumcrazy", "Backtracking does not restart approach cue")
+	check(music.track_id == "cyberpunk", "Backtracking does not restart approach cue")
+	music.queue_track("swag")
+	var wait: float = music.pending_wait
+	check(music.track_id == "cyberpunk" and music.pending_track == "swag" and wait <= music.seconds_per_bar() + 0.01, "Section changes wait for the next bar (at most one)")
+	await frames(int(ceil(wait * 60)) + 3)
+	check(music.track_id == "swag" and music.seconds_to_next_bar() > music.seconds_per_bar() - 0.2, "Queued track starts on a bar line")
+	music.play_track("cyberpunk")
 	level.start_dialogue([["TEST", "A spoken scene."]])
 	await frames(50)
 	check(music.duck_db < -7, "Music ducks under dialogue")
@@ -115,12 +128,15 @@ func run() -> void:
 	world.submit_password("root")
 	check(level.hack_remaining > 0, "Missing/dead speakers cannot soft-lock terminal")
 	await floor_scene(5)
-	check(music.track_id == "shit_crashed", "Final approach plays Shit Crashed 2")
+	check(music.track_id.is_empty(), "The Foundation opens near-silent until the guitar")
 	level.milestones = {"FinalSigil": true, "FinalOffer": true}
 	level.player.position = level.areas.get_node("BrotherEncounter").position
 	level.interact()
 	check(is_instance_valid(level.brother) and music.track_id == "robot_attack", "Active boss combat starts Robot Attack")
 	level.brother_defeated()
-	check(music.track_id.is_empty(), "Boss defeat fades combat cue for fatal exchange")
+	check(music.track_id.is_empty(), "Boss defeat fades combat cue for the defeat exchange")
+	for number in [2, 4]:
+		music.start_floor(number)
+		check(music.track_id == ["", "", "dope2", "", "plane_drums"][number], "Level %d opens on its approved first track" % number)
 	print("MUSIC_WORLD_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

@@ -20,6 +20,8 @@ func _process(delta: float) -> void:
 	if elapsed >= 7.5 and not collapse_sounded:
 		collapse_sounded = true
 		get_node("/root/SoundFX").play_sound("collapse", -18)
+		# Set Me Free starts on the collapse: the game ends on a triumphant note.
+		get_node("/root/MusicDirector").play_outro()
 	queue_redraw()
 	if elapsed >= 14:
 		finish()

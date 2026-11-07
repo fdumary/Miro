@@ -10,6 +10,8 @@ var narrative_milestones: Dictionary = {}
 var boss_defeated := false
 var ending_complete := false
 var launch_consumed := false
+# True only when this run began at Level 1, so review launches never unlock the completed menu.
+var played_from_start := false
 
 func launch_floor() -> int:
 	if launch_consumed:
@@ -25,6 +27,7 @@ func launch_floor() -> int:
 
 func enter_floor(number: int) -> void:
 	if number == 1:
+		played_from_start = true
 		remote_owned = false
 		remote_unlocked = false
 	if number == 1 and current_floor != 1:
@@ -39,6 +42,17 @@ func enter_floor(number: int) -> void:
 			narrative_milestones.erase(key)
 	boss_defeated = false
 	ending_complete = false
+
+func game_completed() -> bool:
+	var progress := ConfigFile.new()
+	progress.load("user://progress.cfg")
+	return bool(progress.get_value("game", "completed", false))
+
+func mark_game_completed() -> void:
+	var progress := ConfigFile.new()
+	progress.load("user://progress.cfg")
+	progress.set_value("game", "completed", true)
+	progress.save("user://progress.cfg")
 
 func complete_floor(number: int, sigil: bool, milestones: Dictionary) -> void:
 	if sigil:

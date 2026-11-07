@@ -16,7 +16,8 @@ func _ready() -> void:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/intro.tscn")
 		return
 	music.review_override = false
-	music.play_track("yz33")
+	# After a finished Play run the menu switches to the completed-game track.
+	music.play_track(music.MENU_COMPLETED_TRACK if get_node("/root/Campaign").game_completed() else "yz33")
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var backdrop := ColorRect.new()
 	backdrop.color = Color("272744")
@@ -28,7 +29,7 @@ func _ready() -> void:
 	box.add_theme_constant_override("separation", 5)
 	add_child(box)
 	var title := Label.new()
-	title.text = "MIRO — LAST ONE STANDING"
+	title.text = "MIRO: LAST MAN STANDING"
 	title.add_theme_font_size_override("font_size", 22)
 	box.add_child(title)
 	add_button(box, "Start new run", func(): launch_level(1))
