@@ -46,9 +46,11 @@ func _ready() -> void:
 	setup_world_features(1)
 	start_dialogue([
 		["MIRO", "Stone. Iron. A name scratched into the bed: Miro.\nMine... I think. Nothing before this room."],
-		["KEEPER", "Awake again? The Keepers call you a traitor.\nI call you late with my payment. No coin, no medicine."],
-		["MIRO", "What medicine? What happened to me?"],
-		["KEEPER", "Don't play innocent. I know you...\nWait. That taste... I can't..."],
+		["KEEPER", "Awake again. Keep it down, traitor."],
+		["MIRO", "Is there anything you can do for me?"],
+		["KEEPER", "Depends. Cell 04 gave me his boots. Cell 09 gave me his ration card.\nWhat have you got?"],
+		["MIRO", "You're looking at it."],
+		["KEEPER", "Then I'm not looking. (He turns away, coughing.)\nThe tower doesn't pay me enough to care."],
 		["MIRO", "His hands are shaking. The same marks as the others.\nHe's turned away. This might be my only chance."]
 	], "intro")
 	var launch_floor: int = get_node("/root/Campaign").launch_floor()
@@ -133,11 +135,11 @@ func _process(delta: float) -> void:
 		speaker_portrait.speaker = line[0]
 	overlay.visible = paused or completed or player.is_dead
 	if completed:
-		overlay_label.text = "THE PRISONER\n\nThe first mark is set. Below, someone is coughing.\n\nEscape: %s   |   Casualties: %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, player.casualty_count]
+		overlay_label.text = "THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   |   Casualties: %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, player.casualty_count]
 	elif player.is_dead:
 		overlay_label.text = "THE TOWER KEEPS ITS PRISONERS\n\n[Backspace] Retry from the cell\nTry cover, a quiet key theft, or dodge the wind-up."
 	elif paused:
-		overlay_label.text = "PAUSED\nA/D Move · W/S Ladders · Space twice Double jump\nC Dash · Left Ctrl Crouch · E Interact / recover C4\n1–5 Select · Q Blanket · N Inventory\nLeft click Use · Right click Focus / place C4\nR Reload · Hold gun key Attach suppressor\nBlanket: shadows only · 5s active / 8s cooldown\nEsc Resume · Backspace Retry · F10 Menu"
+		overlay_label.text = "PAUSED\nA/D Move · W/S Ladders · Space twice Double jump\nC Dash · Left Ctrl Crouch · E Interact / recover C4\n1–5 Select · Q Blanket · N Inventory\nLeft click Use · Right click Focus / place C4\nR Reload · Blanket: shadows only · 5s active / 8s cooldown\nEsc Resume · Backspace Retry · F10 Menu"
 		overlay_label.text += "\n[M] Sound: " + ("OFF" if get_node("/root/SoundFX").muted else "ON")
 	queue_redraw()
 
@@ -310,7 +312,7 @@ func interact() -> void:
 		start_brother()
 		return
 	if nearby("note"):
-		start_dialogue([["QUARANTINE ORDER", "No medicine without the Keeper's seal.\nNo names. Record the cell numbers only.\nTransfer all marked prisoners to the lower ward."]])
+		start_dialogue([["QUARANTINE ORDER", "Keepers: report every cough, including your own.\nNo names. Record the cell numbers only.\nTransfer all marked prisoners to the lower ward."]])
 		return
 	if nearby("sigil") and not sigil_placed:
 		if not player.has_supplies or player.c4_count < 1:

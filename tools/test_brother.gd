@@ -44,9 +44,9 @@ func run() -> void:
 		boss.invulnerability_left = 0
 		boss.receive_shank()
 	check(boss.is_dead and level.milestones.has("BrotherEncounter"), "Defeat ends encounter once")
-	check(level.dialogue_event == "milestone" and level.pending_milestone == "DyingExchange", "Defeat starts fatal scripted exchange")
+	check(level.dialogue_event == "milestone" and level.pending_milestone == "DefeatExchange", "Defeat starts non-fatal defeat exchange")
 	level.finish_dialogue()
-	check(level.milestones.has("DyingExchange"), "Skip preserves fatal exchange completion")
+	check(level.milestones.has("DefeatExchange"), "Skip preserves defeat exchange completion")
 	check(not boss.projectile_live, "Defeat clears projectile")
 	print("BROTHER_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

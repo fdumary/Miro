@@ -1,6 +1,6 @@
 {
   "id": "level_05",
-  "title": "The Brother",
+  "title": "The Foundation",
   "world_size": [
     1120,
     756
@@ -282,7 +282,7 @@
       ]
     },
     {
-      "name": "DyingExchange",
+      "name": "DefeatExchange",
       "kind": "note",
       "position": [
         410,
@@ -333,12 +333,12 @@
       "purpose": "Test the boss encounter handoff | boss placeholder; not combat"
     },
     {
-      "name": "04_DyingExchange",
+      "name": "04_DefeatExchange",
       "position": [
         410,
         414
       ],
-      "purpose": "Review the fatal exchange | scripted exchange placeholder"
+      "purpose": "Defeat exchange: Niro beaten, not killed"
     },
     {
       "name": "05_ForestViewpoint",
@@ -370,7 +370,7 @@
         650,
         432
       ],
-      "purpose": "Vulnerability state; defeat triggers DyingExchange."
+      "purpose": "Vulnerability state; defeat triggers DefeatExchange."
     },
     {
       "name": "ForestBackdrop",
@@ -390,8 +390,8 @@
     }
   ],
   "number": 5,
-  "opening": "At the bottom of the tower, the prison becomes a laboratory.\nThe tower physician is waiting. His brother.",
-  "closing": "The ending remains morally unresolved. No explanatory epilogue.",
+  "opening": "At the bottom, everything else rests on what they keep here.",
+  "closing": "Miro leaves alone. The ending stays unresolved.",
   "stations": [
     {
       "id": "FinalSigil",
@@ -434,11 +434,11 @@
           "You made the sickness. Then locked me up to take me apart."
         ],
         [
-          "BROTHER",
+          "NIRO",
           "The tower made it. They called it progress.\nWhen it escaped, they told me you were our only chance."
         ],
         [
-          "BROTHER",
+          "NIRO",
           "You are immune, Miro. I kept you alive.\nI thought if I could understand why, I could save everyone."
         ],
         [
@@ -446,7 +446,7 @@
           "You told them I was dangerous. You let me believe it."
         ],
         [
-          "BROTHER",
+          "NIRO",
           "They said you would destroy the cure if you got out.\nI believed them. I believed keeping you here was love."
         ],
         [
@@ -454,7 +454,7 @@
           "You do not get to call it love and lock the door."
         ],
         [
-          "BROTHER",
+          "NIRO",
           "Stay. Help me finish it. If all of this was for nothing...\nI do not know who I have been."
         ]
       ],
@@ -465,16 +465,16 @@
     },
     {
       "id": "BrotherEncounter",
-      "title": "Defeat your brother",
+      "title": "Face Niro",
       "position": [
         650,
         414
       ],
       "kind": "brother",
-      "objective": "Defeat your brother",
+      "objective": "Face Niro",
       "lines": [
         [
-          "BROTHER",
+          "NIRO",
           "Then come, brother."
         ]
       ],
@@ -484,7 +484,7 @@
       "status": "implemented: telegraphed rush and projectile, recovery vulnerability, fatal dialogue handoff"
     },
     {
-      "id": "DyingExchange",
+      "id": "DefeatExchange",
       "title": "Listen to your brother",
       "position": [
         410,
@@ -494,26 +494,30 @@
       "objective": "Listen to your brother",
       "lines": [
         [
-          "BROTHER",
+          "NIRO",
           "The sick are still real. Whatever the tower did...\ndo not forget them."
         ],
         [
-          "BROTHER",
+          "NIRO",
           "I wanted a life where I could keep you safe.\nThey gave me a title, and I mistook it for a choice."
         ],
         [
           "MIRO",
-          "You could have come with me."
+          "Then choose now. Come with me."
         ],
         [
-          "BROTHER",
+          "NIRO",
+          "(He looks at the lab, not at Miro.)\nSomeone has to stay with them. Go."
+        ],
+        [
+          "NIRO",
           "You are still my brother."
         ]
       ],
       "requires": [
         "BrotherEncounter"
       ],
-      "status": "scripted exchange placeholder"
+      "status": "defeat exchange: Niro survives"
     },
     {
       "id": "ForestViewpoint",
@@ -531,7 +535,7 @@
         ]
       ],
       "requires": [
-        "DyingExchange"
+        "DefeatExchange"
       ],
       "status": "implemented: in-engine ending, pause and skip parity"
     }
@@ -539,7 +543,7 @@
   "sources": [
     {
       "path": "docs/mirospec.md",
-      "section": "Level progression \u2014 5: The Brother"
+      "section": "Level progression \u2014 5: The Foundation"
     },
     {
       "path": "docs/miroguide.pdf",

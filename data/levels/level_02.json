@@ -410,7 +410,7 @@
   ],
   "number": 2,
   "opening": "Below the cells, the coughing has names.\nSome doors hold the sick. Others hold anyone who stood beside them.",
-  "closing": "A surrender offer refused; the second mark remains.",
+  "closing": "THE VOICE (remote): \"If you go any lower, I can't protect you.\"\nMIRO: \"From who?\"  Static.",
   "stations": [
     {
       "id": "SickPrisoner",

@@ -18,7 +18,7 @@ The institution is the central antagonist. Its sickness and hierarchy carry the 
 - Named guard conversation/bark bubbles, anchored through the camera transform and clamped to the viewport. Original ElevenLabs clips are unchanged and still synchronized with their text. Dead speakers lose their bubbles; distant speech does not produce readable clues.
 - Silent inner dialogue in thought bubbles using the existing licensed thought asset. Triggered by floor entry and specific discoveries, with no final reveal before Level 5. Thoughts yield to guard speech and pause during modal dialogue.
 - Document reading and scripted story exchanges retain the readable dialogue panel and skip behavior. New prose is not claimed to have generated voice audio.
-- Brother appearance uses the existing Miro sprite with physician coat, badge and remote details. Boss collision, two attacks, recovery windows and fatal outcome remain unchanged.
+- Brother appearance uses the existing Miro sprite with physician coat, badge and remote details. Superseded 7 Nov: the brother is named Niro, retreats three times and is defeated but not killed (see docs/STORY_AND_SYSTEMS_IMPLEMENTATION.md).
 - Ending subtitle accounts for multiple ward charges rather than claiming exactly five charges.
 
 ## Remaining narrative review

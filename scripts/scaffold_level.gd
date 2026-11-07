@@ -205,8 +205,8 @@ func brother_defeated() -> void:
 	areas.get_node("BrotherEncounter").activated = true
 	areas.get_node("BrotherEncounter").queue_redraw()
 	for station in definition.stations:
-		if station.id == "DyingExchange":
-			pending_milestone = "DyingExchange"
+		if station.id == "DefeatExchange":
+			pending_milestone = "DefeatExchange"
 			start_dialogue(station.lines, "milestone")
 
 func controls_locked() -> bool:

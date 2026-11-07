@@ -6,7 +6,7 @@ Open `scenes/intro.tscn` in Godot and press F5, or use the Miro Play desktop sho
 
 The authoritative bindings are in [Final controls and remote](CONTROLS_REMOTE_HANDOFF.md). Default slots: 1 shank, 2 C4, 3–4 guns, 5 remote; Q selects blanket, left click uses, right click focuses (or places C4), R reloads, N rearranges inventory, Backspace retries. Space twice double-jumps; C dashes; Ctrl crouches.
 
-Miro wakes with amnesia in Cell 07. The corrupt Keeper extorts payment for medicine, then begins visibly coughing and hunching. Search the bed to retrieve the secretly assembled C4, shank, and blanket. His memory loss does not erase the practical skills in his hands. The opening deliberately leaves his identity, the illness, and the familiar voice unresolved.
+Miro wakes with amnesia in Cell 07. The corrupt Keeper (who trades favours for prisoners' belongings) turns away when Miro has nothing to offer, then begins visibly coughing and hunching. Search the bed to retrieve the secretly assembled C4, shank, and blanket. His memory loss does not erase the practical skills in his hands. The opening deliberately leaves his identity, the illness, and the familiar voice unresolved.
 
 Escape choices:
 

@@ -418,7 +418,7 @@
   ],
   "number": 3,
   "opening": "A checkpoint divides the tower. The uniforms feel familiar.\nThe records beyond it may explain why.",
-  "closing": "The former Keeper knows who is calling: his brother.",
+  "closing": "The voice has a name now.",
   "stations": [
     {
       "id": "RemoteTerminal",
@@ -455,6 +455,10 @@
         [
           "MIRO",
           "My name. Their uniform. I was one of them."
+        ],
+        [
+          "MAINTENANCE CHART",
+          "Load junctions: service glyph, upright.\nKeepers only. Do not deface."
         ]
       ],
       "requires": [
@@ -473,8 +477,8 @@
       "objective": "Confront the familiar voice",
       "lines": [
         [
-          "BROTHER",
-          "You are my brother. You kept order; I kept the ward.\nI thought we were helping people."
+          "NIRO",
+          "Miro. It's Niro. You are my brother.\nYou kept order; I kept the ward. I thought we were helping people."
         ],
         [
           "MIRO",

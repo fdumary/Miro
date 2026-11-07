@@ -462,7 +462,7 @@
   ],
   "number": 4,
   "opening": "Sealed rooms. Observation windows. No names on the charts.\nWhatever happened here was deliberate.",
-  "closing": "Cruelty is evident. So is the danger outside containment.",
+  "closing": "The remote, one last time: \"Don't come down here, Miro. Please.\"\nIt is the first time he begs.",
   "stations": [
     {
       "id": "ExperimentRecords",
@@ -476,11 +476,11 @@
       "lines": [
         [
           "WARD RECORD",
-          "Restraints maintained after consent withdrawn.\nTrial continued despite deterioration."
+          "Trial continued after consent was withdrawn."
         ],
         [
           "WARD RECORD",
-          "Research authorization: Office of the Tower Physician.\nPatient names replaced by specimen numbers."
+          "Names replaced by specimen numbers."
         ],
         [
           "MIRO",
@@ -547,7 +547,7 @@
       "objective": "Hear the warning about the ward",
       "lines": [
         [
-          "BROTHER",
+          "NIRO",
           "I became a doctor to help people. These wards are all I know.\nIf the seals fail, prisoners and Keepers both get sick."
         ],
         [
@@ -555,7 +555,7 @@
           "Then help them leave. Stop asking them to suffer for this place."
         ],
         [
-          "BROTHER",
+          "NIRO",
           "They told me there was no other way. I need to believe\nwe can still make this work."
         ]
       ],

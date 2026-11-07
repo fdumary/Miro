@@ -11,7 +11,7 @@ func ending_setup() -> void:
 	level.finish_dialogue()
 	level.player.position = Vector2(650, 655)
 	level.sigil_placed = true
-	level.milestones = {"FinalSigil": true, "FinalOffer": true, "BrotherEncounter": true, "DyingExchange": true}
+	level.milestones = {"FinalSigil": true, "FinalOffer": true, "BrotherEncounter": true, "DefeatExchange": true}
 	level.interact()
 
 func run() -> void:
