@@ -10,7 +10,7 @@ func _draw() -> void:
 	draw_rect(Rect2(center - Vector2(25, 25), Vector2(50, 50)), Color("272744"))
 	if speaker == "MIRO":
 		draw_texture_rect(preload("res://assets/characters/miro_idle.png"), Rect2(center - Vector2(24, 24), Vector2(48, 48)), false)
-	elif speaker == "KEEPER":
+	elif speaker in ["KEEPER", "JUDAS"]:
 		draw_texture_rect(preload("res://assets/characters/standard_keeper_idle.png"), Rect2(center - Vector2(24, 24), Vector2(48, 48)), false)
 	elif speaker in ["BROTHER", "NIRO", "THE VOICE", "A VOICE BEYOND THE BARS"]:
 		# Hook: drop Niro's portrait art at this path and it replaces the placeholder.

@@ -8,6 +8,8 @@ Each level is two sub-floors, one per song, of three storeys each. The route sna
 - **Second song:** it starts when Miro lands on the first storey of the lower sub-floor (y > 672). On Level 4 it waits for the ward seal as well.
 - **Authored route:** each level has one (`"route"` in the JSON). The tests and the exported playthrough follow it with real inputs: walk, auto-jump, crouch, ladders and E. A level that stops being completable fails the checks.
 - **Z hints:** three per objective (`"hints"` in the JSON). Each press of Z is more direct: a nudge, then where, then exactly what to do. After a minute on the same objective, the bottom strip suggests Z.
+- **Obstacles:** every storey has something to hop over (one-tile crates, bed frames, carts), double-jump over (two-tile stacks), crawl under (Left Ctrl) or climb onto (bunks, raised offices, the drying rack). 7 Nov night added 4 or 5 per level; the routes still pass.
+- **Off-duty huddle (Level 2, top floor, east end):** three Keepers over a Bible. Climb the bunk behind them for the ammo case.
 
 | Level | Sub-floor A (song A) | Sub-floor B (song B) | Mechanics taught |
 |---|---|---|---|

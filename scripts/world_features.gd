@@ -36,6 +36,15 @@ var trapdoors: Array[Node2D] = []
 ## Miro's inner voice plays on the Thought bus (long, spacey reverb). Drop clips at
 ## res://assets/audio/voice/thought_<floor>_<id>.mp3 to voice a thought.
 var thought_voice: AudioStreamPlayer
+## Names and personalities (data/guard_roster.json). NAMES stays as the fallback list.
+var roster: Dictionary = {}
+## Extra overheard scenes after the main conversation: huddles and add_casual_lines().
+## Each: {actors, lines, index, started, done}. Only one voice speaks at a time.
+var casual_scenes: Array = []
+var mutter_wait := 6.0
+var muttered: Dictionary = {}
+const MUTTER_RANGE := 190.0
+const MUTTER_GAP := 14.0
 const NAMES := {1: ["Rowan", "Ivo", "Bram", "Seth"], 2: ["Alden", "Corin", "Dane", "Ellis", "Garrow", "Hollis", "Jory", "Kell", "Lusk"], 3: ["Marek", "Oren", "Pavel", "Silas", "Teodor", "Ansel", "Brin", "Cato", "Dov"], 4: ["Tomas", "Ulric", "Venn", "Wren", "Edric", "Fane", "Gil", "Hask", "Ivar"], 5: ["Yorick", "Zane", "Arlen", "Beck"]}
 
 func setup(owner_level: Node2D, number: int) -> void:
@@ -69,10 +78,12 @@ func setup(owner_level: Node2D, number: int) -> void:
 	level.hud.add_child(remote_bubble)
 	remote_bubble.visible = false
 	thoughts = JSON.parse_string(FileAccess.get_file_as_string("res://data/inner_dialogue.json"))
+	roster = JSON.parse_string(FileAccess.get_file_as_string("res://data/guard_roster.json"))
 	var keepers: Array[Node] = level.guards()
 	for index in range(keepers.size()):
-		keepers[index].guard_name = NAMES[number][index % NAMES[number].size()]
-		keepers[index].voice_index = index % 3
+		name_keeper(keepers[index], number, index)
+		if keepers[index].name == "CorruptKeeper":
+			name_keeper(keepers[index], 1, 0) # Judas, the first Keeper
 		if number > 1 and not keepers[index].has_method("begin_recovery"):
 			keepers[index].weapon_kind = ["pistol", "smg"][index % 2]
 	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
@@ -93,8 +104,9 @@ func setup(owner_level: Node2D, number: int) -> void:
 		partner.patrol_right = partner.position.x + 100
 		partner.level = level
 		partner.illness_started = true
-		partner.guard_name = NAMES[number][NAMES[number].size() - 1]
-		partner.voice_index = (first.voice_index + 1) % 3
+		name_keeper(partner, number, roster_size(number) - 1)
+		if partner.voice_index == first.voice_index:
+			partner.voice_index = (first.voice_index + 1) % 3
 		level.get_node("Guards").add_child(partner)
 		actors = [first, partner]
 		conversation = config.conversations[str(number)]
@@ -103,6 +115,8 @@ func setup(owner_level: Node2D, number: int) -> void:
 		# Hold a conversation-ready pose; detection and damage still work.
 		first.conversation_hold = true
 		partner.conversation_hold = true
+	for huddle in authored.get("huddles", []):
+		spawn_huddle(huddle)
 	setup_trapdoors()
 	place_props_after_physics()
 	build_password_panel()
@@ -330,6 +344,8 @@ func _process(delta: float) -> void:
 	if line_left == 0:
 		subtitle.text = ""
 		last_line = {}
+	if conversation_done or actors.is_empty() or not conversation_started:
+		update_casual(delta)
 	if conversation_done or actors.is_empty():
 		return
 	if actors.any(func(actor): return actor.is_dead or actor.alert_state != IntroGuard.State.PATROL):
@@ -358,6 +374,131 @@ func _process(delta: float) -> void:
 		var line: Dictionary = conversation[conversation_index]
 		speak(actors[int(line.speaker)], line.id, line.text, line)
 
+func roster_size(number: int) -> int:
+	return roster.get("floors", {}).get(str(number), NAMES.get(number, ["Keeper"])).size()
+
+## The index-th Keeper of a floor takes that roster entry's name and personality.
+func name_keeper(keeper: Node, number: int, index: int) -> void:
+	var entries: Array = roster.get("floors", {}).get(str(number), [])
+	if entries.is_empty():
+		keeper.guard_name = NAMES[number][index % NAMES[number].size()]
+		keeper.voice_index = index % 3
+		return
+	var entry: Array = entries[index % entries.size()]
+	keeper.guard_name = entry[0]
+	keeper.personality = entry[1]
+	keeper.voice_index = int(roster.personalities[entry[1]].voice)
+
+## Off-duty Keepers in a tight group (features.huddles): they stand still, face in, and play
+## their scene when Miro comes near. Too absorbed to see him unless he walks into them.
+func spawn_huddle(huddle: Dictionary) -> void:
+	var scene: Dictionary = roster.get("huddles", {}).get(huddle.scene, {})
+	if scene.is_empty():
+		return
+	var members: Array = []
+	var origin := Vector2(huddle.position[0], huddle.position[1])
+	var count: int = scene.keepers.size()
+	for index in range(count):
+		var keeper = load("res://scenes/guard.tscn").instantiate()
+		keeper.name = "Huddle%s%d" % [str(huddle.scene).capitalize().replace(" ", ""), index]
+		keeper.position = origin + Vector2((index - (count - 1) / 2.0) * 30.0, 0)
+		keeper.patrol_left = keeper.position.x
+		keeper.patrol_right = keeper.position.x
+		keeper.level = level
+		keeper.illness_started = true
+		keeper.weapon_kind = "pistol"
+		keeper.guard_name = scene.keepers[index][0]
+		keeper.personality = scene.keepers[index][1]
+		keeper.voice_index = int(roster.personalities[keeper.personality].voice)
+		level.get_node("Guards").add_child(keeper)
+		keeper.facing = 1.0 if index == 0 else -1.0
+		keeper.conversation_hold = true
+		keeper.distracted = true
+		members.append(keeper)
+	var lines: Array = []
+	for index in range(scene.lines.size()):
+		var line: Dictionary = scene.lines[index].duplicate()
+		line["id"] = "%s_%d" % [huddle.scene, index + 1]
+		lines.append(line)
+	add_casual_lines(lines, members, true)
+
+## Adds an overheard scene that plays after (never over) the main conversation.
+## `lines` are {speaker, text[, id]}; speaker indexes `actors` (default: the first two patrol Keepers).
+func add_casual_lines(lines: Array, scene_actors: Array = [], hold := false) -> void:
+	if scene_actors.is_empty():
+		for keeper in level.guards():
+			if not actors.has(keeper) and scene_actors.size() < 2:
+				scene_actors.append(keeper)
+	if scene_actors.is_empty():
+		return
+	casual_scenes.append({"actors": scene_actors, "lines": lines, "index": -1, "started": false, "done": false, "hold": hold})
+
+func main_conversation_busy() -> bool:
+	return conversation_started and not conversation_done
+
+## One casual scene or patrol mutter at a time, only while no one else is speaking.
+func update_casual(delta: float) -> void:
+	if line_left > 0 or voice.playing or main_conversation_busy():
+		return
+	for scene in casual_scenes:
+		if scene.done:
+			continue
+		var cast: Array = scene.actors
+		if cast.any(func(actor): return not is_instance_valid(actor) or actor.is_dead or actor.alert_state != IntroGuard.State.PATROL):
+			scene.done = true
+			for actor in cast:
+				if is_instance_valid(actor):
+					actor.conversation_hold = false
+					actor.distracted = false
+			continue
+		if not scene.started:
+			if level.player.global_position.distance_to(cast[0].global_position) > 260:
+				continue
+			scene.started = true
+			for actor in cast:
+				actor.conversation_hold = true
+		scene.index += 1
+		if scene.index >= scene.lines.size():
+			scene.done = true
+			if not scene.hold:
+				for actor in cast:
+					actor.conversation_hold = false
+			continue
+		var line: Dictionary = scene.lines[scene.index]
+		var speaker: Node2D = cast[int(line.speaker) % cast.size()]
+		speak(speaker, str(line.get("id", "casual_%d" % scene.index)), str(line.text), line)
+		return
+	update_mutters(delta)
+
+## A patrolling Keeper close to Miro mutters something mundane, once each, never near an
+## unfinished overheard scene (so it can't talk over a clue).
+func update_mutters(delta: float) -> void:
+	mutter_wait = maxf(0, mutter_wait - delta)
+	if mutter_wait > 0:
+		return
+	if not conversation_done and not actors.is_empty() and level.player.global_position.distance_to(actors[0].global_position) < 320:
+		return
+	for scene in casual_scenes:
+		if not scene.done and level.player.global_position.distance_to(scene.actors[0].global_position) < 320:
+			return
+	var personalities: Dictionary = roster.get("personalities", {})
+	for keeper in level.guards():
+		if keeper.get("personality") == null:
+			continue
+		if keeper.is_dead or keeper.asleep or keeper.alert_state != IntroGuard.State.PATROL or muttered.has(keeper.get_instance_id()) or actors.has(keeper):
+			continue
+		if keeper.distracted or not personalities.has(keeper.personality):
+			continue
+		var gap: Vector2 = keeper.global_position - level.player.global_position
+		if gap.length() > MUTTER_RANGE or absf(gap.y) > 40:
+			continue
+		var idle: Array = personalities[keeper.personality].idle
+		var choice := muttered.size() % idle.size()
+		muttered[keeper.get_instance_id()] = true
+		mutter_wait = MUTTER_GAP
+		speak(keeper, "idle_%s_%d" % [keeper.personality, choice + 1], idle[choice])
+		return
+
 func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> void:
 	voice.stop()
 	voice_speaker = actor
@@ -380,7 +521,11 @@ func bark(actor: Node2D, kind: String) -> void:
 	abort_conversation()
 	if voice.playing:
 		return
-	speak(actor, "%s_%d" % [kind, actor.voice_index], config.barks[kind].text)
+	var kind_data: Dictionary = roster.get("personalities", {}).get(actor.get("personality"), {})
+	if kind_data.has(kind):
+		speak(actor, "%s_%s" % [kind, actor.personality], kind_data[kind])
+	else:
+		speak(actor, "%s_%d" % [kind, actor.voice_index], config.barks[kind].text)
 
 func abort_conversation() -> void:
 	if conversation_started and not conversation_done:

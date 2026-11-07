@@ -78,7 +78,7 @@ class Grid:
         rows = [''.join(r) for r in self.cells]
         rows = [list(r) for r in rows]
         marks = {'spawn': '@', 'exit': 'X', 'station': '*', 'guard': 'G', 'cover': 's', 'hide': 'h',
-                 'case': 'a', 'port': 'p', 'camera': 'C', 'talk': 'T', 'gate': '|', 'prop': 'o'}
+                 'case': 'a', 'port': 'p', 'camera': 'C', 'talk': 'T', 'gate': '|', 'prop': 'o', 'huddle': 'K'}
         for thing in self.things:
             if 'col' in thing and thing['type'] in marks:
                 r = thing['row'] - 1 if thing['type'] != 'camera' else thing['row']
@@ -111,7 +111,7 @@ def compile_level(number, grid, extra):
     for index, (col, row) in enumerate(grid.low):
         solids.append({'name': f'Crawl{index}', 'position': [col * T + 14, row * T + 3], 'size': [28, 6]})
     interactables, guards, gates, props, beats = [], [], [], [], []
-    features = {'cases': [], 'hides': [], 'ports': [], 'cameras': [], 'conversation': None, 'hunted_guard': None}
+    features = {'cases': [], 'hides': [], 'ports': [], 'cameras': [], 'conversation': None, 'hunted_guard': None, 'huddles': []}
     spawn = None
     cover_index = 0
     for thing in grid.things:
@@ -153,6 +153,8 @@ def compile_level(number, grid, extra):
             features['cameras'].append({'position': [x, top + 14], 'facing': thing.get('facing', 1.57), 'linked': thing.get('linked', False)})
         elif kind == 'talk':
             features['conversation'] = {'guard': thing['guard'], 'position': [x, top - 16]}
+        elif kind == 'huddle':
+            features['huddles'].append({'scene': thing['scene'], 'position': [x, top - 16]})
         elif kind == 'hunted':
             features['hunted_guard'] = {'position': [x, top - 16], 'patrol': [x_of(thing['patrol'][0]), x_of(thing['patrol'][1])]}
     data.update({
@@ -178,7 +180,7 @@ def compile_level(number, grid, extra):
     maps = ROOT / 'docs/level_maps'
     maps.mkdir(parents=True, exist_ok=True)
     legend = ('# wall/floor  = trapdoor  H ladder  ^ crawlspace (crouch)  | gate  @ start  X exit\n'
-              '* objective  G Keeper  T overheard Keepers  s shadow  h hiding spot  a ammo  p service port  C camera  o prop\n')
+              '* objective  G Keeper  T overheard Keepers  K off-duty huddle  s shadow  h hiding spot  a ammo  p service port  C camera  o prop\n')
     (maps / f'level_{number:02d}.txt').write_text(f"Level {number}: {data['title']}\n{legend}\n{grid.ascii()}\n")
     print(f'level_{number:02d}: {len(tiles)} tiles, {len(guards)} Keepers, {len(interactables)} interactables')
 
@@ -193,6 +195,7 @@ def level_2():
     g.put('spawn', 3, 9)
     g.put('station', 9, 9, id='SickPrisoner')
     g.put('prop', 11, 9, name='SymptomaticPrisoner', prop_kind='sick_prisoner')
+    g.block(13, 13, 8, 8)                 # a slop bucket crate: hop over
     g.put('cover', 15, 9)
     g.put('guard', 22, 9, name='WardKeeper', patrol=[18, 28], sick=True)
     g.put('cover', 30, 9)
@@ -203,12 +206,14 @@ def level_2():
     g.ladder('FirstLadder', 47, 9, 16)
     g.block(52, 54, 7, 8)                 # a raised bunk to climb for the ammo case
     g.put('case', 53, 7)
+    g.put('huddle', 56, 9, scene='john316')  # three off-duty Keepers over a Bible; climb the bunk behind them
     # S2 (row 16, west): the corridor of beds.
     g.put('guard', 38, 16, name='CorridorKeeper', patrol=[29, 43])
     g.block(44, 45, 14, 15)               # a two-tile step right off the ladder: double jump
     g.put('hide', 33, 16, title='VENT')
     g.put('cover', 25, 16)
     g.put('port', 21, 16)
+    g.block(18, 18, 15, 15)               # an empty bed frame: hop over
     g.put('camera', 15, 10, facing=1.9)
     g.put('cover', 11, 16)
     g.hole(16, 6, 7)                      # a drop into the laundry below (one way)
@@ -217,6 +222,7 @@ def level_2():
     g.put('talk', 22, 23, guard='LaundryKeeper')
     g.put('guard', 22, 23, name='LaundryKeeper', patrol=[20, 30])
     g.put('cover', 33, 23)
+    g.crawl(36, 36, 23)                   # a low drying rack: crawl under (or climb on it)
     g.block(40, 41, 21, 22)               # a stack of linen crates: double jump over
     g.put('hide', 45, 23, title='LAUNDRY BIN')
     g.trapdoor(49, 23)                    # optional shortcut down; the ladder is the safe way
@@ -232,6 +238,7 @@ def level_2():
     g.trapdoor(26, 31)
     g.ladder('ThirdLadder', 3, 31, 38)
     # S5 (row 38, east): the quartermaster's office on a raised floor.
+    g.block(6, 6, 37, 37)                 # a ration crate: hop over
     g.put('cover', 9, 38)
     g.put('guard', 18, 38, name='StoresKeeper', patrol=[12, 24])
     g.block(27, 36, 36, 37)               # the office dais: two-tile step up
@@ -241,6 +248,7 @@ def level_2():
     g.put('cover', 49, 38)
     g.ladder('FourthLadder', 55, 38, 45)
     # S6 (row 45, west): the lower support and the stairs down.
+    g.block(52, 52, 43, 44)               # stacked sacks: double jump
     g.put('cover', 50, 45)
     g.put('guard', 38, 45, name='LowerKeeper', patrol=[30, 46])
     g.put('hunted', 30, 45, patrol=[24, 36])
@@ -256,6 +264,7 @@ def level_2():
         {'x': x_of(42)}, {'station': 'BrotherOffer'},
         {'climb': 'FirstLadder', 'to': top_of(16)},
         {'x': x_of(8)}, {'x': x_of(6.5)}, {'fall': top_of(23)},
+        {'x': x_of(35)}, {'x': x_of(37.5), 'crouch': True},
         {'x': x_of(54.5)}, {'climb': 'SecondLadder', 'to': top_of(31)},
         {'x': x_of(3.5)}, {'climb': 'ThirdLadder', 'to': top_of(38)},
         {'x': x_of(31)}, {'station': 'TransferLedger'},
@@ -292,6 +301,7 @@ def level_3():
     # S1 (row 9, east): the records corridor under a camera.
     g.put('spawn', 3, 9)
     g.put('cover', 9, 9)
+    g.block(13, 13, 8, 8)                 # a box of files: hop over
     g.put('camera', 16, 1, facing=1.75, linked=True)
     g.put('cover', 20, 9)
     g.put('guard', 28, 9, name='OfficeKeeper', patrol=[24, 32])
@@ -308,6 +318,7 @@ def level_3():
     g.put('talk', 30, 16, guard='ListenKeeper')
     g.put('guard', 30, 16, name='ListenKeeper', patrol=[28, 34])
     g.put('cover', 23, 16)
+    g.block(25, 25, 15, 15)               # a mail cart: hop over
     g.put('camera', 18, 10, facing=1.35, linked=True)
     g.put('guard', 13, 16, name='StairKeeper', patrol=[9, 19])
     g.ladder('SecondLadder', 3, 16, 23)
@@ -316,6 +327,7 @@ def level_3():
     g.put('station', 16, 23, id='RemoteTerminal')
     g.put('guard', 27, 23, name='TerminalKeeper', patrol=[22, 33])
     g.put('cover', 36, 23)
+    g.block(39, 39, 21, 22)               # a barrier stack at the checkpoint: double jump
     g.put('gate', 44, 23, name='CheckpointGate', rows=[17, 22], unlock='RemoteTerminal')
     g.put('case', 49, 23)
     g.ladder('ThirdLadder', 54, 23, 31)
@@ -330,6 +342,7 @@ def level_3():
     g.put('hide', 9, 31, title='CABINET')
     g.ladder('FourthLadder', 3, 31, 38)
     # S5 (row 38, east): the holding bars; the voice has a face.
+    g.block(7, 7, 37, 37)                 # a toppled chair: hop over
     g.put('cover', 10, 38)
     g.wall(17, 32, 35, width=2)           # a low pipe run: crawl under
     g.crawl(17, 18, 38)
@@ -389,6 +402,7 @@ def level_4():
     g.put('spawn', 3, 9)
     g.put('cover', 8, 9)
     g.put('station', 14, 9, id='ExperimentRecords')
+    g.block(18, 18, 8, 8)                 # a sharps bin: hop over
     g.put('guard', 25, 9, name='RecordsKeeper', patrol=[20, 31], sick=True)
     g.put('cover', 34, 9)
     g.block(38, 39, 7, 8)                 # a gurney stack: double jump
@@ -409,6 +423,7 @@ def level_4():
     g.put('guard', 16, 23, name='DoorKeeper', patrol=[12, 22])
     g.put('cover', 25, 23)
     g.put('gate', 30, 23, name='WardSeal', rows=[17, 22], unlock='WardRelease')
+    g.block(34, 34, 22, 22)               # a linen trolley: hop over
     g.put('hide', 38, 23, title='SHOWER')
     g.put('guard', 45, 23, name='SealKeeper', patrol=[40, 50], sick=True)
     g.ladder('ThirdLadder', 54, 23, 31)
@@ -416,6 +431,7 @@ def level_4():
     g.put('cover', 50, 31)
     g.put('guard', 46, 31, name='ChamberKeeper', patrol=[42, 51])
     g.put('station', 38, 31, id='ContainmentEvidence')
+    g.block(34, 34, 29, 30)               # a stacked oxygen cage: double jump
     g.put('prop', 31, 31, name='IsolationChamber', prop_kind='ward_chamber')
     g.put('cover', 25, 31)
     g.put('guard', 18, 31, name='TankKeeper', patrol=[12, 23])
@@ -433,6 +449,7 @@ def level_4():
     # S6 (row 45, west): the lower support, the sigil, the stairs.
     g.put('cover', 50, 45)
     g.put('station', 44, 45, id='WardChargeLower')
+    g.block(47, 47, 44, 44)               # a dropped tray cart: hop over
     g.put('guard', 36, 45, name='LowerKeeper', patrol=[30, 41])
     g.put('hunted', 22, 45, patrol=[18, 27])
     g.wall(26, 39, 42)
