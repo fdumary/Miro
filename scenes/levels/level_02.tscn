@@ -23,34 +23,34 @@ size = Vector2(28, 756)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7873c"]
 size = Vector2(28, 756)
 
-[node name="TheSymptoms" type="Node2D" unique_id=1949598384]
+[node name="TheSymptoms" type="Node2D" unique_id=1303462170]
 texture_filter = 1
 script = ExtResource("1_q6ljp")
 metadata/blueprint = "res://data/levels/level_02.json"
 metadata/chapter = "The Symptoms"
 
-[node name="Architecture" type="Node2D" parent="." unique_id=1725682123]
+[node name="Architecture" type="Node2D" parent="." unique_id=1826931596]
 script = ExtResource("2_4dr30")
 
-[node name="StoneFloors" type="TileMapLayer" parent="." unique_id=1618145944]
+[node name="StoneFloors" type="TileMapLayer" parent="." unique_id=652791008]
 tile_map_data = PackedByteArray("AAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAkAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAkAAAAAAAAAAAAHAAkAAQAAAAAAAAAIAAkAAAAAAAAAAAAJAAkAAAAAAAAAAAAKAAkAAAAAAAAAAAALAAkAAgAAAAAAAAAMAAkAAAAAAAAAAAANAAkAAAAAAAAAAAAOAAkAAQAAAAAAAAAPAAkAAAAAAAAAAAAQAAkAAAAAAAAAAAARAAkAAAAAAAAAAAASAAkAAAAAAAAAAAATAAkAAAAAAAAAAAAUAAkAAAAAAAAAAAAVAAkAAQAAAAAAAAAWAAkAAgAAAAAAAAAXAAkAAAAAAAAAAAAYAAkAAAAAAAAAAAAZAAkAAAAAAAAAAAAaAAkAAAAAAAAAAAAdAAkAAAAAAAAAAAAeAAkAAAAAAAAAAAAfAAkAAAAAAAAAAAAgAAkAAAAAAAAAAAAhAAkAAgAAAAAAAAAiAAkAAAAAAAAAAAAjAAkAAQAAAAAAAAAkAAkAAAAAAAAAAAAlAAkAAAAAAAAAAAAmAAkAAAAAAAAAAAAMABAAAAAAAAAAAAANABAAAAAAAAAAAAAOABAAAAAAAAAAAAAPABAAAAAAAAAAAAAQABAAAQAAAAAAAAARABAAAAAAAAAAAAASABAAAAAAAAAAAAATABAAAAAAAAAAAAAUABAAAAAAAAAAAAAVABAAAAAAAAAAAAAWABAAAAAAAAAAAAAXABAAAAAAAAAAAAAYABAAAQAAAAAAAAAZABAAAAAAAAAAAAAaABAAAAAAAAAAAAAbABAAAAAAAAAAAAAcABAAAAAAAAAAAAAdABAAAAAAAAAAAAAeABAAAAAAAAAAAAAfABAAAAAAAAAAAAAgABAAAQAAAAAAAAAhABAAAAAAAAAAAAAiABAAAAAAAAAAAAAjABAAAAAAAAAAAAAkABAAAAAAAAAAAAAlABAAAAAAAAAAAAAmABAAAAAAAAAAAAABABgAAAAAAAAAAAACABgAAAAAAAAAAAADABgAAAAAAAAAAAAEABgAAAAAAAAAAAAFABgAAAAAAAAAAAAGABgAAAAAAAAAAAAHABgAAAAAAAAAAAAIABgAAAAAAAAAAAAJABgAAQAAAAAAAAAKABgAAAAAAAAAAAALABgAAAAAAAAAAAAMABgAAAAAAAAAAAANABgAAAAAAAAAAAAOABgAAAAAAAAAAAAPABgAAAAAAAAAAAAQABgAAAAAAAAAAAARABgAAAAAAAAAAAASABgAAQAAAAAAAAATABgAAAAAAAAAAAAUABgAAAAAAAAAAAAVABgAAAAAAAAAAAAWABgAAAAAAAAAAAAXABgAAAAAAAAAAAAYABgAAAAAAAAAAAAZABgAAAAAAAAAAAAaABgAAAAAAAAAAAAbABgAAQAAAAAAAAAcABgAAAAAAAAAAAAdABgAAAAAAAAAAAAeABgAAAAAAAAAAAAfABgAAAAAAAAAAAAgABgAAAAAAAAAAAAhABgAAAAAAAAAAAAiABgAAAAAAAAAAAAjABgAAAAAAAAAAAAkABgAAQAAAAAAAAAlABgAAAAAAAAAAAAmABgAAAAAAAAAAAAPAAgAAQAAAAAAAAAQAAgAAAAAAAAAAAARAAcAAAAAAAAAAAASAAcAAQAAAAAAAAATAAcAAAAAAAAAAAAUAAcAAAAAAAAAAAAfAA4AAAAAAAAAAAAgAA4AAAAAAAAAAAAhAA0AAQAAAAAAAAAiAA0AAAAAAAAAAAAPABYAAQAAAAAAAAAQABYAAAAAAAAAAAAYAA8AAQAAAAAAAAAXAA8AAAAAAAAAAAAWAA4AAAAAAAAAAAAVAA4AAQAAAAAAAAAUAA4AAAAAAAAAAAATAA4AAAAAAAAAAAAbABcAAQAAAAAAAAAaABcAAAAAAAAAAAAcABYAAAAAAAAAAAAdABYAAAAAAAAAAAAeABYAAQAAAAAAAAAfABYAAAAAAAAAAAA=")
 tile_set = ExtResource("3_dscar")
 
-[node name="LeftWall" type="StaticBody2D" parent="." unique_id=161085017]
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=1792651296]
 position = Vector2(14, 378)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1431661083]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1766009921]
 shape = SubResource("RectangleShape2D_x7wv7")
 
-[node name="RightWall" type="StaticBody2D" parent="." unique_id=1730733952]
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=2050576427]
 position = Vector2(1106, 378)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=160323617]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1844635924]
 shape = SubResource("RectangleShape2D_7873c")
 
-[node name="Interactables" type="Node2D" parent="." unique_id=110855690]
+[node name="Interactables" type="Node2D" parent="." unique_id=978407132]
 
-[node name="FirstLadder" type="Area2D" parent="Interactables" unique_id=1437579808 instance=ExtResource("4_01hg1")]
+[node name="FirstLadder" type="Area2D" parent="Interactables" unique_id=980795621 instance=ExtResource("4_01hg1")]
 position = Vector2(784, 335)
 collision_layer = 0
 collision_mask = 2
@@ -58,7 +58,7 @@ script = ExtResource("5_v5pqk")
 kind = "ladder"
 area_size = Vector2(40, 230)
 
-[node name="SecondLadder" type="Area2D" parent="Interactables" unique_id=822442753 instance=ExtResource("4_01hg1")]
+[node name="SecondLadder" type="Area2D" parent="Interactables" unique_id=1558892992 instance=ExtResource("4_01hg1")]
 position = Vector2(308, 550)
 collision_layer = 0
 collision_mask = 2
@@ -66,7 +66,7 @@ script = ExtResource("5_v5pqk")
 kind = "ladder"
 area_size = Vector2(40, 252)
 
-[node name="StairGate" type="Area2D" parent="Interactables" unique_id=1408351943 instance=ExtResource("6_m2te4")]
+[node name="StairGate" type="Area2D" parent="Interactables" unique_id=1158310724 instance=ExtResource("6_m2te4")]
 position = Vector2(1043, 646)
 collision_layer = 0
 collision_mask = 2
@@ -74,56 +74,56 @@ script = ExtResource("5_v5pqk")
 kind = "exit"
 area_size = Vector2(46, 60)
 
-[node name="Shadow1" type="Area2D" parent="Interactables" unique_id=1755270886 instance=ExtResource("7_kxbgd")]
+[node name="Shadow1" type="Area2D" parent="Interactables" unique_id=2087513277 instance=ExtResource("7_kxbgd")]
 position = Vector2(200, 216)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_v5pqk")
 area_size = Vector2(64, 72)
 
-[node name="Shadow2" type="Area2D" parent="Interactables" unique_id=1837624113 instance=ExtResource("7_kxbgd")]
+[node name="Shadow2" type="Area2D" parent="Interactables" unique_id=1753075920 instance=ExtResource("7_kxbgd")]
 position = Vector2(385, 216)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_v5pqk")
 area_size = Vector2(64, 72)
 
-[node name="Shadow3" type="Area2D" parent="Interactables" unique_id=1732851939 instance=ExtResource("7_kxbgd")]
+[node name="Shadow3" type="Area2D" parent="Interactables" unique_id=436332413 instance=ExtResource("7_kxbgd")]
 position = Vector2(660, 216)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_v5pqk")
 area_size = Vector2(64, 72)
 
-[node name="Shadow4" type="Area2D" parent="Interactables" unique_id=593577920 instance=ExtResource("7_kxbgd")]
+[node name="Shadow4" type="Area2D" parent="Interactables" unique_id=1941654072 instance=ExtResource("7_kxbgd")]
 position = Vector2(780, 412)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_v5pqk")
 area_size = Vector2(64, 72)
 
-[node name="Shadow5" type="Area2D" parent="Interactables" unique_id=60327554 instance=ExtResource("7_kxbgd")]
+[node name="Shadow5" type="Area2D" parent="Interactables" unique_id=366263508 instance=ExtResource("7_kxbgd")]
 position = Vector2(400, 412)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_v5pqk")
 area_size = Vector2(64, 72)
 
-[node name="Shadow6" type="Area2D" parent="Interactables" unique_id=1571809935 instance=ExtResource("7_kxbgd")]
+[node name="Shadow6" type="Area2D" parent="Interactables" unique_id=168342060 instance=ExtResource("7_kxbgd")]
 position = Vector2(740, 636)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_v5pqk")
 area_size = Vector2(64, 72)
 
-[node name="Shadow7" type="Area2D" parent="Interactables" unique_id=1039317551 instance=ExtResource("7_kxbgd")]
+[node name="Shadow7" type="Area2D" parent="Interactables" unique_id=117057904 instance=ExtResource("7_kxbgd")]
 position = Vector2(990, 636)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5_v5pqk")
 area_size = Vector2(64, 72)
 
-[node name="SickPrisoner" type="Area2D" parent="Interactables" unique_id=1366277277 instance=ExtResource("8_lky54")]
+[node name="SickPrisoner" type="Area2D" parent="Interactables" unique_id=1737975370 instance=ExtResource("8_lky54")]
 position = Vector2(300, 230)
 collision_layer = 0
 collision_mask = 2
@@ -131,7 +131,7 @@ script = ExtResource("5_v5pqk")
 kind = "note"
 area_size = Vector2(40, 54)
 
-[node name="BrotherOffer" type="Area2D" parent="Interactables" unique_id=936417951 instance=ExtResource("9_ies7a")]
+[node name="BrotherOffer" type="Area2D" parent="Interactables" unique_id=879871015 instance=ExtResource("9_ies7a")]
 position = Vector2(580, 226)
 collision_layer = 0
 collision_mask = 2
@@ -139,7 +139,7 @@ script = ExtResource("5_v5pqk")
 kind = "brother"
 area_size = Vector2(40, 54)
 
-[node name="TransferLedger" type="Area2D" parent="Interactables" unique_id=1846409614 instance=ExtResource("8_lky54")]
+[node name="TransferLedger" type="Area2D" parent="Interactables" unique_id=492494847 instance=ExtResource("8_lky54")]
 position = Vector2(658, 404)
 collision_layer = 0
 collision_mask = 2
@@ -147,7 +147,7 @@ script = ExtResource("5_v5pqk")
 kind = "note"
 area_size = Vector2(40, 54)
 
-[node name="SecondSigil" type="Area2D" parent="Interactables" unique_id=116089576 instance=ExtResource("10_kx1rr")]
+[node name="SecondSigil" type="Area2D" parent="Interactables" unique_id=1274435613 instance=ExtResource("10_kx1rr")]
 position = Vector2(620, 647)
 collision_layer = 0
 collision_mask = 2
@@ -155,15 +155,15 @@ script = ExtResource("5_v5pqk")
 kind = "sigil"
 area_size = Vector2(40, 54)
 
-[node name="Gates" type="Node2D" parent="." unique_id=791689145]
+[node name="Gates" type="Node2D" parent="." unique_id=1762213708]
 
-[node name="StoryProps" type="Node2D" parent="." unique_id=2006839875]
+[node name="StoryProps" type="Node2D" parent="." unique_id=895892355]
 
-[node name="SymptomaticPrisoner" type="Node2D" parent="StoryProps" unique_id=144196924 instance=ExtResource("11_gus8w")]
+[node name="SymptomaticPrisoner" type="Node2D" parent="StoryProps" unique_id=2098791076 instance=ExtResource("11_gus8w")]
 position = Vector2(300, 236)
 script = ExtResource("12_xwa1x")
 
-[node name="Label_SickPrisoner" type="Label" parent="." unique_id=1707820143]
+[node name="Label_SickPrisoner" type="Label" parent="." unique_id=260049124]
 offset_left = 250.0
 offset_top = 165.0
 offset_right = 448.0
@@ -174,7 +174,7 @@ text = "Observe the sick prisoner"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label_BrotherOffer" type="Label" parent="." unique_id=920676531]
+[node name="Label_BrotherOffer" type="Label" parent="." unique_id=874546498]
 offset_left = 530.0
 offset_top = 161.0
 offset_right = 750.0
@@ -185,7 +185,7 @@ text = "Listen to the surrender offer"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label_TransferLedger" type="Label" parent="." unique_id=247443924]
+[node name="Label_TransferLedger" type="Label" parent="." unique_id=1202607720]
 offset_left = 608.0
 offset_top = 339.0
 offset_right = 906.0
@@ -196,7 +196,7 @@ text = "Read the indiscriminate transfer order"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Label_SecondSigil" type="Label" parent="." unique_id=1277657583]
+[node name="Label_SecondSigil" type="Label" parent="." unique_id=1917508903]
 offset_left = 570.0
 offset_top = 582.0
 offset_right = 734.0
@@ -207,55 +207,55 @@ text = "Place the second sigil"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Guards" type="Node2D" parent="." unique_id=1119169623]
+[node name="Guards" type="Node2D" parent="." unique_id=1881749838]
 
-[node name="GalleryKeeper" type="CharacterBody2D" parent="Guards" unique_id=2074634244 instance=ExtResource("13_6ms8u")]
+[node name="GalleryKeeper" type="CharacterBody2D" parent="Guards" unique_id=1537511650 instance=ExtResource("13_6ms8u")]
 position = Vector2(580, 236)
 collision_layer = 4
 script = ExtResource("14_r2xis")
 patrol_left = 550.0
 patrol_right = 650.0
 
-[node name="PassageKeeper" type="CharacterBody2D" parent="Guards" unique_id=127071400 instance=ExtResource("13_6ms8u")]
+[node name="PassageKeeper" type="CharacterBody2D" parent="Guards" unique_id=2034239648 instance=ExtResource("13_6ms8u")]
 position = Vector2(600, 432)
 collision_layer = 4
 script = ExtResource("14_r2xis")
 patrol_left = 470.0
 patrol_right = 680.0
 
-[node name="LowerKeeper" type="CharacterBody2D" parent="Guards" unique_id=1522041152 instance=ExtResource("13_6ms8u")]
+[node name="LowerKeeper" type="CharacterBody2D" parent="Guards" unique_id=1940437016 instance=ExtResource("13_6ms8u")]
 position = Vector2(855, 656)
 collision_layer = 4
 script = ExtResource("14_r2xis")
 patrol_left = 810.0
 patrol_right = 950.0
 
-[node name="LevelPlan" type="Node2D" parent="." unique_id=1481158642]
+[node name="LevelPlan" type="Node2D" parent="." unique_id=1186125668]
 
-[node name="PlayerSpawn" type="Marker2D" parent="LevelPlan" unique_id=205905831]
+[node name="PlayerSpawn" type="Marker2D" parent="LevelPlan" unique_id=1571756929]
 position = Vector2(100, 236)
 
-[node name="01_SickPrisoner" type="Marker2D" parent="LevelPlan" unique_id=1916889254]
+[node name="01_SickPrisoner" type="Marker2D" parent="LevelPlan" unique_id=1159226505]
 position = Vector2(300, 230)
 metadata/purpose = "Observe the sick prisoner | draft story"
 
-[node name="02_BrotherOffer" type="Marker2D" parent="LevelPlan" unique_id=1881087821]
+[node name="02_BrotherOffer" type="Marker2D" parent="LevelPlan" unique_id=240380424]
 position = Vector2(580, 226)
 metadata/purpose = "Listen to the surrender offer | draft story"
 
-[node name="03_TransferLedger" type="Marker2D" parent="LevelPlan" unique_id=104116595]
+[node name="03_TransferLedger" type="Marker2D" parent="LevelPlan" unique_id=978768048]
 position = Vector2(658, 404)
 metadata/purpose = "Read the indiscriminate transfer order | draft story"
 
-[node name="04_SecondSigil" type="Marker2D" parent="LevelPlan" unique_id=61618606]
+[node name="04_SecondSigil" type="Marker2D" parent="LevelPlan" unique_id=1926681452]
 position = Vector2(620, 647)
 metadata/purpose = "Place the second sigil | draft story"
 
-[node name="PrisonerIllnessAnimation" type="Marker2D" parent="LevelPlan" unique_id=4742537]
+[node name="PrisonerIllnessAnimation" type="Marker2D" parent="LevelPlan" unique_id=1931591336]
 position = Vector2(300, 236)
 metadata/purpose = "Replace note stand-in with symptomatic prisoner scene."
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=1275587202 instance=ExtResource("15_cu4fk")]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=315942722 instance=ExtResource("15_cu4fk")]
 position = Vector2(100, 236)
 collision_layer = 2
 script = ExtResource("16_fsjua")

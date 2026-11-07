@@ -35,6 +35,10 @@ var voice_index := 0
 var conversation_hold := false
 var turn_away_left := 0.0
 var alert_barked := false
+## Put to sleep by Miro's guitar (Level 5). Lootable, never counted as a kill, sleeps for the rest of the floor.
+var asleep := false
+## Spawned by a Level 5 wave or by Niro calling for help.
+var wave_guard := false
 
 func _ready() -> void:
 	add_to_group("guards")
@@ -46,7 +50,7 @@ func can_see_point(point: Vector2, distance_limit: float = 165.0) -> bool:
 	return difference.length() < distance_limit and absf(difference.y) < 45 and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
 
 func detect_player() -> bool:
-	if is_dead or not level or level.player.is_dead or (level.player.is_concealed or level.player.in_hiding_spot):
+	if is_dead or asleep or not level or level.player.is_dead or (level.player.is_concealed or level.player.in_hiding_spot):
 		return false
 	# Prisoners inside the locked cell are not escapees yet.
 	if not level.door_open and level.player.global_position.x < level.get_node("Interactables/CellLock").global_position.x:
@@ -59,6 +63,11 @@ func _physics_process(delta: float) -> void:
 	if not level or level.controls_locked():
 		return
 	if is_dead:
+		return
+	if asleep:
+		sees_player = false
+		velocity = Vector2(0, velocity.y + 850.0 * delta)
+		move_and_slide()
 		return
 	invulnerability_left = maxf(0, invulnerability_left - delta)
 	attack_timer = maxf(0.0, attack_timer - delta)
@@ -171,8 +180,18 @@ func shoot_weapon() -> void:
 	casing.velocity = Vector2(-facing * 65, -100)
 	level.add_child(casing)
 
+func fall_asleep() -> void:
+	if is_dead or asleep:
+		return
+	asleep = true
+	alert_state = State.PATROL
+	sees_player = false
+	windup = 0
+	burst_left = 0
+	suspicion = 0
+
 func investigate(point: Vector2) -> void:
-	if is_dead or sees_player:
+	if is_dead or asleep or sees_player:
 		return
 	last_known_position = point
 	search_left = 6.0
@@ -209,6 +228,12 @@ func die() -> void:
 func _draw() -> void:
 	var pale := Color("f2d3ab")
 	draw_string(ThemeDB.fallback_font, Vector2(-18, -36), guard_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
+	if asleep:
+		draw_set_transform(Vector2(0, 6), PI / 2 * facing)
+		draw_texture(KEEPER_IDLE, Vector2(-16, -16))
+		draw_set_transform(Vector2.ZERO)
+		draw_string(ThemeDB.fallback_font, Vector2(6, -14 - fmod(time * 6, 8)), "z", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, pale)
+		return
 	if is_dead:
 		# No dedicated death sheet yet: retain Julia's idle silhouette as a body.
 		draw_set_transform(Vector2(0, 3), PI / 2)

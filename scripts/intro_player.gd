@@ -124,7 +124,8 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("fire"):
 		fire_gun()
-	if global_position.y > 800:
+	# Out of the world: below the level's own floor (Level 5 is deeper than the others).
+	if global_position.y > $Camera2D.limit_bottom + 44:
 		die()
 	update_visual(delta)
 

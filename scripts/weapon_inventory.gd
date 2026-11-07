@@ -24,12 +24,20 @@ func _draw() -> void:
 	draw_style_box(panel_style(controls.active == "blanket"), Rect2(274, 0, 50, 38))
 	draw_string(ThemeDB.fallback_font, Vector2(278, 11), "Q", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
 	draw_texture_rect(ART.TEXTURES.blanket, Rect2(291, 3, 27, 27), false)
-	draw_string(ThemeDB.fallback_font, Vector2(335, 14), "[N] Inventory", HORIZONTAL_ALIGNMENT_LEFT, -1, 11)
+	var inventory_x := 335.0
+	if controls.has_guitar:
+		draw_style_box(panel_style(controls.active == "guitar"), Rect2(327, 0, 50, 38))
+		draw_string(ThemeDB.fallback_font, Vector2(331, 11), "6", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
+		draw_guitar(Vector2(352, 18), Color("f2d3ab") if controls.strum_flash <= 0 else Color("fbf5ef"))
+		inventory_x = 388.0
+	draw_string(ThemeDB.fallback_font, Vector2(inventory_x, 14), "[N] Inventory", HORIZONTAL_ALIGNMENT_LEFT, -1, 11)
 	var hint := "Left click: use"
 	if controls.active == "c4":
 		hint = "Right click: place · Left click: detonate · E: recover"
 	elif controls.active in player.guns:
 		hint = "Left click: fire · Right click: focus · R: reload"
+	elif controls.active == "guitar":
+		hint = "Left click: strum (puts Keepers to sleep; hurts Niro when exposed) · on the beat reaches further"
 	elif controls.active == "remote":
 		hint = "Left click: open remote / MP3"
 	draw_string(ThemeDB.fallback_font, Vector2(0, 51), hint, HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
@@ -42,6 +50,17 @@ func _draw() -> void:
 		draw_string(ThemeDB.fallback_font, Vector2(136, 96), "Take %s? Carry limit: two guns." % player.pending_guard.weapon_kind.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 13)
 		draw_string(ThemeDB.fallback_font, Vector2(136, 119), "[Z] Replace %s   [X] Replace %s" % [player.guns[0], player.guns[1]], HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
 		draw_string(ThemeDB.fallback_font, Vector2(136, 145), "[Esc] Keep current guns", HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
+## Placeholder guitar icon. Hook: drop art at res://assets/weapons/guitar.png and it is used instead.
+func draw_guitar(center: Vector2, color: Color) -> void:
+	if ResourceLoader.exists("res://assets/weapons/guitar.png"):
+		draw_texture_rect(load("res://assets/weapons/guitar.png"), Rect2(center - Vector2(13, 13), Vector2(27, 27)), false)
+		return
+	draw_circle(center + Vector2(-4, 5), 6, color)
+	draw_circle(center + Vector2(-1, -1), 4.5, color)
+	draw_circle(center + Vector2(-4, 5), 2, Color("272744"))
+	draw_line(center + Vector2(0, -3), center + Vector2(9, -13), Color("8b6d9c"), 2)
+	draw_rect(Rect2(center + Vector2(8, -15), Vector2(4, 4)), Color("8b6d9c"))
+
 func panel_style(selected: bool) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.15, 0.15, 0.26, 0.92)

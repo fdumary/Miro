@@ -9,7 +9,7 @@ func ending_setup() -> void:
 	current_scene = level
 	await frames(2)
 	level.finish_dialogue()
-	level.player.position = Vector2(650, 655)
+	level.player.position = level.areas.get_node("ForestViewpoint").position + Vector2(0, 6)
 	level.sigil_placed = true
 	level.milestones = {"FinalSigil": true, "FinalOffer": true, "BrotherEncounter": true, "DefeatExchange": true}
 	level.interact()

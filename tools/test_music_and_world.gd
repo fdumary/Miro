@@ -129,10 +129,10 @@ func run() -> void:
 	check(level.hack_remaining > 0, "Missing/dead speakers cannot soft-lock terminal")
 	await floor_scene(5)
 	check(music.track_id.is_empty(), "The Foundation opens near-silent until the guitar")
-	level.milestones = {"FinalSigil": true, "FinalOffer": true}
-	level.player.position = level.areas.get_node("BrotherEncounter").position
+	level.player.position = level.areas.get_node("Guitar").position
 	level.interact()
-	check(is_instance_valid(level.brother) and music.track_id == "robot_attack", "Active boss combat starts Robot Attack")
+	level.finish_dialogue()
+	check(music.track_id == "shit_crashed", "Guitar pickup starts Shit Crashed")
 	level.brother_defeated()
 	check(music.track_id.is_empty(), "Boss defeat fades combat cue for the defeat exchange")
 	for number in [2, 4]:

@@ -19,6 +19,12 @@ var buttons: Array[Button] = []
 var swap_from := -1
 var planted: Array[Node2D] = []
 var progress := 0.0
+## Level 5 guitar. Key 6 (or G) selects it; left click strums. Existing bindings are unchanged.
+var has_guitar := false
+var strum_cooldown := 0.0
+var strum_flash := 0.0
+const STRUM_RADIUS := 120.0
+const STRUM_RADIUS_ON_BEAT := 170.0
 
 func _ready() -> void:
 	player = get_parent()
@@ -71,6 +77,8 @@ func _input(event: InputEvent) -> void:
 			select_item(slots[key - KEY_1])
 		elif key == KEY_Q:
 			select_item("blanket")
+		elif (key == KEY_6 or key == KEY_G) and has_guitar:
+			select_item("guitar")
 		elif key == KEY_N:
 			show_inventory()
 		elif key == KEY_R:
@@ -114,6 +122,8 @@ func _physics_process(delta: float) -> void:
 			player.ammunition += amount
 			reserves[active] -= amount
 			player.gun_ammo[active] = player.ammunition
+	strum_cooldown = maxf(0, strum_cooldown - delta)
+	strum_flash = maxf(0, strum_flash - delta)
 	progress = 1.0 - reload_left
 	if active == "smg" and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		use_item()
@@ -128,6 +138,7 @@ func use_item() -> void:
 		"shank": player.shank()
 		"c4": detonate_charges()
 		"remote": open_remote()
+		"guitar": strum()
 		"pistol", "smg": player.fire_gun()
 
 func start_reload() -> void:
@@ -137,6 +148,38 @@ func start_reload() -> void:
 		player.level.notify("No reserve ammunition.")
 		return
 	reload_left = 1.0
+
+func collect_guitar() -> void:
+	has_guitar = true
+	select_item("guitar")
+
+## A strum puts ordinary Keepers in range to sleep for the rest of the floor and can hurt an
+## exposed Niro. Strumming on the beat reaches further; missing the beat is never punished.
+func strum() -> int:
+	if not has_guitar or strum_cooldown > 0:
+		return -1
+	strum_cooldown = 0.55
+	strum_flash = 0.35
+	var on_beat: bool = get_node("/root/MusicDirector").is_on_beat(0.12)
+	var radius := STRUM_RADIUS_ON_BEAT if on_beat else STRUM_RADIUS
+	var affected := 0
+	get_node("/root/SoundFX").play_sound("sigil", -14, 1.6 if on_beat else 1.3)
+	player.level.emit_effect("hit", player.global_position + Vector2(0, -8))
+	for guard in player.level.guards():
+		if guard.is_dead or guard.global_position.distance_to(player.global_position) > radius:
+			continue
+		if not player.level.clear_sight(player.global_position + Vector2(0, -8), guard.global_position + Vector2(0, -8)):
+			continue
+		if guard.has_method("begin_recovery"):
+			if guard.is_vulnerable:
+				guard.take_damage(1)
+				affected += 1
+		elif not guard.asleep:
+			guard.fall_asleep()
+			affected += 1
+	if on_beat:
+		player.level.notify("On the beat. The song carries further.", 1.5)
+	return affected
 
 func collect_ammo_case() -> bool:
 	if player.guns.is_empty() and not player.has_gun:

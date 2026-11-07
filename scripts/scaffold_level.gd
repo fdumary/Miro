@@ -8,6 +8,8 @@ var hack_remaining := 0.0
 var floor_alerts := 0
 var brother: Node
 var cinematic: Control
+## Level 5 only: guitar, waves and Niro's three retreats (scripts/foundation_flow.gd).
+var flow: Node
 
 func _ready() -> void:
 	definition = JSON.parse_string(FileAccess.get_file_as_string(get_meta("blueprint")))
@@ -16,6 +18,9 @@ func _ready() -> void:
 	setup_inputs()
 	player.level = self
 	player.position = $LevelPlan/PlayerSpawn.position
+	# Camera and out-of-world limits follow the blueprint (Level 5 is deeper than the others).
+	player.get_node("Camera2D").limit_right = int(definition.world_size[0])
+	player.get_node("Camera2D").limit_bottom = int(definition.world_size[1])
 	player.has_supplies = true
 	player.c4_count = int(definition.get("demolition_charges", 1)) + 1 # One optional charge; story supports stay reserved.
 	door_open = true
@@ -34,6 +39,12 @@ func _ready() -> void:
 			camera.level = self
 			add_child(camera)
 			connected_cameras.append(camera)
+	if int(definition.number) == 5:
+		flow = Node.new()
+		flow.set_script(load("res://scripts/foundation_flow.gd"))
+		flow.name = "FoundationFlow"
+		add_child(flow)
+		flow.setup(self)
 	start_dialogue([[definition.title.to_upper(), definition.opening]])
 
 func _process(delta: float) -> void:
@@ -62,14 +73,25 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if completed and event.is_action_pressed("advance") and not event.is_echo():
-		get_node("/root/Campaign").complete_floor(int(definition.number), sigil_placed, milestones)
+		get_node("/root/Campaign").complete_floor(int(definition.number), sigil_placed, milestones, floor_raw_stats())
 		get_viewport().set_input_as_handled()
 		get_tree().change_scene_to_file("res://scenes/levels/level_%02d.tscn" % (int(definition.number) + 1) if definition.number < 5 else "res://scenes/intro.tscn")
 		return
 	super._unhandled_input(event)
 
+func counts_detection() -> bool:
+	# In The Foundation discovery is forced after the guitar; only earlier sightings count.
+	return flow == null or flow.step == flow.Step.OFFICE
+
 func objective() -> String:
+	if flow != null and not flow.objective().is_empty():
+		var text: String = flow.objective()
+		if not milestones.has("FinalSigil"):
+			text += " · final sigil not yet placed"
+		return text
 	for station in definition.stations:
+		if flow != null and station.id in ["FinalOffer", "BrotherEncounter"] and not milestones.has(station.id):
+			continue
 		if not milestones.has(station.id):
 			return "%02d / %s\n%s" % [int(definition.number), definition.title.to_upper(), station.objective]
 	return "%s\nReach the stair gate. [E]" % definition.title
@@ -89,7 +111,7 @@ func context_hint() -> String:
 	if world_features and not world_features.hint().is_empty():
 		return world_features.hint()
 	if is_instance_valid(brother) and not brother.is_dead:
-		return "[1] select shank, click during RECOVER • [C] Dodge • Space Jump"
+		return flow.niro_fight_hint() if flow != null else "[1] select shank, click during RECOVER • [C] Dodge • Space Jump"
 	if hack_remaining > 0:
 		return "Reprogramming… %d%% • stay within reach" % int((1 - hack_remaining) * 100)
 	if controls_locked() or player.is_dead:
@@ -98,8 +120,8 @@ func context_hint() -> String:
 	if not station.is_empty():
 		return "Completed: " + station.title if milestones.has(station.id) else "[E] " + station.title
 	var guard = closest_guard()
-	if guard and guard.is_dead and not guard.gun_taken:
-		return "[E] Search fallen Keeper"
+	if guard and (guard.is_dead or guard.asleep) and not guard.gun_taken:
+		return "[E] Search sleeping Keeper" if guard.asleep else "[E] Search fallen Keeper"
 	if nearby("exit", 65):
 		return "[E] Descend once this floor's objectives are complete"
 	if player.is_concealed:
@@ -124,6 +146,9 @@ func interact() -> void:
 			if not milestones.has(required):
 				notify("First: " + str(required).replace("_", " "))
 				return
+		if flow != null and station.id in ["FinalOffer", "BrotherEncounter", "DefeatExchange"]:
+			notify("Niro will come to you.")
+			return
 		pending_milestone = station.id
 		if station.id == "ForestViewpoint":
 			pending_milestone = ""
@@ -131,16 +156,6 @@ func interact() -> void:
 			cinematic.level = self
 			cinematic.finished.connect(finish_ending)
 			hud.add_child(cinematic)
-			return
-		if station.id == "BrotherEncounter":
-			pending_milestone = ""
-			if not is_instance_valid(brother):
-				brother = load("res://scenes/brother_boss.tscn").instantiate()
-				brother.level = self
-				brother.position = player.position + Vector2(85, -10)
-				add_child(brother)
-				get_node("/root/MusicDirector").second_section(5)
-				notify("RUSH / THROW: watch his tell. Dodge with C; select 1 and click during RECOVER.", 8)
 			return
 		if station.id == "RemoteTerminal":
 			pending_milestone = ""
@@ -152,17 +167,19 @@ func interact() -> void:
 		start_dialogue(station.lines, "milestone")
 		return
 	var guard = closest_guard()
-	if guard and guard.is_dead and not guard.gun_taken:
+	if guard and (guard.is_dead or guard.asleep) and not guard.gun_taken:
 		player.loot_weapon(guard)
 		return
 	if nearby("exit", 65):
-		if milestones.size() == definition.stations.size() and sigil_placed:
+		if definition.stations.all(func(entry): return milestones.has(entry.id)) and sigil_placed:
 			completed = true
 			player.velocity = Vector2.ZERO
 		else:
 			notify("Follow the remaining objective before descending.")
 
 func finish_dialogue() -> void:
+	var event := dialogue_event
+	var finished_milestone := pending_milestone if event == "milestone" else ""
 	if dialogue_event == "milestone" and not pending_milestone.is_empty():
 		milestones[pending_milestone] = true
 		if has_node("Gates"):
@@ -185,6 +202,11 @@ func finish_dialogue() -> void:
 	dialogue = []
 	dialogue_index = 0
 	dialogue_event = ""
+	if flow != null:
+		if finished_milestone == "Guitar":
+			flow.on_guitar()
+		elif event.begins_with("niro_"):
+			flow.on_dialogue_finished(event)
 
 func can_melee_reach(from: Vector2, to: Vector2) -> bool:
 	return clear_sight(from, to)
@@ -199,7 +221,17 @@ func camera_alert(point: Vector2) -> void:
 			guard.investigate(point)
 	notify("CAMERA ALERT • Keepers are searching your last seen position.")
 
+func niro_retreating(engagement: int) -> void:
+	if flow != null:
+		flow.niro_retreating(engagement)
+
+func niro_calls_guard(point: Vector2) -> void:
+	if flow != null:
+		flow.niro_calls_guard(point)
+
 func brother_defeated() -> void:
+	if flow != null:
+		flow.step = flow.Step.DONE
 	get_node("/root/MusicDirector").silence()
 	milestones["BrotherEncounter"] = true
 	areas.get_node("BrotherEncounter").activated = true
@@ -215,6 +247,6 @@ func controls_locked() -> bool:
 func finish_ending() -> void:
 	milestones["ForestViewpoint"] = true
 	completed = true
-	get_node("/root/Campaign").complete_floor(5, sigil_placed, milestones)
+	get_node("/root/Campaign").complete_floor(5, sigil_placed, milestones, floor_raw_stats())
 	if get_node("/root/Campaign").played_from_start:
 		get_node("/root/Campaign").mark_game_completed()

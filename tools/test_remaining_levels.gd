@@ -1,7 +1,8 @@
 extends "res://tools/test_intro.gd"
 
 func run() -> void:
-	for number in range(2, 6):
+	# Level 5 has its own encounter flow, covered end to end by test_brother.gd.
+	for number in range(2, 5):
 		if is_instance_valid(level):
 			level.queue_free()
 			await frames(2)

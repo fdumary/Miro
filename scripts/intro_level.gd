@@ -32,6 +32,11 @@ const VISUALS = preload("res://scripts/visual_assets.gd")
 var hint_icon: TextureRect
 var stealth_meter: Control
 var effects: Node2D
+# Branch tracking (committed to Campaign only when the floor is completed).
+var floor_detections := 0
+var was_spotted := false
+var loud_events := 0
+var stealth_bonus := 0
 
 func _ready() -> void:
 	get_node("/root/Campaign").enter_floor(1)
@@ -78,7 +83,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 		return
 	if completed and event.is_action_pressed("advance") and not event.is_echo():
-		get_node("/root/Campaign").complete_floor(1, sigil_placed, {"BrotherVoice": brother_heard})
+		get_node("/root/Campaign").complete_floor(1, sigil_placed, {"BrotherVoice": brother_heard}, floor_raw_stats())
 		get_viewport().set_input_as_handled()
 		get_tree().change_scene_to_file("res://scenes/levels/level_02.tscn")
 		return
@@ -114,6 +119,9 @@ func _process(delta: float) -> void:
 		if not guard.is_dead:
 			pursuing = pursuing or (guard.sees_player and guard.alert_state == IntroGuard.State.ALERT)
 			searching = searching or guard.alert_state == IntroGuard.State.SEARCH or guard.alert_state == IntroGuard.State.SUSPICIOUS
+	if pursuing and not was_spotted and counts_detection():
+		floor_detections += 1
+	was_spotted = pursuing
 	player.detection_state = "SPOTTED" if pursuing else ("HIDDEN" if player.is_concealed else ("SEARCHING / unseen" if searching else "UNSEEN"))
 	status_label.text = "MIRO   " + "♥ ".repeat(maxi(0, player.health)) + "    " + player.detection_state
 	if player.has_key:
@@ -142,6 +150,12 @@ func _process(delta: float) -> void:
 		overlay_label.text = "PAUSED\nA/D Move · W/S Ladders · Space twice Double jump\nC Dash · Left Ctrl Crouch · E Interact / recover C4\n1–5 Select · Q Blanket · N Inventory\nLeft click Use · Right click Focus / place C4\nR Reload · Blanket: shadows only · 5s active / 8s cooldown\nEsc Resume · Backspace Retry · F10 Menu"
 		overlay_label.text += "\n[M] Sound: " + ("OFF" if get_node("/root/SoundFX").muted else "ON")
 	queue_redraw()
+
+func counts_detection() -> bool:
+	return true
+
+func floor_raw_stats() -> Dictionary:
+	return {"kills": player.casualty_count, "detections": floor_detections, "stealth_bonus": stealth_bonus, "loud": loud_events}
 
 func objective() -> String:
 	if completed:
@@ -297,6 +311,7 @@ func interact() -> void:
 			player.controls.collect_remote()
 			player.has_key = true
 			route = "pickpocket"
+			stealth_bonus += 1
 			notify("The key slips free. No one noticed. [E] at the lock to open it.")
 		else:
 			notify("He can see your hand. Wait until he turns his back.")
@@ -359,6 +374,7 @@ func plant_c4() -> void:
 		player.c4_count -= 1
 		player.end_stealth()
 		route = "C4 breach"
+		loud_events += 1
 		open_door()
 		shot_flash = 0.4
 		emit_effect("breach", $Interactables/CellLock.global_position)

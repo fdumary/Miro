@@ -1,0 +1,36 @@
+{
+  "_comment": "Stealth vs offense changes how the world reacts to Miro, never the plot. MISSING = stealth, HUNTED = offense (>= 3 committed kills, or offense points above stealth points). Level 1 is neutral. See docs/STORY_AND_SYSTEMS_IMPLEMENTATION.md.",
+  "MISSING": {
+    "poster": "MISSING",
+    "pa": "Prisoner M-07 unaccounted for. Search your sections.",
+    "thought": "If nobody sees me, I'm only a rumour.",
+    "remote_call": "Nobody even knows your face anymore. Come home before they do.",
+    "guard_line": ["Someone let him out. Somebody on our shift.", "Check the lockers again. He can't just vanish."],
+    "boss_prefight": "You walked through my whole tower and nobody saw you. You could have just left.",
+    "ending_pa": "Prisoner M-07 remains unaccounted for.",
+    "ending_thought": "They'll never know who did it. Maybe that's what freedom is.",
+    "report": "The tower thinks you're missing."
+  },
+  "HUNTED": {
+    "poster": "WANTED - DANGEROUS",
+    "pa": "Prisoner M-07 is armed and has killed Keepers. Lethal force authorised.",
+    "thought": "Maybe they were right about me.",
+    "remote_call": "They're calling you a monster. Stop proving them right.",
+    "guard_line": ["He killed Rowan. Rowan had a daughter.", "Stay in pairs. Don't let him get close."],
+    "boss_prefight": "How many, Miro? How many before you're what they said?",
+    "ending_pa": "Prisoner M-07 is the bomber. All units...",
+    "ending_thought": "They'll tell it their way. Let them.",
+    "report": "The tower thinks you're hunting them."
+  },
+  "kill_disappointment": [
+    "The remote crackles. A long breath on the line, then nothing.",
+    "NIRO (remote): \"That was someone's son, Miro.\"",
+    "NIRO (remote): \"I can hear the alarms from here. Please stop.\""
+  ],
+  "mp3_unlocks": [
+    {"track": "birthday_melody", "stealth_points": 2},
+    {"track": "pinkghost", "stealth_points": 5},
+    {"track": "jazzyhall", "stealth_points": 8},
+    {"track": "dancehall", "stealth_points": 11}
+  ]
+}

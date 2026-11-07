@@ -62,6 +62,10 @@ func run() -> void:
  for number in range(2, 6):
   await next_floor(number)
   level.finish_dialogue()
+  if number == 5:
+   await foundation_run()
+   check(level.completed and not level.player.is_dead, "Floor 5 completed alive")
+   continue
   for station in level.definition.stations:
    if level.milestones.has(station.id):
     continue
@@ -96,56 +100,98 @@ func run() -> void:
  get_tree().quit(0 if failures.is_empty() else 1)
 
 func move_to(x: float, limit: int = 500, fight: bool = false) -> bool:
-	var p = level.player
-	var count := 0
-	while absf(p.position.x - x) > 5 and count < limit and not p.is_dead:
-		var right: bool = x > p.position.x
-		Input.action_press("move_right" if right else "move_left")
-		Input.action_release("move_left" if right else "move_right")
-		if (p.is_on_wall() and p.is_on_floor()) or (p.is_on_wall() and not p.is_on_floor() and p.jumps_used == 1 and p.velocity.y > -20):
-			Input.action_press("jump")
-		else:
-			Input.action_release("jump")
-		if fight:
-			for g in level.guards():
-				if not g.is_dead and p.position.distance_to(g.position) < 44:
-					p.facing = signf(g.position.x - p.position.x)
-					p.shank()
-		await frames(1)
-		count += 1
-	Input.action_release("move_left")
-	Input.action_release("move_right")
-	Input.action_release("jump")
-	for i in range(40):
-		if p.is_on_floor() or p.climbing:
-			break
-		await frames(1)
-	await frames(2)
-	print("MOVE target=", x, " actual=", p.position, " hp=", p.health)
-	return absf(p.position.x - x) <= 8
+ var p = level.player
+ var count := 0
+ while absf(p.position.x - x) > 5 and count < limit and not p.is_dead:
+  var right: bool = x > p.position.x
+  Input.action_press("move_right" if right else "move_left")
+  Input.action_release("move_left" if right else "move_right")
+  if (p.is_on_wall() and p.is_on_floor()) or (p.is_on_wall() and not p.is_on_floor() and p.jumps_used == 1 and p.velocity.y > -20):
+   Input.action_press("jump")
+  else:
+   Input.action_release("jump")
+  if fight:
+   for g in level.guards():
+    if not g.is_dead and p.position.distance_to(g.position) < 44:
+     p.facing = signf(g.position.x - p.position.x)
+     p.shank()
+  await frames(1)
+  count += 1
+ Input.action_release("move_left")
+ Input.action_release("move_right")
+ Input.action_release("jump")
+ for i in range(40):
+  if p.is_on_floor() or p.climbing:
+   break
+  await frames(1)
+ await frames(2)
+ print("MOVE target=", x, " actual=", p.position, " hp=", p.health)
+ return absf(p.position.x - x) <= 8
 
-func fight_brother() -> void:
-	var boss = level.brother
-	for tick in range(2400):
-		if boss.is_dead or level.player.is_dead:
-			break
-		var offset: float = boss.position.x - level.player.position.x
-		Input.action_release("move_left")
-		Input.action_release("move_right")
-		if boss.is_vulnerable:
-			if absf(offset) > 32:
-				Input.action_press("move_right" if offset > 0 else "move_left")
-			level.player.facing = signf(offset)
-			level.player.shank()
-		else:
-			if absf(offset) < 75:
-				Input.action_press("move_left" if offset > 0 else "move_right")
-			if boss.current_phase == boss.Phase.RUSH and absf(offset) < 80:
-				Input.action_press("jump")
-		if boss.projectile_live and boss.projectile.distance_to(level.player.position) < 100:
-			Input.action_press("jump")
-		await frames(1)
-		Input.action_release("jump")
-	Input.action_release("move_left")
-	Input.action_release("move_right")
-	check(boss.is_dead and not level.player.is_dead, "Defeat brother using movement and shank")
+func fight_brother(until_retreat := false) -> void:
+ var boss = level.brother
+ level.player.controls.select_item("shank")
+ for tick in range(2400):
+  if not is_instance_valid(boss) or boss.is_dead or level.player.is_dead or (until_retreat and boss.current_phase == boss.Phase.RETREAT):
+   break
+  var offset: float = boss.position.x - level.player.position.x
+  Input.action_release("move_left")
+  Input.action_release("move_right")
+  if boss.is_vulnerable:
+   if absf(offset) > 32:
+    Input.action_press("move_right" if offset > 0 else "move_left")
+   level.player.facing = signf(offset)
+   level.player.shank()
+  else:
+   if absf(offset) < 75:
+    Input.action_press("move_left" if offset > 0 else "move_right")
+   if boss.current_phase == boss.Phase.RUSH and absf(offset) < 80:
+    Input.action_press("jump")
+  if boss.projectile_live and boss.projectile.distance_to(level.player.position) < 100:
+   Input.action_press("jump")
+  await frames(1)
+  Input.action_release("jump")
+ Input.action_release("move_left")
+ Input.action_release("move_right")
+ check(not level.player.is_dead and (until_retreat or boss.is_dead), "Beat Niro back using movement and shank")
+
+## Level 5: guitar > waves > Niro x3 > final fight, with real movement, ladders and shank.
+func foundation_run() -> void:
+ var flow = level.flow
+ check(await move_to(300, 600, true), "Reach the final sigil")
+ level.interact()
+ level.finish_dialogue()
+ check(await move_to(190, 300, true), "Reach the guitar")
+ level.interact()
+ level.finish_dialogue()
+ check(level.player.controls.has_guitar, "Guitar taken")
+ var ladders := [[728, 170], [308, 190], [952, 200]]
+ for engagement in range(1, 5):
+  for wait in range(400):
+   if is_instance_valid(level.brother) and not level.brother.is_dead and level.brother.engagement >= engagement:
+    break
+   if flow.step == flow.Step.WAVE:
+    for guard in flow.wave_guards:
+     if is_instance_valid(guard) and not guard.is_dead and not guard.asleep:
+      level.player.position.x = guard.position.x - 40
+      level.player.controls.strum_cooldown = 0
+      level.player.controls.select_item("guitar")
+      level.player.controls.strum()
+   await frames(1)
+  check(is_instance_valid(level.brother), "Niro meeting %d" % engagement)
+  level.finish_dialogue()
+  await fight_brother(engagement < 4)
+  if engagement < 4:
+   await frames(70)
+   var ladder: Array = ladders[engagement - 1]
+   check(await move_to(ladder[0], 900, true), "Reach hatch %d" % engagement)
+   Input.action_press("climb_down")
+   await frames(ladder[1])
+   Input.action_release("climb_down")
+   await frames(30)
+ level.finish_dialogue()
+ check(level.milestones.has("DefeatExchange"), "Complete DefeatExchange")
+ check(await move_to(880, 800, true), "Reach ForestViewpoint")
+ level.interact()
+ await frames(850)
+ check(level.milestones.has("ForestViewpoint"), "Complete ForestViewpoint")

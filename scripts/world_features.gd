@@ -201,7 +201,7 @@ func nearest_loot():
 	var distance := 45.0
 	for guard in level.guards():
 		var candidate: float = guard.global_position.distance_to(level.player.global_position)
-		if guard.is_dead and not guard.gun_taken and candidate < distance and level.can_melee_reach(level.player.global_position, guard.global_position):
+		if (guard.is_dead or guard.asleep) and not guard.gun_taken and candidate < distance and level.can_melee_reach(level.player.global_position, guard.global_position):
 			best = guard
 			distance = candidate
 	return best

@@ -77,6 +77,11 @@ func run() -> void:
 				if area.kind == "ladder":
 					separate = separate and not Rect2(area.position - area.area_size / 2, area.area_size).grow(18).intersects(Rect2(hatch.position - Vector2(14, 14), Vector2(28, 28)))
 		check(separate, "Floor %d trapdoors do not overlap ladder corridors" % number)
+		if number == 5:
+			# The Foundation's hatches open as Niro retreats; climbing back up uses the opened route.
+			for gate in level.get_node("Gates").get_children():
+				gate.unlock()
+			await frames(2)
 		for ladder_name in ["FirstLadder", "SecondLadder"]:
 			var ladder = level.areas.get_node(ladder_name)
 			level.player.position = Vector2(ladder.position.x, 432 if ladder_name == "FirstLadder" else 656)
