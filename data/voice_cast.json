@@ -1,0 +1,54 @@
+{
+  "_comment": "Who voices what (ElevenLabs). tools/generate_voices.py reads this; the game only reads the generated clips. Guards and Niro use eleven_v3 so the [audio tags] in 'delivery' carry the emotion; subtitles never show the tags. Swap any voice_id for one from the ElevenLabs Voice Library and re-run: only changed lines regenerate.",
+  "model_id": "eleven_v3",
+  "voices": {
+    "niro": {
+      "name": "Callum (husky, intense) - placeholder until a designed voice is kept",
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "stability": 0.0,
+      "design_brief": "A man in his early thirties, a softly spoken, educated doctor whose calm keeps cracking: sudden giggles, whispered intensity, manic speed then dead stillness. Warm and frightening at once, like he loves you and has already decided what to do to you. Slight rasp. British.",
+      "design_sample": "Can you hear me? Good. I hate this thing too. [laughs softly] It makes me sound like them. [whispers] Come back to the chair, Miro. I'll make it quick. I always do."
+    },
+    "pa": {
+      "name": "Daniel (calm institutional broadcaster)",
+      "voice_id": "onwK4e9ZLuTAKqWW03F9",
+      "stability": 1.0
+    },
+    "guard_0": {
+      "name": "Roger (stern, in charge)",
+      "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+      "stability": 0.5
+    },
+    "guard_1": {
+      "name": "Bill (older, worn out, sick)",
+      "voice_id": "pqHfZKP75CvOlQylNhV4",
+      "stability": 0.5
+    },
+    "guard_2": {
+      "name": "Liam (young, jumpy)",
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "stability": 0.0
+    }
+  },
+  "guard_delivery": {
+    "symptoms_1": "[coughs] [uneasy]",
+    "symptoms_2": "[tired] [quietly]",
+    "symptoms_3": "[whispers] [tense]",
+    "treason_1": "[whispers] [gossiping]",
+    "treason_2": "[bitter]",
+    "password_1": "[annoyed]",
+    "password_2": "[bored] [sighs]",
+    "password_3": "[impatient]",
+    "password_4": "[warning]",
+    "ward_1": "[frustrated]",
+    "ward_2": "[nervous]",
+    "ward_3": "[scared] [quickly]",
+    "branch_missing_0": "[suspicious] [low]",
+    "branch_missing_1": "[frustrated]",
+    "branch_hunted_0": "[angry] [voice breaking]",
+    "branch_hunted_1": "[scared]",
+    "body": "[shocked] [shaky]",
+    "alert": "[shouting]"
+  },
+  "niro_delivery": "[intense]"
+}

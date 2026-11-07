@@ -138,14 +138,14 @@ func _physics_process(delta: float) -> void:
 			return
 		if global_position.x <= patrol_left:
 			if facing < 0:
-				turn_wait = 1.8 if sick_guard else 0.8
+				turn_wait = beat_wait(1.8 if sick_guard else 0.8)
 			facing = 1
 		elif global_position.x >= patrol_right:
 			if facing > 0:
-				turn_wait = 1.0
+				turn_wait = beat_wait(1.0)
 			facing = -1
 		if turn_wait <= 0:
-			velocity.x = facing * movement_speed
+			velocity.x = facing * movement_speed * stride()
 	# Do not walk off a floor or chase between tiers. Guards cannot climb.
 	var foot := global_position + Vector2(signf(velocity.x) * 15, 12)
 	if velocity.x != 0 and not level.has_floor_below(foot):
@@ -157,6 +157,29 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if is_on_wall():
 		facing *= -1
+
+## Patrols keep time with the music: a Keeper turns at the end of his beat on a beat line
+## (sick Keepers on every other beat) and leans into each step on the beat.
+func music() -> Node:
+	return get_node_or_null("/root/MusicDirector")
+
+func beat_wait(minimum: float) -> float:
+	var clock := music()
+	if clock == null or clock.bpm() <= 0:
+		return minimum
+	var spb: float = clock.seconds_per_beat()
+	var position: float = clock.beat_position()
+	var every := 2.0 if sick_guard else 1.0
+	var target := ceilf((position + minimum / spb) / every) * every
+	return (target - position) * spb
+
+## Averages 1.0 over a beat, so patrol timings are unchanged; the peak lands on the beat.
+func stride() -> float:
+	var clock := music()
+	if clock == null or clock.bpm() <= 0:
+		return 1.0
+	var offset := fmod(clock.beat_position(), 1.0)
+	return 0.7 + 0.6 * (1.0 - offset)
 
 func shoot_weapon() -> void:
 	burst_left -= 1

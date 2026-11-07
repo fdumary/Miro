@@ -50,7 +50,8 @@ func _ready() -> void:
 		flow.name = "FoundationFlow"
 		add_child(flow)
 		flow.setup(self)
-	var opening: Array = [[definition.title.to_upper(), definition.opening]]
+	# The floor's opening is Miro thinking it through: his thoughts are the game's cues.
+	var opening: Array = [["MIRO", definition.opening, "thought"]]
 	opening.append_array(setup_branch())
 	start_dialogue(opening)
 
@@ -72,7 +73,7 @@ func _process(delta: float) -> void:
 				for camera in connected_cameras:
 					camera.disable()
 				pending_milestone = "RemoteTerminal"
-				start_dialogue([["CHECKPOINT", "Reprogramming complete. Linked security cameras disabled."]], "milestone")
+				start_dialogue([["MIRO", "The cameras went dark. The checkpoint is blind now.", "thought"]], "milestone")
 	if completed:
 		overlay_label.text = "%s\n\n%s\n\n%s\n\n[Backspace] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing, floor_report()]
 		if int(definition.number) == 5:
@@ -127,7 +128,7 @@ func on_keeper_killed(_guard) -> void:
 		return
 	disappointment_heard = true
 	var lines: Array = get_node("/root/Campaign").branch().kill_disappointment
-	notify(lines[(int(definition.number) + player.casualty_count) % lines.size()], 5)
+	world_features.remote_say(lines[(int(definition.number) + player.casualty_count) % lines.size()], "NIRO" if int(definition.number) >= 3 else "THE VOICE")
 
 func floor_report() -> String:
 	var campaign = get_node("/root/Campaign")

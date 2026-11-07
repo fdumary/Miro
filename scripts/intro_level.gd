@@ -3,6 +3,7 @@ extends Node2D
 
 @onready var player: IntroPlayer = $Player
 @onready var areas: Node2D = $Interactables
+var radio_line := ""
 var door_open: bool = false
 var sigil_placed: bool = false
 var brother_heard: bool = false
@@ -48,13 +49,13 @@ func _ready() -> void:
 	build_hud()
 	setup_world_features(1)
 	start_dialogue([
-		["MIRO", "Stone. Iron. A name scratched into the bed: Miro.\nMine... I think. Nothing before this room."],
+		["MIRO", "Stone. Iron. A name scratched into the bed: Miro.\nMine... I think. Nothing before this room.", "thought"],
 		["KEEPER", "Awake again. Keep it down, traitor."],
 		["MIRO", "Is there anything you can do for me?"],
 		["KEEPER", "Depends. Cell 04 gave me his boots. Cell 09 gave me his ration card.\nWhat have you got?"],
 		["MIRO", "You're looking at it."],
 		["KEEPER", "Then I'm not looking. (He turns away, coughing.)\nThe tower doesn't pay me enough to care."],
-		["MIRO", "His hands are shaking. The same marks as the others.\nHe's turned away. This might be my only chance."]
+		["MIRO", "His hands are shaking. The same marks as the others.\nHe's turned away. This might be my only chance.", "thought"]
 	], "intro")
 	var launch_floor: int = get_node("/root/Campaign").launch_floor()
 	if launch_floor > 1:
@@ -144,13 +145,31 @@ func _process(delta: float) -> void:
 		var line: Array = dialogue[dialogue_index]
 		var anchor := speaker_anchor(str(line[0]))
 		dialogue_panel.actor = anchor
-		dialogue_panel.thought = str(line[0]) == "MIRO" and anchor == player and is_thought_line(str(line[1]))
+		var marked_thought: bool = line.size() > 2 and str(line[2]) == "thought"
+		dialogue_panel.thought = str(line[0]) == "MIRO" and anchor == player and (marked_thought or is_thought_line(str(line[1])))
 		var label := str(line[0])
 		if anchor == player and str(line[0]) not in ["MIRO"]:
 			label += " · remote" if str(line[0]) in ["NIRO", "THE VOICE", "BROTHER"] else ""
 		dialogue_panel.speaker = label
 		dialogue_label.text = str(line[1])
 		dialogue_panel.follow_actor()
+		# Niro's lines over the remote come out of the radio: bitcrushed, static, dropouts.
+		var key := "%d:%s" % [dialogue_index, str(line[1])]
+		if key != radio_line:
+			radio_line = key
+			var radio = get_node("/root/RemoteRadio")
+			var niro_line := str(line[0]) in ["NIRO", "THE VOICE", "BROTHER", "A VOICE BEYOND THE BARS"]
+			if niro_line and anchor == player:
+				radio.say(str(line[1]))
+			elif niro_line:
+				radio.say_in_room(str(line[1]))
+			elif str(line[0]) == "TOWER PA":
+				radio.say_in_room(str(line[1]), "pa")
+			else:
+				radio.stop()
+	elif not radio_line.is_empty():
+		radio_line = ""
+		get_node("/root/RemoteRadio").stop()
 	overlay.visible = paused or completed or player.is_dead
 	if completed:
 		var raw := floor_raw_stats()
@@ -340,7 +359,7 @@ func interact() -> void:
 		start_dialogue([
 			["MIRO", "Wire. Powder. Two charges, hidden beneath the bed.\nI've been building these in secret. My hands remember; I don't."],
 			["MIRO", "A sharpened spoon. My blanket. Something I scratched\non the wrapping: 'Leave a mark. Keep going down.'"],
-			["ESCAPE", "[E] Take the key while the Keeper faces away.\n[1] selects shank. Left click attacks.\n[2] C4: right click places, left click detonates."]
+			["MIRO", "His key, while he faces away [E]. The spoon for close work [1, left click].\nThe charges [2]: right click to set one, left click to blow it.", "thought"]
 		])
 		return
 	var guard = world_features.nearest_loot() if world_features.loot_takes_priority() else closest_guard()
@@ -411,7 +430,7 @@ func start_brother() -> void:
 		["A VOICE BEYOND THE BARS", "Miro. Please. Don't go any lower.\n%s" % response],
 		["MIRO", "You know my name. Do I know you?"],
 		["THE VOICE", "You used to. Stay there. Let me help you."],
-		["MIRO", "That voice should mean something. It hurts that it doesn't.\nI can't stay here."]
+		["MIRO", "That voice should mean something. It hurts that it doesn't.\nI can't stay here.", "thought"]
 	], "brother")
 
 func plant_c4() -> void:

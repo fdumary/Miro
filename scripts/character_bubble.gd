@@ -5,12 +5,12 @@ var thought := false
 ## Forced dialogue: shows the speaker's name and the continue prompt inside the bubble.
 var dialogue := false
 var speaker := ""
+## A small name tag on a non-dialogue bubble, e.g. "NIRO · remote".
+var tag := ""
 var text_label: Label
 var name_label: Label
 var prompt_label: Label
 var below := false
-const SPEECH = preload("res://assets/library/speech.png")
-const THOUGHT = preload("res://assets/library/thought.png")
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -42,10 +42,12 @@ func follow_actor() -> void:
 	if not is_instance_valid(actor):
 		visible = false
 		return
-	name_label.visible = dialogue
+	# Miro's thoughts need no name tag; the puffs already say whose head we're in.
+	var named := (dialogue and not thought) or not tag.is_empty()
+	name_label.visible = named
 	prompt_label.visible = dialogue
-	name_label.text = speaker
-	var top := 18.0 if dialogue else 7.0
+	name_label.text = tag if not tag.is_empty() else speaker
+	var top := 18.0 if named else 7.0
 	var bottom := 20.0 if dialogue else 7.0
 	text_label.position.y = top
 	size.y = maxf(42, text_label.get_line_count() * text_label.get_line_height() + top + bottom)
@@ -80,6 +82,21 @@ func _draw() -> void:
 	var tail_x := size.x / 2
 	if is_instance_valid(actor):
 		tail_x = clampf(actor.get_global_transform_with_canvas().origin.x - position.x, 20, size.x - 20)
-	# Reuse the licensed bubble assets as the speaker/thought tail badge.
-	var tail_y := -22.0 if below else size.y - 2
-	draw_texture_rect(THOUGHT if thought else SPEECH, Rect2(tail_x - 12, tail_y, 24, 24), false, Color("fbf5ef"), false)
+	# Speech gets a pointed tail; thoughts get a trail of shrinking puffs. No icon badge,
+	# so a speaker never looks like they are thinking (and vice versa).
+	var edge := 0.0 if below else size.y
+	var toward := -1.0 if below else 1.0
+	var fill := Color("fbf5ef")
+	var line := Color("8b6d9c")
+	if thought:
+		for index in range(3):
+			var radius := 5.0 - index * 1.5
+			var center := Vector2(tail_x - index * 3, edge + toward * (7 + index * 9))
+			draw_circle(center, radius + 1.5, line)
+			draw_circle(center, radius, fill)
+	else:
+		var tip := Vector2(tail_x, edge + toward * 12)
+		var points := PackedVector2Array([Vector2(tail_x - 8, edge - toward * 2), Vector2(tail_x + 8, edge - toward * 2), tip])
+		draw_colored_polygon(points, fill)
+		draw_line(points[0] + Vector2(0, toward * 2), tip, line, 2)
+		draw_line(points[1] + Vector2(0, toward * 2), tip, line, 2)

@@ -20,6 +20,10 @@ var wave_guards: Array[Node] = []
 var wait_left := 0.0
 var niro_health := 12
 var engagement := 0
+## Niro's taunts over the remote while he is off screen, in authored order, on a bar line.
+var taunt_index := 0
+var taunt_wait := 0.0
+const TAUNT_BARS := 6
 const ROW_FLOOR_Y := [236.0, 432.0, 656.0, 852.0]
 ## Never wait more than one bar for a beat-synced event, and hold it at most this long without music.
 const MAX_WAIT := 2.2
@@ -149,7 +153,7 @@ func on_dialogue_finished(event: String) -> void:
 func niro_retreating(index: int) -> void:
 	var line: String = level.definition.get("niro", {}).get("retreat_lines", {}).get(str(index), "")
 	if not line.is_empty():
-		level.notify("NIRO: " + line, 4)
+		level.world_features.remote_say(line, "NIRO", level.brother)
 
 func _on_niro_gone(index: int) -> void:
 	if is_instance_valid(level.brother):
@@ -160,6 +164,8 @@ func _on_niro_gone(index: int) -> void:
 			gate.unlock()
 	step = Step.DESCEND
 	niro_retreated.emit(index)
+	# Give him a couple of bars to get out of sight before the first taunt.
+	taunt_wait = maxf(taunt_wait, music().seconds_per_bar() * 2)
 	level.notify("A hatch opens below. He went down.", 5)
 
 func niro_calls_guard(point: Vector2) -> void:
@@ -174,9 +180,35 @@ func final_station_redraw(id: String) -> void:
 		node.activated = true
 		node.queue_redraw()
 
+func niro_on_screen() -> bool:
+	if not is_instance_valid(level.brother) or level.brother.is_dead:
+		return false
+	var view := level.get_viewport_rect()
+	var point: Vector2 = level.brother.get_global_transform_with_canvas().origin
+	return view.grow(-12).has_point(point)
+
+## After the reveal he never really leaves: when he's out of sight, his voice comes through the remote.
+func update_taunts(delta: float) -> void:
+	var taunts: Array = level.definition.get("niro", {}).get("taunts", [])
+	if taunts.is_empty() or engagement < 1 or step == Step.DONE or niro_on_screen():
+		return
+	if level.world_features.remote_busy():
+		return
+	taunt_wait -= delta
+	if taunt_wait > 0:
+		return
+	# Land the line on a bar line, like everything else down here.
+	if music().bpm() > 0 and music().seconds_to_next_bar() > 0.08:
+		return
+	var line: String = taunts[taunt_index % taunts.size()]
+	taunt_index += 1
+	level.world_features.remote_say(line)
+	taunt_wait = music().seconds_per_bar() * TAUNT_BARS if music().bpm() > 0 else 12.0
+
 func _process(delta: float) -> void:
 	if not is_instance_valid(level) or level.controls_locked() or level.player.is_dead:
 		return
+	update_taunts(delta)
 	match step:
 		Step.WAVE_PENDING:
 			wait_left -= delta

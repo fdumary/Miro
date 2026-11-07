@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 Campaign="*res://scripts/campaign.gd"
 MusicDirector="*res://scripts/music_director.gd"
 SoundFX="*res://scripts/sound_fx.gd"
+RemoteRadio="*res://scripts/remote_radio.gd"
 
 [display]
 

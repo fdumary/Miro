@@ -39,7 +39,7 @@ func run() -> void:
 	press.pressed = true
 	Input.parse_input_event(press)
 	await frames(3)
-	check(level.world_features.thought_bubble.visible and level.world_features.thought_bubble.text_label.text.begins_with("MIRO · thinking"), "Z shows a hint in Miro's thought bubble")
+	check(level.world_features.thought_bubble.visible and not level.world_features.thought_bubble.text_label.text.is_empty() and level.world_features.thought_bubble.thought, "Z shows a hint in Miro's thought bubble")
 	check(AudioServer.get_bus_index("Thought") >= 0, "Thought bus with reverb exists for voiced thoughts")
 	print("DIALOGUE_LAYOUT_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

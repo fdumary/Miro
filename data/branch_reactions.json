@@ -23,9 +23,9 @@
     "report": "The tower thinks you're hunting them."
   },
   "kill_disappointment": [
-    "The remote crackles. A long breath on the line, then nothing.",
-    "NIRO (remote): \"That was someone's son, Miro.\"",
-    "NIRO (remote): \"I can hear the alarms from here. Please stop.\""
+    "...Miro. Why?",
+    "That was someone's son, Miro.",
+    "I can hear the alarms from here. Please stop."
   ],
   "mp3_unlocks": [
     {"track": "birthday_melody", "stealth_points": 2},

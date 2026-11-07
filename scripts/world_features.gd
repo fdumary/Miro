@@ -16,6 +16,9 @@ var voice_speaker: Node2D
 var subtitle: Label
 var speech_bubble: Control
 var thought_bubble: Control
+## Niro (or the voice) talking through Miro's remote: a tagged bubble over Miro, radio audio.
+var remote_bubble: Control
+var remote_left := 0.0
 var thoughts: Dictionary
 var thought_seen: Dictionary = {}
 var thought_left := 0.0
@@ -60,6 +63,11 @@ func setup(owner_level: Node2D, number: int) -> void:
 	thought_bubble.actor = level.player
 	level.hud.add_child(thought_bubble)
 	thought_bubble.visible = false
+	remote_bubble = Control.new()
+	remote_bubble.set_script(preload("res://scripts/character_bubble.gd"))
+	remote_bubble.actor = level.player
+	level.hud.add_child(remote_bubble)
+	remote_bubble.visible = false
 	thoughts = JSON.parse_string(FileAccess.get_file_as_string("res://data/inner_dialogue.json"))
 	var keepers: Array[Node] = level.guards()
 	for index in range(keepers.size()):
@@ -373,7 +381,13 @@ func update_bubbles(delta: float) -> void:
 	speech_bubble.visible = voice_audible() and not level.controls_locked() and not level.player.is_dead
 	speech_bubble.follow_actor()
 	thought_bubble.visible = false
+	remote_bubble.visible = false
 	if level.controls_locked() or level.player.is_dead:
+		return
+	if remote_left > 0:
+		remote_left = maxf(0, remote_left - delta)
+		remote_bubble.visible = remote_left > 0
+		remote_bubble.follow_actor()
 		return
 	if speech_bubble.visible:
 		return
@@ -398,12 +412,28 @@ func update_bubbles(delta: float) -> void:
 func think(text: String, clip := "") -> void:
 	if text.is_empty():
 		return
-	thought_bubble.text_label.text = "MIRO · thinking\n" + text
+	thought_bubble.text_label.text = text
 	thought_left = maxf(4, text.length() * 0.07)
 	var path := "res://assets/audio/voice/%s.mp3" % clip
 	if not clip.is_empty() and ResourceLoader.exists(path) and DisplayServer.get_name() != "headless":
 		thought_voice.stream = load(path)
 		thought_voice.play()
+
+## A line over the remote: shown above Miro, heard through the bitcrushed radio bus.
+## With an actor (Niro in the room) the line hangs over him instead and is not radioed.
+func remote_say(text: String, speaker := "NIRO", actor: Node2D = null) -> void:
+	if text.is_empty():
+		return
+	remote_bubble.actor = actor if is_instance_valid(actor) else level.player
+	remote_bubble.tag = speaker if is_instance_valid(actor) else speaker + " · remote"
+	remote_bubble.text_label.text = text
+	if is_instance_valid(actor):
+		remote_left = maxf(2.5, text.length() * 0.06) + 0.8
+	else:
+		remote_left = get_node("/root/RemoteRadio").say(text) + 0.8
+
+func remote_busy() -> bool:
+	return remote_left > 0
 
 func build_password_panel() -> void:
 	password_panel = level.panel_at(Vector2(110, 95), Vector2(420, 190))

@@ -445,7 +445,7 @@
     }
   ],
   "number": 5,
-  "opening": "At the bottom, everything else rests on what they keep here.",
+  "opening": "At the bottom, everything else rests on what they keep here.\nThere's an office ahead. Something in there is humming.",
   "closing": "Miro leaves alone. The ending stays unresolved.",
   "stations": [
     {
@@ -733,7 +733,16 @@
         ]
       ]
     },
-    "retreat_lines": {
+    "taunts": [
+    "Can you hear me? Good. I hate this thing too. It makes me sound like them.",
+    "You're running in circles, Miro. I drew the circles.",
+    "Every Keeper you put to sleep is a report I write tonight. In my handwriting.",
+    "They're not hunting you. They're collecting you. There's a difference. I made sure of it.",
+    "Slow down. Your heart rate's on my screen. You'll tear something I stitched.",
+    "Nobody leaves this tower, Miro. Not the sick. Not the Keepers. Not me.",
+    "Down is the wrong way. Down is where I keep the truth. Come and look, then."
+  ],
+  "retreat_lines": {
       "1": "Not here. Not like this.",
       "2": "You don't understand what's down there.",
       "3": "Then come to the bottom. See what you're breaking."

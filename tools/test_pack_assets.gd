@@ -18,7 +18,7 @@ func run() -> void:
 		var stream = load("res://assets/audio/voice/%s.mp3" % id)
 		if not stream is AudioStream or stream.get_length() <= 0:
 			failures.append("Missing voice: " + id)
-	for path in ["res://.env", "res://.env.local", "res://soundselection/beats/YZ33.mp3", "res://tools/generate_guard_voices.py"]:
+	for path in ["res://.env", "res://.env.local", "res://soundselection/beats/YZ33.mp3", "res://tools/generate_voices.py"]:
 		if FileAccess.file_exists(path):
 			failures.append("Excluded file present: " + path)
 	for error in failures:

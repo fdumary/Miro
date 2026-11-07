@@ -25,7 +25,11 @@ func _physics_process(delta: float) -> void:
 		level.camera_alert(level.player.global_position)
 	queue_redraw()
 
+## With music playing, one full sweep takes four bars and turns on the downbeat.
 func direction_angle() -> float:
+	var clock = get_node_or_null("/root/MusicDirector")
+	if clock != null and clock.bpm() > 0:
+		return facing_angle + sin(clock.beat_position() / 16.0 * TAU) * 0.4
 	return facing_angle + sin(sweep_time * 0.7) * 0.4
 
 func detects_player() -> bool:

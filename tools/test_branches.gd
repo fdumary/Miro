@@ -35,10 +35,11 @@ func run() -> void:
 	level.finish_dialogue()
 	var keeper = level.get_node("Guards/HuntedKeeper")
 	keeper.die()
-	check(level.message.begins_with("The remote") or level.message.begins_with("NIRO"), "A kill brings Niro's disappointment over the remote")
-	var message: String = level.message
+	var bubble = level.world_features.remote_bubble
+	check(level.world_features.remote_busy() and bubble.tag == "NIRO · remote" and not bubble.text_label.text.is_empty(), "A kill brings Niro's disappointment over the remote, in a remote bubble")
+	level.world_features.remote_left = 0
 	level.get_node("Guards/GalleryKeeper").die()
-	check(level.message != message and level.disappointment_heard, "Niro's disappointment is heard once per floor")
+	check(not level.world_features.remote_busy() and level.disappointment_heard, "Niro's disappointment is heard once per floor")
 	campaign.enter_floor(2)
 	check(campaign.reputation() == "MISSING", "Retrying an earlier floor restores its entry reputation")
 	print("BRANCHES_RESULT: ", checks - failures.size(), "/", checks, " passed")
