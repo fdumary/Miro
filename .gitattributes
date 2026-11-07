@@ -9,3 +9,5 @@ assets/audio/music/birthday_melody.mp3 -filter -diff -merge binary
 assets/audio/music/pinkghost.mp3 -filter -diff -merge binary
 assets/audio/music/jazzyhall.mp3 -filter -diff -merge binary
 assets/audio/music/dancehall.mp3 -filter -diff -merge binary
+# Voice clips regenerated 7 Nov 2026 from the cloud session (ElevenLabs): plain blobs, not LFS.
+assets/audio/voice/*.mp3 -filter -diff -merge binary
