@@ -5,6 +5,9 @@ var shooter: CollisionObject2D
 var direction := Vector2.RIGHT
 var speed := 700.0
 var remaining := 420.0
+var flame := false
+var damage := 2
+var enemy := false
 var trail_start := Vector2.ZERO
 
 func _ready() -> void:
@@ -15,7 +18,7 @@ func _physics_process(delta: float) -> void:
 		return
 	var distance := minf(remaining, speed * delta)
 	var destination := global_position + direction * distance
-	var query := PhysicsRayQueryParameters2D.create(global_position, destination, 1 | 4)
+	var query := PhysicsRayQueryParameters2D.create(global_position, destination, 1 | (2 if enemy else 4))
 	if is_instance_valid(shooter):
 		query.exclude = [shooter.get_rid()]
 	var hit := get_world_2d().direct_space_state.intersect_ray(query)
@@ -23,7 +26,9 @@ func _physics_process(delta: float) -> void:
 		global_position = hit.position
 		var target = hit.collider
 		if target is IntroGuard and not target.is_dead:
-			target.take_damage(1 if target.has_method("begin_recovery") else 2)
+			target.take_damage(1 if target.has_method("begin_recovery") else damage)
+		elif enemy and target is IntroPlayer:
+			target.take_damage(1)
 		level.emit_effect("hit", global_position)
 		queue_free()
 		return
@@ -34,4 +39,9 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _draw() -> void:
-	draw_line(-direction * 10, Vector2.ZERO, Color("f2d3ab"), 2)
+	if flame:
+		draw_set_transform(Vector2.ZERO, direction.angle())
+		draw_texture_rect(preload("res://assets/weapons/flame.svg"), Rect2(-14, -5, 20, 10), false)
+		draw_set_transform(Vector2.ZERO)
+	else:
+		draw_line(-direction * 10, Vector2.ZERO, Color("f2d3ab"), 2)

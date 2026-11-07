@@ -67,7 +67,7 @@ func setup_inputs() -> void:
 				InputMap.action_add_event(action, event)
 
 func controls_locked() -> bool:
-	return paused or not dialogue.is_empty() or completed or (is_instance_valid(world_features) and world_features.modal_open())
+	return is_instance_valid(player.pending_guard) or paused or not dialogue.is_empty() or completed or (is_instance_valid(world_features) and world_features.modal_open())
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.physical_keycode == KEY_F10:
@@ -279,10 +279,7 @@ func interact() -> void:
 				if route == "":
 					route = "shank"
 			if not guard.gun_taken:
-				player.has_gun = true
-				player.ammunition += 2
-				guard.gun_taken = true
-				notify("Taken: ammunition and a Keeper's weapon. [4] Fire; shots draw a search.")
+				player.loot_weapon(guard)
 			else:
 				notify("Nothing else to take.")
 		elif guard.facing * (player.global_position.x - guard.global_position.x) < -6 and guard.alert_state != IntroGuard.State.ALERT:
@@ -404,6 +401,12 @@ func build_hud() -> void:
 	header.color = Color(0.15, 0.15, 0.26, 0.92)
 	header.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.add_child(header)
+	var inventory := Control.new()
+	inventory.set_script(preload("res://scripts/weapon_inventory.gd"))
+	inventory.player = player
+	inventory.position = Vector2(14, 70)
+	inventory.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.add_child(inventory)
 	status_label = label_at(hud, Vector2(14, 10), Vector2(348, 50), 11)
 	status_label.clip_text = true
 	objective_label = label_at(hud, Vector2(370, 10), Vector2(254, 48), 11)

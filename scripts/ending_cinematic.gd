@@ -67,7 +67,7 @@ func _draw() -> void:
 	draw_rect(Rect2(234, 244, 7, 8), Color("8b6d9c"))
 	var subtitle := "Miro reaches the woods. He looks back."
 	if elapsed >= 2.5:
-		subtitle = "Five marks. Five charges on the tower's supports."
+		subtitle = "The marks ignite. The ward charges follow."
 	if elapsed >= 7.5:
 		subtitle = "The tower falls."
 	if elapsed >= 11:

@@ -467,6 +467,10 @@
         [
           "TRANSFER LEDGER",
           "All occupants of affected rooms: detention.\nSymptoms are not required for transfer."
+        ],
+        [
+          "DUTY NOTICE",
+          "Keepers reporting symptoms must remain at their posts\nuntil a replacement is authorized."
         ]
       ],
       "requires": [],
@@ -516,7 +520,7 @@
       "section": "Reusable physics tiles, tiered layout and human art/layout review"
     }
   ],
-  "scope": "Playable layout scaffold with draft dialogue; systems explicitly marked as placeholders are not implemented.",
+  "scope": "Playable five-floor game; narrative updated to the approved immunity/tower-origin reveal. See docs/NARRATIVE_UPDATE.md for review status.",
   "props": [
     {
       "name": "SymptomaticPrisoner",

@@ -165,6 +165,22 @@ script = ExtResource("5_fy4m5")
 kind = "note"
 area_size = Vector2(30, 38)
 
+[node name="WardChargeWest" type="Area2D" parent="Interactables" unique_id=1711667351 instance=ExtResource("10_47boq")]
+position = Vector2(500, 414)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_fy4m5")
+kind = "sigil"
+area_size = Vector2(30, 50)
+
+[node name="WardChargeLower" type="Area2D" parent="Interactables" unique_id=218121813 instance=ExtResource("10_47boq")]
+position = Vector2(450, 647)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_fy4m5")
+kind = "sigil"
+area_size = Vector2(30, 50)
+
 [node name="Gates" type="Node2D" parent="." unique_id=713058875]
 
 [node name="WardSeal" type="StaticBody2D" parent="Gates" unique_id=1265560378 instance=ExtResource("11_8m3pt")]
@@ -221,6 +237,28 @@ offset_bottom = 381.0
 theme_override_colors/font_color = Color(0.7764706, 0.62352943, 0.64705884, 1)
 theme_override_font_sizes/font_size = 9
 text = "Hear the warning about the ward"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label_WardChargeWest" type="Label" parent="." unique_id=526157584]
+offset_left = 450.0
+offset_top = 349.0
+offset_right = 550.0
+offset_bottom = 381.0
+theme_override_colors/font_color = Color(0.7764706, 0.62352943, 0.64705884, 1)
+theme_override_font_sizes/font_size = 9
+text = "Plant 2 C4"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label_WardChargeLower" type="Label" parent="." unique_id=768547153]
+offset_left = 400.0
+offset_top = 582.0
+offset_right = 500.0
+offset_bottom = 614.0
+theme_override_colors/font_color = Color(0.7764706, 0.62352943, 0.64705884, 1)
+theme_override_font_sizes/font_size = 9
+text = "Plant 2 C4"
 horizontal_alignment = 1
 autowrap_mode = 3
 

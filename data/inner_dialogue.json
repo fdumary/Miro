@@ -1,0 +1,72 @@
+{
+  "1": [
+    {
+      "id": "wake",
+      "text": "One room. One way out. Start with what I can reach."
+    },
+    {
+      "id": "below",
+      "minimum_y": 400,
+      "text": "He is coughing too. A uniform does not keep the sickness out."
+    }
+  ],
+  "2": [
+    {
+      "id": "entry",
+      "text": "They call this protection. Why do the locks face inward?"
+    },
+    {
+      "id": "ledger",
+      "milestone": "TransferLedger",
+      "text": "No symptoms. No hearing. A name on a list is enough."
+    }
+  ],
+  "3": [
+    {
+      "id": "entry",
+      "text": "Every door trusts an order. Maybe I can give it a different one."
+    },
+    {
+      "id": "hack",
+      "milestone": "RemoteTerminal",
+      "text": "Root access. Their rules are only instructions someone wrote."
+    },
+    {
+      "id": "rank",
+      "milestone": "RankRecord",
+      "text": "I wore their uniform. Was I dangerous then, or only when I stopped obeying?"
+    }
+  ],
+  "4": [
+    {
+      "id": "entry",
+      "text": "The deeper I go, the less this place looks like a shelter."
+    },
+    {
+      "id": "records",
+      "milestone": "ExperimentRecords",
+      "text": "They kept counting results after they stopped counting people."
+    },
+    {
+      "id": "charges",
+      "milestone": "FourthSigil",
+      "text": "My hands are steady now. That does not make this easy."
+    }
+  ],
+  "5": [
+    {
+      "id": "entry",
+      "text": "The last door. I wanted the truth. I am afraid of what it will ask of me."
+    },
+    {
+      "id": "truth",
+      "milestone": "FinalOffer",
+      "text": "I am not their disease. I am not their cure to own."
+    },
+    {
+      "id": "loss",
+      "milestone": "DyingExchange",
+      "text": "I wanted him to walk out with me."
+    }
+  ]
+}

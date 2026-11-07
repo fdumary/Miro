@@ -9,6 +9,10 @@ enum State { PATROL, SUSPICIOUS, ALERT, SEARCH }
 @export var patrol_left: float = 300.0
 @export var patrol_right: float = 500.0
 @export var sick_guard: bool = false
+@export_enum("pistol", "smg", "flamethrower") var weapon_kind := "pistol"
+var burst_left := 0
+var burst_timer := 0.0
+var shot_direction := Vector2.RIGHT
 var level: Node2D
 var alert_state: State = State.PATROL
 var facing: float = 1.0
@@ -56,6 +60,7 @@ func _physics_process(delta: float) -> void:
 		return
 	if is_dead:
 		return
+	invulnerability_left = maxf(0, invulnerability_left - delta)
 	attack_timer = maxf(0.0, attack_timer - delta)
 	turn_wait = maxf(0.0, turn_wait - delta)
 	sees_player = detect_player()
@@ -84,16 +89,24 @@ func _physics_process(delta: float) -> void:
 			if level.world_features:
 				level.world_features.bark(self, "body")
 	velocity.x = 0
+	burst_timer -= delta
+	if burst_left > 0 and burst_timer <= 0:
+		if sees_player:
+			shoot_weapon()
+		else:
+			burst_left = 0
 	if windup > 0:
 		windup -= delta
-		if windup <= 0 and sees_player and global_position.distance_to(level.player.global_position) < 35:
-			level.player.take_damage(1)
+		if windup <= 0 and sees_player:
+			burst_left = 1 if weapon_kind == "pistol" else (3 if weapon_kind == "smg" else 5)
+			shoot_weapon()
 	elif alert_state == State.ALERT and sees_player:
 		facing = signf(last_known_position.x - global_position.x)
-		if global_position.distance_to(last_known_position) < 29:
+		if global_position.distance_to(last_known_position) < (90 if weapon_kind == "flamethrower" else 150):
 			if attack_timer <= 0:
-				windup = 0.45
-				attack_timer = 1.35
+				windup = 0.65
+				shot_direction = (level.player.global_position - global_position).normalized()
+				attack_timer = 2.1
 		else:
 			velocity.x = facing * 78.0
 	elif alert_state == State.SEARCH:
@@ -135,6 +148,30 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if is_on_wall():
 		facing *= -1
+
+func shoot_weapon() -> void:
+	burst_left -= 1
+	burst_timer = 0.14
+	var bullet := Node2D.new()
+	bullet.set_script(load("res://scripts/weapon_projectile.gd"))
+	bullet.level = level
+	bullet.shooter = self
+	bullet.enemy = true
+	bullet.direction = shot_direction
+	bullet.flame = weapon_kind == "flamethrower"
+	bullet.speed = 210.0 if bullet.flame else 280.0
+	bullet.remaining = 100.0 if bullet.flame else 260.0
+	bullet.position = position + Vector2(0, -4)
+	level.add_child(bullet)
+	get_node("/root/SoundFX").play_sound("flame" if bullet.flame else "shot", -25, 1.25 if weapon_kind == "smg" else 1.0)
+	level.make_noise(global_position, 600)
+	if not bullet.flame:
+		var casing := Node2D.new()
+		casing.set_script(load("res://scripts/weapon_casing.gd"))
+		casing.level = level
+		casing.position = position
+		casing.velocity = Vector2(-facing * 65, -100)
+		level.add_child(casing)
 
 func investigate(point: Vector2) -> void:
 	if is_dead or sees_player:
@@ -191,6 +228,9 @@ func _draw() -> void:
 	# Mirror the art, not the guard's collision, FOV or attached indicators.
 	draw_set_transform(Vector2(0, 15), -facing * 0.12 if coughing else 0.0, Vector2(facing, 0.9 if coughing else 1.0))
 	draw_texture_rect_region(texture, Rect2(-16, -31, 32, 32), Rect2(frame * 32, 0, 32, 32))
+	draw_set_transform(Vector2.ZERO)
+	draw_set_transform(Vector2(0, -4), 0, Vector2(facing, 1))
+	draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[weapon_kind], Rect2(0, -10, 24, 24), false)
 	draw_set_transform(Vector2.ZERO)
 	if windup > 0:
 		draw_line(Vector2(facing * 9, 0), Vector2(facing * 27, -9), pale, 2)

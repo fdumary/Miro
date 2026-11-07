@@ -82,7 +82,11 @@ func die() -> void:
 
 func _draw() -> void:
 	var color := Color("f2d3ab") if is_vulnerable else Color("8b6d9c")
-	draw_rect(Rect2(-9, -20 if not is_dead else -3, 18, 30 if not is_dead else 8), color)
+	draw_texture_rect(preload("res://assets/characters/miro_idle.png"), Rect2(-16, -26, 32, 32), false, color)
+	# A physician's coat, badge and control remote distinguish the brother.
+	draw_rect(Rect2(-9, -6 if not is_dead else -3, 18, 19 if not is_dead else 8), Color("d9d9d9"))
+	draw_rect(Rect2(3, -4, 4, 3), Color("b62432"))
+	draw_rect(Rect2(facing * 12 - 3, -3, 6, 9), Color("494d7e"))
 	if is_dead:
 		return
 	draw_circle(Vector2(0, -24), 7, Color("c69fa5"))

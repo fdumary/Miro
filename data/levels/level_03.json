@@ -474,7 +474,7 @@
       "lines": [
         [
           "BROTHER",
-          "You are my brother. You served beside me.\nWe both bear responsibility for what this order became."
+          "You are my brother. You kept order; I kept the ward.\nI thought we were helping people."
         ],
         [
           "MIRO",
@@ -529,7 +529,7 @@
       "section": "Reusable physics tiles, tiered layout and human art/layout review"
     }
   ],
-  "scope": "Playable layout scaffold with draft dialogue; systems explicitly marked as placeholders are not implemented.",
+  "scope": "Playable five-floor game; narrative updated to the approved immunity/tower-origin reveal. See docs/NARRATIVE_UPDATE.md for review status.",
   "gates": [
     {
       "name": "CheckpointGate",

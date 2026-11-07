@@ -20,7 +20,7 @@ func emit_burst(cue: String, point: Vector2) -> void:
 		particles.append({"position": to_local(point), "origin_y": to_local(point).y,
 			"velocity": Vector2.ZERO if cue == "blood" else Vector2(random.randf_range(-38, 38), random.randf_range(-60, -15)),
 			"life": life, "duration": life, "size": size, "id": id,
-			"color": Color("8b6d9c") if cue == "blood" else Color("f2d3ab")})
+			"color": Color("d32632") if cue == "blood" else Color("f2d3ab")})
 	queue_redraw()
 
 func _process(delta: float) -> void:

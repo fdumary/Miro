@@ -9,6 +9,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	for cue in ["step", "swing", "hit", "gate", "sigil", "shot", "collapse"]:
 		streams[cue] = load("res://assets/audio/%s.ogg" % cue)
+	streams["flame"] = preload("res://assets/audio/flame.wav")
 	for index in range(8):
 		var voice := AudioStreamPlayer.new()
 		voice.bus = "Effects"
@@ -20,7 +21,7 @@ func _ready() -> void:
 		muted = settings.get_value("audio", "muted", false)
 	AudioServer.set_bus_mute(0, muted)
 
-func play_sound(cue: String, volume_db: float = -16) -> void:
+func play_sound(cue: String, volume_db: float = -16, pitch: float = 1.0) -> void:
 	# Headless QA still loads/validates assets but has no audible output device.
 	if muted or DisplayServer.get_name() == "headless" or not streams.has(cue):
 		return
@@ -28,6 +29,7 @@ func play_sound(cue: String, volume_db: float = -16) -> void:
 	next_voice = (next_voice + 1) % voices.size()
 	voice.stream = streams[cue]
 	voice.volume_db = volume_db
+	voice.pitch_scale = pitch
 	voice.play()
 
 func _exit_tree() -> void:

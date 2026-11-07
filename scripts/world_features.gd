@@ -14,6 +14,11 @@ var last_line: Dictionary = {}
 var voice: AudioStreamPlayer2D
 var voice_speaker: Node2D
 var subtitle: Label
+var speech_bubble: Control
+var thought_bubble: Control
+var thoughts: Dictionary
+var thought_seen: Dictionary = {}
+var thought_left := 0.0
 var password_panel: PanelContainer
 var password_input: LineEdit
 var password_status: Label
@@ -33,13 +38,24 @@ func setup(owner_level: Node2D, number: int) -> void:
 	voice.max_distance = 300
 	voice.attenuation = 1.5
 	add_child(voice)
-	subtitle = level.label_at(level.hud, Vector2(22, 250), Vector2(596, 42), 11)
-	subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	subtitle.add_theme_color_override("font_shadow_color", Color.BLACK)
+	speech_bubble = Control.new()
+	speech_bubble.set_script(preload("res://scripts/character_bubble.gd"))
+	level.hud.add_child(speech_bubble)
+	subtitle = speech_bubble.text_label
+	speech_bubble.visible = false
+	thought_bubble = Control.new()
+	thought_bubble.set_script(preload("res://scripts/character_bubble.gd"))
+	thought_bubble.thought = true
+	thought_bubble.actor = level.player
+	level.hud.add_child(thought_bubble)
+	thought_bubble.visible = false
+	thoughts = JSON.parse_string(FileAccess.get_file_as_string("res://data/inner_dialogue.json"))
 	var keepers: Array[Node] = level.guards()
 	for index in range(keepers.size()):
 		keepers[index].guard_name = NAMES[number][index % 4]
 		keepers[index].voice_index = index % 3
+		if number > 1 and not keepers[index].has_method("begin_recovery"):
+			keepers[index].weapon_kind = ["pistol", "smg", "flamethrower"][index % (3 if number >= 4 else 2)]
 	if config.conversations.has(str(number)) and not keepers.is_empty():
 		var first = keepers[0]
 		if number == 3:
@@ -152,6 +168,7 @@ func try_interact() -> bool:
 
 func _process(delta: float) -> void:
 	queue_redraw()
+	update_bubbles(delta)
 	if not is_instance_valid(level) or level.paused:
 		return
 	if is_instance_valid(voice_speaker):
@@ -205,6 +222,7 @@ func _process(delta: float) -> void:
 func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> void:
 	voice.stop()
 	voice_speaker = actor
+	speech_bubble.actor = actor
 	voice.global_position = actor.global_position
 	var path := "res://assets/audio/voice/%s.mp3" % id
 	var duration := maxf(2.5, text.length() * 0.055)
@@ -240,9 +258,34 @@ func abort_conversation() -> void:
 func voice_audible() -> bool:
 	return line_left > 0 and is_instance_valid(voice_speaker) and not voice_speaker.is_dead and voice_speaker.global_position.distance_to(level.player.global_position) < 230
 
-func _draw() -> void:
-	if is_instance_valid(level) and not level.controls_locked() and voice_audible():
-		draw_texture_rect(preload("res://assets/library/speech.png"), Rect2(to_local(voice_speaker.global_position) + Vector2(-8, -56), Vector2(16, 16)), false, Color("f2d3ab"))
+func update_bubbles(delta: float) -> void:
+	if not is_instance_valid(level):
+		return
+	speech_bubble.visible = voice_audible() and not level.controls_locked() and not level.player.is_dead
+	speech_bubble.follow_actor()
+	thought_bubble.visible = false
+	if level.controls_locked() or level.player.is_dead:
+		return
+	if speech_bubble.visible:
+		return
+	if thought_left > 0:
+		thought_left = maxf(0, thought_left - delta)
+		thought_bubble.visible = thought_left > 0
+		thought_bubble.follow_actor()
+		return
+	for entry in thoughts.get(str(floor_number), []):
+		if thought_seen.has(entry.id):
+			continue
+		var ready := true
+		if entry.has("milestone"):
+			ready = floor_number > 1 and level.milestones.has(entry.milestone)
+		if entry.has("minimum_y"):
+			ready = ready and level.player.position.y >= entry.minimum_y
+		if ready:
+			thought_seen[entry.id] = true
+			thought_bubble.text_label.text = "MIRO · thinking\n" + entry.text
+			thought_left = maxf(5, entry.text.length() * 0.075)
+			break
 
 func build_password_panel() -> void:
 	password_panel = level.panel_at(Vector2(110, 95), Vector2(420, 190))

@@ -344,6 +344,30 @@
         30,
         38
       ]
+    },
+    {
+      "name": "WardChargeWest",
+      "kind": "sigil",
+      "position": [
+        500,
+        414
+      ],
+      "size": [
+        30,
+        50
+      ]
+    },
+    {
+      "name": "WardChargeLower",
+      "kind": "sigil",
+      "position": [
+        450,
+        647
+      ],
+      "size": [
+        30,
+        50
+      ]
     }
   ],
   "guards": [
@@ -455,6 +479,10 @@
           "Restraints maintained after consent withdrawn.\nTrial continued despite deterioration."
         ],
         [
+          "WARD RECORD",
+          "Research authorization: Office of the Tower Physician.\nPatient names replaced by specimen numbers."
+        ],
+        [
           "MIRO",
           "They wrote it down as if that made it acceptable."
         ]
@@ -497,8 +525,8 @@
       "objective": "Examine the containment evidence",
       "lines": [
         [
-          "OBSERVATION LOG \u2014 DRAFT",
-          "Symptoms appeared among staff after an isolation failure.\nThe cases were logged before the present unrest."
+          "OBSERVATION LOG",
+          "Symptoms appeared among staff after an isolation failure.\nKeepers were not exempt. Laboratory origin file: sealed."
         ],
         [
           "MIRO",
@@ -520,11 +548,15 @@
       "lines": [
         [
           "BROTHER",
-          "You saw the isolation records. This place has hurt people.\nIt may also be holding something back."
+          "I became a doctor to help people. These wards are all I know.\nIf the seals fail, prisoners and Keepers both get sick."
         ],
         [
           "MIRO",
-          "And how many people are we allowed to hurt to keep it?"
+          "Then help them leave. Stop asking them to suffer for this place."
+        ],
+        [
+          "BROTHER",
+          "They told me there was no other way. I need to believe\nwe can still make this work."
         ]
       ],
       "requires": [
@@ -532,6 +564,48 @@
         "ContainmentEvidence"
       ],
       "status": "draft story"
+    },
+    {
+      "id": "WardChargeWest",
+      "title": "Plant 2 C4",
+      "position": [
+        500,
+        414
+      ],
+      "kind": "sigil",
+      "objective": "Plant two C4 charges on the ward support",
+      "lines": [
+        [
+          "MIRO",
+          "Two charges. Set on the support, linked to the marks."
+        ]
+      ],
+      "requires": [
+        "BrotherWarning"
+      ],
+      "charge_count": 2,
+      "status": "implemented: fixed support demolition placement"
+    },
+    {
+      "id": "WardChargeLower",
+      "title": "Plant 2 C4",
+      "position": [
+        450,
+        647
+      ],
+      "kind": "sigil",
+      "objective": "Plant two C4 charges on the lower support",
+      "lines": [
+        [
+          "MIRO",
+          "Two charges. Set on the support, linked to the marks."
+        ]
+      ],
+      "requires": [
+        "WardChargeWest"
+      ],
+      "charge_count": 2,
+      "status": "implemented: fixed support demolition placement"
     },
     {
       "id": "FourthSigil",
@@ -545,11 +619,11 @@
       "lines": [
         [
           "MIRO",
-          "One more mark.\nI cannot pretend I did not read those records."
+          "Five charges in the ward. The marks on the other floors\nwill carry the signal. There is no taking this back."
         ]
       ],
       "requires": [
-        "BrotherWarning"
+        "WardChargeLower"
       ],
       "status": "draft story"
     }
@@ -576,7 +650,7 @@
       "section": "Reusable physics tiles, tiered layout and human art/layout review"
     }
   ],
-  "scope": "Playable layout scaffold with draft dialogue; systems explicitly marked as placeholders are not implemented.",
+  "scope": "Playable five-floor game; narrative updated to the approved immunity/tower-origin reveal. See docs/NARRATIVE_UPDATE.md for review status.",
   "gates": [
     {
       "name": "WardSeal",
@@ -609,5 +683,6 @@
       "requires_milestone": "WardRelease",
       "requires_landing": true
     }
-  }
+  },
+  "demolition_charges": 5
 }

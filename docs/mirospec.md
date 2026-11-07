@@ -15,6 +15,12 @@ The player leaves a distinctive sigil on each floor. In the ending, these marks 
 **Gameplay assets:** Kenney All in 1 Game Assets  
 **Animated cinematics:** Planned production through Higgsfield
 
+### Approved revision — 6 November 2026
+
+Ethan explicitly updated the story and combat scope. [Narrative update](NARRATIVE_UPDATE.md) specifies the five-floor reveal, guard speech bubbles, Miro’s inner dialogue and Level 4 demolition emphasis. [Weapon tasks](WEAPON_UPGRADE_TASKS.md) specifies the requested firearms additions. These amendments take precedence over conflicting original draft details below; unrelated progression remains unchanged.
+
+Miro is immune to a sickness created by the tower. The tower imprisons and experiments on him to reproduce his resistance as a cure, while portraying his defiance as dangerous. This truth is revealed in Level 5. His brother is the tower physician: sincerely protective, complicit in the betrayal, and trapped in the institution’s account of his own purpose. Levels 1–2 introduce play and unease; Level 3 requires hacking; Level 4 places most of the C4; Level 5 contains the final confrontation.
+
 ### Creative pillars
 
 1. **Descent reveals complicity.** Each floor exposes more of the institution’s crimes and the protagonist’s involvement.
@@ -29,7 +35,7 @@ The protagonist’s history is initially unknown to the player. Amnesia is not r
 
 The protagonist was imprisoned for treason after opposing the Keepers’ treatment of symptomatic people. The precise act that led to his arrest must be established before scripting.
 
-The brother remains loyal to the order and believes it can be restored. He has participated in, permitted, or defended its abuses; affection for his brother does not erase that responsibility.
+The brother is the tower physician. He remains loyal to the order and believes it can be restored. He has participated in, permitted, or defended its abuses; affection for his brother does not erase that responsibility.
 
 The brother relationship is revealed before the final level, giving players time to experience it.
 
@@ -61,7 +67,7 @@ The brother blocks the exit because he believes escape and sabotage threaten oth
 
 The boss uses two readable attacks and clear vulnerability windows. Defeat leads into a brief scripted exchange rather than an additional combat phase.
 
-Dying, the brother expresses both affection and conviction. His final warning refers to evidence introduced earlier; it does not introduce an entirely new explanation for the illness.
+Dying, the brother expresses both affection and conviction. The immunity and tower-origin revelation occurs before combat in the mandatory lab exchange. His dying warning concerns the sick people already established, rather than introducing another twist.
 
 The protagonist leaves him behind.
 
@@ -79,7 +85,7 @@ Before the ending, sigils appear to be acts of defiance. Their consistent placem
 
 The fiction must establish how a former Keeper possesses this capability and why the charges can destroy the tower. This can be conveyed through a brief environmental clue rather than technical exposition.
 
-All five placements are required for progression. Premature detonation is unavailable.
+All five floor sigils remain required. Under the approved revision, Level 4 also has two additional fixed support placements carrying two charges each: five charges on that floor, nine across the tower. Premature detonation is unavailable.
 
 ### Art and cinematic production
 
