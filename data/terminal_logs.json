@@ -1,60 +1,124 @@
 {
-  "_comment": "Lore terminals (scripts/lore_terminal.gd). Optional reading, never needed to finish a floor. The tower calls Miro 'The Test Subject' or M-07. Spoiler rules (memory: miro-story-canon): never say he is immune, never say the tower made the sickness, never name Niro or say 'brother' before Level 5's face-to-face reveal; Levels 1-2 must not say he was a Keeper (Level 3's personnel record reveals that). Hints are fine. 'position' is a standing point; the terminal snaps to the floor below and steps sideways until clear. Each page is one bubble: keep it under about 110 characters.",
-  "terminals": [
-    {"id": "t1_intake", "floor": 1, "position": [610, 432], "file": "intake.md",
-      "pages": [
-        "PRISONER RECORD · M-07\nName: [REDACTED]. Scratches 'MIRO' into surfaces. Permitted.",
-        "Charge: pending review.\nSentence: indefinite, by order of the Ward.",
-        "Visitors: none. Next of kin: one. On staff. File sealed.",
-        "On all channels, refer to him as THE TEST SUBJECT."
-      ]},
-    {"id": "t2_behaviour", "floor": 2, "position": [1400, 1064], "file": "behaviour_log.md",
-      "pages": [
-        "BEHAVIOUR LOG · THE TEST SUBJECT\nDay 41: Asked his own name. Told 'M-07'. Repeated it politely.",
-        "Day 44: Hums the same four notes when alone. Song not on file.",
-        "Day 52: Holds his meal tray like a baton, wrist turned in. Trained grip?",
-        "Flag for Records. Do NOT discuss him with the Keepers on his corridor."
-      ]},
-    {"id": "t2_roster", "floor": 2, "position": [300, 644], "file": "roster_week_9.txt",
-      "pages": [
-        "ROSTER · WEEK 9\nCorridor C: two Keepers off sick. Covered by Corridor D (also coughing).",
-        "Reminder: a cough is not a reason to leave your post.",
-        "Do not speak to the prisoner in 07. If 07 asks about family, walk away."
-      ]},
-    {"id": "t3_cameras", "floor": 3, "position": [1300, 448], "file": "cam_audit.log",
-      "pages": [
-        "CAMERA AUDIT\n03:12 Feed 4 loops. Same corridor, same moth, forty seconds.",
-        "03:14 Unlogged transmission on the prisoner remote band. Source: inside the tower.",
-        "Action: none. The source has clearance above Security.",
-        "Note: the Test Subject talks back to it. Let it run. Useful."
-      ]},
-    {"id": "t3_staffing", "floor": 3, "position": [1300, 1260], "file": "revoked.md",
-      "pages": [
-        "ACCESS REVOKED (excerpt)\nOne Keeper, rank removed, moved to the cells as a resident.",
-        "Uniform destroyed. Name struck from the rota and the gate list.",
-        "Reason: asked to see the lower ward. Such requests count as treason.",
-        "No further questions are to be logged."
-      ]},
-    {"id": "t4_draws", "floor": 4, "position": [1300, 448], "file": "M-07_samples.csv",
-      "pages": [
-        "SAMPLES · THE TEST SUBJECT\nDraws 29, 30, 31 complete.",
-        "Subject asked what they are for. Do not answer. Keep the labels out of sight.",
-        "Draw 32 delayed. Subject would not sleep.",
-        "In the margin, different handwriting: 'Let him keep the light on.'"
-      ]},
-    {"id": "t4_memo", "floor": 4, "position": [900, 1260], "file": "continuation.md",
-      "pages": [
-        "MEMO · WARD BOARD\nThe trial continues. Indefinite sentences need no consent form.",
-        "Outcomes are for the Board only.",
-        "Staff who object will be reminded of the Board's generosity to their families.",
-        "And of where their families live."
-      ]},
-    {"id": "t5_office", "floor": 5, "position": [760, 236], "file": "unsigned_note.txt",
-      "pages": [
-        "Unsigned, left open on the desk.\nHe asked for the guitar again in his sleep.",
-        "I tuned it and put it on the stand. If he walks in, he'll know it's his before he knows why.",
-        "I keep telling myself the tower lets him go when this is finished.",
-        "I keep writing it down so it stays true."
-      ]}
-  ]
+ "_comment": "Lore terminals (scripts/lore_terminal.gd). Optional reading, never needed to finish a floor. Miro is canonically Prisoner M-07: guards and staff call him the prisoner. Only the records reveal that he is also a test subject (a Ward classification), never a name for him. Spoiler rules (memory: miro-story-canon): never say he is immune, never say the tower made the sickness, never name Niro or say 'brother' before Level 5's face-to-face reveal; Levels 1-2 must not say he was a Keeper (Level 3's personnel record reveals that). Hints are fine. 'position' is a standing point; the terminal snaps to the floor below and steps sideways until clear. Each page is one bubble: keep it under about 110 characters.",
+ "terminals": [
+  {
+   "id": "t1_intake",
+   "floor": 1,
+   "position": [
+    610,
+    432
+   ],
+   "file": "intake.md",
+   "pages": [
+    "PRISONER RECORD · M-07\nName: [REDACTED]. Scratches 'MIRO' into surfaces. Permitted.",
+    "Charge: pending review.\nSentence: indefinite, by order of the Ward.",
+    "Visitors: none. Next of kin: one. On staff. File sealed.",
+    "Classification (Ward use only): TEST SUBJECT. Do not record this on the cell card."
+   ]
+  },
+  {
+   "id": "t2_behaviour",
+   "floor": 2,
+   "position": [
+    1400,
+    1064
+   ],
+   "file": "behaviour_log.md",
+   "pages": [
+    "BEHAVIOUR LOG · PRISONER M-07\nDay 41: Asked his own name. Told 'M-07'. Repeated it politely.",
+    "Day 44: Hums the same four notes when alone. Song not on file.",
+    "Day 52: Holds his meal tray like a baton, wrist turned in. Trained grip?",
+    "Flag for Records. Do NOT discuss him with the Keepers on his corridor."
+   ]
+  },
+  {
+   "id": "t2_roster",
+   "floor": 2,
+   "position": [
+    300,
+    644
+   ],
+   "file": "roster_week_9.txt",
+   "pages": [
+    "ROSTER · WEEK 9\nCorridor C: two Keepers off sick. Covered by Corridor D (also coughing).",
+    "Reminder: a cough is not a reason to leave your post.",
+    "Do not speak to the prisoner in 07. If 07 asks about family, walk away."
+   ]
+  },
+  {
+   "id": "t3_cameras",
+   "floor": 3,
+   "position": [
+    1300,
+    448
+   ],
+   "file": "cam_audit.log",
+   "pages": [
+    "CAMERA AUDIT\n03:12 Feed 4 loops. Same corridor, same moth, forty seconds.",
+    "03:14 Unlogged transmission on the prisoner remote band. Source: inside the tower.",
+    "Action: none. The source has clearance above Security.",
+    "Note: the prisoner in 07 talks back to it. Let it run. Useful."
+   ]
+  },
+  {
+   "id": "t3_staffing",
+   "floor": 3,
+   "position": [
+    1300,
+    1260
+   ],
+   "file": "revoked.md",
+   "pages": [
+    "ACCESS REVOKED (excerpt)\nOne Keeper, rank removed, moved to the cells as a resident.",
+    "Uniform destroyed. Name struck from the rota and the gate list.",
+    "Reason: asked to see the lower ward. Such requests count as treason.",
+    "No further questions are to be logged."
+   ]
+  },
+  {
+   "id": "t4_draws",
+   "floor": 4,
+   "position": [
+    1300,
+    448
+   ],
+   "file": "M-07_samples.csv",
+   "pages": [
+    "SAMPLES · PRISONER M-07 (TEST SUBJECT)\nDraws 29, 30, 31 complete.",
+    "Prisoner asked what they are for. Do not answer. Keep the labels out of sight.",
+    "Draw 32 delayed. Prisoner would not sleep.",
+    "In the margin, different handwriting: 'Let him keep the light on.'"
+   ]
+  },
+  {
+   "id": "t4_memo",
+   "floor": 4,
+   "position": [
+    900,
+    1260
+   ],
+   "file": "continuation.md",
+   "pages": [
+    "MEMO · WARD BOARD\nThe trial continues. Indefinite sentences need no consent form.",
+    "Outcomes are for the Board only.",
+    "Staff who object will be reminded of the Board's generosity to their families.",
+    "And of where their families live."
+   ]
+  },
+  {
+   "id": "t5_office",
+   "floor": 5,
+   "position": [
+    760,
+    236
+   ],
+   "file": "unsigned_note.txt",
+   "pages": [
+    "Unsigned, left open on the desk.\nHe asked for the guitar again in his sleep.",
+    "I tuned it and put it on the stand. If he walks in, he'll know it's his before he knows why.",
+    "I keep telling myself the tower lets him go when this is finished.",
+    "I keep writing it down so it stays true."
+   ]
+  }
+ ]
 }

@@ -39,7 +39,7 @@ Scores only count once a floor is completed, so a retry restores the entry state
   Niro's office and picks on arrival, from the whole run. E shows the image large, then a short
   prison-authored line scratched into the frame (original copy, never attributed to the artist).
 - **Lore terminals** (`data/terminal_logs.json`, `scripts/lore_terminal.gd`): 8 logs across the floors
-  about The Test Subject (intake record, behaviour log, roster, camera audit, revoked access, sample
+  about Prisoner M-07, which reveal in the Ward's own records that he is also a test subject (intake record, behaviour log, roster, camera audit, revoked access, sample
   draws, the Board memo, an unsigned note in the office). Rules: no immunity, no lab origin, no Niro or
   "brother" before L5's face-to-face reveal, no "former Keeper" before L3's personnel record.
 - **Verses** (`data/branch_verses.json`): one KJV exchange per floor (L2–L4) joins the Keepers'

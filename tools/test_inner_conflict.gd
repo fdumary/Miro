@@ -94,7 +94,7 @@ func run() -> void:
 	var terminal = director().terminals[0]
 	director().open_prop(terminal)
 	await frames(1)
-	check("TEST SUBJECT" in str(level.dialogue) and level.dialogue_panel.actor == terminal, "The intake log is read in a bubble over the terminal")
+	check("PRISONER RECORD" in str(level.dialogue) and level.dialogue_panel.actor == terminal, "The intake log is read in a bubble over the terminal")
 	level.finish_dialogue()
 	director().open_prop(terminal)
 	level.finish_dialogue()

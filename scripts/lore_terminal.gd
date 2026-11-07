@@ -1,5 +1,5 @@
 extends Node2D
-## A records terminal with one log about The Test Subject (data/terminal_logs.json).
+## A records terminal with one log about Prisoner M-07 (data/terminal_logs.json).
 ## Optional reading; scripts/inner_conflict.gd opens it with [E].
 const INK := Color("272744")
 const BLUE := Color("494d7e")
