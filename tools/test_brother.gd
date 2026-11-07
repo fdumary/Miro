@@ -83,7 +83,7 @@ func run() -> void:
 	check(level.get_node("Gates/Hatch2").is_open, "Hatch 2 opens after the second retreat")
 	check(await descend_ladder(308, 190, 640), "Drop to the third floor")
 	await frames(130)
-	check(music.track_id == "robot_attack", "Robot Attack takes over for the second half")
+	check(music.track_id == "hot_shit", "Hot Shit takes over for the second half")
 	check(flow.wave_guards.size() == 3, "Wave 3 enters")
 	for guard in flow.wave_guards:
 		guard.fall_asleep()

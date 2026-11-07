@@ -49,20 +49,28 @@ func _ready() -> void:
 	for guard in guards():
 		guard.level = self
 	build_hud()
+	apply_difficulty()
 	setup_world_features(1)
 	start_dialogue([
 		["MIRO", "Stone. Iron. A name scratched into the bed: Miro.\nMine... I think. Nothing before this room.", "thought"],
-		["KEEPER", "Awake again. Keep it down, traitor."],
+		["JUDAS", "Awake again. Keep it down, traitor."],
 		["MIRO", "Is there anything you can do for me?"],
-		["KEEPER", "Depends. Cell 04 gave me his boots. Cell 09 gave me his ration card.\nWhat have you got?"],
+		["JUDAS", "Depends. Cell 04 gave me his boots. Cell 09 gave me his ration card.\nWhat have you got?"],
 		["MIRO", "You're looking at it."],
-		["KEEPER", "Then I'm not looking. (He turns away, coughing.)\nThe tower doesn't pay me enough to care."],
+		["JUDAS", "Then I'm not looking. (He turns away, coughing.)\nThe tower doesn't pay me enough to care."],
 		["MIRO", "His hands are shaking. The same marks as the others.\nHe's turned away. This might be my only chance.", "thought"]
 	], "intro")
 	show_card("floor", "01", "THE PRISONER")
 	var launch_floor: int = get_node("/root/Campaign").launch_floor()
 	if launch_floor > 1:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/levels/level_%02d.tscn" % launch_floor)
+
+## Settings difficulty: Miro's hearts and the blanket's active/recharge times.
+func apply_difficulty() -> void:
+	var tuning: Dictionary = get_node("/root/Campaign").tuning()
+	player.health = int(tuning.health)
+	player.stealth_cooldown = float(tuning.stealth_cooldown)
+	player.stealth_duration = float(tuning.stealth_duration)
 
 func setup_inputs() -> void:
 	var bindings := {"move_left": [KEY_A, KEY_LEFT], "move_right": [KEY_D, KEY_RIGHT], "climb_up": [KEY_W, KEY_UP], "climb_down": [KEY_S, KEY_DOWN], "jump": [KEY_SPACE], "dodge": [KEY_C], "attack": [], "cloak": [], "explosive": [], "fire": [], "interact": [KEY_E], "advance": [KEY_ENTER], "skip": [KEY_TAB], "pause_game": [KEY_ESCAPE], "retry": [KEY_BACKSPACE]}
@@ -169,20 +177,20 @@ func _process(delta: float) -> void:
 				radio.say_in_room(str(line[1]))
 			elif str(line[0]) == "TOWER PA":
 				radio.say_in_room(str(line[1]), "pa")
+			elif str(line[0]) == "JUDAS":
+				radio.say_in_room(str(line[1]), "judas")
 			else:
 				radio.stop()
 	elif not radio_line.is_empty():
 		radio_line = ""
 		get_node("/root/RemoteRadio").stop()
-	overlay.visible = paused or completed or player.is_dead
+	# Paused: the pause menu (scripts/pause_menu.gd) covers the screen instead.
+	overlay.visible = completed or player.is_dead
 	if completed:
 		var raw := floor_raw_stats()
 		overlay_label.text = "THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   ·   %s   ·   Kills %d   ·   Seen %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, get_node("/root/Campaign").style_word(raw), raw.kills, raw.detections]
 	elif player.is_dead:
 		overlay_label.text = "THE TOWER KEEPS ITS PRISONERS\n\n[Backspace] Retry from the cell\nTry cover, a quiet key theft, or dodge the wind-up."
-	elif paused:
-		overlay_label.text = "PAUSED\nA/D Move · W/S Ladders · Space twice Double jump\nC Dash · Left Ctrl Crouch · E Interact / recover C4\n1–5 Select · Q Blanket · N Inventory\nLeft click Use · Right click Focus / place C4\nR Reload · Blanket: shadows only · 5s active / 8s cooldown\nEsc Resume · Backspace Retry · F10 Menu"
-		overlay_label.text += "\n[M] Sound: " + ("OFF" if get_node("/root/SoundFX").muted else "ON")
 	queue_redraw()
 
 ## Z: Miro thinks it through. Up to three hints per objective, each press more direct
@@ -196,9 +204,9 @@ const L1_HINTS := {
 	"supplies": ["Something is hidden under my bed. I can feel the shape of it.",
 		"The bed is right here in the cell. Stand at it.",
 		"Walk to the bed in the cell and press E."],
-	"door": ["The Keeper has a key. Or the lock could just stop existing.",
+	"door": ["Judas has a key. Or the lock could just stop existing.",
 		"Wait for him to turn away and take the key [E]. Or set a charge on the lock: [2], right click.",
-		"Stand behind the Keeper while he faces away and press E. Or select C4 [2], right click the lock, step back, left click."],
+		"Stand behind Judas while he faces away and press E. Or select C4 [2], right click the lock, step back, left click."],
 	"brother": ["The gallery leads to a barred gate. Someone's waiting there.",
 		"Go right along the gallery, past the cells, to the bars.",
 		"Walk right to the barred gate and press E."],
@@ -273,7 +281,7 @@ func speaker_anchor(speaker: String) -> Node2D:
 	match speaker:
 		"MIRO":
 			return player
-		"KEEPER":
+		"JUDAS", "KEEPER":
 			if has_node("Guards/CorruptKeeper"):
 				return get_node("Guards/CorruptKeeper")
 		"NIRO", "BROTHER":
@@ -331,7 +339,7 @@ func finish_dialogue() -> void:
 		guard.illness_started = true
 		guard.facing = 1
 		guard.turn_wait = 4.0
-		notify("The Keeper doubles over, coughing. Search your bed. [E]", 8)
+		notify("Judas doubles over, coughing. Search your bed. [E]", 8)
 	elif event == "brother":
 		brother_heard = true
 
@@ -468,7 +476,7 @@ func interact() -> void:
 			open_door()
 			notify("A quiet click. Shadow alcoves can hide you: select Q and click.", 7)
 		else:
-			notify("Locked. Steal the key, loot the Keeper, or use C4 [2].")
+			notify("Locked. Steal the key from Judas, loot him, or use C4 [2].")
 		return
 	if nearby("brother", 75) and not brother_heard:
 		start_brother()
@@ -566,10 +574,16 @@ func panel_at(pos: Vector2, size: Vector2) -> PanelContainer:
 	hud.add_child(panel)
 	return panel
 
+var pause_menu: CanvasLayer
+
 func build_hud() -> void:
 	hud = CanvasLayer.new()
 	hud.layer = 20
 	add_child(hud)
+	pause_menu = CanvasLayer.new()
+	pause_menu.set_script(preload("res://scripts/pause_menu.gd"))
+	pause_menu.level = self
+	add_child(pause_menu)
 	var header := ColorRect.new()
 	header.size = Vector2(640, 48)
 	header.color = Color(0.15, 0.15, 0.26, 0.92)

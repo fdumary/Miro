@@ -12,8 +12,10 @@ var completed := false
 var draws_title := true
 var audio: Node
 
-func _ready() -> void:
+func _init() -> void:
 	name = "Backdrop"
+
+func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var campaign = get_node_or_null("/root/Campaign")

@@ -83,6 +83,8 @@ func _input(event: InputEvent) -> void:
 			show_inventory()
 		elif key == KEY_R:
 			start_reload()
+		elif key == KEY_B:
+			next_beat()
 		else:
 			return
 		get_viewport().set_input_as_handled()
@@ -190,6 +192,31 @@ func collect_ammo_case() -> bool:
 	player.level.notify("Ammunition case: +%d %s rounds" % [capacity(gun), gun])
 	return true
 
+## [B] or "next" on the remote: skip to the next unlocked beat on Miro's MP3, then back to the floor.
+func next_beat() -> String:
+	var campaign = get_node("/root/Campaign")
+	var music = get_node("/root/MusicDirector")
+	var text := ""
+	if not has_remote:
+		text = "No player on me."
+	elif not remote_unlocked:
+		text = "The MP3 is locked. Open the remote [5] and type hack."
+	else:
+		var unlocked: Array = campaign.unlocked_tracks()
+		var position: int = unlocked.find(music.track_id) if music.review_override else -1
+		if unlocked.is_empty():
+			text = "Only the floor's beat on here. Quiet floors and fights unlock more."
+		elif position + 1 >= unlocked.size():
+			music.resume_floor()
+			text = "MP3 · back to the floor's beat."
+		else:
+			music.review_override = true
+			music.play_track(unlocked[position + 1])
+			text = "MP3 · %d/%d %s" % [position + 2, unlocked.size(), music.catalog[unlocked[position + 1]].title]
+	if is_instance_valid(player.level):
+		player.level.notify(text, 3)
+	return text
+
 func collect_remote() -> void:
 	if has_remote:
 		return
@@ -269,7 +296,7 @@ func close_panels() -> void:
 
 func open_remote() -> void:
 	if not has_remote:
-		player.level.notify("The first Keeper carries an MP3 player. Loot or pickpocket him.")
+		player.level.notify("Judas, the first Keeper, carries an MP3 player. Loot or pickpocket him.")
 		return
 	remote_open = true
 	remote_panel.show()
@@ -287,7 +314,9 @@ func run_command(raw: String) -> void:
 	elif not remote_unlocked:
 		output.text = "Service port locked. Type hack to run your unlock script."
 	elif text == "help":
-		output.text = "help · scan · login <password> · cameras off · music · play <n>\n1. Stand near an access point and scan.\n2. Find its password, then login <password>.\n3. Run cameras off (or lights test on floor 1). Esc closes."
+		output.text = "help · scan · login <password> · cameras off · music · play <n> · next ([B])\n1. Stand near an access point and scan.\n2. Find its password, then login <password>.\n3. Run cameras off (or lights test on floor 1). Esc closes."
+	elif text == "next":
+		output.text = next_beat()
 	elif text == "music":
 		var unlocked: Array = get_node("/root/Campaign").unlocked_tracks()
 		var listing := "MP3 · 0. floor soundtrack"
@@ -299,7 +328,7 @@ func run_command(raw: String) -> void:
 		var index := text.trim_prefix("play ").to_int()
 		var music = get_node("/root/MusicDirector")
 		if index == 0:
-			music.start_floor(get_node("/root/Campaign").current_floor)
+			music.resume_floor()
 			output.text = "Back to the floor soundtrack."
 		elif index >= 1 and index <= unlocked.size():
 			music.review_override = true
