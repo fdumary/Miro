@@ -11,6 +11,8 @@ const VISUALS = preload("res://scripts/visual_assets.gd")
 const CHOICE_TAG := "choice:"
 const REACH := 34.0
 const APPROACH := 420.0
+## Largest close-up of a painting, in screen pixels (the HUD is 640 x 360).
+const VIEWER_MAX := Vector2(220, 170)
 
 var level: Node2D
 var behavior: Node
@@ -360,22 +362,29 @@ func update_own_dialogue() -> void:
 		level.dialogue_panel.follow_actor()
 	var showing := own_actor == frame and is_instance_valid(frame) and frame.texture != null
 	viewer.visible = showing
+	if showing and viewer_image.texture != frame.texture:
+		# The close-up's frame hugs the painting: same shape, a thin border, no empty mat.
+		viewer_image.texture = frame.texture
+		var picture: Vector2 = frame.texture.get_size()
+		var fit := minf(VIEWER_MAX.x / picture.x, VIEWER_MAX.y / picture.y)
+		viewer_image.custom_minimum_size = (picture * fit).floor()
+		viewer.reset_size()
 	if showing:
 		# The close-up sits on the opposite half of the screen from the frame and its caption.
 		var screen_x: float = frame.get_global_transform_with_canvas().origin.x
 		viewer.position = Vector2(16 if screen_x > 320 else 640 - viewer.size.x - 16, 52)
-	if showing and viewer_image.texture != frame.texture:
-		viewer_image.texture = frame.texture
 
 func build_viewer() -> void:
 	viewer = PanelContainer.new()
 	viewer.theme = VISUALS.ui_theme()
-	viewer.add_theme_stylebox_override("panel", VISUALS.panel_style())
+	var border := VISUALS.panel_style()
+	for side in [SIDE_LEFT, SIDE_RIGHT, SIDE_TOP, SIDE_BOTTOM]:
+		border.set_content_margin(side, 5)
+	viewer.add_theme_stylebox_override("panel", border)
 	viewer.position = Vector2(16, 52)
-	viewer.size = Vector2(236, 176)
 	viewer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	viewer_image = TextureRect.new()
-	viewer_image.custom_minimum_size = Vector2(204, 152)
+	viewer_image.custom_minimum_size = VIEWER_MAX
 	viewer_image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	viewer_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	viewer_image.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
