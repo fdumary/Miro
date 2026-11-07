@@ -103,9 +103,12 @@ func run() -> void:
 	# Approaching the frame picks the painting from this floor's play so far; no rights, so it is covered.
 	level.player.global_position = frame.global_position + Vector2(-200, 0)
 	await frames(2)
-	check(frame.assigned and frame.art_id == "A20" and frame.covered(), "The leaning picks the defiant painting; unverified art stays under a sheet")
+	var cleared: bool = director().load_art("A20") != null
+	check(frame.assigned and frame.art_id == "A20" and frame.covered() != cleared, "The leaning picks the defiant painting; it shows only when its rights are verified")
 	director().open_prop(frame)
-	check("Death of Socrates" in str(level.dialogue) and "brass plate" in str(level.dialogue), "Looking at a covered frame reads its brass plate")
+	check("Death of Socrates" in str(level.dialogue) and ("brass plate" in str(level.dialogue)) != cleared, "Looking at the frame names the work (a covered one reads its brass plate)")
+	await frames(1)
+	check(director().viewer.visible == cleared, "A cleared painting is shown up close while it is inspected")
 	level.finish_dialogue()
 	# Commit floor 1 unseen with a quiet pickpocket: ghost +3 +1 on top of the live events.
 	campaign.complete_floor(1, true, {}, {"kills": 0, "detections": 0, "stealth_bonus": 1})

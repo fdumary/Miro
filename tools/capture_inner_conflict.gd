@@ -1,7 +1,6 @@
 extends SceneTree
 ## Screenshots of the inner-conflict pieces:
 ## xvfb-run godot --path . --script res://tools/capture_inner_conflict.gd
-## A stand-in canvas (generated stripes, not an artwork) shows how a cleared painting will sit.
 func _initialize() -> void:
 	call_deferred("run")
 
@@ -37,12 +36,7 @@ func run() -> void:
 	level.finish_dialogue()
 	level.player.global_position = director.frame.global_position + Vector2(-24, 0)
 	await shot("res://tmp/inner-frame-covered.png")
-	var stripes := Image.create(120, 90, false, Image.FORMAT_RGB8)
-	for x in range(120):
-		for y in range(90):
-			stripes.set_pixel(x, y, Color.from_hsv(0.08 + y / 400.0, 0.5, 0.35 + 0.4 * float((x / 8) % 2)))
-	var stand_in := ImageTexture.create_from_image(stripes)
-	director.frame.hang(director.frame.art, stand_in, "preview")
+	level.player.global_position = director.frame.global_position + Vector2(-24, 0)
 	await shot("res://tmp/inner-frame-hung.png")
 	director.open_prop(director.frame)
 	await shot("res://tmp/inner-frame-inspect.png")
