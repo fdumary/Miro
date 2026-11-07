@@ -9,7 +9,7 @@ const TOWER_BASE := Vector2(470, 262)
 var time := 0.0
 var frame_count := 0
 var completed := false
-var show_title := true
+var draws_title := true
 var audio: Node
 
 func _ready() -> void:
@@ -39,7 +39,7 @@ func _draw() -> void:
 		draw_dusk()
 	C.vignette(self, 0.7)
 	C.grain(self, frame_count / 3, 0.03)
-	if show_title:
+	if draws_title:
 		var shadow := Color(0, 0, 0, 0.5)
 		C.title(self, Vector2(321, 62), "Miro", 54, shadow, 4)
 		C.title(self, Vector2(320, 60), "Miro", 54, C.PAPER if not completed else Color("fff6e6"), 4)
