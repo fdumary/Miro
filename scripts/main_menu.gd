@@ -61,6 +61,13 @@ func show_screen(id: String) -> void:
 			back_button()
 
 func build_title() -> void:
+	# The animated start screen (scripts/start_backdrop.gd) draws its own gothic title.
+	var backdrop := get_node_or_null("Backdrop")
+	if backdrop == null or not backdrop.get("draws_title"):
+		build_title_text()
+	build_title_buttons()
+
+func build_title_text() -> void:
 	var title := Label.new()
 	title.text = "MIRO"
 	title.add_theme_font_size_override("font_size", 44)
@@ -77,6 +84,8 @@ func build_title() -> void:
 	subtitle.position = Vector2(0, 112)
 	subtitle.size = Vector2(640, 20)
 	page.add_child(subtitle)
+
+func build_title_buttons() -> void:
 	var box := VBoxContainer.new()
 	box.position = Vector2(250, 156)
 	box.size = Vector2(140, 150)
