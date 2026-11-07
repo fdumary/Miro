@@ -19,10 +19,8 @@ func _ready() -> void:
 	# After a finished Play run the menu switches to the completed-game track.
 	music.play_track(music.MENU_COMPLETED_TRACK if get_node("/root/Campaign").game_completed() else "yz33")
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var backdrop := ColorRect.new()
-	backdrop.color = Color("272744")
-	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(backdrop)
+	# Animated start screen (dusk tower, or the ruins in daylight after completion).
+	add_child(preload("res://scripts/start_backdrop.gd").new())
 	var box := VBoxContainer.new()
 	box.position = Vector2(95, 12)
 	box.size = Vector2(450, 330)

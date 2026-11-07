@@ -21,6 +21,7 @@ static func panel_style(hover := false) -> StyleBoxTexture:
 
 static func ui_theme() -> Theme:
 	var theme := Theme.new()
+	theme.default_font = preload("res://scripts/typeface.gd").body()
 	theme.default_font_size = 12
 	for type in ["Button", "LineEdit", "OptionButton"]:
 		theme.set_color("font_color", type, Color("fbf5ef"))

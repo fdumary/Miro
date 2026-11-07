@@ -195,6 +195,8 @@ func collect_remote() -> void:
 		return
 	has_remote = true
 	get_node("/root/Campaign").remote_owned = true
+	if player.level.get("hud"):
+		player.level.hud.add_child(preload("res://scripts/remote_pickup_card.gd").new())
 	player.level.notify("Taken: Keeper MP3 player. Select its slot, then click to inspect.", 8)
 
 func build_panels() -> void:

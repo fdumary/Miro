@@ -16,6 +16,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
 
+Typeface="*res://scripts/typeface.gd"
 Campaign="*res://scripts/campaign.gd"
 MusicDirector="*res://scripts/music_director.gd"
 SoundFX="*res://scripts/sound_fx.gd"
@@ -28,6 +29,10 @@ window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
+
+[gui]
+
+theme/custom_font="res://assets/fonts/PirataOne-Regular.ttf"
 
 [rendering]
 
