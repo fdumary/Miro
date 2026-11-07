@@ -20,6 +20,7 @@ Campaign="*res://scripts/campaign.gd"
 MusicDirector="*res://scripts/music_director.gd"
 SoundFX="*res://scripts/sound_fx.gd"
 RemoteRadio="*res://scripts/remote_radio.gd"
+PlayerBehavior="*res://scripts/player_behavior.gd"
 
 [display]
 
