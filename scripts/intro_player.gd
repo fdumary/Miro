@@ -25,6 +25,8 @@ var animation_time: float = 0.0
 var climbing: bool = false
 var attack_flash: float = 0.0
 var footstep_left := 0.0
+var mouse_aim := false
+var aim_direction := Vector2.RIGHT
 const IDLE = preload("res://assets/characters/miro_idle.png")
 const WALK = preload("res://assets/characters/miro_walk.png")
 const JUMP = preload("res://assets/characters/miro_jump.png")
@@ -165,6 +167,16 @@ func shank() -> void:
 				guard.receive_shank()
 				break
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_instance_valid(level) or level.controls_locked() or is_dead or in_hiding_spot:
+		return
+	if event is InputEventMouseMotion:
+		mouse_aim = true
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		mouse_aim = true
+		fire_gun()
+		get_viewport().set_input_as_handled()
+
 func fire_gun() -> void:
 	if in_hiding_spot or level.controls_locked() or is_dead:
 		return
@@ -181,16 +193,28 @@ func fire_gun() -> void:
 		suppressor_uses -= 1
 	get_node("/root/SoundFX").play_sound("shot", -32 if suppressed else -20)
 	end_stealth()
-	level.make_noise(global_position, 90.0 if suppressed else 600.0)
-	for guard in level.guards():
-		var difference: Vector2 = guard.global_position - global_position
-		if not guard.is_dead and absf(difference.y) < 22 and difference.x * facing > 0 and difference.length() < 320 and level.clear_sight(global_position, guard.global_position):
-			if guard.has_method("begin_recovery"):
-				guard.take_damage(1)
-			else:
-				guard.health = 0
-				guard.die()
-			break
+	if not suppressed:
+		level.make_noise(global_position, 600.0)
+	aim_direction = (get_global_mouse_position() - global_position).normalized() if mouse_aim else Vector2(facing, 0)
+	if aim_direction.length_squared() < 0.1:
+		aim_direction = Vector2(facing, 0)
+	if absf(aim_direction.x) > 0.01:
+		facing = signf(aim_direction.x)
+	var bullet := Node2D.new()
+	bullet.set_script(load("res://scripts/weapon_projectile.gd"))
+	bullet.level = level
+	bullet.shooter = self
+	bullet.direction = aim_direction
+	# Start at the body so a muzzle offset cannot spawn beyond a nearby wall.
+	bullet.position = position + Vector2(0, -4)
+	level.add_child(bullet)
+	level.emit_effect("hit", global_position + aim_direction * 12)
+	var casing := Node2D.new()
+	casing.set_script(load("res://scripts/weapon_casing.gd"))
+	casing.level = level
+	casing.position = position + Vector2(0, -6)
+	casing.velocity = Vector2(-facing * 65, -100)
+	level.add_child(casing)
 
 func take_damage(amount: int) -> void:
 	if dodge_left > 0:
@@ -210,10 +234,12 @@ func die() -> void:
 	level.notify("The tower keeps its prisoners. Press R to retry.", 20.0)
 
 func update_visual(delta: float) -> void:
+	if has_gun and mouse_aim and not level.controls_locked():
+		aim_direction = (get_global_mouse_position() - global_position).normalized()
 	animation_time += delta
 	sprite.hframes = 1
 	sprite.texture = IDLE
-	if not is_on_floor() and not climbing:
+	if dodge_left > 0 or (not is_on_floor() and not climbing):
 		sprite.texture = JUMP
 	elif absf(velocity.x) > 1:
 		sprite.texture = WALK
@@ -226,6 +252,11 @@ func update_visual(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	if has_gun and not is_dead and not in_hiding_spot:
+		var direction := aim_direction if mouse_aim else Vector2(facing, 0)
+		draw_set_transform(Vector2(0, -4), direction.angle(), Vector2(1, -1 if direction.x < 0 else 1))
+		draw_texture_rect(preload("res://assets/weapons/pistol.svg"), Rect2(0, -10, 24, 24), false)
+		draw_set_transform(Vector2.ZERO)
 	if attack_flash > 0:
 		draw_line(Vector2(facing * 9, -2), Vector2(facing * 35, -7), Color("fbf5ef"), 2)
 	if is_concealed:

@@ -1,0 +1,37 @@
+extends "res://tools/test_intro.gd"
+func run() -> void:
+	await fresh()
+	await supplies()
+	level.player.has_gun = true
+	level.player.ammunition = 6
+	level.player.position = Vector2(300, 236)
+	for guard in level.guards():
+		guard.set_physics_process(false)
+		guard.position = Vector2(900, 656)
+	var target = level.guards()[0]
+	target.position = Vector2(350, 236)
+	level.player.facing = 1
+	level.player.fire_gun()
+	check(not target.is_dead, "Round travels instead of applying instant damage")
+	await frames(12)
+	check(target.is_dead, "Traveling bullet hits target")
+	var observer = level.guards()[1]
+	observer.position = Vector2(600, 236)
+	observer.sees_player = false
+	observer.alert_state = IntroGuard.State.PATROL
+	level.player.suppressor_uses = 3
+	level.player.facing = -1
+	level.player.attack_cooldown = 0
+	level.player.fire_gun()
+	check(observer.alert_state == IntroGuard.State.PATROL, "Suppressed shot emits no AI hearing event")
+	check(level.player.suppressor_uses == 2, "Suppressed fired shot consumes one charge")
+	await frames(45)
+	level.player.position = Vector2(220, 236)
+	observer.position = Vector2(280, 236)
+	level.player.facing = 1
+	level.player.attack_cooldown = 0
+	level.player.fire_gun()
+	await frames(20)
+	check(not observer.is_dead, "Locked cell wall blocks swept bullet")
+	print("MOUSE_PROJECTILE_RESULT: ", checks - failures.size(), "/", checks, " passed")
+	quit(0 if failures.is_empty() else 1)

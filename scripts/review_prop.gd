@@ -8,7 +8,7 @@ func _draw() -> void:
 	var ink := Color("272744")
 	var pale := Color("c69fa5")
 	if kind == "case":
-		draw_texture_rect(ART.texture("case"), Rect2(-15, -10, 30, 18), false, Color("8b6d9c") if used else Color.WHITE)
+		draw_texture_rect(preload("res://assets/environment/crate.png"), Rect2(-14, -12, 28, 27), false, Color("8b6d9c") if used else Color.WHITE)
 		draw_line(Vector2(-5, -2), Vector2(7, -2), pale if not used else Color("494d7e"), 3)
 	else:
 		draw_rect(Rect2(-20, -29, 40, 40), ink)

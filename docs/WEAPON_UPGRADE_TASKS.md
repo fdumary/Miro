@@ -9,7 +9,7 @@ The supplied [meeting 3 notes](miromeeting3.md) are now preserved verbatim in th
 ## Meeting gaps to verify
 
 - **Bindings, stealth cooldown, C4 and retries:** reproduce each reported issue before changing the established rules. The notes provide no exact failure steps, so keep regression checks and new player-perspective observations separate.
-- **Optional hacking:** current Level 3 progression requires RemoteTerminal and its physical gate. This conflicts with the meeting's optional-terminal direction. Author and verify a viable bypass before making the hack optional; retain password dialogue and camera-disable benefits.
+- **Hacking scope clarification:** Ethan confirmed that Level 3 RemoteTerminal and its physical checkpoint gate remain mandatory story progression. Optional terminal/panel encounters apply before Level 3 where consistent with `mirospec.md`; do not add a bypass to the Level 3 gate.
 - **Camera response:** current cameras direct existing guards to investigate. Additional reinforcement spawning is a separate missing behavior, requiring bounded spawn counts and authored positions; do not call current investigation reinforcement spawning.
 - **Ground dodge:** use the existing jump-frame sprite during a rapid forward dodge near the ground. Validate collision, ladder entry/exit and action cancellation.
 - **Traversal:** verify return routes to upper tiers, ladder transitions and required jumps. Wall-slide/climb are possibilities in the notes, not automatically mandatory new mechanics.
@@ -30,6 +30,11 @@ The explicit weapon request adds requirements beyond this meeting: three armed g
 6. **COMBAT-06 — Julia's crates and suppressors.** Use Julia's crate asset for accessible, sensible suppressor pickups. A suppressor has exactly three fired-shot uses; empty triggers do not consume it. Treat it as pistol-only for the first implementation: the user excluded flamethrowers and described SMG use as impractical. Document this interpretation for review. Suppressed shots should be silent to guard hearing; visual detection remains possible. This supersedes the existing reduced 90-unit noise prototype.
 7. **COMBAT-07 — Audio and verification.** Distinct weapon firing effects, full unsuppressed guard-hearing events, quiet suppressed presentation, and flame audio. Verify both player and guard shots, walls, aim at different viewport sizes, two-slot replacement/cancel, burst consumption, exactly three suppressed rounds, flame restrictions, death/retry and campaign progression. Rebuild the review exports and update the handoff with actual results.
 
-## Current status
+## Current implementation status
 
-Repository synchronization and task scoping complete. Combat changes above are not implemented by this document. The existing build still uses its previous gun mechanics and suppressor behavior. Meeting notes have been imported and the gaps mapped above. Reproduction and implementation remain to be completed in task order.
+First combat increment: mouse motion enables world-space aiming; left mouse fires when gameplay input is available, while 4 retains the existing keyboard firing control. Visible swept bullets replace instant hit selection, stop at walls, damage the first struck guard and expire by range. Cosmetic casings eject and expire after 1.2 seconds. A project-native review pistol SVG is held by Miro; shank, C4, blanket and casing SVG assets are available for the inventory pass. These are authored placeholders, not Julia's artwork or third-party finds. Suppressor pickups use Julia's crate texture. Suppressed pistol shots now emit no AI hearing event. Dodge displays the existing jump sprite.
+
+The new projectile checks cover travel-before-impact, impact damage, wall blocking and silent-shot charge consumption. Two-slot selection/replacement, inventory icon integration, three armed guard classes, SMG/flame behavior and weapon-specific sound design remain unfinished. Existing generic gun fields still represent the pistol; no SMG or flamethrower availability is claimed. Review exports have not been rebuilt for this increment.
+
+Level 3's required terminal, password and checkpoint gate remain intact, matching the story spec and Ethan's clarification. Optional early-level encounters are a separate task.
+
