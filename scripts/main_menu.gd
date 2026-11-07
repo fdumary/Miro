@@ -85,4 +85,5 @@ func launch_level(number: int) -> void:
 	campaign.completed_sigils.clear()
 	campaign.narrative_milestones.clear()
 	campaign.launch_consumed = true
-	get_tree().change_scene_to_file("res://scenes/intro.tscn" if number == 1 else "res://scenes/levels/level_%02d.tscn" % number)
+	# A new run from the cell opens on the cinematic, which hands over to Level 1.
+	get_tree().change_scene_to_file("res://scenes/opening_cinematic.tscn" if number == 1 else "res://scenes/levels/level_%02d.tscn" % number)

@@ -38,53 +38,92 @@ func finish() -> void:
 	finished.emit()
 	queue_free()
 
+const C = preload("res://scripts/cinema.gd")
+var frame_count := 0
+
+## Ending (14 s, same beats as before so hooks and tests hold):
+##   0.0-1.2  Miro steps out of the tree line; slow dolly with parallax pines, moonlight
+##   1.2-2.6  the remote fills the screen: SIGNAL SENT
+##   2.5-5.0  wide: the tower over the woods, sigils ignite floor by floor from the bottom
+##   5.0-7.5  the PA line (MISSING/HUNTED), windows flicker
+##   7.5-11   collapse: floors drop, dust, shake; Set Me Free starts
+##   11-14    Miro in the foreground lowers his head; last thought; title; fade
 func _draw() -> void:
-	var scale_factor := size / Vector2(640, 360)
-	draw_set_transform(Vector2.ZERO, 0, scale_factor)
-	draw_rect(Rect2(0, 0, 640, 360), Color("272744"))
-	draw_circle(Vector2(450, 70), 26, Color("8b6d9c"))
-	# Fixed storyboard tower pieces: scripted collapse, no structural simulation.
-	var collapse := clampf((elapsed - 7.5) / 2.5, 0, 1)
-	for tier in range(5):
-		var y := 230.0 - tier * 29 + collapse * (tier * 23 + 16)
-		var x := 390.0 + sin(tier * 3.1) * collapse * 26
-		draw_rect(Rect2(x, y, 78, 28 * (1 - collapse) + 3), Color("494d7e"))
-		if elapsed >= 2.5 + tier * 0.75 and collapse < 0.9:
-			var center := Vector2(x + 39, y + 12)
-			draw_polyline(PackedVector2Array([center + Vector2(-7, 6), center + Vector2(0, -9), center + Vector2(7, 6), center + Vector2(-7, 6)]), Color("f2d3ab"), 2)
-			draw_line(center + Vector2(0, -12), center + Vector2(0, 13), Color("f2d3ab"), 2)
-			if elapsed >= 6.5:
-				draw_circle(center, 9, Color(0.95, 0.83, 0.67, 0.3))
-	for x in [30, 95, 160, 540, 600]:
-		draw_rect(Rect2(x, 100, 10, 190), Color("494d7e"))
-		draw_colored_polygon(PackedVector2Array([Vector2(x - 40, 170), Vector2(x + 5, 50), Vector2(x + 50, 170)]), Color("494d7e"))
-	draw_rect(Rect2(0, 280, 640, 80), Color("272744"))
-	for x in [10, 60, 120, 510, 560, 610]:
-		draw_texture_rect(preload("res://assets/library/grass.png"), Rect2(x - 24, 251, 48, 32), false, Color("494d7e"))
-	# Miro looks toward the tower; the final pose lowers his head.
-	draw_rect(Rect2(211, 241, 15, 37), Color("c69fa5"))
-	var head := Vector2(221, 234) + (Vector2(4, 5) if elapsed >= 11 else Vector2.ZERO)
-	draw_circle(head, 8, Color("f2d3ab"))
-	draw_line(Vector2(218, 250), Vector2(237, 249), Color("c69fa5"), 5)
-	draw_rect(Rect2(234, 244, 7, 8), Color("8b6d9c"))
+	frame_count += 1
+	var scale_factor := size / C.FRAME
+	var t := elapsed
+	var shake := Vector2.ZERO
+	if t >= 7.5 and t < 10.5:
+		var strength := 4.0 * (1.0 - C.phase(t, 7.5, 3.0))
+		shake = Vector2(sin(t * 61.0), cos(t * 47.0)) * strength
+	draw_set_transform(shake * scale_factor, 0, scale_factor)
 	var branch: Dictionary = get_node("/root/Campaign").branch()[get_node("/root/Campaign").reputation()]
-	var subtitle := "Miro reaches the woods. He raises the remote."
-	if elapsed >= 2.5:
-		subtitle = "The marks ignite. The ward charges follow."
-	if elapsed >= 5.0:
-		subtitle = "PA, from the tower: \"%s\"" % branch.ending_pa
-	if elapsed >= 7.5:
-		subtitle = "The tower falls. Miro is the last man standing."
-	if elapsed >= 11:
-		subtitle = "Miro lowers his head. \"%s\"" % branch.ending_thought
-	draw_multiline_string(ThemeDB.fallback_font, Vector2(45, 306), subtitle, HORIZONTAL_ALIGNMENT_LEFT, 560, 14, 2, Color("fbf5ef"))
-	draw_string(ThemeDB.fallback_font, Vector2(45, 343), "[Tab] Skip    [Esc] Pause", HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color("c69fa5"))
-	# The remote is the detonator: it fills the screen as the final signal goes out.
-	if elapsed >= 1.2 and elapsed < 2.6:
-		draw_rect(Rect2(0, 0, 640, 360), Color(0, 0, 0, 0.55))
-		preload("res://scripts/remote_screen.gd").draw_remote(self, Rect2(250, 40, 140, 200), "SIGNAL SENT", absf(sin(elapsed * 9)))
-	if elapsed >= 12:
-		draw_rect(Rect2(0, 0, 640, 360), Color(0, 0, 0, clampf((elapsed - 12) / 2, 0, 1)))
+	if t < 2.5:
+		shot_tree_line(t)
+	else:
+		shot_tower(t)
+	draw_set_transform(Vector2.ZERO, 0, scale_factor)
+	C.vignette(self, 0.8)
+	C.grain(self, frame_count, 0.045)
+	C.letterbox(self, C.phase(t, 0.0, 0.8))
+	var subtitle := ""
+	if t < 1.2:
+		subtitle = "The woods. Air that nobody rationed."
+	elif t >= 2.6 and t < 5.0:
+		subtitle = "Five marks. Five floors."
+	elif t >= 5.0 and t < 7.5:
+		subtitle = "TOWER PA:  \"%s\"" % branch.ending_pa
+	elif t >= 11.0:
+		subtitle = "\"%s\"" % branch.ending_thought
+	C.subtitle(self, subtitle, 1.0)
+	draw_string(ThemeDB.fallback_font, Vector2(16, 352), "[Tab] Skip", HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))
+	# The remote is the detonator: it fills the screen as the signal goes out.
+	if t >= 1.2 and t < 2.6:
+		var punch := C.ease_out(C.phase(t, 1.2, 0.25))
+		C.fade(self, 0.7 * punch)
+		var rect := Rect2(250, 40, 140, 200)
+		rect = rect.grow(-20 * (1.0 - punch))
+		preload("res://scripts/remote_screen.gd").draw_remote(self, rect, "SIGNAL SENT", absf(sin(t * 9)))
+		if t > 2.35:
+			C.fade(self, (t - 2.35) / 0.25, Color.WHITE)
+	if t >= 12.0:
+		C.title(self, Vector2(320, 175), "LAST MAN STANDING", 20, Color(C.PAPER.r, C.PAPER.g, C.PAPER.b, C.phase(t, 12.0, 0.8)), 6)
+		C.fade(self, C.phase(t, 12.6, 1.4))
 	if level.paused:
-		draw_rect(Rect2(0, 0, 640, 360), Color(0, 0, 0, 0.6))
-		draw_string(ThemeDB.fallback_font, Vector2(180, 180), "PAUSED — [Esc] Resume", HORIZONTAL_ALIGNMENT_LEFT, -1, 20, Color("fbf5ef"))
+		C.fade(self, 0.6)
+		draw_string(ThemeDB.fallback_font, Vector2(180, 180), "PAUSED — [Esc] Resume", HORIZONTAL_ALIGNMENT_LEFT, -1, 20, C.PAPER)
+
+## Miro walks out of the trees toward camera-right; the camera dollies with him.
+func shot_tree_line(t: float) -> void:
+	C.night_sky(self, Color("0f1224"), Color("2b2f4f"), Vector2(500, 70))
+	var dolly := t * 22.0
+	C.pines(self, 250, 120, 70, 0.0, -dolly * 0.3)
+	C.pines(self, 285, 150, 90, 0.5, -dolly * 0.6)
+	draw_rect(Rect2(0, 285, 640, 75), Color("0d1118"))
+	# Moonlight on the ground where he steps out.
+	for ring in range(5):
+		draw_circle(Vector2(300, 300), 90.0 - ring * 15, Color(0.85, 0.85, 1.0, 0.025))
+	C.miro(self, Vector2(250 + t * 30, 300), 1.6)
+	C.pines(self, 380, 300, 160, 1.0, -dolly * 1.4)
+
+## The tower over the woods: sigils, PA, collapse, and Miro watching in the foreground.
+func shot_tower(t: float) -> void:
+	var sky_warm := C.phase(t, 7.5, 4.0)
+	C.night_sky(self, Color("0f1224").lerp(Color("2a1d33"), sky_warm), Color("2b2f4f").lerp(Color("6b4a5c"), sky_warm), Vector2(130, 60))
+	# Slow push in on the tower during the ignition, then hold for the collapse.
+	var push := 1.0 + 0.12 * C.ease_in_out(C.phase(t, 2.5, 5.0))
+	var base := Vector2(400, 250)
+	var unit := size / C.FRAME
+	draw_set_transform(base * (1.0 - push) * unit, 0, unit * push)
+	C.pines(self, 245, 70, 46, 0.1, 0)
+	var ignite := 5.0 * C.phase(t, 2.6, 2.6)
+	var collapse := C.ease_in_out(C.phase(t, 7.5, 3.2))
+	C.tower(self, base, 28, 70, t, ignite, collapse, 1.0 if t < 5.0 else 0.6 + 0.4 * absf(sin(t * 7)))
+	C.dust(self, base, C.phase(t, 7.6, 3.5))
+	C.pines(self, 270, 90, 60, 0.6, 12)
+	draw_set_transform(Vector2.ZERO, 0, size / C.FRAME)
+	draw_rect(Rect2(0, 300, 640, 60), Color("0d1118"))
+	# Foreground: Miro, the last man standing, watching it fall; he bows his head at 11 s.
+	C.pines(self, 330, 260, 140, 1.0, 40)
+	draw_rect(Rect2(90, 300, 160, 60), Color("0d1118"))
+	C.miro(self, Vector2(170, 312), 2.4, C.ease_in_out(C.phase(t, 11.0, 1.0)))

@@ -27,9 +27,19 @@ Niro's in-game body, kneel pose and retreat fade are drawn in `scripts/brother_b
 
 The defeat exchange (C3) runs when `brother_defeated()` fires in `scripts/scaffold_level.gd`.
 
-## Ending (`scripts/ending_cinematic.gd`)
+## Cutscenes (in-engine, drawn; replace any shot with your panels)
 
-Timeline: 0–1.2 s woods, 1.2–2.6 s full-screen remote "SIGNAL SENT", 2.5 s sigils ignite, 5 s branch PA line, 7.5 s collapse + Set Me Free starts, 11 s Miro lowers his head with the branch's last thought, 12–14 s fade. Replace the `_draw()` storyboard with panels, keeping `elapsed`, skip (Tab) and pause.
+All cutscenes share one look from `scripts/cinema.gd`: 2.35:1 letterbox bars, vignette, fixed film grain, letter-spaced titles, eased camera moves, and silhouettes rim-lit by the moon. To swap in art, draw your panel inside the matching `shot_*` function. Keep `elapsed`, skip and pause.
+
+| Cutscene | Script | When | Shots |
+|---|---|---|---|
+| Opening (C1) | `scripts/opening_cinematic.gd`, `scenes/opening_cinematic.tscn` | New run from the menu, before Level 1 (17 s; Tab/Enter/E/Space skips) | Storm over the woods with lightning on the far tower, then a tilt up the tower with the PA line, then a push into the cell 07 window where a figure sits up, then the MIRO / LAST MAN STANDING title |
+| Floor cards | `scripts/floor_card.gd` (`level.show_card`) | First 3.4 s of every floor | Letterbox, the camera settles in from a closer zoom, then a lower-third with the emblem, floor number, title and the branch report. Doesn't block input or dialogue. |
+| Alarm (C5) | same, mode `alarm` | Level 5 guitar pickup | Red alarm pulse and ALARM |
+| Niro name card (C2) | same, mode `name` | Niro's first appearance | NIRO in the lower third while the reveal plays |
+| Ending (C10) | `scripts/ending_cinematic.gd` | Forest viewpoint (14 s) | 0–1.2 s Miro steps out of the tree line (parallax dolly); 1.2–2.6 s the remote fills the screen, SIGNAL SENT, white flash; 2.5–5 s wide shot, slow push-in, sigils ignite bottom to top; 5–7.5 s the branch PA line while windows flicker; 7.5–11 s collapse with dust and camera shake, Set Me Free starts; 11 s Miro, in the foreground, lowers his head over the last thought; 12–14 s LAST MAN STANDING, fade |
+
+Stills for review are written by `tools/capture_cinematics.gd` (run under xvfb).
 
 ## Branch text
 
