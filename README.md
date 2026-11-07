@@ -1,4 +1,6 @@
 # Miro
+
+Current combat work: [meeting 3 notes](docs/miromeeting3.md) · [ordered weapon tasks and gap assessment](docs/WEAPON_UPGRADE_TASKS.md).
 Miro's Tower Escape: Last One Standing
 
 Canonical repository: [xynprize/Miro.](https://github.com/xynprize/Miro.) (the name includes the final period). Julia's latest sprites are mapped in the [asset integration guide](docs/JULIA_ASSET_INTEGRATION.md).
