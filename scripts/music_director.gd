@@ -38,6 +38,20 @@ func _ready() -> void:
 	config.load("user://settings.cfg")
 	for bus in ["Music", "Effects", "Voice"]:
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), config.get_value("audio", bus, -6.0 if bus == "Music" else 0.0))
+	# Miro's thoughts: a far, spacey reverb on its own bus that feeds the Voice bus.
+	if AudioServer.get_bus_index("Thought") < 0:
+		AudioServer.add_bus()
+		var thought_bus := AudioServer.bus_count - 1
+		AudioServer.set_bus_name(thought_bus, "Thought")
+		AudioServer.set_bus_send(thought_bus, "Voice")
+		var reverb := AudioEffectReverb.new()
+		reverb.room_size = 0.95
+		reverb.damping = 0.2
+		reverb.spread = 1.0
+		reverb.predelay_msec = 90
+		reverb.wet = 0.55
+		reverb.dry = 0.6
+		AudioServer.add_bus_effect(thought_bus, reverb)
 	catalog = JSON.parse_string(FileAccess.get_file_as_string("res://data/music/runtime_catalog.json")).tracks
 	lowpass = AudioEffectLowPassFilter.new()
 	lowpass.cutoff_hz = OPEN_CUTOFF

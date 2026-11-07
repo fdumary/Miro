@@ -30,6 +30,9 @@ var access_point := Vector2.ZERO
 var practice_camera: Node
 var early_authenticated := false
 var trapdoors: Array[Node2D] = []
+## Miro's inner voice plays on the Thought bus (long, spacey reverb). Drop clips at
+## res://assets/audio/voice/thought_<floor>_<id>.mp3 to voice a thought.
+var thought_voice: AudioStreamPlayer
 const NAMES := {1: ["Rowan", "Ivo", "Bram", "Seth"], 2: ["Alden", "Corin", "Dane", "Ellis"], 3: ["Marek", "Oren", "Pavel", "Silas"], 4: ["Tomas", "Ulric", "Venn", "Wren"], 5: ["Yorick", "Zane", "Arlen", "Beck"]}
 
 func setup(owner_level: Node2D, number: int) -> void:
@@ -42,6 +45,10 @@ func setup(owner_level: Node2D, number: int) -> void:
 	voice.max_distance = 300
 	voice.attenuation = 1.5
 	add_child(voice)
+	thought_voice = AudioStreamPlayer.new()
+	thought_voice.bus = "Thought" if AudioServer.get_bus_index("Thought") >= 0 else "Voice"
+	thought_voice.process_mode = Node.PROCESS_MODE_PAUSABLE
+	add_child(thought_voice)
 	speech_bubble = Control.new()
 	speech_bubble.set_script(preload("res://scripts/character_bubble.gd"))
 	level.hud.add_child(speech_bubble)
@@ -385,9 +392,18 @@ func update_bubbles(delta: float) -> void:
 			ready = ready and level.player.position.y >= entry.minimum_y
 		if ready:
 			thought_seen[entry.id] = true
-			thought_bubble.text_label.text = "MIRO · thinking\n" + entry.text
-			thought_left = maxf(5, entry.text.length() * 0.075)
+			think(entry.text, "thought_%d_%s" % [floor_number, entry.id])
 			break
+
+func think(text: String, clip := "") -> void:
+	if text.is_empty():
+		return
+	thought_bubble.text_label.text = "MIRO · thinking\n" + text
+	thought_left = maxf(4, text.length() * 0.07)
+	var path := "res://assets/audio/voice/%s.mp3" % clip
+	if not clip.is_empty() and ResourceLoader.exists(path) and DisplayServer.get_name() != "headless":
+		thought_voice.stream = load(path)
+		thought_voice.play()
 
 func build_password_panel() -> void:
 	password_panel = level.panel_at(Vector2(110, 95), Vector2(420, 190))

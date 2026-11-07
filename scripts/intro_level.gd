@@ -20,10 +20,8 @@ var status_label: Label
 var objective_label: Label
 var hint_label: Label
 var message_label: Label
-var dialogue_panel: PanelContainer
+var dialogue_panel: Control
 var dialogue_label: Label
-var speaker_label: Label
-var speaker_portrait: Control
 var overlay: PanelContainer
 var overlay_label: Label
 var shot_flash: float = 0.0
@@ -107,6 +105,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("interact") and not event.is_echo():
 		interact()
 		get_viewport().set_input_as_handled()
+	elif event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_Z and not controls_locked() and not player.is_dead:
+		# Z: Miro thinks through what to do next, in his thought bubble.
+		if is_instance_valid(world_features):
+			world_features.think(z_hint())
+		get_viewport().set_input_as_handled()
 
 func _process(delta: float) -> void:
 	if not paused:
@@ -135,12 +138,18 @@ func _process(delta: float) -> void:
 	stealth_meter.visible = player.has_supplies
 	stealth_meter.value = player.stealth_remaining / player.stealth_duration if player.is_concealed else 1.0 - player.stealth_cooldown_left / player.stealth_cooldown
 	message_label.text = message if message_left > 0 else ""
-	dialogue_panel.visible = not dialogue.is_empty()
+	dialogue_panel.visible = not dialogue.is_empty() and not paused
 	if not dialogue.is_empty():
 		var line: Array = dialogue[dialogue_index]
-		dialogue_label.text = line[1]
-		speaker_label.text = line[0]
-		speaker_portrait.speaker = line[0]
+		var anchor := speaker_anchor(str(line[0]))
+		dialogue_panel.actor = anchor
+		dialogue_panel.thought = str(line[0]) == "MIRO" and anchor == player and is_thought_line(str(line[1]))
+		var label := str(line[0])
+		if anchor == player and str(line[0]) not in ["MIRO"]:
+			label += " · remote" if str(line[0]) in ["NIRO", "THE VOICE", "BROTHER"] else ""
+		dialogue_panel.speaker = label
+		dialogue_label.text = str(line[1])
+		dialogue_panel.follow_actor()
 	overlay.visible = paused or completed or player.is_dead
 	if completed:
 		overlay_label.text = "THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   |   Casualties: %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, player.casualty_count]
@@ -150,6 +159,15 @@ func _process(delta: float) -> void:
 		overlay_label.text = "PAUSED\nA/D Move · W/S Ladders · Space twice Double jump\nC Dash · Left Ctrl Crouch · E Interact / recover C4\n1–5 Select · Q Blanket · N Inventory\nLeft click Use · Right click Focus / place C4\nR Reload · Blanket: shadows only · 5s active / 8s cooldown\nEsc Resume · Backspace Retry · F10 Menu"
 		overlay_label.text += "\n[M] Sound: " + ("OFF" if get_node("/root/SoundFX").muted else "ON")
 	queue_redraw()
+
+func z_hint() -> String:
+	var goal := objective()
+	if "\n" in goal:
+		goal = goal.get_slice("\n", 1)
+	var cue := context_hint()
+	if cue.begins_with("[") and not cue.begins_with("[1]"):
+		return goal + "\n" + cue
+	return goal
 
 func counts_detection() -> bool:
 	return true
@@ -169,6 +187,39 @@ func objective() -> String:
 	if not sigil_placed:
 		return "Leave a mark\nDescend the ladders. Find the lower support."
 	return "The way below\nReach the lower-right stair gate. [E]"
+
+## Which character a forced line hangs over. Documents hang over the note being read.
+func speaker_anchor(speaker: String) -> Node2D:
+	match speaker:
+		"MIRO":
+			return player
+		"KEEPER":
+			if has_node("Guards/CorruptKeeper"):
+				return get_node("Guards/CorruptKeeper")
+		"NIRO", "BROTHER":
+			var boss = get("brother")
+			if boss != null and is_instance_valid(boss):
+				return boss
+			return player
+		"A VOICE BEYOND THE BARS", "THE VOICE":
+			var gate = nearby("brother", 200)
+			return gate if gate else player
+	var reading = nearby("note", 90)
+	if reading == null:
+		reading = nearby("sigil", 90)
+	if reading == null:
+		reading = nearby("brother", 90)
+	return reading if reading else player
+
+## Miro's lines in brackets or with no one to talk to read as thoughts.
+func is_thought_line(text: String) -> bool:
+	return text.begins_with("(") or speaker_listener() == null
+
+func speaker_listener():
+	for line in dialogue:
+		if str(line[0]) != "MIRO":
+			return line
+	return null
 
 func start_dialogue(lines: Array, event: String = "") -> void:
 	dialogue = lines
@@ -452,28 +503,14 @@ func build_hud() -> void:
 	hud.add_child(stealth_meter)
 	message_label = label_at(hud, Vector2(14, 295), Vector2(612, 34), 11)
 	message_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	dialogue_panel = panel_at(Vector2(16, 222), Vector2(608, 126))
-	var columns := HBoxContainer.new()
-	columns.add_theme_constant_override("separation", 12)
-	dialogue_panel.add_child(columns)
-	var text_column := VBoxContainer.new()
-	text_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	columns.add_child(text_column)
-	dialogue_label = label_at(text_column, Vector2.ZERO, Vector2(430, 76), 12)
-	dialogue_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	dialogue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	var footer := label_at(text_column, Vector2.ZERO, Vector2(430, 14), 9)
-	footer.text = "[E / Enter] Continue     [Tab] Skip"
-	var speaker_column := VBoxContainer.new()
-	speaker_column.custom_minimum_size.x = 100
-	columns.add_child(speaker_column)
-	speaker_portrait = Control.new()
-	speaker_portrait.set_script(load("res://scripts/dialogue_portrait.gd"))
-	speaker_portrait.custom_minimum_size = Vector2(100, 66)
-	speaker_column.add_child(speaker_portrait)
-	speaker_label = label_at(speaker_column, Vector2.ZERO, Vector2(100, 24), 10)
-	speaker_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	speaker_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# Forced dialogue lives in a bubble beside the speaker so Miro and the play area stay visible.
+	# The bottom of the screen is reserved for the objective cue line and short notices.
+	dialogue_panel = Control.new()
+	dialogue_panel.set_script(preload("res://scripts/character_bubble.gd"))
+	dialogue_panel.dialogue = true
+	hud.add_child(dialogue_panel)
+	dialogue_panel.visible = false
+	dialogue_label = dialogue_panel.text_label
 	overlay = panel_at(Vector2(45, 65), Vector2(550, 240))
 	overlay_label = label_at(overlay, Vector2.ZERO, Vector2(510, 200), 13)
 	overlay_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
