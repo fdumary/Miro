@@ -1,6 +1,9 @@
 extends Node
 ## Session progress; floor results commit only when descending, so retries restore entry state.
 var case_anchors: Dictionary = {}
+var inventory_layout: Array[String] = ["shank", "c4", "gun_1", "gun_2", "remote"]
+var remote_owned := false
+var remote_unlocked := false
 var current_floor := 1
 var completed_sigils: Dictionary = {}
 var narrative_milestones: Dictionary = {}
@@ -21,6 +24,9 @@ func launch_floor() -> int:
 	return 1
 
 func enter_floor(number: int) -> void:
+	if number == 1:
+		remote_owned = false
+		remote_unlocked = false
 	if number == 1 and current_floor != 1:
 		case_anchors.clear()
 	current_floor = number

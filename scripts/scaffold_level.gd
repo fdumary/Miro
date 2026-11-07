@@ -17,7 +17,7 @@ func _ready() -> void:
 	player.level = self
 	player.position = $LevelPlan/PlayerSpawn.position
 	player.has_supplies = true
-	player.c4_count = int(definition.get("demolition_charges", 1))
+	player.c4_count = int(definition.get("demolition_charges", 1)) + 1 # One optional charge; story supports stay reserved.
 	door_open = true
 	brother_heard = true
 	for guard in guards():
@@ -25,6 +25,8 @@ func _ready() -> void:
 		guard.illness_started = true
 	build_hud()
 	setup_world_features(int(definition.number))
+	player.controls.has_remote = get_node("/root/Campaign").remote_owned
+	player.controls.remote_unlocked = get_node("/root/Campaign").remote_unlocked
 	if int(definition.number) == 3:
 		for point in [Vector2(450, 180), Vector2(820, 370)]:
 			var camera = load("res://scenes/security_camera.tscn").instantiate()
@@ -54,9 +56,9 @@ func _process(delta: float) -> void:
 				pending_milestone = "RemoteTerminal"
 				start_dialogue([["CHECKPOINT", "Reprogramming complete. Linked security cameras disabled."]], "milestone")
 	if completed:
-		overlay_label.text = "%s\n\n%s\n\n[R] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing]
+		overlay_label.text = "%s\n\n%s\n\n[Backspace] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing]
 		if int(definition.number) == 5:
-			overlay_label.text = "MIRO\n\nThe end.\n\n[R] Replay final floor   [Enter] New run"
+			overlay_label.text = "MIRO\n\nThe end.\n\n[Backspace] Replay final floor   [Enter] New run"
 
 func _unhandled_input(event: InputEvent) -> void:
 	if completed and event.is_action_pressed("advance") and not event.is_echo():
@@ -87,7 +89,7 @@ func context_hint() -> String:
 	if world_features and not world_features.hint().is_empty():
 		return world_features.hint()
 	if is_instance_valid(brother) and not brother.is_dead:
-		return "[1] Strike during RECOVER • [C] Dodge • Space Jump"
+		return "[1] select shank, click during RECOVER • [C] Dodge • Space Jump"
 	if hack_remaining > 0:
 		return "Reprogramming… %d%% • stay within reach" % int((1 - hack_remaining) * 100)
 	if controls_locked() or player.is_dead:
@@ -104,10 +106,12 @@ func context_hint() -> String:
 		return "Move carefully • touching a Keeper breaks stealth"
 	if ladder_at(player.global_position):
 		return "[W / S] Climb"
-	return "A/D Move   Space Jump   C Dodge   1 Shank   2 Blanket   Esc Controls"
+	return "A/D Move   Space Jump   C Dash   1–5 Select   Q Blanket   Esc Controls"
 
 func interact() -> void:
 	if controls_locked() or player.is_dead:
+		return
+	if player.controls.recover_charge():
 		return
 	if world_features and world_features.try_interact():
 		return
@@ -136,7 +140,7 @@ func interact() -> void:
 				brother.position = player.position + Vector2(85, -10)
 				add_child(brother)
 				get_node("/root/MusicDirector").second_section(5)
-				notify("RUSH / THROW: watch his tell. Dodge with C; strike with 1 during RECOVER.", 8)
+				notify("RUSH / THROW: watch his tell. Dodge with C; select 1 and click during RECOVER.", 8)
 			return
 		if station.id == "RemoteTerminal":
 			pending_milestone = ""
