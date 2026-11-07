@@ -1,4 +1,7 @@
 extends "res://tools/test_intro.gd"
+class WeaponArtCheck:
+	static func has_flamethrower() -> bool:
+		return preload("res://scripts/weapon_art.gd").TEXTURES.has("flamethrower")
 func run() -> void:
 	await fresh()
 	await supplies()
@@ -9,71 +12,33 @@ func run() -> void:
 	var guards = level.guards()
 	guards[0].weapon_kind = "pistol"
 	guards[1].weapon_kind = "smg"
-	guards[2].weapon_kind = "flamethrower"
+	guards[2].weapon_kind = "pistol"
 	p.loot_weapon(guards[0])
 	p.loot_weapon(guards[1])
 	check(p.guns.size() == 2 and p.equipped_gun == "smg", "Two distinct guns can be carried")
+	var reserve: int = p.controls.reserves.get("pistol", 0)
 	p.loot_weapon(guards[2])
-	check(level.controls_locked() and not guards[2].gun_taken, "Third gun requires a choice before looting")
-	p.resolve_weapon_choice(-1)
-	check(not guards[2].gun_taken and p.guns.size() == 2 and not level.controls_locked(), "Cancel preserves inventory and corpse loot")
-	p.loot_weapon(guards[2])
-	p.resolve_weapon_choice(1)
-	check(p.guns == ["pistol", "flamethrower"] and guards[2].gun_taken, "Explicit replacement keeps two guns")
-	p.position = Vector2(300, 236)
-	p.suppressor_uses = 3
-	p.fire_gun()
-	check(p.suppressor_uses == 3 and p.ammunition == 15, "Flamethrower consumes fuel but no suppressor charges")
+	check(guards[2].gun_taken and p.controls.reserves.pistol == reserve + 2, "A duplicate gun becomes reserve ammunition")
+	guards[2].gun_taken = false
+	guards[2].weapon_kind = "smg"
 	p.select_gun(0)
-	p.suppressor_uses = 3 # Fixture: attach a fresh suppressor to this pistol.
 	check(p.ammunition == 2, "Switching restores independent pistol ammunition")
-	p.attack_cooldown = 0
-	p.fire_gun()
-	check(p.suppressor_uses == 2 and p.ammunition == 1, "Pistol consumes one suppressor use per round")
-	p.select_gun(1)
-	check(p.ammunition == 15, "Switching back preserves spent fuel")
-	# SMG supports the same three-shot suppressor.
-	p.equipped_gun = "smg"
-	p.suppressor_uses = 3 # Fresh attachment on the SMG, independent of the pistol.
-	p.ammunition = 12
+	p.position = Vector2(300, 236)
 	p.attack_cooldown = 0
 	guards[0].position = Vector2(600, 236)
 	guards[0].sees_player = false
 	guards[0].alert_state = IntroGuard.State.PATROL
 	p.fire_gun()
-	check(p.ammunition == 11 and p.suppressor_uses == 2 and guards[0].alert_state == IntroGuard.State.PATROL, "SMG consumes one suppressor charge and remains silent")
-	p.equipped_gun = "pistol"
-	p.ammunition = 4
-	p.suppressor_uses = 3
-	for shot in range(3):
-		p.attack_cooldown = 0
-		p.fire_gun()
-	check(p.suppressor_uses == 0, "Exactly three pistol shots exhaust suppressor")
-	guards[0].alert_state = IntroGuard.State.PATROL
+	check(p.ammunition == 1 and guards[0].alert_state == IntroGuard.State.SEARCH, "Pistol shot is always audible")
+	p.select_gun(1)
+	check(p.equipped_gun == "smg" and p.ammunition == 12, "Switching back preserves SMG magazine")
+	p.ammunition = 0
 	p.attack_cooldown = 0
 	p.fire_gun()
-	check(guards[0].alert_state == IntroGuard.State.SEARCH, "Fourth pistol shot is audible")
-	p.suppressor_uses = 3
-	p.attack_cooldown = 0
-	p.fire_gun()
-	check(p.suppressor_uses == 3, "Empty trigger does not spend suppressor charge")
-	p.equipped_gun = "flamethrower"
-	p.ammunition = 15
+	check(p.ammunition == 0, "Empty trigger fires nothing")
+	check(not WeaponArtCheck.has_flamethrower(), "Flamethrower is out of the game")
 	guards[0].position = Vector2(900, 656)
 	await frames(60)
-	p.position = Vector2(220, 236)
-	guards[1].position = Vector2(280, 236)
-	p.facing = 1
-	p.attack_cooldown = 0
-	p.fire_gun()
-	await frames(40)
-	check(guards[1].health == 2, "Flame cannot pass through locked cell wall")
-	p.position = Vector2(300, 236)
-	guards[1].position = Vector2(350, 236)
-	p.attack_cooldown = 0
-	p.fire_gun()
-	await frames(20)
-	check(guards[1].health == 1, "Flame damages a reachable target")
 	# Enemy rounds use the player collision layer and respect dodge immunity.
 	guards[0].position = Vector2(350, 236)
 	guards[0].shot_direction = Vector2.LEFT

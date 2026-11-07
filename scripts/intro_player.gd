@@ -24,7 +24,6 @@ var guns: Array[String] = []
 var gun_ammo: Dictionary = {}
 var equipped_gun := "pistol"
 var pending_guard: IntroGuard
-var suppressor_uses := 0
 var in_hiding_spot := false
 var ammunition: int = 0
 var c4_count: int = 0
@@ -198,9 +197,7 @@ func select_gun(index: int) -> void:
 	if index < 0 or index >= guns.size():
 		return
 	gun_ammo[equipped_gun] = ammunition
-	controls.attachments[equipped_gun] = suppressor_uses
 	equipped_gun = guns[index]
-	suppressor_uses = controls.attachments.get(equipped_gun, 0)
 	ammunition = gun_ammo.get(equipped_gun, 0)
 
 func loot_weapon(guard: IntroGuard) -> void:
@@ -214,8 +211,6 @@ func loot_weapon(guard: IntroGuard) -> void:
 		ammunition = gun_ammo.get(equipped_gun, 0)
 		guard.gun_taken = true
 	elif guns.size() < 2:
-		controls.attachments[equipped_gun] = suppressor_uses
-		suppressor_uses = 0
 		guns.append(guard.weapon_kind)
 		gun_ammo[guard.weapon_kind] = weapon_ammo(guard.weapon_kind)
 		equipped_gun = guard.weapon_kind
@@ -227,17 +222,14 @@ func loot_weapon(guard: IntroGuard) -> void:
 		level.notify("Take %s? [Z] replace %s / [X] replace %s / [Esc] cancel" % [guard.weapon_kind, guns[0], guns[1]], 30)
 
 func weapon_ammo(kind: String) -> int:
-	return 2 if kind == "pistol" else (12 if kind == "smg" else 16)
+	return 2 if kind == "pistol" else 12
 
 func resolve_weapon_choice(slot: int) -> void:
 	if not is_instance_valid(pending_guard):
 		return
 	if slot >= 0 and slot < guns.size():
 		gun_ammo[equipped_gun] = ammunition
-		controls.attachments[equipped_gun] = suppressor_uses
-		controls.attachments.erase(guns[slot])
 		controls.reserves.erase(guns[slot])
-		suppressor_uses = 0
 		gun_ammo.erase(guns[slot])
 		guns[slot] = pending_guard.weapon_kind
 		equipped_gun = guns[slot]
@@ -263,19 +255,15 @@ func fire_gun() -> void:
 	if not has_gun or ammunition <= 0:
 		level.notify("No loaded weapon. A fallen Keeper may carry one.")
 		return
-	if attack_cooldown > 0 or controls.reload_left > 0 or controls.attach_left > 0:
+	if attack_cooldown > 0 or controls.reload_left > 0:
 		return
 	ammunition -= 1
-	attack_cooldown = 0.65 if equipped_gun == "pistol" else (0.13 if equipped_gun == "smg" else 0.12)
+	attack_cooldown = 0.65 if equipped_gun == "pistol" else 0.13
 	attack_flash = 0.2
-	var suppressed := suppressor_uses > 0 and equipped_gun in ["pistol", "smg"]
-	if suppressed:
-		suppressor_uses -= 1
-		controls.attachments[equipped_gun] = suppressor_uses
-	get_node("/root/SoundFX").play_sound("flame" if equipped_gun == "flamethrower" else "shot", -32 if suppressed else -22, 1.25 if equipped_gun == "smg" else 1.0)
+	get_node("/root/SoundFX").play_sound("shot", -22, 1.25 if equipped_gun == "smg" else 1.0)
 	end_stealth()
-	if not suppressed:
-		level.make_noise(global_position, 600.0)
+	# Gunfire is always loud: kills cost noise.
+	level.make_noise(global_position, 600.0)
 	aim_direction = (get_global_mouse_position() - global_position).normalized() if mouse_aim else Vector2(facing, 0)
 	if aim_direction.length_squared() < 0.1:
 		aim_direction = Vector2(facing, 0)
@@ -286,17 +274,11 @@ func fire_gun() -> void:
 	bullet.level = level
 	bullet.shooter = self
 	bullet.direction = aim_direction
-	bullet.flame = equipped_gun == "flamethrower"
 	bullet.damage = 2 if equipped_gun == "pistol" else 1
-	if bullet.flame:
-		bullet.speed = 240.0
-		bullet.remaining = 100.0
 	# Start at the body so a muzzle offset cannot spawn beyond a nearby wall.
 	bullet.position = position + Vector2(0, -4)
 	level.add_child(bullet)
 	level.emit_effect("hit", global_position + aim_direction * 12)
-	if equipped_gun == "flamethrower":
-		return
 	var casing := Node2D.new()
 	casing.set_script(load("res://scripts/weapon_casing.gd"))
 	casing.level = level
@@ -356,8 +338,6 @@ func _draw() -> void:
 		var direction := aim_direction if mouse_aim else Vector2(facing, 0)
 		draw_set_transform(Vector2(0, -4), direction.angle(), Vector2(1, -1 if direction.x < 0 else 1))
 		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[equipped_gun], Rect2(0, -10, 24, 24), false)
-		if suppressor_uses > 0 and equipped_gun in ["pistol", "smg"]:
-			draw_rect(Rect2(20, -3, 9, 4), Color("777b98"))
 		draw_set_transform(Vector2.ZERO)
 	if attack_flash > 0:
 		draw_line(Vector2(facing * 9, -2), Vector2(facing * 35, -7), Color("fbf5ef"), 2)

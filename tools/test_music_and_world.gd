@@ -65,24 +65,17 @@ func run() -> void:
 		guard.position = Vector2(900, 236)
 	level.player.position = case.global_position
 	level.player.detection_state = "UNSEEN"
-	var ammo: int = level.player.ammunition
 	world.try_interact()
-	check(level.player.controls.spares == 1 and case.used and level.player.ammunition == ammo, "Case stores one three-shot suppressor without granting ammunition")
-	world.try_interact()
-	check(level.player.controls.spares == 1, "Used case cannot duplicate spare attachments")
+	check(not case.used, "Ammunition case waits until Miro carries a gun")
 	level.player.has_gun = true
 	level.player.guns.append("pistol")
+	level.player.equipped_gun = "pistol"
 	level.player.controls.sync_slots()
-	var press := InputEventKey.new()
-	press.physical_keycode = KEY_3
-	press.pressed = true
-	Input.parse_input_event(press)
-	await frames(65)
-	press = InputEventKey.new()
-	press.physical_keycode = KEY_3
-	press.pressed = false
-	Input.parse_input_event(press)
-	check(level.player.suppressor_uses == 3 and level.player.controls.spares == 0, "Hold gun key attaches stored suppressor")
+	var reserve: int = level.player.controls.reserves.get("pistol", 0)
+	world.try_interact()
+	check(case.used and level.player.controls.reserves.pistol == reserve + 8, "Ammunition case adds one magazine of reserve")
+	world.try_interact()
+	check(level.player.controls.reserves.pistol == reserve + 8, "Used case cannot duplicate ammunition")
 	level.player.position = hide.global_position
 	world.try_interact()
 	check(level.player.in_hiding_spot and not level.player.is_concealed, "Enclosed hide works separately from blanket")
@@ -99,7 +92,7 @@ func run() -> void:
 	level.player.ammunition = 5
 	level.player.attack_cooldown = 0
 	level.player.fire_gun()
-	check(level.player.ammunition == 5 and level.player.suppressor_uses == 3, "Cannot fire from enclosed hiding")
+	check(level.player.ammunition == 5, "Cannot fire from enclosed hiding")
 	world.try_interact()
 	check(not level.player.in_hiding_spot, "E exits hiding")
 	level.player.position = Vector2(500, 656)
@@ -107,19 +100,9 @@ func run() -> void:
 	observer.alert_state = IntroGuard.State.PATROL
 	observer.sees_player = false
 	level.player.facing = -1
-	for index in range(3):
-		level.player.attack_cooldown = 0
-		level.player.fire_gun()
-	check(level.player.suppressor_uses == 0 and level.player.ammunition == 2, "Three fired shots exhaust suppressor")
-	check(observer.alert_state == IntroGuard.State.PATROL, "Suppressed shots do not alert guard 200px away")
 	level.player.attack_cooldown = 0
 	level.player.fire_gun()
-	check(observer.alert_state == IntroGuard.State.SEARCH, "Fourth shot restores full noise radius")
-	level.player.ammunition = 0
-	level.player.suppressor_uses = 3
-	level.player.attack_cooldown = 0
-	level.player.fire_gun()
-	check(level.player.suppressor_uses == 3, "Empty trigger consumes no suppressor charge")
+	check(level.player.ammunition == 4 and observer.alert_state == IntroGuard.State.SEARCH, "Every shot is loud: a guard 200px away investigates")
 	var anchor: int = world.case_anchor_index
 	await floor_scene(3)
 	check(level.world_features.case_anchor_index == anchor, "Retry keeps case placement stable")

@@ -34,17 +34,7 @@ func run() -> void:
 	p.loot_weapon(guard)
 	c.sync_slots()
 	c.select_item("smg")
-	c.collect_suppressor()
-	check(p.suppressor_uses == 3, "Pickup automatically attaches to selected SMG")
-	for shot in range(3):
-		p.attack_cooldown = 0
-		p.fire_gun()
-	check(p.suppressor_uses == 0, "SMG breaks suppressor after exactly three rounds")
-	c.spares = 1
-	await key(KEY_3)
-	await frames(65)
-	await key(KEY_3, false)
-	check(p.suppressor_uses == 3 and c.spares == 0, "Holding gun slot for one second attaches spare suppressor")
+	check(c.active == "smg", "Slot selection equips the looted SMG")
 	c.reserves.smg = 24
 	p.ammunition = 0
 	await key(KEY_R)

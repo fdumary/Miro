@@ -9,7 +9,7 @@ enum State { PATROL, SUSPICIOUS, ALERT, SEARCH }
 @export var patrol_left: float = 300.0
 @export var patrol_right: float = 500.0
 @export var sick_guard: bool = false
-@export_enum("pistol", "smg", "flamethrower") var weapon_kind := "pistol"
+@export_enum("pistol", "smg") var weapon_kind := "pistol"
 var burst_left := 0
 var burst_timer := 0.0
 var shot_direction := Vector2.RIGHT
@@ -98,11 +98,11 @@ func _physics_process(delta: float) -> void:
 	if windup > 0:
 		windup -= delta
 		if windup <= 0 and sees_player:
-			burst_left = 1 if weapon_kind == "pistol" else (3 if weapon_kind == "smg" else 5)
+			burst_left = 1 if weapon_kind == "pistol" else 3
 			shoot_weapon()
 	elif alert_state == State.ALERT and sees_player:
 		facing = signf(last_known_position.x - global_position.x)
-		if global_position.distance_to(last_known_position) < (90 if weapon_kind == "flamethrower" else 150):
+		if global_position.distance_to(last_known_position) < 150:
 			if attack_timer <= 0:
 				windup = 0.65
 				shot_direction = (level.player.global_position - global_position).normalized()
@@ -158,20 +158,18 @@ func shoot_weapon() -> void:
 	bullet.shooter = self
 	bullet.enemy = true
 	bullet.direction = shot_direction
-	bullet.flame = weapon_kind == "flamethrower"
-	bullet.speed = 210.0 if bullet.flame else 280.0
-	bullet.remaining = 100.0 if bullet.flame else 260.0
+	bullet.speed = 280.0
+	bullet.remaining = 260.0
 	bullet.position = position + Vector2(0, -4)
 	level.add_child(bullet)
-	get_node("/root/SoundFX").play_sound("flame" if bullet.flame else "shot", -25, 1.25 if weapon_kind == "smg" else 1.0)
+	get_node("/root/SoundFX").play_sound("shot", -25, 1.25 if weapon_kind == "smg" else 1.0)
 	level.make_noise(global_position, 600)
-	if not bullet.flame:
-		var casing := Node2D.new()
-		casing.set_script(load("res://scripts/weapon_casing.gd"))
-		casing.level = level
-		casing.position = position
-		casing.velocity = Vector2(-facing * 65, -100)
-		level.add_child(casing)
+	var casing := Node2D.new()
+	casing.set_script(load("res://scripts/weapon_casing.gd"))
+	casing.level = level
+	casing.position = position
+	casing.velocity = Vector2(-facing * 65, -100)
+	level.add_child(casing)
 
 func investigate(point: Vector2) -> void:
 	if is_dead or sees_player:

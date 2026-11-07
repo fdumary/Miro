@@ -26,7 +26,6 @@ func capture() -> void:
 	controls.collect_remote()
 	controls.sync_slots()
 	controls.select_item("pistol")
-	controls.collect_suppressor()
 	await frames(4)
 	await save("res://tmp/final-hotbar.png")
 	controls.show_inventory()

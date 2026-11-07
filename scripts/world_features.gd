@@ -59,7 +59,7 @@ func setup(owner_level: Node2D, number: int) -> void:
 		keepers[index].guard_name = NAMES[number][index % 4]
 		keepers[index].voice_index = index % 3
 		if number > 1 and not keepers[index].has_method("begin_recovery"):
-			keepers[index].weapon_kind = ["pistol", "smg", "flamethrower"][index % (3 if number >= 4 else 2)]
+			keepers[index].weapon_kind = ["pistol", "smg"][index % 2]
 	if config.conversations.has(str(number)) and not keepers.is_empty():
 		var first = keepers[0]
 		if number == 3:
@@ -104,6 +104,7 @@ func add_props() -> void:
 	if floor_number == 1:
 		anchors = [Vector2(580, 236), Vector2(900, 432), Vector2(780, 656)]
 	var valid: Array[Vector2] = []
+	# Supply case: a small ammunition cache (suppressors were cut on 7 Nov).
 	for point in anchors:
 		if not level.has_floor_below(point + Vector2(0, 13)):
 			continue
@@ -118,7 +119,7 @@ func add_props() -> void:
 		if not campaign.case_anchors.has(floor_number):
 			campaign.case_anchors[floor_number] = randi_range(0, valid.size() - 1)
 		case_anchor_index = int(campaign.case_anchors[floor_number]) % valid.size()
-		spawn_prop(valid[case_anchor_index], "case", "Suppressor case")
+		spawn_prop(valid[case_anchor_index], "case", "Ammunition case")
 	# Enclosed wall recesses; no platform or collision geometry is removed.
 	for entry in [[Vector2(900, 432), "VENT"], [Vector2(420, 656), "CRAWLSPACE"]]:
 		var point: Vector2 = entry[0]
@@ -231,7 +232,7 @@ func hint() -> String:
 	if prop and prop.kind == "access":
 		return "[E] Service port · select remote to connect"
 	if prop:
-		return "[E] Take suppressor • 3 shots" if prop.kind == "case" else "[E] Hide in " + prop.title.to_lower()
+		return "[E] Take ammunition" if prop.kind == "case" else "[E] Hide in " + prop.title.to_lower()
 	return ""
 
 func try_interact() -> bool:
@@ -254,9 +255,9 @@ func try_interact() -> bool:
 		level.player.controls.open_remote()
 		return true
 	if prop.kind == "case":
-		prop.used = true
-		prop.queue_redraw()
-		level.player.controls.collect_suppressor()
+		if level.player.controls.collect_ammo_case():
+			prop.used = true
+			prop.queue_redraw()
 	else:
 		if level.player.detection_state == "SPOTTED" or level.guards().any(func(guard): return guard.detect_player()):
 			level.notify("Break sight before entering a hiding spot.")

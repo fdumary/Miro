@@ -1,5 +1,5 @@
 extends Node
-## Unified item selection, reload/attachments and inventory modal.
+## Unified item selection, reload and inventory modal.
 var player: IntroPlayer
 var slots: Array[String] = ["shank", "c4", "", "", "remote"]
 var layout: Array[String] = []
@@ -10,11 +10,7 @@ var has_remote := false
 var remote_unlocked := false
 var focus := false
 var reserves: Dictionary = {}
-var attachments: Dictionary = {}
-var spares := 0
 var reload_left := 0.0
-var attach_left := 0.0
-var hold_key := 0
 var panel: PanelContainer
 var remote_panel: PanelContainer
 var output: Label
@@ -42,32 +38,26 @@ func sync_slots() -> void:
 	for gun in player.guns:
 		if not reserves.has(gun):
 			reserves[gun] = capacity(gun) * 2
-	if active in ["pistol", "smg", "flamethrower"] and not player.guns.has(active):
+	if active in ["pistol", "smg"] and not player.guns.has(active):
 		active = "blanket"
 
 func capacity(gun: String) -> int:
-	return 8 if gun == "pistol" else (24 if gun == "smg" else 30)
+	return 8 if gun == "pistol" else 24
 
 func select_item(item: String) -> void:
 	if item.is_empty():
 		return
 	reload_left = 0
-	attach_left = 0
 	focus = false
 	active = item
 	if player.guns.has(item):
-		attachments[player.equipped_gun] = player.suppressor_uses
 		player.select_gun(player.guns.find(item))
-		player.suppressor_uses = attachments.get(item, 0)
 
 func _input(event: InputEvent) -> void:
 	if not is_instance_valid(player.level):
 		return
 	if event is InputEventKey and not event.echo:
 		if not event.pressed:
-			if event.physical_keycode == hold_key:
-				attach_left = 0
-				hold_key = 0
 			return
 		var key: int = event.physical_keycode
 		if locked():
@@ -79,9 +69,6 @@ func _input(event: InputEvent) -> void:
 			return
 		if key >= KEY_1 and key <= KEY_5:
 			select_item(slots[key - KEY_1])
-			hold_key = key
-			if active in ["pistol", "smg"] and player.suppressor_uses == 0 and spares > 0:
-				attach_left = 1.0
 		elif key == KEY_Q:
 			select_item("blanket")
 		elif key == KEY_N:
@@ -118,7 +105,6 @@ func _physics_process(delta: float) -> void:
 	if player.level.controls_locked() or player.is_dead or player.in_hiding_spot:
 		focus = false
 		reload_left = 0
-		attach_left = 0
 		return
 	focus = focus and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 	if reload_left > 0:
@@ -128,21 +114,12 @@ func _physics_process(delta: float) -> void:
 			player.ammunition += amount
 			reserves[active] -= amount
 			player.gun_ammo[active] = player.ammunition
-	if attach_left > 0:
-		if hold_key == 0 or not Input.is_physical_key_pressed(hold_key):
-			attach_left = 0
-		else:
-			attach_left = maxf(0, attach_left - delta)
-			if attach_left == 0:
-				spares -= 1
-				player.suppressor_uses = 3
-				attachments[active] = 3
-	progress = 1.0 - (reload_left / 1.0 if reload_left > 0 else attach_left)
-	if active in ["smg", "flamethrower"] and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	progress = 1.0 - reload_left
+	if active == "smg" and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		use_item()
 
 func use_item() -> void:
-	if reload_left > 0 or attach_left > 0:
+	if reload_left > 0:
 		return
 	if player.mouse_aim and absf(player.aim_direction.x) > 0.01:
 		player.facing = signf(player.aim_direction.x)
@@ -151,7 +128,7 @@ func use_item() -> void:
 		"shank": player.shank()
 		"c4": detonate_charges()
 		"remote": open_remote()
-		"pistol", "smg", "flamethrower": player.fire_gun()
+		"pistol", "smg": player.fire_gun()
 
 func start_reload() -> void:
 	if active not in player.guns or reload_left > 0 or player.ammunition >= capacity(active):
@@ -159,17 +136,16 @@ func start_reload() -> void:
 	if reserves.get(active, 0) <= 0:
 		player.level.notify("No reserve ammunition.")
 		return
-	attach_left = 0
 	reload_left = 1.0
 
-func collect_suppressor() -> void:
-	if active in ["pistol", "smg"] and player.suppressor_uses == 0:
-		player.suppressor_uses = 3
-		attachments[active] = 3
-		player.level.notify("Suppressor attached · 3 shots")
-	else:
-		spares += 1
-		player.level.notify("Spare suppressor stored. Hold a gun's slot key for 1 second to attach.")
+func collect_ammo_case() -> bool:
+	if player.guns.is_empty() and not player.has_gun:
+		player.level.notify("Ammunition. Useless without a gun; leave it for now.")
+		return false
+	var gun: String = player.equipped_gun
+	reserves[gun] = reserves.get(gun, 0) + capacity(gun)
+	player.level.notify("Ammunition case: +%d %s rounds" % [capacity(gun), gun])
+	return true
 
 func collect_remote() -> void:
 	if has_remote:

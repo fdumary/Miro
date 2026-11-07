@@ -33,13 +33,10 @@ func _draw() -> void:
 	elif controls.active == "remote":
 		hint = "Left click: open remote / MP3"
 	draw_string(ThemeDB.fallback_font, Vector2(0, 51), hint, HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
-	# Attachment state beside the health/header, never a selectable inventory item.
-	if player.suppressor_uses > 0 or controls.spares > 0:
-		draw_string(ThemeDB.fallback_font, Vector2(215, -32), "SUP %d/3 · spare %d" % [player.suppressor_uses, controls.spares], HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
-	if controls.reload_left > 0 or controls.attach_left > 0:
+	if controls.reload_left > 0:
 		var center := Vector2(340, 32)
 		draw_arc(center, 9, -PI / 2, -PI / 2 + TAU * controls.progress, 24, Color(1, 1, 1, 0.75), 2)
-		draw_string(ThemeDB.fallback_font, Vector2(355, 35), "Reloading" if controls.reload_left > 0 else "Attaching", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
+		draw_string(ThemeDB.fallback_font, Vector2(355, 35), "Reloading", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
 	if is_instance_valid(player.pending_guard):
 		draw_style_box(panel_style(true), Rect2(120, 75, 372, 86))
 		draw_string(ThemeDB.fallback_font, Vector2(136, 96), "Take %s? Carry limit: two guns." % player.pending_guard.weapon_kind.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 13)
