@@ -67,15 +67,22 @@ func _draw() -> void:
 	draw_circle(head, 8, Color("f2d3ab"))
 	draw_line(Vector2(218, 250), Vector2(237, 249), Color("c69fa5"), 5)
 	draw_rect(Rect2(234, 244, 7, 8), Color("8b6d9c"))
-	var subtitle := "Miro reaches the woods. He looks back."
+	var branch: Dictionary = get_node("/root/Campaign").branch()[get_node("/root/Campaign").reputation()]
+	var subtitle := "Miro reaches the woods. He raises the remote."
 	if elapsed >= 2.5:
 		subtitle = "The marks ignite. The ward charges follow."
+	if elapsed >= 5.0:
+		subtitle = "PA, from the tower: \"%s\"" % branch.ending_pa
 	if elapsed >= 7.5:
-		subtitle = "The tower falls."
+		subtitle = "The tower falls. Miro is the last man standing."
 	if elapsed >= 11:
-		subtitle = "Miro lowers his head."
-	draw_string(ThemeDB.fallback_font, Vector2(45, 318), subtitle, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color("fbf5ef"))
+		subtitle = "Miro lowers his head. \"%s\"" % branch.ending_thought
+	draw_multiline_string(ThemeDB.fallback_font, Vector2(45, 306), subtitle, HORIZONTAL_ALIGNMENT_LEFT, 560, 14, 2, Color("fbf5ef"))
 	draw_string(ThemeDB.fallback_font, Vector2(45, 343), "[Tab] Skip    [Esc] Pause", HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color("c69fa5"))
+	# The remote is the detonator: it fills the screen as the final signal goes out.
+	if elapsed >= 1.2 and elapsed < 2.6:
+		draw_rect(Rect2(0, 0, 640, 360), Color(0, 0, 0, 0.55))
+		preload("res://scripts/remote_screen.gd").draw_remote(self, Rect2(250, 40, 140, 200), "SIGNAL SENT", absf(sin(elapsed * 9)))
 	if elapsed >= 12:
 		draw_rect(Rect2(0, 0, 640, 360), Color(0, 0, 0, clampf((elapsed - 12) / 2, 0, 1)))
 	if level.paused:

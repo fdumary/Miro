@@ -20,7 +20,8 @@ $checks = @(
     @('res://tools/test_traversal_access.gd'),
     @('res://tools/test_weapon_inventory.gd'),
     @('res://tools/test_mouse_projectiles.gd'),
-    @('res://tools/test_narrative_bubbles.gd')
+    @('res://tools/test_narrative_bubbles.gd'),
+    @('res://tools/test_branches.gd')
 )
 New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'tmp') | Out-Null
 $index = 0

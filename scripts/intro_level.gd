@@ -82,6 +82,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if completed and event.is_action_pressed("advance") and not event.is_echo():
 		get_node("/root/Campaign").complete_floor(1, sigil_placed, {"BrotherVoice": brother_heard}, floor_raw_stats())
+		get_node("/root/Campaign").update_unlocks()
 		get_viewport().set_input_as_handled()
 		get_tree().change_scene_to_file("res://scenes/levels/level_02.tscn")
 		return
@@ -152,7 +153,8 @@ func _process(delta: float) -> void:
 		dialogue_panel.follow_actor()
 	overlay.visible = paused or completed or player.is_dead
 	if completed:
-		overlay_label.text = "THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   |   Casualties: %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, player.casualty_count]
+		var raw := floor_raw_stats()
+		overlay_label.text = "THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   ·   %s   ·   Kills %d   ·   Seen %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, get_node("/root/Campaign").style_word(raw), raw.kills, raw.detections]
 	elif player.is_dead:
 		overlay_label.text = "THE TOWER KEEPS ITS PRISONERS\n\n[Backspace] Retry from the cell\nTry cover, a quiet key theft, or dodge the wind-up."
 	elif paused:

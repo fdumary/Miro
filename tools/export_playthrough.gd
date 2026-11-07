@@ -24,6 +24,11 @@ func descend(count: int) -> void:
  Input.action_release("climb_down")
 
 func next_floor(number: int) -> void:
+ # This run checks progression on the neutral (MISSING) branch; the bot's brute-force kills
+ # would otherwise make every later floor HUNTED. test_branches.gd covers HUNTED.
+ level.player.casualty_count = 0
+ level.floor_detections = 0
+ level.loud_events = 0
  var press := InputEventAction.new()
  press.action = "advance"
  press.pressed = true

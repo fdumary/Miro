@@ -285,9 +285,26 @@ func run_command(raw: String) -> void:
 	elif not remote_unlocked:
 		output.text = "Service port locked. Type hack to run your unlock script."
 	elif text == "help":
-		output.text = "help · scan · login <password> · cameras off · music\n1. Stand near an access point and scan.\n2. Find its password, then login <password>.\n3. Run cameras off (or lights test on floor 1). Esc closes."
+		output.text = "help · scan · login <password> · cameras off · music · play <n>\n1. Stand near an access point and scan.\n2. Find its password, then login <password>.\n3. Run cameras off (or lights test on floor 1). Esc closes."
 	elif text == "music":
-		output.text = "MP3 mode: the current floor's soundtrack is playing.\nYour player doubles as a local tower terminal."
+		var unlocked: Array = get_node("/root/Campaign").unlocked_tracks()
+		var listing := "MP3 · 0. floor soundtrack"
+		for index in range(unlocked.size()):
+			listing += "\n%d. %s" % [index + 1, get_node("/root/MusicDirector").catalog[unlocked[index]].title]
+		output.text = listing + ("\nType play <number>." if not unlocked.is_empty() else "\nUnseen floors unlock more tracks.")
+	elif text.begins_with("play "):
+		var unlocked: Array = get_node("/root/Campaign").unlocked_tracks()
+		var index := text.trim_prefix("play ").to_int()
+		var music = get_node("/root/MusicDirector")
+		if index == 0:
+			music.start_floor(get_node("/root/Campaign").current_floor)
+			output.text = "Back to the floor soundtrack."
+		elif index >= 1 and index <= unlocked.size():
+			music.review_override = true
+			music.play_track(unlocked[index - 1])
+			output.text = "Now playing: " + music.catalog[unlocked[index - 1]].title
+		else:
+			output.text = "No track %d. Type music to list them." % index
 	elif text == "scan":
 		if at_early_port():
 			output.text = "service.local · maintenance account\nSticker: user root · password root\n" + ("Practice lamp available. login root, then lights test" if get_node("/root/Campaign").current_floor == 1 else "Optional corridor camera. login root, then cameras off")
@@ -376,6 +393,11 @@ func recover_charge() -> bool:
 	return true
 
 func detonate_charges() -> void:
+	if planted.any(func(charge): return is_instance_valid(charge)):
+		# No control change: left click detonates, and the remote shows the signal going out.
+		var popup := Control.new()
+		popup.set_script(preload("res://scripts/remote_screen.gd"))
+		player.level.hud.add_child(popup)
 	for charge in planted:
 		if not is_instance_valid(charge):
 			continue

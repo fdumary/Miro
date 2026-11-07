@@ -10,6 +10,11 @@ var brother: Node
 var cinematic: Control
 ## Level 5 only: guitar, waves and Niro's three retreats (scripts/foundation_flow.gd).
 var flow: Node
+## Branch reaction for this floor (Level 2 onward): MISSING or HUNTED, from committed floors.
+var reputation := ""
+var hunted := false
+var disappointment_heard := false
+var poster: Node2D
 
 func _ready() -> void:
 	definition = JSON.parse_string(FileAccess.get_file_as_string(get_meta("blueprint")))
@@ -45,7 +50,9 @@ func _ready() -> void:
 		flow.name = "FoundationFlow"
 		add_child(flow)
 		flow.setup(self)
-	start_dialogue([[definition.title.to_upper(), definition.opening]])
+	var opening: Array = [[definition.title.to_upper(), definition.opening]]
+	opening.append_array(setup_branch())
+	start_dialogue(opening)
 
 func _process(delta: float) -> void:
 	super._process(delta)
@@ -67,17 +74,70 @@ func _process(delta: float) -> void:
 				pending_milestone = "RemoteTerminal"
 				start_dialogue([["CHECKPOINT", "Reprogramming complete. Linked security cameras disabled."]], "milestone")
 	if completed:
-		overlay_label.text = "%s\n\n%s\n\n[Backspace] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing]
+		overlay_label.text = "%s\n\n%s\n\n%s\n\n[Backspace] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing, floor_report()]
 		if int(definition.number) == 5:
 			overlay_label.text = "MIRO\n\nThe end.\n\n[Backspace] Replay final floor   [Enter] New run"
 
 func _unhandled_input(event: InputEvent) -> void:
 	if completed and event.is_action_pressed("advance") and not event.is_echo():
 		get_node("/root/Campaign").complete_floor(int(definition.number), sigil_placed, milestones, floor_raw_stats())
+		get_node("/root/Campaign").update_unlocks()
 		get_viewport().set_input_as_handled()
 		get_tree().change_scene_to_file("res://scenes/levels/level_%02d.tscn" % (int(definition.number) + 1) if definition.number < 5 else "res://scenes/intro.tscn")
 		return
 	super._unhandled_input(event)
+
+## World reacts to how Miro has played so far; never changes objectives or the plot.
+func setup_branch() -> Array:
+	var campaign = get_node("/root/Campaign")
+	var number := int(definition.number)
+	reputation = campaign.reputation()
+	hunted = reputation == "HUNTED"
+	var data: Dictionary = campaign.branch()[reputation]
+	world_features.thoughts[str(number)].insert(0, {"id": "branch", "text": data.thought})
+	poster = Node2D.new()
+	poster.set_script(load("res://scripts/wanted_poster.gd"))
+	poster.wanted = hunted
+	poster.position = $LevelPlan/PlayerSpawn.position + Vector2(70, -46)
+	add_child(poster)
+	if not world_features.conversation.is_empty():
+		world_features.conversation = world_features.conversation.duplicate(true)
+		for index in range(data.guard_line.size()):
+			world_features.conversation.append({"id": "branch_%s_%d" % [reputation.to_lower(), index], "speaker": index % 2, "text": data.guard_line[index]})
+	if hunted and number < 5:
+		# More armed Keepers: one extra patrol by the stair gate, clear of the ladder landings.
+		var extra = load("res://scenes/guard.tscn").instantiate()
+		extra.name = "HuntedKeeper"
+		extra.position = Vector2(700, 656)
+		extra.patrol_left = 640
+		extra.patrol_right = 760
+		extra.level = self
+		extra.illness_started = true
+		extra.weapon_kind = "pistol"
+		extra.guard_name = "Hale"
+		$Guards.add_child(extra)
+	var lines: Array = [["TOWER PA", data.pa]]
+	if number < 5:
+		lines.append(["THE VOICE" if number < 3 else "NIRO", data.remote_call])
+	return lines
+
+## Kills cost: Niro's disappointment over the remote (once per floor) on top of noise and bodies.
+func on_keeper_killed(_guard) -> void:
+	if disappointment_heard or int(definition.number) >= 5:
+		return
+	disappointment_heard = true
+	var lines: Array = get_node("/root/Campaign").branch().kill_disappointment
+	notify(lines[(int(definition.number) + player.casualty_count) % lines.size()], 5)
+
+func floor_report() -> String:
+	var campaign = get_node("/root/Campaign")
+	var raw := floor_raw_stats()
+	var scored: Dictionary = campaign.score_floor(raw)
+	var text := "%s   ·   Kills %d   ·   Seen %d" % [campaign.style_word(raw), raw.kills, raw.detections]
+	var unlocks: Array = campaign.preview_unlocks(int(scored.stealth))
+	if not unlocks.is_empty():
+		text += "\nMP3 unlocked: " + ", ".join(unlocks)
+	return text
 
 func counts_detection() -> bool:
 	# In The Foundation discovery is forced after the guitar; only earlier sightings count.

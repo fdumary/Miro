@@ -55,7 +55,13 @@ func game_completed() -> bool:
 	progress.load("user://progress.cfg")
 	return bool(progress.get_value("game", "completed", false))
 
+## Test and QA runs never write the player's save (completed menu, MP3 unlocks).
+func can_persist() -> bool:
+	return not OS.has_feature("qa") and not "--script" in OS.get_cmdline_args()
+
 func mark_game_completed() -> void:
+	if not can_persist():
+		return
 	var progress := ConfigFile.new()
 	progress.load("user://progress.cfg")
 	progress.set_value("game", "completed", true)
@@ -103,6 +109,16 @@ func unlocked_tracks() -> Array:
 	progress.load("user://progress.cfg")
 	return progress.get_value("mp3", "unlocked", [])
 
+## Tracks that finishing the current floor would unlock (shown on the floor report).
+func preview_unlocks(floor_stealth: int) -> Array:
+	var names: Array = []
+	var points := total("stealth") + floor_stealth
+	var unlocked := unlocked_tracks()
+	for entry in branch().get("mp3_unlocks", []):
+		if points >= int(entry.stealth_points) and not unlocked.has(entry.track):
+			names.append(entry.track.replace("_", " "))
+	return names
+
 func update_unlocks() -> Array:
 	var earned: Array = []
 	var points := total("stealth")
@@ -111,7 +127,7 @@ func update_unlocks() -> Array:
 		if points >= int(entry.stealth_points) and not unlocked.has(entry.track):
 			unlocked.append(entry.track)
 			earned.append(entry.track)
-	if not earned.is_empty():
+	if not earned.is_empty() and can_persist():
 		var progress := ConfigFile.new()
 		progress.load("user://progress.cfg")
 		progress.set_value("mp3", "unlocked", unlocked)

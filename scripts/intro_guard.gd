@@ -74,7 +74,7 @@ func _physics_process(delta: float) -> void:
 	turn_wait = maxf(0.0, turn_wait - delta)
 	sees_player = detect_player()
 	if sees_player:
-		suspicion = minf(1.0, suspicion + delta * 2.5)
+		suspicion = minf(1.0, suspicion + delta * (3.0 if level.get("hunted") else 2.5))
 		last_known_position = level.player.global_position
 		search_left = 5.0
 		if suspicion >= 1.0:
@@ -223,6 +223,8 @@ func die() -> void:
 	level.player.casualty_count += 1
 	level.emit_effect("blood", global_position + Vector2(0, 12))
 	level.notify("A body remains. Other Keepers may discover it. [E] Loot")
+	if level.has_method("on_keeper_killed"):
+		level.on_keeper_killed(self)
 	queue_redraw()
 
 func _draw() -> void:
