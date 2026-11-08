@@ -23,7 +23,10 @@ func _ready() -> void:
 		return
 	music.review_override = false
 	# After a finished Play run the menu switches to the completed-game track.
-	music.play_track(music.MENU_COMPLETED_TRACK if get_node("/root/Campaign").game_completed() else music.MENU_TRACK)
+	if get_node("/root/Campaign").game_completed():
+		music.play_track(music.MENU_COMPLETED_TRACK)
+	else:
+		music.play_track(music.MENU_TRACK, true, music.MENU_START)
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	# Animated start screen (dusk tower, or the ruins in daylight after completion); named "Backdrop".
 	add_child(preload("res://scripts/start_backdrop.gd").new())
