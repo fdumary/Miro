@@ -279,6 +279,7 @@ def level_2():
     # Playtest round 2: more shadows past the sick prisoner.
     g.put('cover', 20, 9)
     g.put('cover', 25, 9)
+    g.put('guard', 29, 9, name='CellKeeper', patrol=[24, 32])  # added last: keeps roster order
     g.put('exit', 3, 45)
     route = [
         {'x': x_of(9)}, {'station': 'SickPrisoner'},

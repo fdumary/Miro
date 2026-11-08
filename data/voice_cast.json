@@ -4,6 +4,16 @@
   "miro_delivery": "",
   "miro_thought_delivery": "[whispers]",
   "voices": {
+    "mott": {
+      "name": "Clyde (premade)",
+      "voice_id": "2EiwWnXFnvU5JabPnv8n",
+      "stability": 0.5
+    },
+    "pell": {
+      "name": "Thomas (premade)",
+      "voice_id": "GBv7mTt0atIp3Br8iCZE",
+      "stability": 0.5
+    },
     "prisoner": {
       "name": "Sick prisoner (voice chosen by RXLA)",
       "voice_id": "ZWXPFGxJbpddE1lBgldf",

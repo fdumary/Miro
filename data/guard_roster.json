@@ -5,7 +5,8 @@
       "Judas",
       "Rowan",
       "Ivo",
-      "Bram"
+      "Bram",
+      "Mott"
     ],
     "2": [
       "Alden",
@@ -16,7 +17,8 @@
       "Hollis",
       "Jory",
       "Kell",
-      "Lusk"
+      "Lusk",
+      "Pell"
     ],
     "3": [
       "Marek",
@@ -756,6 +758,28 @@
         "I bring cold soup. It saves the tower the trouble.",
         "The watcher always sees someone when I sit down."
       ]
+    },
+    "Mott": {
+      "alert": "Down here? Nobody comes down here. Except you, apparently.",
+      "body": "Bram? Bram, get up. This isn't funny.",
+      "delivery": "[gruff]",
+      "idle": [
+        "Bottom floor, bottom pay. Story of my life.",
+        "If that support cracks, I'm not the one explaining it."
+      ],
+      "personality": "resents being stationed at the bottom",
+      "theme": "serious"
+    },
+    "Pell": {
+      "alert": "Back in your cell! I said back!",
+      "body": "He was coughing yesterday. Now he's not doing anything.",
+      "delivery": "[stern] [tired]",
+      "idle": [
+        "Another door, another cough. I stopped counting.",
+        "They say it doesn't spread to us. They say a lot."
+      ],
+      "personality": "tired of pretending the sick are dangerous",
+      "theme": "stern"
     }
   },
   "hunted": {
