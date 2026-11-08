@@ -70,10 +70,12 @@ static func clip_path(text: String, prefix := "niro") -> String:
 static func has_clip(text: String, prefix := "niro") -> bool:
 	return ResourceLoader.exists(clip_path(text, prefix))
 
-## Same clips, no radio: Niro face to face, or the tower PA.
-func say_in_room(text: String, prefix := "niro") -> void:
+## Same clips, no radio: Niro face to face, the tower PA, Judas, or Miro himself
+## (his thoughts go through the reverb "Thought" bus).
+func say_in_room(text: String, prefix := "niro", bus := "Voice") -> void:
 	stop()
 	if has_clip(text, prefix) and audible():
+		room.bus = bus if AudioServer.get_bus_index(bus) >= 0 else "Voice"
 		room.stream = load(clip_path(text, prefix))
 		room.play()
 

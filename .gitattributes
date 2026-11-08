@@ -20,3 +20,6 @@ assets/audio/music/destroyed_lonely.mp3 -filter -diff -merge binary
 assets/audio/music/dancehall_lonesome.mp3 -filter -diff -merge binary
 assets/audio/music/dancehall64.mp3 -filter -diff -merge binary
 assets/audio/music/new_age_dancehall.mp3 -filter -diff -merge binary
+# Added 8 Nov 2026: Miro's voice clips, generated in a cloud session that cannot upload LFS objects.
+assets/audio/voice/miro_*.mp3 -filter -diff -merge binary
+assets/audio/voice/thought_*.mp3 -filter -diff -merge binary

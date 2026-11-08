@@ -186,6 +186,8 @@ func add_props() -> void:
 const LEVEL_ONE_CRATES := [Vector2(477, 252), Vector2(968, 448), Vector2(530, 672)]
 
 func spawn_crate(point: Vector2) -> void:
+	# `point` is on the floor; check clearance from where the crate's prop marker sits.
+	point = free_spot(point - Vector2(0, 16)) + Vector2(0, 16)
 	var tiles := level.get_node_or_null("StoneFloors") as TileMapLayer
 	if tiles:
 		for step in range(8):
@@ -215,6 +217,8 @@ func spawn_crate(point: Vector2) -> void:
 	add_child(body)
 
 func spawn_prop(point: Vector2, kind: String, title: String) -> void:
+	if kind in ["case", "hide"]:
+		point = free_spot(point)
 	var prop := Node2D.new()
 	prop.set_script(load("res://scripts/review_prop.gd"))
 	prop.position = point
@@ -734,6 +738,42 @@ func _exit_tree() -> void:
 		voice.stream = null
 	actors.clear()
 	voice_speaker = null
+
+## Level items never spawn on top of a Keeper, a story station, a ladder or another item.
+## `point` is a prop position (16 px above the floor). Slides along the same floor in 16 px
+## steps, alternating sides, up to 192 px; keeps the authored spot if nothing nearby is free.
+func free_spot(point: Vector2) -> Vector2:
+	for step in range(0, 13):
+		for direction in [1, -1]:
+			if step == 0 and direction == -1:
+				continue
+			var candidate := point + Vector2(direction * step * 16.0, 0)
+			if spot_taken(candidate):
+				continue
+			if step > 0 and not level.has_floor_below(candidate + Vector2(0, 13)):
+				continue
+			return candidate
+	return point
+
+func spot_taken(point: Vector2) -> bool:
+	for guard in level.guards():
+		if not is_instance_valid(guard) or absf(guard.global_position.y - point.y) >= 40:
+			continue
+		# Clear of where the Keeper stands and of the stretch he patrols on this floor.
+		var left := minf(guard.global_position.x, float(guard.get("patrol_left") if guard.get("patrol_left") != null else guard.global_position.x))
+		var right := maxf(guard.global_position.x, float(guard.get("patrol_right") if guard.get("patrol_right") != null else guard.global_position.x))
+		if point.x > left - 30 and point.x < right + 30:
+			return true
+	for prop in props:
+		if is_instance_valid(prop) and absf(prop.global_position.x - point.x) < 32 and absf(prop.global_position.y - point.y) < 24:
+			return true
+	for area in level.areas.get_children():
+		if area.kind == "ladder":
+			if Rect2(area.global_position - area.area_size / 2, area.area_size).grow(16).has_point(point):
+				return true
+		elif area.global_position.distance_to(point) < 34:
+			return true
+	return false
 
 func placement_clear(point: Vector2) -> bool:
 	for area in level.areas.get_children():
