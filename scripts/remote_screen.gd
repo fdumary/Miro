@@ -1,7 +1,5 @@
 extends Control
-## The remote is the detonator. A small remote/MP3 screen pops up whenever charges are detonated,
-## and fills the screen in the ending. Art hook: res://assets/ui/remote_screen.png (portrait,
-## screen area roughly the middle 70%) replaces the placeholder body.
+## Compact gameplay confirmation; the device art is also shared with cinematics.
 var left := 1.2
 var full_screen := false
 var label := "SIGNAL SENT"
@@ -9,8 +7,8 @@ var label := "SIGNAL SENT"
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if not full_screen:
-		position = Vector2(560, 250)
-		size = Vector2(64, 92)
+		position = Vector2(520, 302)
+		size = Vector2(104, 20)
 
 func _process(delta: float) -> void:
 	if full_screen:
@@ -53,4 +51,7 @@ func _draw() -> void:
 		var height := size.y * 0.8
 		draw_remote(self, Rect2(Vector2(size.x / 2 - height * 0.35, size.y * 0.1), Vector2(height * 0.7, height)), label, pulse)
 	else:
-		draw_remote(self, Rect2(Vector2.ZERO, size), label, pulse)
+		var badge := Rect2(Vector2.ZERO, size)
+		draw_rect(badge, Color(0.15, 0.15, 0.26, 0.92))
+		draw_rect(badge, Color("c69fa5"), false, 1.0)
+		draw_string(ThemeDB.fallback_font, Vector2(0, 14), "C4 DETONATED", HORIZONTAL_ALIGNMENT_CENTER, size.x, 11, Color("f2d3ab"))
