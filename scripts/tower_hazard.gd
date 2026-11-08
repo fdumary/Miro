@@ -24,11 +24,11 @@ func _ready() -> void:
 		add_to_group("lethal_spikes")
 		var collider := CollisionShape2D.new()
 		var shape := RectangleShape2D.new()
-		# Deep enough that walking under a ceiling or wall run of spikes catches Miro's head;
-		# crouching (16 px tall) slips under.
-		shape.size = Vector2(24, 15)
+		# Long enough that wall spikes above a crawl gap catch a standing Miro's head;
+		# crouching slips under.
+		shape.size = Vector2(32, 9)
 		collider.shape = shape
-		collider.position.y = -7.5
+		collider.position.y = -4.5
 		add_child(collider)
 	else:
 		aim = global_rotation + PI

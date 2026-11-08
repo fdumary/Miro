@@ -5,9 +5,7 @@
       "Judas",
       "Rowan",
       "Ivo",
-      "Bram",
-      "Mott",
-      "Pike"
+      "Bram"
     ],
     "2": [
       "Alden",
@@ -18,8 +16,7 @@
       "Hollis",
       "Jory",
       "Kell",
-      "Lusk",
-      "Pell"
+      "Lusk"
     ],
     "3": [
       "Marek",
@@ -541,15 +538,15 @@
       ]
     },
     "Pike": {
-      "alert": "Hey! Stairs are off limits, cellmate!",
-      "body": "Mott said this floor was quiet. Mott lies.",
-      "delivery": "[nervous]",
+      "theme": "serious",
+      "personality": "quiet believer who reads scripture to exhausted peers",
+      "delivery": "[gentle] [reverent]",
+      "alert": "Peace. Put that down and nobody needs to bleed.",
+      "body": "Rest now. I'll stay until they come.",
       "idle": [
-        "Count the steps. Thirty-one. Always thirty-one.",
-        "Something keeps knocking behind that wall."
-      ],
-      "personality": "counts things when he is nervous",
-      "theme": "funny"
+        "Read it slowly. You miss the good part if you rush.",
+        "A bell can call you to more than a shift."
+      ]
     },
     "Moss": {
       "theme": "stupid",
@@ -759,28 +756,6 @@
         "I bring cold soup. It saves the tower the trouble.",
         "The watcher always sees someone when I sit down."
       ]
-    },
-    "Mott": {
-      "alert": "Down here? Nobody comes down here. Except you, apparently.",
-      "body": "Pike? Pike, get up. This isn't funny.",
-      "delivery": "[gruff]",
-      "idle": [
-        "Bottom floor, bottom pay. Story of my life.",
-        "If that support cracks, I'm not the one explaining it."
-      ],
-      "personality": "resents being stationed at the bottom",
-      "theme": "serious"
-    },
-    "Pell": {
-      "alert": "Back in your cell! I said back!",
-      "body": "He was coughing yesterday. Now he's not doing anything.",
-      "delivery": "[stern] [tired]",
-      "idle": [
-        "Another door, another cough. I stopped counting.",
-        "They say it doesn't spread to us. They say a lot."
-      ],
-      "personality": "tired of pretending the sick are dangerous",
-      "theme": "stern"
     }
   },
   "hunted": {

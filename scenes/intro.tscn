@@ -210,20 +210,6 @@ script = ExtResource("14_h7rjp")
 patrol_left = 810.0
 patrol_right = 950.0
 
-[node name="VaultKeeper" type="CharacterBody2D" parent="Guards" instance=ExtResource("13_yj5im")]
-position = Vector2(260, 656)
-collision_layer = 4
-script = ExtResource("14_h7rjp")
-patrol_left = 170.0
-patrol_right = 360.0
-
-[node name="StairKeeper" type="CharacterBody2D" parent="Guards" instance=ExtResource("13_yj5im")]
-position = Vector2(660, 656)
-collision_layer = 4
-script = ExtResource("14_h7rjp")
-patrol_left = 600.0
-patrol_right = 740.0
-
 [node name="LevelPlan" type="Node2D" parent="." unique_id=875164224]
 
 [node name="PlayerSpawn" type="Marker2D" parent="LevelPlan" unique_id=2011173836]

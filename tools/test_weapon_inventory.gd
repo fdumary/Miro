@@ -22,14 +22,14 @@ func run() -> void:
 	guards[2].gun_taken = false
 	guards[2].weapon_kind = "smg"
 	p.select_gun(0)
-	check(p.ammunition == 2, "Switching restores independent pistol ammunition")
+	check(p.ammunition == 3, "Switching restores independent pistol ammunition")
 	p.position = Vector2(300, 236)
 	p.attack_cooldown = 0
 	guards[0].position = Vector2(600, 236)
 	guards[0].sees_player = false
 	guards[0].alert_state = IntroGuard.State.PATROL
 	p.fire_gun()
-	check(p.ammunition == 1 and guards[0].alert_state == IntroGuard.State.SEARCH, "Pistol shot is always audible")
+	check(p.ammunition == 2 and guards[0].alert_state == IntroGuard.State.SEARCH, "Pistol shot is always audible")
 	p.select_gun(1)
 	check(p.equipped_gun == "smg" and p.ammunition == 24, "Switching back preserves SMG magazine (a full mag)")
 	p.ammunition = 0

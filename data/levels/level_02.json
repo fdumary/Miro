@@ -465,16 +465,6 @@
       "patrol_left": 854.0,
       "patrol_right": 1302.0,
       "sick": false
-    },
-    {
-      "name": "CellKeeper",
-      "position": [
-        826.0,
-        236
-      ],
-      "patrol_left": 686.0,
-      "patrol_right": 910.0,
-      "sick": false
     }
   ],
   "beats": [

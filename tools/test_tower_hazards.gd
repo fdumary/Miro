@@ -42,6 +42,13 @@ func run() -> void:
 	await frames(70)
 	check(player.health == starting_health, "Turret leaves hidden Miro alone")
 	player.end_stealth()
+	await frames(30)
+	check(player.health == starting_health and is_zero_approx(turret.charge), "Shadow alone hides Miro from the turret")
+	# Step out of the shadow, still in the turret's line of fire.
+	for offset in range(168, 40, -8):
+		player.position = turret.position + Vector2(offset, -15)
+		if not level.in_cover(player.global_position):
+			break
 	await frames(125)
 	check(absf(angle_difference(turret.aim, 0.0)) < 0.08, "Turret head turns toward Miro")
 	check(player.health < starting_health, "An exposed Miro can be hit by the turret")
@@ -86,6 +93,10 @@ func run() -> void:
 	check(turret_mounts.has_all([0, -90, 180]) and spike_mounts.has_all([0, -90, 180]), "Foundation loads floor, wall and ceiling mounts for both hazards")
 	player = level.player
 	player.set_physics_process(false)
+	# These fixed test spots can fall in a shadow, which now hides Miro: test aim in the open.
+	for area in level.areas.get_children():
+		if area.kind == "cover":
+			area.kind = "note"
 	for mount in [180, -90]:
 		if not turret_mounts.has(mount):
 			continue
