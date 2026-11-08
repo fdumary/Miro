@@ -16322,5 +16322,61 @@
       "output_lufs": "-18.00",
       "output_true_peak_dbtp": "-3.10"
     }
+  },
+  "moss_john316_8": {
+    "provider": "ElevenLabs",
+    "voice_id": "8z82LG47qQ2qjeeQB8lk",
+    "voice_name": "Kenneth - Storyteller",
+    "model_id": "eleven_v3",
+    "text": "Speaking of things nobody ever changes: the service port login. Root, root. Still the same.",
+    "delivery": "[low] [conspiratorial]",
+    "signature": "d852a9e5bde6a528ff4376571f34e0f8eb3a9e874869d3f965ba905ee05be080",
+    "leveling": {
+      "source_sha256": "9830fe5dd534376649527525a451f61c2ab6edd017981ce923fde490c31dac6c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.64",
+        "input_tp": "-0.63",
+        "input_lra": "1.20",
+        "input_thresh": "-28.30",
+        "output_i": "-18.02",
+        "output_tp": "-2.00",
+        "output_lra": "3.10",
+        "output_thresh": "-28.61",
+        "normalization_type": "dynamic",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-18.32",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "tibb_john316_9": {
+    "provider": "ElevenLabs",
+    "voice_id": "8Ln42OXYupYsag45MAUy",
+    "voice_name": "Jay Wayne - Wise University Professor",
+    "model_id": "eleven_v3",
+    "text": "Don't say it so loud. Though honestly, it's the only password in this tower I can remember.",
+    "delivery": "[dry] [whispers]",
+    "signature": "b14f61f789bca3cf7f42fd0f112815db285808ae3228f98cd729a1263f4e41c4",
+    "leveling": {
+      "source_sha256": "f400f58237a4cd9d78bdfc78fd6f1d9d0e9d4de6a58be7adc5d667b9d2d65ce4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.10",
+        "input_tp": "-4.49",
+        "input_lra": "2.70",
+        "input_thresh": "-36.27",
+        "output_i": "-18.56",
+        "output_tp": "-2.00",
+        "output_lra": "1.50",
+        "output_thresh": "-29.64",
+        "normalization_type": "dynamic",
+        "target_offset": "0.56"
+      },
+      "output_lufs": "-18.47",
+      "output_true_peak_dbtp": "-1.72"
+    }
   }
 }
