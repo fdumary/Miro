@@ -7,24 +7,24 @@
 ![The tower in the storm, from the opening cinematic](docs/images/opening.png)
 
 <p>
-  <img src="docs/images/cell_dialogue.png" width="49%" alt="Miro wakes in his cell">
-  <img src="docs/images/mp3_pickup.png" width="49%" alt="Taking the MP3 player off the guard">
+  <img src="docs/images/mp3_pickup.png" width="49%" alt="Floor 1: Miro takes the MP3 player off the guard">
+  <img src="docs/images/rumour.png" width="49%" alt="Floor 2: If nobody sees me, I'm only a rumour">
 </p>
 <p>
+  <img src="docs/images/symptoms.png" width="49%" alt="Floor 2: two Keepers talking about the transfer orders">
+  <img src="docs/images/order.png" width="49%" alt="Floor 3: a Keeper quoting Isaiah on his rounds">
+</p>
+<p>
+  <img src="docs/images/ward.png" width="49%" alt="Floor 4: Keepers talking about the sealed ward">
   <img src="docs/images/terminal.png" width="49%" alt="Reading Prisoner M-07's file on a terminal">
+</p>
+<p>
   <img src="docs/images/gallery.png" width="49%" alt="Inspecting a public-domain painting in the tower">
+  <img src="docs/images/beats.png" width="49%" alt="The Beats screen: MP3 tracks unlocked by stealth and combat">
 </p>
 <p>
-  <img src="docs/images/symptoms.png" width="49%" alt="Floor 2, The Symptoms">
-  <img src="docs/images/order.png" width="49%" alt="Floor 3, The Order">
-</p>
-<p>
-  <img src="docs/images/ward.png" width="49%" alt="Floor 4, The Ward">
   <img src="docs/images/level_select.png" width="49%" alt="Floor select screen">
-</p>
-<p>
   <img src="docs/images/pause_controls.png" width="49%" alt="Pause menu with the controls">
-  <img src="docs/images/title_card.png" width="49%" alt="Title card from the opening cinematic">
 </p>
 
 ## Tech stack
@@ -33,7 +33,7 @@
 - **Levels and story:** JSON data in `data/`, with Python and GDScript tools that build the level scenes from it
 - **Music:** original soundtrack by RXLA, played by a music director that also acts as a beat clock, so guards and waves move on the beat
 - **Voices:** ElevenLabs (`eleven_v3`), generated at build time
-- **Art:** original sprites and tiles by Julia, Kenney CC0 asset packs, and public-domain paintings with checked rights
+- **Art:** original sprites and tiles by Julia, Kenney CC0 asset packs provided by Fran, and public-domain paintings with checked rights
 - **Testing:** headless Godot test scripts (`Run Checks.ps1`) and a bot that plays through all five floors (`Check Exported Playthrough.ps1`)
 - **Build:** Windows export with `Build Windows.ps1`
 
