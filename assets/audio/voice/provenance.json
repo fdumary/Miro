@@ -10900,23 +10900,23 @@
     "delivery": "",
     "signature": "4413e15c354f54881452434e65d760749d81d0560621d28b3eabb3eed805c6a3",
     "leveling": {
-      "source_sha256": "90c2e2345404a4bd366883bfd4e9d7113b054f11fe578ca9b9d8d41a1060093e",
+      "source_sha256": "4b020de96eb9be12c9965e1646fa2472e187b1a467d51a6381ab5652db7fdc12",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-17.66",
-        "input_tp": "-0.45",
-        "input_lra": "8.90",
-        "input_thresh": "-28.89",
-        "output_i": "-17.50",
+        "input_i": "-15.85",
+        "input_tp": "-0.51",
+        "input_lra": "3.00",
+        "input_thresh": "-26.86",
+        "output_i": "-17.63",
         "output_tp": "-2.00",
-        "output_lra": "4.90",
-        "output_thresh": "-28.57",
+        "output_lra": "2.50",
+        "output_thresh": "-28.55",
         "normalization_type": "dynamic",
-        "target_offset": "-0.50"
+        "target_offset": "-0.37"
       },
-      "output_lufs": "-18.37",
-      "output_true_peak_dbtp": "-1.64"
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.35"
     }
   },
   "miro_8c3d9e3545": {
