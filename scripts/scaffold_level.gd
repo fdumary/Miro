@@ -103,7 +103,7 @@ func update_checkpoint() -> void:
 		return
 	if storey == 0 and campaign.checkpoint.is_empty():
 		return
-	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed, "player": player_snapshot()}
+	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed, "player": player_snapshot(), "dead": dead_guards()}
 	campaign.save_checkpoint()
 	notify("Checkpoint.")
 
@@ -117,6 +117,13 @@ func player_snapshot() -> Dictionary:
 		"c4_count": player.c4_count, "casualty_count": player.casualty_count,
 		"reserves": c.reserves.duplicate(), "has_guitar": c.has_guitar, "layout": Array(c.layout),
 	}
+
+func dead_guards() -> Array:
+	var dead: Array = []
+	for guard in guards():
+		if guard.is_dead and guard.get_parent() == $Guards:
+			dead.append({"name": str(guard.name), "position": guard.global_position, "looted": guard.gun_taken})
+	return dead
 
 func apply_player_snapshot(data: Dictionary) -> void:
 	var c = player.controls
@@ -143,6 +150,11 @@ func apply_checkpoint() -> void:
 	player.velocity = Vector2.ZERO
 	if saved.has("player"):
 		apply_player_snapshot(saved.player)
+	# Keepers killed before the checkpoint stay dead; everyone else is back on their feet.
+	for entry in saved.get("dead", []):
+		var fallen = $Guards.get_node_or_null(str(entry.name))
+		if fallen != null:
+			fallen.restore_dead(entry.position, bool(entry.get("looted", false)))
 	# A moment of grace so the respawned Keepers can't strip health the instant he appears.
 	player.invulnerability_left = 3.5
 	sigil_placed = bool(saved.get("sigil", false))

@@ -75,9 +75,14 @@ func run() -> void:
 	level.player.equipped_gun = "pistol"
 	level.player.ammunition = 5
 	level.player.health = 3
-	campaign.checkpoint = {"floor": 2, "storey": 1, "position": level.player.global_position, "milestones": {}, "sigil": false, "player": level.player_snapshot(), "retry": true}
+	var victim = level.get_node("Guards").get_child(0)
+	victim.die()
+	campaign.checkpoint = {"floor": 2, "storey": 1, "position": level.player.global_position, "milestones": {}, "sigil": false, "player": level.player_snapshot(), "dead": level.dead_guards(), "retry": true}
+	var victim_name := str(victim.name)
 	await floor_scene(2)
 	await frames(3)
+	check(level.get_node("Guards/" + victim_name).is_dead and level.player.casualty_count == 1, "Keepers dead at the checkpoint stay dead after a retry")
+	check(level.get_node("Guards").get_children().filter(func(g): return g.is_dead).size() == 1, "Everyone else is back on their feet")
 	check(level.player.c4_count == 2 and level.player.guns == ["pistol"] and level.player.ammunition == 5 and level.player.health == 3, "A checkpoint restores Miro's items, ammo and health")
 	check(level.player.invulnerability_left > 2.0, "Respawning at a checkpoint grants brief invincibility")
 	campaign.checkpoint.clear()

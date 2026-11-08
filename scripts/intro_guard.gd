@@ -319,6 +319,17 @@ func receive_shank() -> void:
 		facing = signf(last_known_position.x - global_position.x)
 		level.notify("The Keeper turns. One more hit; dodge his wind-up with C.")
 
+## A Keeper who was already dead at the checkpoint stays dead (no new casualty, no new alarm).
+func restore_dead(point: Vector2, looted: bool) -> void:
+	global_position = point
+	death_recorded = true
+	health = 0
+	is_dead = true
+	gun_taken = looted
+	sees_player = false
+	velocity = Vector2.ZERO
+	queue_redraw()
+
 func die() -> void:
 	if death_recorded:
 		return
