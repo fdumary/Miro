@@ -402,8 +402,8 @@
       "stability": 0.5
     },
     "quill": {
-      "name": "Quill (extra guard)",
-      "voice_id": "psJnoAClXdhH5gn8uKNb",
+      "name": "Andrew - Smooth, Smart and Clear",
+      "voice_id": "gUABw7pXQjhjt0kNFBTF",
       "stability": 0.5
     },
     "nash": {
@@ -469,6 +469,11 @@
     "tolliver": {
       "name": "Tolliver (extra guard)",
       "voice_id": "7squ7rvxEIZ2rYy7KYPP",
+      "stability": 0.5
+    },
+    "maren": {
+      "name": "Maren (extra guard)",
+      "voice_id": "psJnoAClXdhH5gn8uKNb",
       "stability": 0.5
     }
   },

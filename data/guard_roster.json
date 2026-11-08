@@ -685,15 +685,15 @@
       ]
     },
     "Quill": {
-      "alert": "Oh no. Not on my shift. Stop right there.",
-      "body": "Quill is down. Somebody wake the doctor.",
-      "delivery": "[tired]",
+      "theme": "funny",
+      "personality": "dry clerk drafted out of the records office",
+      "delivery": "[dry] [precise]",
+      "alert": "First the paperwork, then the escape. Stop.",
+      "body": "I know his handwriting. I don't want this to be his last entry.",
       "idle": [
-        "Four nights without sleep. The ward lights start to hum.",
-        "If I close my eyes for one second, wake me. Or don't."
-      ],
-      "personality": "an exhausted night-shift guard who barely stays awake",
-      "theme": "sleepy"
+        "They swapped my pen for a pistol. The pen jammed less.",
+        "If I get out of this, I'm filing one very long complaint."
+      ]
     },
     "Nash": {
       "theme": "goofy",
@@ -1123,6 +1123,17 @@
       ],
       "personality": "a night watchman who speaks in a near-whisper",
       "theme": "quiet"
+    },
+    "Maren": {
+      "alert": "Oh no. Not on my shift. Stop right there.",
+      "body": "Maren is down. Somebody wake the doctor.",
+      "delivery": "[tired]",
+      "idle": [
+        "Four nights without sleep. The ward lights start to hum.",
+        "If I close my eyes for one second, wake me. Or don't."
+      ],
+      "personality": "an exhausted night-shift guard who barely stays awake",
+      "theme": "sleepy"
     }
   },
   "hunted": {
