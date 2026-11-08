@@ -256,6 +256,9 @@ func add_under_player(prop: Node2D) -> void:
 		level.move_child(prop, player.get_index())
 
 func slot_point(slot: Dictionary) -> Vector2:
+	if str(slot.get("anchor", "point")) == "start":
+		# Hung just ahead of where Miro enters the floor, so every floor shows one.
+		return level.player.global_position + Vector2(slot.offset[0], slot.offset[1])
 	if str(slot.get("anchor", "point")) == "exit":
 		for area in level.areas.get_children():
 			if area.get("kind") == "exit":

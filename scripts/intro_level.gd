@@ -437,9 +437,6 @@ func in_light(point: Vector2, crouched := false) -> bool:
 	for light in light_points:
 		if absf(light.x - point.x) < LIGHT_RADIUS and absf(light.y - point.y) < 150.0:
 			return true
-	for watcher in get_tree().get_nodes_in_group("security_cameras"):
-		if is_ancestor_of(watcher) and watcher.is_active and watcher.global_position.distance_to(point) < 70.0:
-			return true
 	return false
 
 ## True where the blanket works (kept under its old name for the HUD and tests).

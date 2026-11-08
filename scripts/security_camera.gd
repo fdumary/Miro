@@ -11,7 +11,7 @@ var cone_points := PackedVector2Array()
 const WATCHER := preload("res://assets/environment/watcher_animation.png")
 
 const PROJECTILE := preload("res://scripts/weapon_projectile.gd")
-## A moss watcher has 1 HP: two shots, one stab, or any C4.
+## A moss watcher has 1 HP (two hit points of damage): two shots, one stab, or any C4.
 var health := 2
 var disabled := false:
 	get:
