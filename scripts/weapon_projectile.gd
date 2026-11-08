@@ -24,6 +24,9 @@ func _physics_process(delta: float) -> void:
 	if is_instance_valid(shooter):
 		query.exclude = [shooter.get_rid()]
 	var hit := get_world_2d().direct_space_state.intersect_ray(query)
+	if not enemy and strike_guard(global_position, hit.position if not hit.is_empty() else destination):
+		queue_free()
+		return
 	if not hit.is_empty():
 		global_position = hit.position
 		var target = hit.collider
@@ -50,3 +53,30 @@ func _draw() -> void:
 		draw_texture(sprite, -sprite.get_size() / 2.0)
 	else:
 		draw_line(-direction * 10, Vector2.ZERO, Color("f2d3ab"), 2)
+
+## Guards are hit by where the round actually passes, not just their collision capsule:
+## the head (a generous box) is an instant kill and the body box reaches out over the
+## gun they hold, so a Keeper's weapon never blocks a shot at him. Walls and beds still do.
+func strike_guard(from: Vector2, to: Vector2) -> bool:
+	var length := from.distance_to(to)
+	var steps := maxi(1, int(length / 3.0))
+	for step in range(steps + 1):
+		var point := from.lerp(to, float(step) / steps)
+		for guard in level.guards():
+			if not is_instance_valid(guard) or guard.is_dead or guard == shooter or not guard is IntroGuard:
+				continue
+			var local: Vector2 = point - guard.global_position
+			var reach := 14.0
+			var body := Rect2(-10.0 - (reach if guard.facing < 0 else 0.0), -22.0, 20.0 + reach, 40.0)
+			var head := Rect2(-9.0, -30.0, 18.0, 14.0)
+			if head.has_point(local):
+				# A headshot ignores the brief hit-recovery window; Niro just takes extra damage.
+				guard.invulnerability_left = 0.0
+				guard.take_damage(damage * 2 if guard.has_method("begin_recovery") else 99)
+				level.emit_effect("hit", point)
+				return true
+			if body.has_point(local):
+				guard.take_damage(1 if guard.has_method("begin_recovery") else damage)
+				level.emit_effect("hit", point)
+				return true
+	return false
