@@ -266,6 +266,13 @@ script = ExtResource("14_h7rjp")
 patrol_left = 545.0
 patrol_right = 585.0
 
+[node name="LedgeKeeper" type="CharacterBody2D" parent="Guards" instance=ExtResource("13_yj5im")]
+position = Vector2(530, 180)
+collision_layer = 4
+script = ExtResource("14_h7rjp")
+patrol_left = 515.0
+patrol_right = 545.0
+
 [node name="LevelPlan" type="Node2D" parent="." unique_id=875164224]
 
 [node name="PlayerSpawn" type="Marker2D" parent="LevelPlan" unique_id=2011173836]

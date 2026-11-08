@@ -28,6 +28,8 @@ func fresh() -> void:
 	level = load("res://scenes/intro.tscn").instantiate()
 	root.add_child(level)
 	current_scene = level
+	for keeper in ["CraneKeeper", "StroudKeeper", "ThaneKeeper", "HoltKeeper", "LedgeKeeper"]:
+		level.get_node("Guards/" + keeper).set_physics_process(false)  # route predates the vault patrols
 	await frames(3)
 
 func supplies() -> void:

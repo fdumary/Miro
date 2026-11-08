@@ -10,7 +10,8 @@
       "Crane",
       "Stroud",
       "Thane",
-      "Holt"
+      "Holt",
+      "Rook"
     ],
     "2": [
       "Alden",
@@ -851,6 +852,17 @@
         "I used to know their names."
       ],
       "personality": "has stopped learning prisoners names",
+      "theme": "serious"
+    },
+    "Rook": {
+      "alert": "Up here? Clever. Not clever enough.",
+      "body": "Nobody falls off a ledge that quietly.",
+      "delivery": "[smug]",
+      "idle": [
+        "Best view in the tower. Worst pay.",
+        "They told me nobody climbs up here. So why am I up here?"
+      ],
+      "personality": "likes watching everyone from above",
       "theme": "serious"
     }
   },

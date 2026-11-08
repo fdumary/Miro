@@ -203,6 +203,14 @@ def collect_lines(cast):
                     prisoners(item)
         for path in sorted((ROOT / 'data/levels').glob('level_0*.json')):
             prisoners(json.loads(path.read_text(encoding='utf-8')))
+    # Replies a character makes after one of Miro's two-option answers.
+    for choice_id, voice in (('l1_keeper', 'judas'), ('l2_sick', 'prisoner')):
+        for choice in json.loads((ROOT / 'data/dialogue_choices.json').read_text(encoding='utf-8'))['choices']:
+            if choice['id'] == choice_id:
+                for option in choice['options']:
+                    if 'reply' in option and voice in cast['voices']:
+                        add(f'{voice}_' + text_hash(option['reply'][1]), voice, option['reply'][1],
+                            '[weak] [coughs]' if voice == 'prisoner' else '[stern] [coughs] [greedy]')
     for reputation in ('MISSING', 'HUNTED'):
         for key in ('pa', 'ending_pa'):
             text = branch[reputation][key]

@@ -4,6 +4,11 @@
   "miro_delivery": "",
   "miro_thought_delivery": "[whispers]",
   "voices": {
+    "rook": {
+      "name": "Brian (premade)",
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "stability": 0.5
+    },
     "crane": {
       "name": "Adam (premade)",
       "voice_id": "pNInz6obpgDQGcFmaJgB",
