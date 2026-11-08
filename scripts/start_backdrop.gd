@@ -89,6 +89,7 @@ func draw_dusk() -> void:
 		C.bolt(self, Vector2(600, -10), Vector2(560, 236), 23, flash, 2.6)
 	C.birds(self, time, Rect2(-20, 110, 680, 60), 7, Color("1b1b30"), 3.5)
 	C.pines(self, 252, 70, 46, 0.15, -time * 2.0)
+	hill(Color("1d2233"), Color(0.55, 0.6, 0.85, 0.18 + 0.4 * flash))
 	C.tower(self, TOWER_BASE, 26, 64, time, 0, 0, 0.9)
 	var top := Vector2(TOWER_BASE.x, TOWER_BASE.y - 26 * 5.5 - 10)
 	# Flag time runs at about 40% speed: a slow, heavy ripple instead of a fast flutter.
@@ -104,6 +105,7 @@ func draw_day() -> void:
 	C.day_sky(self, Color("5c93d1"), Color("cfe4f0"), Vector2(150, 70), time, Color("fff6d8"))
 	C.birds(self, time, Rect2(-20, 100, 680, 70), 8, Color("3a3550"), 3.5)
 	C.pines(self, 252, 70, 46, 0.0, -time * 2.0)
+	hill(Color("4a5a48"), Color(1.0, 0.95, 0.8, 0.25))
 	C.ruins(self, TOWER_BASE, 32, 80, time)
 	sway_pines(292, 60, 50, 0.35, 2.0)
 	ground(Color("3f5a3a"), Color("7fa065"))
@@ -120,8 +122,8 @@ func sway_pines(baseline: float, height: float, spacing: float, depth: float, ph
 	while x < 640 + spacing:
 		var h := height * (0.75 + 0.25 * float((index * 37) % 5) / 4.0)
 		var lean := sin(time * phase_speed * 0.5 + index * 0.9) * h * 0.03 * wind() + h * 0.02
-		# Leave the tower in the clear.
-		if height > 100 and absf(x - TOWER_BASE.x) < 120:
+		# Leave the tower in the clear (and its hilltop, for the middle row).
+		if absf(x - TOWER_BASE.x) < (120.0 if height > 100 else 60.0):
 			x += spacing
 			index += 1
 			continue
@@ -168,6 +170,25 @@ func storm_rain(flash: float) -> void:
 		var splash := Color(0.8, 0.84, 0.95, minf(0.6, a))
 		draw_line(spot, spot + Vector2(-3.0 * grow - 1.0, -3.0 * grow), splash, 1.0, true)
 		draw_line(spot, spot + Vector2(3.0 * grow + 1.0, -3.0 * grow), splash, 1.0, true)
+
+## The rocky hill the tower stands on: a broad mound that rises out of the trees to a flat
+## crown under the tower's footing, with a lit rim along the top edge.
+func hill(rock: Color, rim: Color) -> void:
+	var b := TOWER_BASE
+	var outline := PackedVector2Array()
+	for i in range(17):
+		var u := float(i) / 16.0
+		var x := lerpf(b.x - 170.0, b.x + 175.0, u)
+		# Flat crown under the footing, slopes falling to the treeline, slight rocky jitter.
+		var across := absf(x - b.x)
+		var y := b.y + 1.0 if across < 56.0 else b.y + pow((across - 56.0) / 118.0, 1.4) * 44.0
+		y += (C.hash01(i, 401) - 0.5) * 3.0 * clampf((across - 56.0) / 30.0, 0.0, 1.0)
+		outline.append(Vector2(x, y))
+	var fill := outline.duplicate()
+	fill.append(Vector2(b.x + 175.0, 330.0))
+	fill.append(Vector2(b.x - 170.0, 330.0))
+	draw_colored_polygon(fill, rock)
+	draw_polyline(outline, rim, 1.5, true)
 
 func ground(base: Color, grass: Color) -> void:
 	draw_rect(Rect2(0, 330, 640, 30), base)
