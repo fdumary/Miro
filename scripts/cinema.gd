@@ -235,6 +235,44 @@ static func storm_rain(canvas: CanvasItem, time: float, alpha := 0.3, ground := 
 			var spread := cycle * 6.0
 			canvas.draw_arc(Vector2(x, ground + hash01(i, 2) * 20.0), spread, PI, TAU, 6, Color(0.8, 0.85, 1.0, alpha * (1.0 - cycle)), 1.0)
 
+## The start menu's natural rain (scripts/start_backdrop.gd): three depth layers, per-drop speed
+## and length, wind slant, and small splashes on the ground line. `area` is the rectangle it falls in.
+const NATURAL_LAYERS := [
+	[140, 380.0, 6.0, 1.0, 0.10, 0.6],
+	[80, 560.0, 11.0, 1.0, 0.16, 0.85],
+	[34, 820.0, 19.0, 1.5, 0.22, 1.0],
+]
+
+static func natural_rain(canvas: CanvasItem, time: float, flash := 0.0, ground := 331.0, area := Rect2(0, 0, 640, 360), density := 1.0) -> void:
+	var gust := 0.8 + 0.2 * sin(time * 0.7) * sin(time * 1.9 + 1.0)
+	var lit := 1.0 + 1.6 * flash
+	for layer in range(NATURAL_LAYERS.size()):
+		var spec: Array = NATURAL_LAYERS[layer]
+		var slant: float = (0.16 + 0.12 * gust) * float(spec[5])
+		for i in range(int(float(spec[0]) * density)):
+			var seed := layer * 1000 + i
+			var speed: float = float(spec[1]) * (0.8 + 0.4 * hash01(seed, 301))
+			var length: float = float(spec[2]) * (0.7 + 0.6 * hash01(seed, 302))
+			var fall := area.size.y + 40.0
+			var y := fmod(hash01(seed, 303) * fall + time * speed, fall) - 30.0
+			var x := fmod(hash01(seed, 304) * (area.size.x + 120.0) + y * slant + area.size.x + 120.0, area.size.x + 120.0) - 60.0
+			var tail := Vector2(-slant, -1.0).normalized() * length
+			var alpha: float = minf(0.6, float(spec[4]) * lit * (0.7 + 0.6 * hash01(seed, 305)))
+			var start := area.position + Vector2(x, y)
+			if area.has_point(start):
+				canvas.draw_line(start, start + tail, Color(0.78, 0.82, 0.95, alpha), float(spec[3]), true)
+	if ground >= 0.0:
+		for i in range(int(26 * density)):
+			var period := 0.5 + 0.5 * hash01(i, 311)
+			var phase := fmod(time + hash01(i, 312) * period, period) / period
+			if phase > 0.35:
+				continue
+			var spot := Vector2(area.position.x + hash01(i + int(time / period) * 31, 313) * area.size.x, ground + hash01(i, 314) * 4.0)
+			var grow := phase / 0.35
+			var splash := Color(0.8, 0.84, 0.95, minf(0.6, 0.3 * (1.0 - grow) * lit))
+			canvas.draw_line(spot, spot + Vector2(-3.0 * grow - 1.0, -3.0 * grow), splash, 1.0, true)
+			canvas.draw_line(spot, spot + Vector2(3.0 * grow + 1.0, -3.0 * grow), splash, 1.0, true)
+
 ## A cloud ceiling that rolls by; lit from inside by `flash`.
 static func storm_clouds(canvas: CanvasItem, time: float, flash := 0.0, height := 120.0) -> void:
 	for i in range(14):

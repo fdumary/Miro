@@ -28,6 +28,7 @@ func _ready() -> void:
 	var scenes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/interludes.json")).scenes
 	data = scenes.get(str(floor_done), scenes["1"])
 	audio.loop("wind_loop", -26.0, 1.0)
+	audio.loop("rain_loop", -24.0, 1.5)
 	var radio = get_node("/root/RemoteRadio")
 	var cursor := 1.0
 	for line in data.lines:
@@ -66,7 +67,7 @@ func current_line() -> int:
 	return -1
 
 func _input(event: InputEvent) -> void:
-	if not done and (event.is_action_pressed("skip") or event.is_action_pressed("advance") or event.is_action_pressed("ui_cancel")):
+	if not done and event is InputEventKey and event.pressed and not event.echo and event.physical_keycode in [KEY_TAB, KEY_ENTER, KEY_KP_ENTER, KEY_SPACE, KEY_ESCAPE]:
 		get_viewport().set_input_as_handled()
 		finish()
 
@@ -111,6 +112,14 @@ func panel_miro(t: float, light: float) -> void:
 	for x in range(0, 317, 38):
 		draw_rect(Rect2(x, 40, 2, 220), Color(0.05, 0.05, 0.09, 0.9))   # cell bars
 	draw_rect(Rect2(0, 262, 317, 98), Color("12121c"))
+	# A barred window high in the wall: the storm outside, in the start menu's natural rain.
+	var window := Rect2(206, 36, 96, 84)
+	C.gradient(self, window, Color("141a2e").lerp(Color.BLACK, 1.0 - light), Color("232a45").lerp(Color.BLACK, 1.0 - light))
+	C.natural_rain(self, t, 0.0, -1.0, window, 0.55)
+	for bar in range(1, 4):
+		draw_rect(Rect2(window.position.x + bar * window.size.x / 4.0 - 1.5, window.position.y, 3, window.size.y), Color("07080f"))
+	draw_rect(Rect2(window.position.x - 3, window.position.y - 3, window.size.x + 6, 3), Color("07080f"))
+	draw_rect(Rect2(window.position.x - 3, window.position.y + window.size.y, window.size.x + 6, 3), Color("07080f"))
 	var flicker := 0.85 + 0.15 * sin(t * 9.0) * sin(t * 5.3)
 	draw_circle(Vector2(52, 110), 46.0, Color(1.0, 0.62, 0.25, 0.10 * light * flicker))
 	draw_rect(Rect2(50, 104, 4, 12), Color(1.0, 0.7, 0.3, light))

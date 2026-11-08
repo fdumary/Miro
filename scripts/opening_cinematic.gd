@@ -121,7 +121,7 @@ func _draw() -> void:
 ## Rain in the woods; the tower far off, struck by lightning. The camera drifts right.
 func shot_storm(t: float) -> void:
 	var flash := lightning(t)
-	C.night_sky(self, Color("07080f").lerp(Color("3a4270"), flash * 0.7), Color("141830").lerp(Color("5b6496"), flash * 0.6), Vector2(-100, -100))
+	C.night_sky(self, Color("07080f").lerp(Color("3a4270"), flash * 0.7), Color("141830").lerp(Color("5b6496"), lightning(t) * 0.6), Vector2(-100, -100))
 	C.storm_clouds(self, t, flash, 130)
 	var tower_base := Vector2(430 - t * 4.0, 238)
 	var bolt := current_bolt(t)
@@ -131,16 +131,16 @@ func shot_storm(t: float) -> void:
 	C.tower(self, tower_base, 21, 52, t, 0, 0, 0.3 + flash)
 	C.tower_flag(self, tower_base, 21, t * 0.4, 1.0)
 	C.pines(self, 250, 50, 44, 0.2, -t * 6)
-	C.storm_rain(self, t, 0.18, -1, 3.0)
+	C.natural_rain(self, t, lightning(t) * 0.6, -1.0, Rect2(0, 0, 640, 300), 0.6)
 	C.pines(self, 285, 70, 70, 0.6, -t * 14)
-	C.storm_rain(self, t * 1.3 + 4.0, 0.28, 300, 5.0)
+	C.natural_rain(self, t + 4.0, lightning(t) * 0.6, 300.0)
 	C.pines(self, 350, 150, 150, 1.0, -t * 30)
 
 ## The camera tilts up the tower face, past each floor's windows, to the emblem.
 func shot_tilt(t: float) -> void:
 	var tilt := C.ease_in_out(C.phase(t, 4.5, 4.0))
 	var flash := lightning(t)
-	C.night_sky(self, Color("07080f").lerp(Color("3a4270"), flash * 0.7), Color("141830").lerp(Color("5b6496"), flash * 0.6), Vector2(-100, -100))
+	C.night_sky(self, Color("07080f").lerp(Color("3a4270"), flash * 0.7), Color("141830").lerp(Color("5b6496"), lightning(t) * 0.6), Vector2(-100, -100))
 	C.storm_clouds(self, t, flash, 220)
 	var bolt := current_bolt(t)
 	if not bolt.is_empty():
@@ -167,7 +167,7 @@ func shot_window(t: float) -> void:
 			var brick := Color("2e3150").darkened(0.2 + (column * 7 + row) % 3 * 0.05)
 			draw_rect(Rect2(x + 1, row * 28 + 1, 46, 26), brick.lerp(Color("8890c0"), flash * 0.35))
 	draw_rect(window.grow(6), Color("14152a"))
-	draw_rect(window, Color("272744").lerp(Color("5a6090"), flash * 0.6))
+	draw_rect(window, Color("272744").lerp(Color("5a6090"), lightning(t) * 0.6))
 	var floor_y := window.position.y + window.size.y * 0.82
 	draw_rect(Rect2(window.position.x + window.size.x * 0.18, floor_y - window.size.y * 0.12, window.size.x * 0.45, window.size.y * 0.06), Color("4a3b4f"))
 	var rise := C.ease_out(C.phase(t, 10.25, 0.6))
@@ -175,7 +175,7 @@ func shot_window(t: float) -> void:
 	# pivots at his feet from lying flat to upright.
 	var figure := Vector2(window.position.x + window.size.x * 0.36, floor_y - window.size.y * 0.12)
 	var tall := window.size.y * 0.32
-	var lit := Color(1, 1, 1).lerp(Color(0.75, 0.8, 1.1), flash * 0.6).darkened(0.25 * (1.0 - flash))
+	var lit := Color(1, 1, 1).lerp(Color(0.75, 0.8, 1.1), lightning(t) * 0.6).darkened(0.25 * (1.0 - flash))
 	var unit := size / C.FRAME
 	var shot := Transform2D(0, unit, 0, shake(t) * unit)
 	draw_set_transform_matrix(shot * Transform2D(-PI / 2 * (1.0 - rise), figure + Vector2(window.size.x * 0.06, 0)))
@@ -196,8 +196,8 @@ func shot_window(t: float) -> void:
 
 func shot_title(t: float) -> void:
 	var flash := lightning(t)
-	draw_rect(Rect2(Vector2.ZERO, C.FRAME), Color("0d0e1a").lerp(Color("2a2f55"), flash * 0.6))
-	C.storm_clouds(self, t, flash * 0.6, 90)
+	draw_rect(Rect2(Vector2.ZERO, C.FRAME), Color("0d0e1a").lerp(Color("2a2f55"), lightning(t) * 0.6))
+	C.storm_clouds(self, t, lightning(t) * 0.6, 90)
 	var bolt := current_bolt(t)
 	if not bolt.is_empty():
 		C.bolt(self, Vector2(470, -10), Vector2(420, 120), bolt[0], bolt[1], 1.8)

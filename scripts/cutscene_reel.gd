@@ -1,5 +1,6 @@
 extends Control
-## Review reel: the opening and the four between-level interludes, in story order.
+## Review reel: the opening, the four between-level interludes, then the tower explosion and
+## the beach ending with the credits, in story order.
 ## Run with scenes/cutscene_reel.tscn (Play Cutscenes.ps1).
 var step := 0
 
@@ -18,6 +19,15 @@ func next() -> void:
 		scene.floor_done = step
 		scene.finished.connect(next)
 		add_child(scene)
+	elif step == 5:
+		# The tower explosion and ending; the finale (beach, credits) follows it, then the menu.
+		var stub := Node.new()
+		stub.set_script(preload("res://scripts/reel_stub.gd"))
+		stub.name = "ReelLevel"
+		add_child(stub)
+		var ending: Control = load("res://scenes/ending_cinematic.tscn").instantiate()
+		ending.level = stub
+		stub.add_child(ending)
 	else:
 		get_tree().quit()
 	step += 1
