@@ -185,7 +185,13 @@ static func score_floor(raw: Dictionary) -> Dictionary:
 ## Test runs keep their unlocks in memory only.
 var session_unlocks: Array = []
 
+## Hot Shit is the final boss track: Level 5's second half, never a stealth or kill unlock.
 func unlocked_tracks() -> Array:
+	var tracks := stored_unlocks()
+	tracks.erase("hot_shit")
+	return tracks
+
+func stored_unlocks() -> Array:
 	if not can_persist():
 		return session_unlocks.duplicate()
 	var progress := ConfigFile.new()

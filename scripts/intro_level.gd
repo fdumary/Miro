@@ -143,7 +143,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_node("/root/Campaign").complete_floor(1, sigil_placed, {"BrotherVoice": brother_heard}, floor_raw_stats())
 		get_node("/root/Campaign").update_unlocks()
 		get_viewport().set_input_as_handled()
-		get_tree().change_scene_to_file("res://scenes/levels/level_02.tscn")
+		play_interlude(1, "res://scenes/levels/level_02.tscn")
 		return
 	if event.is_action_pressed("retry") and not event.is_echo():
 		# A retry resumes from the floor's last storey checkpoint (see scaffold_level).
@@ -413,6 +413,19 @@ func show_card(mode: String, heading: String, title_text: String, detail := "", 
 	card.length = length
 	card.level = self
 	hud.add_child(card)
+
+## The cinematic between floors (scripts/interlude_cinematic.gd), then the next scene.
+func play_interlude(floor_done: int, next_scene: String) -> void:
+	if DisplayServer.get_name() == "headless":
+		get_tree().change_scene_to_file(next_scene)
+		return
+	var layer := CanvasLayer.new()
+	layer.layer = 95
+	var scene: Control = preload("res://scripts/interlude_cinematic.gd").new()
+	scene.floor_done = floor_done
+	scene.finished.connect(func(): get_tree().change_scene_to_file(next_scene))
+	layer.add_child(scene)
+	add_child(layer)
 
 func start_dialogue(lines: Array, event: String = "") -> void:
 	dialogue = lines

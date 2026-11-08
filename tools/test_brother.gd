@@ -36,7 +36,7 @@ func run() -> void:
 	level.player.health = 99
 	check(music.track_id == "shit_crashed", "Picking up the guitar starts Shit Crashed")
 	await frames(150)
-	check(flow.step == flow.Step.WAVE and flow.wave_guards.size() == 2, "Wave 1 enters")
+	check(flow.step == flow.Step.WAVE and flow.wave_guards.size() == 3, "Wave 1 enters")
 	check(bar_phase[0] >= 0 and (bar_phase[0] < 0.25 or bar_phase[0] > 3.75), "Wave enters on a bar line")
 	# Sleep the wave with the guitar: lootable, not a kill.
 	for guard in flow.wave_guards:
@@ -44,7 +44,7 @@ func run() -> void:
 		guard.position = level.player.position + Vector2(60 + flow.wave_guards.find(guard) * 25, 0)
 	await frames(2)
 	level.player.controls.strum_cooldown = 0
-	check(level.player.controls.strum() == 2, "One strum reaches both Keepers")
+	check(level.player.controls.strum() == 3, "One strum reaches the whole wave")
 	check(flow.wave_guards.all(func(guard): return guard.asleep and not guard.detect_player()), "Strummed Keepers sleep and stop seeing Miro")
 	check(level.player.casualty_count == 0, "Sleeping Keepers are not kills")
 	level.player.position = flow.wave_guards[0].position + Vector2(-10, 0)
@@ -72,7 +72,7 @@ func run() -> void:
 	# Down to the second floor by ladder.
 	check(await descend_ladder(728, 170, 410), "Climb down through Hatch 1")
 	await frames(150)
-	check(flow.step == flow.Step.WAVE and flow.wave_guards.size() == 3, "Wave 2 enters on the second floor")
+	check(flow.step == flow.Step.WAVE and flow.wave_guards.size() == 4, "Wave 2 enters on the second floor")
 	for guard in flow.wave_guards:
 		guard.die()
 	await frames(150)
@@ -84,7 +84,7 @@ func run() -> void:
 	check(await descend_ladder(308, 190, 640), "Drop to the third floor")
 	await frames(130)
 	check(music.track_id == "hot_shit", "Hot Shit takes over for the second half")
-	check(flow.wave_guards.size() == 3, "Wave 3 enters")
+	check(flow.wave_guards.size() == 4, "Wave 3 enters")
 	for guard in flow.wave_guards:
 		guard.fall_asleep()
 	await frames(150)

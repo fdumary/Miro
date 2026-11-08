@@ -78,6 +78,24 @@ func _ready() -> void:
 		flow.name = "FoundationFlow"
 		add_child(flow)
 		flow.setup(self)
+	# Extra patrols the layout generator does not place (features.extra_guards).
+	for spot in definition.get("features", {}).get("extra_guards", []):
+		var extra = load("res://scenes/guard.tscn").instantiate()
+		extra.name = str(spot.name)
+		extra.position = Vector2(spot.position[0], spot.position[1])
+		extra.patrol_left = float(spot.patrol[0])
+		extra.patrol_right = float(spot.patrol[1])
+		extra.level = self
+		extra.illness_started = true
+		extra.weapon_kind = "pistol"
+		world_features.assign_keeper(extra, str(spot.keeper))
+		$Guards.add_child(extra)
+	if int(definition.number) == 4:
+		var hunt := Node.new()
+		hunt.set_script(load("res://scripts/hunt_waves.gd"))
+		hunt.name = "HuntWaves"
+		hunt.level = self
+		add_child(hunt)
 	# The floor's opening is Miro thinking it through: his thoughts are the game's cues.
 	var opening: Array = [["MIRO", definition.opening, "thought"]]
 	opening.append_array(setup_branch())
@@ -255,7 +273,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_node("/root/Campaign").complete_floor(int(definition.number), sigil_placed, milestones, floor_raw_stats())
 		get_node("/root/Campaign").update_unlocks()
 		get_viewport().set_input_as_handled()
-		get_tree().change_scene_to_file("res://scenes/levels/level_%02d.tscn" % (int(definition.number) + 1) if definition.number < 5 else "res://scenes/intro.tscn")
+		if definition.number < 5:
+			play_interlude(int(definition.number), "res://scenes/levels/level_%02d.tscn" % (int(definition.number) + 1))
+		else:
+			get_tree().change_scene_to_file("res://scenes/intro.tscn")
 		return
 	super._unhandled_input(event)
 
