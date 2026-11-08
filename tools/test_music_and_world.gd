@@ -136,6 +136,10 @@ func run() -> void:
 	check(music.track_id.is_empty(), "The Foundation opens near-silent until the guitar")
 	level.player.position = level.areas.get_node("Guitar").position
 	level.interact()
+	check(level.dialogue.is_empty() and not level.player.controls.has_guitar, "Guitar waits for the final sigil")
+	level.milestones["FinalSigil"] = true
+	level.sigil_placed = true
+	level.interact()
 	level.finish_dialogue()
 	check(music.track_id == "shit_crashed", "Guitar pickup starts Shit Crashed")
 	level.brother_defeated()

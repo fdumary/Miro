@@ -26,6 +26,9 @@ var password_panel: PanelContainer
 var password_input: LineEdit
 var password_status: Label
 var password_known := false
+## Controller-friendly login: once the password is known, one button enters it.
+var password_use: Button
+var password_slip: Button
 var terminal_authenticated := false
 var config: Dictionary
 var case_anchor_index := -1
@@ -674,9 +677,18 @@ func build_password_panel() -> void:
 	login.text = "Log in"
 	login.pressed.connect(func(): submit_password(password_input.text))
 	box.add_child(login)
+	password_use = Button.new()
+	password_use.text = "Enter the known password"
+	password_use.pressed.connect(func(): submit_password("root"))
+	box.add_child(password_use)
 	var slip := Button.new()
+	password_slip = slip
 	slip.text = "Inspect maintenance slip"
-	slip.pressed.connect(func(): password_known = true; password_status.text = "Maintenance slip: root (all lowercase).")
+	slip.pressed.connect(func():
+		password_known = true
+		password_status.text = "Maintenance slip: root (all lowercase)."
+		password_use.show()
+		password_use.grab_focus())
 	box.add_child(slip)
 	password_status = Label.new()
 	password_status.text = "Listen nearby, or inspect the maintenance slip."
@@ -691,7 +703,14 @@ func open_terminal() -> void:
 	password_panel.show()
 	password_input.text = ""
 	password_status.text = "Overheard password: root" if password_known else "Listen nearby, or inspect the maintenance slip."
-	password_input.grab_focus()
+	password_use.visible = password_known
+	# With a controller there is no keyboard to type into, so focus starts on a button.
+	if Input.get_connected_joypads().is_empty():
+		password_input.grab_focus()
+	elif password_known:
+		password_use.grab_focus()
+	else:
+		password_slip.grab_focus()
 
 func submit_password(text: String) -> void:
 	if text != "root":
@@ -700,6 +719,11 @@ func submit_password(text: String) -> void:
 	terminal_authenticated = true
 	password_panel.hide()
 	level.hack_remaining = 1.0
+
+func _unhandled_input(event: InputEvent) -> void:
+	if modal_open() and event.is_action_pressed("ui_cancel"):
+		password_panel.hide()
+		get_viewport().set_input_as_handled()
 
 func modal_open() -> bool:
 	return is_instance_valid(password_panel) and password_panel.visible

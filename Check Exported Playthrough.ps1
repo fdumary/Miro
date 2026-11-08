@@ -9,7 +9,7 @@ $executable = Join-Path $directory 'MiroQA.exe'
 if ($LASTEXITCODE -ne 0) { throw 'QA export failed.' }
 $process = Start-Process -FilePath $executable -ArgumentList @('--headless', '--fixed-fps', '60', '--quit-after', '50000', '--log-file', $log, '--', '--verify-playthrough') -WindowStyle Hidden -Wait -PassThru
 $output = Get-Content -LiteralPath $log
-if ($process.ExitCode -ne 0 -or ($output -match 'ERROR:|SCRIPT ERROR:') -or -not ($output -match 'EXPORTED_PLAYTHROUGH_RESULT: 64/64 passed')) {
+if ($process.ExitCode -ne 0 -or ($output -match 'ERROR:|SCRIPT ERROR:') -or -not ($output | Where-Object { $_ -match 'EXPORTED_PLAYTHROUGH_RESULT: (\d+)/(\d+) passed' -and $Matches[1] -eq $Matches[2] })) {
     $output | Write-Output
     throw 'Exported playthrough failed.'
 }

@@ -431,6 +431,6 @@ static func miro_sitting(canvas: CanvasItem, seat: Vector2, s: float, color := C
 	canvas.draw_line(seat + Vector2(13, -13) * s, seat + Vector2(20, -1) * s, color, 4.0 * s)
 	# Arm propped behind.
 	canvas.draw_line(seat + Vector2(-5, -18) * s + lean, seat + Vector2(-13, 0) * s, color, 3.0 * s)
-	# The earbud wire down to the MP3 on his lap: the remote, now just a player.
+	# The earbud wire down to the MP3 on his lap: just a music player now.
 	canvas.draw_line(head + Vector2(3, 2) * s, seat + Vector2(9, -6) * s, Color(SAND.r, SAND.g, SAND.b, 0.7), 1.0)
 	canvas.draw_rect(Rect2(seat + Vector2(8, -8) * s, Vector2(3, 4) * s), Color("494d7e"))

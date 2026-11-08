@@ -182,7 +182,7 @@ func objective() -> String:
 	for station in definition.stations:
 		if flow != null and station.id in ["FinalOffer", "BrotherEncounter"] and not milestones.has(station.id):
 			continue
-		if not milestones.has(station.id):
+		if not milestones.has(station.id) and station.requires.all(func(required): return milestones.has(required)):
 			return "%02d / %s\n%s" % [int(definition.number), definition.title.to_upper(), station.objective]
 	return "%s\nReach the stair gate. [E]" % definition.title
 
@@ -250,7 +250,7 @@ func interact() -> void:
 			return
 		for required in station.requires:
 			if not milestones.has(required):
-				notify("First: " + str(required).replace("_", " "))
+				notify("First: " + station_title(str(required)))
 				return
 		if flow != null and station.id in ["FinalOffer", "BrotherEncounter", "DefeatExchange"]:
 			notify("Niro will come to you.")
@@ -282,6 +282,13 @@ func interact() -> void:
 			player.velocity = Vector2.ZERO
 		else:
 			notify("Follow the remaining objective before descending.")
+
+## A station id as the player reads it ("FinalSigil" -> "Place the final sigil").
+func station_title(id: String) -> String:
+	for entry in definition.stations:
+		if entry.id == id:
+			return str(entry.title)
+	return id.replace("_", " ")
 
 func finish_dialogue() -> void:
 	var event := dialogue_event

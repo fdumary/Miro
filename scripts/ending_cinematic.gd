@@ -2,7 +2,7 @@ extends Control
 ## Ending (C10): Miro blows the tower from the forest viewpoint. 15 s; Tab skips.
 ## When it finishes, the finale (beach, then end credits) takes over: scripts/finale.gd.
 ##   0.0-1.5   Miro steps out of the tree line; slow dolly with parallax pines, moonlight
-##   1.5-2.8   the remote (the MP3 he took from the first Keeper) fills the screen: SIGNAL SENT
+##   1.5-2.8   the C4 detonator (the same device as the in-game C4 pop-up) fills the screen
 ##   2.8-5.0   wide: sigils ignite floor by floor from the bottom; the ground starts to rumble
 ##   5.0-6.8   the PA line (MISSING/HUNTED); windows flicker; the tremor grows
 ##   6.8-11    DETONATION: white flash, chained fireballs up the floors, shock ring, debris,
@@ -117,7 +117,8 @@ func _draw() -> void:
 		subtitle = "\"%s\"" % branch.ending_thought
 	C.subtitle(self, subtitle, 1.0)
 	draw_string(C.Type.body(), Vector2(16, 352), "[Tab] Skip", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))
-	# The remote is the detonator: it fills the screen as the signal goes out.
+	# The C4 detonator fills the screen as the charges go. This is the gameplay C4 trigger,
+	# not the MP3: the MP3 only comes back on the beach, as a music player.
 	if t >= 1.5 and t < 2.8:
 		var punch := C.ease_out(C.phase(t, 1.5, 0.25))
 		C.fade(self, 0.7 * punch)
@@ -125,7 +126,9 @@ func _draw() -> void:
 		rect = rect.grow(-20 * (1.0 - punch))
 		# His thumb comes down on the button at 2.2 s.
 		var press := C.phase(t, 2.15, 0.1) * (1.0 - C.phase(t, 2.4, 0.1))
-		preload("res://scripts/remote_screen.gd").draw_remote(self, rect.grow(-press * 3.0), "SIGNAL SENT" if t > 2.2 else "ARMED", absf(sin(t * 9)) if t > 2.2 else 0.3)
+		preload("res://scripts/remote_screen.gd").draw_remote(self, rect.grow(-press * 3.0), "C4 DETONATED" if t > 2.2 else "C4 ARMED", absf(sin(t * 9)) if t > 2.2 else 0.3)
+		# The charge itself, beside the trigger, so the shot reads as C4.
+		draw_texture_rect(preload("res://assets/weapons/c4.svg"), Rect2(rect.end.x + 12, rect.get_center().y - 28, 56, 56), false)
 		if t > 2.55:
 			C.fade(self, (t - 2.55) / 0.25, Color.WHITE)
 	if t >= 13.5:

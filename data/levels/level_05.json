@@ -478,7 +478,9 @@
           "My fingers already know where to go."
         ]
       ],
-      "requires": [],
+      "requires": [
+        "FinalSigil"
+      ],
       "status": "implemented: starts Shit Crashed, alarm, wave 1"
     },
     {
@@ -631,7 +633,8 @@
         ]
       ],
       "requires": [
-        "DefeatExchange"
+        "DefeatExchange",
+        "FinalSigil"
       ],
       "status": "implemented: in-engine ending, pause and skip parity"
     }
