@@ -6,27 +6,25 @@
 
 ![The tower in the storm, from the opening cinematic](docs/images/opening.png)
 
-![Miro wakes in his cell and takes the MP3 player off the guard](docs/images/mp3_pickup.png)
-
 <p>
-  <img src="docs/images/rumour.png" width="49%" alt="Floor 2: Miro slips past a Keeper. If nobody sees me, I'm only a rumour">
-  <img src="docs/images/order.png" width="49%" alt="Floor 3: a Keeper quoting Isaiah on his rounds">
-</p>
-<p>
-  <img src="docs/images/terminal.png" width="49%" alt="Reading Prisoner M-07's file on a terminal">
-  <img src="docs/images/gallery.png" width="49%" alt="Inspecting a public-domain painting in the tower">
+  <img src="docs/images/mp3_pickup.png" width="49%" alt="Floor 1: Miro takes the MP3 player off the guard">
+  <img src="docs/images/rumour.png" width="49%" alt="Floor 2: If nobody sees me, I'm only a rumour">
 </p>
 <p>
   <img src="docs/images/symptoms.png" width="49%" alt="Floor 2: two Keepers talking about the transfer orders">
+  <img src="docs/images/order.png" width="49%" alt="Floor 3: a Keeper quoting Isaiah on his rounds">
+</p>
+<p>
   <img src="docs/images/ward.png" width="49%" alt="Floor 4: Keepers talking about the sealed ward">
+  <img src="docs/images/terminal.png" width="49%" alt="Reading Prisoner M-07's file on a terminal">
 </p>
 <p>
+  <img src="docs/images/gallery.png" width="49%" alt="Inspecting a public-domain painting in the tower">
   <img src="docs/images/beats.png" width="49%" alt="The Beats screen: MP3 tracks unlocked by stealth and combat">
-  <img src="docs/images/level_select.png" width="49%" alt="Floor select screen">
 </p>
 <p>
+  <img src="docs/images/level_select.png" width="49%" alt="Floor select screen">
   <img src="docs/images/pause_controls.png" width="49%" alt="Pause menu with the controls">
-  <img src="docs/images/title_card.png" width="49%" alt="Title card from the opening cinematic">
 </p>
 
 ## Tech stack
