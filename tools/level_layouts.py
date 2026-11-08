@@ -280,6 +280,9 @@ def level_2():
     g.put('cover', 20, 9)
     g.put('cover', 25, 9)
     g.put('guard', 29, 9, name='CellKeeper', patrol=[24, 32])  # added last: keeps roster order
+    g.put('guard', 21, 9, name='InfirmaryKeeper', patrol=[19, 23])
+    g.put('guard', 32, 9, name='GateKeeper', patrol=[31, 33])
+    g.put('cover', 33, 9)
     g.put('exit', 3, 45)
     route = [
         {'x': x_of(9)}, {'station': 'SickPrisoner'},

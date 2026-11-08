@@ -373,6 +373,18 @@
       ]
     },
     {
+      "name": "Shadow17",
+      "kind": "cover",
+      "position": [
+        938.0,
+        216
+      ],
+      "size": [
+        64,
+        72
+      ]
+    },
+    {
       "name": "StairGate",
       "kind": "exit",
       "position": [
@@ -474,6 +486,26 @@
       ],
       "patrol_left": 686.0,
       "patrol_right": 910.0,
+      "sick": false
+    },
+    {
+      "name": "InfirmaryKeeper",
+      "position": [
+        602.0,
+        236
+      ],
+      "patrol_left": 546.0,
+      "patrol_right": 658.0,
+      "sick": false
+    },
+    {
+      "name": "GateKeeper",
+      "position": [
+        910.0,
+        236
+      ],
+      "patrol_left": 882.0,
+      "patrol_right": 938.0,
       "sick": false
     }
   ],

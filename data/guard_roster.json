@@ -6,7 +6,11 @@
       "Rowan",
       "Ivo",
       "Bram",
-      "Mott"
+      "Mott",
+      "Crane",
+      "Stroud",
+      "Thane",
+      "Holt"
     ],
     "2": [
       "Alden",
@@ -18,6 +22,8 @@
       "Jory",
       "Kell",
       "Pell",
+      "Wick",
+      "Garth",
       "Lusk"
     ],
     "3": [
@@ -780,6 +786,72 @@
       ],
       "personality": "tired of pretending the sick are dangerous",
       "theme": "stern"
+    },
+    "Crane": {
+      "alert": "Wrong floor, prisoner. Wrong life, too.",
+      "body": "Somebody's going to make me write this up.",
+      "delivery": "[dry]",
+      "idle": [
+        "I polish this floor and it just gets dirtier.",
+        "Nobody visits the vault. That's the appeal."
+      ],
+      "personality": "takes pride in a floor nobody sees",
+      "theme": "serious"
+    },
+    "Stroud": {
+      "alert": "You! Don't make me run, my knee's gone!",
+      "body": "Oh, wonderful. Another one for the cart.",
+      "delivery": "[wheezing]",
+      "idle": [
+        "Forty years and they still won't fix these stairs.",
+        "My knee says rain. My knee is always right."
+      ],
+      "personality": "blames everything on his bad knee",
+      "theme": "serious"
+    },
+    "Thane": {
+      "alert": "Halt! Halt, I think that's the word!",
+      "body": "Is he asleep? Tell me he's asleep.",
+      "delivery": "[nervous]",
+      "idle": [
+        "First week. Nobody told me about the coughing.",
+        "If I stand very still maybe they'll forget I'm here."
+      ],
+      "personality": "new recruit terrified of being noticed",
+      "theme": "serious"
+    },
+    "Holt": {
+      "alert": "There you are. I bet Mott you'd come this way.",
+      "body": "That's a week's wages I'm never collecting.",
+      "delivery": "[smug]",
+      "idle": [
+        "Two to one says the lamp goes out by midnight.",
+        "I'd bet on the rats, honestly."
+      ],
+      "personality": "bets on everything",
+      "theme": "serious"
+    },
+    "Wick": {
+      "alert": "Get back in line! All of you, in line!",
+      "body": "Nobody touches him. Nobody touches anything.",
+      "delivery": "[barking]",
+      "idle": [
+        "Gloves on. Gloves off. Gloves on again.",
+        "Wash your hands. I said wash them."
+      ],
+      "personality": "obsessed with not catching anything",
+      "theme": "serious"
+    },
+    "Garth": {
+      "alert": "Oi! Visiting hours ended years ago!",
+      "body": "That's two this week. I'm keeping count.",
+      "delivery": "[flat]",
+      "idle": [
+        "Cell nine asked for water again. Cell nine can wait.",
+        "I used to know their names."
+      ],
+      "personality": "has stopped learning prisoners names",
+      "theme": "serious"
     }
   },
   "hunted": {

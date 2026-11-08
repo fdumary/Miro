@@ -147,6 +147,27 @@ collision_mask = 2
 script = ExtResource("5_dryi7")
 area_size = Vector2(62, 72)
 
+[node name="VaultShadowA" type="Area2D" parent="Interactables" instance=ExtResource("7_hai50")]
+position = Vector2(300, 636)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_dryi7")
+area_size = Vector2(62, 72)
+
+[node name="VaultShadowB" type="Area2D" parent="Interactables" instance=ExtResource("7_hai50")]
+position = Vector2(430, 636)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_dryi7")
+area_size = Vector2(62, 72)
+
+[node name="VaultShadowC" type="Area2D" parent="Interactables" instance=ExtResource("7_hai50")]
+position = Vector2(520, 636)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_dryi7")
+area_size = Vector2(62, 72)
+
 [node name="SigilAnchor" type="Area2D" parent="Interactables" unique_id=651746330 instance=ExtResource("9_urird")]
 position = Vector2(620, 647)
 collision_layer = 0
@@ -216,6 +237,34 @@ collision_layer = 4
 script = ExtResource("14_h7rjp")
 patrol_left = 110.0
 patrol_right = 140.0
+
+[node name="CraneKeeper" type="CharacterBody2D" parent="Guards" instance=ExtResource("13_yj5im")]
+position = Vector2(190, 656)
+collision_layer = 4
+script = ExtResource("14_h7rjp")
+patrol_left = 170.0
+patrol_right = 215.0
+
+[node name="StroudKeeper" type="CharacterBody2D" parent="Guards" instance=ExtResource("13_yj5im")]
+position = Vector2(352, 656)
+collision_layer = 4
+script = ExtResource("14_h7rjp")
+patrol_left = 340.0
+patrol_right = 385.0
+
+[node name="ThaneKeeper" type="CharacterBody2D" parent="Guards" instance=ExtResource("13_yj5im")]
+position = Vector2(482, 656)
+collision_layer = 4
+script = ExtResource("14_h7rjp")
+patrol_left = 460.0
+patrol_right = 505.0
+
+[node name="HoltKeeper" type="CharacterBody2D" parent="Guards" instance=ExtResource("13_yj5im")]
+position = Vector2(565, 656)
+collision_layer = 4
+script = ExtResource("14_h7rjp")
+patrol_left = 545.0
+patrol_right = 585.0
 
 [node name="LevelPlan" type="Node2D" parent="." unique_id=875164224]
 

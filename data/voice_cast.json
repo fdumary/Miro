@@ -4,6 +4,36 @@
   "miro_delivery": "",
   "miro_thought_delivery": "[whispers]",
   "voices": {
+    "crane": {
+      "name": "Adam (premade)",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "stability": 0.5
+    },
+    "stroud": {
+      "name": "Arnold (premade)",
+      "voice_id": "VR6AewLTigWG4xSOukaG",
+      "stability": 0.5
+    },
+    "thane": {
+      "name": "Josh (premade)",
+      "voice_id": "TxGEqnHWrfWFTfGW9XjX",
+      "stability": 0.5
+    },
+    "holt": {
+      "name": "Antoni (premade)",
+      "voice_id": "ErXwobaYiN019PkySvjV",
+      "stability": 0.5
+    },
+    "wick": {
+      "name": "Sam (premade)",
+      "voice_id": "yoZ06aMxZJJ28mfd3POQ",
+      "stability": 0.5
+    },
+    "garth": {
+      "name": "Drew (premade)",
+      "voice_id": "29vD33N1CtxCmqQRPOHJ",
+      "stability": 0.5
+    },
     "mott": {
       "name": "Clyde (premade)",
       "voice_id": "2EiwWnXFnvU5JabPnv8n",
