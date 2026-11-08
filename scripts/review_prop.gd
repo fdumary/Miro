@@ -8,7 +8,17 @@ func _draw() -> void:
 	var ink := Color("272744")
 	var pale := Color("c69fa5")
 	if kind == "access":
-		draw_texture_rect(preload("res://assets/weapons/remote.svg"), Rect2(-12, -15, 24, 30), false)
+		# A service port is a terminal like the others: a desk with a cathode screen.
+		var blue := Color("494d7e")
+		var glow := Color("8bb5c9")
+		draw_rect(Rect2(-14, 2, 28, 14), blue.darkened(0.25))
+		draw_rect(Rect2(-14, 2, 28, 2), blue.lightened(0.1))
+		draw_rect(Rect2(-12, 4, 3, 12), ink)
+		draw_rect(Rect2(9, 4, 3, 12), ink)
+		for ring in range(3, 0, -1):
+			draw_circle(Vector2(0, -9), 8.0 + ring * 5, Color(glow.r, glow.g, glow.b, 0.025))
+		draw_rect(Rect2(-11, -20, 22, 20), ink)
+		draw_texture_rect(preload("res://assets/library/terminal.png"), Rect2(-9, -18, 18, 18), false, glow)
 		draw_string(ThemeDB.fallback_font, Vector2(-30, -25), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
 	elif kind == "potion":
 		if not used:

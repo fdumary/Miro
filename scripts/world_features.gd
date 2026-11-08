@@ -815,12 +815,12 @@ func spot_taken(point: Vector2, kind := "") -> bool:
 		if point.x > left - 30 and point.x < right + 30:
 			return true
 	for prop in props:
-		if not is_instance_valid(prop) or absf(prop.global_position.y - point.y) >= 24:
+		# Crates and the wall hides (vents, lockers, crawlspaces) don't sit side by side; those
+		# hides are drawn taller than their marker, so compare them over a taller band.
+		var pair: bool = (kind == "crate" and prop.kind == "hide") or (kind == "hide" and prop.kind == "crate")
+		if not is_instance_valid(prop) or absf(prop.global_position.y - point.y) >= (70.0 if pair else 24.0):
 			continue
-		# Crates and the wall hides (vents, lockers, crawlspaces) don't sit side by side.
-		var apart := 32.0
-		if (kind == "crate" and prop.kind == "hide") or (kind == "hide" and prop.kind == "crate"):
-			apart = 140.0
+		var apart := 140.0 if pair else 32.0
 		if absf(prop.global_position.x - point.x) < apart:
 			return true
 	for area in level.areas.get_children():
