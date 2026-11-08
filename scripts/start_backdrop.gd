@@ -29,7 +29,7 @@ func _ready() -> void:
 	add_child(audio)
 	audio.loop("wind_loop", -24.0, 3.0)
 	if not completed:
-		audio.loop("rain_loop", -15.0, 2.0)
+		audio.loop("rain_loop", -34.0, 2.0)
 	if completed:
 		audio.at(4.0, func(): audio.play("gulls", -26.0))
 
@@ -41,7 +41,7 @@ func _process(delta: float) -> void:
 		if strike >= 0 and strike != last_strike:
 			last_strike = strike
 			# Alternate a close crack and a rolling one so the loop doesn't feel canned.
-			audio.play("thunder_near" if strike % 2 == 0 else "thunder_far", -9.0 if strike % 2 == 0 else -12.0, 0.95 + 0.05 * (strike % 3))
+			audio.play("thunder_near" if strike % 2 == 0 else "thunder_far", -25.0 if strike % 2 == 0 else -28.0, 0.95 + 0.05 * (strike % 3))
 	queue_redraw()
 
 func _draw() -> void:
@@ -88,7 +88,7 @@ func draw_dusk() -> void:
 	sway_pines(345, 230, 130, 1.0, 3.5)
 	leaves(Color(0.35, 0.3, 0.4, 0.8))
 	# Rain over everything, a little brighter while the lightning lights it up.
-	C.rain(self, time, 0.22 + 0.25 * flash)
+	storm_rain(flash)
 
 func draw_day() -> void:
 	C.day_sky(self, Color("5c93d1"), Color("cfe4f0"), Vector2(150, 70), time, Color("fff6d8"))
@@ -119,6 +119,45 @@ func sway_pines(baseline: float, height: float, spacing: float, depth: float, ph
 		x += spacing
 		index += 1
 	draw_rect(Rect2(0, baseline, 640, 360 - baseline), color)
+
+## Natural-looking rain: three depth layers (far drops thin, short, slow and faint; near drops
+## longer, faster and brighter), each drop with its own speed, length and phase, all slanted by
+## the gusting wind (blowing right, like the flag), plus small splashes where near drops hit the ground.
+const RAIN_LAYERS := [
+	# count, speed px/s, length, width, alpha, slant scale
+	[140, 380.0, 6.0, 1.0, 0.10, 0.6],
+	[80, 560.0, 11.0, 1.0, 0.16, 0.85],
+	[34, 820.0, 19.0, 1.5, 0.22, 1.0],
+]
+
+func storm_rain(flash: float) -> void:
+	var gust := wind()
+	var lit := 1.0 + 1.6 * flash
+	for layer in range(RAIN_LAYERS.size()):
+		var spec: Array = RAIN_LAYERS[layer]
+		var slant: float = (0.16 + 0.12 * gust) * float(spec[5])
+		for i in range(int(spec[0])):
+			var seed := layer * 1000 + i
+			var speed: float = float(spec[1]) * (0.8 + 0.4 * C.hash01(seed, 301))
+			var length: float = float(spec[2]) * (0.7 + 0.6 * C.hash01(seed, 302))
+			var fall := 400.0
+			var y := fmod(C.hash01(seed, 303) * fall + time * speed, fall) - 30.0
+			var x := fmod(C.hash01(seed, 304) * 760.0 + y * slant + 760.0, 760.0) - 60.0
+			var tail := Vector2(-slant, -1.0).normalized() * length
+			var alpha: float = minf(0.6, float(spec[4]) * lit * (0.7 + 0.6 * C.hash01(seed, 305)))
+			draw_line(Vector2(x, y), Vector2(x, y) + tail, Color(0.78, 0.82, 0.95, alpha), float(spec[3]), true)
+	# Splashes: brief little crowns on the ground line, scattered in time and space.
+	for i in range(26):
+		var period := 0.5 + 0.5 * C.hash01(i, 311)
+		var phase := fmod(time + C.hash01(i, 312) * period, period) / period
+		if phase > 0.35:
+			continue
+		var spot := Vector2(C.hash01(i + int(time / period) * 31, 313) * 640.0, 331.0 + C.hash01(i, 314) * 4.0)
+		var grow := phase / 0.35
+		var a := 0.3 * (1.0 - grow) * lit
+		var splash := Color(0.8, 0.84, 0.95, minf(0.6, a))
+		draw_line(spot, spot + Vector2(-3.0 * grow - 1.0, -3.0 * grow), splash, 1.0, true)
+		draw_line(spot, spot + Vector2(3.0 * grow + 1.0, -3.0 * grow), splash, 1.0, true)
 
 func ground(base: Color, grass: Color) -> void:
 	draw_rect(Rect2(0, 330, 640, 30), base)
