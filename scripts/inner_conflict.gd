@@ -178,6 +178,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	var choice := current_choice()
 	if not choice.is_empty():
+		if event is InputEventJoypadButton and event.pressed:
+			match event.button_index:
+				JOY_BUTTON_DPAD_UP, JOY_BUTTON_DPAD_LEFT:
+					choice_selected = 0
+				JOY_BUTTON_DPAD_DOWN, JOY_BUTTON_DPAD_RIGHT:
+					choice_selected = 1
+				JOY_BUTTON_A:
+					choose(choice_selected)
+				_:
+					return
+			get_viewport().set_input_as_handled()
+			return
 		if event is InputEventKey and event.pressed and not event.echo:
 			var key: int = event.physical_keycode
 			if key in [KEY_1, KEY_KP_1]:
@@ -316,7 +328,7 @@ func update_hint() -> void:
 	if prop == null:
 		return
 	var text := "[E] Look at the painting" if prop == frame else "[E] Read records  •  [T] Open security console"
-	level.hint_label.text = text
+	level.hint_label.text = text.replace("[E]", "[Cross]") if level.player.controls.pad_prompts else text
 	level.hint_icon.texture = VISUALS.hint_texture(text)
 	level.hint_icon.visible = level.hint_icon.texture != null
 

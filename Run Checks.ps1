@@ -20,6 +20,7 @@ $checks = @(
     @('res://tools/test_audio.gd'),
     @('res://tools/test_music_and_world.gd'),
     @('res://tools/test_final_controls.gd'),
+    @('res://tools/test_playstation_controls.gd'),
     @('res://tools/test_remote.gd'),
     @('res://tools/test_traversal_access.gd'),
     @('res://tools/test_weapon_inventory.gd'),

@@ -11,8 +11,15 @@ var retry_left := 0.0
 var handshake_left := 0.0
 var mix_state: Array = []
 
+const DEVICE_ARG := "--controller-speaker-device="
+
 static func speaker_device() -> String:
-	for device in AudioServer.get_output_device_list():
+	var devices := AudioServer.get_output_device_list()
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with(DEVICE_ARG):
+			var selected := arg.trim_prefix(DEVICE_ARG)
+			return selected if selected != "Default" and selected in devices else ""
+	for device in devices:
 		var name := device.to_lower()
 		if "dualsense" in name or "dualshock" in name or "wireless controller" in name:
 			return device

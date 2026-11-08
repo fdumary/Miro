@@ -42,9 +42,16 @@ Mantling is deliberately small: contact with a wall, up to a 34-pixel rise and 2
 
 Right click drops a physical charge; E recovers it intact; left click detonates placed charges. Blasts are bounded and wall-occluded. A charge beside the Level 1 lock opens it. Required story charges cannot be spent on optional explosions. Later floors receive one extra charge for this mechanic; the ward still has five required charges across its three authored supports, plus one optional charge. Authored supports remain E interactions and detonate through the established ending sequence.
 
+## PlayStation controls
+
+- Left stick moves and climbs; right stick aims. Cross interacts at a grounded prompt, advances dialogue, or jumps when there is no interaction. Circle dodges.
+- Square reloads. Triangle selects the blanket; R2 uses it. L3 toggles crouch.
+- L1/R1 cycle items. L2 focuses a gun or places C4. R2 uses the selected item. Touchpad click opens inventory; Options pauses.
+- D-pad Left/Right select previous/next MP3 track. D-pad Up brings up Miro's hint. D-pad navigates story replies and Cross confirms them. The security console still accepts keyboard text.
+
 ## PlayStation controller speaker
 
-On Windows, connect the controller by USB and leave the regular speakers or headset as the system output. If Windows exposes a DualSense or DualShock playback device, only Niro's remote transmissions use it. Niro in person, the tower PA, music and effects stay on the regular output. The dialogue bubbles still appear. If the controller output is unavailable, the transmissions play through the regular output with the radio effect. Touchpad presses are not needed for playback.
+On Windows, leave the regular speakers or headset as the system output. If Windows exposes a DualSense or DualShock playback device, only Niro's remote transmissions use it. USB is the standard path. For a Bluetooth bridge that exposes a named Windows playback endpoint, launch with `Miro.exe -- "--controller-speaker-device=Exact Playback Device Name"`. Native Bluetooth without a playback endpoint uses the regular output. Niro in person, the tower PA, music and effects stay on the regular output. The dialogue bubbles still appear. If the controller output is unavailable, the transmissions play through the regular output with the radio effect. Touchpad presses are not needed for playback.
 
 ## Remote / MP3 acquisition and minimal puzzle
 

@@ -14,6 +14,9 @@ var console_echo: Label
 var has_remote := false
 var remote_unlocked := false
 var focus := false
+var pad_aim := false
+var pad_device := -1
+var pad_prompts := false
 var reserves: Dictionary = {}
 var reload_left := 0.0
 var panel: PanelContainer
@@ -67,9 +70,17 @@ func select_item(item: String) -> void:
 func _input(event: InputEvent) -> void:
 	if not is_instance_valid(player.level):
 		return
+	if event is InputEventJoypadButton and event.pressed:
+		pad_device = event.device
+		pad_prompts = true
+		player.mouse_aim = false
+		if handle_pad_button(event.button_index):
+			get_viewport().set_input_as_handled()
+		return
 	if event is InputEventKey and not event.echo:
 		if not event.pressed:
 			return
+		pad_prompts = false
 		var key: int = event.physical_keycode
 		if locked():
 			if key == KEY_ESCAPE or (key == KEY_N and inventory_open):
@@ -96,12 +107,70 @@ func _input(event: InputEvent) -> void:
 			return
 		get_viewport().set_input_as_handled()
 
+func handle_pad_button(button: int) -> bool:
+	if locked():
+		if button == JOY_BUTTON_B or (inventory_open and button in [JOY_BUTTON_TOUCHPAD, JOY_BUTTON_BACK]):
+			close_panels()
+			return true
+		return false
+	if player.level.controls_locked() or player.is_dead:
+		return false
+	match button:
+		JOY_BUTTON_A:
+			var director := player.level.get_node_or_null("InnerConflict")
+			var lore = director.usable_prop() if director != null and player.is_on_floor() else null
+			if lore != null:
+				director.open_prop(lore)
+			elif player.in_hiding_spot or (player.is_on_floor() and "[E]" in player.level.context_hint()):
+				player.level.interact()
+			else:
+				player.pad_jump_queued = true
+		JOY_BUTTON_X:
+			start_reload()
+		JOY_BUTTON_Y:
+			select_item("blanket")
+		JOY_BUTTON_LEFT_STICK:
+			player.pad_crouch = not player.pad_crouch
+		JOY_BUTTON_DPAD_LEFT:
+			next_beat(-1)
+		JOY_BUTTON_DPAD_RIGHT:
+			next_beat()
+		JOY_BUTTON_DPAD_UP:
+			player.level.world_features.think(player.level.z_hint())
+		JOY_BUTTON_LEFT_SHOULDER:
+			cycle_item(-1)
+		JOY_BUTTON_RIGHT_SHOULDER:
+			cycle_item(1)
+		JOY_BUTTON_TOUCHPAD, JOY_BUTTON_BACK:
+			show_inventory()
+			buttons[0].grab_focus()
+		_:
+			return false
+	return true
+
+func cycle_item(step: int) -> void:
+	var items: Array[String] = []
+	for item in slots:
+		if not item.is_empty() and (item != "remote" or has_remote):
+			items.append(item)
+	items.append("blanket")
+	if has_guitar:
+		items.append("guitar")
+	var index := items.find(active)
+	if index < 0:
+		index = -1 if step > 0 else 0
+	select_item(items[posmod(index + step, items.size())])
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_instance_valid(player.level) or player.level.controls_locked() or player.is_dead or player.in_hiding_spot:
 		return
 	if event is InputEventMouseMotion:
+		pad_aim = false
+		pad_prompts = false
 		player.mouse_aim = true
 	if event is InputEventMouseButton:
+		pad_aim = false
+		pad_prompts = false
 		player.mouse_aim = true
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			use_item()
@@ -123,7 +192,21 @@ func _physics_process(delta: float) -> void:
 		focus = false
 		reload_left = 0
 		return
-	focus = focus and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
+	var pads := Input.get_connected_joypads()
+	if not pads.is_empty():
+		if pad_device not in pads:
+			pad_device = pads[0]
+		var aim := Vector2(Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_X), Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_Y))
+		if aim.length_squared() > 0.22 * 0.22:
+			pad_aim = true
+			pad_prompts = true
+			player.mouse_aim = false
+			player.aim_direction = aim.normalized()
+	else:
+		pad_aim = false
+	focus = (focus and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)) or (player.guns.has(active) and Input.is_action_pressed("pad_focus"))
+	if active == "c4" and Input.is_action_just_pressed("pad_focus"):
+		drop_charge()
 	if reload_left > 0:
 		reload_left = maxf(0, reload_left - delta)
 		if reload_left == 0:
@@ -134,13 +217,13 @@ func _physics_process(delta: float) -> void:
 	strum_cooldown = maxf(0, strum_cooldown - delta)
 	strum_flash = maxf(0, strum_flash - delta)
 	progress = 1.0 - reload_left
-	if active == "smg" and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if Input.is_action_just_pressed("pad_use") or (active == "smg" and (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_action_pressed("pad_use"))):
 		use_item()
 
 func use_item() -> void:
 	if reload_left > 0:
 		return
-	if player.mouse_aim and absf(player.aim_direction.x) > 0.01:
+	if (player.mouse_aim or pad_aim) and absf(player.aim_direction.x) > 0.01:
 		player.facing = signf(player.aim_direction.x)
 	match active:
 		"blanket": player.toggle_stealth()
@@ -205,7 +288,7 @@ func collect_ammo_case() -> bool:
 	return true
 
 ## [B] or "next" on the remote: skip to the next unlocked beat on Miro's MP3, then back to the floor.
-func next_beat() -> String:
+func next_beat(step := 1) -> String:
 	var campaign = get_node("/root/Campaign")
 	var music = get_node("/root/MusicDirector")
 	var text := ""
@@ -218,13 +301,14 @@ func next_beat() -> String:
 		var position: int = unlocked.find(music.track_id) if music.review_override else -1
 		if unlocked.is_empty():
 			text = "Only the floor's beat on here. Quiet floors and fights unlock more."
-		elif position + 1 >= unlocked.size():
+		elif posmod(position + 1 + step, unlocked.size() + 1) == 0:
 			music.resume_floor()
 			text = "MP3 · back to the floor's beat."
 		else:
+			var index := posmod(position + 1 + step, unlocked.size() + 1) - 1
 			music.review_override = true
-			music.play_track(unlocked[position + 1])
-			text = "MP3 · %d/%d %s" % [position + 2, unlocked.size(), music.catalog[unlocked[position + 1]].title]
+			music.play_track(unlocked[index])
+			text = "MP3 · %d/%d %s" % [index + 1, unlocked.size(), music.catalog[unlocked[index]].title]
 	if is_instance_valid(player.level):
 		player.level.notify(text, 3)
 	return text

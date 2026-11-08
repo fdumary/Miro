@@ -85,6 +85,27 @@ func setup_inputs() -> void:
 			if not InputMap.action_has_event(action, event):
 				InputMap.action_add_event(action, event)
 
+	for action in ["pad_use", "pad_focus"]:
+		if not InputMap.has_action(action):
+			InputMap.add_action(action)
+		InputMap.action_erase_events(action)
+	add_pad_axis("move_left", JOY_AXIS_LEFT_X, -1.0)
+	add_pad_axis("move_right", JOY_AXIS_LEFT_X, 1.0)
+	add_pad_axis("climb_up", JOY_AXIS_LEFT_Y, -1.0)
+	add_pad_axis("climb_down", JOY_AXIS_LEFT_Y, 1.0)
+	add_pad_axis("pad_use", JOY_AXIS_TRIGGER_RIGHT, 1.0)
+	add_pad_axis("pad_focus", JOY_AXIS_TRIGGER_LEFT, 1.0)
+	for pair in [["dodge", JOY_BUTTON_B], ["advance", JOY_BUTTON_A], ["pause_game", JOY_BUTTON_START]]:
+		var event := InputEventJoypadButton.new()
+		event.button_index = pair[1]
+		InputMap.action_add_event(pair[0], event)
+
+func add_pad_axis(action: String, axis: int, direction: float) -> void:
+	var event := InputEventJoypadMotion.new()
+	event.axis = axis
+	event.axis_value = direction
+	InputMap.action_add_event(action, event)
+
 func controls_locked() -> bool:
 	return (is_instance_valid(player.controls) and player.controls.locked()) or is_instance_valid(player.pending_guard) or paused or not dialogue.is_empty() or completed or (is_instance_valid(world_features) and world_features.modal_open())
 
@@ -152,6 +173,8 @@ func _process(delta: float) -> void:
 	objective_label.text = objective()
 	hint_label.text = context_hint()
 	hint_icon.texture = VISUALS.hint_texture(hint_label.text)
+	if player.controls.pad_prompts:
+		hint_label.text = hint_label.text.replace("[E]", "[Cross]").replace("[Z]", "[D-pad Up]")
 	hint_icon.visible = hint_icon.texture != null
 	stealth_meter.visible = player.has_supplies
 	stealth_meter.value = player.stealth_remaining / player.stealth_duration if player.is_concealed else 1.0 - player.stealth_cooldown_left / player.stealth_cooldown

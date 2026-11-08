@@ -16,6 +16,8 @@ var wall_jump_side := 0.0
 var last_wall_jump_side := 0.0
 var wall_jump_push_left := 0.0
 var crouching := false
+var pad_crouch := false
+var pad_jump_queued := false
 var level: Node2D
 var facing: float = 1.0
 var is_concealed: bool = false
@@ -69,6 +71,7 @@ func _physics_process(delta: float) -> void:
 	dodge_left = maxf(0.0, dodge_left - delta)
 	attack_flash = maxf(0.0, attack_flash - delta)
 	if level.controls_locked() or is_dead:
+		pad_jump_queued = false
 		wall_sliding = false
 		velocity = Vector2.ZERO
 		update_visual(delta)
@@ -105,7 +108,9 @@ func _physics_process(delta: float) -> void:
 		wall_jump_push_left = 0.0
 		last_wall_jump_side = 0.0
 	update_crouch()
-	if Input.is_action_just_pressed("jump") and not crouching:
+	var jump_pressed := Input.is_action_just_pressed("jump") or pad_jump_queued
+	pad_jump_queued = false
+	if jump_pressed and not crouching:
 		if not try_mantle() and not try_wall_jump():
 			if jumps_used == 0 or (jumps_used == 1 and double_jump_cooldown_left <= 0.0):
 				if jumps_used == 1:
@@ -302,6 +307,18 @@ func resolve_weapon_choice(slot: int) -> void:
 	level.notify("Weapon choice saved. Select a slot to equip.")
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventJoypadButton and event.pressed and is_instance_valid(pending_guard):
+		match event.button_index:
+			JOY_BUTTON_LEFT_SHOULDER:
+				resolve_weapon_choice(0)
+			JOY_BUTTON_RIGHT_SHOULDER:
+				resolve_weapon_choice(1)
+			JOY_BUTTON_B:
+				resolve_weapon_choice(-1)
+			_:
+				return
+		get_viewport().set_input_as_handled()
+		return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	if is_instance_valid(pending_guard):
@@ -325,7 +342,7 @@ func fire_gun() -> void:
 	end_stealth()
 	# Gunfire is always loud: kills cost noise.
 	level.make_noise(global_position, 600.0)
-	aim_direction = (get_global_mouse_position() - global_position).normalized() if mouse_aim else Vector2(facing, 0)
+	aim_direction = (get_global_mouse_position() - global_position).normalized() if mouse_aim else (aim_direction if controls.pad_aim else Vector2(facing, 0))
 	if aim_direction.length_squared() < 0.1:
 		aim_direction = Vector2(facing, 0)
 	if absf(aim_direction.x) > 0.01:
@@ -393,9 +410,9 @@ func _draw() -> void:
 		draw_set_transform(origin, lean, Vector2(pose_facing, scale_y))
 		draw_texture_rect_region(sprite.texture, Rect2(-16, -3, 32, 19), Rect2(frame_x, 13, 32, 19), sprite.modulate)
 		var head_facing := pose_facing
-		if not wall_sliding and mouse_aim and absf(aim_direction.x) > 0.01:
+		if not wall_sliding and (mouse_aim or controls.pad_aim) and absf(aim_direction.x) > 0.01:
 			head_facing = signf(aim_direction.x)
-		var head_angle := clampf(atan2(aim_direction.y, absf(aim_direction.x)), -0.3, 0.3) * head_facing if mouse_aim and not wall_sliding else lean
+		var head_angle := clampf(atan2(aim_direction.y, absf(aim_direction.x)), -0.3, 0.3) * head_facing if (mouse_aim or controls.pad_aim) and not wall_sliding else lean
 		draw_set_transform(origin + Vector2(0, -5 * scale_y), head_angle, Vector2(head_facing, scale_y))
 		draw_texture_rect_region(sprite.texture, Rect2(-16, -11, 32, 13), Rect2(frame_x, 0, 32, 13), sprite.modulate)
 		draw_set_transform(Vector2.ZERO)
@@ -413,7 +430,7 @@ func _draw() -> void:
 		draw_arc(Vector2(0, -20), 5, 0, PI, 8, Color("c69fa5"), 1)
 
 func update_crouch() -> void:
-	var requested := Input.is_physical_key_pressed(KEY_CTRL) and is_on_floor()
+	var requested := (Input.is_physical_key_pressed(KEY_CTRL) or pad_crouch) and is_on_floor()
 	if crouching and not requested:
 		var shape := RectangleShape2D.new()
 		shape.size = Vector2(12, 27)
