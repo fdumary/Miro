@@ -33,7 +33,7 @@
 - **Levels and story:** JSON data in `data/`, with Python and GDScript tools that build the level scenes from it
 - **Music:** original soundtrack by RXLA, played by a music director that also acts as a beat clock, so guards and waves move on the beat
 - **Voices:** ElevenLabs (`eleven_v3`), generated at build time
-- **Art:** original sprites and tiles by Julia, Kenney CC0 asset packs provided by Fran, and public-domain paintings with checked rights
+- **Art:** original character sprites, animations and tiles by Julia S., Kenney CC0 asset packs provided by Francesca Dumary, and public-domain paintings with checked rights
 - **Testing:** headless Godot test scripts (`Run Checks.ps1`) and a bot that plays through all five floors (`Check Exported Playthrough.ps1`)
 - **Build:** Windows export with `Build Windows.ps1`
 

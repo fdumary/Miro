@@ -57,6 +57,10 @@ var aim_direction := Vector2.RIGHT
 const IDLE = preload("res://assets/characters/miro_idle.png")
 const WALK = preload("res://assets/characters/miro_walk.png")
 const JUMP = preload("res://assets/characters/miro_jump.png")
+const ATTACK = preload("res://assets/characters/miro_attack.png")
+## Julia's two-frame knife swing: wind-up, then the slash.
+const MELEE_ANIM_TIME := 0.24
+var melee_anim: float = 0.0
 @onready var sprite: Sprite2D = $Sprite2D
 
 func _ready() -> void:
@@ -74,6 +78,7 @@ func _physics_process(delta: float) -> void:
 	dodge_cooldown = maxf(0.0, dodge_cooldown - delta)
 	dodge_left = maxf(0.0, dodge_left - delta)
 	attack_flash = maxf(0.0, attack_flash - delta)
+	melee_anim = maxf(0.0, melee_anim - delta)
 	if level.controls_locked() or is_dead:
 		pad_jump_queued = false
 		wall_sliding = false
@@ -253,6 +258,7 @@ func shank() -> void:
 	end_stealth()
 	attack_cooldown = 0.5
 	attack_flash = 0.16
+	melee_anim = MELEE_ANIM_TIME
 	get_node("/root/SoundFX").play_sound("swing", -18)
 	var target: Node2D
 	var reach := INF
@@ -414,6 +420,10 @@ func update_visual(delta: float) -> void:
 		sprite.texture = WALK
 		sprite.hframes = 2
 		sprite.frame = int(animation_time * 8) % 2
+	if melee_anim > 0 and not climbing:
+		sprite.texture = ATTACK
+		sprite.hframes = 2
+		sprite.frame = 0 if melee_anim > MELEE_ANIM_TIME * 0.5 else 1
 	sprite.flip_h = facing < 0
 	sprite.modulate = Color("8b6d9c") if is_concealed else Color.WHITE
 	sprite.modulate.a = 0.15 if in_hiding_spot else (0.42 if is_concealed else (0.5 if invulnerability_left > 0 and int(animation_time * 20) % 2 == 0 else 1.0))
@@ -442,7 +452,7 @@ func _draw() -> void:
 		draw_set_transform(Vector2(0, -4), direction.angle(), Vector2(1, -1 if direction.x < 0 else 1))
 		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[equipped_gun], Rect2(0, -10, 24, 24), false)
 		draw_set_transform(Vector2.ZERO)
-	if attack_flash > 0:
+	if attack_flash > 0 and melee_anim <= 0:
 		draw_line(Vector2(facing * 9, -2), Vector2(facing * 35, -7), Color("fbf5ef"), 2)
 	if controls.focus:
 		var cursor := get_local_mouse_position()

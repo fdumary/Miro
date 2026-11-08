@@ -62,6 +62,7 @@ func next_attack() -> String:
 	return attack
 
 func _physics_process(delta: float) -> void:
+	time += delta
 	if is_dead or level.controls_locked() or level.player.is_dead:
 		queue_redraw()
 		return
@@ -161,20 +162,33 @@ func die() -> void:
 	level.brother_defeated()
 	queue_redraw()
 
+const KAEL_IDLE = preload("res://assets/characters/kael_idle.png")
+const KAEL_WALK = preload("res://assets/characters/kael_walk.png")
+const KAEL_ATTACK = preload("res://assets/characters/kael_attack.png")
+
+## Julia's Kael sheets: idle 24 px, walk 2 x 24 px, attack 2 x 32 px.
+func draw_kael(texture: Texture2D, frames: int, frame: int, tint: Color, squash := 1.0) -> void:
+	var frame_size := Vector2(float(texture.get_width()) / frames, texture.get_height())
+	var height := frame_size.y * squash
+	draw_set_transform(Vector2.ZERO, 0, Vector2(facing, 1))
+	draw_texture_rect_region(texture, Rect2(-frame_size.x / 2, 6 - height, frame_size.x, height), Rect2(frame * frame_size.x, 0, frame_size.x, frame_size.y), tint)
+	draw_set_transform(Vector2.ZERO)
+
 func _draw() -> void:
-	var color := Color("f2d3ab") if is_vulnerable else Color("8b6d9c")
 	if is_dead:
-		# Kneeling, coat on, alive. Hook: replace with Niro's kneel sprite.
-		draw_texture_rect(preload("res://assets/characters/miro_idle.png"), Rect2(-16, -16, 32, 24), false, Color("8b6d9c"))
-		draw_rect(Rect2(-9, 0, 18, 10), Color("d9d9d9"))
-		draw_circle(Vector2(2, -14), 7, Color("c69fa5"))
+		# Kneeling, alive: Kael's idle pressed down.
+		draw_kael(KAEL_IDLE, 1, 0, Color("c9b6d1"), 0.7)
 		return
-	draw_texture_rect(preload("res://assets/characters/miro_idle.png"), Rect2(-16, -26, 32, 32), false, color)
-	# A physician's coat, badge and control remote distinguish Niro.
-	draw_rect(Rect2(-9, -6, 18, 19), Color("d9d9d9"))
-	draw_rect(Rect2(3, -4, 4, 3), Color("b62432"))
-	draw_rect(Rect2(facing * 12 - 3, -3, 6, 9), Color("494d7e"))
-	draw_circle(Vector2(0, -24), 7, Color("c69fa5"))
+	var tint := Color("f2d3ab") if is_vulnerable else Color.WHITE
+	var winding_up := current_phase == Phase.TELEGRAPH and phase_left < 0.3 and next_attack() != "call"
+	if current_phase == Phase.RUSH:
+		draw_kael(KAEL_ATTACK, 2, 1, tint)
+	elif winding_up:
+		draw_kael(KAEL_ATTACK, 2, 0, tint)
+	elif current_phase == Phase.RETREAT:
+		draw_kael(KAEL_WALK, 2, int(time * 8) % 2, tint)
+	else:
+		draw_kael(KAEL_IDLE, 1, 0, tint)
 	var cue := "RECOVER" if is_vulnerable else ("RETREATING" if current_phase == Phase.RETREAT else next_attack().to_upper())
 	draw_string(ThemeDB.fallback_font, Vector2(-30, -43), "NIRO · " + cue, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color("fbf5ef"))
 	for index in range(health):
