@@ -192,12 +192,25 @@ func shank() -> void:
 	attack_cooldown = 0.5
 	attack_flash = 0.16
 	get_node("/root/SoundFX").play_sound("swing", -18)
-	for guard in level.guards():
-		var difference: Vector2 = guard.global_position - global_position
-		if not guard.is_dead and absf(difference.y) < 24 and absf(difference.x) <= 46 and difference.x * facing >= -5:
-			if level.can_melee_reach(global_position, guard.global_position):
-				guard.receive_shank()
-				break
+	var target: Node2D
+	var reach := INF
+	var targets: Array[Node] = level.guards()
+	targets.append_array(get_tree().get_nodes_in_group("tower_turrets"))
+	for candidate in targets:
+		var turret := candidate.is_in_group("tower_turrets")
+		if candidate.health <= 0 or (not turret and candidate.is_dead):
+			continue
+		var point: Vector2 = candidate.target_point() if turret else candidate.global_position
+		var difference := point - global_position
+		if absf(difference.y) < 24 and absf(difference.x) <= 46 and difference.x * facing >= -5:
+			if difference.length_squared() < reach and level.can_melee_reach(global_position, point):
+				target = candidate
+				reach = difference.length_squared()
+	if target != null:
+		if target.is_in_group("tower_turrets"):
+			target.take_turret_hit()
+		else:
+			target.receive_shank()
 
 func select_gun(index: int) -> void:
 	if index < 0 or index >= guns.size():

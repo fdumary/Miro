@@ -45,6 +45,14 @@ func run() -> void:
 	await frames(125)
 	check(absf(angle_difference(turret.aim, 0.0)) < 0.08, "Turret head turns toward Miro")
 	check(player.health < starting_health, "An exposed Miro can be hit by the turret")
+	player.position = turret.position + Vector2(-34, -15)
+	player.facing = 1
+	for hit in range(3):
+		player.attack_cooldown = 0.0
+		player.shank()
+		check(turret.health == 2 - hit, "Stab %d takes exactly one turret HP" % (hit + 1))
+	await frames(2)
+	check(not is_instance_valid(turret), "Third stab destroys the turret")
 	player.invulnerability_left = 5.0
 	player.position = spikes.position + Vector2(0, -15)
 	await frames(8)
@@ -89,5 +97,33 @@ func run() -> void:
 		var expected_aim := (player.global_position - mounted.to_global(mounted.PIVOT)).angle()
 		check(absf(angle_difference(mounted.aim, expected_aim)) < 0.08 and player.health < starting_health,
 			"Turret tracks and lands a shot from mount %d" % mount)
+	if turret_mounts.has(-90):
+		var mounted: Node2D = turret_mounts[-90]
+		player.health = starting_health
+		player.invulnerability_left = 0.0
+		player.controls.has_guitar = true
+		player.controls.strum()
+		check(mounted.stun_left > 4.95 and mounted.charge == 0.0, "A strum stuns the wall turret immediately and clears its charge")
+		await frames(90)
+		check(player.health == starting_health and mounted.stun_left > 0, "Stunned turret cannot fire")
+		await frames(220)
+		check(is_zero_approx(mounted.stun_left), "Turret recovers after five seconds")
+	if turret_mounts.has(0):
+		var floor_turret: Node2D = turret_mounts[0]
+		player.position = floor_turret.position + Vector2(-50, -15)
+		player.mouse_aim = false
+		player.facing = 1
+		player.has_gun = true
+		player.equipped_gun = "pistol"
+		player.ammunition = 3
+		for hit in range(2):
+			player.attack_cooldown = 0.0
+			player.fire_gun()
+			await frames(8)
+			check(floor_turret.health == 2 - hit, "Pistol shot %d takes exactly one turret HP" % (hit + 1))
+		player.attack_cooldown = 0.0
+		player.fire_gun()
+		await frames(8)
+		check(not is_instance_valid(floor_turret), "Third pistol shot destroys the turret")
 	print("TOWER_HAZARDS_RESULT: %d/%d passed" % [checks - failures.size(), checks])
 	quit(0 if failures.is_empty() else 1)

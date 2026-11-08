@@ -1,4 +1,5 @@
 extends Node2D
+const TURRET_LAYER := 1 << 6
 ## Swept collision prevents fast rounds from tunneling through thin walls.
 var level: Node2D
 var shooter: CollisionObject2D
@@ -18,7 +19,8 @@ func _physics_process(delta: float) -> void:
 		return
 	var distance := minf(remaining, speed * delta)
 	var destination := global_position + direction * distance
-	var query := PhysicsRayQueryParameters2D.create(global_position, destination, 1 | (2 if enemy else 4))
+	var query := PhysicsRayQueryParameters2D.create(global_position, destination, 1 | (2 if enemy else 4 | TURRET_LAYER))
+	query.collide_with_areas = not enemy
 	if is_instance_valid(shooter):
 		query.exclude = [shooter.get_rid()]
 	var hit := get_world_2d().direct_space_state.intersect_ray(query)
@@ -27,6 +29,10 @@ func _physics_process(delta: float) -> void:
 		var target = hit.collider
 		if target is IntroGuard and not target.is_dead:
 			target.take_damage(1 if target.has_method("begin_recovery") else damage)
+		elif not enemy and target.is_in_group("tower_turrets"):
+			target.take_turret_hit()
+			queue_free()
+			return
 		elif enemy and target is IntroPlayer:
 			target.take_damage(1)
 		level.emit_effect("hit", global_position)

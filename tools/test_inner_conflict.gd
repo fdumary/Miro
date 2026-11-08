@@ -136,6 +136,29 @@ func run() -> void:
 			if int(entry.floor) == number:
 				expected += 1
 		check(is_instance_valid(director().frame) and director().terminals.size() == expected, "Floor %d places its frame and %d terminal(s)" % [number, expected])
+		level.finish_dialogue()
+		if director().terminals.is_empty():
+			continue
+		var controls = level.player.controls
+		controls.has_remote = false
+		level.player.position = director().terminals[0].position
+		controls.open_local_console()
+		check(controls.local_console and controls.remote_open, "Floor %d terminal works without the remote" % number)
+		controls.run_command("scan")
+		check("local" in controls.output.text, "Floor %d console can scan its connection" % number)
+		if number == 4:
+			var turrets := get_nodes_in_group("tower_turrets")
+			controls.run_command("turrets off")
+			check(turrets.all(func(turret): return not turret.disabled), "Physical console requires authentication")
+			controls.command.text = "login incorrect"
+			controls.command.text_changed.emit(controls.command.text)
+			check(controls.command.secret, "Console masks password entry")
+			controls.run_command(controls.command.text)
+			check("incorrect" not in controls.console_echo.text and "****" in controls.console_echo.text, "Echo hides the password")
+			controls.run_command("login root")
+			controls.run_command("turrets off")
+			check(not turrets.is_empty() and turrets.all(func(turret): return turret.disabled), "Authenticated physical console disables floor turrets")
+		controls.close_panels()
 		for prop in director().lore_props():
 			print("Floor %d %s at %s" % [number, prop.name, prop.global_position])
 	check(director().frame.assigned, "Level 5's office painting is chosen on arrival")

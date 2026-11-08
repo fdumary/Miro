@@ -6,6 +6,11 @@ var layout: Array[String] = []
 var active := "blanket"
 var inventory_open := false
 var remote_open := false
+var local_console := false
+var turret_login: Node2D
+var console_title: Label
+var console_icon: TextureRect
+var console_echo: Label
 var has_remote := false
 var remote_unlocked := false
 var focus := false
@@ -85,6 +90,8 @@ func _input(event: InputEvent) -> void:
 			start_reload()
 		elif key == KEY_B:
 			next_beat()
+		elif key == KEY_T:
+			open_local_console()
 		else:
 			return
 		get_viewport().set_input_as_handled()
@@ -179,6 +186,11 @@ func strum() -> int:
 		elif not guard.asleep:
 			guard.fall_asleep()
 			affected += 1
+	for turret in get_tree().get_nodes_in_group("tower_turrets"):
+		var point: Vector2 = turret.target_point()
+		var origin := player.global_position + Vector2(0, -8)
+		if point.distance_to(origin) <= radius and player.level.clear_sight(origin, point):
+			turret.stun()
 	if on_beat:
 		player.level.notify("On the beat. The song carries further.", 1.5)
 	return affected
@@ -199,7 +211,7 @@ func next_beat() -> String:
 	var text := ""
 	if not has_remote:
 		text = "No player on me."
-	elif not remote_unlocked:
+	elif not remote_unlocked and not local_console:
 		text = "The MP3 is locked. Open the remote [5] and type hack."
 	else:
 		var unlocked: Array = campaign.unlocked_tracks()
@@ -251,13 +263,36 @@ func build_panels() -> void:
 	remote_panel = player.level.panel_at(Vector2(70, 95), Vector2(500, 220))
 	var remote_box := VBoxContainer.new()
 	remote_panel.add_child(remote_box)
+	var header := HBoxContainer.new()
+	remote_box.add_child(header)
+	console_icon = TextureRect.new()
+	console_icon.custom_minimum_size = Vector2(24, 24)
+	console_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	console_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	header.add_child(console_icon)
+	console_title = Label.new()
+	header.add_child(console_title)
+	console_echo = Label.new()
+	var console_font := SystemFont.new()
+	console_font.font_names = PackedStringArray(["Menlo", "Consolas", "DejaVu Sans Mono"])
+	console_echo.add_theme_font_override("font", console_font)
+	console_echo.add_theme_font_size_override("font_size", 11)
+	console_echo.add_theme_color_override("font_color", Color("a4d6bc"))
+	console_echo.clip_text = true
+	remote_box.add_child(console_echo)
 	output = Label.new()
-	output.custom_minimum_size = Vector2(460, 125)
+	output.custom_minimum_size = Vector2(460, 100)
 	output.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	output.add_theme_font_size_override("font_size", 12)
 	remote_box.add_child(output)
 	command = LineEdit.new()
 	command.placeholder_text = "miro@player:~$ help"
+	command.add_theme_font_override("font", console_font)
+	command.add_theme_font_size_override("font_size", 12)
+	command.max_length = 120
+	command.secret_character = "*"
+	command.text_changed.connect(func(value: String):
+		command.secret = not value.is_empty() and (command.secret or value.strip_edges().begins_with("login ")))
 	command.text_submitted.connect(run_command)
 	remote_box.add_child(command)
 	var done := Button.new()
@@ -290,6 +325,7 @@ func swap_slot(index: int) -> void:
 func close_panels() -> void:
 	inventory_open = false
 	remote_open = false
+	local_console = false
 	panel.hide()
 	remote_panel.hide()
 	swap_from = -1
@@ -298,23 +334,48 @@ func open_remote() -> void:
 	if not has_remote:
 		player.level.notify("Judas, the first Keeper, carries an MP3 player. Loot or pickpocket him.")
 		return
+	show_console(false)
+
+func open_local_console() -> void:
+	if player.level.world_features.security_terminal() == null:
+		player.level.notify("Get within reach of a records or checkpoint terminal. [T]")
+		return
+	show_console(true)
+
+func show_console(local: bool) -> void:
+	local_console = local
 	remote_open = true
 	remote_panel.show()
-	output.text = "KEEPER MP3 · service port locked\nA script in your handwriting: unlock.sh\nType: hack" if not remote_unlocked else "miro@player:~$\nType help for commands. Nearby access points only."
-	command.text = ""
+	console_title.text = "TOWER SECURITY TERMINAL" if local else "KEEPER MP3 · SERVICE CONSOLE"
+	console_icon.texture = preload("res://assets/library/terminal.png") if local else preload("res://assets/weapons/remote.svg")
+	console_echo.text = ""
+	output.text = "Type help for commands." if local or remote_unlocked else "A script in your handwriting: unlock.sh. Type hack."
+	command.placeholder_text = "tower@local:~$ help" if local else "miro@player:~$ help"
+	command.clear()
+	command.secret = false
 	command.grab_focus()
 
 func run_command(raw: String) -> void:
 	var text := raw.strip_edges()
+	var is_login := text.begins_with("login ")
+	var echo := "login " + "*".repeat(text.trim_prefix("login ").length()) if is_login else ("***" if command.secret else text)
+	console_echo.text = "> " + echo
 	command.clear()
+	command.secret = false
+	if local_console and (text in ["hack", "./unlock.sh", "lights test", "music", "next"] or text.begins_with("play ")):
+		output.text = "Use the Keeper MP3 for that command. Type help for security commands."
+		return
 	if text == "hack" or text == "./unlock.sh":
 		remote_unlocked = true
 		get_node("/root/Campaign").remote_unlocked = true
 		output.text = "Service mode unlocked. Your scripts survived.\nMP3 playback active. Type help."
-	elif not remote_unlocked:
+	elif not remote_unlocked and not local_console:
 		output.text = "Service port locked. Type hack to run your unlock script."
 	elif text == "help":
-		output.text = "help · scan · login <password> · cameras off · music · play <n> · next ([B])\n1. Stand near an access point and scan.\n2. Find its password, then login <password>.\n3. Run cameras off (or lights test on floor 1). Esc closes."
+		output.text = "scan · login <password> · cameras off · turrets off"
+		if not local_console:
+			output.text += " · music · play <n> · next ([B])"
+		output.text += "\nStay near the terminal. Login passwords are hidden. Esc closes."
 	elif text == "next":
 		output.text = next_beat()
 	elif text == "music":
@@ -337,21 +398,35 @@ func run_command(raw: String) -> void:
 		else:
 			output.text = "No track %d. Type music to list them." % index
 	elif text == "scan":
-		if at_early_port():
-			output.text = "service.local · maintenance account\nSticker: user root · password root\n" + ("Practice lamp available. login root, then lights test" if get_node("/root/Campaign").current_floor == 1 else "Optional corridor camera. login root, then cameras off")
-			return
-		output.text = "checkpoint.local · 2 cameras · login required\nPassword clue: listen to the Keepers or inspect the terminal." if at_checkpoint() else "No writable access point in range.\nThe security checkpoint on floor 3 has a local terminal."
-	elif text.begins_with("login "):
-		if not at_checkpoint() and not at_early_port():
-			output.text = "No local connection. Move to the checkpoint terminal."
+		var terminal: Node2D = player.level.world_features.security_terminal()
+		if at_checkpoint():
+			output.text = "checkpoint.local · linked cameras and floor turrets · login required\nPassword clue: listen to the Keepers or inspect the maintenance slip."
+		elif terminal != null:
+			output.text = "records.local · floor turret controls\nMaintenance slip: password root"
+		elif at_early_port():
+			output.text = "service.local · maintenance account\nSticker: user root · password root\n" + ("Practice lamp: lights test" if get_node("/root/Campaign").current_floor == 1 else "Optional corridor camera: cameras off")
+		else:
+			output.text = "No writable access point in range."
+	elif is_login:
+		var terminal: Node2D = player.level.world_features.security_terminal()
+		if terminal == null and not at_checkpoint() and not at_early_port():
+			output.text = "No local connection. Move beside an access point."
 		elif text != "login root":
-			output.text = "Access denied. Listen for the password near the terminal."
+			output.text = "Access denied. Password is case-sensitive."
 		else:
 			if at_early_port():
 				player.level.world_features.early_authenticated = true
-			else:
+			if at_checkpoint():
 				player.level.world_features.terminal_authenticated = true
-			output.text = "root@checkpoint: authenticated\nYour script: cameras off"
+			turret_login = terminal
+			output.text = "Authenticated. " + ("Use turrets off for this floor." if terminal != null else "Type help for available commands.")
+	elif text == "turrets off":
+		var terminal: Node2D = player.level.world_features.security_terminal()
+		if terminal == null or (terminal != turret_login and not (at_checkpoint() and player.level.world_features.terminal_authenticated)):
+			output.text = "Stay at an authenticated terminal: login <password>"
+			return
+		var count: int = player.level.world_features.disable_turrets()
+		output.text = "Turrets disabled on this floor: %d" % count if count > 0 else "No active turrets on this floor."
 	elif text == "lights test":
 		if at_early_port() and player.level.world_features.early_authenticated:
 			player.level.emit_effect("hit", player.level.world_features.access_point)

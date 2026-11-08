@@ -9,6 +9,7 @@ var read := false
 var time := 0.0
 
 func _ready() -> void:
+	add_to_group("security_terminals")
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
 func _process(delta: float) -> void:

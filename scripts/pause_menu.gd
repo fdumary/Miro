@@ -84,5 +84,5 @@ func toggle_side(id: String, force := false) -> void:
 		var box := SCREENS.column(side, Rect2(220, 60, 390, 200), 2)
 		SCREENS.heading(box, "CONTROLS", 14)
 		var tuning: Dictionary = get_node("/root/Campaign").tuning()
-		var text := "A/D Move · W/S Ladders · Space twice Double jump\nC Dash · Left Ctrl Crouch (crawl under walls) · E Interact\n1–5 Select · Q Blanket · N Inventory · R Reload\nLeft click Use · Right click Focus / place C4\nZ Think it through (up to 3 hints per objective)\nB Next beat on the MP3 · M Mute\nBlanket: shadows only · %ds active / %ds recharge\nEsc Resume · Backspace Retry · F10 Menu" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
+		var text := "A/D Move · W/S Ladders · Space twice Double jump\nC Dash · Left Ctrl Crouch (crawl under walls) · E Interact\n1–5 Select · Q Blanket · N Inventory · R Reload\nLeft click Use · Right click Focus / place C4\nZ Think it through (up to 3 hints per objective)\nT Open a nearby terminal · B Next beat · M Mute\nBlanket: shadows only · %ds active / %ds recharge\nEsc Resume · Backspace Retry · F10 Menu" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
 		SCREENS.note(box, text, 10, SCREENS.SAND)

@@ -315,7 +315,7 @@ func update_hint() -> void:
 	var prop = usable_prop()
 	if prop == null:
 		return
-	var text := "[E] Look at the painting" if prop == frame else "[E] Read the records terminal"
+	var text := "[E] Look at the painting" if prop == frame else "[E] Read records  •  [T] Open security console"
 	level.hint_label.text = text
 	level.hint_icon.texture = VISUALS.hint_texture(text)
 	level.hint_icon.visible = level.hint_icon.texture != null

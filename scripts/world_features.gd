@@ -223,6 +223,30 @@ func spawn_prop(point: Vector2, kind: String, title: String) -> void:
 func reachable(point: Vector2, distance := 36.0) -> bool:
 	return level.player.global_position.distance_to(point) <= distance and level.clear_sight(level.player.global_position + Vector2(0, -8), point + Vector2(0, -8))
 
+func security_terminal() -> Node2D:
+	var nearest: Node2D
+	var distance := 48.0
+	var terminals := get_tree().get_nodes_in_group("security_terminals")
+	var checkpoint: Node2D = level.areas.get_node_or_null("RemoteTerminal")
+	if checkpoint != null:
+		terminals.append(checkpoint)
+	for terminal in terminals:
+		if not level.is_ancestor_of(terminal):
+			continue
+		var gap: float = level.player.global_position.distance_to(terminal.global_position)
+		if gap <= distance and reachable(terminal.global_position, distance):
+			nearest = terminal
+			distance = gap
+	return nearest
+
+func disable_turrets() -> int:
+	var count := 0
+	for turret in get_tree().get_nodes_in_group("tower_turrets"):
+		if level.is_ancestor_of(turret) and not turret.disabled:
+			turret.disable()
+			count += 1
+	return count
+
 func story_distance() -> float:
 	var closest := 48.0
 	for area in level.areas.get_children():
@@ -641,6 +665,8 @@ func build_password_panel() -> void:
 	title.text = "CHECKPOINT LOGIN"
 	box.add_child(title)
 	password_input = LineEdit.new()
+	password_input.secret = true
+	password_input.secret_character = "*"
 	password_input.placeholder_text = "Password (case-sensitive)"
 	box.add_child(password_input)
 	password_input.text_submitted.connect(submit_password)
