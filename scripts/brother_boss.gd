@@ -99,7 +99,7 @@ func _physics_process(delta: float) -> void:
 		if level.has_floor_below(global_position + Vector2(facing * 20, 0)):
 			velocity.x = facing * 230
 		if global_position.distance_to(level.player.global_position) < 28:
-			level.player.take_damage(1)
+			level.player.take_damage(2)
 		if phase_left <= 0 or is_on_wall():
 			begin_recovery()
 	elif phase_left <= 0:
@@ -113,7 +113,7 @@ func _physics_process(delta: float) -> void:
 		if not level.clear_sight(projectile, next):
 			projectile_live = false
 		elif Geometry2D.get_closest_point_to_segment(level.player.global_position, projectile, next).distance_to(level.player.global_position) < 13:
-			level.player.take_damage(1)
+			level.player.take_damage(2)
 			projectile_live = false
 		projectile = next
 		if projectile.distance_to(global_position) > 600:

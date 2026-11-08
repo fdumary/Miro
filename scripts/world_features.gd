@@ -143,6 +143,14 @@ func place_props_after_physics() -> void:
 func add_props() -> void:
 	level.player.set_collision_mask_value(6, true)  # crates and window sills
 	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
+	# Tonics: the little bottles beside the cots (drawn where scaffold_art once stamped them).
+	if floor_number == 2:
+		var storey_list: Array = level.definition.get("storeys", [])
+		for index in range(mini(3, storey_list.size())):
+			for step in range(5):
+				var bottle_x := 220.0 + step * 330 + index * 37 + 70
+				if bottle_x <= float(level.definition.world_size[0]) - 120.0:
+					spawn_prop(Vector2(bottle_x, float(storey_list[index]) - 8.0), "potion", "TONIC")
 	if authored.has("cases"):
 		# Authored layouts place every case and hiding spot by hand (tools/level_layouts.py).
 		for point in authored.cases:
@@ -190,7 +198,7 @@ const LEVEL_ONE_CRATES := [Vector2(477, 252), Vector2(968, 448), Vector2(530, 67
 
 func spawn_crate(point: Vector2) -> void:
 	# `point` is on the floor; check clearance from where the crate's prop marker sits.
-	point = free_spot(point - Vector2(0, 16)) + Vector2(0, 16)
+	point = free_spot(point - Vector2(0, 16), "crate") + Vector2(0, 16)
 	var tiles := level.get_node_or_null("StoneFloors") as TileMapLayer
 	if tiles:
 		for step in range(8):
@@ -220,8 +228,8 @@ func spawn_crate(point: Vector2) -> void:
 	add_child(body)
 
 func spawn_prop(point: Vector2, kind: String, title: String) -> void:
-	if kind in ["case", "hide"]:
-		point = free_spot(point)
+	if kind in ["case", "hide", "crate"]:
+		point = free_spot(point, kind)
 	var prop := Node2D.new()
 	prop.set_script(load("res://scripts/review_prop.gd"))
 	prop.position = point
@@ -261,7 +269,7 @@ func disable_cameras() -> int:
 func disable_turrets() -> int:
 	var count := 0
 	for turret in get_tree().get_nodes_in_group("tower_turrets"):
-		if level.is_ancestor_of(turret) and not turret.disabled:
+		if level.is_ancestor_of(turret) and not turret.disabled and not turret.is_in_group("security_cameras"):
 			turret.disable()
 			count += 1
 	return count
@@ -278,7 +286,7 @@ func nearby_prop():
 	var distance := minf(36, story_distance())
 	for prop in props:
 		var candidate: float = level.player.global_position.distance_to(prop.global_position)
-		if candidate < distance and reachable(prop.global_position) and not (prop.kind == "case" and prop.used):
+		if candidate < distance and reachable(prop.global_position) and not (prop.kind in ["case", "potion"] and prop.used):
 			best = prop
 			distance = candidate
 	return best
@@ -362,6 +370,8 @@ func hint() -> String:
 	if prop and prop.kind == "access":
 		return "[E] Service port · select remote to connect"
 	if prop:
+		if prop.kind == "potion":
+			return "[E] Drink tonic (+1 heart)" if level.player.health < level.player.max_health else "Tonic (you're not hurt)"
 		return "[E] Take ammunition" if prop.kind == "case" else "[E] Hide in " + prop.title.to_lower()
 	return ""
 
@@ -382,9 +392,18 @@ func try_interact() -> bool:
 	if prop == null:
 		return false
 	if prop.kind == "access":
-		level.player.controls.open_remote()
+		level.player.controls.open_remote(true)
 		return true
-	if prop.kind == "case":
+	if prop.kind == "potion":
+		if level.player.health >= level.player.max_health:
+			level.notify("You're not hurt. Save it for later.")
+		else:
+			level.player.health = mini(level.player.max_health, level.player.health + 2)
+			prop.used = true
+			prop.queue_redraw()
+			get_node("/root/SoundFX").play_sound("sigil", -14, 1.7)
+			level.notify("You drink the tonic. A heart's worth of strength comes back.")
+	elif prop.kind == "case":
 		if level.player.controls.collect_ammo_case():
 			prop.used = true
 			prop.queue_redraw()
@@ -640,7 +659,7 @@ func update_bubbles(delta: float) -> void:
 	# The first time a live turret comes into view, Miro sizes it up.
 	if not turret_hinted:
 		for turret in get_tree().get_nodes_in_group("tower_turrets"):
-			if level.is_ancestor_of(turret) and turret.health > 0 and not turret.disabled and turret.target_point().distance_to(level.player.global_position) < 230 and level.clear_sight(level.player.global_position, turret.target_point()):
+			if level.is_ancestor_of(turret) and not turret.is_in_group("security_cameras") and turret.health > 0 and not turret.disabled and turret.target_point().distance_to(level.player.global_position) < 230 and level.clear_sight(level.player.global_position, turret.target_point()):
 				turret_hinted = true
 				think(TURRET_HINT)
 				return
@@ -765,20 +784,20 @@ func _exit_tree() -> void:
 ## Level items never spawn on top of a Keeper, a story station, a ladder or another item.
 ## `point` is a prop position (16 px above the floor). Slides along the same floor in 16 px
 ## steps, alternating sides, up to 192 px; keeps the authored spot if nothing nearby is free.
-func free_spot(point: Vector2) -> Vector2:
+func free_spot(point: Vector2, kind := "") -> Vector2:
 	for step in range(0, 13):
 		for direction in [1, -1]:
 			if step == 0 and direction == -1:
 				continue
 			var candidate := point + Vector2(direction * step * 16.0, 0)
-			if spot_taken(candidate):
+			if spot_taken(candidate, kind):
 				continue
 			if step > 0 and not level.has_floor_below(candidate + Vector2(0, 13)):
 				continue
 			return candidate
 	return point
 
-func spot_taken(point: Vector2) -> bool:
+func spot_taken(point: Vector2, kind := "") -> bool:
 	for guard in level.guards():
 		if not is_instance_valid(guard) or absf(guard.global_position.y - point.y) >= 40:
 			continue
@@ -788,7 +807,13 @@ func spot_taken(point: Vector2) -> bool:
 		if point.x > left - 30 and point.x < right + 30:
 			return true
 	for prop in props:
-		if is_instance_valid(prop) and absf(prop.global_position.x - point.x) < 32 and absf(prop.global_position.y - point.y) < 24:
+		if not is_instance_valid(prop) or absf(prop.global_position.y - point.y) >= 24:
+			continue
+		# Crates and the wall hides (vents, lockers, crawlspaces) don't sit side by side.
+		var apart := 32.0
+		if (kind == "crate" and prop.kind == "hide") or (kind == "hide" and prop.kind == "crate"):
+			apart = 140.0
+		if absf(prop.global_position.x - point.x) < apart:
 			return true
 	for area in level.areas.get_children():
 		if area.kind == "ladder":

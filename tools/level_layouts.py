@@ -282,6 +282,15 @@ def level_2():
     g.put('guard', 29, 9, name='CellKeeper', patrol=[24, 32])  # added last: keeps roster order
     g.put('guard', 21, 9, name='InfirmaryKeeper', patrol=[19, 23])
     g.put('guard', 32, 9, name='GateKeeper', patrol=[31, 33])
+    # Playtest round 3: more Keepers between the beds, laundry, barracks, stores and the vault.
+    g.put('guard', 14, 16, name='RoundsKeeper', patrol=[10, 18])
+    g.put('guard', 49, 16, name='StairKeeper', patrol=[46, 52])
+    g.put('guard', 35, 23, name='LinenKeeper', patrol=[32, 39])
+    g.put('guard', 47, 23, name='DryerKeeper', patrol=[44, 51])
+    g.put('guard', 12, 31, name='BunkKeeper', patrol=[10, 16])
+    g.put('guard', 32, 36, name='OfficeKeeper', patrol=[29, 35])   # on the raised dais
+    g.put('guard', 14, 45, name='VaultKeeper', patrol=[11, 19])
+    g.put('turret', 0, 14, mount='right')   # a wall turret on the west wall of the beds corridor
     g.put('cover', 33, 9)
     g.put('exit', 3, 45)
     route = [

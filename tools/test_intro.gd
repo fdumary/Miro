@@ -55,6 +55,9 @@ func move_to(x: float, limit: int = 500, fight: bool = false) -> bool:
 					p.facing = signf(g.position.x - p.position.x)
 					p.shank()
 		await frames(1)
+		# The gate scene plays by itself as Miro reaches it; a player presses E through it.
+		if level.dialogue_event == "brother" and not level.dialogue.is_empty():
+			level.finish_dialogue()
 		count += 1
 	Input.action_release("move_left")
 	Input.action_release("move_right")
@@ -101,8 +104,10 @@ func run() -> void:
 	await frames(2)
 	Input.action_release("move_right")
 	check(level.player.is_concealed, "Movement preserves timed stealth")
+	level.brother_heard = true  # the gate scene plays on its own near x=570; skip it here
 	level.player.position = Vector2(600, 237)
 	await frames(3)
+	level.brother_heard = false
 	level.player.toggle_stealth()
 	check(not level.player.is_concealed, "Manual cancellation ends stealth anywhere")
 	g.position = Vector2(570, 236)
@@ -114,7 +119,8 @@ func run() -> void:
 	level.player.position = Vector2(570, 237)
 	check(not g.detect_player(), "Guard cannot see player through floor / different tier")
 	# Body discovery creates search without revealing the hidden killer.
-	level.player.position = Vector2(660, 237)
+	level.brother_heard = true
+	level.player.position = Vector2(730, 237)
 	await frames(3)
 	level.player.stealth_cooldown_left = 0
 	level.player.toggle_stealth()
@@ -129,18 +135,19 @@ func run() -> void:
 	var casualties: int = level.player.casualty_count
 	g.die()
 	check(level.player.casualty_count == casualties, "Death is counted only once")
+	level.brother_heard = false
 	# Explicit solid occluder on same tier.
 	check(not level.clear_sight(Vector2(410, 215), Vector2(480, 215)), "Stone stair physically blocks sight ray")
 	# Damage recovery and dodge.
 	level.player.invulnerability_left = 0
 	level.player.dodge_left = 0
-	level.player.take_damage(1)
-	level.player.take_damage(1)
-	check(level.player.health == 2, "Damage has 0.8 second invulnerability window")
+	level.player.take_damage(2)
+	level.player.take_damage(2)
+	check(level.player.health == 4, "Damage has 0.8 second invulnerability window")
 	level.player.invulnerability_left = 0
 	level.player.dodge_left = 0.2
-	level.player.take_damage(1)
-	check(level.player.health == 2, "Dodge avoids an incoming strike")
+	level.player.take_damage(2)
+	check(level.player.health == 4, "Dodge avoids an incoming strike")
 	# Alternate cell exits in fresh real scenes.
 	await fresh()
 	await supplies()
@@ -176,7 +183,7 @@ func run() -> void:
 	check(await move_to(385, 500, true), "Exit cell into gallery")
 	check(await move_to(655, 650, true), "Jump staggered shelves and cross upper patrol")
 	level.interact()
-	check(not level.dialogue.is_empty(), "Barred-gate voice encounter starts")
+	check(level.brother_heard or not level.dialogue.is_empty(), "Barred-gate voice encounter starts (on its own at the gate)")
 	level.finish_dialogue()
 	check(level.brother_heard, "Voice encounter flag survives skipping")
 	check(await move_to(728, 200, true), "Reach first ladder opening")
@@ -200,7 +207,7 @@ func run() -> void:
 	level.interact()
 	check(level.completed and not level.player.is_dead, "Full physical intro route completes alive")
 	await fresh()
-	check(not level.door_open and not level.sigil_placed and not level.brother_heard and level.player.casualty_count == 0 and level.player.health == 3, "Fresh retry resets all floor progression")
+	check(not level.door_open and not level.sigil_placed and not level.brother_heard and level.player.casualty_count == 0 and level.player.health == 6, "Fresh retry resets all floor progression")
 	await supplies()
 	level.player.position = Vector2(1030, 656)
 	level.interact()

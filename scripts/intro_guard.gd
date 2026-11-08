@@ -53,6 +53,7 @@ var chase_speed := 78.0
 ## True while a Keeper who lost sight of Miro is still running after him.
 var pursuing := false
 const BODY_SIGHT := 260.0
+const HEARING_RANGE := 85.0
 const BODY_NEARBY := 190.0
 const HOP_SPEED := 300.0
 
@@ -71,7 +72,7 @@ func _ready() -> void:
 
 func can_see_point(point: Vector2, distance_limit: float = 165.0) -> bool:
 	var difference := point - global_position
-	return difference.length() < distance_limit and absf(difference.y) < 45 and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
+	return difference.length() < distance_limit and absf(difference.y) < (80 if not is_on_floor() else (70 if absf(difference.x) < 40 else 45)) and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
 
 func detect_player() -> bool:
 	if is_dead or asleep or not level or level.player.is_dead or (level.player.is_concealed or level.player.in_hiding_spot):
@@ -79,7 +80,19 @@ func detect_player() -> bool:
 	# Prisoners inside the locked cell are not escapees yet.
 	if not level.door_open and level.player.global_position.x < level.get_node("Interactables/CellLock").global_position.x:
 		return false
-	return can_see_point(level.player.global_position, DISTRACTED_SIGHT if distracted else sight)
+	return can_see_point(level.player.global_position, DISTRACTED_SIGHT if distracted else sight) or hears_player()
+
+## Footsteps at a run: a Keeper who hears Miro pounding along close by, for about half a second,
+## turns on him even unseen. A quick last step in for a pickpocket is too brief to be heard.
+var heard_time := 0.0
+func hears_player() -> bool:
+	var p = level.player
+	var difference: Vector2 = p.global_position - global_position
+	if p.crouching or p.is_concealed or p.in_hiding_spot or absf(p.velocity.x) < p.movement_speed * 0.9 or absf(difference.x) >= HEARING_RANGE or absf(difference.y) >= 40.0:
+		heard_time = 0.0
+		return false
+	heard_time += get_physics_process_delta_time()
+	return heard_time > 0.5
 
 func _physics_process(delta: float) -> void:
 	time += delta

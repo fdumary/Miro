@@ -54,12 +54,12 @@ func run() -> void:
 
 	# Difficulty: Hard means fewer hearts, longer blanket recharge, sharper Keepers.
 	await load_level("res://scenes/levels/level_02.tscn")
-	check(level.player.health == 2 and level.player.stealth_cooldown == 11.0, "Hard: 2 hearts and an 11 s blanket recharge")
+	check(level.player.health == 4 and level.player.stealth_cooldown == 11.0, "Hard: 2 hearts and an 11 s blanket recharge")
 	var keeper = level.guards()[0]
 	check(keeper.sight > 165.0 and keeper.attack_gap < 2.1, "Hard: Keepers see further and shoot sooner")
 	campaign.set_difficulty("easy")
 	await load_level("res://scenes/levels/level_02.tscn")
-	check(level.player.health == 5 and level.player.stealth_cooldown == 5.0, "Easy: 5 hearts and a 5 s blanket recharge")
+	check(level.player.health == 10 and level.player.stealth_cooldown == 5.0, "Easy: 5 hearts and a 5 s blanket recharge")
 	campaign.set_difficulty("medium")
 
 	# Pause menu.

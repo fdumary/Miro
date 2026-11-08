@@ -4,6 +4,41 @@
   "miro_delivery": "",
   "miro_thought_delivery": "[whispers]",
   "voices": {
+    "rhea": {
+      "name": "Rachel (premade)",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "stability": 0.5
+    },
+    "marta": {
+      "name": "Domi (premade)",
+      "voice_id": "AZnzlk1XvdvUeBnXmlld",
+      "stability": 0.5
+    },
+    "odette": {
+      "name": "Elli (premade)",
+      "voice_id": "MF3mGyEYCl7XYWbV9V6O",
+      "stability": 0.5
+    },
+    "sunniva": {
+      "name": "Dorothy (premade)",
+      "voice_id": "ThT5KcBeYPX3keUQqHPh",
+      "stability": 0.5
+    },
+    "calla": {
+      "name": "Charlotte (premade)",
+      "voice_id": "XB0fDUnXU5powFXDhCwa",
+      "stability": 0.5
+    },
+    "ingrid": {
+      "name": "Matilda (premade)",
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "stability": 0.5
+    },
+    "noor": {
+      "name": "Nicole (premade)",
+      "voice_id": "piTKgcLEGmPE4e6mEKli",
+      "stability": 0.5
+    },
     "rook": {
       "name": "Brian (premade)",
       "voice_id": "nPczCjzI2devNBz1zQrb",

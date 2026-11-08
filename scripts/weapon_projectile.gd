@@ -34,7 +34,8 @@ func _physics_process(delta: float) -> void:
 			queue_free()
 			return
 		elif enemy and target is IntroPlayer:
-			target.take_damage(1)
+			# A pistol round or a turret bolt takes a heart; an SMG round takes half of one.
+			target.take_damage(1 if is_instance_valid(shooter) and shooter.get("weapon_kind") == "smg" else 2)
 		level.emit_effect("hit", global_position)
 		queue_free()
 		return

@@ -9,8 +9,15 @@ const WARM = Color("f2d3ab")
 
 const WINDOWS := [Vector2(350, 135), Vector2(900, 135), Vector2(560, 330), Vector2(180, 555), Vector2(890, 555)]
 
+const TORCHES := [Vector2(300, 183), Vector2(615, 178), Vector2(1005, 175), Vector2(920, 380), Vector2(470, 374), Vector2(145, 608), Vector2(690, 604), Vector2(1000, 597)]
+
 func _ready() -> void:
 	super._ready()
+	if get_parent().get("light_points") != null:
+		# The first torch (outside the cell) stays out of the blanket's no-go zones, so the
+		# tutorial's first refuge works.
+		for point in TORCHES.slice(1):
+			get_parent().light_points.append(point)
 	for point in WINDOWS:
 		add_ledge(Rect2(point + Vector2(-23, 23), Vector2(46, 4)))
 
@@ -41,7 +48,7 @@ func _draw() -> void:
 		draw_line(Vector2(x, 145), Vector2(x, 249), Color(0.55, 0.43, 0.61, 0.35), 2)
 	draw_line(Vector2(55, 185), Vector2(251, 185), VIOLET.darkened(0.2), 2)
 	draw_string(ThemeDB.fallback_font, Vector2(78, 132), "CELL 07", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, PINK)
-	for point in [Vector2(300, 183), Vector2(615, 178), Vector2(1005, 175), Vector2(920, 380), Vector2(470, 374), Vector2(145, 608), Vector2(690, 604), Vector2(1000, 597)]:
+	for point in TORCHES:
 		torch(point)
 	# Crates are real props now (world_features.spawn_crate): solid on top, hide inside with E.
 	for point in [Vector2(350, 448), Vector2(700, 672), Vector2(1035, 252)]:

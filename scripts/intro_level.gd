@@ -40,6 +40,7 @@ var effects: Node2D
 # Branch tracking (committed to Campaign only when the floor is completed).
 var floor_detections := 0
 var was_spotted := false
+var voice_remote: TextureRect
 var loud_events := 0
 var stealth_bonus := 0
 
@@ -73,6 +74,7 @@ func _ready() -> void:
 func apply_difficulty() -> void:
 	var tuning: Dictionary = get_node("/root/Campaign").tuning()
 	player.health = int(tuning.health)
+	player.max_health = player.health
 	player.stealth_cooldown = float(tuning.stealth_cooldown)
 	player.stealth_duration = float(tuning.stealth_duration)
 
@@ -172,20 +174,26 @@ func _process(delta: float) -> void:
 		update_stuck(delta)
 		message_left = maxf(0, message_left - delta)
 		shot_flash = maxf(0, shot_flash - delta)
+	# The voice behind the bars speaks on its own as Miro reaches the gate.
+	if not brother_heard and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and nearby("brother", 90):
+		start_brother()
 	var pursuing := false
 	var searching := false
 	for guard in guards():
 		if not guard.is_dead:
 			pursuing = pursuing or (guard.sees_player and guard.alert_state == IntroGuard.State.ALERT)
-			searching = searching or guard.alert_state == IntroGuard.State.SEARCH or guard.alert_state == IntroGuard.State.SUSPICIOUS
+			searching = searching or guard.alert_state != IntroGuard.State.PATROL
 	if pursuing and not was_spotted and counts_detection():
 		floor_detections += 1
 	was_spotted = pursuing
-	player.detection_state = "SPOTTED" if pursuing else ("HIDDEN" if player.is_concealed else ("SEARCHING / unseen" if searching else "UNSEEN"))
+	player.detection_state = "SPOTTED" if pursuing else ("HIDDEN" if player.is_concealed else ("SEARCHING" if searching else "UNSEEN"))
 	var status := player.detection_state
 	if player.has_key:
 		status += " · KEY"
-	var hearts := "[img=13x12]res://assets/misc/health_heart.png[/img] ".repeat(clampi(player.health, 0, 5))
+	var halves := clampi(player.health, 0, 20)
+	var hearts := "[img=13x12]res://assets/misc/health_heart.png[/img] ".repeat(halves / 2)
+	if halves % 2 == 1:
+		hearts += "[img=7x12 region=0,0,7,12]res://assets/misc/health_heart.png[/img] "
 	var health_text := "MIRO   " + hearts + "   " + status
 	if health_label.text != health_text:
 		health_label.text = health_text
@@ -232,7 +240,11 @@ func _process(delta: float) -> void:
 				radio.say_in_room(str(line[1]), "miro", "Thought" if dialogue_panel.thought else "Voice")
 			else:
 				radio.stop()
+		# The MP3 pops up at the side of the screen while his brother's voice comes through it.
+		voice_remote.visible = str(line[0]) in ["NIRO", "THE VOICE", "BROTHER"] and anchor == player
+		voice_remote.modulate.a = 0.75 + 0.25 * sin(elapsed * 9.0)
 	elif not radio_line.is_empty():
+		voice_remote.visible = false
 		radio_line = ""
 		get_node("/root/RemoteRadio").stop()
 	# Paused: the pause menu (scripts/pause_menu.gd) covers the screen instead.
@@ -404,17 +416,26 @@ func finish_dialogue() -> void:
 func guards() -> Array[Node]:
 	return get_tree().get_nodes_in_group("guards")
 
-func in_cover(point: Vector2) -> bool:
-	var list := areas if is_instance_valid(areas) else get_node_or_null("Interactables")
-	if not list:
+## Light sources (torches, lamps) registered by the level art; moss watchers count too.
+var light_points: Array[Vector2] = []
+const LIGHT_RADIUS := 70.0
+
+## The tower is dark by nature, so the blanket hides Miro anywhere except inside a light's
+## radius. A crouching Miro slips under the radius (the glow is above him).
+func in_light(point: Vector2, crouched := false) -> bool:
+	if crouched:
 		return false
-	for area in list.get_children():
-		if area.kind == "cover":
-			var rect: Rect2 = Rect2(area.global_position - area.area_size / 2, area.area_size)
-			var expanded := Rect2(rect.position.x - 6, rect.position.y - 45, rect.size.x + 12, rect.size.y + 45)
-			if expanded.has_point(point):
-				return true
+	for light in light_points:
+		if absf(light.x - point.x) < LIGHT_RADIUS and absf(light.y - point.y) < 150.0:
+			return true
+	for watcher in get_tree().get_nodes_in_group("security_cameras"):
+		if is_ancestor_of(watcher) and watcher.is_active and watcher.global_position.distance_to(point) < 70.0:
+			return true
 	return false
+
+## True where the blanket works (kept under its old name for the HUD and tests).
+func in_cover(point: Vector2) -> bool:
+	return not in_light(point, is_instance_valid(player) and player.crouching)
 
 func ladder_at(point: Vector2):
 	for area in areas.get_children():
@@ -647,6 +668,15 @@ func build_hud() -> void:
 	header.color = Color(0.15, 0.15, 0.26, 0.92)
 	header.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.add_child(header)
+	voice_remote = TextureRect.new()
+	voice_remote.texture = preload("res://assets/weapons/remote.svg")
+	voice_remote.custom_minimum_size = Vector2(26, 33)
+	voice_remote.size = Vector2(26, 33)
+	voice_remote.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	voice_remote.position = Vector2(606, 150)
+	voice_remote.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	voice_remote.visible = false
+	hud.add_child(voice_remote)
 	var inventory := Control.new()
 	inventory.set_script(preload("res://scripts/weapon_inventory.gd"))
 	inventory.player = player

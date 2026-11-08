@@ -1,26 +1,90 @@
 {
   "conversations": {
     "2": [
-      {"id": "symptoms_1", "speaker": 0, "text": "Another prisoner coughing. Did the transfer orders say where they go?"},
-      {"id": "symptoms_2", "speaker": 1, "text": "Only the ward number. Nobody tells us what happens after that."},
-      {"id": "symptoms_3", "speaker": 0, "text": "Keep your voice down. I'll check the passage. You watch the stairs."},
-      {"id": "treason_1", "speaker": 1, "text": "The one from Cell 07. They say he opened a door he shouldn't have."},
-      {"id": "treason_2", "speaker": 0, "text": "I heard he refused an order. Same thing, up here."}
+      {
+        "id": "symptoms_1",
+        "speaker": 0,
+        "text": "Another prisoner coughing. Did the transfer orders say where they go?"
+      },
+      {
+        "id": "symptoms_2",
+        "speaker": 1,
+        "text": "Only the ward number. Nobody tells us what happens after that."
+      },
+      {
+        "id": "symptoms_3",
+        "speaker": 0,
+        "text": "Keep your voice down. I'll check the passage. You watch the stairs."
+      },
+      {
+        "id": "treason_1",
+        "speaker": 1,
+        "text": "The one from Cell 07. They say he opened a door he shouldn't have."
+      },
+      {
+        "id": "treason_2",
+        "speaker": 0,
+        "text": "I heard he refused an order. Same thing, up here."
+      },
+      {
+        "id": "password_clue",
+        "speaker": 0,
+        "text": "And nobody ever changed the service port login. Root, root. Anyone with a screwdriver could walk right in.",
+        "clue": "root"
+      },
+      {
+        "id": "password_clue_2",
+        "speaker": 1,
+        "text": "Don't say it so loud. Honestly, though, it's the one password in this place I can remember."
+      }
     ],
     "3": [
-      {"id": "password_1", "speaker": 0, "text": "I need to log into this terminal. What was the password again?"},
-      {"id": "password_2", "speaker": 1, "text": "Root. All lowercase. R, O, O, T. Same as last shift.", "clue": "root"},
-      {"id": "password_3", "speaker": 0, "text": "Right. Once you're in, you can disable both checkpoint cameras."},
-      {"id": "password_4", "speaker": 1, "text": "I'll watch the far passage. Don't leave the terminal open."}
+      {
+        "id": "password_1",
+        "speaker": 0,
+        "text": "I need to log into this terminal. What was the password again?"
+      },
+      {
+        "id": "password_2",
+        "speaker": 1,
+        "text": "Root. All lowercase. R, O, O, T. Same as last shift.",
+        "clue": "root"
+      },
+      {
+        "id": "password_3",
+        "speaker": 0,
+        "text": "Right. Once you're in, you can disable both checkpoint cameras."
+      },
+      {
+        "id": "password_4",
+        "speaker": 1,
+        "text": "I'll watch the far passage. Don't leave the terminal open."
+      }
     ],
     "4": [
-      {"id": "ward_1", "speaker": 0, "text": "They sealed the ward again. Even our keys won't open that gate."},
-      {"id": "ward_2", "speaker": 1, "text": "Read the experiment records first. Then use the manual release."},
-      {"id": "ward_3", "speaker": 0, "text": "Fine. I'm turning back to the passage. I don't like standing here."}
+      {
+        "id": "ward_1",
+        "speaker": 0,
+        "text": "They sealed the ward again. Even our keys won't open that gate."
+      },
+      {
+        "id": "ward_2",
+        "speaker": 1,
+        "text": "Read the experiment records first. Then use the manual release."
+      },
+      {
+        "id": "ward_3",
+        "speaker": 0,
+        "text": "Fine. I'm turning back to the passage. I don't like standing here."
+      }
     ]
   },
   "barks": {
-    "body": {"text": "No... I know him. We were on shift together. Someone's here!"},
-    "alert": {"text": "You there! Stop!"}
+    "body": {
+      "text": "No... I know him. We were on shift together. Someone's here!"
+    },
+    "alert": {
+      "text": "You there! Stop!"
+    }
   }
 }

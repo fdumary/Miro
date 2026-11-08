@@ -10,6 +10,9 @@ func _draw() -> void:
 	if kind == "access":
 		draw_texture_rect(preload("res://assets/weapons/remote.svg"), Rect2(-12, -15, 24, 30), false)
 		draw_string(ThemeDB.fallback_font, Vector2(-30, -25), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
+	elif kind == "potion":
+		if not used:
+			draw_texture_rect(ART.texture("bottle"), Rect2(-6, -8, 12, 16), false, Color(1, 1, 1, 0.95))
 	elif kind == "crate":
 		# A crate Miro can stand on, or climb inside to hide [E]. Position is 16 px above the floor.
 		draw_texture_rect(preload("res://assets/environment/crate.png"), Rect2(-14, -11, 28, 27), false)

@@ -437,11 +437,11 @@ func close_panels() -> void:
 	remote_panel.hide()
 	swap_from = -1
 
-func open_remote() -> void:
+func open_remote(at_port := false) -> void:
 	if not has_remote:
 		player.level.notify("Judas, the first Keeper, carries an MP3 player. Loot or pickpocket him.")
 		return
-	show_console(false)
+	show_console(false, at_port)
 
 func open_local_console() -> void:
 	if player.level.world_features.security_terminal() == null:
@@ -449,15 +449,17 @@ func open_local_console() -> void:
 		return
 	show_console(true)
 
-func show_console(local: bool) -> void:
+## `terminal_look`: a service port presents as a plain tower terminal, like the records ones.
+func show_console(local: bool, terminal_look := false) -> void:
 	local_console = local
+	var as_terminal := local or terminal_look
 	remote_open = true
 	remote_panel.show()
-	console_title.text = "TOWER SECURITY TERMINAL" if local else "KEEPER MP3 · SERVICE CONSOLE"
-	console_icon.texture = preload("res://assets/library/terminal.png") if local else preload("res://assets/weapons/remote.svg")
+	console_title.text = "TOWER SECURITY TERMINAL" if as_terminal else "KEEPER MP3 · SERVICE CONSOLE"
+	console_icon.texture = preload("res://assets/library/terminal.png") if as_terminal else preload("res://assets/weapons/remote.svg")
 	console_echo.text = ""
 	output.text = "Type help for commands." if local or remote_unlocked else "A script in your handwriting: unlock.sh. Type hack."
-	command.placeholder_text = "tower@local:~$ help" if local else "miro@player:~$ help"
+	command.placeholder_text = "tower@local:~$ help" if as_terminal else "miro@player:~$ help"
 	command.clear()
 	command.secret = false
 	command.grab_focus()
@@ -469,8 +471,8 @@ func run_command(raw: String) -> void:
 	console_echo.text = "> " + echo
 	command.clear()
 	command.secret = false
-	if local_console and (text in ["hack", "./unlock.sh", "lights test", "music", "next"] or text.begins_with("play ")):
-		output.text = "Use the Keeper MP3 for that command. Type help for security commands."
+	if local_console and (text in ["hack", "./unlock.sh", "lights test", "music"] or text.begins_with("play ")):
+		output.text = "Unknown command. Type help."
 		return
 	if text == "hack" or text == "./unlock.sh":
 		remote_unlocked = true
@@ -479,10 +481,7 @@ func run_command(raw: String) -> void:
 	elif not remote_unlocked and not local_console:
 		output.text = "Service port locked. Type hack to run your unlock script."
 	elif text == "help":
-		output.text = "scan · login <password> · cameras off · turrets off"
-		if not local_console:
-			output.text += " · music · play <n> · next ([B])"
-		output.text += "\nStay near the terminal. Login passwords are hidden. Esc closes."
+		output.text = "scan · login <password> · cameras off · turrets off · next"
 	elif text == "next":
 		output.text = next_beat()
 	elif text == "music":
@@ -543,7 +542,7 @@ func run_command(raw: String) -> void:
 	elif text == "cameras off":
 		if at_early_port() and player.level.world_features.early_authenticated and is_instance_valid(player.level.world_features.practice_camera):
 			player.level.world_features.practice_camera.disable()
-			output.text = "Corridor camera disabled. This route is optional."
+			output.text = "Corridor camera disabled."
 			return
 		if at_checkpoint() and player.level.world_features.terminal_authenticated:
 			close_panels()
@@ -557,7 +556,7 @@ func run_command(raw: String) -> void:
 		else:
 			output.text = "Connect locally and authenticate first: login <password>"
 	else:
-		output.text = "Unknown command. Type help. No real network commands are executed."
+		output.text = "Unknown command. Type help."
 
 func at_early_port() -> bool:
 	return get_node("/root/Campaign").current_floor in [1, 2] and player.level.world_features.reachable(player.level.world_features.access_point, 48)

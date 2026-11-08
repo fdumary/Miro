@@ -507,6 +507,76 @@
       "patrol_left": 882.0,
       "patrol_right": 938.0,
       "sick": false
+    },
+    {
+      "name": "RoundsKeeper",
+      "position": [
+        406.0,
+        432
+      ],
+      "patrol_left": 294.0,
+      "patrol_right": 518.0,
+      "sick": false
+    },
+    {
+      "name": "StairKeeper",
+      "position": [
+        1386.0,
+        432
+      ],
+      "patrol_left": 1302.0,
+      "patrol_right": 1470.0,
+      "sick": false
+    },
+    {
+      "name": "LinenKeeper",
+      "position": [
+        994.0,
+        628
+      ],
+      "patrol_left": 910.0,
+      "patrol_right": 1106.0,
+      "sick": false
+    },
+    {
+      "name": "DryerKeeper",
+      "position": [
+        1330.0,
+        628
+      ],
+      "patrol_left": 1246.0,
+      "patrol_right": 1442.0,
+      "sick": false
+    },
+    {
+      "name": "BunkKeeper",
+      "position": [
+        350.0,
+        852
+      ],
+      "patrol_left": 294.0,
+      "patrol_right": 462.0,
+      "sick": false
+    },
+    {
+      "name": "OfficeKeeper",
+      "position": [
+        910.0,
+        992
+      ],
+      "patrol_left": 826.0,
+      "patrol_right": 994.0,
+      "sick": false
+    },
+    {
+      "name": "VaultKeeper",
+      "position": [
+        406.0,
+        1244
+      ],
+      "patrol_left": 322.0,
+      "patrol_right": 546.0,
+      "sick": false
     }
   ],
   "beats": [
@@ -578,10 +648,6 @@
         [
           "THE VOICE",
           "Come back. Let me take you out of here.\nWe used to trust each other."
-        ],
-        [
-          "MIRO",
-          "Then tell me why these doors are locked from the outside."
         ]
       ],
       "requires": [
@@ -3845,6 +3911,14 @@
           840
         ],
         "mount": "ceiling"
+      },
+      {
+        "kind": "turret",
+        "position": [
+          28.0,
+          406.0
+        ],
+        "mount": "right"
       }
     ],
     "cases": [

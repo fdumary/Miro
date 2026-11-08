@@ -25,6 +25,13 @@
       "Pell",
       "Wick",
       "Garth",
+      "Rhea",
+      "Marta",
+      "Odette",
+      "Sunniva",
+      "Calla",
+      "Ingrid",
+      "Noor",
       "Lusk"
     ],
     "3": [
@@ -864,6 +871,83 @@
       ],
       "personality": "likes watching everyone from above",
       "theme": "serious"
+    },
+    "Rhea": {
+      "alert": "Intruder! Hold the pose, I mean, hold still!",
+      "body": "Oh no. Oh no, I should've stretched him out first.",
+      "delivery": "[bright]",
+      "idle": [
+        "Roll the shoulders, long exhale. Even down here, breathe.",
+        "Twelve hours standing. My core has never been stronger."
+      ],
+      "personality": "pilates devotee who stretches mid-patrol",
+      "theme": "funny"
+    },
+    "Marta": {
+      "alert": "Hey! Put that down, you'll ruin my sourdough! I mean, stop!",
+      "body": "Somebody help him! Somebody get the first aid, and the flour!",
+      "delivery": "[warm]",
+      "idle": [
+        "Starter needs feeding at six. The tower never lets me go home on time.",
+        "Cinnamon rolls on my day off. Ten tower guards, ten rolls."
+      ],
+      "personality": "bakes in her head all shift",
+      "theme": "funny"
+    },
+    "Odette": {
+      "alert": "Stop! You're the most interesting thing that's happened to me all year!",
+      "body": "Of course. Even the dead ones stop to talk to me.",
+      "delivery": "[wistful]",
+      "idle": [
+        "Four years on this floor and not one man who reads.",
+        "Maybe the next prisoner will be handsome. A girl can dream."
+      ],
+      "personality": "lonely and desperate to meet someone",
+      "theme": "funny"
+    },
+    "Sunniva": {
+      "alert": "Not now! Eleven days left on my contract. Eleven!",
+      "body": "Nope. Not signing the incident report. Eleven days.",
+      "delivery": "[determined]",
+      "idle": [
+        "Eleven days. Then a goat farm in the north. Goats don't ask for passwords.",
+        "I've already named the goats. Don't laugh."
+      ],
+      "personality": "counts the days to the end of her contract",
+      "theme": "funny"
+    },
+    "Calla": {
+      "alert": "Oh my, a real runaway! This is going straight into my podcast!",
+      "body": "Okay, that's one for the true crime episode.",
+      "delivery": "[excited]",
+      "idle": [
+        "Episode forty. The case of the missing lunch money. Unsolved.",
+        "Everyone here has a motive. Everyone. Even Garrow."
+      ],
+      "personality": "obsessed with true crime podcasts",
+      "theme": "funny"
+    },
+    "Ingrid": {
+      "alert": "Intruder in the stacks! Quiet, please! Quiet!",
+      "body": "Overdue. Everything about this is overdue.",
+      "delivery": "[prim]",
+      "idle": [
+        "Keeper regulations, section nine, subsection four. Nobody ever reads it.",
+        "Alphabetical. Chronological. Then by whom I like less."
+      ],
+      "personality": "treats the tower like a library she runs",
+      "theme": "funny"
+    },
+    "Noor": {
+      "alert": "Well, well. Look who's out past curfew. Shame about the handcuffs.",
+      "body": "Aw. And I'd just gotten used to the company.",
+      "delivery": "[husky]",
+      "idle": [
+        "The night shift is long and the only company is Garth. Garth!",
+        "I wore the good boots today and nobody even looked."
+      ],
+      "personality": "bored and flirts with everyone, even prisoners",
+      "theme": "funny"
     }
   },
   "hunted": {

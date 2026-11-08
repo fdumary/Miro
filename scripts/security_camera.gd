@@ -10,6 +10,38 @@ var level: Node
 var cone_points := PackedVector2Array()
 const WATCHER := preload("res://assets/environment/watcher_animation.png")
 
+const PROJECTILE := preload("res://scripts/weapon_projectile.gd")
+## A moss watcher takes three hits (stabs, bullets or C4), like a turret.
+var health := 3
+var disabled := false:
+	get:
+		return not is_active
+
+func _ready() -> void:
+	add_to_group("security_cameras")
+	add_to_group("tower_turrets")
+	collision_layer = PROJECTILE.TURRET_LAYER
+	collision_mask = 0
+	var collider := CollisionShape2D.new()
+	var shape := RectangleShape2D.new()
+	shape.size = Vector2(26, 25)
+	collider.shape = shape
+	add_child(collider)
+
+func target_point() -> Vector2:
+	return global_position
+
+func take_turret_hit() -> void:
+	if health <= 0:
+		return
+	health -= 1
+	level.emit_effect("hit", global_position)
+	if health == 0:
+		queue_free()
+
+func stun() -> bool:
+	return false
+
 func _physics_process(delta: float) -> void:
 	if not is_active or level.controls_locked():
 		return

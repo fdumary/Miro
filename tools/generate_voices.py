@@ -180,8 +180,14 @@ def collect_lines(cast):
             if opening:
                 extra.append(opening)
         extra += [branch[reputation]['thought'] for reputation in ('MISSING', 'HUNTED')]
-        source = (ROOT / 'scripts/world_features.gd').read_text(encoding='utf-8')
-        extra += re.findall(r'const TURRET_HINT := "([^"]+)"', source)
+        # The Z hints are Miro thinking it through: every tier, every floor.
+        for path in sorted((ROOT / 'data/levels').glob('level_0*.json')):
+            for tiers in json.loads(path.read_text(encoding='utf-8')).get('hints', {}).values():
+                extra += [tier for tier in tiers if isinstance(tier, str)]
+        level_one = (ROOT / 'scripts/intro_level.gd').read_text(encoding='utf-8')
+        block = re.search(r'const L1_HINTS := [{](.*?)[\n][}]', level_one, re.S)
+        if block:
+            extra += [t.replace(chr(92) + 'n', chr(10)) for t in re.findall(r'"([^"]+)"', block.group(1)) if len(t) > 24]
         for text in extra:
             if text.strip() and text.strip() not in said:
                 said.add(text.strip())
@@ -204,13 +210,13 @@ def collect_lines(cast):
         for path in sorted((ROOT / 'data/levels').glob('level_0*.json')):
             prisoners(json.loads(path.read_text(encoding='utf-8')))
     # Replies a character makes after one of Miro's two-option answers.
-    for choice_id, voice in (('l1_keeper', 'judas'), ('l2_sick', 'prisoner')):
+    for choice_id, voice in (('l1_keeper', 'judas'), ('l2_sick', 'prisoner'), ('l2_offer', 'niro')):
         for choice in json.loads((ROOT / 'data/dialogue_choices.json').read_text(encoding='utf-8'))['choices']:
             if choice['id'] == choice_id:
                 for option in choice['options']:
                     if 'reply' in option and voice in cast['voices']:
                         add(f'{voice}_' + text_hash(option['reply'][1]), voice, option['reply'][1],
-                            '[weak] [coughs]' if voice == 'prisoner' else '[stern] [coughs] [greedy]')
+                            {'prisoner': '[weak] [coughs]', 'niro': '[pleading]'}.get(voice, '[stern] [coughs] [greedy]'))
     for reputation in ('MISSING', 'HUNTED'):
         for key in ('pa', 'ending_pa'):
             text = branch[reputation][key]

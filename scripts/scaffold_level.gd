@@ -85,6 +85,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
+	# Level 2: his brother's offer comes through the remote on its own as Miro approaches.
+	if flow == null and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and not milestones.has("BrotherOffer") and milestones.has("SickPrisoner"):
+		var offer = areas.get_node_or_null("BrotherOffer")
+		if offer != null and offer.global_position.distance_to(player.global_position) < 70.0:
+			interact()
 	if not controls_locked() and definition.has("music_region"):
 		var entry: Dictionary = definition.music_region.entry
 		var in_region := player.position.x >= float(entry.get("minimum_x", -INF)) and player.position.y >= float(entry.get("minimum_y", -INF)) and player.position.y <= float(entry.get("maximum_y", INF))

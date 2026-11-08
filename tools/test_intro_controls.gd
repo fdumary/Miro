@@ -88,11 +88,11 @@ func run() -> void:
 	check(keeper.alert_state == IntroGuard.State.SEARCH and keeper.last_known_position == remembered and not keeper.sees_player, "Losing sight searches memory without tracking hidden player")
 	level.player.invulnerability_left = 0
 	level.player.dodge_left = 0
-	level.player.take_damage(3)
+	level.player.take_damage(6)
 	await frames()
 	check(level.player.is_dead and level.overlay.visible, "Fatal damage opens retry overlay")
 	await key(KEY_BACKSPACE)
 	level = current_scene
-	check(level.player.health == 3 and not level.player.has_supplies and not level.door_open and not level.dialogue.is_empty(), "Backspace retries actual scene into initial story state")
+	check(level.player.health == 6 and not level.player.has_supplies and not level.door_open and not level.dialogue.is_empty(), "Backspace retries actual scene into initial story state")
 	print("CONTROLS_RESULT failures=", failures.size())
 	quit(0 if failures.is_empty() else 1)

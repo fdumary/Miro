@@ -1,7 +1,8 @@
 class_name BaseCharacter
 extends CharacterBody2D
 
-@export var health: int = 3
+## Health is counted in half hearts: 6 is three full hearts.
+@export var health: int = 6
 @export var movement_speed: float = 140.0
 var is_dead: bool = false
 var invulnerability_left: float = 0.0

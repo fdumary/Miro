@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	var offset: Vector2 = level.player.global_position - muzzle
 	# Turrets read heat and motion in the open: the blanket, a hiding spot or a patch of
 	# shadow hides Miro from them.
-	if offset.length() > RANGE or level.player.is_concealed or level.player.in_hiding_spot or level.in_cover(level.player.global_position) or not level.clear_sight(muzzle, level.player.global_position):
+	if offset.length() > RANGE or level.player.is_concealed or level.player.in_hiding_spot or not level.clear_sight(muzzle, level.player.global_position):
 		charge = 0.0
 	else:
 		aim = rotate_toward(aim, offset.angle(), delta * 4.0)

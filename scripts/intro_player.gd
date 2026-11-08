@@ -31,6 +31,8 @@ var stealth_remaining := 0.0
 var stealth_cooldown_left := 0.0
 var casualty_count: int = 0
 var detection_state: String = "unseen"
+## Full health in half hearts (set from the difficulty); potions restore up to this.
+var max_health := 6
 var has_supplies: bool = false
 var has_key: bool = false
 var has_gun: bool = false
@@ -87,7 +89,7 @@ func _physics_process(delta: float) -> void:
 		stealth_remaining = maxf(0, stealth_remaining - delta)
 		if not level.in_cover(global_position):
 			end_stealth()
-			level.notify("Left shadows — cover ended.")
+			level.notify("Stepped into the light — cover ended.")
 		elif stealth_remaining == 0:
 			end_stealth()
 	var direction := Input.get_axis("move_left", "move_right")
@@ -191,7 +193,7 @@ func toggle_stealth() -> void:
 	elif stealth_cooldown_left > 0:
 		level.notify("Stealth recharging: %.1fs" % stealth_cooldown_left)
 	elif not level.in_cover(global_position):
-		level.notify("The blanket only conceals you in shadows.")
+		level.notify("Too bright: the blanket won't hide you in the light. Crouch under it, or step away.")
 	else:
 		is_concealed = true
 		stealth_remaining = stealth_duration
@@ -205,6 +207,8 @@ func end_stealth() -> void:
 	stealth_cooldown_left = stealth_cooldown
 
 func check_guard_contact() -> void:
+	# A Keeper who walks right past a hidden Miro doesn't notice him.
+	return
 	if not is_concealed:
 		return
 	var bounds := Rect2(global_position + Vector2(-7, -9), Vector2(14, 24))
@@ -224,7 +228,7 @@ func stealth_status() -> String:
 	if stealth_cooldown_left > 0:
 		return "STEALTH %.1fs cooldown" % stealth_cooldown_left
 	if not is_instance_valid(level) or not level.in_cover(global_position):
-		return "BLANKET [Q + click] · find shadow"
+		return "BLANKET [Q + click] · too bright here"
 	return "BLANKET READY [Q + click]"
 
 func shank() -> void:
@@ -474,9 +478,9 @@ func try_mantle() -> bool:
 	var destination := global_position + up + across
 	if not level.has_floor_below(destination + Vector2(0, 13)):
 		return false
-	global_position = destination
+	# A vault, not a teleport: spring up and over the ledge so it reads as a movement.
 	wall_jump_window_left = 0.0
 	wall_jump_push_left = 0.0
-	velocity = Vector2.ZERO
+	velocity = Vector2(facing * 120.0, jump_velocity * 0.92)
 	jumps_used = 1
 	return true
