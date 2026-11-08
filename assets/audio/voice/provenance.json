@@ -10900,23 +10900,23 @@
     "delivery": "",
     "signature": "4413e15c354f54881452434e65d760749d81d0560621d28b3eabb3eed805c6a3",
     "leveling": {
-      "source_sha256": "90c2e2345404a4bd366883bfd4e9d7113b054f11fe578ca9b9d8d41a1060093e",
+      "source_sha256": "4b020de96eb9be12c9965e1646fa2472e187b1a467d51a6381ab5652db7fdc12",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-17.66",
-        "input_tp": "-0.45",
-        "input_lra": "8.90",
-        "input_thresh": "-28.89",
-        "output_i": "-17.50",
+        "input_i": "-15.85",
+        "input_tp": "-0.51",
+        "input_lra": "3.00",
+        "input_thresh": "-26.86",
+        "output_i": "-17.63",
         "output_tp": "-2.00",
-        "output_lra": "4.90",
-        "output_thresh": "-28.57",
+        "output_lra": "2.50",
+        "output_thresh": "-28.55",
         "normalization_type": "dynamic",
-        "target_offset": "-0.50"
+        "target_offset": "-0.37"
       },
-      "output_lufs": "-18.37",
-      "output_true_peak_dbtp": "-1.64"
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.35"
     }
   },
   "miro_8c3d9e3545": {
@@ -11477,6 +11477,230 @@
       },
       "output_lufs": "-17.67",
       "output_true_peak_dbtp": "-1.66"
+    }
+  },
+  "prisoner_23c4dfeaf0": {
+    "provider": "ElevenLabs",
+    "voice_id": "ZWXPFGxJbpddE1lBgldf",
+    "voice_name": "Sick prisoner (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "They took everyone in our room. Some of us were never sick.\nI cannot stop shaking. Please... stand back.",
+    "delivery": "[weak] [coughs]",
+    "signature": "50f7e178338bd5fb09d4f7d770d02668ee00345ebaada504b1dd06aebba46841",
+    "leveling": {
+      "source_sha256": "3fb369791e36d8bc513dfd1620820375ea1208579607bbcf95bab3084cf9a176",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.22",
+        "input_tp": "-1.49",
+        "input_lra": "2.20",
+        "input_thresh": "-29.31",
+        "output_i": "-17.29",
+        "output_tp": "-2.00",
+        "output_lra": "1.30",
+        "output_thresh": "-29.25",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.71"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.26"
+    }
+  },
+  "niro_cd3b7c8e88": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "...Miro?",
+    "delivery": "[mocking]",
+    "signature": "b33a29bd4c9809adbf1e298934aa9774e2e35d6dc8202714f18058425be11c3a",
+    "leveling": {
+      "source_sha256": "7f1fedd120597fe27bb996d1844cf1439f2fb32580e4cb6c309b96e70d3b1ebd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.68",
+        "input_tp": "-8.80",
+        "input_lra": "0.00",
+        "input_thresh": "-33.40",
+        "output_i": "-17.99",
+        "output_tp": "-4.12",
+        "output_lra": "0.00",
+        "output_thresh": "-28.71",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.01"
+    }
+  },
+  "miro_5ab3ed7a3e": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Below the cells, the coughing has names. Some doors hold the sick,\nothers anyone who stood beside them. Someone is coughing in the first cell. I should look.",
+    "delivery": "[whispers]",
+    "signature": "cc2fd14a1fed18708eb9590f02f995cc6de9fe141196852bf5a513e21c6326b8",
+    "leveling": {
+      "source_sha256": "8f7a392aee188ebdd8cd344c9749912e10707160bafe99a353590e0c99da2648",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.80",
+        "input_tp": "-1.60",
+        "input_lra": "6.00",
+        "input_thresh": "-29.33",
+        "output_i": "-18.25",
+        "output_tp": "-2.23",
+        "output_lra": "4.50",
+        "output_thresh": "-28.77",
+        "normalization_type": "dynamic",
+        "target_offset": "0.25"
+      },
+      "output_lufs": "-18.21",
+      "output_true_peak_dbtp": "-1.88"
+    }
+  },
+  "miro_0badb157cd": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "A checkpoint splits the tower. The uniforms feel familiar.\nIf I kill the controls, the cameras go blind. The records past it might explain me.",
+    "delivery": "[whispers]",
+    "signature": "14ab9f2b9ddd6487c9c391fde867858a4d2ff12b180ddcc34953bcbc04214cf9",
+    "leveling": {
+      "source_sha256": "aed65f8a3552509ef0a19f4db7173c53ff4b07048ab6d7bad80e7032cf2a483d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.02",
+        "input_tp": "-1.02",
+        "input_lra": "3.50",
+        "input_thresh": "-29.50",
+        "output_i": "-17.07",
+        "output_tp": "-2.00",
+        "output_lra": "1.00",
+        "output_thresh": "-27.45",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.93"
+      },
+      "output_lufs": "-17.65",
+      "output_true_peak_dbtp": "-1.73"
+    }
+  },
+  "miro_b72d62ea60": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Sealed rooms. Observation windows. No names on the charts.\nThis was deliberate. The records first, then the seal, then the supports.",
+    "delivery": "[whispers]",
+    "signature": "a7fa1fb9fd508264c0312cbe5a0aed7494f10c98f1f7090ffcc3a4b1e25c3bc5",
+    "leveling": {
+      "source_sha256": "a6d45b619e53935d61ef6c9a30d47985f02b2896154421c894ac46fb910f74dc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.92",
+        "input_tp": "-0.42",
+        "input_lra": "3.70",
+        "input_thresh": "-27.90",
+        "output_i": "-17.57",
+        "output_tp": "-2.00",
+        "output_lra": "3.30",
+        "output_thresh": "-28.53",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.43"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-1.79"
+    }
+  },
+  "miro_d4e3048c4e": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "At the bottom, everything else rests on what they keep here.\nThere's an office ahead. Something in there is humming.",
+    "delivery": "[whispers]",
+    "signature": "f3ab07b6d1282046c4f627ed4e7db0708bf31c41aa32ac77d64ae0d13776c20a",
+    "leveling": {
+      "source_sha256": "8e15192e978b029311e81bd71ff95588fb6a8d66cff0a1d785f147d0186bfb36",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.74",
+        "input_tp": "-0.82",
+        "input_lra": "5.30",
+        "input_thresh": "-29.31",
+        "output_i": "-17.47",
+        "output_tp": "-2.00",
+        "output_lra": "1.90",
+        "output_thresh": "-28.01",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.53"
+      },
+      "output_lufs": "-17.76",
+      "output_true_peak_dbtp": "-1.84"
+    }
+  },
+  "miro_34ee5434a8": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "If nobody sees me, I'm only a rumour.",
+    "delivery": "[whispers]",
+    "signature": "3cbe3f8ad21acb067a687b176eed9fa2fc79edb1f97b606d61cfc0f51eda7fb9",
+    "leveling": {
+      "source_sha256": "0457d4c0f539b7cf799fcc55973ef3e882daeb2265ddf00bb1274c32ea9966be",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.45",
+        "input_tp": "-3.20",
+        "input_lra": "0.60",
+        "input_thresh": "-29.28",
+        "output_i": "-17.00",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.83",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.75"
+    }
+  },
+  "miro_932055b1cb": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Maybe they were right about me.",
+    "delivery": "[whispers]",
+    "signature": "0d03d47dc273db97ec97d01fb89c0189663187e747b34335eb559c260c2b0aef",
+    "leveling": {
+      "source_sha256": "92a278f90fd94357d5537bce2e135576e54daeb3b6c4024c24b70a3e43d36fb8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.11",
+        "input_tp": "-8.09",
+        "input_lra": "0.00",
+        "input_thresh": "-30.63",
+        "output_i": "-18.00",
+        "output_tp": "-5.98",
+        "output_lra": "0.00",
+        "output_thresh": "-28.52",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-6.07"
     }
   }
 }
