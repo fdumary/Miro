@@ -211,6 +211,9 @@ func preview_unlocks(floor_stealth: int, floor_kills := 0) -> Array:
 			names.append(entry.track.replace("_", " "))
 	return names
 
+## Beats earned when the last floor ended; the next floor announces them once.
+var fresh_unlocks: Array = []
+
 func update_unlocks() -> Array:
 	var earned: Array = []
 	var unlocked := unlocked_tracks()
@@ -218,6 +221,8 @@ func update_unlocks() -> Array:
 		if earns(entry, total("stealth"), total("kills")) and not unlocked.has(entry.track):
 			unlocked.append(entry.track)
 			earned.append(entry.track)
+	if not earned.is_empty():
+		fresh_unlocks = earned.duplicate()
 	if earned.is_empty():
 		return earned
 	if can_persist():

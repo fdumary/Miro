@@ -18,6 +18,8 @@ var hunted := false
 var disappointment_heard := false
 var poster: Node2D
 
+var beat_cue_wait := 0.0
+
 func _ready() -> void:
 	definition = JSON.parse_string(FileAccess.get_file_as_string(get_meta("blueprint")))
 	get_node("/root/Campaign").enter_floor(int(definition.number))
@@ -199,6 +201,15 @@ func apply_checkpoint() -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
+	# A beat earned on the last floor is announced once, a few seconds in.
+	beat_cue_wait += delta
+	var campaign = get_node("/root/Campaign")
+	if beat_cue_wait > 4.0 and not campaign.fresh_unlocks.is_empty() and dialogue.is_empty() and not controls_locked():
+		var names: Array = []
+		for track in campaign.fresh_unlocks:
+			names.append(str(track).replace("_", " ").capitalize())
+		campaign.fresh_unlocks = []
+		notify("New beat unlocked: %s. Press B to change beat." % ", ".join(names), 7.0)
 	# Level 2: his brother's offer comes through the remote on its own as Miro reaches that
 	# point in the floor, whether or not he has looked at the sick prisoner first.
 	# Floor 3's familiar voice speaks the same way, once the personnel record has been read.
