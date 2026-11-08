@@ -11702,5 +11702,257 @@
       "output_lufs": "-17.98",
       "output_true_peak_dbtp": "-6.07"
     }
+  },
+  "mott_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "2EiwWnXFnvU5JabPnv8n",
+    "voice_name": "Clyde (premade)",
+    "model_id": "eleven_v3",
+    "text": "Down here? Nobody comes down here. Except you, apparently.",
+    "delivery": "[shouting] [gruff]",
+    "signature": "233e52247593526f7ca00699cb73e8aa3f64197f02c29699da444ecfafe4ca9c",
+    "leveling": {
+      "source_sha256": "d83e0e1da4412b2b0fb3aa2140522ba6705246bfa494f0d27801a9f78f25d525",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.09",
+        "input_tp": "-2.50",
+        "input_lra": "0.50",
+        "input_thresh": "-29.54",
+        "output_i": "-17.25",
+        "output_tp": "-2.00",
+        "output_lra": "0.20",
+        "output_thresh": "-27.69",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.75"
+      },
+      "output_lufs": "-17.91",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "pell_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "GBv7mTt0atIp3Br8iCZE",
+    "voice_name": "Thomas (premade)",
+    "model_id": "eleven_v3",
+    "text": "Back in your cell! I said back!",
+    "delivery": "[shouting] [stern] [tired]",
+    "signature": "5854cb5701870008942b2a07d95a5c8e94c7bd91aaa317fa819f4dd68db321a4",
+    "leveling": {
+      "source_sha256": "43f8e9af3586dfd90f05c5c96b655176430a212186d420143cfb72309c85b8f8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.36",
+        "input_tp": "-0.79",
+        "input_lra": "0.00",
+        "input_thresh": "-23.36",
+        "output_i": "-17.99",
+        "output_tp": "-5.43",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-5.47"
+    }
+  },
+  "mott_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "2EiwWnXFnvU5JabPnv8n",
+    "voice_name": "Clyde (premade)",
+    "model_id": "eleven_v3",
+    "text": "Bram? Bram, get up. This isn't funny.",
+    "delivery": "[shocked] [gruff]",
+    "signature": "71bc28f99315b1805a7e0eacab7a29e534817827538ae68560f473aea43beb9c",
+    "leveling": {
+      "source_sha256": "bc5c77c724359eaa7b079d7a2f4b0d2c94a82c77f8b4f7158a4e5e6ca87f2522",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.02",
+        "input_tp": "-1.06",
+        "input_lra": "0.40",
+        "input_thresh": "-25.75",
+        "output_i": "-16.67",
+        "output_tp": "-2.82",
+        "output_lra": "0.00",
+        "output_thresh": "-27.28",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.33"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.08"
+    }
+  },
+  "pell_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "GBv7mTt0atIp3Br8iCZE",
+    "voice_name": "Thomas (premade)",
+    "model_id": "eleven_v3",
+    "text": "He was coughing yesterday. Now he's not doing anything.",
+    "delivery": "[shocked] [stern] [tired]",
+    "signature": "12b412222bee7c326c67313b597a3708842b14042c538e3b4b1eccca7f980dd8",
+    "leveling": {
+      "source_sha256": "2c5a4069a5d726bfd2d42d2c2039f2922a9db9faf05b4e7a4621e2eb4ac63d4f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.74",
+        "input_tp": "-0.97",
+        "input_lra": "0.60",
+        "input_thresh": "-25.33",
+        "output_i": "-17.34",
+        "output_tp": "-3.73",
+        "output_lra": "0.00",
+        "output_thresh": "-27.87",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.66"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.23"
+    }
+  },
+  "mott_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "2EiwWnXFnvU5JabPnv8n",
+    "voice_name": "Clyde (premade)",
+    "model_id": "eleven_v3",
+    "text": "Bottom floor, bottom pay. Story of my life.",
+    "delivery": "[gruff] [muttering]",
+    "signature": "f8988f2c3e13daed80a241b70e0f9f4c4145971c8c219d5277c8f4517d48339e",
+    "leveling": {
+      "source_sha256": "415c8107b24d49eaf0fc4f4e355cf8def75934277920cf097a96c137c95f0b19",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.06",
+        "input_tp": "-5.68",
+        "input_lra": "1.40",
+        "input_thresh": "-30.33",
+        "output_i": "-17.54",
+        "output_tp": "-3.59",
+        "output_lra": "0.70",
+        "output_thresh": "-27.78",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.46"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-3.60"
+    }
+  },
+  "pell_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "GBv7mTt0atIp3Br8iCZE",
+    "voice_name": "Thomas (premade)",
+    "model_id": "eleven_v3",
+    "text": "Another door, another cough. I stopped counting.",
+    "delivery": "[stern] [tired] [muttering]",
+    "signature": "24498d09594774ab03808bd0005392b2a1a6f02f0aff28454cb00b6654e58f48",
+    "leveling": {
+      "source_sha256": "3490a92353625adb999e27c45b5836b6b9553745d108ab292af94c978929d7fa",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.20",
+        "input_tp": "-1.16",
+        "input_lra": "0.10",
+        "input_thresh": "-25.68",
+        "output_i": "-17.28",
+        "output_tp": "-3.26",
+        "output_lra": "0.00",
+        "output_thresh": "-27.75",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.72"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.04"
+    }
+  },
+  "mott_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "2EiwWnXFnvU5JabPnv8n",
+    "voice_name": "Clyde (premade)",
+    "model_id": "eleven_v3",
+    "text": "If that support cracks, I'm not the one explaining it.",
+    "delivery": "[gruff] [muttering]",
+    "signature": "e9c44568bc897afb8d01b6b780f990d08a323f8109f83e908f935d5dda3905e9",
+    "leveling": {
+      "source_sha256": "80f1885dd8b0a817279a87900a8afdff4098ee04d642944e5de916d10728fc0a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.01",
+        "input_tp": "-2.76",
+        "input_lra": "0.60",
+        "input_thresh": "-29.01",
+        "output_i": "-18.15",
+        "output_tp": "-2.06",
+        "output_lra": "0.00",
+        "output_thresh": "-28.15",
+        "normalization_type": "dynamic",
+        "target_offset": "0.15"
+      },
+      "output_lufs": "-18.18",
+      "output_true_peak_dbtp": "-1.32"
+    }
+  },
+  "pell_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "GBv7mTt0atIp3Br8iCZE",
+    "voice_name": "Thomas (premade)",
+    "model_id": "eleven_v3",
+    "text": "They say it doesn't spread to us. They say a lot.",
+    "delivery": "[stern] [tired] [muttering]",
+    "signature": "af8a7a31e02ba3c3860d1eced78da7eec13bfb1471b10fc743676aaf47c89194",
+    "leveling": {
+      "source_sha256": "7abe670d9d4f287595a514331427ed957bb7e680acf3f7f81432d6686f5e341d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.23",
+        "input_tp": "-1.68",
+        "input_lra": "0.50",
+        "input_thresh": "-26.57",
+        "output_i": "-16.28",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-26.59",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.72"
+      },
+      "output_lufs": "-17.96",
+      "output_true_peak_dbtp": "-3.30"
+    }
+  },
+  "miro_d9b1bff7af": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "I smell a turret. Maybe I can use one of my C4 to destroy it.",
+    "delivery": "[whispers]",
+    "signature": "8fdc5e7cb11dd5199f289be087469f506ef1944c2bb539bdea1cbaa111a52315",
+    "leveling": {
+      "source_sha256": "54340e18143fa723dfd2e2fe46ed67a3d4e6b86126d11a560036b9f1aa36ac7e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.54",
+        "input_tp": "-0.93",
+        "input_lra": "0.50",
+        "input_thresh": "-26.72",
+        "output_i": "-18.72",
+        "output_tp": "-3.00",
+        "output_lra": "1.40",
+        "output_thresh": "-29.01",
+        "normalization_type": "dynamic",
+        "target_offset": "0.72"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.09"
+    }
   }
 }
