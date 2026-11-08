@@ -3760,14 +3760,14 @@
       },
       {
         "position": [
-          820.0,
+          700.0,
           852
         ],
         "title": "VENT"
       },
       {
         "position": [
-          1010.0,
+          1080.0,
           852
         ],
         "title": "CRATE"
@@ -3823,36 +3823,36 @@
         "name": "EntryClerk",
         "keeper": "Sable",
         "position": [
-          690.0,
+          600.0,
           852
         ],
         "patrol": [
-          640.0,
-          770.0
+          545.0,
+          660.0
         ]
       },
       {
         "name": "DeepKeeper",
         "keeper": "Brandt",
         "position": [
-          920.0,
+          985.0,
           852
         ],
         "patrol": [
-          870.0,
-          970.0
+          960.0,
+          1030.0
         ]
       },
       {
         "name": "CorridorFlank",
         "keeper": "Voss",
         "position": [
-          1290.0,
+          1350.0,
           432
         ],
         "patrol": [
-          1200.0,
-          1420.0
+          1290.0,
+          1470.0
         ]
       }
     ]
