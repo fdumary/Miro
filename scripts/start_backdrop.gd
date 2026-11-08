@@ -1,7 +1,7 @@
 extends Control
 ## Animated start screen behind the menu (node "Backdrop" in main_menu).
-## Before the game is finished: the tower at dusk, its banner snapping in the wind, birds,
-## drifting cloud, swaying grass and pines, far-off lightning. After the game is finished
+## Before the game is finished: the tower at dusk in the rain, its banner rippling in the wind,
+## birds, drifting cloud, swaying grass and pines, lightning with matching thunder. After the game is finished
 ## (Campaign.game_completed()): the same view in daylight, the tower a broken, smoking stump.
 ## Draws the gothic title at the top centre; the menu sits below y = 100.
 const C = preload("res://scripts/cinema.gd")
@@ -11,6 +11,11 @@ var frame_count := 0
 var completed := false
 var draws_title := true
 var audio: Node
+## Lightning strikes every LIGHTNING_PERIOD seconds at LIGHTNING_AT into the cycle; the
+## thunder clap is fired from _process on the same clock, so sound and flash stay in sync.
+const LIGHTNING_PERIOD := 11.0
+const LIGHTNING_AT := 9.0
+var last_strike := -1
 
 func _init() -> void:
 	name = "Backdrop"
@@ -23,12 +28,20 @@ func _ready() -> void:
 	audio = preload("res://scripts/cine_audio.gd").new()
 	add_child(audio)
 	audio.loop("wind_loop", -24.0, 3.0)
+	if not completed:
+		audio.loop("rain_loop", -15.0, 2.0)
 	if completed:
 		audio.at(4.0, func(): audio.play("gulls", -26.0))
 
 func _process(delta: float) -> void:
 	time += delta
 	audio.tick(time)
+	if not completed:
+		var strike := int(floor((time - LIGHTNING_AT) / LIGHTNING_PERIOD))
+		if strike >= 0 and strike != last_strike:
+			last_strike = strike
+			# Alternate a close crack and a rolling one so the loop doesn't feel canned.
+			audio.play("thunder_near" if strike % 2 == 0 else "thunder_far", -9.0 if strike % 2 == 0 else -12.0, 0.95 + 0.05 * (strike % 3))
 	queue_redraw()
 
 func _draw() -> void:
@@ -53,9 +66,10 @@ func wind() -> float:
 
 func draw_dusk() -> void:
 	var flash := 0.0
-	var cycle := fmod(time, 11.0)
-	if cycle > 9.0 and cycle < 9.35:
-		flash = (1.0 - (cycle - 9.0) / 0.35) * (1.0 if cycle < 9.06 or cycle > 9.12 else 0.5)
+	var cycle := fmod(time, LIGHTNING_PERIOD)
+	if cycle > LIGHTNING_AT and cycle < LIGHTNING_AT + 0.35:
+		var since := cycle - LIGHTNING_AT
+		flash = (1.0 - since / 0.35) * (1.0 if since < 0.06 or since > 0.12 else 0.5)
 	C.night_sky(self, Color("141428").lerp(Color("3a4270"), flash * 0.5), Color("6b3f5c").lerp(Color("9b7aa0"), flash * 0.4), Vector2(150, 70))
 	# A low warm band where the sun went down.
 	for i in range(6):
@@ -67,11 +81,14 @@ func draw_dusk() -> void:
 	C.pines(self, 252, 70, 46, 0.15, -time * 2.0)
 	C.tower(self, TOWER_BASE, 26, 64, time, 0, 0, 0.9)
 	var top := Vector2(TOWER_BASE.x, TOWER_BASE.y - 26 * 5.5 - 10)
-	C.flag(self, top + Vector2(18, -28), 38, Vector2(34, 15), time, Color("7a2e3a"), wind())
+	# Flag time runs at about 40% speed: a slow, heavy ripple instead of a fast flutter.
+	C.flag(self, top + Vector2(18, -28), 38, Vector2(34, 15), time * 0.4, Color("7a2e3a"), wind())
 	sway_pines(292, 60, 50, 0.6, 2.0)
 	ground(Color("0d1118"), Color("2a3324"))
 	sway_pines(345, 230, 130, 1.0, 3.5)
 	leaves(Color(0.35, 0.3, 0.4, 0.8))
+	# Rain over everything, a little brighter while the lightning lights it up.
+	C.rain(self, time, 0.22 + 0.25 * flash)
 
 func draw_day() -> void:
 	C.day_sky(self, Color("5c93d1"), Color("cfe4f0"), Vector2(150, 70), time, Color("fff6d8"))
