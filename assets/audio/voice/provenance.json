@@ -18310,5 +18310,173 @@
       "output_lufs": "-18.41",
       "output_true_peak_dbtp": "-1.98"
     }
+  },
+  "niro_62358dc4dd": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You have the remote. Keep it close, and keep your hands clean.",
+    "delivery": "[intense]",
+    "signature": "c5db0f5ea1c8d677765524ef2cac956a666a62266f79008b048f66d3b34b9df3",
+    "leveling": {
+      "source_sha256": "8c53c8bbbd353963aaa744f3e71ba28160fa449c9b0536f6cef17e2ed77c6110",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.93",
+        "input_tp": "-0.60",
+        "input_lra": "2.20",
+        "input_thresh": "-30.38",
+        "output_i": "-19.18",
+        "output_tp": "-2.00",
+        "output_lra": "1.60",
+        "output_thresh": "-29.64",
+        "normalization_type": "dynamic",
+        "target_offset": "1.18"
+      },
+      "output_lufs": "-18.42",
+      "output_true_peak_dbtp": "-1.79"
+    }
+  },
+  "niro_a51db6fbb9": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You are leaving Keepers behind you. If you go any lower, I can't protect you.",
+    "delivery": "[intense]",
+    "signature": "4dfb7c23fef5b219a50b299956a33131cbd9a8eb05d73fbc6b30a39666262f87",
+    "leveling": {
+      "source_sha256": "5ff4d5c99abe6a65edabe60b15e48e253c4c3f300be6eff27f6e93c07286b320",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.47",
+        "input_tp": "-1.59",
+        "input_lra": "1.30",
+        "input_thresh": "-31.90",
+        "output_i": "-18.46",
+        "output_tp": "-2.00",
+        "output_lra": "2.00",
+        "output_thresh": "-28.89",
+        "normalization_type": "dynamic",
+        "target_offset": "0.46"
+      },
+      "output_lufs": "-18.57",
+      "output_true_peak_dbtp": "-1.45"
+    }
+  },
+  "niro_06513f5541": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "I watched every Keeper you dropped. Now you know my name. Please, stop at the records.",
+    "delivery": "[pleading]",
+    "signature": "74a101388915741dbc7010e02d7c8760a657a4c1606915b00335903cbfd39a49",
+    "leveling": {
+      "source_sha256": "e910a43a72cf534c7075343a4989b31803759f2cba7f5e52d879ae2eebdfc2ab",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.59",
+        "input_tp": "-2.65",
+        "input_lra": "1.60",
+        "input_thresh": "-30.04",
+        "output_i": "-17.98",
+        "output_tp": "-2.00",
+        "output_lra": "1.60",
+        "output_thresh": "-28.42",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.70",
+      "output_true_peak_dbtp": "-1.77"
+    }
+  },
+  "niro_9558bd1f82": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You are making this harder, Miro. Don't come down here. Please.",
+    "delivery": "[pleading]",
+    "signature": "16975c12a338f9a3cd6a2be7db5b3104456f805a0d15bae20549cca25afa348f",
+    "leveling": {
+      "source_sha256": "0d7b39bb62823ccca48fec5a1aeace44ab0ffc29fa1701b64d84df6f96cdfdff",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.11",
+        "input_tp": "-2.25",
+        "input_lra": "1.40",
+        "input_thresh": "-29.50",
+        "output_i": "-18.24",
+        "output_tp": "-2.00",
+        "output_lra": "2.10",
+        "output_thresh": "-28.59",
+        "normalization_type": "dynamic",
+        "target_offset": "0.24"
+      },
+      "output_lufs": "-18.12",
+      "output_true_peak_dbtp": "-1.74"
+    }
+  },
+  "miro_e824888902": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "They'll never know who did it. Maybe that's what freedom is.",
+    "delivery": "[whispers]",
+    "signature": "37f837188b76fa8d3b9e670debe6e86ae2d227cd78efaea3fd0cfa95da1d97b5",
+    "leveling": {
+      "source_sha256": "45741adada8837c4b4f894a13c6ebba3e23cfb5fc9a5bb8b6f18691e1d8d56c1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.17",
+        "input_tp": "-0.48",
+        "input_lra": "0.40",
+        "input_thresh": "-28.06",
+        "output_i": "-16.23",
+        "output_tp": "-2.00",
+        "output_lra": "0.80",
+        "output_thresh": "-26.88",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.77"
+      },
+      "output_lufs": "-17.57",
+      "output_true_peak_dbtp": "-1.73"
+    }
+  },
+  "miro_6f0a87cd99": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "They'll tell it their way. Let them.",
+    "delivery": "[whispers]",
+    "signature": "17ca716a4f701f29b622eff17e1f968a16b19a381f8ebf39595475f971445722",
+    "leveling": {
+      "source_sha256": "8e7139ca032564b628043b2c992e940d2eb8538bcc05bca150959c9d287ea3e9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.26",
+        "input_tp": "-5.60",
+        "input_lra": "1.90",
+        "input_thresh": "-33.58",
+        "output_i": "-16.94",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.06"
+      },
+      "output_lufs": "-18.29",
+      "output_true_peak_dbtp": "-2.02"
+    }
   }
 }
