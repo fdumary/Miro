@@ -1,52 +1,169 @@
 extends "res://tools/test_intro.gd"
+## Level 5 "The Foundation": guitar > waves on the bar > Niro x3 retreats > final non-fatal fight.
+
+var flow
+var music
 
 func run() -> void:
+	music = root.get_node("MusicDirector")
 	level = load("res://scenes/levels/level_05.tscn").instantiate()
 	root.add_child(level)
 	current_scene = level
 	await frames(3)
+	flow = level.flow
+	check(level.definition.title == "The Foundation" and not "brother" in level.definition.opening.to_lower(), "Level 5 is The Foundation with a non-spoiler opening")
 	level.finish_dialogue()
-	level.player.position = Vector2(650, 432)
+	check(flow != null and music.track_id.is_empty(), "Office starts near-silent with the encounter flow ready")
+	# Hatch 1 holds until Niro retreats: the ladder cannot be used yet.
+	check(await move_to(728, 400), "Reach the first hatch")
+	Input.action_press("climb_down")
+	await frames(90)
+	Input.action_release("climb_down")
+	check(level.player.position.y < 300, "Closed hatch blocks the descent")
+	check(await move_to(300, 600), "Return to the final sigil")
 	level.interact()
-	check(not is_instance_valid(level.brother), "Cannot start boss before final sigil and offer")
-	level.milestones["FinalSigil"] = true
-	level.milestones["FinalOffer"] = true
+	level.finish_dialogue()
+	check(level.milestones.has("FinalSigil") and level.sigil_placed, "Final sigil placed in the office")
+	# Guitar pickup.
+	check(await move_to(190, 300), "Reach the guitar")
 	level.interact()
+	check(level.dialogue_event == "milestone", "Guitar opens its scene")
+	var bar_phase := [-1.0]
+	flow.wave_started.connect(func(_row): bar_phase[0] = fmod(music.beat_position(), 4.0))
+	level.finish_dialogue()
+	check(level.player.controls.has_guitar and level.player.controls.active == "guitar", "Guitar is taken and selected")
+	# Fixture: the scripted section checks the flow, not survival; the final fight below uses normal health.
+	level.player.health = 99
+	check(music.track_id == "shit_crashed", "Picking up the guitar starts Shit Crashed")
+	await frames(150)
+	check(flow.step == flow.Step.WAVE and flow.wave_guards.size() == 2, "Wave 1 enters")
+	check(bar_phase[0] >= 0 and (bar_phase[0] < 0.25 or bar_phase[0] > 3.75), "Wave enters on a bar line")
+	# Sleep the wave with the guitar: lootable, not a kill.
+	for guard in flow.wave_guards:
+		guard.set_physics_process(false)
+		guard.position = level.player.position + Vector2(60 + flow.wave_guards.find(guard) * 25, 0)
+	await frames(2)
+	level.player.controls.strum_cooldown = 0
+	check(level.player.controls.strum() == 2, "One strum reaches both Keepers")
+	check(flow.wave_guards.all(func(guard): return guard.asleep and not guard.detect_player()), "Strummed Keepers sleep and stop seeing Miro")
+	check(level.player.casualty_count == 0, "Sleeping Keepers are not kills")
+	level.player.position = flow.wave_guards[0].position + Vector2(-10, 0)
+	await frames(2)
+	level.interact()
+	check(flow.wave_guards[0].gun_taken and level.player.guns.size() == 1, "A sleeping Keeper can be looted")
+	for guard in flow.wave_guards:
+		guard.set_physics_process(true)
+	await frames(150)
+	check(is_instance_valid(level.brother) and level.brother.engagement == 1, "Niro appears after the wave")
+	check(level.dialogue_event == "niro_1" and level.dialogue.size() >= 6, "First meeting carries the reveal face to face")
+	level.finish_dialogue()
+	check(level.milestones.has("FinalOffer"), "Reveal completes Face Niro")
 	var boss = level.brother
-	check(is_instance_valid(boss), "Encounter creates boss")
+	check(boss.attacks() == ["rush"], "First meeting teaches the rush only")
 	boss.receive_shank()
-	check(boss.health == 6, "Telegraph is guarded")
-	level.player.has_gun = true
-	level.player.ammunition = 2
-	level.player.facing = 1
-	level.player.fire_gun()
-	check(boss.health == 6, "Gun cannot bypass guarded boss")
+	check(boss.health == 12, "Telegraph is guarded")
 	level.paused = true
 	var timer: float = boss.phase_left
-	await frames(70)
-	check(is_equal_approx(timer, boss.phase_left), "Pause freezes boss")
+	await frames(40)
+	check(is_equal_approx(timer, boss.phase_left), "Pause freezes Niro")
 	level.paused = false
-	await frames(68)
-	check(boss.current_phase == boss.Phase.RUSH, "First telegraph produces rush")
-	await frames(42)
-	check(boss.is_vulnerable, "Rush ends in recovery")
-	boss.receive_shank()
-	check(boss.health == 5, "Recovery permits damage")
-	boss.receive_shank()
-	check(boss.health == 5, "Damage immunity prevents repeated same-frame hits")
-	await frames(96)
-	check(boss.attack_number == 1, "Second attack alternates to projectile")
-	await frames(68)
-	check(boss.projectile_live and boss.is_vulnerable, "Throw launches projectile then exposes recovery")
-	# Finish through normal damage API; traversal suite separately wins with real inputs.
-	boss.set_physics_process(false)
-	for hit in range(5):
-		boss.invulnerability_left = 0
-		boss.receive_shank()
-	check(boss.is_dead and level.milestones.has("BrotherEncounter"), "Defeat ends encounter once")
-	check(level.dialogue_event == "milestone" and level.pending_milestone == "DyingExchange", "Defeat starts fatal scripted exchange")
+	await damage_until_retreat(boss, 9)
+	check(level.milestones.has("NiroRetreat1") and level.get_node("Gates/Hatch1").is_open, "Niro retreats at 9 and Hatch 1 opens")
+	# Down to the second floor by ladder.
+	check(await descend_ladder(728, 170, 410), "Climb down through Hatch 1")
+	await frames(150)
+	check(flow.step == flow.Step.WAVE and flow.wave_guards.size() == 3, "Wave 2 enters on the second floor")
+	for guard in flow.wave_guards:
+		guard.die()
+	await frames(150)
+	boss = level.brother
+	check(is_instance_valid(boss) and boss.engagement == 2 and boss.health == 9 and "throw" in boss.attacks(), "Second meeting keeps damage and adds the throw")
 	level.finish_dialogue()
-	check(level.milestones.has("DyingExchange"), "Skip preserves fatal exchange completion")
-	check(not boss.projectile_live, "Defeat clears projectile")
+	await damage_until_retreat(boss, 6)
+	check(level.get_node("Gates/Hatch2").is_open, "Hatch 2 opens after the second retreat")
+	check(await descend_ladder(308, 190, 640), "Drop to the third floor")
+	await frames(130)
+	check(music.track_id == "hot_shit", "Hot Shit takes over for the second half")
+	check(flow.wave_guards.size() == 3, "Wave 3 enters")
+	for guard in flow.wave_guards:
+		guard.fall_asleep()
+	await frames(150)
+	boss = level.brother
+	level.finish_dialogue()
+	check(boss.engagement == 3 and "call" in boss.attacks(), "Third meeting can call guards")
+	var before: int = flow.wave_guards.size()
+	boss.attack_number = 2
+	boss.current_phase = boss.Phase.TELEGRAPH
+	boss.phase_left = 0
+	await frames(2)
+	check(flow.wave_guards.size() == before + 1, "Niro calls a Keeper in")
+	await damage_until_retreat(boss, 3)
+	check(level.get_node("Gates/Hatch3").is_open, "Hatch 3 opens after the third retreat")
+	for guard in level.guards():
+		if not guard.is_dead and not guard.asleep and guard != boss:
+			guard.fall_asleep()
+	check(await descend_ladder(952, 200, 830), "Climb down to the deepest floor")
+	level.player.health = 3
+	await frames(150)
+	boss = level.brother
+	check(boss.engagement == 4 and boss.health == 3, "Final fight on the deepest floor")
+	check(level.dialogue_event == "niro_4" and str(level.dialogue[0][1]).length() > 10, "Final meeting opens with the branch line")
+	level.finish_dialogue()
+	await fight_brother()
+	check(boss.is_dead and not boss.is_queued_for_deletion(), "Niro is beaten but not killed")
+	check(level.milestones.has("BrotherEncounter") and level.pending_milestone == "DefeatExchange", "Defeat starts the defeat exchange")
+	check(music.track_id.is_empty(), "Music falls away for the exchange")
+	level.finish_dialogue()
+	check(level.milestones.has("DefeatExchange"), "Skip preserves defeat exchange completion")
+	check(await move_to(880, 800), "Reach the forest viewpoint")
+	level.interact()
+	check(is_instance_valid(level.cinematic), "Forest viewpoint starts the ending")
+	level.cinematic.finish()
+	check(level.completed, "The Foundation completes")
 	print("BROTHER_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)
+
+func damage_until_retreat(boss, target: int) -> void:
+	while boss.health > target and is_instance_valid(boss):
+		boss.begin_recovery()
+		boss.invulnerability_left = 0
+		boss.receive_shank()
+	check(boss.current_phase == boss.Phase.RETREAT and boss.health == target, "Niro retreats at %d health" % target)
+	await frames(70)
+
+func descend_ladder(x: float, hold: int, expected_y: float) -> bool:
+	if not await move_to(x, 900):
+		return false
+	Input.action_press("climb_down")
+	await frames(hold)
+	Input.action_release("climb_down")
+	await frames(30)
+	print("DESCEND to y=", level.player.position.y)
+	return level.player.position.y > expected_y
+
+func fight_brother() -> void:
+	var boss = level.brother
+	level.player.controls.select_item("shank")
+	for tick in range(2400):
+		if boss.is_dead or level.player.is_dead:
+			break
+		var offset: float = boss.position.x - level.player.position.x
+		Input.action_release("move_left")
+		Input.action_release("move_right")
+		if boss.is_vulnerable:
+			if absf(offset) > 32:
+				Input.action_press("move_right" if offset > 0 else "move_left")
+			level.player.facing = signf(offset)
+			level.player.shank()
+		else:
+			if absf(offset) < 75:
+				Input.action_press("move_left" if offset > 0 else "move_right")
+			if boss.current_phase == boss.Phase.RUSH and absf(offset) < 80:
+				Input.action_press("jump")
+		if boss.projectile_live and boss.projectile.distance_to(level.player.position) < 100:
+			Input.action_press("jump")
+		await frames(1)
+		Input.action_release("jump")
+	Input.action_release("move_left")
+	Input.action_release("move_right")
+	check(boss.is_dead and not level.player.is_dead, "Final fight won with movement and shank")

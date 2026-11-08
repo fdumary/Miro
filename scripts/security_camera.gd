@@ -8,6 +8,7 @@ var sweep_time := 0.0
 var alert_cooldown := 0.0
 var level: Node
 var cone_points := PackedVector2Array()
+const WATCHER := preload("res://assets/environment/watcher_animation.png")
 
 func _physics_process(delta: float) -> void:
 	if not is_active or level.controls_locked():
@@ -25,7 +26,11 @@ func _physics_process(delta: float) -> void:
 		level.camera_alert(level.player.global_position)
 	queue_redraw()
 
+## With music playing, one full sweep takes four bars and turns on the downbeat.
 func direction_angle() -> float:
+	var clock = get_node_or_null("/root/MusicDirector")
+	if clock != null and clock.bpm() > 0:
+		return facing_angle + sin(clock.beat_position() / 16.0 * TAU) * 0.4
 	return facing_angle + sin(sweep_time * 0.7) * 0.4
 
 func detects_player() -> bool:
@@ -39,7 +44,11 @@ func disable() -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	draw_rect(Rect2(-9, -5, 18, 10), Color("494d7e"))
-	draw_circle(Vector2.ZERO, 3, Color("c69fa5") if is_active else Color("8b6d9c"))
 	if is_active and cone_points.size() > 2:
 		draw_colored_polygon(cone_points, Color(0.95, 0.83, 0.67, 0.12))
+	var blink := fposmod(sweep_time + position.x / 180.0, 4.0)
+	var frame := 2 if not is_active else (mini(4, int(blink / 0.1)) if blink < 0.5 else 0)
+	draw_texture_rect_region(WATCHER, Rect2(-13, -12, 26, 25), Rect2(frame * 26, 0, 26, 25))
+	if is_active and alert_cooldown > 1.3:
+		draw_rect(Rect2(-1, -23, 2, 6), Color("f2d3ab"))
+		draw_rect(Rect2(-1, -16, 2, 2), Color("f2d3ab"))

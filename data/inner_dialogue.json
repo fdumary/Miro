@@ -5,6 +5,11 @@
       "text": "One room. One way out. Start with what I can reach."
     },
     {
+      "id": "chords",
+      "minimum_y": 300,
+      "text": "My fingers keep finding chord shapes. I don't remember learning them."
+    },
+    {
       "id": "below",
       "minimum_y": 400,
       "text": "He is coughing too. A uniform does not keep the sickness out."
@@ -65,8 +70,8 @@
     },
     {
       "id": "loss",
-      "milestone": "DyingExchange",
-      "text": "I wanted him to walk out with me."
+      "milestone": "DefeatExchange",
+      "text": "He chose the tower again. Or he chose them. I can't tell which."
     }
   ]
 }

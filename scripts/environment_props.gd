@@ -12,6 +12,18 @@ func _ready() -> void:
 	dressing.set_script(preload("res://scripts/level_dressing.gd"))
 	add_child(dressing)
 
+const TORCH := preload("res://assets/environment/torch_animation.png")
+var torch_frame := 0
+
+func draw_torch(rect: Rect2) -> void:
+	draw_texture_rect_region(TORCH, rect, Rect2(torch_frame * 32, 0, 32, 32))
+
+func tick_torches() -> void:
+	var frame := int(Time.get_ticks_msec() / 450.0) % 2
+	if frame != torch_frame:
+		torch_frame = frame
+		queue_redraw()
+
 func draw_grounded(texture: Texture2D, point: Vector2) -> void:
 	var tiles := get_parent().get_node_or_null("StoneFloors") as TileMapLayer
 	if tiles:

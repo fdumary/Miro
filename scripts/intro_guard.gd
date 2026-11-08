@@ -9,7 +9,7 @@ enum State { PATROL, SUSPICIOUS, ALERT, SEARCH }
 @export var patrol_left: float = 300.0
 @export var patrol_right: float = 500.0
 @export var sick_guard: bool = false
-@export_enum("pistol", "smg", "flamethrower") var weapon_kind := "pistol"
+@export_enum("pistol", "smg") var weapon_kind := "pistol"
 var burst_left := 0
 var burst_timer := 0.0
 var shot_direction := Vector2.RIGHT
@@ -31,27 +31,50 @@ var death_recorded: bool = false
 var sees_player: bool = false
 var body_reported: bool = false
 var guard_name := "Keeper"
-var voice_index := 0
+## Individual character description from the Keeper roster.
+var personality := ""
+## Off duty in a huddle: absorbed in each other, they only notice Miro right on top of them.
+var distracted := false
+const DISTRACTED_SIGHT := 40.0
 var conversation_hold := false
 var turn_away_left := 0.0
 var alert_barked := false
+## Put to sleep by Miro's guitar (Level 5). Lootable, never counted as a kill, sleeps for the rest of the floor.
+var asleep := false
+## Spawned by a Level 5 wave or by Niro calling for help.
+var wave_guard := false
+
+## Difficulty (Settings): how far a Keeper sees, how fast he makes up his mind, and how hard he fights.
+var sight := 165.0
+var suspicion_rate := 1.0
+var windup_time := 0.65
+var attack_gap := 2.1
+var chase_speed := 78.0
 
 func _ready() -> void:
 	add_to_group("guards")
 	health = 2
 	movement_speed = 33.0 if sick_guard else 43.0
+	var campaign = get_node_or_null("/root/Campaign")
+	if campaign != null:
+		var tuning: Dictionary = campaign.tuning()
+		sight = float(tuning.sight)
+		suspicion_rate = float(tuning.suspicion)
+		windup_time = float(tuning.windup)
+		attack_gap = float(tuning.attack_gap)
+		chase_speed = float(tuning.chase)
 
 func can_see_point(point: Vector2, distance_limit: float = 165.0) -> bool:
 	var difference := point - global_position
 	return difference.length() < distance_limit and absf(difference.y) < 45 and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
 
 func detect_player() -> bool:
-	if is_dead or not level or level.player.is_dead or (level.player.is_concealed or level.player.in_hiding_spot):
+	if is_dead or asleep or not level or level.player.is_dead or (level.player.is_concealed or level.player.in_hiding_spot):
 		return false
 	# Prisoners inside the locked cell are not escapees yet.
 	if not level.door_open and level.player.global_position.x < level.get_node("Interactables/CellLock").global_position.x:
 		return false
-	return can_see_point(level.player.global_position)
+	return can_see_point(level.player.global_position, DISTRACTED_SIGHT if distracted else sight)
 
 func _physics_process(delta: float) -> void:
 	time += delta
@@ -60,15 +83,21 @@ func _physics_process(delta: float) -> void:
 		return
 	if is_dead:
 		return
+	if asleep:
+		sees_player = false
+		velocity = Vector2(0, velocity.y + 850.0 * delta)
+		move_and_slide()
+		return
 	invulnerability_left = maxf(0, invulnerability_left - delta)
 	attack_timer = maxf(0.0, attack_timer - delta)
 	turn_wait = maxf(0.0, turn_wait - delta)
 	sees_player = detect_player()
 	if sees_player:
-		suspicion = minf(1.0, suspicion + delta * 2.5)
+		suspicion = minf(1.0, suspicion + delta * (3.0 if level.get("hunted") else 2.5) * suspicion_rate)
 		last_known_position = level.player.global_position
 		search_left = 5.0
 		if suspicion >= 1.0:
+			distracted = false
 			alert_state = State.ALERT
 			if not alert_barked and level.world_features:
 				alert_barked = true
@@ -98,17 +127,17 @@ func _physics_process(delta: float) -> void:
 	if windup > 0:
 		windup -= delta
 		if windup <= 0 and sees_player:
-			burst_left = 1 if weapon_kind == "pistol" else (3 if weapon_kind == "smg" else 5)
+			burst_left = 1 if weapon_kind == "pistol" else 3
 			shoot_weapon()
 	elif alert_state == State.ALERT and sees_player:
 		facing = signf(last_known_position.x - global_position.x)
-		if global_position.distance_to(last_known_position) < (90 if weapon_kind == "flamethrower" else 150):
+		if global_position.distance_to(last_known_position) < 150:
 			if attack_timer <= 0:
-				windup = 0.65
+				windup = windup_time
 				shot_direction = (level.player.global_position - global_position).normalized()
-				attack_timer = 2.1
+				attack_timer = attack_gap
 		else:
-			velocity.x = facing * 78.0
+			velocity.x = facing * chase_speed
 	elif alert_state == State.SEARCH:
 		search_left -= delta
 		if absf(last_known_position.x - global_position.x) > 12:
@@ -129,14 +158,14 @@ func _physics_process(delta: float) -> void:
 			return
 		if global_position.x <= patrol_left:
 			if facing < 0:
-				turn_wait = 1.8 if sick_guard else 0.8
+				turn_wait = beat_wait(1.8 if sick_guard else 0.8)
 			facing = 1
 		elif global_position.x >= patrol_right:
 			if facing > 0:
-				turn_wait = 1.0
+				turn_wait = beat_wait(1.0)
 			facing = -1
 		if turn_wait <= 0:
-			velocity.x = facing * movement_speed
+			velocity.x = facing * movement_speed * stride()
 	# Do not walk off a floor or chase between tiers. Guards cannot climb.
 	var foot := global_position + Vector2(signf(velocity.x) * 15, 12)
 	if velocity.x != 0 and not level.has_floor_below(foot):
@@ -149,6 +178,29 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall():
 		facing *= -1
 
+## Patrols keep time with the music: a Keeper turns at the end of his beat on a beat line
+## (sick Keepers on every other beat) and leans into each step on the beat.
+func music() -> Node:
+	return get_node_or_null("/root/MusicDirector")
+
+func beat_wait(minimum: float) -> float:
+	var clock := music()
+	if clock == null or clock.bpm() <= 0:
+		return minimum
+	var spb: float = clock.seconds_per_beat()
+	var position: float = clock.beat_position()
+	var every := 2.0 if sick_guard else 1.0
+	var target := ceilf((position + minimum / spb) / every) * every
+	return (target - position) * spb
+
+## Averages 1.0 over a beat, so patrol timings are unchanged; the peak lands on the beat.
+func stride() -> float:
+	var clock := music()
+	if clock == null or clock.bpm() <= 0:
+		return 1.0
+	var offset := fmod(clock.beat_position(), 1.0)
+	return 0.7 + 0.6 * (1.0 - offset)
+
 func shoot_weapon() -> void:
 	burst_left -= 1
 	burst_timer = 0.14
@@ -158,24 +210,33 @@ func shoot_weapon() -> void:
 	bullet.shooter = self
 	bullet.enemy = true
 	bullet.direction = shot_direction
-	bullet.flame = weapon_kind == "flamethrower"
-	bullet.speed = 210.0 if bullet.flame else 280.0
-	bullet.remaining = 100.0 if bullet.flame else 260.0
+	bullet.speed = 280.0
+	bullet.remaining = 260.0
 	bullet.position = position + Vector2(0, -4)
 	level.add_child(bullet)
-	get_node("/root/SoundFX").play_sound("flame" if bullet.flame else "shot", -25, 1.25 if weapon_kind == "smg" else 1.0)
+	get_node("/root/SoundFX").play_sound("shot", -25, 1.25 if weapon_kind == "smg" else 1.0)
 	level.make_noise(global_position, 600)
-	if not bullet.flame:
-		var casing := Node2D.new()
-		casing.set_script(load("res://scripts/weapon_casing.gd"))
-		casing.level = level
-		casing.position = position
-		casing.velocity = Vector2(-facing * 65, -100)
-		level.add_child(casing)
+	var casing := Node2D.new()
+	casing.set_script(load("res://scripts/weapon_casing.gd"))
+	casing.level = level
+	casing.position = position
+	casing.velocity = Vector2(-facing * 65, -100)
+	level.add_child(casing)
+
+func fall_asleep() -> void:
+	if is_dead or asleep:
+		return
+	asleep = true
+	alert_state = State.PATROL
+	sees_player = false
+	windup = 0
+	burst_left = 0
+	suspicion = 0
 
 func investigate(point: Vector2) -> void:
-	if is_dead or sees_player:
+	if is_dead or asleep or sees_player:
 		return
+	distracted = false
 	last_known_position = point
 	search_left = 6.0
 	alert_state = State.SEARCH
@@ -206,11 +267,19 @@ func die() -> void:
 	level.player.casualty_count += 1
 	level.emit_effect("blood", global_position + Vector2(0, 12))
 	level.notify("A body remains. Other Keepers may discover it. [E] Loot")
+	if level.has_method("on_keeper_killed"):
+		level.on_keeper_killed(self)
 	queue_redraw()
 
 func _draw() -> void:
 	var pale := Color("f2d3ab")
 	draw_string(ThemeDB.fallback_font, Vector2(-18, -36), guard_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
+	if asleep:
+		draw_set_transform(Vector2(0, 6), PI / 2 * facing)
+		draw_texture(KEEPER_IDLE, Vector2(-16, -16))
+		draw_set_transform(Vector2.ZERO)
+		draw_string(ThemeDB.fallback_font, Vector2(6, -14 - fmod(time * 6, 8)), "z", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, pale)
+		return
 	if is_dead:
 		# No dedicated death sheet yet: retain Julia's idle silhouette as a body.
 		draw_set_transform(Vector2(0, 3), PI / 2)

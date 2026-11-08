@@ -1,9 +1,29 @@
 class_name IntroPlayer
 extends BaseCharacter
 
+var controls: Node
+var jumps_used := 0
+const DOUBLE_JUMP_COOLDOWN := 3.0
+var double_jump_cooldown_left := 0.0
+const WALL_JUMP_WINDOW := 0.18
+const WALL_JUMP_PUSH_TIME := 0.16
+const WALL_JUMP_SPEED := 210.0
+const WALL_SLIDE_SPEED := 72.0
+var wall_sliding := false
+var wall_slide_dust_left := 0.0
+var wall_jump_window_left := 0.0
+var wall_jump_side := 0.0
+var last_wall_jump_side := 0.0
+var wall_jump_push_left := 0.0
+var crouching := false
+var pad_crouch := false
+var pad_jump_queued := false
 var level: Node2D
 var facing: float = 1.0
 var is_concealed: bool = false
+# At 60 Hz with gravity 850, two apex-timed impulses reproduce Fran's
+# approximately 65.17px total rise, including the floor contact margin.
+@export var jump_velocity := -242.37
 @export var stealth_duration := 5.0
 @export var stealth_cooldown := 8.0
 @export_range(0.1, 1.0) var stealth_speed_multiplier := 0.55
@@ -18,7 +38,6 @@ var guns: Array[String] = []
 var gun_ammo: Dictionary = {}
 var equipped_gun := "pistol"
 var pending_guard: IntroGuard
-var suppressor_uses := 0
 var in_hiding_spot := false
 var ammunition: int = 0
 var c4_count: int = 0
@@ -39,6 +58,9 @@ const JUMP = preload("res://assets/characters/miro_jump.png")
 func _ready() -> void:
 	add_to_group("player")
 	movement_speed = 115.0
+	controls = preload("res://scripts/player_controls.gd").new()
+	add_child(controls)
+	$CollisionShape2D.shape = $CollisionShape2D.shape.duplicate()
 
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(level):
@@ -49,17 +71,24 @@ func _physics_process(delta: float) -> void:
 	dodge_left = maxf(0.0, dodge_left - delta)
 	attack_flash = maxf(0.0, attack_flash - delta)
 	if level.controls_locked() or is_dead:
+		pad_jump_queued = false
+		wall_sliding = false
 		velocity = Vector2.ZERO
 		update_visual(delta)
 		return
+	double_jump_cooldown_left = maxf(0.0, double_jump_cooldown_left - delta)
 	if in_hiding_spot:
+		wall_sliding = false
 		velocity = Vector2.ZERO
 		update_visual(delta)
 		return
 	stealth_cooldown_left = maxf(0, stealth_cooldown_left - delta)
 	if is_concealed:
 		stealth_remaining = maxf(0, stealth_remaining - delta)
-		if stealth_remaining == 0:
+		if not level.in_cover(global_position):
+			end_stealth()
+			level.notify("Left shadows — cover ended.")
+		elif stealth_remaining == 0:
 			end_stealth()
 	var direction := Input.get_axis("move_left", "move_right")
 	var vertical := Input.get_axis("climb_up", "climb_down")
@@ -68,10 +97,27 @@ func _physics_process(delta: float) -> void:
 		climbing = false
 	elif vertical != 0.0:
 		climbing = true
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor() or climbing:
-			velocity.y = -290.0
-			climbing = false
+	if is_on_floor() or climbing:
+		jumps_used = 0
+	elif jumps_used == 0:
+		jumps_used = 1
+	wall_jump_window_left = maxf(0.0, wall_jump_window_left - delta)
+	wall_jump_push_left = maxf(0.0, wall_jump_push_left - delta)
+	if is_on_floor() or climbing:
+		wall_jump_window_left = 0.0
+		wall_jump_push_left = 0.0
+		last_wall_jump_side = 0.0
+	update_crouch()
+	var jump_pressed := Input.is_action_just_pressed("jump") or pad_jump_queued
+	pad_jump_queued = false
+	if jump_pressed and not crouching:
+		if not try_mantle() and not try_wall_jump():
+			if jumps_used == 0 or (jumps_used == 1 and double_jump_cooldown_left <= 0.0):
+				if jumps_used == 1:
+					double_jump_cooldown_left = DOUBLE_JUMP_COOLDOWN
+				velocity.y = jump_velocity
+				jumps_used += 1
+				climbing = false
 	if direction != 0.0:
 		facing = direction
 	if Input.is_action_just_pressed("dodge") and dodge_cooldown <= 0.0:
@@ -79,9 +125,12 @@ func _physics_process(delta: float) -> void:
 		dodge_cooldown = 0.85
 		end_stealth()
 	var speed_multiplier := stealth_speed_multiplier if is_concealed else 1.0
-	velocity.x = direction * movement_speed * speed_multiplier
+	velocity.x = direction * movement_speed * speed_multiplier * (0.45 if crouching else (0.6 if controls.focus else 1.0))
 	if dodge_left > 0.0:
 		velocity.x = facing * 245.0
+	if wall_jump_push_left > 0.0:
+		velocity.x = last_wall_jump_side * WALL_JUMP_SPEED
+		facing = last_wall_jump_side
 	if climbing:
 		velocity.y = vertical * 85.0 * speed_multiplier
 		if direction == 0.0:
@@ -89,8 +138,28 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y += 850.0 * delta
 	var was_grounded := is_on_floor()
+	var previous_wall_side := signf(get_wall_normal().x) if is_on_wall() else 0.0
+	var was_sliding := wall_sliding
+	wall_sliding = not was_grounded and not climbing and velocity.y > 0.0 and direction * previous_wall_side < 0.0 and wall_jump_push_left <= 0.0 and dodge_left <= 0.0
+	if wall_sliding:
+		velocity.y = minf(velocity.y, WALL_SLIDE_SPEED)
+		if not was_sliding and previous_wall_side != last_wall_jump_side:
+			wall_jump_side = previous_wall_side
+			wall_jump_window_left = WALL_JUMP_WINDOW
+		wall_slide_dust_left -= delta
+		if wall_slide_dust_left <= 0:
+			level.emit_effect("dust", global_position + Vector2(-previous_wall_side * 7.0, 10.0))
+			wall_slide_dust_left = 0.16
+	else:
+		wall_slide_dust_left = 0.0
 	var fall_speed := velocity.y
 	move_and_slide()
+	wall_sliding = wall_sliding and is_on_wall() and not is_on_floor()
+	if is_on_wall() and not is_on_floor() and not climbing:
+		var wall_side := signf(get_wall_normal().x)
+		if wall_side != previous_wall_side and wall_side != last_wall_jump_side:
+			wall_jump_side = wall_side
+			wall_jump_window_left = WALL_JUMP_WINDOW
 	if not was_grounded and is_on_floor() and fall_speed > 100:
 		level.emit_effect("dust", global_position + Vector2(0, 14))
 	footstep_left = maxf(0, footstep_left - delta)
@@ -104,11 +173,11 @@ func _physics_process(delta: float) -> void:
 		shank()
 	if Input.is_action_just_pressed("explosive"):
 		level.plant_c4()
-	if equipped_gun != "pistol" and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		fire_gun()
+
 	if Input.is_action_just_pressed("fire"):
 		fire_gun()
-	if global_position.y > 800:
+	# Out of the world: below the level's own floor (Level 5 is deeper than the others).
+	if global_position.y > $Camera2D.limit_bottom + 44:
 		die()
 	update_visual(delta)
 
@@ -121,6 +190,8 @@ func toggle_stealth() -> void:
 		end_stealth()
 	elif stealth_cooldown_left > 0:
 		level.notify("Stealth recharging: %.1fs" % stealth_cooldown_left)
+	elif not level.in_cover(global_position):
+		level.notify("The blanket only conceals you in shadows.")
 	else:
 		is_concealed = true
 		stealth_remaining = stealth_duration
@@ -152,7 +223,9 @@ func stealth_status() -> String:
 		return "STEALTH %.1fs" % stealth_remaining
 	if stealth_cooldown_left > 0:
 		return "STEALTH %.1fs cooldown" % stealth_cooldown_left
-	return "STEALTH READY [2]"
+	if not is_instance_valid(level) or not level.in_cover(global_position):
+		return "BLANKET [Q + click] · find shadow"
+	return "BLANKET READY [Q + click]"
 
 func shank() -> void:
 	if in_hiding_spot or level.controls_locked() or is_dead:
@@ -166,22 +239,25 @@ func shank() -> void:
 	attack_cooldown = 0.5
 	attack_flash = 0.16
 	get_node("/root/SoundFX").play_sound("swing", -18)
-	for guard in level.guards():
-		var difference: Vector2 = guard.global_position - global_position
-		if not guard.is_dead and absf(difference.y) < 24 and absf(difference.x) <= 46 and difference.x * facing >= -5:
-			if level.can_melee_reach(global_position, guard.global_position):
-				guard.receive_shank()
-				break
-
-func _unhandled_input(event: InputEvent) -> void:
-	if not is_instance_valid(level) or level.controls_locked() or is_dead or in_hiding_spot:
-		return
-	if event is InputEventMouseMotion:
-		mouse_aim = true
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		mouse_aim = true
-		fire_gun()
-		get_viewport().set_input_as_handled()
+	var target: Node2D
+	var reach := INF
+	var targets: Array[Node] = level.guards()
+	targets.append_array(get_tree().get_nodes_in_group("tower_turrets"))
+	for candidate in targets:
+		var turret := candidate.is_in_group("tower_turrets")
+		if candidate.health <= 0 or (not turret and candidate.is_dead):
+			continue
+		var point: Vector2 = candidate.target_point() if turret else candidate.global_position
+		var difference := point - global_position
+		if absf(difference.y) < 24 and absf(difference.x) <= 46 and difference.x * facing >= -5:
+			if difference.length_squared() < reach and level.can_melee_reach(global_position, point):
+				target = candidate
+				reach = difference.length_squared()
+	if target != null:
+		if target.is_in_group("tower_turrets"):
+			target.take_turret_hit()
+		else:
+			target.receive_shank()
 
 func select_gun(index: int) -> void:
 	if index < 0 or index >= guns.size():
@@ -197,7 +273,7 @@ func loot_weapon(guard: IntroGuard) -> void:
 		guns.append(equipped_gun)
 	gun_ammo[equipped_gun] = ammunition
 	if guns.has(guard.weapon_kind):
-		gun_ammo[guard.weapon_kind] = gun_ammo.get(guard.weapon_kind, 0) + weapon_ammo(guard.weapon_kind)
+		controls.reserves[guard.weapon_kind] = controls.reserves.get(guard.weapon_kind, 0) + weapon_ammo(guard.weapon_kind)
 		ammunition = gun_ammo.get(equipped_gun, 0)
 		guard.gun_taken = true
 	elif guns.size() < 2:
@@ -212,13 +288,14 @@ func loot_weapon(guard: IntroGuard) -> void:
 		level.notify("Take %s? [Z] replace %s / [X] replace %s / [Esc] cancel" % [guard.weapon_kind, guns[0], guns[1]], 30)
 
 func weapon_ammo(kind: String) -> int:
-	return 2 if kind == "pistol" else (12 if kind == "smg" else 16)
+	return 2 if kind == "pistol" else 12
 
 func resolve_weapon_choice(slot: int) -> void:
 	if not is_instance_valid(pending_guard):
 		return
 	if slot >= 0 and slot < guns.size():
 		gun_ammo[equipped_gun] = ammunition
+		controls.reserves.erase(guns[slot])
 		gun_ammo.erase(guns[slot])
 		guns[slot] = pending_guard.weapon_kind
 		equipped_gun = guns[slot]
@@ -226,18 +303,29 @@ func resolve_weapon_choice(slot: int) -> void:
 		ammunition = gun_ammo[equipped_gun]
 		pending_guard.gun_taken = true
 	pending_guard = null
-	level.notify("[Q] Switch guns. Mouse aim / click or [4] fire.")
+	controls.sync_slots()
+	level.notify("Weapon choice saved. Select a slot to equip.")
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventJoypadButton and event.pressed and is_instance_valid(pending_guard):
+		match event.button_index:
+			JOY_BUTTON_LEFT_SHOULDER:
+				resolve_weapon_choice(0)
+			JOY_BUTTON_RIGHT_SHOULDER:
+				resolve_weapon_choice(1)
+			JOY_BUTTON_B:
+				resolve_weapon_choice(-1)
+			_:
+				return
+		get_viewport().set_input_as_handled()
+		return
 	if not event is InputEventKey or not event.pressed or event.echo:
 		return
 	if is_instance_valid(pending_guard):
 		if event.physical_keycode in [KEY_Z, KEY_X, KEY_ESCAPE]:
 			resolve_weapon_choice(0 if event.physical_keycode == KEY_Z else (1 if event.physical_keycode == KEY_X else -1))
 			get_viewport().set_input_as_handled()
-	elif event.physical_keycode == KEY_Q and not level.controls_locked():
-		select_gun((guns.find(equipped_gun) + 1) % maxi(1, guns.size()))
-		get_viewport().set_input_as_handled()
+
 
 func fire_gun() -> void:
 	if in_hiding_spot or level.controls_locked() or is_dead:
@@ -245,19 +333,16 @@ func fire_gun() -> void:
 	if not has_gun or ammunition <= 0:
 		level.notify("No loaded weapon. A fallen Keeper may carry one.")
 		return
-	if attack_cooldown > 0:
+	if attack_cooldown > 0 or controls.reload_left > 0:
 		return
 	ammunition -= 1
-	attack_cooldown = 0.65 if equipped_gun == "pistol" else (0.13 if equipped_gun == "smg" else 0.12)
+	attack_cooldown = 0.65 if equipped_gun == "pistol" else 0.13
 	attack_flash = 0.2
-	var suppressed := suppressor_uses > 0 and equipped_gun == "pistol"
-	if suppressed:
-		suppressor_uses -= 1
-	get_node("/root/SoundFX").play_sound("flame" if equipped_gun == "flamethrower" else "shot", -32 if suppressed else -22, 1.25 if equipped_gun == "smg" else 1.0)
+	get_node("/root/SoundFX").play_sound("shot", -22, 1.25 if equipped_gun == "smg" else 1.0)
 	end_stealth()
-	if not suppressed:
-		level.make_noise(global_position, 600.0)
-	aim_direction = (get_global_mouse_position() - global_position).normalized() if mouse_aim else Vector2(facing, 0)
+	# Gunfire is always loud: kills cost noise.
+	level.make_noise(global_position, 600.0)
+	aim_direction = (get_global_mouse_position() - global_position).normalized() if mouse_aim else (aim_direction if controls.pad_aim else Vector2(facing, 0))
 	if aim_direction.length_squared() < 0.1:
 		aim_direction = Vector2(facing, 0)
 	if absf(aim_direction.x) > 0.01:
@@ -267,17 +352,11 @@ func fire_gun() -> void:
 	bullet.level = level
 	bullet.shooter = self
 	bullet.direction = aim_direction
-	bullet.flame = equipped_gun == "flamethrower"
 	bullet.damage = 2 if equipped_gun == "pistol" else 1
-	if bullet.flame:
-		bullet.speed = 240.0
-		bullet.remaining = 100.0
 	# Start at the body so a muzzle offset cannot spawn beyond a nearby wall.
 	bullet.position = position + Vector2(0, -4)
 	level.add_child(bullet)
 	level.emit_effect("hit", global_position + aim_direction * 12)
-	if equipped_gun == "flamethrower":
-		return
 	var casing := Node2D.new()
 	casing.set_script(load("res://scripts/weapon_casing.gd"))
 	casing.level = level
@@ -300,10 +379,10 @@ func die() -> void:
 	if is_dead:
 		return
 	super.die()
-	level.notify("The tower keeps its prisoners. Press R to retry.", 20.0)
+	level.notify("The tower keeps its prisoners. Press Backspace to retry.", 20.0)
 
 func update_visual(delta: float) -> void:
-	if has_gun and mouse_aim and not level.controls_locked():
+	if mouse_aim and not level.controls_locked():
 		aim_direction = (get_global_mouse_position() - global_position).normalized()
 	animation_time += delta
 	sprite.hframes = 1
@@ -318,15 +397,85 @@ func update_visual(delta: float) -> void:
 	sprite.modulate = Color("8b6d9c") if is_concealed else Color.WHITE
 	sprite.modulate.a = 0.15 if in_hiding_spot else (0.42 if is_concealed else (0.5 if invulnerability_left > 0 and int(animation_time * 20) % 2 == 0 else 1.0))
 	sprite.rotation = PI / 2 if is_dead else 0.0
+	sprite.visible = is_dead
 	queue_redraw()
 
 func _draw() -> void:
-	if has_gun and not is_dead and not in_hiding_spot:
+	if not is_dead and is_instance_valid(sprite):
+		var scale_y := 0.65 if crouching else 1.0
+		var origin := Vector2(0, 5 if crouching else 0)
+		var frame_x := sprite.frame * 32 if sprite.hframes == 2 else 0
+		var pose_facing := -signf(get_wall_normal().x) if wall_sliding else facing
+		var lean := pose_facing * 0.12 if wall_sliding else 0.0
+		draw_set_transform(origin, lean, Vector2(pose_facing, scale_y))
+		draw_texture_rect_region(sprite.texture, Rect2(-16, -3, 32, 19), Rect2(frame_x, 13, 32, 19), sprite.modulate)
+		var head_facing := pose_facing
+		if not wall_sliding and (mouse_aim or controls.pad_aim) and absf(aim_direction.x) > 0.01:
+			head_facing = signf(aim_direction.x)
+		var head_angle := clampf(atan2(aim_direction.y, absf(aim_direction.x)), -0.3, 0.3) * head_facing if (mouse_aim or controls.pad_aim) and not wall_sliding else lean
+		draw_set_transform(origin + Vector2(0, -5 * scale_y), head_angle, Vector2(head_facing, scale_y))
+		draw_texture_rect_region(sprite.texture, Rect2(-16, -11, 32, 13), Rect2(frame_x, 0, 32, 13), sprite.modulate)
+		draw_set_transform(Vector2.ZERO)
+	if has_gun and controls.active in guns and not is_dead and not in_hiding_spot:
 		var direction := aim_direction if mouse_aim else Vector2(facing, 0)
 		draw_set_transform(Vector2(0, -4), direction.angle(), Vector2(1, -1 if direction.x < 0 else 1))
 		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[equipped_gun], Rect2(0, -10, 24, 24), false)
 		draw_set_transform(Vector2.ZERO)
 	if attack_flash > 0:
 		draw_line(Vector2(facing * 9, -2), Vector2(facing * 35, -7), Color("fbf5ef"), 2)
+	if controls.focus:
+		var cursor := get_local_mouse_position()
+		draw_arc(cursor, 5, 0, TAU, 16, Color(1, 1, 1, 0.7), 1)
 	if is_concealed:
 		draw_arc(Vector2(0, -20), 5, 0, PI, 8, Color("c69fa5"), 1)
+
+func update_crouch() -> void:
+	var requested: bool = (Input.is_physical_key_pressed(KEY_CTRL) or controls.wants_pad_crouch()) and is_on_floor()
+	if crouching and not requested:
+		var shape := RectangleShape2D.new()
+		shape.size = Vector2(12, 27)
+		var query := PhysicsShapeQueryParameters2D.new()
+		query.shape = shape
+		query.transform = Transform2D(0, global_position + Vector2(0, 1.5))
+		query.collision_mask = 1
+		query.margin = 0.0
+		query.exclude = [get_rid()]
+		if not get_world_2d().direct_space_state.intersect_shape(query).is_empty():
+			requested = true
+	crouching = requested
+	$CollisionShape2D.shape.size = Vector2(12, 16 if crouching else 27)
+	$CollisionShape2D.position.y = 7 if crouching else 1.5
+	sprite.scale.y = 0.65 if crouching else 1.0
+	sprite.position.y = 5 if crouching else 0
+
+## Use the contact normal so facing and held input cannot send the bounce into the wall.
+func try_wall_jump() -> bool:
+	if is_on_floor() or climbing or wall_jump_window_left <= 0.0 or wall_jump_side == last_wall_jump_side:
+		return false
+	last_wall_jump_side = wall_jump_side
+	wall_jump_window_left = 0.0
+	wall_jump_push_left = WALL_JUMP_PUSH_TIME
+	dodge_left = 0.0
+	velocity.y = jump_velocity
+	return true
+
+func try_mantle() -> bool:
+	if not is_on_wall() or is_on_floor() or climbing:
+		return false
+	var up := Vector2(0, -34)
+	var across := Vector2(facing * 22, 0)
+	if test_move(global_transform, up):
+		return false
+	var raised := global_transform
+	raised.origin += up
+	if test_move(raised, across):
+		return false
+	var destination := global_position + up + across
+	if not level.has_floor_below(destination + Vector2(0, 13)):
+		return false
+	global_position = destination
+	wall_jump_window_left = 0.0
+	wall_jump_push_left = 0.0
+	velocity = Vector2.ZERO
+	jumps_used = 1
+	return true

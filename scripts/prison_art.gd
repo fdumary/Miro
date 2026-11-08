@@ -6,11 +6,9 @@ const BLUE = Color("494d7e")
 const VIOLET = Color("8b6d9c")
 const PINK = Color("c69fa5")
 const WARM = Color("f2d3ab")
-var time: float = 0.0
 
-func _process(delta: float) -> void:
-	time += delta
-	queue_redraw()
+func _process(_delta: float) -> void:
+	tick_torches()
 
 func _draw() -> void:
 	draw_rect(Rect2(0, 0, 1120, 756), INK)
@@ -38,8 +36,7 @@ func _draw() -> void:
 	draw_string(ThemeDB.fallback_font, Vector2(78, 132), "CELL 07", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, PINK)
 	for point in [Vector2(300, 183), Vector2(615, 178), Vector2(1005, 175), Vector2(920, 380), Vector2(470, 374), Vector2(145, 608), Vector2(690, 604), Vector2(1000, 597)]:
 		torch(point)
-	for point in [Vector2(477, 252), Vector2(968, 448), Vector2(530, 672)]:
-		crate(point)
+	# Crates are real props now (world_features.spawn_crate): solid on top, hide inside with E.
 	for point in [Vector2(350, 448), Vector2(700, 672), Vector2(1035, 252)]:
 		draw_grounded(SHROOMS, point)
 	for point in [Vector2(730, 206), Vector2(295, 402), Vector2(995, 619)]:
@@ -64,7 +61,7 @@ func window(point: Vector2) -> void:
 func torch(point: Vector2) -> void:
 	for i in range(5, 0, -1):
 		draw_circle(point, float(i * 10), Color(0.95, 0.83, 0.67, 0.012))
-	draw_texture_rect(preload("res://assets/library/torch.png"), Rect2(point + Vector2(-8, -8), Vector2(16, 24)), false)
+	draw_torch(Rect2(point - Vector2(16, 14), Vector2(32, 32)))
 
 func crate(point: Vector2) -> void:
 	draw_grounded(CRATE, point)

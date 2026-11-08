@@ -1,34 +1,42 @@
-# Miro
+# Miro: Last Man Standing
 
-Current combat work: [meeting 3 notes](docs/miromeeting3.md) · [ordered weapon tasks and gap assessment](docs/WEAPON_UPGRADE_TASKS.md).
-Miro's Tower Escape: Last One Standing
+![Miro title screen: the tower at dusk](docs/images/menu_title.png)
 
-Canonical repository: [xynprize/Miro.](https://github.com/xynprize/Miro.) (the name includes the final period). Julia's latest sprites are mapped in the [asset integration guide](docs/JULIA_ASSET_INTEGRATION.md).
+**Miro** is a 2D pixel-art stealth platformer about escape, isolation and distrust. You play Miro, Prisoner M-07, who wakes in a cell at the top of a tower with no memory of how he got there. A sickness is spreading through the building, and the guards are coughing too. Miro has to get down five floors to the ground, sneaking past guards or fighting through them, and the tower reacts to which one he chooses. The tower itself is the antagonist: a power structure of ranks, rules and records that traps prisoners and guards alike.
 
-[Library visual polish](docs/LIBRARY_VISUAL_POLISH.md): scenery, interface sprites and effects added while preserving Julia's original assets.
+![The tower in the storm, from the opening cinematic](docs/images/opening.png)
 
-**Playable audio/stealth review:** [feature spec and build instructions](docs/AUDIO_AND_STEALTH_REVIEW.md). Start at the review menu; F10 returns to it. Music, voiced guard conversations, root login, suppressor cases and hiding recesses are implemented for review.
+<p>
+  <img src="docs/images/mp3_pickup.png" width="49%" alt="Floor 1: Miro takes the MP3 player off the guard">
+  <img src="docs/images/rumour.png" width="49%" alt="Floor 2: If nobody sees me, I'm only a rumour">
+</p>
+<p>
+  <img src="docs/images/symptoms.png" width="49%" alt="Floor 2: two Keepers talking about the transfer orders">
+  <img src="docs/images/order.png" width="49%" alt="Floor 3: a Keeper quoting Isaiah on his rounds">
+</p>
+<p>
+  <img src="docs/images/ward.png" width="49%" alt="Floor 4: Keepers talking about the sealed ward">
+  <img src="docs/images/terminal.png" width="49%" alt="Reading Prisoner M-07's file on a terminal">
+</p>
+<p>
+  <img src="docs/images/gallery.png" width="49%" alt="Inspecting a public-domain painting in the tower">
+  <img src="docs/images/beats.png" width="49%" alt="The Beats screen: MP3 tracks unlocked by stealth and combat">
+</p>
+<p>
+  <img src="docs/images/level_select.png" width="49%" alt="Floor select screen">
+  <img src="docs/images/pause_controls.png" width="49%" alt="Pause menu with the controls">
+</p>
 
-**Current focus:** [music mechanics handoff and ordered tasks](docs/MUSIC_MECHANICS_HANDOFF.md) — portable player pickup, stealth/offense points, beat unlocks and soundtrack branches (planned).
+## Tech stack
 
-[Agreed soundtrack placement and section plan](docs/MUSIC_TRACKLIST.md) · [tempo/key analysis data](data/music/beat_analysis.json). Levels may use multiple tracks.
+- **Engine:** Godot 4.7 (Forward+), written in GDScript, rendered at 640×360 and scaled up for pixel art
+- **Levels and story:** JSON data in `data/`, with Python and GDScript tools that build the level scenes from it
+- **Music:** original soundtrack by RXLA, played by a music director that also acts as a beat clock, so guards and waves move on the beat
+- **Voices:** ElevenLabs (`eleven_v3`), generated at build time
+- **Art:** original sprites and tiles by Julia, Kenney CC0 asset packs provided by Fran, and public-domain paintings with checked rights
+- **Testing:** headless Godot test scripts (`Run Checks.ps1`) and a bot that plays through all five floors (`Check Exported Playthrough.ps1`)
+- **Build:** Windows export with `Build Windows.ps1`
 
-Soundtrack planning: [proposed music spec](docs/MUSIC_SPEC.md). Candidate beats are in `soundselection/beats` (Git LFS); run `git lfs pull` after cloning. Section playback is implemented; scoring/unlocks and the outro composition remain unfinished.
+![Miro and Keeper sprites](docs/images/sprites.png)
 
-**Fran's playtesting:** [handoff and checklist](docs/FRAN_PLAYTEST_HANDOFF.md) · [report template](docs/PLAYTEST_REPORT_TEMPLATE.md) · [coding-agent prompt](docs/FRAN_AGENT_PROMPT.md).
-
-Godot 4.7 / Forward+. Main scene: `scenes/main_menu.tscn`; gameplay intro: `scenes/intro.tscn`.
-
-The playable first floor includes the cell opening, three escape choices, guard sight and searches, blanket stealth, combat, ladders, a sigil objective, and an intro completion screen.
-
-See [intro guide](docs/INTRO.md) for controls, editing and verification. Use `Open Miro.ps1`, `Play Miro.ps1`, or the desktop shortcuts. Run `Run Checks.ps1` for the automated playthroughs.
-
-The original movement sandbox remains in `scenes/asset_sandbox.tscn`.
-
-All five floors now have editable scene scaffolds. See [Level 1 sources and authoring](docs/LEVEL_01_SCAFFOLD.md) and [Levels 2–5 sources and unfinished systems](docs/LEVELS_02_05.md). Launch a specific floor with `./Play Level.ps1 -Level 2`. Later floors contain draft dialogue and explicit mechanic/cinematic placeholders.
-
-Playable milestone: linked five-floor progression, Level 3 sweeping cameras and one-second hacking, Level 5 two-attack boss and a skippable in-engine ending. Art remains provisional; see the per-floor guide for remaining work.
-
-Latest controls: press **2** for 5-second mobile stealth (8-second cooldown, 55% speed); contact with a living guard reveals Miro. Dialogue uses a simpler bottom text/speaker panel. See [current decisions](docs/GAMEPLAY_DECISIONS.md). Build with `Build Windows.ps1`, then validate standalone startup using `Check Windows Build.ps1`.
-
-Press **M** to toggle sound effects. `Check Exported Playthrough.ps1` verifies a continuous five-floor run in a separate QA export (64 checks), including the boss and watched ending.
+To play from source, open the folder in Godot 4.7 or run `Play Miro.ps1` on Windows. Run `git lfs pull` after cloning to get the music.

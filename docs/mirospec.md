@@ -5,7 +5,7 @@
 
 A single-player, 2D action/stealth platformer built in Godot. A former Keeper escapes from the upper cells of a prison tower, descending through an institution he once served. As he uncovers evidence of persecution, experimentation, and a spreading illness, his brother repeatedly tries to stop him.
 
-The player leaves a distinctive sigil on each floor. In the ending, these marks are revealed as demolition charges. After fatally wounding his brother and escaping into the woods, the protagonist detonates them, destroying the tower.
+The player leaves a distinctive sigil on each floor. In the ending, these marks are revealed as demolition charges. After defeating his brother Niro (who survives and stays inside) and escaping into the woods alone, the protagonist detonates them with the remote, destroying the tower. He is the Last Man Standing: the only one who leaves.
 
 **Target:** Desktop  
 **Target runtime:** 15–25 minutes  
@@ -20,6 +20,10 @@ The player leaves a distinctive sigil on each floor. In the ending, these marks 
 Ethan explicitly updated the story and combat scope. [Narrative update](NARRATIVE_UPDATE.md) specifies the five-floor reveal, guard speech bubbles, Miro’s inner dialogue and Level 4 demolition emphasis. [Weapon tasks](WEAPON_UPGRADE_TASKS.md) specifies the requested firearms additions. These amendments take precedence over conflicting original draft details below; unrelated progression remains unchanged.
 
 Miro is immune to a sickness created by the tower. The tower imprisons and experiments on him to reproduce his resistance as a cure, while portraying his defiance as dangerous. This truth is revealed in Level 5. His brother is the tower physician: sincerely protective, complicit in the betrayal, and trapped in the institution’s account of his own purpose. Levels 1–2 introduce play and unease; Level 3 requires hacking; Level 4 places most of the C4; Level 5 contains the final confrontation.
+
+### Approved controls and traversal revision — 7 November 2026
+
+[Final controls and remote](CONTROLS_REMOTE_HANDOFF.md) and [Fran/traversal reconciliation](TRAVERSAL_FRAN_HANDOFF.md) record Ethan’s subsequent instructions. Q selects a shadow-only blanket; numbered slots are rearrangeable. Two jumps together reproduce Fran’s 65.17-pixel reference height at gravity 850. Optional timed trapdoors preserve ladder access and required story gates.
 
 ### Creative pillars
 
@@ -57,7 +61,7 @@ Sigils are placed through the normal interaction action at fixed locations. No f
 | **2 — The Symptoms** | Introduce cover and patrol avoidance | Show visible illness alongside evidence of indiscriminate persecution | Offers surrender and hints at their shared past |
 | **3 — The Order** | Navigate a security checkpoint and disable its controls | Reveal the protagonist’s former rank and confirm the brothers’ relationship | Appeals to their shared responsibility for the order |
 | **4 — The Ward** | Traverse a sealed experimental area and place the penultimate sigil | Show both abusive experiments and credible evidence that containment matters | Warns that destroying the institution could destroy something irreplaceable |
-| **5 — The Brother** | Place the final sigil, defeat the brother, and escape | Resolve the personal conflict while leaving the moral conflict open | Fights, is fatally wounded, and still addresses the protagonist as his brother |
+| **5 — The Foundation** | Pick up the guitar, survive the waves, beat Niro three times as he retreats, defeat him on the deepest floor, and escape | Resolve the personal conflict while leaving the moral conflict open | Fights, retreats three times, is beaten but not killed, and still addresses the protagonist as his brother |
 
 Each floor contains one essential story beat. Optional environmental details deepen the conflict without being necessary to understand the ending.
 
@@ -123,7 +127,7 @@ The first complete build must include:
 - Five required sigil placements.
 - Recurring brother encounters.
 - Evidence of both institutional cruelty and genuine illness.
-- Fatal confrontation, outdoor escape, and tower destruction.
+- Non-fatal confrontation (Niro survives), outdoor escape, and tower destruction.
 - Subtitles, pause, cinematic skipping, and a complete exported playthrough.
 
 If the original seven-day schedule still applies, cut extra enemy types, elaborate security puzzles, optional rooms, and intermediate animated cinematics first.

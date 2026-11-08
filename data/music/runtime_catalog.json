@@ -22,7 +22,8 @@
         },
         "output_lufs": "-19.99",
         "output_true_peak_dbtp": "-7.19"
-      }
+      },
+      "bpm": 112.35
     },
     "bobblehead": {
       "title": "BOBBLEHEAD2.mp3",
@@ -46,7 +47,8 @@
         },
         "output_lufs": "-20.00",
         "output_true_peak_dbtp": "-7.89"
-      }
+      },
+      "bpm": 143.55
     },
     "dope2": {
       "title": "DOPE2.mp3",
@@ -70,7 +72,8 @@
         },
         "output_lufs": "-20.06",
         "output_true_peak_dbtp": "-1.90"
-      }
+      },
+      "bpm": 129.2
     },
     "swag": {
       "title": "swag.wav",
@@ -94,7 +97,8 @@
         },
         "output_lufs": "-20.00",
         "output_true_peak_dbtp": "-5.57"
-      }
+      },
+      "bpm": 123.05
     },
     "sumcrazy": {
       "title": "sum crazy shi_3.mp3",
@@ -118,7 +122,8 @@
         },
         "output_lufs": "-20.00",
         "output_true_peak_dbtp": "-6.96"
-      }
+      },
+      "bpm": 129.2
     },
     "plane_drums": {
       "title": "plane drums nig.wav",
@@ -142,7 +147,8 @@
         },
         "output_lufs": "-19.99",
         "output_true_peak_dbtp": "-7.53"
-      }
+      },
+      "bpm": 99.38
     },
     "cyberpunk": {
       "title": "cyberpunk_2.mp3",
@@ -166,7 +172,8 @@
         },
         "output_lufs": "-20.27",
         "output_true_peak_dbtp": "-3.89"
-      }
+      },
+      "bpm": 117.45
     },
     "shit_crashed": {
       "title": "shit crashed 2.wav",
@@ -190,7 +197,8 @@
         },
         "output_lufs": "-20.00",
         "output_true_peak_dbtp": "-5.97"
-      }
+      },
+      "bpm": 129.2
     },
     "robot_attack": {
       "title": "robot attack.wav",
@@ -214,10 +222,425 @@
         },
         "output_lufs": "-20.00",
         "output_true_peak_dbtp": "-9.43"
-      }
+      },
+      "bpm": 136.0
+    },
+    "set_me_free": {
+      "title": "set me free",
+      "stream": "res://assets/audio/music/set_me_free.mp3",
+      "source": "set me free_2.mp3",
+      "role": "outro",
+      "leveling": {
+        "source_sha256": "81f16636ec10f8c41c586b3d32e8870d3e548714636f106bd01d7d88be505491",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-13.10",
+          "input_tp": "0.56",
+          "input_lra": "2.10",
+          "input_thresh": "-23.10",
+          "output_i": "-19.69",
+          "output_tp": "-5.46",
+          "output_lra": "2.10",
+          "output_thresh": "-29.69",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.31"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-6.40"
+      },
+      "bpm": 103.36
+    },
+    "lil_uzi2": {
+      "title": "LIL UZI2",
+      "stream": "res://assets/audio/music/lil_uzi2.mp3",
+      "source": "LIL UZI2.mp3",
+      "role": "menu_completed",
+      "leveling": {
+        "source_sha256": "ec7de44635be30c5a365119ed7cac65cb59d2232a69843dd9fd6cb82af765128",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-14.62",
+          "input_tp": "-2.36",
+          "input_lra": "9.70",
+          "input_thresh": "-25.58",
+          "output_i": "-19.36",
+          "output_tp": "-2.00",
+          "output_lra": "7.30",
+          "output_thresh": "-29.92",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.64"
+        },
+        "output_lufs": "-20.01",
+        "output_true_peak_dbtp": "-7.13"
+      },
+      "bpm": 0
+    },
+    "birthday_melody": {
+      "title": "Birthday Melody",
+      "stream": "res://assets/audio/music/birthday_melody.mp3",
+      "source": "birthday melody YZ.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "7e184b54042a736f23bc009a42fb525fe9177a4c3ad9f04e9f549a449a9df8b2",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-11.27",
+          "input_tp": "0.92",
+          "input_lra": "14.00",
+          "input_thresh": "-22.09",
+          "output_i": "-19.77",
+          "output_tp": "-5.44",
+          "output_lra": "10.50",
+          "output_thresh": "-30.19",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.23"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-5.42"
+      },
+      "bpm": 112.35
+    },
+    "pinkghost": {
+      "title": "Pink Ghost",
+      "stream": "res://assets/audio/music/pinkghost.mp3",
+      "source": "not new jazz x pinkghost.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "a6d614b9a6d3a94d3493c11abb28ca7028ea9b3c1a6d5754ccdf3290e3f45919",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-10.76",
+          "input_tp": "2.10",
+          "input_lra": "9.60",
+          "input_thresh": "-21.05",
+          "output_i": "-18.68",
+          "output_tp": "-2.00",
+          "output_lra": "4.80",
+          "output_thresh": "-28.78",
+          "normalization_type": "dynamic",
+          "target_offset": "-1.32"
+        },
+        "output_lufs": "-20.01",
+        "output_true_peak_dbtp": "-6.80"
+      },
+      "bpm": 71.78
+    },
+    "jazzyhall": {
+      "title": "Jazzy Hall",
+      "stream": "res://assets/audio/music/jazzyhall.mp3",
+      "source": "jazzyhall_4.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "1ea284aede72c9ca170a2311519c18b8702c2aae12ebfbec5b5cfe50216f4cd1",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-10.37",
+          "input_tp": "0.34",
+          "input_lra": "18.80",
+          "input_thresh": "-21.61",
+          "output_i": "-19.24",
+          "output_tp": "-7.01",
+          "output_lra": "15.20",
+          "output_thresh": "-30.33",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.76"
+        },
+        "output_lufs": "-20.03",
+        "output_true_peak_dbtp": "-7.78"
+      },
+      "bpm": 99.38
+    },
+    "dancehall": {
+      "title": "Dancehall YF",
+      "stream": "res://assets/audio/music/dancehall.mp3",
+      "source": "dancehall yf_2....\ud83d\udccc.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "edf97f60a3a08d5f6bcf330e4017f07c3ccb708de729843dff609cd8ac01a603",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-6.31",
+          "input_tp": "0.94",
+          "input_lra": "3.10",
+          "input_thresh": "-16.42",
+          "output_i": "-19.73",
+          "output_tp": "-10.51",
+          "output_lra": "2.80",
+          "output_thresh": "-29.84",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.27"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-12.30"
+      },
+      "bpm": 99.38
+    },
+    "drill_shxt": {
+      "title": "Drill Shxt",
+      "stream": "res://assets/audio/music/drill_shxt.mp3",
+      "source": "drill shxt.mp3",
+      "role": "menu",
+      "leveling": {
+        "source_sha256": "18562428a3b96d0f92ad2b678d429d64823094db063c9738601793239795524e",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-12.06",
+          "input_tp": "1.95",
+          "input_lra": "16.90",
+          "input_thresh": "-23.02",
+          "output_i": "-16.85",
+          "output_tp": "-2.00",
+          "output_lra": "5.60",
+          "output_thresh": "-26.98",
+          "normalization_type": "dynamic",
+          "target_offset": "-3.15"
+        },
+        "output_lufs": "-20.05",
+        "output_true_peak_dbtp": "-1.97"
+      },
+      "bpm": 143.55
+    },
+    "hot_shit": {
+      "title": "Hot Shit",
+      "stream": "res://assets/audio/music/hot_shit.mp3",
+      "source": "hot shit_23.wav",
+      "role": "level",
+      "leveling": {
+        "source_sha256": "261dabfffaba4f4801d2e0992ac13c5021e6ff5ced38fced2bbbacd6431c1ac8",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-10.10",
+          "input_tp": "1.62",
+          "input_lra": "10.00",
+          "input_thresh": "-20.37",
+          "output_i": "-20.85",
+          "output_tp": "-7.66",
+          "output_lra": "9.50",
+          "output_thresh": "-30.93",
+          "normalization_type": "dynamic",
+          "target_offset": "0.85"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-8.21"
+      },
+      "bpm": 132.55
+    },
+    "drill2": {
+      "title": "Drill 2",
+      "stream": "res://assets/audio/music/drill2.mp3",
+      "source": "drill2_3.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "bc948e93b8dba245ba9c6e9e6add19eb995a3dd5ec5b0670322cc5e221e845b7",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-9.63",
+          "input_tp": "2.19",
+          "input_lra": "8.00",
+          "input_thresh": "-20.23",
+          "output_i": "-18.96",
+          "output_tp": "-2.00",
+          "output_lra": "7.50",
+          "output_thresh": "-29.22",
+          "normalization_type": "dynamic",
+          "target_offset": "-1.04"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-8.06"
+      },
+      "bpm": 141.6
+    },
+    "reaper": {
+      "title": "Reaper Beat",
+      "stream": "res://assets/audio/music/reaper.mp3",
+      "source": "reaper beat2.wav",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "5c7bdb2c24b78bea8e5b8c74ac2d3f26eb585d3451a79077138fbc1b34d490ac",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-9.78",
+          "input_tp": "0.70",
+          "input_lra": "1.40",
+          "input_thresh": "-19.85",
+          "output_i": "-20.11",
+          "output_tp": "-9.38",
+          "output_lra": "1.30",
+          "output_thresh": "-30.14",
+          "normalization_type": "dynamic",
+          "target_offset": "0.11"
+        },
+        "output_lufs": "-19.99",
+        "output_true_peak_dbtp": "-8.61"
+      },
+      "bpm": 136.9
+    },
+    "ox": {
+      "title": "OX",
+      "stream": "res://assets/audio/music/ox.mp3",
+      "source": "OX.wav",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "20caab5619f79459c9c940409ce0f296315ef307a3516338006aa47f2173e467",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-12.44",
+          "input_tp": "2.98",
+          "input_lra": "8.20",
+          "input_thresh": "-22.55",
+          "output_i": "-19.14",
+          "output_tp": "-2.00",
+          "output_lra": "8.60",
+          "output_thresh": "-29.22",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.86"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-3.93"
+      },
+      "bpm": 103.35
+    },
+    "destroyed_lonely": {
+      "title": "Destroyed Lonely",
+      "stream": "res://assets/audio/music/destroyed_lonely.mp3",
+      "source": "destroyed lonely.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "020d1ebf7c144afe6d524e8b47314c31a4d58e6b77ff2057e80c14212e22efab",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-10.53",
+          "input_tp": "1.11",
+          "input_lra": "11.20",
+          "input_thresh": "-20.92",
+          "output_i": "-19.17",
+          "output_tp": "-3.28",
+          "output_lra": "9.40",
+          "output_thresh": "-29.37",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.83"
+        },
+        "output_lufs": "-20.09",
+        "output_true_peak_dbtp": "-4.19"
+      },
+      "bpm": 139.7
+    },
+    "dancehall_lonesome": {
+      "title": "Dancehall Lonesome",
+      "stream": "res://assets/audio/music/dancehall_lonesome.mp3",
+      "source": "dancehall lonesome 3 155 rxla fmaj.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "bf2fd51a033596864699d94447f6b81702bcc2e1de30b916e858b27dff5970db",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-9.77",
+          "input_tp": "1.00",
+          "input_lra": "12.10",
+          "input_thresh": "-20.28",
+          "output_i": "-19.44",
+          "output_tp": "-5.70",
+          "output_lra": "9.40",
+          "output_thresh": "-29.62",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.56"
+        },
+        "output_lufs": "-20.05",
+        "output_true_peak_dbtp": "-5.90"
+      },
+      "bpm": 155.0
+    },
+    "dancehall64": {
+      "title": "Dancehall 64",
+      "stream": "res://assets/audio/music/dancehall64.mp3",
+      "source": "dancehallbeat64.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "38ce455406ca1ab8291b19b2f48a681d9e5ed17b39d6ee630a42c5eb1b0ee866",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-7.59",
+          "input_tp": "2.52",
+          "input_lra": "9.80",
+          "input_thresh": "-18.30",
+          "output_i": "-20.34",
+          "output_tp": "-6.61",
+          "output_lra": "7.70",
+          "output_thresh": "-30.85",
+          "normalization_type": "dynamic",
+          "target_offset": "0.34"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-9.57"
+      },
+      "bpm": 99.4
+    },
+    "new_age_dancehall": {
+      "title": "New Age Dancehall",
+      "stream": "res://assets/audio/music/new_age_dancehall.mp3",
+      "source": "new age dancehall_52.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "37d6af33d099caccada49b03a07136ad5ac4de96a640973d259df5c9d6dfddf4",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-11.80",
+          "input_tp": "-0.67",
+          "input_lra": "3.10",
+          "input_thresh": "-21.82",
+          "output_i": "-19.70",
+          "output_tp": "-7.82",
+          "output_lra": "3.10",
+          "output_thresh": "-29.73",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.30"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-8.36"
+      },
+      "bpm": 116.15
     }
   },
   "music_bus_db": -6,
   "duck_db": -8,
-  "fade_seconds": 1.5
+  "fade_seconds": 1.5,
+  "level_order": {
+    "1": [
+      "yz33"
+    ],
+    "2": [
+      "dope2",
+      "swag"
+    ],
+    "3": [
+      "bobblehead",
+      "cyberpunk"
+    ],
+    "4": [
+      "plane_drums",
+      "sumcrazy"
+    ],
+    "5": [
+      "shit_crashed",
+      "robot_attack"
+    ]
+  },
+  "outro": "set_me_free",
+  "menu_completed": "lil_uzi2",
+  "bpm_note": "BPMs from data/music/beat_analysis.json (approximate). Bobblehead uses its felt 143.55; Plane Drums its 99.38 half-time pulse."
 }

@@ -13,25 +13,27 @@ func run() -> void:
 		for guard in level.guards():
 			guard.set_physics_process(false)
 		var gate = level.get_node("Gates").get_child(0)
-		check(not gate.is_open and not level.clear_sight(Vector2(480, 100), Vector2(550, 100)), "Floor %d seal physically blocks passage" % number)
+		var west: Vector2 = gate.position + Vector2(-36, 0)
+		var east: Vector2 = gate.position + Vector2(36, 0)
+		check(not gate.is_open and not level.clear_sight(west, east), "Floor %d seal physically blocks passage" % number)
 		if number == 4:
-			level.player.position = Vector2(430, 232)
+			level.player.position = level.areas.get_node("WardRelease").position + Vector2(0, 8)
 			level.interact()
 			check(level.dialogue.is_empty() and not gate.is_open, "Ward release requires the records")
-		level.player.position = Vector2(300, 232)
+		level.player.position = level.areas.get_node("RemoteTerminal" if number == 3 else "ExperimentRecords").position + Vector2(0, 8)
 		level.interact()
 		if number == 3:
 			level.world_features.submit_password("root")
 			await frames(65)
 		level.finish_dialogue()
 		if number == 4:
-			level.player.position = Vector2(430, 232)
+			level.player.position = level.areas.get_node("WardRelease").position + Vector2(0, 8)
 			level.interact()
 			level.finish_dialogue()
 		await frames(2)
-		check(gate.is_open and level.clear_sight(Vector2(480, 100), Vector2(550, 100)), "Floor %d release clears collision" % number)
-		level.player.position = Vector2(490, 150)
-		check(await move_to(550, 300, false), "Player crosses opened seal")
+		check(gate.is_open and level.clear_sight(west, east), "Floor %d release clears collision" % number)
+		level.player.position = Vector2(west.x, gate.position.y + gate.gate_size.y / 2 - 14)
+		check(await move_to(east.x, 300, false), "Player crosses opened seal")
 	# Later-floor loot uses the same limited ammunition/noise rules as the intro.
 	var guard = level.guards()[0]
 	guard.position = Vector2(900, 430)

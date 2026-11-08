@@ -25,7 +25,7 @@ Levels 2, 3 and 4 have one finite, pre-generated two-guard exchange each. A near
 
 During an exchange, the pair hold their positions and face one another while perception/damage remain active. On completion both turn right for a five-second opening, then resume normal patrol. Detection, damage/death and noise-driven search release the conversation pose; interrupted exchanges do not endlessly replay. A speaker's death stops its speech. Living guards remain vulnerable throughout, and attackers are not granted immunity.
 
-Level 3 places the pair beside the terminal. They discuss a forgotten login, reveal **root** (lowercase, spelling it out), then explain that the login can disable both checkpoint cameras. Level 2/4 dialogue provides draft local lore and existing mechanic hints. Text, speaker slots and voice IDs live in `data/guard_dialogue.json`.
+Level 3 places the pair beside the terminal. They discuss a forgotten login, reveal **root** (lowercase, spelling it out), then explain that the login can disable both checkpoint cameras. Level 2/4 dialogue provides draft local lore and existing mechanic hints. Text and speaker slots live in `data/guard_dialogue.json`. The named conversation cast is in `data/guard_roster.json`, and each Keeper’s ElevenLabs voice ID is in `data/voice_cast.json`.
 
 Guard names are draft per-floor identities, displayed over actors and in subtitles. Three ElevenLabs voice IDs are used: George, Roger and Callum; an added conversation partner reuses the Roger slot. A discovered corpse is identified by name in the notification; the discovering guard gives a concerned voiced reaction about having worked with the victim and investigates. Confirmed detection also has a short voiced alert. One shared foreground voice prevents overlapping conversation/bark clutter; it is not a full individual speech scheduler for every NPC. Generic concerned clips do not pronounce every victim name.
 
@@ -81,7 +81,7 @@ python3 tools/build_review.py --godot /path/to/godot --platform macos
 
 Matching official export templates are required. Windows output: `build/windows/Miro.exe`; macOS output: `build/macos/Miro.zip`. Builds are ignored by Git. Local `.env` credentials, raw candidate library, documentation and generation scripts are explicitly excluded from normal exports.
 
-Rebuild music copies with `python3 tools/prepare_game_audio.py` (FFmpeg required); generate/cache speech using `python3 tools/generate_guard_voices.py` and a local `ELEVENLABS_API_KEY`. The key is never printed, committed or needed to play. The generator submits text to ElevenLabs and uses account credits; unchanged text/voice/settings clips are cached. Do not delete provenance when revising lines.
+Rebuild music copies with `python3 tools/prepare_game_audio.py` (FFmpeg required); generate/cache speech using `python3 tools/generate_voices.py` and a local `ELEVENLABS_API_KEY`. The key is never printed, committed or needed to play. The generator submits text to ElevenLabs and uses account credits; unchanged text/voice/settings clips are cached. Do not delete provenance when revising lines.
 
 Run the existing game suites and `tools/test_music_and_world.gd`; `Run Checks.ps1` includes the new suite. Final build evidence and manual listening limits belong in the next handoff update. Review on headphones/speakers is still required for voice performance, transitions, volume balance, loop seams and chapter pacing.
 
