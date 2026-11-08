@@ -812,6 +812,11 @@ func spot_taken(point: Vector2, kind := "") -> bool:
 		# Clear of where the Keeper stands and of the stretch he patrols on this floor.
 		var left := minf(guard.global_position.x, float(guard.get("patrol_left") if guard.get("patrol_left") != null else guard.global_position.x))
 		var right := maxf(guard.global_position.x, float(guard.get("patrol_right") if guard.get("patrol_right") != null else guard.global_position.x))
+		# Crates and wall hides may sit along a patrol (that's the point: hide near Keepers);
+		# they only keep off the spot a Keeper is standing on.
+		if kind in ["hide", "crate"]:
+			left = guard.global_position.x - 20.0
+			right = guard.global_position.x + 20.0
 		if point.x > left - 30 and point.x < right + 30:
 			return true
 	for prop in props:
