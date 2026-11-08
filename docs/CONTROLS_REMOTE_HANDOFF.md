@@ -65,7 +65,7 @@ The sick Keeper at the first cell supplies the device when looted after death. T
 4. `lights test` blinks the first-floor service lamp. `cameras off` disables the optional second-floor corridor camera or starts the existing one-second mandatory Level 3 hack.
 5. `music` reports MP3 mode; the existing floor soundtrack system continues playback. No new playlist, scoring or track-unlock system is claimed.
 
-Every floor has a physical records terminal. Press **E** to read its files or **T** to open its security console without the MP3. With the unlocked MP3, the same console commands work within range of a terminal. Both interfaces echo commands and mask passwords with asterisks. Type `scan`, `login root`, and `turrets off` to shut down the current floor’s turrets until retry. Camera commands and the mandatory Level 3 checkpoint still work independently. Music and C4 controls remain on the MP3.
+Every floor has a physical records terminal. Press **E** to read its files or **T** to open its security console without the MP3. With the unlocked MP3, the same console commands work within range of a terminal. Both interfaces echo commands and mask passwords with asterisks. Type `scan`, `login root`, and `turrets off` to shut down the current floor’s turrets until retry. Camera commands and the mandatory Level 3 checkpoint still work independently. Music stays on the MP3. C4 is its own inventory item: placing and detonating charges never needs the MP3.
 
 A turret takes one HP per bullet or stab and breaks after three hits. Guitar strums immediately stun turrets within the strum’s range and line of sight for five seconds. Hacked turrets stay disabled and cannot be reactivated by a strum.
 
