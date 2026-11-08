@@ -8401,114 +8401,114 @@
   },
   "quill_alert": {
     "provider": "ElevenLabs",
-    "voice_id": "psJnoAClXdhH5gn8uKNb",
-    "voice_name": "Quill (extra guard)",
+    "voice_id": "gUABw7pXQjhjt0kNFBTF",
+    "voice_name": "Andrew - Smooth, Smart and Clear",
     "model_id": "eleven_v3",
-    "text": "Oh no. Not on my shift. Stop right there.",
-    "delivery": "[shouting] [tired]",
-    "signature": "5688a82ee79a0567ca0fdfa6c3830a84ccf82a48582a07a661be3182c15c70d4",
+    "text": "First the paperwork, then the escape. Stop.",
+    "delivery": "[shouting] [dry] [precise]",
+    "signature": "d8159f1b6e30874c9ab40fb6aaad198df80b6b089d0c48ec2ca97653a1ed404f",
     "leveling": {
-      "source_sha256": "a74f4266024cdd225f842c003706f2e655311d49c9dd57cfec6367faf78861a2",
+      "source_sha256": "8484a3e7e190b2ad02a92ca6e83cfc3a7c4b3235e58f1faaa302f243adfccd9e",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-14.03",
-        "input_tp": "-1.28",
-        "input_lra": "1.90",
-        "input_thresh": "-24.43",
-        "output_i": "-17.97",
-        "output_tp": "-5.74",
-        "output_lra": "1.80",
-        "output_thresh": "-28.32",
+        "input_i": "-17.28",
+        "input_tp": "-0.81",
+        "input_lra": "1.00",
+        "input_thresh": "-29.49",
+        "output_i": "-17.21",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.96",
         "normalization_type": "dynamic",
-        "target_offset": "-0.03"
+        "target_offset": "-0.79"
       },
-      "output_lufs": "-18.01",
-      "output_true_peak_dbtp": "-5.23"
+      "output_lufs": "-17.60",
+      "output_true_peak_dbtp": "-1.85"
     }
   },
   "quill_body": {
     "provider": "ElevenLabs",
-    "voice_id": "psJnoAClXdhH5gn8uKNb",
-    "voice_name": "Quill (extra guard)",
+    "voice_id": "gUABw7pXQjhjt0kNFBTF",
+    "voice_name": "Andrew - Smooth, Smart and Clear",
     "model_id": "eleven_v3",
-    "text": "Quill is down. Somebody wake the doctor.",
-    "delivery": "[shocked] [tired]",
-    "signature": "29b31758babb4efce9b65b898a125b1b401a6d7343ad38b9fcca21a4e8b7b460",
+    "text": "I know his handwriting. I don't want this to be his last entry.",
+    "delivery": "[shocked] [dry] [precise]",
+    "signature": "ddf5b500305a4607602c5f623332c1ada345d830d8545b92428af9293a405be3",
     "leveling": {
-      "source_sha256": "86bb94825b318c5436186bc28e61cecec77d944f9391b53aea54d3ecce3be1de",
+      "source_sha256": "dcac2273c6d05ffaf1463089f5cf5e6fc2b2d5fe17ab1e9c5d8ec9f4a462f6dd",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-13.91",
-        "input_tp": "-1.04",
-        "input_lra": "0.00",
-        "input_thresh": "-23.91",
-        "output_i": "-18.00",
-        "output_tp": "-5.13",
-        "output_lra": "0.00",
-        "output_thresh": "-28.00",
-        "normalization_type": "linear",
-        "target_offset": "0.00"
+        "input_i": "-25.68",
+        "input_tp": "-6.91",
+        "input_lra": "0.80",
+        "input_thresh": "-36.71",
+        "output_i": "-17.61",
+        "output_tp": "-2.00",
+        "output_lra": "3.00",
+        "output_thresh": "-28.77",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.39"
       },
-      "output_lufs": "-18.01",
-      "output_true_peak_dbtp": "-5.15"
+      "output_lufs": "-18.58",
+      "output_true_peak_dbtp": "-2.00"
     }
   },
   "quill_idle_1": {
     "provider": "ElevenLabs",
-    "voice_id": "psJnoAClXdhH5gn8uKNb",
-    "voice_name": "Quill (extra guard)",
+    "voice_id": "gUABw7pXQjhjt0kNFBTF",
+    "voice_name": "Andrew - Smooth, Smart and Clear",
     "model_id": "eleven_v3",
-    "text": "Four nights without sleep. The ward lights start to hum.",
-    "delivery": "[tired] [muttering]",
-    "signature": "4ed8ea033c6b8efdd653884442e234b6af3080bea8a87440693fd87f269fd958",
+    "text": "They swapped my pen for a pistol. The pen jammed less.",
+    "delivery": "[dry] [precise] [muttering]",
+    "signature": "f7ffcc7d308298c0b29a9e849c226bde2f6c31089731de8490b58c671f8834c4",
     "leveling": {
-      "source_sha256": "eb329ac33aa92ddb37da0ee3e4aeb63409d3285aedd95b930838b258acade3e9",
+      "source_sha256": "7072e8b7a8ac9b170b1e20fd774d19847ff78e67bd2d5489aecebde12c571ef3",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-16.24",
-        "input_tp": "-2.89",
-        "input_lra": "1.60",
-        "input_thresh": "-27.13",
-        "output_i": "-17.69",
-        "output_tp": "-4.60",
-        "output_lra": "1.10",
-        "output_thresh": "-28.39",
+        "input_i": "-25.15",
+        "input_tp": "-9.58",
+        "input_lra": "0.80",
+        "input_thresh": "-37.78",
+        "output_i": "-17.13",
+        "output_tp": "-2.00",
+        "output_lra": "2.40",
+        "output_thresh": "-29.52",
         "normalization_type": "dynamic",
-        "target_offset": "-0.31"
+        "target_offset": "-0.87"
       },
-      "output_lufs": "-18.01",
-      "output_true_peak_dbtp": "-4.59"
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.48"
     }
   },
   "quill_idle_2": {
     "provider": "ElevenLabs",
-    "voice_id": "psJnoAClXdhH5gn8uKNb",
-    "voice_name": "Quill (extra guard)",
+    "voice_id": "gUABw7pXQjhjt0kNFBTF",
+    "voice_name": "Andrew - Smooth, Smart and Clear",
     "model_id": "eleven_v3",
-    "text": "If I close my eyes for one second, wake me. Or don't.",
-    "delivery": "[tired] [muttering]",
-    "signature": "1446123078dbe05597e83fefc3378d7c43e7ca054c88751322bcb87ebe2bb1b0",
+    "text": "If I get out of this, I'm filing one very long complaint.",
+    "delivery": "[dry] [precise] [muttering]",
+    "signature": "5bfee7c0b15b00fa199c2bf9be63ba9c01a94f4358be0d883dd4c83f546036d9",
     "leveling": {
-      "source_sha256": "3e1f0927a0288ee9a86f0fb1cc0ef5ab92f7336087884a96065298ff5a5e49a2",
+      "source_sha256": "9723c19d704ced5fb3d332be9ac0d69be2f57a275f7a550fb3796c688a33c8de",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-16.20",
-        "input_tp": "-1.06",
-        "input_lra": "3.10",
-        "input_thresh": "-26.77",
-        "output_i": "-18.19",
-        "output_tp": "-3.69",
+        "input_i": "-29.00",
+        "input_tp": "-8.78",
+        "input_lra": "1.80",
+        "input_thresh": "-39.27",
+        "output_i": "-19.13",
+        "output_tp": "-2.00",
         "output_lra": "1.10",
-        "output_thresh": "-28.80",
+        "output_thresh": "-29.49",
         "normalization_type": "dynamic",
-        "target_offset": "0.19"
+        "target_offset": "1.13"
       },
-      "output_lufs": "-18.00",
-      "output_true_peak_dbtp": "-2.88"
+      "output_lufs": "-18.76",
+      "output_true_peak_dbtp": "-1.69"
     }
   },
   "nash_alert": {
@@ -18925,6 +18925,118 @@
       },
       "output_lufs": "-17.97",
       "output_true_peak_dbtp": "-2.11"
+    }
+  },
+  "maren_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "psJnoAClXdhH5gn8uKNb",
+    "voice_name": "Maren (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Oh no. Not on my shift. Stop right there.",
+    "delivery": "[shouting] [tired]",
+    "signature": "5688a82ee79a0567ca0fdfa6c3830a84ccf82a48582a07a661be3182c15c70d4",
+    "leveling": {
+      "source_sha256": "a74f4266024cdd225f842c003706f2e655311d49c9dd57cfec6367faf78861a2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.03",
+        "input_tp": "-1.28",
+        "input_lra": "1.90",
+        "input_thresh": "-24.43",
+        "output_i": "-17.97",
+        "output_tp": "-5.74",
+        "output_lra": "1.80",
+        "output_thresh": "-28.32",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.03"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-5.23"
+    }
+  },
+  "maren_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "psJnoAClXdhH5gn8uKNb",
+    "voice_name": "Maren (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Four nights without sleep. The ward lights start to hum.",
+    "delivery": "[tired] [muttering]",
+    "signature": "4ed8ea033c6b8efdd653884442e234b6af3080bea8a87440693fd87f269fd958",
+    "leveling": {
+      "source_sha256": "eb329ac33aa92ddb37da0ee3e4aeb63409d3285aedd95b930838b258acade3e9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.24",
+        "input_tp": "-2.89",
+        "input_lra": "1.60",
+        "input_thresh": "-27.13",
+        "output_i": "-17.69",
+        "output_tp": "-4.60",
+        "output_lra": "1.10",
+        "output_thresh": "-28.39",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.31"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-4.59"
+    }
+  },
+  "maren_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "psJnoAClXdhH5gn8uKNb",
+    "voice_name": "Maren (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "If I close my eyes for one second, wake me. Or don't.",
+    "delivery": "[tired] [muttering]",
+    "signature": "1446123078dbe05597e83fefc3378d7c43e7ca054c88751322bcb87ebe2bb1b0",
+    "leveling": {
+      "source_sha256": "3e1f0927a0288ee9a86f0fb1cc0ef5ab92f7336087884a96065298ff5a5e49a2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.20",
+        "input_tp": "-1.06",
+        "input_lra": "3.10",
+        "input_thresh": "-26.77",
+        "output_i": "-18.19",
+        "output_tp": "-3.69",
+        "output_lra": "1.10",
+        "output_thresh": "-28.80",
+        "normalization_type": "dynamic",
+        "target_offset": "0.19"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.88"
+    }
+  },
+  "maren_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "psJnoAClXdhH5gn8uKNb",
+    "voice_name": "Maren (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Maren is down. Somebody wake the doctor.",
+    "delivery": "[shocked] [tired]",
+    "signature": "9339a60d6f027b5578971a5a17253bdf6ba0251251db03a9c8cd98d6ca3731b9",
+    "leveling": {
+      "source_sha256": "b42cd92b9b840c7fae0196c840126684842dbb2dba2e3ab0ff8969850b60f46a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.39",
+        "input_tp": "-1.35",
+        "input_lra": "0.50",
+        "input_thresh": "-24.85",
+        "output_i": "-17.59",
+        "output_tp": "-4.71",
+        "output_lra": "0.00",
+        "output_thresh": "-28.06",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.41"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-5.01"
     }
   }
 }
