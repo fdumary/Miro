@@ -3,6 +3,12 @@ extends BaseCharacter
 
 const KEEPER_IDLE = preload("res://assets/characters/standard_keeper_idle.png")
 const KEEPER_WALK = preload("res://assets/characters/standard_keeper_walk.png")
+const KEEPER_ATTACK = preload("res://assets/characters/standard_keeper_attack.png")
+## Point blank, a Keeper swings his knife instead of firing (Julia's two-frame attack).
+const STRIKE_REACH := 30.0
+const STRIKE_SLASH := 0.2
+var strike_left := 0.0
+var strike_landed := false
 const KEY_TEXTURE = preload("res://assets/environment/key.png")
 
 enum State { PATROL, SUSPICIOUS, ALERT, SEARCH }
@@ -124,7 +130,15 @@ func _physics_process(delta: float) -> void:
 			shoot_weapon()
 		else:
 			burst_left = 0
-	if windup > 0:
+	if strike_left > 0:
+		strike_left -= delta
+		if not strike_landed and strike_left <= STRIKE_SLASH:
+			strike_landed = true
+			get_node("/root/SoundFX").play_sound("swing", -20)
+			var reach: Vector2 = level.player.global_position - global_position
+			if not level.player.is_dead and absf(reach.y) < 22 and absf(reach.x) <= STRIKE_REACH + 4 and reach.x * facing >= -4:
+				level.player.take_damage(1)
+	elif windup > 0:
 		windup -= delta
 		if windup <= 0 and sees_player:
 			burst_left = 1 if weapon_kind == "pistol" else 3
@@ -133,8 +147,13 @@ func _physics_process(delta: float) -> void:
 		facing = signf(last_known_position.x - global_position.x)
 		if global_position.distance_to(last_known_position) < 150:
 			if attack_timer <= 0:
-				windup = windup_time
-				shot_direction = (level.player.global_position - global_position).normalized()
+				var gap: Vector2 = level.player.global_position - global_position
+				if absf(gap.x) < STRIKE_REACH and absf(gap.y) < 20:
+					strike_left = windup_time * 0.5 + STRIKE_SLASH
+					strike_landed = false
+				else:
+					windup = windup_time
+					shot_direction = gap.normalized()
 				attack_timer = attack_gap
 		else:
 			velocity.x = facing * chase_speed
@@ -294,13 +313,17 @@ func _draw() -> void:
 	var moving: bool = absf(velocity.x) > 1 and level != null and not level.controls_locked()
 	var texture: Texture2D = KEEPER_WALK if moving else KEEPER_IDLE
 	var frame := int(time * 8) % 2 if moving else 0
+	if strike_left > 0:
+		texture = KEEPER_ATTACK
+		frame = 0 if strike_left > STRIKE_SLASH else 1
 	# Mirror the art, not the guard's collision, FOV or attached indicators.
 	draw_set_transform(Vector2(0, 15), -facing * 0.12 if coughing else 0.0, Vector2(facing, 0.9 if coughing else 1.0))
 	draw_texture_rect_region(texture, Rect2(-16, -31, 32, 32), Rect2(frame * 32, 0, 32, 32))
 	draw_set_transform(Vector2.ZERO)
-	draw_set_transform(Vector2(0, -4), 0, Vector2(facing, 1))
-	draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[weapon_kind], Rect2(0, -10, 24, 24), false)
-	draw_set_transform(Vector2.ZERO)
+	if strike_left <= 0:
+		draw_set_transform(Vector2(0, -4), 0, Vector2(facing, 1))
+		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[weapon_kind], Rect2(0, -10, 24, 24), false)
+		draw_set_transform(Vector2.ZERO)
 	if windup > 0:
 		draw_line(Vector2(facing * 9, 0), Vector2(facing * 27, -9), pale, 2)
 	if coughing:
