@@ -17554,5 +17554,257 @@
       "output_lufs": "-18.00",
       "output_true_peak_dbtp": "-6.24"
     }
+  },
+  "niro_453e25d034": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You move like you've done this before. You have, Miro. Come back before the tower remembers it for you.",
+    "delivery": "[intense]",
+    "signature": "e68d5ef4b656c2666f05098255010a77795197bbc75a9a1887d712e30bd85516",
+    "leveling": {
+      "source_sha256": "d9ba280becc4e51f640a04295b7ba2a8f5a84d7481ef5d08a5917071407477db",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.47",
+        "input_tp": "-1.87",
+        "input_lra": "1.20",
+        "input_thresh": "-30.66",
+        "output_i": "-18.47",
+        "output_tp": "-2.00",
+        "output_lra": "1.10",
+        "output_thresh": "-28.54",
+        "normalization_type": "dynamic",
+        "target_offset": "0.47"
+      },
+      "output_lufs": "-18.14",
+      "output_true_peak_dbtp": "-1.62"
+    }
+  },
+  "niro_6361e5aa75": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Whatever you find in the ward, brother, remember I tried to keep you out of it.",
+    "delivery": "[intense]",
+    "signature": "a28fd4c8236a175cfbed9772f3555836e10dd6f21d7bd8a82c39df3546b9c387",
+    "leveling": {
+      "source_sha256": "3c1fd52f61b845bb21d010e57407463be325c04dda4973024faf234945a057e5",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.88",
+        "input_tp": "-1.84",
+        "input_lra": "0.60",
+        "input_thresh": "-29.21",
+        "output_i": "-17.12",
+        "output_tp": "-2.00",
+        "output_lra": "1.20",
+        "output_thresh": "-27.29",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.88"
+      },
+      "output_lufs": "-17.73",
+      "output_true_peak_dbtp": "-1.57"
+    }
+  },
+  "niro_b9d1a50808": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You wore their uniform once. Every Keeper you drop fought beside you. Think about that.",
+    "delivery": "[intense]",
+    "signature": "d992c092fc57d91abd28a861a1c6075354f2b5bc2c121e543f440c0d1b44fc77",
+    "leveling": {
+      "source_sha256": "d1bc93fb7be60c32362ad94e583e11c5e8dd7d14d93157de5582f4b394ecb843",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.88",
+        "input_tp": "-1.43",
+        "input_lra": "1.30",
+        "input_thresh": "-30.62",
+        "output_i": "-17.83",
+        "output_tp": "-2.00",
+        "output_lra": "1.70",
+        "output_thresh": "-28.48",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.17"
+      },
+      "output_lufs": "-17.80",
+      "output_true_peak_dbtp": "-1.55"
+    }
+  },
+  "niro_5925277f7d": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Brother, the ward isn't what the records say. Whatever you do, don't burn it down before you've seen it.",
+    "delivery": "[intense]",
+    "signature": "3ef11d5f0547e4e5c2ba4e3d837f2607ac3fd183e261dcb6c5733aca35e7b86b",
+    "leveling": {
+      "source_sha256": "ba4bec729931e0b9346f60bf150f5ac6bcdf02736b630c999062f5bdecb17a5c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.90",
+        "input_tp": "-1.58",
+        "input_lra": "0.80",
+        "input_thresh": "-29.99",
+        "output_i": "-18.38",
+        "output_tp": "-2.00",
+        "output_lra": "0.50",
+        "output_thresh": "-28.52",
+        "normalization_type": "dynamic",
+        "target_offset": "0.38"
+      },
+      "output_lufs": "-18.19",
+      "output_true_peak_dbtp": "-1.79"
+    }
+  },
+  "miro_6ff8cd758c": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "I hacked the system and nobody has even realized.",
+    "delivery": "",
+    "signature": "84c6eb0226b5adc0e1fdefc5ba4eaf250dcc60b51fb298d520f19cf9cbab922c",
+    "leveling": {
+      "source_sha256": "58cbe5bab6aa2eded0572e9f713473d3de58426eceb25178995a4acb479bef54",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.12",
+        "input_tp": "-0.49",
+        "input_lra": "2.30",
+        "input_thresh": "-26.54",
+        "output_i": "-18.37",
+        "output_tp": "-3.31",
+        "output_lra": "0.00",
+        "output_thresh": "-28.74",
+        "normalization_type": "dynamic",
+        "target_offset": "0.37"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.07"
+    }
+  },
+  "miro_d4d8d0b634": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "A rumour can still bring a tower down. Even one who used to guard it.",
+    "delivery": "[whispers]",
+    "signature": "b220832f15f608583d9aa0727150be689079331b9e45e05706d21430f7560d4e",
+    "leveling": {
+      "source_sha256": "dd38fef4564626e4aa59ee3497ac418284998da7efa17b69bd8b0af97b4bb0c9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.54",
+        "input_tp": "-2.83",
+        "input_lra": "1.20",
+        "input_thresh": "-29.56",
+        "output_i": "-17.04",
+        "output_tp": "-2.00",
+        "output_lra": "2.70",
+        "output_thresh": "-27.92",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.96"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.10"
+    }
+  },
+  "miro_c7147254df": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Quiet feet. Louder questions: what is the ward hiding?",
+    "delivery": "[whispers]",
+    "signature": "5472d767fa3cb703ac6afebc94a5e4b27873e8359d2619df625b50519ec3e94f",
+    "leveling": {
+      "source_sha256": "fec4bec0832a8f337c9e98bc468bcb83b8e9d3b520f1fa659871872d69ab0326",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.73",
+        "input_tp": "-0.63",
+        "input_lra": "3.00",
+        "input_thresh": "-27.50",
+        "output_i": "-16.99",
+        "output_tp": "-2.00",
+        "output_lra": "3.40",
+        "output_thresh": "-28.43",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.69"
+    }
+  },
+  "miro_9be42ebbab": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "I wore their uniform once. Maybe that's why none of this feels new.",
+    "delivery": "[whispers]",
+    "signature": "68e67f009f0a3808a44ca7dd12bde97c1534ac44a6e785bc961b230518ec74d0",
+    "leveling": {
+      "source_sha256": "c03017dfea56b384b025f88656617f205def607b67a1a60ab32a4fbeda94f7ef",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.08",
+        "input_tp": "-0.82",
+        "input_lra": "2.20",
+        "input_thresh": "-27.74",
+        "output_i": "-15.31",
+        "output_tp": "-2.00",
+        "output_lra": "1.60",
+        "output_thresh": "-25.51",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.69"
+      },
+      "output_lufs": "-16.77",
+      "output_true_peak_dbtp": "-1.79"
+    }
+  },
+  "miro_744db1caf5": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Every alarm I set off drowns out what the ward is trying to tell me.",
+    "delivery": "[whispers]",
+    "signature": "fe5071a1802d7ea81bf1d390f3d699f04dcfad228a71e0c3a70adb0f7bf7a032",
+    "leveling": {
+      "source_sha256": "d9973d7a7247e901e26510ed240c7edbf998eec97dc97b2d9cacfd7e5adb0fcd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.72",
+        "input_tp": "-3.62",
+        "input_lra": "2.90",
+        "input_thresh": "-29.90",
+        "output_i": "-18.71",
+        "output_tp": "-3.27",
+        "output_lra": "2.70",
+        "output_thresh": "-28.81",
+        "normalization_type": "dynamic",
+        "target_offset": "0.71"
+      },
+      "output_lufs": "-18.65",
+      "output_true_peak_dbtp": "-2.30"
+    }
   }
 }
