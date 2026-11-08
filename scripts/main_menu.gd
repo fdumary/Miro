@@ -10,8 +10,9 @@ var page: Control
 func _ready() -> void:
 	theme = preload("res://scripts/visual_assets.gd").ui_theme()
 	music = get_node("/root/MusicDirector")
+	var progress = get_node("/root/Campaign")
 	for argument in OS.get_cmdline_user_args():
-		if argument.begins_with("--level="):
+		if progress.dev_mode() and argument.begins_with("--level="):
 			var number := clampi(argument.trim_prefix("--level=").to_int(), 1, 5)
 			get_node("/root/Campaign").launch_consumed = true
 			# Go directly to the requested scene; avoid nested scene changes from intro._ready().

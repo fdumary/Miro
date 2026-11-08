@@ -27,7 +27,7 @@ func launch_floor() -> int:
 		var runner = load("res://tools/export_playthrough.gd").new()
 		get_tree().root.call_deferred("add_child", runner)
 	for argument in OS.get_cmdline_user_args():
-		if argument.begins_with("--level="):
+		if dev_mode() and argument.begins_with("--level="):
 			return clampi(argument.trim_prefix("--level=").to_int(), 1, 5)
 	return 1
 
@@ -58,9 +58,9 @@ func game_completed() -> bool:
 	progress.load("user://progress.cfg")
 	return bool(progress.get_value("game", "completed", false))
 
-## Test and QA runs never write the player's save (completed menu, MP3 unlocks).
+## Editor/dev reviews, tests and QA exports never write the player's progress.
 func can_persist() -> bool:
-	return not OS.has_feature("qa") and not "--script" in OS.get_cmdline_args()
+	return not dev_mode() and not OS.has_feature("qa") and not "--script" in OS.get_cmdline_args()
 
 func mark_game_completed() -> void:
 	if not can_persist():

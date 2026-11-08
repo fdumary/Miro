@@ -25,14 +25,14 @@ The playable first floor includes the cell opening, three escape choices, guard 
 
 **Inner conflict:** [reactive paintings, two-option replies, lore terminals and verses](docs/INNER_CONFLICT.md). Run `Fetch Art.ps1` locally to download the public-domain paintings with their rights evidence.
 
-See [intro guide](docs/INTRO.md) for controls, editing and verification. Use `Open Miro.ps1`, `Play Miro.ps1`, or the desktop shortcuts. Run `Run Checks.ps1` for the automated playthroughs.
+See [intro guide](docs/INTRO.md) for controls, editing and verification. Use `Play Miro.ps1` for the player experience, or `Play Miro.ps1 -Dev` for level access and debugging. Run `Run Checks.ps1` for automated checks. See the [Claude playtest handoff](claudehandoff.md) for known gaps and the release test plan.
 
 The original movement sandbox remains in `scenes/asset_sandbox.tscn`.
 
-All five floors now have editable scene scaffolds. See [Level 1 sources and authoring](docs/LEVEL_01_SCAFFOLD.md) and [Levels 2–5 sources and unfinished systems](docs/LEVELS_02_05.md). Launch a specific floor with `./Play Level.ps1 -Level 2`. Later floors contain draft dialogue and explicit mechanic/cinematic placeholders.
+All five floors now have editable scene scaffolds. See [Level 1 sources and authoring](docs/LEVEL_01_SCAFFOLD.md) and [Levels 2–5 sources and unfinished systems](docs/LEVELS_02_05.md). In dev mode, launch a specific floor with `./Play Level.ps1 -Level 2`. A normal player launch honors earned floor unlocks.
 
-Playable milestone: linked five-floor progression, Level 3 sweeping cameras and one-second hacking, Level 5 two-attack boss and a skippable in-engine ending. Art remains provisional; see the per-floor guide for remaining work.
+Playable milestone: linked five-floor progression, Level 3 watchers and a one-second checkpoint hack, and Level 5’s waves, four Niro encounters, and skippable ending. Art remains provisional; see the per-floor guide for remaining work.
 
 Latest controls: **1–5 select items, Q selects blanket, left click uses, N opens inventory, R reloads, C dashes, Ctrl crouches, Space twice double-jumps (3-second recharge), Z thinks of a hint, 6 or G selects the guitar (Level 5)**. See [final controls and remote](docs/CONTROLS_REMOTE_HANDOFF.md). Blanket use requires shadows, with 5-second stealth and an 8-second cooldown; leaving cover or guard contact reveals Miro. The two jumps together reach approximately 65.17 pixels. See the [traversal handoff](docs/TRAVERSAL_FRAN_HANDOFF.md) for trapdoors and Fran’s playtest fixes. Dialogue appears in bubbles over the speaker (E to continue); the bottom strip holds objectives and cues. See [current decisions](docs/GAMEPLAY_DECISIONS.md). Build with `Build Windows.ps1`, then validate standalone startup using `Check Windows Build.ps1`.
 
-Press **M** to toggle sound effects. `Check Exported Playthrough.ps1` verifies a continuous five-floor run in a separate QA export (64 checks), including the boss and watched ending.
+Press **M** to toggle sound effects. `Check Exported Playthrough.ps1` verifies a continuous five-floor run in a separate QA export, including the boss and watched ending.
