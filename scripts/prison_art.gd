@@ -6,11 +6,9 @@ const BLUE = Color("494d7e")
 const VIOLET = Color("8b6d9c")
 const PINK = Color("c69fa5")
 const WARM = Color("f2d3ab")
-var time: float = 0.0
 
-func _process(delta: float) -> void:
-	time += delta
-	queue_redraw()
+func _process(_delta: float) -> void:
+	tick_torches()
 
 func _draw() -> void:
 	draw_rect(Rect2(0, 0, 1120, 756), INK)
@@ -63,7 +61,7 @@ func window(point: Vector2) -> void:
 func torch(point: Vector2) -> void:
 	for i in range(5, 0, -1):
 		draw_circle(point, float(i * 10), Color(0.95, 0.83, 0.67, 0.012))
-	draw_texture_rect(preload("res://assets/library/torch.png"), Rect2(point + Vector2(-8, -8), Vector2(16, 24)), false)
+	draw_torch(Rect2(point - Vector2(16, 14), Vector2(32, 32)))
 
 func crate(point: Vector2) -> void:
 	draw_grounded(CRATE, point)

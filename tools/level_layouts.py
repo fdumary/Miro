@@ -111,7 +111,7 @@ def compile_level(number, grid, extra):
     for index, (col, row) in enumerate(grid.low):
         solids.append({'name': f'Crawl{index}', 'position': [col * T + 14, row * T + 3], 'size': [28, 6]})
     interactables, guards, gates, props, beats = [], [], [], [], []
-    features = {'cases': [], 'hides': [], 'ports': [], 'cameras': [], 'conversation': None, 'hunted_guard': None, 'huddles': []}
+    features = {'hazards': [], 'cases': [], 'hides': [], 'ports': [], 'cameras': [], 'conversation': None, 'hunted_guard': None, 'huddles': []}
     spawn = None
     cover_index = 0
     for thing in grid.things:
@@ -151,6 +151,8 @@ def compile_level(number, grid, extra):
             features['ports'].append([x, top - 16])
         elif kind == 'camera':
             features['cameras'].append({'position': [x, top + 14], 'facing': thing.get('facing', 1.57), 'linked': thing.get('linked', False)})
+        elif kind in ('spikes', 'turret'):
+            features['hazards'].append({'kind': kind, 'position': [x, top]})
         elif kind == 'talk':
             features['conversation'] = {'guard': thing['guard'], 'position': [x, top - 16]}
         elif kind == 'huddle':
@@ -410,6 +412,7 @@ def level_4():
     g.block(38, 39, 7, 8)                 # a gurney stack: double jump
     g.put('hide', 44, 9, title='SHOWER')
     g.ladder('FirstLadder', 50, 9, 16)
+    g.put('spikes', 31, 9)
     # S2 (row 16, west): sealed observation rooms; the release is up on the gantry.
     g.put('cover', 45, 16)
     g.put('guard', 37, 16, name='WatchKeeper', patrol=[30, 44])
@@ -430,6 +433,7 @@ def level_4():
     g.put('hide', 38, 23, title='SHOWER')
     g.put('guard', 45, 23, name='SealKeeper', patrol=[40, 50], sick=True)
     g.ladder('ThirdLadder', 54, 23, 31)
+    g.put('spikes', 11, 23)
     # S4 (row 31, west): deep containment and the isolation chamber.
     g.put('cover', 50, 31)
     g.put('guard', 46, 31, name='ChamberKeeper', patrol=[42, 51])
@@ -440,6 +444,7 @@ def level_4():
     g.put('guard', 18, 31, name='TankKeeper', patrol=[12, 23])
     g.put('hide', 8, 31, title='CABINET')
     g.ladder('FourthLadder', 3, 31, 38)
+    g.put('turret', 44, 31)
     # S5 (row 38, east): the ward support and Niro at the glass.
     g.put('cover', 9, 38)
     g.put('station', 16, 38, id='BrotherWarning')

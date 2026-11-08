@@ -59,6 +59,13 @@ func _ready() -> void:
 			camera.level = self
 			add_child(camera)
 			connected_cameras.append(camera)
+	for entry in authored.get("hazards", []):
+		var hazard := Area2D.new()
+		hazard.set_script(preload("res://scripts/tower_hazard.gd"))
+		hazard.level = self
+		hazard.kind = str(entry.kind)
+		hazard.position = Vector2(entry.position[0], entry.position[1])
+		add_child(hazard)
 	if int(definition.number) == 5:
 		flow = Node.new()
 		flow.set_script(load("res://scripts/foundation_flow.gd"))
@@ -315,7 +322,7 @@ func camera_alert(point: Vector2) -> void:
 	for guard in guards():
 		if not guard.is_dead:
 			guard.investigate(point)
-	notify("CAMERA ALERT • Keepers are searching your last seen position.")
+	notify("WATCHER ALERT • Keepers are searching your last seen position.")
 
 func niro_retreating(engagement: int) -> void:
 	if flow != null:

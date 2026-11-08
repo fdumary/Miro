@@ -20,6 +20,7 @@ var message_left: float = 0.0
 var elapsed: float = 0.0
 var hud: CanvasLayer
 var status_label: Label
+var health_label: RichTextLabel
 var objective_label: Label
 var hint_label: Label
 var message_label: Label
@@ -140,11 +141,14 @@ func _process(delta: float) -> void:
 		floor_detections += 1
 	was_spotted = pursuing
 	player.detection_state = "SPOTTED" if pursuing else ("HIDDEN" if player.is_concealed else ("SEARCHING / unseen" if searching else "UNSEEN"))
-	status_label.text = "MIRO   " + "♥ ".repeat(maxi(0, player.health)) + "    " + player.detection_state
+	var status := player.detection_state
 	if player.has_key:
-		status_label.text += " · KEY"
-	if player.has_supplies:
-		status_label.text += "\n" + player.stealth_status()
+		status += " · KEY"
+	var hearts := "[img=13x12]res://assets/misc/health_heart.png[/img] ".repeat(clampi(player.health, 0, 5))
+	var health_text := "MIRO   " + hearts + "   " + status
+	if health_label.text != health_text:
+		health_label.text = health_text
+	status_label.text = player.stealth_status() if player.has_supplies else ""
 	objective_label.text = objective()
 	hint_label.text = context_hint()
 	hint_icon.texture = VISUALS.hint_texture(hint_label.text)
@@ -595,7 +599,15 @@ func build_hud() -> void:
 	inventory.position = Vector2(14, 55)
 	inventory.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.add_child(inventory)
-	status_label = label_at(hud, Vector2(14, 10), Vector2(348, 50), 11)
+	health_label = RichTextLabel.new()
+	health_label.position = Vector2(14, 10)
+	health_label.size = Vector2(348, 18)
+	health_label.bbcode_enabled = true
+	health_label.scroll_active = false
+	health_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	health_label.add_theme_font_size_override("normal_font_size", 11)
+	hud.add_child(health_label)
+	status_label = label_at(hud, Vector2(14, 26), Vector2(348, 16), 11)
 	status_label.clip_text = true
 	objective_label = label_at(hud, Vector2(370, 10), Vector2(254, 48), 11)
 	objective_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT

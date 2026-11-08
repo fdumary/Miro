@@ -7,6 +7,7 @@ var speed := 700.0
 var remaining := 420.0
 var damage := 2
 var enemy := false
+var sprite: Texture2D
 var trail_start := Vector2.ZERO
 
 func _ready() -> void:
@@ -38,4 +39,7 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _draw() -> void:
-	draw_line(-direction * 10, Vector2.ZERO, Color("f2d3ab"), 2)
+	if sprite:
+		draw_texture(sprite, -sprite.get_size() / 2.0)
+	else:
+		draw_line(-direction * 10, Vector2.ZERO, Color("f2d3ab"), 2)

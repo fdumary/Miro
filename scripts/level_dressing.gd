@@ -39,9 +39,6 @@ func _draw() -> void:
 		stamp("control", Vector2(740, 115), Vector2(32, 48))
 		stamp("warning", Vector2(780, 135))
 		stamp("beacon_blue" if chapter == 4 else "beacon", Vector2(830, 140))
-	else:
-		for point in [Vector2(360, 145), Vector2(870, 365), Vector2(180, 570)]:
-			stamp("torch", point, Vector2(24, 24))
 	if chapter == 4:
 		for point in [Vector2(820, 398), Vector2(846, 398)]:
 			stamp("flask", point, Vector2(20, 20))

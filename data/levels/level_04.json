@@ -3740,6 +3740,11 @@
     ],
     "ports": [],
     "cameras": [],
+    "hazards": [
+      {"kind": "spikes", "position": [882, 252]},
+      {"kind": "spikes", "position": [322, 644]},
+      {"kind": "turret", "position": [1246, 868]}
+    ],
     "conversation": null,
     "hunted_guard": {
       "position": [
