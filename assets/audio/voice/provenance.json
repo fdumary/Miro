@@ -19038,5 +19038,117 @@
       "output_lufs": "-18.00",
       "output_true_peak_dbtp": "-5.01"
     }
+  },
+  "voss_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "2vubyVoGjNJ5HPga4SkV",
+    "voice_name": "Voss - Chris (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Not on my corridor, friend. Stop!",
+    "delivery": "[shouting] [sarcastic]",
+    "signature": "b2b6dfaafe5fbe5bb56391067f37223d95bb5111a1ad301a00681b36db2953a9",
+    "leveling": {
+      "source_sha256": "89544c5863f2ce061b58623b1a00c3edeb6ad53fb14ef1ce900048b089b72864",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.70",
+        "input_tp": "-0.44",
+        "input_lra": "0.00",
+        "input_thresh": "-22.70",
+        "output_i": "-18.00",
+        "output_tp": "-5.74",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-5.73"
+    }
+  },
+  "voss_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "2vubyVoGjNJ5HPga4SkV",
+    "voice_name": "Voss - Chris (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Voss is down. Great. Somebody bring a stretcher.",
+    "delivery": "[shocked] [sarcastic]",
+    "signature": "eca17b3877ea27f4d065aeeff35cf7f5f9a6502f0a9d0d267887bfff72396313",
+    "leveling": {
+      "source_sha256": "944d75ceb304f52582c8d397942660c65635534fe5d0e2776ead73685c35d7a8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.71",
+        "input_tp": "-0.61",
+        "input_lra": "0.80",
+        "input_thresh": "-25.65",
+        "output_i": "-16.56",
+        "output_tp": "-2.65",
+        "output_lra": "0.30",
+        "output_thresh": "-27.18",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.44"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.80"
+    }
+  },
+  "voss_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "2vubyVoGjNJ5HPga4SkV",
+    "voice_name": "Voss - Chris (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "They gave me the quiet corridor. Quiet is when things go wrong.",
+    "delivery": "[sarcastic] [muttering]",
+    "signature": "1ebb651e3b010206e6841f620839c4da9899dd5d32d6f60da5b7e891b9e9b5e7",
+    "leveling": {
+      "source_sha256": "244d47d5e13f526188ae088af092d9bc7f10d4aecb0f599593b60bf7136bda2f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.62",
+        "input_tp": "-5.59",
+        "input_lra": "2.00",
+        "input_thresh": "-32.45",
+        "output_i": "-16.73",
+        "output_tp": "-2.00",
+        "output_lra": "1.30",
+        "output_thresh": "-27.28",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.27"
+      },
+      "output_lufs": "-17.92",
+      "output_true_peak_dbtp": "-2.04"
+    }
+  },
+  "voss_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "2vubyVoGjNJ5HPga4SkV",
+    "voice_name": "Voss - Chris (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "If a cabinet moves on my shift, I'm filing it as a ghost.",
+    "delivery": "[sarcastic] [muttering]",
+    "signature": "a97a748fbcde3c40bac65890cde9d8a5ab262d519abbc1a1856943f32c96c945",
+    "leveling": {
+      "source_sha256": "810f81694f505444fd929bcd09db39041299562086ddbaf8ff67f0685b8438ba",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.81",
+        "input_tp": "-0.32",
+        "input_lra": "1.00",
+        "input_thresh": "-27.81",
+        "output_i": "-18.83",
+        "output_tp": "-2.00",
+        "output_lra": "0.80",
+        "output_thresh": "-28.83",
+        "normalization_type": "dynamic",
+        "target_offset": "0.83"
+      },
+      "output_lufs": "-18.27",
+      "output_true_peak_dbtp": "-1.98"
+    }
   }
 }
