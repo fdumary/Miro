@@ -617,10 +617,13 @@ func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> v
 func keeper_clip_path(keeper_name: String, line_id: String) -> String:
 	return "res://assets/audio/voice/%s_%s.mp3" % [keeper_name.to_lower(), line_id]
 
-func bark(actor: Node2D, kind: String) -> void:
+func bark(actor: Node2D, kind: String, force := false) -> void:
 	abort_conversation()
 	if voice.playing:
-		return
+		if not force:
+			return
+		voice.stop()
+		line_left = 0.0
 	var profile: Dictionary = roster.keepers.get(actor.guard_name, {})
 	var text: String = profile.get(kind, config.barks[kind].text)
 	speak(actor, kind, text)

@@ -122,14 +122,24 @@
         },
         {
           "speaker": 1,
-          "text": "Speaking of things nobody ever changes: the service port login. Root, root. Still the same.",
-          "delivery": "[low] [conspiratorial]",
-          "clue": "root"
+          "text": "Amen. Now, did anyone remember the service port password? I'm locked out again.",
+          "delivery": "[sheepish]"
         },
         {
           "speaker": 2,
-          "text": "Don't say it so loud. Though honestly, it's the only password in this tower I can remember.",
-          "delivery": "[dry] [whispers]"
+          "text": "Root. All lowercase. R, O, O, T. Same as every other shift.",
+          "delivery": "[dry] [low]",
+          "clue": "root"
+        },
+        {
+          "speaker": 0,
+          "text": "Right. Once you're in, you can switch the corridor camera off. Not that I'd ever tell a prisoner.",
+          "delivery": "[quietly] [amused]"
+        },
+        {
+          "speaker": 1,
+          "text": "I'll watch the stairs. And please, don't leave the port open.",
+          "delivery": "[low]"
         }
       ]
     }

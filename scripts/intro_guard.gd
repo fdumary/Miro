@@ -86,6 +86,8 @@ func detect_player() -> bool:
 ## turns on him even unseen. A quick last step in for a pickpocket is too brief to be heard.
 var heard_time := 0.0
 func hears_player() -> bool:
+	if distracted or conversation_hold:
+		return false  # absorbed in a huddle or conversation, they only notice Miro right on top of them
 	var p = level.player
 	var difference: Vector2 = p.global_position - global_position
 	if p.crouching or p.is_concealed or p.in_hiding_spot or absf(p.velocity.x) < p.movement_speed * 0.9 or absf(difference.x) >= HEARING_RANGE or absf(difference.y) >= 40.0:
@@ -141,8 +143,19 @@ func _physics_process(delta: float) -> void:
 			if not sees_player:
 				investigate(body.global_position)
 			level.notify("%s found %s. The Keepers are searching." % [guard_name, body.guard_name])
+			# High alert: grieve out loud (over anything else being said), turn on the area at
+			# a run, and rouse every Keeper within earshot.
+			if alert_state != State.ALERT:
+				alert_state = State.SEARCH
+			pursuing = true
+			search_left = 12.0
+			suspicion = 1.0
+			for other in level.guards():
+				if other != self and not other.is_dead and not other.asleep and other.global_position.distance_to(global_position) < 380.0 and absf(other.global_position.y - global_position.y) < 90.0:
+					other.investigate(body.global_position)
+					other.pursuing = true
 			if level.world_features:
-				level.world_features.bark(self, "body")
+				level.world_features.bark(self, "body", true)
 	velocity.x = 0
 	burst_timer -= delta
 	if burst_left > 0 and burst_timer <= 0:
