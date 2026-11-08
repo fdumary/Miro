@@ -1079,6 +1079,17 @@
       ],
       "personality": "fond of the ward terminal like a pet",
       "theme": "serious"
+    },
+    "Garrick": {
+      "alert": "Hands off the foundation terminal!",
+      "body": "Garrick down at the foundation! Send the doctor!",
+      "delivery": "[gruff]",
+      "idle": [
+        "Everything above rests on this terminal. I keep it that way.",
+        "Twenty years on the lowest floor. The roof has never fallen. Yet."
+      ],
+      "personality": "a gruff foundation veteran who guards the last terminal like a bridge",
+      "theme": "stern"
     }
   },
   "hunted": {
@@ -1128,6 +1139,9 @@
     "4": [
       "Marl",
       "Pru"
+    ],
+    "5": [
+      "Garrick"
     ]
   }
 }

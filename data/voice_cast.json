@@ -450,6 +450,11 @@
       "name": "Roland Rodriguez - Smooth Storyteller",
       "voice_id": "iZURAYccQtQd12U8kEcq",
       "stability": 0.5
+    },
+    "garrick": {
+      "name": "Rob - Tough & Calloused (Level 5 terminal guard)",
+      "voice_id": "2ajXGJNYBR0iNHpS4VZb",
+      "stability": 0.5
     }
   },
   "guard_delivery": {
