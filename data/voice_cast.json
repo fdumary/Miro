@@ -288,6 +288,26 @@
       "name": "Donovan - Articulate, Strong and Deep",
       "voice_id": "DMyrgzQFny3JI1Y1paM5",
       "stability": 0.5
+    },
+    "tarin": {
+      "name": "Andrew Griffin - Football Commentator",
+      "voice_id": "SF9uvIlY93SJRMdV5jeP",
+      "stability": 0.5
+    },
+    "ewan": {
+      "name": "Dallin - Positive, Inspiring and Clear",
+      "voice_id": "alFofuDn3cOwyoz1i44T",
+      "stability": 0.5
+    },
+    "niall": {
+      "name": "Clyde - Full, Diplomatic and Inviting",
+      "voice_id": "wyWA56cQNU2KqUW4eCsI",
+      "stability": 0.5
+    },
+    "ames": {
+      "name": "Roland Rodriguez - Smooth Storyteller",
+      "voice_id": "iZURAYccQtQd12U8kEcq",
+      "stability": 0.5
     }
   },
   "guard_delivery": {

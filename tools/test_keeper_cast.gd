@@ -29,6 +29,8 @@ func run() -> void:
 			check(actors == world.roster.conversation_cast[str(floor)], "Conversation cast matches floor %d" % floor)
 			for line in world.conversation:
 				check(ResourceLoader.exists(world.keeper_clip_path(actors[line.speaker], line.id)), "Voiced %s on floor %d" % [line.id, floor])
+		if floor in [2, 3]:
+			level.spawn_watcher_reserves(level.player.global_position)
 		if floor == 5:
 			# Three Hard + HUNTED waves yield fourteen guards; the two final Niro encounters can call four more.
 			for index in range(18):

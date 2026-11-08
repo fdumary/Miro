@@ -17,6 +17,7 @@ func _ready() -> void:
 	collision_layer = 0
 	collision_mask = 2
 	if kind == "spikes":
+		add_to_group("lethal_spikes")
 		var collider := CollisionShape2D.new()
 		var shape := RectangleShape2D.new()
 		shape.size = Vector2(24, 9)
@@ -29,7 +30,8 @@ func _physics_process(delta: float) -> void:
 		return
 	if kind == "spikes":
 		if overlaps_body(level.player):
-			level.player.take_damage(1)
+			level.player.health = 0
+			level.player.die()
 		return
 	var muzzle: Vector2 = global_position + PIVOT
 	var offset: Vector2 = level.player.global_position - muzzle

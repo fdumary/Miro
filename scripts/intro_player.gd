@@ -3,6 +3,8 @@ extends BaseCharacter
 
 var controls: Node
 var jumps_used := 0
+const DOUBLE_JUMP_COOLDOWN := 3.0
+var double_jump_cooldown_left := 0.0
 var crouching := false
 var level: Node2D
 var facing: float = 1.0
@@ -60,6 +62,7 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		update_visual(delta)
 		return
+	double_jump_cooldown_left = maxf(0.0, double_jump_cooldown_left - delta)
 	if in_hiding_spot:
 		velocity = Vector2.ZERO
 		update_visual(delta)
@@ -85,7 +88,9 @@ func _physics_process(delta: float) -> void:
 		jumps_used = 1
 	update_crouch()
 	if Input.is_action_just_pressed("jump") and not crouching:
-		if not try_mantle() and jumps_used < 2:
+		if not try_mantle() and (jumps_used == 0 or (jumps_used == 1 and double_jump_cooldown_left <= 0.0)):
+			if jumps_used == 1:
+				double_jump_cooldown_left = DOUBLE_JUMP_COOLDOWN
 			velocity.y = jump_velocity
 			jumps_used += 1
 			climbing = false

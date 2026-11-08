@@ -712,6 +712,50 @@
         "Nobody remembers your orders if you say them quietly.",
         "I learned to shout before I learned what to say."
       ]
+    },
+    "Tarin": {
+      "theme": "serious",
+      "personality": "a former stair runner who counts the quickest routes",
+      "delivery": "[quick] [focused]",
+      "alert": "Cut him off at the next landing.",
+      "body": "I can reach the medic from here. Keep the stair clear.",
+      "idle": [
+        "The east stairs are faster if the door is open.",
+        "Thirty steps. Thirty-one if I miss the turn."
+      ]
+    },
+    "Ewan": {
+      "theme": "goofy",
+      "personality": "a reluctant reserve who thinks every alarm is a drill",
+      "delivery": "[breathless]",
+      "alert": "All right, good drill. Wait, this is real!",
+      "body": "This is real. Get someone down here.",
+      "idle": [
+        "I put my boots on for this. It had better be a drill.",
+        "Do they grade you on how fast you get to the wrong landing?"
+      ]
+    },
+    "Niall": {
+      "theme": "stern",
+      "personality": "a checkpoint reserve who treats every search as a lockdown",
+      "delivery": "[commanding]",
+      "alert": "No one leaves this corridor. Halt!",
+      "body": "Seal the passage. Send a runner for help.",
+      "idle": [
+        "If the watcher blinks twice, I check both doors.",
+        "A blind post is still a post. I stand it."
+      ]
+    },
+    "Ames": {
+      "theme": "funny",
+      "personality": "a reserve who jokes about interrupted meals until things turn serious",
+      "delivery": "[dry]",
+      "alert": "You could have waited till I finished my supper. Stop!",
+      "body": "Forget supper. Somebody get a doctor.",
+      "idle": [
+        "I bring cold soup. It saves the tower the trouble.",
+        "The watcher always sees someone when I sit down."
+      ]
     }
   },
   "hunted": {
@@ -731,6 +775,16 @@
     "4": [
       "Tomas",
       "Ivar"
+    ]
+  },
+  "watcher_reserves": {
+    "2": [
+      "Tarin",
+      "Ewan"
+    ],
+    "3": [
+      "Niall",
+      "Ames"
     ]
   }
 }

@@ -23,11 +23,15 @@ func run() -> void:
 	level.player.position = terminal + Vector2(0, 50)
 	check(not camera.detects_player(), "Stone floor occludes camera")
 	level.player.position = at_terminal
-	level.camera_alert(level.player.position)
+	var original_count: int = level.guards().size()
+	camera._physics_process(1.0 / 60.0)
+	check(level.guards().size() == original_count + 2, "Watcher detection calls two reserves")
 	check(level.floor_alerts == 1, "Detection raises floor alert")
 	for guard in level.guards():
 		check(guard.alert_state == IntroGuard.State.SEARCH, "Floor alert reaches every guard")
 		guard.set_physics_process(false)
+	level.camera_alert(level.player.position)
+	check(level.guards().size() == original_count + 2, "Repeated sighting does not duplicate the reserve squad")
 	level.interact()
 	check(level.world_features.modal_open(), "Terminal requests a password")
 	level.world_features.submit_password("wrong")

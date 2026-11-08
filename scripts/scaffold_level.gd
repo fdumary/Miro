@@ -6,6 +6,7 @@ var pending_milestone: String = ""
 var connected_cameras: Array[Node] = []
 var hack_remaining := 0.0
 var floor_alerts := 0
+var watcher_reserves_called := false
 var brother: Node
 var cinematic: Control
 ## Level 5 only: guitar, waves and Niro's three retreats (scripts/foundation_flow.gd).
@@ -319,10 +320,42 @@ func plant_c4() -> void:
 
 func camera_alert(point: Vector2) -> void:
 	floor_alerts += 1
+	var called := spawn_watcher_reserves(point)
 	for guard in guards():
 		if not guard.is_dead:
 			guard.investigate(point)
-	notify("WATCHER ALERT • Keepers are searching your last seen position.")
+	notify("WATCHER ALERT • Reinforcements incoming." if called else "WATCHER ALERT • Keepers are searching your last seen position.")
+
+## One reserve squad per floor. Repeated sweeps redirect the squad without spawning endlessly.
+func spawn_watcher_reserves(point: Vector2) -> bool:
+	var reserves: Array = world_features.roster.watcher_reserves.get(str(int(definition.number)), [])
+	if watcher_reserves_called or reserves.is_empty():
+		return false
+	watcher_reserves_called = true
+	var slots: Array[Vector2] = []
+	for offset in [-156, 156, -100, 100]:
+		var above := point + Vector2(offset, -24)
+		if not clear_sight(point, above):
+			continue
+		var query := PhysicsRayQueryParameters2D.create(above, above + Vector2(0, 82), 1)
+		var hit := get_world_2d().direct_space_state.intersect_ray(query)
+		if not hit.is_empty() and hit.normal.y < -0.9:
+			slots.append(hit.position - Vector2(0, 16))
+	var entry: Vector2 = $LevelPlan/PlayerSpawn.global_position
+	for index in range(reserves.size()):
+		var location := slots[index] if index < slots.size() else entry + Vector2(index * 18, 0)
+		var guard = preload("res://scenes/guard.tscn").instantiate()
+		guard.name = "WatcherReserve%d" % (index + 1)
+		world_features.assign_keeper(guard, reserves[index])
+		guard.position = $Guards.to_local(location)
+		guard.patrol_left = guard.position.x - 60.0
+		guard.patrol_right = guard.position.x + 60.0
+		guard.level = self
+		guard.illness_started = true
+		guard.weapon_kind = "pistol"
+		$Guards.add_child(guard)
+
+	return true
 
 func niro_retreating(engagement: int) -> void:
 	if flow != null:

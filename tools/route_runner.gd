@@ -39,7 +39,15 @@ func walk(x: float, crouched := false, limit := 2400) -> bool:
 		Input.action_press("move_right" if right else "move_left")
 		Input.action_release("move_left" if right else "move_right")
 		var blocked: bool = p.is_on_wall() or stalled > 20
-		if not crouched and ((blocked and p.is_on_floor()) or (blocked and not p.is_on_floor() and p.jumps_used == 1 and p.velocity.y > -20)):
+		var spike_ahead := false
+		if not crouched and p.is_on_floor():
+			for hazard in level.get_tree().get_nodes_in_group("lethal_spikes"):
+				var gap: Vector2 = hazard.global_position - p.global_position
+				var ahead := gap.x * (1.0 if right else -1.0)
+				if ahead > 0 and ahead < 30 and absf(gap.y - 15.0) < 12:
+					spike_ahead = true
+					break
+		if spike_ahead or (not crouched and blocked and (p.is_on_floor() or (p.jumps_used == 1 and p.velocity.y > -20 and p.double_jump_cooldown_left <= 0.0))):
 			Input.action_press("jump")
 		else:
 			Input.action_release("jump")

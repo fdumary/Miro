@@ -9266,5 +9266,453 @@
       "output_lufs": "-19.20",
       "output_true_peak_dbtp": "-1.96"
     }
+  },
+  "tarin_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "SF9uvIlY93SJRMdV5jeP",
+    "voice_name": "Andrew Griffin - Football Commentator",
+    "model_id": "eleven_v3",
+    "text": "Cut him off at the next landing.",
+    "delivery": "[shouting] [quick] [focused]",
+    "signature": "166fa0a634cdab174c63636bc2332b6af6c64d9ce5f5be5fdb0f53476eef2ac3",
+    "leveling": {
+      "source_sha256": "5623a04f097b4dffadc079376f34d9c5c38bd8613f7900dbf19d02b7d602e419",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.06",
+        "input_tp": "-0.39",
+        "input_lra": "0.00",
+        "input_thresh": "-24.01",
+        "output_i": "-18.00",
+        "output_tp": "-5.33",
+        "output_lra": "0.00",
+        "output_thresh": "-28.95",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-5.31"
+    }
+  },
+  "ewan_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "alFofuDn3cOwyoz1i44T",
+    "voice_name": "Dallin - Positive, Inspiring and Clear",
+    "model_id": "eleven_v3",
+    "text": "All right, good drill. Wait, this is real!",
+    "delivery": "[shouting] [breathless]",
+    "signature": "bc765e3f97d86d94d9087e778da5075fcc519b822c10c683b8215fac88cb7beb",
+    "leveling": {
+      "source_sha256": "0c70c4df63c8b94ceb43c1236cfbd525ef5bd4aaca4f9c5d874c96e73dc8346e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.60",
+        "input_tp": "-1.02",
+        "input_lra": "1.90",
+        "input_thresh": "-26.77",
+        "output_i": "-16.43",
+        "output_tp": "-2.12",
+        "output_lra": "0.20",
+        "output_thresh": "-27.54",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.57"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.42"
+    }
+  },
+  "niall_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "wyWA56cQNU2KqUW4eCsI",
+    "voice_name": "Clyde - Full, Diplomatic and Inviting",
+    "model_id": "eleven_v3",
+    "text": "No one leaves this corridor. Halt!",
+    "delivery": "[shouting] [commanding]",
+    "signature": "784460affd39d58c1be28b538d0a6f1d144f845f3e3d0e9385b6e63453fba3a8",
+    "leveling": {
+      "source_sha256": "574aa4d457ac28cbb6808d2d7dee2b47be71db0eceb8d1b768ef2809cdd3b1fb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-11.82",
+        "input_tp": "-0.45",
+        "input_lra": "0.00",
+        "input_thresh": "-22.22",
+        "output_i": "-17.98",
+        "output_tp": "-6.62",
+        "output_lra": "0.00",
+        "output_thresh": "-28.38",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-6.42"
+    }
+  },
+  "ames_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "iZURAYccQtQd12U8kEcq",
+    "voice_name": "Roland Rodriguez - Smooth Storyteller",
+    "model_id": "eleven_v3",
+    "text": "You could have waited till I finished my supper. Stop!",
+    "delivery": "[shouting] [dry]",
+    "signature": "4c18fcd410c732e9719b0bd496a55567604d9dcb1e402a8eb0abc681bfaf21e8",
+    "leveling": {
+      "source_sha256": "60e1c5f0e7072dbb15e07ed1041aac9489dfbb5254cef6111700f3221f8724ed",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.16",
+        "input_tp": "-1.20",
+        "input_lra": "0.00",
+        "input_thresh": "-24.51",
+        "output_i": "-18.00",
+        "output_tp": "-5.03",
+        "output_lra": "0.00",
+        "output_thresh": "-28.35",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-4.99"
+    }
+  },
+  "tarin_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "SF9uvIlY93SJRMdV5jeP",
+    "voice_name": "Andrew Griffin - Football Commentator",
+    "model_id": "eleven_v3",
+    "text": "I can reach the medic from here. Keep the stair clear.",
+    "delivery": "[shocked] [quick] [focused]",
+    "signature": "59bdc55f71f1088a391da45d3a3ef275f65c7894aecdbabe5be76649a7722311",
+    "leveling": {
+      "source_sha256": "dc28714061c1aadb02ed322cbdfe096b7149762409da02828f4881bf42ce7372",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.99",
+        "input_tp": "-3.60",
+        "input_lra": "0.00",
+        "input_thresh": "-27.99",
+        "output_i": "-18.01",
+        "output_tp": "-3.61",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.24"
+    }
+  },
+  "ewan_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "alFofuDn3cOwyoz1i44T",
+    "voice_name": "Dallin - Positive, Inspiring and Clear",
+    "model_id": "eleven_v3",
+    "text": "This is real. Get someone down here.",
+    "delivery": "[shocked] [breathless]",
+    "signature": "ac8bf6e22805a4479f16c41402b7e0e7afb95b7f68869a75f5613ce2787e69f8",
+    "leveling": {
+      "source_sha256": "e10a7eca8fc9bc1cf792662eb340f4eaedf49b268dff56282274ac84154ab473",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.04",
+        "input_tp": "-1.23",
+        "input_lra": "0.00",
+        "input_thresh": "-24.16",
+        "output_i": "-17.98",
+        "output_tp": "-6.19",
+        "output_lra": "0.00",
+        "output_thresh": "-29.10",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-6.17"
+    }
+  },
+  "niall_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "wyWA56cQNU2KqUW4eCsI",
+    "voice_name": "Clyde - Full, Diplomatic and Inviting",
+    "model_id": "eleven_v3",
+    "text": "Seal the passage. Send a runner for help.",
+    "delivery": "[shocked] [commanding]",
+    "signature": "fe6f980c59e251b77abca6109471eeba8831bab7ffb0bae6db29d85c3ca031a9",
+    "leveling": {
+      "source_sha256": "8e524baca578f79e3e9e14d71b16f1e2aa226f32f211f62dac3adbd2f11d0779",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-11.42",
+        "input_tp": "-0.18",
+        "input_lra": "0.00",
+        "input_thresh": "-21.61",
+        "output_i": "-17.99",
+        "output_tp": "-6.76",
+        "output_lra": "0.00",
+        "output_thresh": "-28.18",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-6.49"
+    }
+  },
+  "ames_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "iZURAYccQtQd12U8kEcq",
+    "voice_name": "Roland Rodriguez - Smooth Storyteller",
+    "model_id": "eleven_v3",
+    "text": "Forget supper. Somebody get a doctor.",
+    "delivery": "[shocked] [dry]",
+    "signature": "13fac5697212420594b2797f215b5ef3634ba73522552aa3ce95790b6b3bd26d",
+    "leveling": {
+      "source_sha256": "1fed7e137fb254b2fe75bf3cf3fc5492ac9667cd1c2f5c0872b1dd9b73302788",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.74",
+        "input_tp": "-0.86",
+        "input_lra": "0.00",
+        "input_thresh": "-26.13",
+        "output_i": "-18.01",
+        "output_tp": "-3.11",
+        "output_lra": "0.00",
+        "output_thresh": "-28.40",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.04"
+    }
+  },
+  "tarin_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "SF9uvIlY93SJRMdV5jeP",
+    "voice_name": "Andrew Griffin - Football Commentator",
+    "model_id": "eleven_v3",
+    "text": "The east stairs are faster if the door is open.",
+    "delivery": "[quick] [focused] [muttering]",
+    "signature": "bed440520a49a497f7c6cb4fb8ac70d55668a0f62bd8d953b074b5e1c922461c",
+    "leveling": {
+      "source_sha256": "222fcd39a79ffd501c561376615a8c587dd1fa6e0e7ecb99dd31985a18679905",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.48",
+        "input_tp": "-4.70",
+        "input_lra": "0.00",
+        "input_thresh": "-31.48",
+        "output_i": "-18.78",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.78",
+        "normalization_type": "linear",
+        "target_offset": "0.78"
+      },
+      "output_lufs": "-18.75",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "ewan_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "alFofuDn3cOwyoz1i44T",
+    "voice_name": "Dallin - Positive, Inspiring and Clear",
+    "model_id": "eleven_v3",
+    "text": "I put my boots on for this. It had better be a drill.",
+    "delivery": "[breathless] [muttering]",
+    "signature": "0fd483d252e8d55b5066525b77e94e1fa0703a9502cd4582ba341cb5e9e8674f",
+    "leveling": {
+      "source_sha256": "bc8b6893dc1a5487332ac8a4c8a2c66264ca6c1c4e183ea5b56fae9b98982869",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.39",
+        "input_tp": "-1.95",
+        "input_lra": "0.20",
+        "input_thresh": "-30.68",
+        "output_i": "-18.16",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.30",
+        "normalization_type": "dynamic",
+        "target_offset": "0.16"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-1.88"
+    }
+  },
+  "niall_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "wyWA56cQNU2KqUW4eCsI",
+    "voice_name": "Clyde - Full, Diplomatic and Inviting",
+    "model_id": "eleven_v3",
+    "text": "If the watcher blinks twice, I check both doors.",
+    "delivery": "[commanding] [muttering]",
+    "signature": "e4597e285693eccb37408c3973088b32fa0babf3c78c001292cddaaf2360f441",
+    "leveling": {
+      "source_sha256": "367e0c80fa09e2356a1bed4ad19aec3d8d18936dffd168e96534d4f293f4c2f0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.42",
+        "input_tp": "-2.09",
+        "input_lra": "0.50",
+        "input_thresh": "-29.42",
+        "output_i": "-17.87",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.87",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.13"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "ames_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "iZURAYccQtQd12U8kEcq",
+    "voice_name": "Roland Rodriguez - Smooth Storyteller",
+    "model_id": "eleven_v3",
+    "text": "I bring cold soup. It saves the tower the trouble.",
+    "delivery": "[dry] [muttering]",
+    "signature": "4e339b1f7342feca7d38a3c563c3ba67d590d2a9d29bc73993e535b594b12b3a",
+    "leveling": {
+      "source_sha256": "23c2d377f5b959a8b59abcd54e2bc3a96853bbbf9bbc1148b1c111a90c913671",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.38",
+        "input_tp": "-0.80",
+        "input_lra": "0.10",
+        "input_thresh": "-25.85",
+        "output_i": "-17.39",
+        "output_tp": "-2.84",
+        "output_lra": "0.00",
+        "output_thresh": "-27.87",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.61"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.44"
+    }
+  },
+  "tarin_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "SF9uvIlY93SJRMdV5jeP",
+    "voice_name": "Andrew Griffin - Football Commentator",
+    "model_id": "eleven_v3",
+    "text": "Thirty steps. Thirty-one if I miss the turn.",
+    "delivery": "[quick] [focused] [muttering]",
+    "signature": "32f201280c7545fb11b65f8ca0285f0e11d5a94c7d1562d5c110666c778a874e",
+    "leveling": {
+      "source_sha256": "ba05e9145a866cbce08fe0588f4436ce0e272970ac7afcfcf54ad93e0304ca5e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.72",
+        "input_tp": "-0.56",
+        "input_lra": "0.00",
+        "input_thresh": "-26.53",
+        "output_i": "-18.00",
+        "output_tp": "-2.84",
+        "output_lra": "0.00",
+        "output_thresh": "-28.81",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.76"
+    }
+  },
+  "ewan_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "alFofuDn3cOwyoz1i44T",
+    "voice_name": "Dallin - Positive, Inspiring and Clear",
+    "model_id": "eleven_v3",
+    "text": "Do they grade you on how fast you get to the wrong landing?",
+    "delivery": "[breathless] [muttering]",
+    "signature": "691217cef0a5e0c7d51fa5b2ad1292a51a84aca92fbb263d1e05cc7d5d81481f",
+    "leveling": {
+      "source_sha256": "4459bc0ac8a8a32be936e76ee5deaf079fd035aff97a09c103860b8ad86a4283",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.03",
+        "input_tp": "-5.25",
+        "input_lra": "0.00",
+        "input_thresh": "-30.03",
+        "output_i": "-18.00",
+        "output_tp": "-3.22",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.20"
+    }
+  },
+  "niall_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "wyWA56cQNU2KqUW4eCsI",
+    "voice_name": "Clyde - Full, Diplomatic and Inviting",
+    "model_id": "eleven_v3",
+    "text": "A blind post is still a post. I stand it.",
+    "delivery": "[commanding] [muttering]",
+    "signature": "5927f580d7c2deec42cfd2d0af6d429753f8566cbc3a29ee96a2b6989028e310",
+    "leveling": {
+      "source_sha256": "fefad81615f4ee9e6ee2a89d2842c3fdba2860cabcfee7c08ed45f687ce33e40",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.64",
+        "input_tp": "-2.48",
+        "input_lra": "5.80",
+        "input_thresh": "-29.76",
+        "output_i": "-17.67",
+        "output_tp": "-2.34",
+        "output_lra": "2.50",
+        "output_thresh": "-28.54",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.33"
+      },
+      "output_lufs": "-18.95",
+      "output_true_peak_dbtp": "-2.66"
+    }
+  },
+  "ames_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "iZURAYccQtQd12U8kEcq",
+    "voice_name": "Roland Rodriguez - Smooth Storyteller",
+    "model_id": "eleven_v3",
+    "text": "The watcher always sees someone when I sit down.",
+    "delivery": "[dry] [muttering]",
+    "signature": "78a2e386979847cec2f9b13897ccf31f15f5fa7997406e5c5c6f9a7785d984b1",
+    "leveling": {
+      "source_sha256": "11af45abec407bfcdf369f63fb67c425fe33bd6b3b50aa1d7d84f54a3fc6b8ca",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.26",
+        "input_tp": "-1.32",
+        "input_lra": "0.30",
+        "input_thresh": "-27.26",
+        "output_i": "-17.83",
+        "output_tp": "-2.13",
+        "output_lra": "0.00",
+        "output_thresh": "-27.96",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.17"
+      },
+      "output_lufs": "-17.90",
+      "output_true_peak_dbtp": "-2.13"
+    }
   }
 }

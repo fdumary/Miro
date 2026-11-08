@@ -55,7 +55,7 @@ Office (guitar, final sigil) → wave 1 → Niro #1 (reveal, rush) → retreat a
 Saved in `settings.cfg`; it applies when a floor loads. Tests always run on Medium (`--difficulty=` overrides).
 
 ## Keepers (`data/guard_roster.json`)
-- Each named Keeper has an individual personality, voice, alert and body lines, and two patrol mutters. The five original themes guide characterization; characters in the same theme have different concerns and lines. This includes the HUNTED patrols and every possible Foundation reinforcement.
+- Each named Keeper has an individual personality, voice, alert and body lines, and two patrol mutters. The five original themes guide characterization; characters in the same theme have different concerns and lines. This includes HUNTED patrols, watcher reserves and every possible Foundation reinforcement.
 - The first Keeper is Judas (Level 1).
 - Off-duty huddles (`features.huddles`, `K` on the maps): three Keepers on Level 2, one reading John 3:16 to the other two. Absorbed, they only notice Miro right next to them. Behind them is a bunk with an ammo case.
 - `world_features.add_casual_lines(lines, actors)` queues more overheard scenes after the main conversation.
@@ -66,14 +66,14 @@ Saved in `settings.cfg`; it applies when a floor loads. Tests always run on Medi
 - Level 5 taunts (`niro.taunts` in `level_05.json`) play whenever he is off screen after the reveal. They come in the authored order, on a bar line, every 6 bars.
 
 ## Voices (`data/voice_cast.json`, `tools/generate_voices.py`)
-- The cast has a separate ElevenLabs voice for each of the 55 named Keepers, plus Niro (designed voice, preview 1) and the PA (Daniel).
+- The cast has a separate ElevenLabs voice for each of the 59 named Keepers, plus Niro (designed voice, preview 1) and the PA (Daniel).
 - eleven_v3 with emotion audio tags per line (`guard_delivery`). Niro's tags are picked per line: pleading, mocking, unhinged.
 - Keeper clips use `<keeper>_<line_id>.mp3`, including branch conversations, verses and the John 3:16 huddle. Judas's opening uses `judas_<hash>.mp3`. Run `python3 tools/generate_voices.py --keepers-only` to refresh Keeper audio without regenerating Niro or the PA.
 - Niro and PA clips are named by a hash of the line, so editing text picks up a new clip. Run it locally with `ELEVENLABS_API_KEY`; `--list` shows the jobs without spending credits.
 
 ## Beat sync outside Level 5
 - Keepers turn at patrol ends on a beat line (sick Keepers on every other beat) and lean into each step on the beat. The average speed is unchanged.
-- Cameras sweep over four bars.
+- Watchers sweep over four bars. The first sighting on a floor calls two armed reserves; later sightings redirect the existing search.
 
 ## Levels 2–4
 See `docs/LEVEL_DESIGN.md`: two sub-floors per level (one per song), six storeys, authored routes and maps.
