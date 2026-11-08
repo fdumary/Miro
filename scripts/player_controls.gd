@@ -7,7 +7,8 @@ var active := "blanket"
 var inventory_open := false
 var remote_open := false
 var local_console := false
-var turret_login: Node2D
+## Records terminals Miro has logged into on this floor: one login per terminal, kept after closing it.
+var logged_in: Dictionary = {}
 var console_title: Label
 var console_icon: TextureRect
 var console_echo: Label
@@ -524,11 +525,12 @@ func run_command(raw: String) -> void:
 				player.level.world_features.early_authenticated = true
 			if at_checkpoint():
 				player.level.world_features.terminal_authenticated = true
-			turret_login = terminal
+			if terminal != null:
+				logged_in[terminal.get_instance_id()] = true
 			output.text = "Authenticated. " + ("Use cameras off or turrets off for this floor." if terminal != null else "Type help for available commands.")
 	elif text == "turrets off":
 		var terminal: Node2D = player.level.world_features.security_terminal()
-		if terminal == null or (terminal != turret_login and not (at_checkpoint() and player.level.world_features.terminal_authenticated)):
+		if terminal == null or (not logged_in.has(terminal.get_instance_id()) and not (at_checkpoint() and player.level.world_features.terminal_authenticated)):
 			output.text = "Stay at an authenticated terminal: login <password>"
 			return
 		var count: int = player.level.world_features.disable_turrets()
@@ -550,7 +552,7 @@ func run_command(raw: String) -> void:
 			return
 		# Any records terminal you've logged into controls this floor's cameras too.
 		var terminal: Node2D = player.level.world_features.security_terminal()
-		if terminal != null and terminal == turret_login:
+		if terminal != null and logged_in.has(terminal.get_instance_id()):
 			var count: int = player.level.world_features.disable_cameras()
 			output.text = "Cameras disabled on this floor: %d" % count if count > 0 else "No active cameras on this floor."
 		else:
