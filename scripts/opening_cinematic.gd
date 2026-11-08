@@ -34,6 +34,8 @@ func _ready() -> void:
 	audio.at(10.3, func(): audio.play("thunder_near", -1.0, 1.05))
 	# The first level's song starts under the title so the cut into the cell lands on the beat.
 	audio.at(12.4, func(): get_node("/root/MusicDirector").start_floor(1))
+	# The Tower PA announcement (data/interludes.json opening_pa), through the tower speakers.
+	audio.at(4.8, func(): get_node("/root/RemoteRadio").say_in_room(str(JSON.parse_string(FileAccess.get_file_as_string("res://data/interludes.json")).opening_pa), "pa"))
 	audio.at(12.6, func(): audio.play("thunder_far", -9.0, 0.8))
 
 func _process(delta: float) -> void:
@@ -107,9 +109,9 @@ func _draw() -> void:
 	var line := ""
 	if t >= 1.8 and t < 4.5:
 		line = "The tower keeps what it takes."
-	elif t >= 5.0 and t < 8.5:
+	elif t >= 4.7 and t < 9.2:
 		line = "TOWER PA:  \"Lights out. Cells sealed. Report every cough, including your own.\""
-	elif t >= 9.2 and t < 12.0:
+	elif t >= 9.4 and t < 12.0:
 		line = "Cell 07."
 	C.subtitle(self, line, 1.0)
 	draw_string(C.Type.body(), Vector2(16, 352), "[Tab] Skip", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))

@@ -1,18 +1,22 @@
 extends Control
-## Between-floor cinematics (C6-C9). About 12 s; Tab/Enter/Space/Esc skips with the same result.
-##   0-4    the tower at night, one more sigil lit, Miro's silhouette in the rain
-##   4-8.5  the remote glows; the voice speaks (subtitled; Niro's name only after Level 3)
-##   8.5-12 Miro's thought, then the next floor's title
+## Between-level cinematics (C6-C9): a split-screen call over the MP3. Miro, inside the tower,
+## on the left; his brother on the right. Every line plays in full (the scene waits for each
+## clip). Until Level 3 reveals his name Niro is only a voice, a dark shape at his desk.
+## Lines: data/interludes.json. Tab / Enter / Space / Esc skips.
 signal finished
 const C = preload("res://scripts/cinema.gd")
-const LENGTH := 12.0
-const BASE := Vector2(410, 262)
-## data/interludes.json, keyed by the floor just finished.
-var data: Dictionary = {}
+const GAP := 0.45
+const TAIL := 2.2
 var floor_done := 1
 var elapsed := 0.0
 var done := false
 var audio: Node
+var data: Dictionary = {}
+var starts: Array[float] = []
+var lengths: Array[float] = []
+var played := -1
+var total := 0.0
+var kael: Texture2D = preload("res://assets/characters/kael_idle.png")
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -22,20 +26,43 @@ func _ready() -> void:
 	add_child(audio)
 	var scenes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/interludes.json")).scenes
 	data = scenes.get(str(floor_done), scenes["1"])
-	audio.loop("wind_loop", -20.0, 1.0)
-	# The voice comes through the remote; Miro's thought goes through the reverb bus.
-	audio.at(3.6, func(): get_node("/root/RemoteRadio").say(str(data.voice)))
-	audio.at(9.0, func(): get_node("/root/RemoteRadio").say_in_room(str(data.thought), "miro", "Thought"))
-	audio.at(1.0, func(): get_node("/root/SoundFX").play_sound("sigil", -10, 1.0 + floor_done * 0.1))
+	audio.loop("wind_loop", -26.0, 1.0)
+	var radio = get_node("/root/RemoteRadio")
+	var cursor := 1.0
+	for line in data.lines:
+		var prefix := "miro" if str(line[0]) == "MIRO" else "niro"
+		var length := maxf(2.2, str(line[1]).length() * 0.06)
+		if radio.has_clip(str(line[1]), prefix):
+			length = load(radio.clip_path(str(line[1]), prefix)).get_length()
+		starts.append(cursor)
+		lengths.append(length)
+		cursor += length + GAP
+	total = cursor + TAIL
 
 func _process(delta: float) -> void:
 	if done:
 		return
 	elapsed += delta
 	audio.tick(elapsed)
+	var index := current_line()
+	if index != played and index >= 0:
+		played = index
+		var line: Array = data.lines[index]
+		var radio = get_node("/root/RemoteRadio")
+		if str(line[0]) == "MIRO":
+			radio.say_in_room(str(line[1]), "miro", "Voice")
+		else:
+			radio.say(str(line[1]))
 	queue_redraw()
-	if elapsed >= LENGTH:
+	if elapsed >= total:
 		finish()
+
+## The line being spoken right now (-1 in the gaps and at the ends).
+func current_line() -> int:
+	for index in range(starts.size()):
+		if elapsed >= starts[index] and elapsed < starts[index] + lengths[index]:
+			return index
+	return -1
 
 func _input(event: InputEvent) -> void:
 	if not done and (event.is_action_pressed("skip") or event.is_action_pressed("advance") or event.is_action_pressed("ui_cancel")):
@@ -54,29 +81,55 @@ func _draw() -> void:
 	var unit := size / C.FRAME
 	draw_set_transform(Vector2.ZERO, 0.0, unit)
 	var t := elapsed
-	C.night_sky(self, Color("090b1a"), Color("1d2140"))
-	C.pines(self, 300.0, 60.0, 26.0, 0.5, t * 2.0)
-	C.tower(self, BASE, 40.0, 70.0, t, float(floor_done) / 5.0)
-	C.pines(self, 340.0, 90.0, 34.0, 1.0, t * 4.0)
-	C.rain(self, t, 0.25)
-	C.miro(self, Vector2(150, 330), 2.2)
-	if t >= 3.5 and t < 9.0:
-		# The remote's glow washes the foreground while the voice speaks.
-		var glow := C.phase(t, 3.5, 0.8) * (1.0 - C.phase(t, 8.3, 0.7))
-		draw_circle(Vector2(170, 300), 70.0, Color(0.55, 0.85, 0.7, 0.12 * glow))
-		draw_rect(Rect2(160, 292, 20, 28), Color(0.6, 0.95, 0.8, 0.5 * glow))
-		C.subtitle(self, "%s:  \"%s\"" % [data.speaker, data.voice], glow)
-		# Once his name is known (after Level 3) Niro stands in the remote's glow: Julia's Kael sprite.
-		if str(data.speaker) == "NIRO":
-			var kael: Texture2D = load("res://assets/characters/kael_idle.png")
-			var rise := C.ease_out(C.phase(t, 3.6, 1.2))
-			draw_set_transform(Vector2(470, 330), 0.0, unit * Vector2(-2.6, 2.6))
-			draw_texture(kael, Vector2(-kael.get_width() / 2.0, -kael.get_height()), Color(1, 1, 1, glow * rise))
-			draw_set_transform(Vector2.ZERO, 0.0, unit)
-	elif t >= 9.0:
-		C.subtitle(self, data.thought, C.phase(t, 9.0, 0.8))
-		C.title(self, Vector2(320, 150), data.title, 28, Color("e6d9c3"), 6.0, true)
-	C.letterbox(self, 1.0)
-	C.vignette(self, 0.6)
+	var index := current_line()
+	var speaker := ""
+	if index >= 0:
+		speaker = str(data.lines[index][0])
+	var miro_talks := speaker == "MIRO"
+	var niro_talks := speaker != "" and not miro_talks
+	panel_miro(t, 1.0 if miro_talks else (0.55 if niro_talks else 0.8))
+	panel_niro(t, 1.0 if niro_talks else (0.55 if miro_talks else 0.8))
+	# The MP3 link between them.
+	draw_rect(Rect2(317, 0, 6, 360), Color("0b0c14"))
+	draw_rect(Rect2(311, 160, 18, 30), Color("1b1d2e"))
+	draw_rect(Rect2(314, 164, 12, 8), Color(0.6, 0.95, 0.8, 0.5 + 0.4 * sin(t * 6.0)))
+	if index >= 0:
+		var line: Array = data.lines[index]
+		var label := "MIRO" if miro_talks else ("NIRO" if data.named else "THE VOICE")
+		C.subtitle(self, "%s:  %s" % [label, str(line[1])], 1.0)
+	elif t > total - TAIL:
+		C.title(self, Vector2(320, 190), str(data.title), 30, Color("e6d9c3"), 6.0, true)
+	C.vignette(self, 0.55)
 	C.grain(self, int(t * 24.0), 0.05)
-	C.fade(self, 1.0 - C.phase(t, 0.0, 0.8) + C.phase(t, LENGTH - 0.8, 0.8))
+	C.fade(self, 1.0 - C.phase(t, 0.0, 0.8) + C.phase(t, total - 0.8, 0.8))
+
+## Left half: a stone corridor inside the tower, torchlight, Miro with the MP3 glowing.
+func panel_miro(t: float, light: float) -> void:
+	var rect := Rect2(0, 0, 317, 360)
+	C.gradient(self, rect, Color("0c0d18").lerp(Color.BLACK, 1.0 - light), Color("1c1b2b").lerp(Color.BLACK, 1.0 - light))
+	for x in range(0, 317, 38):
+		draw_rect(Rect2(x, 40, 2, 220), Color(0.05, 0.05, 0.09, 0.9))   # cell bars
+	draw_rect(Rect2(0, 262, 317, 98), Color("12121c"))
+	var flicker := 0.85 + 0.15 * sin(t * 9.0) * sin(t * 5.3)
+	draw_circle(Vector2(52, 110), 46.0, Color(1.0, 0.62, 0.25, 0.10 * light * flicker))
+	draw_rect(Rect2(50, 104, 4, 12), Color(1.0, 0.7, 0.3, light))
+	C.miro(self, Vector2(180, 300), 2.4)
+	draw_circle(Vector2(214, 262), 34.0, Color(0.55, 0.95, 0.8, 0.10 * light))
+	draw_rect(Rect2(208, 254, 12, 18), Color(0.6, 0.95, 0.8, 0.55 * light))
+	draw_rect(Rect2(0, 0, 317, 360), Color(0, 0, 0, 0.0))
+
+## Right half: his brother's office; once named he is Kael's sprite, before that a silhouette.
+func panel_niro(t: float, light: float) -> void:
+	var rect := Rect2(323, 0, 317, 360)
+	C.gradient(self, rect, Color("10202a").lerp(Color.BLACK, 1.0 - light), Color("1d3039").lerp(Color.BLACK, 1.0 - light))
+	draw_rect(Rect2(323, 270, 317, 90), Color("101a20"))
+	draw_circle(Vector2(560, 120), 58.0, Color(0.85, 0.95, 0.9, 0.08 * light))   # the desk lamp
+	draw_rect(Rect2(556, 118, 8, 4), Color(0.9, 0.98, 0.92, light))
+	draw_rect(Rect2(380, 240, 90, 40), Color("0b1318"))   # a cot: a ward bed behind him
+	var tint := Color(1, 1, 1, 1) if data.named else Color(0.02, 0.03, 0.04, 1)
+	tint = tint.lerp(Color.BLACK, (1.0 - light) * 0.6) if data.named else tint
+	draw_set_transform(Vector2(480, 300) * (size / C.FRAME), 0.0, size / C.FRAME * Vector2(-4.2, 4.2))
+	draw_texture(kael, Vector2(-kael.get_width() / 2.0, -kael.get_height()), tint)
+	draw_set_transform(Vector2.ZERO, 0.0, size / C.FRAME)
+	if not data.named:
+		draw_string(C.Type.body(), Vector2(430, 336), "UNKNOWN CALLER", HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))

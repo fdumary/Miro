@@ -1,29 +1,98 @@
 {
-  "_comment": "Between-level cinematics (scripts/interlude_cinematic.gd, docs/CUTSCENE_SCRIPTS.md). Keyed by the floor just finished. voice = Niro over the remote (niro_<hash> clip); thought = Miro (miro_<hash> clip, Thought bus).",
+  "_comment": "Between-level cinematics (scripts/interlude_cinematic.gd, docs/CUTSCENE_SCRIPTS.md): a split-screen call over the MP3 between Miro (inside the tower) and his brother. Keyed by the floor just finished. VOICE and NIRO lines use niro_<hash> clips over the remote; MIRO lines use miro_<hash>. named=false hides Niro's face until his name is revealed on Level 3.",
+  "opening_pa": "Lights out. Cells sealed. Report every cough, including your own.",
   "scenes": {
     "1": {
       "title": "LEVEL 2",
-      "speaker": "THE VOICE",
-      "voice": "You have the remote. Keep it close, and keep quiet.",
-      "thought": "Someone is guiding me down. I should find out why."
+      "named": false,
+      "lines": [
+        [
+          "VOICE",
+          "You have the remote. Keep it close, and keep quiet."
+        ],
+        [
+          "MIRO",
+          "Who is this? How do you know my name?"
+        ],
+        [
+          "VOICE",
+          "Someone who wants you out alive. Go down. The coughing started on the floors below, and it is spreading."
+        ],
+        [
+          "MIRO",
+          "Someone is guiding me down. I should find out why."
+        ]
+      ]
     },
     "2": {
       "title": "LEVEL 3",
-      "speaker": "THE VOICE",
-      "voice": "If you go any lower, I can't protect you.",
-      "thought": "From who?"
+      "named": false,
+      "lines": [
+        [
+          "VOICE",
+          "If you go any lower, I can't protect you."
+        ],
+        [
+          "MIRO",
+          "From who?"
+        ],
+        [
+          "VOICE",
+          "From what they keep in the records. The sickness did not start in the cells, Miro."
+        ],
+        [
+          "MIRO",
+          "Then where did it start?"
+        ],
+        [
+          "VOICE",
+          "Find the personnel records on three. You will understand why I kept calling you back."
+        ]
+      ]
     },
     "3": {
       "title": "LEVEL 4",
-      "speaker": "NIRO",
-      "voice": "Now you know my name. Please, stop at the records.",
-      "thought": "Brother. The word feels true, and I hate that."
+      "named": true,
+      "lines": [
+        [
+          "NIRO",
+          "Now you know my name. Please, stop at the records."
+        ],
+        [
+          "MIRO",
+          "You kept me in here, Niro. Was I sick too?"
+        ],
+        [
+          "NIRO",
+          "Not over a remote. Read what the ward kept, then decide what I am to you."
+        ],
+        [
+          "MIRO",
+          "Brother. The word feels true, and I hate that."
+        ]
+      ]
     },
     "4": {
       "title": "LEVEL 5",
-      "speaker": "NIRO",
-      "voice": "Don't come down here, Miro. Please.",
-      "thought": "The seals, the supports. Everything rests on the floor below."
+      "named": true,
+      "lines": [
+        [
+          "NIRO",
+          "Don't come down here, Miro. Please."
+        ],
+        [
+          "MIRO",
+          "The seals, the supports. Everything rests on the floor below."
+        ],
+        [
+          "NIRO",
+          "Everything rests on what we kept down there. I never lied about the sickness. I only never told you whose it was."
+        ],
+        [
+          "MIRO",
+          "Then I'm coming down anyway."
+        ]
+      ]
     }
   }
 }

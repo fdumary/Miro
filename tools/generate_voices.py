@@ -127,7 +127,7 @@ def collect_lines(cast):
     niro += branch['kill_disappointment']
     niro.append('...Miro?')  # Level 1 floor report: the remote crackles.
     for scene in json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8'))['scenes'].values():
-        niro.append(scene['voice'])  # between-level cinematics
+        niro += [text for who, text in scene['lines'] if who != 'MIRO']  # between-level cinematics
     source = (ROOT / 'scripts/intro_level.gd').read_text()
     for speaker, text in re.findall(r'\["([A-Z ]+)", "((?:[^"\\]|\\.)*)"', source):
         if speaker in NIRO_SPEAKERS and '%' not in text and text not in NIRO_SPEAKERS:
@@ -183,7 +183,7 @@ def collect_lines(cast):
             if opening:
                 extra.append(opening)
         extra += [branch[reputation]['thought'] for reputation in ('MISSING', 'HUNTED')]
-        extra += [scene['thought'] for scene in json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8'))['scenes'].values()]
+        extra += [text for scene in json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8'))['scenes'].values() for who, text in scene['lines'] if who == 'MIRO']
         for reputation in ('MISSING', 'HUNTED'):
             extra += list(branch[reputation].get('thoughts', {}).values())
         # The Z hints are Miro thinking it through: every tier, every floor.
@@ -223,6 +223,9 @@ def collect_lines(cast):
                     if 'reply' in option and voice in cast['voices']:
                         add(f'{voice}_' + text_hash(option['reply'][1]), voice, option['reply'][1],
                             {'prisoner': '[weak] [coughs]', 'niro': '[pleading]'}.get(voice, '[stern] [coughs] [greedy]'))
+    # The opening cinematic's Tower PA line.
+    opening_pa = json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8'))['opening_pa']
+    add('pa_' + text_hash(opening_pa), 'pa', opening_pa, '')
     for reputation in ('MISSING', 'HUNTED'):
         for key in ('pa', 'ending_pa'):
             text = branch[reputation][key]
