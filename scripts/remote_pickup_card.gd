@@ -28,14 +28,15 @@ func _draw() -> void:
 	var bar := 18.0 * amount
 	draw_rect(Rect2(0, 0, 640, bar), Color(0, 0, 0, 0.85))
 	draw_rect(Rect2(0, 360 - bar, 640, bar), Color(0, 0, 0, 0.85))
-	for i in range(8):
-		draw_rect(Rect2(640 - 200 + i * 25, 0, 200 - i * 25, 360), Color(0, 0, 0, 0.06 * amount))
-	var rect := Rect2(Vector2(520, 360 - 230 * amount), Vector2(84, 124))
+	for i in range(6):
+		draw_rect(Rect2(640 - 120 + i * 20, 240, 120 - i * 20, 120), Color(0, 0, 0, 0.06 * amount))
+	# Kept small (pocket-sized, about an eighth of the screen height) so it never dominates play.
+	var rect := Rect2(Vector2(592, 360 - bar - 52 * amount), Vector2(30, 44))
 	var wake := C.phase(t, 0.5, 0.4)
 	preload("res://scripts/remote_screen.gd").draw_remote(self, rect, "MP3" if wake < 1.0 else "▶ PLAY", 0.3 + 0.7 * wake * absf(sin(t * 4.0)))
 	# Fingers wrapping the body.
 	for f in range(3):
-		draw_rect(Rect2(rect.position.x - 6, rect.position.y + 70 + f * 12, 14, 8), Color("c69fa5"))
+		draw_rect(Rect2(rect.position.x - 3, rect.position.y + 25 + f * 5, 6, 3), Color("c69fa5"))
 	var text_alpha := C.phase(t, 0.6, 0.4) * (1.0 - away)
-	C.title(self, Vector2(452, 150 + (1.0 - amount) * 20.0), "MP3 player", 16, Color(C.SAND.r, C.SAND.g, C.SAND.b, text_alpha), 1, false)
-	C.title(self, Vector2(452, 168 + (1.0 - amount) * 20.0), "off the guard. Still warm.", 11, Color(C.PAPER.r, C.PAPER.g, C.PAPER.b, text_alpha), 1, false)
+	C.title(self, Vector2(470, 306 + (1.0 - amount) * 10.0), "MP3 player", 12, Color(C.SAND.r, C.SAND.g, C.SAND.b, text_alpha), 1, false)
+	C.title(self, Vector2(470, 319 + (1.0 - amount) * 10.0), "off the guard. Still warm.", 9, Color(C.PAPER.r, C.PAPER.g, C.PAPER.b, text_alpha), 1, false)

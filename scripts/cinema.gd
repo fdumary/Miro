@@ -140,10 +140,6 @@ static func tower(canvas: CanvasItem, base: Vector2, floor_height: float, width:
 			for ring in range(4):
 				canvas.draw_circle(center, 6 + ring * 6 * burning, Color(0.95, 0.83, 0.67, 0.08 * burning))
 			emblem(canvas, center, 7, Color(SAND.r, SAND.g, SAND.b, burning), 1.5)
-	if collapse < 0.2:
-		var top := Vector2(base.x, base.y - floor_height * 5.5 - 10)
-		canvas.draw_rect(Rect2(top.x - 1, top.y - 16, 2, 16), edge)
-		emblem(canvas, top - Vector2(0, 22), 6, Color(ROSE.r, ROSE.g, ROSE.b, 0.8), 1.5)
 
 ## Dust plumes rolling out from the base during a collapse.
 static func dust(canvas: CanvasItem, base: Vector2, amount: float) -> void:

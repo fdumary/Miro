@@ -89,7 +89,7 @@ func _draw() -> void:
 	var pulse := absf(sin(Time.get_ticks_msec() / 90.0))
 	if full_screen:
 		draw_rect(Rect2(Vector2.ZERO, size), Color(0, 0, 0, 0.55))
-		var height := size.y * 0.8
+		var height := size.y * 0.3
 		draw_remote(self, Rect2(Vector2(size.x / 2 - height * 0.35, size.y * 0.1), Vector2(height * 0.7, height)), label, pulse)
 	else:
 		draw_c4_trigger(self, Rect2(Vector2(75, 0), Vector2(44, 62)), "C4", pulse, 1.0)
