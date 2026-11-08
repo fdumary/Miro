@@ -1,5 +1,5 @@
 {
-  "_comment": "Between-level cinematics (scripts/interlude_cinematic.gd, docs/CUTSCENE_SCRIPTS.md): a split-screen call over the MP3 between Miro (inside the tower) and his brother. Keyed by the floor just finished. VOICE and NIRO lines use niro_<hash> clips over the remote; MIRO lines use miro_<hash>. named=false hides Niro's face until his name is revealed on Level 3.",
+  "_comment": "Between-level cinematics (scripts/interlude_cinematic.gd, docs/CUTSCENE_SCRIPTS.md): a split-screen call over the MP3 between Miro (inside the tower) and his brother. Keyed by the floor just finished. VOICE and NIRO lines use niro_<hash> clips over the remote; MIRO lines use miro_<hash>. named=false hides Niro's face until his name is revealed on Level 3. hunted_first replaces the first line when Campaign.reputation() is HUNTED (the only branch: MISSING keeps the written line).",
   "opening_pa": "Lights out. Cells sealed. Report every cough, including your own.",
   "scenes": {
     "1": {
@@ -22,7 +22,8 @@
           "MIRO",
           "Someone is guiding me down. I should find out why."
         ]
-      ]
+      ],
+      "hunted_first": "You have the remote. Keep it close, and keep your hands clean."
     },
     "2": {
       "title": "LEVEL 3",
@@ -48,7 +49,8 @@
           "VOICE",
           "Find the personnel records on three. You will understand why I kept calling you back."
         ]
-      ]
+      ],
+      "hunted_first": "You are leaving Keepers behind you. If you go any lower, I can't protect you."
     },
     "3": {
       "title": "LEVEL 4",
@@ -70,7 +72,8 @@
           "MIRO",
           "Brother. The word feels true, and I hate that."
         ]
-      ]
+      ],
+      "hunted_first": "I watched every Keeper you dropped. Now you know my name. Please, stop at the records."
     },
     "4": {
       "title": "LEVEL 5",
@@ -92,7 +95,8 @@
           "MIRO",
           "Then I'm coming down anyway."
         ]
-      ]
+      ],
+      "hunted_first": "You are making this harder, Miro. Don't come down here. Please."
     }
   }
 }

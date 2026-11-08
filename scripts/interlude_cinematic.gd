@@ -26,7 +26,10 @@ func _ready() -> void:
 	audio = preload("res://scripts/cine_audio.gd").new()
 	add_child(audio)
 	var scenes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/interludes.json")).scenes
-	data = scenes.get(str(floor_done), scenes["1"])
+	data = scenes.get(str(floor_done), scenes["1"]).duplicate(true)
+	# Branching: a HUNTED run (kills over stealth) hears Niro's opening line change; nothing else does.
+	if data.has("hunted_first") and get_node("/root/Campaign").reputation() == "HUNTED":
+		data.lines[0][1] = data.hunted_first
 	audio.loop("wind_loop", -26.0, 1.0)
 	audio.loop("rain_loop", -24.0, 1.5)
 	var radio = get_node("/root/RemoteRadio")
