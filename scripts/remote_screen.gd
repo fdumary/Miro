@@ -7,8 +7,8 @@ var label := "SIGNAL SENT"
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if not full_screen:
-		position = Vector2(520, 302)
-		size = Vector2(104, 20)
+		position = Vector2(505, 259)
+		size = Vector2(119, 62)
 
 func _process(delta: float) -> void:
 	if full_screen:
@@ -51,7 +51,5 @@ func _draw() -> void:
 		var height := size.y * 0.8
 		draw_remote(self, Rect2(Vector2(size.x / 2 - height * 0.35, size.y * 0.1), Vector2(height * 0.7, height)), label, pulse)
 	else:
-		var badge := Rect2(Vector2.ZERO, size)
-		draw_rect(badge, Color(0.15, 0.15, 0.26, 0.92))
-		draw_rect(badge, Color("c69fa5"), false, 1.0)
-		draw_string(ThemeDB.fallback_font, Vector2(0, 14), "C4 DETONATED", HORIZONTAL_ALIGNMENT_CENTER, size.x, 11, Color("f2d3ab"))
+		draw_remote(self, Rect2(Vector2(75, 0), Vector2(44, 62)), "C4", pulse)
+		draw_string(ThemeDB.fallback_font, Vector2(0, 30), "C4 DETONATED", HORIZONTAL_ALIGNMENT_CENTER, 72, 10, Color("f2d3ab"))
