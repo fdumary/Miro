@@ -100,6 +100,9 @@ func run() -> void:
 		var path := "res://scenes/intro.tscn" if number == 1 else "res://scenes/levels/level_%02d.tscn" % number
 		level = load(path).instantiate()
 		root.add_child(level)
+		for extra_guard in level.get_node("Guards").get_children():
+			if str(extra_guard.name).begins_with("TerminalGuard"):
+				extra_guard.set_physics_process(false)  # these tests probe routes, not the terminal posts
 		for keeper in ["CraneKeeper", "StroudKeeper", "ThaneKeeper", "HoltKeeper", "LedgeKeeper", "VaultKeeper"]:
 			var extra = level.get_node_or_null("Guards/" + keeper)
 			if extra != null:

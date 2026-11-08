@@ -42,6 +42,9 @@ func run() -> void:
 	level = load("res://scenes/intro.tscn").instantiate()
 	root.add_child(level)
 	current_scene = level
+	for extra_guard in level.get_node("Guards").get_children():
+		if str(extra_guard.name).begins_with("TerminalGuard"):
+			extra_guard.set_physics_process(false)  # this route predates the terminal posts
 	for keeper in ["CraneKeeper", "StroudKeeper", "ThaneKeeper", "HoltKeeper", "LedgeKeeper"]:
 		level.get_node("Guards/" + keeper).set_physics_process(false)  # route predates the vault patrols
 	await tick(3)

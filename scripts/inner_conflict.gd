@@ -244,6 +244,8 @@ func place_props() -> void:
 		terminal.position = level.to_local(stand)
 		add_under_player(terminal)
 		terminals.append(terminal)
+		if level.get("world_features") != null:
+			level.world_features.spawn_terminal_guard(stand)
 	placed = true
 
 ## Drawn over the tower's walls and floors but behind Miro and the Keepers.

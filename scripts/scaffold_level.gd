@@ -103,7 +103,7 @@ func update_checkpoint() -> void:
 		return
 	if storey == 0 and campaign.checkpoint.is_empty():
 		return
-	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed, "player": player_snapshot(), "dead": dead_guards()}
+	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed, "player": player_snapshot(), "dead": dead_guards(), "thoughts": world_features.thought_seen.keys()}
 	campaign.save_checkpoint()
 	notify("Checkpoint.")
 
@@ -170,6 +170,13 @@ func apply_checkpoint() -> void:
 			for gate in $Gates.get_children():
 				if gate.unlock_milestone == str(id):
 					gate.unlock()
+	# Thoughts Miro already had on this floor are not repeated after a retry; the floor's
+	# opening-line thoughts always count as heard once a checkpoint exists.
+	for id in saved.get("thoughts", []):
+		world_features.thought_seen[id] = true
+	for entry in world_features.thoughts.get(str(int(definition.number)), []):
+		if not entry.has("milestone") and not entry.has("minimum_y"):
+			world_features.thought_seen[entry.id] = true
 	# Straight back into play: skip the floor's opening scene.
 	dialogue = []
 	dialogue_index = 0

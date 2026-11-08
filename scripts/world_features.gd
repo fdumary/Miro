@@ -122,18 +122,51 @@ func setup(owner_level: Node2D, number: int) -> void:
 	setup_trapdoors()
 	place_props_after_physics()
 	build_password_panel()
+	var checkpoint_terminal = level.areas.get_node_or_null("RemoteTerminal")
+	if checkpoint_terminal != null:
+		spawn_terminal_guard(checkpoint_terminal.global_position)
 	if not authored.get("ports", []).is_empty():
 		var port: Array = authored.ports[0]
 		access_point = Vector2(port[0], port[1])
 		spawn_prop(access_point, "access", "SERVICE PORT")
+		spawn_terminal_guard(access_point)
 	elif number in [1, 2]:
 		access_point = Vector2(500, 432) if number == 1 else Vector2(440, 432)
 		spawn_prop(access_point, "access", "SERVICE PORT")
+		spawn_terminal_guard(access_point)
 		if number == 2:
 			practice_camera = load("res://scenes/security_camera.tscn").instantiate()
 			practice_camera.level = level
 			practice_camera.position = Vector2(720, 370)
 			level.add_child(practice_camera)
+
+## One Keeper posted beside each terminal (service ports, the checkpoint and the records
+## terminals), named from the roster's `terminal_guards` list for this floor, in the order the
+## terminals are set up. He keeps to a few steps around his post.
+var terminal_guard_index := 0
+
+func spawn_terminal_guard(terminal_point: Vector2) -> void:
+	var names: Array = roster.get("terminal_guards", {}).get(str(floor_number), [])
+	if terminal_guard_index >= names.size():
+		return
+	var query := PhysicsRayQueryParameters2D.create(terminal_point + Vector2(0, -6), terminal_point + Vector2(0, 90), 1)
+	var hit := level.get_world_2d().direct_space_state.intersect_ray(query)
+	if hit.is_empty():
+		return
+	var x := terminal_point.x + 48.0
+	if not level.has_floor_below(Vector2(x, hit.position.y - 3.0)) or not level.has_floor_below(Vector2(x + 30.0, hit.position.y - 3.0)):
+		x = terminal_point.x - 48.0
+	var keeper = load("res://scenes/guard.tscn").instantiate()
+	keeper.set_script(preload("res://scripts/terminal_guard.gd"))
+	keeper.name = "TerminalGuard%d" % (terminal_guard_index + 1)
+	keeper.position = Vector2(x, hit.position.y - 16.0)
+	keeper.post_at(x)
+	keeper.level = level
+	keeper.illness_started = true
+	keeper.weapon_kind = "pistol"
+	assign_keeper(keeper, names[terminal_guard_index])
+	terminal_guard_index += 1
+	level.get_node("Guards").add_child(keeper)
 
 func place_props_after_physics() -> void:
 	await get_tree().physics_frame

@@ -969,6 +969,116 @@
       ],
       "personality": "bored and flirts with everyone, even prisoners",
       "theme": "funny"
+    },
+    "Dara": {
+      "alert": "Records are off limits! Step away from the screen!",
+      "body": "Dara's down. Somebody tell the desk, they'll want the keys.",
+      "delivery": "[stern]",
+      "idle": [
+        "The screen hums at night. I've started humming back.",
+        "Nobody reads the old files. That's the only reason I guard them."
+      ],
+      "personality": "guards the records like they were his own diary",
+      "theme": "serious"
+    },
+    "Vesna": {
+      "alert": "Hands off the port! That's maintenance property!",
+      "body": "Oh no. And I just got the port working.",
+      "delivery": "[brisk]",
+      "idle": [
+        "Root, root. If anyone asks, I never said that.",
+        "Two cables, one spare. That's my whole job."
+      ],
+      "personality": "proud of a job nobody understands",
+      "theme": "serious"
+    },
+    "Ilse": {
+      "alert": "You! Away from the terminal!",
+      "body": "Not at my terminal. Not on my shift.",
+      "delivery": "[sharp]",
+      "idle": [
+        "I clean the screen every shift. No one notices.",
+        "If the screen flickers, it's the ghost. I don't believe in ghosts."
+      ],
+      "personality": "superstitious about the terminals",
+      "theme": "serious"
+    },
+    "Bryn": {
+      "alert": "Hey! That terminal is logged, you know!",
+      "body": "I had one job: watch the screen.",
+      "delivery": "[wry]",
+      "idle": [
+        "Every login is logged. Even mine.",
+        "I've read the whole nine-page manual. Twice."
+      ],
+      "personality": "quotes the terminal manual",
+      "theme": "serious"
+    },
+    "Odell": {
+      "alert": "Stop right there! Records terminal!",
+      "body": "Nobody warned me about this posting.",
+      "delivery": "[gruff]",
+      "idle": [
+        "Third floor smells like paper and bleach.",
+        "I log everyone who sits down. Except the dead ones."
+      ],
+      "personality": "keeps a tally of who sits at the terminal",
+      "theme": "serious"
+    },
+    "Corra": {
+      "alert": "Away from the checkpoint terminal! Now!",
+      "body": "Somebody's going to have to explain this to the captain.",
+      "delivery": "[firm]",
+      "idle": [
+        "Checkpoint duty is the quietest post in the tower.",
+        "If the cameras fail, I'm the backup. Lucky me."
+      ],
+      "personality": "takes the checkpoint terminal personally",
+      "theme": "serious"
+    },
+    "Wren2": {
+      "alert": "Don't touch that screen!",
+      "body": "This is why I asked for a transfer.",
+      "delivery": "[tense]",
+      "idle": [
+        "Ward files. Ward files. Ward files.",
+        "I read the first line of a record once. Never again."
+      ],
+      "personality": "afraid of what the records say",
+      "theme": "serious"
+    },
+    "Fenna": {
+      "alert": "Halt! Don't read that file!",
+      "body": "Fenna's down. The file stays closed.",
+      "delivery": "[firm]",
+      "idle": [
+        "The sick ward files are the worst to guard.",
+        "I memorise each log. It helps the night pass."
+      ],
+      "personality": "memorises every record",
+      "theme": "serious"
+    },
+    "Marl": {
+      "alert": "That log is classified! Stand down!",
+      "body": "Not like this. Not by the terminal.",
+      "delivery": "[crisp]",
+      "idle": [
+        "Observation logs have the best handwriting.",
+        "I read the cover pages and pretend I understand."
+      ],
+      "personality": "pretends to understand the logs",
+      "theme": "serious"
+    },
+    "Pru": {
+      "alert": "Intruder at the ward terminal!",
+      "body": "Pru? Somebody get the nurse, now!",
+      "delivery": "[urgent]",
+      "idle": [
+        "I keep the ward terminal warm for the doctor.",
+        "Nobody loves the ward terminal like I do."
+      ],
+      "personality": "fond of the ward terminal like a pet",
+      "theme": "serious"
     }
   },
   "hunted": {
@@ -998,6 +1108,26 @@
     "3": [
       "Niall",
       "Ames"
+    ]
+  },
+  "terminal_guards": {
+    "1": [
+      "Dara",
+      "Vesna"
+    ],
+    "2": [
+      "Ilse",
+      "Bryn",
+      "Odell"
+    ],
+    "3": [
+      "Corra",
+      "Wren2",
+      "Fenna"
+    ],
+    "4": [
+      "Marl",
+      "Pru"
     ]
   }
 }

@@ -30,6 +30,9 @@ func fresh() -> void:
 	current_scene = level
 	for keeper in ["CraneKeeper", "StroudKeeper", "ThaneKeeper", "HoltKeeper", "LedgeKeeper"]:
 		level.get_node("Guards/" + keeper).set_physics_process(false)  # route predates the vault patrols
+	for extra_guard in level.get_node("Guards").get_children():
+		if str(extra_guard.name).begins_with("TerminalGuard"):
+			extra_guard.set_physics_process(false)  # route tests predate the terminal posts
 	await frames(3)
 
 func supplies() -> void:
