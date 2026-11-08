@@ -38,8 +38,7 @@ func _draw() -> void:
 	draw_string(ThemeDB.fallback_font, Vector2(78, 132), "CELL 07", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, PINK)
 	for point in [Vector2(300, 183), Vector2(615, 178), Vector2(1005, 175), Vector2(920, 380), Vector2(470, 374), Vector2(145, 608), Vector2(690, 604), Vector2(1000, 597)]:
 		torch(point)
-	for point in [Vector2(477, 252), Vector2(968, 448), Vector2(530, 672)]:
-		crate(point)
+	# Crates are real props now (world_features.spawn_crate): solid on top, hide inside with E.
 	for point in [Vector2(350, 448), Vector2(700, 672), Vector2(1035, 252)]:
 		draw_grounded(SHROOMS, point)
 	for point in [Vector2(730, 206), Vector2(295, 402), Vector2(995, 619)]:

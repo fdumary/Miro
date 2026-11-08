@@ -31,7 +31,7 @@ const MAX_WAIT := 2.2
 func setup(owner_level: Node2D) -> void:
 	level = owner_level
 	var config: Dictionary = level.definition.get("niro", {})
-	niro_health = int(config.get("health", 12))
+	niro_health = roundi(int(config.get("health", 12)) * float(campaign().tuning().niro_health))
 
 func music() -> Node:
 	return get_node("/root/MusicDirector")
@@ -80,6 +80,13 @@ func spawn_wave() -> void:
 	if campaign().reputation() == "HUNTED":
 		points.append([points[0][0] + 60, points[0][1]])
 		weapons.append("smg")
+	# Difficulty: Easy drops a Keeper from each wave (never below one), Hard adds an armed one.
+	var extra := int(campaign().tuning().wave_extra)
+	if extra < 0:
+		points = points.slice(0, maxi(1, points.size() + extra))
+	for added in range(maxi(0, extra)):
+		points.append([points[0][0] - 60 - added * 40, points[0][1]])
+		weapons.append("smg")
 	wave_guards.clear()
 	for index in range(points.size()):
 		var point := Vector2(points[index][0], points[index][1])
@@ -100,9 +107,7 @@ func spawn_guard(point: Vector2, weapon: String) -> Node:
 	guard.illness_started = true
 	guard.wave_guard = true
 	guard.weapon_kind = weapon
-	var names: Array = ["Yorick", "Zane", "Arlen", "Beck", "Cass", "Doran", "Elm", "Fenn"]
-	guard.guard_name = names[level.guards().size() % names.size()]
-	guard.voice_index = level.guards().size() % 3
+	level.world_features.name_keeper(guard, 5, level.guards().size())
 	level.get_node("Guards").add_child(guard)
 	# Discovery is forced in The Foundation: every wave arrives already hunting Miro.
 	guard.alert_state = IntroGuard.State.SEARCH

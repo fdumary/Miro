@@ -21,9 +21,10 @@ var lowpass: AudioEffectLowPassFilter
 var stealth_db := 0.0
 # Approved order (Ethan, 7 Nov 2026). Level 5 is near-silent until the guitar pickup.
 const FIRST := {1: "yz33", 2: "dope2", 3: "bobblehead", 4: "plane_drums", 5: ""}
-const SECOND := {2: "swag", 3: "cyberpunk", 4: "sumcrazy", 5: "robot_attack"}
+const SECOND := {2: "swag", 3: "cyberpunk", 4: "sumcrazy", 5: "hot_shit"}
 const GUITAR_TRACK := "shit_crashed"
 const OUTRO_TRACK := "set_me_free"
+const MENU_TRACK := "drill_shxt"
 const MENU_COMPLETED_TRACK := "lil_uzi2"
 const BEATS_PER_BAR := 4
 const OPEN_CUTOFF := 20500.0
@@ -71,26 +72,43 @@ func set_volume(bus: String, db: float) -> void:
 	config.set_value("audio", bus, db)
 	config.save("user://settings.cfg")
 
+## The floor's own beat right now (entry, second half or guitar), so the MP3 can hand back to it.
+var floor_track := ""
+
+func resume_floor() -> void:
+	review_override = false
+	if floor_track.is_empty():
+		silence()
+	else:
+		play_track(floor_track)
+
 func start_floor(number: int) -> void:
 	review_override = false
 	pending_track = ""
 	section_id = "floor_%d_entry" % number
+	floor_track = FIRST[number]
 	if FIRST[number].is_empty():
 		silence()
 	else:
 		play_track(FIRST[number])
 
 func second_section(number: int) -> void:
-	if review_override or section_id == "floor_%d_second" % number or not SECOND.has(number):
+	if section_id == "floor_%d_second" % number or not SECOND.has(number):
 		return
 	section_id = "floor_%d_second" % number
-	queue_track(SECOND[number])
+	floor_track = SECOND[number]
+	# A beat Miro picked on the MP3 keeps playing; the floor's beat comes back on "next".
+	if not review_override:
+		queue_track(SECOND[number])
 
 ## Level 5: picking up the guitar starts Shit Crashed at once (the pickup is the downbeat).
 func guitar_section() -> void:
-	if review_override or section_id == "floor_5_guitar":
+	if section_id == "floor_5_guitar":
 		return
 	section_id = "floor_5_guitar"
+	floor_track = GUITAR_TRACK
+	if review_override:
+		return
 	pending_track = ""
 	play_track(GUITAR_TRACK)
 

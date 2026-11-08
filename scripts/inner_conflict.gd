@@ -451,7 +451,8 @@ func add_verses() -> void:
 		line["verse"] = true
 		lines.append(line)
 	if features.has_method("add_casual_lines"):
-		features.add_casual_lines(lines)
+		# The same pair keeps talking after their main conversation: the verse is casual chatter.
+		features.add_casual_lines(lines, features.actors.duplicate())
 	else:
 		features.conversation = features.conversation.duplicate(true)
 		features.conversation.append_array(lines)

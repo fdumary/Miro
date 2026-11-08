@@ -74,6 +74,19 @@ def collect_lines(cast):
     for kind, bark in guard['barks'].items():
         for voice in range(3):
             add(f'{kind}_{voice}', f'guard_{voice}', bark['text'], tags.get(kind, ''))
+    # Personalities (data/guard_roster.json): alert and body barks, patrol mutters, huddle scenes.
+    roster = json.loads((ROOT / 'data/guard_roster.json').read_text())
+    for name, kind in roster['personalities'].items():
+        voice = f"guard_{kind['voice']}"
+        add(f'alert_{name}', voice, kind['alert'], '[shouting] ' + kind['delivery'])
+        add(f'body_{name}', voice, kind['body'], '[shocked] ' + kind['delivery'])
+        for index, text in enumerate(kind['idle']):
+            add(f'idle_{name}_{index + 1}', voice, text, kind['delivery'] + ' [muttering]')
+    for scene_id, scene in roster['huddles'].items():
+        for index, line in enumerate(scene['lines']):
+            personality = scene['keepers'][line['speaker']][1]
+            voice = f"guard_{roster['personalities'][personality]['voice']}"
+            add(f'{scene_id}_{index + 1}', voice, line['text'], line.get('delivery', ''))
     # Niro: every line he speaks, in person or over the remote.
     niro = []
     for path in sorted((ROOT / 'data/levels').glob('level_0*.json')):
@@ -94,6 +107,11 @@ def collect_lines(cast):
     for speaker, text in re.findall(r'\["([A-Z ]+)", "((?:[^"\\]|\\.)*)"', source):
         if speaker in NIRO_SPEAKERS and '%' not in text and text not in NIRO_SPEAKERS:
             niro.append(text.replace('\\n', '\n').replace('\\"', '"'))
+    # Judas, the first Keeper (Level 1 opening): stern, greedy, coughing.
+    for speaker, text in re.findall(r'\["([A-Z ]+)", "((?:[^"\\]|\\.)*)"', source):
+        if speaker == 'JUDAS':
+            clean = text.replace('\\n', '\n').replace('\\"', '"')
+            add('judas_' + text_hash(clean), 'guard_0', clean, '[stern] [coughs] [greedy]')
     bars = re.search(r'var response := "([^"]+)" if .* else "([^"]+)"', source)
     if bars:
         for response in bars.groups():

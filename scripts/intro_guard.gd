@@ -31,6 +31,11 @@ var death_recorded: bool = false
 var sees_player: bool = false
 var body_reported: bool = false
 var guard_name := "Keeper"
+## serious / goofy / stern / funny / stupid (data/guard_roster.json): voice, barks, patrol mutters.
+var personality := "serious"
+## Off duty in a huddle: absorbed in each other, they only notice Miro right on top of them.
+var distracted := false
+const DISTRACTED_SIGHT := 40.0
 var voice_index := 0
 var conversation_hold := false
 var turn_away_left := 0.0
@@ -40,10 +45,25 @@ var asleep := false
 ## Spawned by a Level 5 wave or by Niro calling for help.
 var wave_guard := false
 
+## Difficulty (Settings): how far a Keeper sees, how fast he makes up his mind, and how hard he fights.
+var sight := 165.0
+var suspicion_rate := 1.0
+var windup_time := 0.65
+var attack_gap := 2.1
+var chase_speed := 78.0
+
 func _ready() -> void:
 	add_to_group("guards")
 	health = 2
 	movement_speed = 33.0 if sick_guard else 43.0
+	var campaign = get_node_or_null("/root/Campaign")
+	if campaign != null:
+		var tuning: Dictionary = campaign.tuning()
+		sight = float(tuning.sight)
+		suspicion_rate = float(tuning.suspicion)
+		windup_time = float(tuning.windup)
+		attack_gap = float(tuning.attack_gap)
+		chase_speed = float(tuning.chase)
 
 func can_see_point(point: Vector2, distance_limit: float = 165.0) -> bool:
 	var difference := point - global_position
@@ -55,7 +75,7 @@ func detect_player() -> bool:
 	# Prisoners inside the locked cell are not escapees yet.
 	if not level.door_open and level.player.global_position.x < level.get_node("Interactables/CellLock").global_position.x:
 		return false
-	return can_see_point(level.player.global_position)
+	return can_see_point(level.player.global_position, DISTRACTED_SIGHT if distracted else sight)
 
 func _physics_process(delta: float) -> void:
 	time += delta
@@ -74,10 +94,11 @@ func _physics_process(delta: float) -> void:
 	turn_wait = maxf(0.0, turn_wait - delta)
 	sees_player = detect_player()
 	if sees_player:
-		suspicion = minf(1.0, suspicion + delta * (3.0 if level.get("hunted") else 2.5))
+		suspicion = minf(1.0, suspicion + delta * (3.0 if level.get("hunted") else 2.5) * suspicion_rate)
 		last_known_position = level.player.global_position
 		search_left = 5.0
 		if suspicion >= 1.0:
+			distracted = false
 			alert_state = State.ALERT
 			if not alert_barked and level.world_features:
 				alert_barked = true
@@ -113,11 +134,11 @@ func _physics_process(delta: float) -> void:
 		facing = signf(last_known_position.x - global_position.x)
 		if global_position.distance_to(last_known_position) < 150:
 			if attack_timer <= 0:
-				windup = 0.65
+				windup = windup_time
 				shot_direction = (level.player.global_position - global_position).normalized()
-				attack_timer = 2.1
+				attack_timer = attack_gap
 		else:
-			velocity.x = facing * 78.0
+			velocity.x = facing * chase_speed
 	elif alert_state == State.SEARCH:
 		search_left -= delta
 		if absf(last_known_position.x - global_position.x) > 12:
@@ -216,6 +237,7 @@ func fall_asleep() -> void:
 func investigate(point: Vector2) -> void:
 	if is_dead or asleep or sees_player:
 		return
+	distracted = false
 	last_known_position = point
 	search_left = 6.0
 	alert_state = State.SEARCH

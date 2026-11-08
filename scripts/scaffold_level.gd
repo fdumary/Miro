@@ -34,6 +34,7 @@ func _ready() -> void:
 		guard.level = self
 		guard.illness_started = true
 	build_hud()
+	apply_difficulty()
 	setup_world_features(int(definition.number))
 	player.controls.has_remote = get_node("/root/Campaign").remote_owned
 	player.controls.remote_unlocked = get_node("/root/Campaign").remote_unlocked
@@ -153,7 +154,7 @@ func floor_report() -> String:
 	var raw := floor_raw_stats()
 	var scored: Dictionary = campaign.score_floor(raw)
 	var text := "%s   ·   Kills %d   ·   Seen %d" % [campaign.style_word(raw), raw.kills, raw.detections]
-	var unlocks: Array = campaign.preview_unlocks(int(scored.stealth))
+	var unlocks: Array = campaign.preview_unlocks(int(scored.stealth), int(raw.kills))
 	if not unlocks.is_empty():
 		text += "\nMP3 unlocked: " + ", ".join(unlocks)
 	return text

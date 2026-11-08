@@ -118,6 +118,9 @@ func run() -> void:
 	await floor_scene(2)
 	check(director().terminals.size() == 2 and is_instance_valid(director().frame), "Floor 2 places two terminals and a frame")
 	var verses: Array = level.world_features.conversation.filter(func(line): return line.get("verse", false))
+	if level.world_features.get("casual_scenes") != null:
+		for scene in level.world_features.casual_scenes:
+			verses.append_array(scene.lines.filter(func(line): return line.get("verse", false)))
 	check(verses.size() == 2, "One Bible verse exchange joins the Keepers' conversation")
 	print("Verse branch on floor 2: ", verses[0].id)
 	check(level.objective() == level.objective(), "Objectives are untouched")

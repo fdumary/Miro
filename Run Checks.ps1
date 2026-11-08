@@ -24,6 +24,7 @@ $checks = @(
     @('res://tools/test_mouse_projectiles.gd'),
     @('res://tools/test_narrative_bubbles.gd'),
     @('res://tools/test_branches.gd'),
+    @('res://tools/test_menus_and_progress.gd', '--', '--player'),
     @('res://tools/test_inner_conflict.gd')
 )
 New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'tmp') | Out-Null
