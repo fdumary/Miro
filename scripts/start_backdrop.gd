@@ -189,6 +189,13 @@ func hill(rock: Color, rim: Color) -> void:
 	fill.append(Vector2(b.x - 170.0, 330.0))
 	draw_colored_polygon(fill, rock)
 	draw_polyline(outline, rim, 1.5, true)
+	# A few small pines growing on the slopes, clear of the tower's footing.
+	var pine := rock.lerp(Color("0d1118"), 0.35)
+	for offset: float in [-140.0, -108.0, -84.0, 82.0, 104.0, 136.0]:
+		var x := b.x + offset
+		var foot := b.y + pow((absf(offset) - 56.0) / 118.0, 1.4) * 44.0 + 2.0
+		var h := 14.0 + C.hash01(int(offset), 404) * 10.0
+		draw_colored_polygon(PackedVector2Array([Vector2(x - h * 0.32, foot), Vector2(x + h * 0.32, foot), Vector2(x, foot - h)]), pine)
 
 func ground(base: Color, grass: Color) -> void:
 	draw_rect(Rect2(0, 330, 640, 30), base)
