@@ -100,6 +100,13 @@ func setup_inputs() -> void:
 		event.button_index = pair[1]
 		InputMap.action_add_event(pair[0], event)
 
+	# Menus and pop-ups (the Level 3 checkpoint login) take A to press and B to back out.
+	for pair in [["ui_accept", JOY_BUTTON_A], ["ui_cancel", JOY_BUTTON_B]]:
+		var event := InputEventJoypadButton.new()
+		event.button_index = pair[1]
+		if not InputMap.action_has_event(pair[0], event):
+			InputMap.action_add_event(pair[0], event)
+
 	apply_controller_deadzone()
 	var settings = get_node("/root/ControllerSettings")
 	if not settings.changed.is_connected(apply_controller_deadzone):

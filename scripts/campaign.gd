@@ -52,6 +52,75 @@ func enter_floor(number: int) -> void:
 			narrative_milestones.erase(key)
 	boss_defeated = false
 	ending_complete = false
+	save_floor_snapshot(number)
+
+## Level select resumes a floor from the state the player had when they first reached it:
+## MP3 ownership and unlock, inventory order, earlier floors' results (which pick the
+## MISSING/HUNTED branch), story milestones and Miro's play-style profile. Snapshots live in
+## memory for the session and, in player mode, in user://progress.cfg so they survive a relaunch.
+var floor_snapshots: Dictionary = {}
+
+func save_floor_snapshot(number: int) -> void:
+	if number <= 1:
+		return
+	var behavior = get_node_or_null("/root/PlayerBehavior")
+	var committed: Dictionary = {}
+	var choices: Dictionary = {}
+	if behavior != null:
+		for key in behavior.committed:
+			if int(key) < number:
+				committed[key] = behavior.committed[key]
+		for id in behavior.choices:
+			if int(str(id).get_slice("_", 0).trim_prefix("l")) < number:
+				choices[id] = behavior.choices[id]
+	var snapshot := {
+		"remote_owned": remote_owned,
+		"remote_unlocked": remote_unlocked,
+		"inventory_layout": Array(inventory_layout.duplicate()),
+		"floor_stats": floor_stats.duplicate(true),
+		"completed_sigils": completed_sigils.duplicate(),
+		"narrative_milestones": narrative_milestones.duplicate(),
+		"played_from_start": played_from_start,
+		"behavior_committed": committed,
+		"behavior_choices": choices,
+		"behavior_last_selected": behavior.last_selected if behavior != null else "neutral",
+	}
+	floor_snapshots[number] = snapshot
+	if not can_persist():
+		return
+	var progress := ConfigFile.new()
+	progress.load("user://progress.cfg")
+	progress.set_value("snapshots", "floor_%d" % number, snapshot)
+	progress.save("user://progress.cfg")
+
+func floor_snapshot(number: int) -> Dictionary:
+	if floor_snapshots.has(number):
+		return floor_snapshots[number]
+	if not can_persist():
+		return {}
+	var progress := ConfigFile.new()
+	progress.load("user://progress.cfg")
+	var saved = progress.get_value("snapshots", "floor_%d" % number, {})
+	return saved if saved is Dictionary else {}
+
+## Puts the run back the way it was when the player first entered `number`. A floor with no
+## snapshot (an older save, or a dev jump) starts fresh: no MP3, neutral branch.
+func restore_floor_snapshot(number: int) -> bool:
+	var snapshot := floor_snapshot(number)
+	remote_owned = bool(snapshot.get("remote_owned", false))
+	remote_unlocked = bool(snapshot.get("remote_unlocked", false))
+	if snapshot.has("inventory_layout"):
+		inventory_layout.assign(snapshot.inventory_layout)
+	floor_stats = Dictionary(snapshot.get("floor_stats", {})).duplicate(true)
+	completed_sigils = Dictionary(snapshot.get("completed_sigils", {})).duplicate()
+	narrative_milestones = Dictionary(snapshot.get("narrative_milestones", {})).duplicate()
+	played_from_start = bool(snapshot.get("played_from_start", false))
+	var behavior = get_node_or_null("/root/PlayerBehavior")
+	if behavior != null:
+		behavior.committed = Dictionary(snapshot.get("behavior_committed", {})).duplicate(true)
+		behavior.choices = Dictionary(snapshot.get("behavior_choices", {})).duplicate()
+		behavior.last_selected = str(snapshot.get("behavior_last_selected", "neutral"))
+	return not snapshot.is_empty()
 
 func game_completed() -> bool:
 	var progress := ConfigFile.new()
