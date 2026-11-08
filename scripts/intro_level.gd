@@ -4,6 +4,8 @@ extends Node2D
 @onready var player: IntroPlayer = $Player
 @onready var areas: Node2D = $Interactables
 var radio_line := ""
+## Seconds left of the voiced line on screen; E / advance waits so the whole line is heard (Tab still skips).
+var line_lock := 0.0
 ## A cinematic card over the start of a floor or a story beat (scripts/floor_card.gd).
 var card: Control
 var door_open: bool = false
@@ -157,6 +159,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	elif not dialogue.is_empty() and not paused:
 		if event.is_action_pressed("advance") or event.is_action_pressed("interact"):
+			if line_lock > 0.0:
+				get_viewport().set_input_as_handled()
+				return
 			dialogue_index += 1
 			if dialogue_index >= dialogue.size():
 				finish_dialogue()
@@ -217,6 +222,7 @@ func _process(delta: float) -> void:
 	stealth_meter.value = player.stealth_remaining / player.stealth_duration if player.is_concealed else 1.0 - player.stealth_cooldown_left / player.stealth_cooldown
 	message_label.text = message if message_left > 0 else ""
 	dialogue_panel.visible = not dialogue.is_empty() and not paused
+	line_lock = maxf(0.0, line_lock - get_process_delta_time())
 	if not dialogue.is_empty():
 		var line: Array = dialogue[dialogue_index]
 		var anchor := speaker_anchor(str(line[0]))
@@ -249,6 +255,12 @@ func _process(delta: float) -> void:
 				radio.say_in_room(str(line[1]), "miro", "Thought" if dialogue_panel.thought else "Voice")
 			else:
 				radio.stop()
+			line_lock = 0.0
+			if radio.audible():
+				var length: float = radio.speaking_left
+				if radio.room.playing and radio.room.stream != null:
+					length = maxf(length, radio.room.stream.get_length())
+				line_lock = minf(length, 14.0)
 		# The MP3 pops up at the side of the screen while his brother's voice comes through it.
 		voice_remote.visible = str(line[0]) in ["NIRO", "THE VOICE", "BROTHER"] and anchor == player
 		voice_remote.modulate.a = 0.75 + 0.25 * sin(elapsed * 9.0)
