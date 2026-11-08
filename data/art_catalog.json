@@ -1,0 +1,503 @@
+{
+ "_comment": "Reactive gallery catalog (artspec.md section 3). A painting only appears in game once tools/fetch_art.py has downloaded it AND recorded public-domain/CC0 evidence in data/art_rights.json. prison_label is original game copy, never a quote from the artist.",
+ "works": [
+  {
+   "id": "A01",
+   "title": "Prisoners Exercising (The Prison Courtyard), after Gustave Doré",
+   "artist": "Vincent van Gogh",
+   "year": "1890",
+   "medium": "oil on canvas",
+   "themes": [
+    "trapped",
+    "isolation"
+   ],
+   "asset_path": "res://assets/art/A01_prisoners_exercising.jpg",
+   "source": "commons",
+   "source_key": "File:Vincent_van_Gogh_-_The_Prison_Courtyard_(1890).jpg",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_The_Prison_Courtyard_(1890).jpg",
+   "institution": "Pushkin Museum of Fine Arts",
+   "prison_label": "THE YARD IS FOR WALKING. WALK.",
+   "attribution": "Vincent van Gogh, Prisoners Exercising, 1890. Pushkin Museum of Fine Arts."
+  },
+  {
+   "id": "A02",
+   "title": "The Round Tower, from Imaginary Prisons (Carceri d'invenzione)",
+   "artist": "Giovanni Battista Piranesi",
+   "year": "c. 1749–50",
+   "medium": "etching",
+   "themes": [
+    "trapped",
+    "confusion"
+   ],
+   "asset_path": "res://assets/art/A02_the_round_tower.jpg",
+   "source": "met",
+   "source_key": "337725",
+   "source_url": "https://www.metmuseum.org/art/collection/search/337725",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "EVERY STAIR GOES DOWN.",
+   "attribution": "Giovanni Battista Piranesi, The Round Tower, from Imaginary Prisons, c. 1749–50. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A03",
+   "title": "The Monk by the Sea",
+   "artist": "Caspar David Friedrich",
+   "year": "c. 1808–10",
+   "medium": "oil on canvas",
+   "themes": [
+    "loneliness",
+    "isolation"
+   ],
+   "asset_path": "res://assets/art/A03_the_monk_by_the_sea.jpg",
+   "source": "commons",
+   "source_key": "File:Monk_by_the_Sea.jpg",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Monk_by_the_Sea.jpg",
+   "institution": "Alte Nationalgalerie, Berlin",
+   "prison_label": "NO ONE IS COMING.",
+   "attribution": "Caspar David Friedrich, The Monk by the Sea, c. 1808–10. Alte Nationalgalerie, Berlin."
+  },
+  {
+   "id": "A04",
+   "title": "The Bedroom",
+   "artist": "Vincent van Gogh",
+   "year": "1889",
+   "medium": "oil on canvas",
+   "themes": [
+    "loneliness",
+    "isolation"
+   ],
+   "asset_path": "res://assets/art/A04_the_bedroom.jpg",
+   "source": "aic",
+   "source_key": "28560",
+   "source_url": "https://www.artic.edu/artworks/28560",
+   "institution": "The Art Institute of Chicago",
+   "prison_label": "THE ROOM WAITS FOR NO ONE.",
+   "attribution": "Vincent van Gogh, The Bedroom, 1889. The Art Institute of Chicago."
+  },
+  {
+   "id": "A05",
+   "title": "The Fortune-Teller",
+   "artist": "Georges de La Tour",
+   "year": "probably 1630s",
+   "medium": "oil on canvas",
+   "themes": [
+    "distrust",
+    "betrayal",
+    "blackhat"
+   ],
+   "asset_path": "res://assets/art/A05_the_fortune_teller.jpg",
+   "source": "met",
+   "source_key": "436838",
+   "source_url": "https://www.metmuseum.org/art/collection/search/436838",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "WATCH THE HANDS.",
+   "attribution": "Georges de La Tour, The Fortune-Teller, probably 1630s. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A06",
+   "title": "The Railway",
+   "artist": "Édouard Manet",
+   "year": "1873",
+   "medium": "oil on canvas",
+   "themes": [
+    "distrust",
+    "alienation",
+    "trapped"
+   ],
+   "asset_path": "res://assets/art/A06_the_railway.jpg",
+   "source": "nga",
+   "source_key": "43624",
+   "source_url": "https://www.nga.gov/artworks/43624-railway",
+   "institution": "National Gallery of Art, Washington",
+   "prison_label": "THE BARS ARE BEHIND HER TOO.",
+   "attribution": "Édouard Manet, The Railway, 1873. National Gallery of Art, Washington."
+  },
+  {
+   "id": "A07",
+   "title": "Paris Street; Rainy Day",
+   "artist": "Gustave Caillebotte",
+   "year": "1877",
+   "medium": "oil on canvas",
+   "themes": [
+    "alienation",
+    "loneliness"
+   ],
+   "asset_path": "res://assets/art/A07_paris_street_rainy_day.jpg",
+   "source": "aic",
+   "source_key": "20684",
+   "source_url": "https://www.artic.edu/artworks/20684",
+   "institution": "The Art Institute of Chicago",
+   "prison_label": "EVERYONE WALKS PAST.",
+   "attribution": "Gustave Caillebotte, Paris Street; Rainy Day, 1877. The Art Institute of Chicago."
+  },
+  {
+   "id": "A08",
+   "title": "A Sunday on La Grande Jatte — 1884",
+   "artist": "Georges Seurat",
+   "year": "1884–86",
+   "medium": "oil on canvas",
+   "themes": [
+    "alienation",
+    "distrust"
+   ],
+   "asset_path": "res://assets/art/A08_a_sunday_on_la_grande_jatte_1884.jpg",
+   "source": "aic",
+   "source_key": "27992",
+   "source_url": "https://www.artic.edu/artworks/27992",
+   "institution": "The Art Institute of Chicago",
+   "prison_label": "EVERYONE IS WATCHING THE WATER.",
+   "attribution": "Georges Seurat, A Sunday on La Grande Jatte — 1884, 1884–86. The Art Institute of Chicago."
+  },
+  {
+   "id": "A09",
+   "title": "The Kiss of Judas (The Arrest of Christ)",
+   "artist": "Giotto di Bondone",
+   "year": "c. 1304–06",
+   "medium": "fresco",
+   "themes": [
+    "betrayal",
+    "distrust",
+    "faith"
+   ],
+   "asset_path": "res://assets/art/A09_the_kiss_of_judas.jpg",
+   "source": "commons",
+   "source_key": "File:Kiss_of_Judas_by_Giotto.jpg",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Kiss_of_Judas_by_Giotto.jpg",
+   "institution": "Scrovegni Chapel, Padua",
+   "prison_label": "A FRIEND'S FACE, CLOSE.",
+   "attribution": "Giotto di Bondone, The Kiss of Judas, c. 1304–06. Scrovegni Chapel, Padua."
+  },
+  {
+   "id": "A10",
+   "title": "The Denial of Saint Peter",
+   "artist": "Caravaggio",
+   "year": "1610",
+   "medium": "oil on canvas",
+   "themes": [
+    "betrayal",
+    "distrust",
+    "faith"
+   ],
+   "asset_path": "res://assets/art/A10_the_denial_of_saint_peter.jpg",
+   "source": "met",
+   "source_key": "437986",
+   "source_url": "https://www.metmuseum.org/art/collection/search/437986",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "I DO NOT KNOW HIM.",
+   "attribution": "Caravaggio, The Denial of Saint Peter, 1610. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A11",
+   "title": "The Flight into Egypt",
+   "artist": "Cosmè Tura",
+   "year": "1470s",
+   "medium": "oil on wood",
+   "themes": [
+    "escape",
+    "faith",
+    "survival"
+   ],
+   "asset_path": "res://assets/art/A11_the_flight_into_egypt.jpg",
+   "source": "met",
+   "source_key": "437849",
+   "source_url": "https://www.metmuseum.org/art/collection/search/437849",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "LEAVE BY NIGHT.",
+   "attribution": "Cosmè Tura, The Flight into Egypt, 1470s. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A12",
+   "title": "Wheat Field with Cypresses",
+   "artist": "Vincent van Gogh",
+   "year": "1889",
+   "medium": "oil on canvas",
+   "themes": [
+    "escape",
+    "faith",
+    "survival"
+   ],
+   "asset_path": "res://assets/art/A12_wheat_field_with_cypresses.jpg",
+   "source": "met",
+   "source_key": "436535",
+   "source_url": "https://www.metmuseum.org/art/collection/search/436535",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "OUTSIDE, IT IS STILL SUMMER.",
+   "attribution": "Vincent van Gogh, Wheat Field with Cypresses, 1889. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A13",
+   "title": "Bridge over a Pond of Water Lilies",
+   "artist": "Claude Monet",
+   "year": "1899",
+   "medium": "oil on canvas",
+   "themes": [
+    "escape",
+    "faith"
+   ],
+   "asset_path": "res://assets/art/A13_bridge_over_a_pond_of_water_lili.jpg",
+   "source": "commons",
+   "source_key": "File:Bridge_over_a_Pond_of_Water_Lilies_MET_DT1854.jpg",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Bridge_over_a_Pond_of_Water_Lilies_MET_DT1854.jpg",
+   "institution": "The Metropolitan Museum of Art (file donated to Commons)",
+   "prison_label": "THERE IS A WAY ACROSS.",
+   "attribution": "Claude Monet, Bridge over a Pond of Water Lilies, 1899. The Metropolitan Museum of Art (file donated to Commons)."
+  },
+  {
+   "id": "A14",
+   "title": "The Starry Night",
+   "artist": "Vincent van Gogh",
+   "year": "1889",
+   "medium": "oil on canvas",
+   "themes": [
+    "escape",
+    "confusion",
+    "faith"
+   ],
+   "asset_path": "res://assets/art/A14_the_starry_night.jpg",
+   "source": "commons",
+   "source_key": "File:Vincent_Van_Gogh_Starry_Night.jpg",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Vincent_Van_Gogh_Starry_Night.jpg",
+   "institution": "Museum of Modern Art, New York (public-domain reproduction)",
+   "prison_label": "THE SKY IS NOT STILL.",
+   "attribution": "Vincent van Gogh, The Starry Night, 1889. Museum of Modern Art, New York (public-domain reproduction)."
+  },
+  {
+   "id": "A15",
+   "title": "Cypresses",
+   "artist": "Vincent van Gogh",
+   "year": "1889",
+   "medium": "oil on canvas",
+   "themes": [
+    "confusion",
+    "isolation",
+    "blackhat"
+   ],
+   "asset_path": "res://assets/art/A15_cypresses.jpg",
+   "source": "met",
+   "source_key": "437980",
+   "source_url": "https://www.metmuseum.org/art/collection/search/437980",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "SOMETHING TALL IS STANDING OVER YOU.",
+   "attribution": "Vincent van Gogh, Cypresses, 1889. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A16",
+   "title": "The Sleep of Reason Produces Monsters (El sueño de la razón produce monstruos)",
+   "artist": "Francisco de Goya",
+   "year": "1799",
+   "medium": "etching and aquatint",
+   "themes": [
+    "confusion",
+    "distrust",
+    "isolation"
+   ],
+   "asset_path": "res://assets/art/A16_the_sleep_of_reason_produces_mon.jpg",
+   "source": "nga",
+   "source_key": "7502",
+   "source_url": "https://www.nga.gov/artworks/7502-el-sueno-de-la-razon-produce-monstruos-sleep-reason-produces-monsters",
+   "institution": "National Gallery of Art, Washington",
+   "prison_label": "DO NOT FALL ASLEEP HERE.",
+   "attribution": "Francisco de Goya, The Sleep of Reason Produces Monsters, 1799. National Gallery of Art, Washington."
+  },
+  {
+   "id": "A17",
+   "title": "The Temptation of Saint Anthony",
+   "artist": "Anonymous Netherlandish artist (formerly associated with Pieter Bruegel)",
+   "year": "c. 1550–75",
+   "medium": "oil on panel",
+   "themes": [
+    "confusion",
+    "blackhat",
+    "faith"
+   ],
+   "asset_path": "res://assets/art/A17_the_temptation_of_saint_anthony.jpg",
+   "source": "nga",
+   "source_key": "41602",
+   "source_url": "https://www.nga.gov/artworks/41602-temptation-saint-anthony",
+   "institution": "National Gallery of Art, Washington",
+   "prison_label": "THE MACHINES ARE HUNGRY.",
+   "attribution": "Anonymous Netherlandish artist (formerly associated with Pieter Bruegel), The Temptation of Saint Anthony, c. 1550–75. National Gallery of Art, Washington."
+  },
+  {
+   "id": "A18",
+   "title": "The Gulf Stream",
+   "artist": "Winslow Homer",
+   "year": "1899, reworked by 1906",
+   "medium": "oil on canvas",
+   "themes": [
+    "survival",
+    "isolation"
+   ],
+   "asset_path": "res://assets/art/A18_the_gulf_stream.jpg",
+   "source": "met",
+   "source_key": "11122",
+   "source_url": "https://www.metmuseum.org/art/collection/search/11122",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "HE IS STILL BREATHING.",
+   "attribution": "Winslow Homer, The Gulf Stream, 1899, reworked by 1906. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A19",
+   "title": "The Voyage of Life: Manhood",
+   "artist": "Thomas Cole",
+   "year": "1842",
+   "medium": "oil on canvas",
+   "themes": [
+    "survival",
+    "faith"
+   ],
+   "asset_path": "res://assets/art/A19_the_voyage_of_life_manhood.jpg",
+   "source": "nga",
+   "source_key": "52452",
+   "source_url": "https://www.nga.gov/artworks/52452-voyage-life-manhood",
+   "institution": "National Gallery of Art, Washington",
+   "prison_label": "THE WATER GETS ROUGHER LOWER DOWN.",
+   "attribution": "Thomas Cole, The Voyage of Life: Manhood, 1842. National Gallery of Art, Washington."
+  },
+  {
+   "id": "A20",
+   "title": "The Death of Socrates",
+   "artist": "Jacques Louis David",
+   "year": "1787",
+   "medium": "oil on canvas",
+   "themes": [
+    "defiance",
+    "faith"
+   ],
+   "asset_path": "res://assets/art/A20_the_death_of_socrates.jpg",
+   "source": "met",
+   "source_key": "436105",
+   "source_url": "https://www.metmuseum.org/art/collection/search/436105",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "HE WOULD NOT TAKE IT BACK.",
+   "attribution": "Jacques Louis David, The Death of Socrates, 1787. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A21",
+   "title": "Joan of Arc",
+   "artist": "Jules Bastien-Lepage",
+   "year": "1879",
+   "medium": "oil on canvas",
+   "themes": [
+    "defiance",
+    "faith"
+   ],
+   "asset_path": "res://assets/art/A21_joan_of_arc.jpg",
+   "source": "met",
+   "source_key": "435621",
+   "source_url": "https://www.metmuseum.org/art/collection/search/435621",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "SHE HEARD SOMETHING TOO.",
+   "attribution": "Jules Bastien-Lepage, Joan of Arc, 1879. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A22",
+   "title": "The Alchemist",
+   "artist": "Philips Galle, after Pieter Bruegel the Elder",
+   "year": "after 1558",
+   "medium": "engraving",
+   "themes": [
+    "blackhat",
+    "confusion"
+   ],
+   "asset_path": "res://assets/art/A22_the_alchemist.jpg",
+   "source": "met",
+   "source_key": "366817",
+   "source_url": "https://www.metmuseum.org/art/collection/search/366817",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "WHAT ARE THEY MAKING DOWN THERE?",
+   "attribution": "Philips Galle, after Pieter Bruegel the Elder, The Alchemist, after 1558. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A23",
+   "title": "Under the Wave off Kanagawa (The Great Wave)",
+   "artist": "Katsushika Hokusai",
+   "year": "c. 1830–32",
+   "medium": "woodblock print",
+   "themes": [
+    "survival",
+    "defiance"
+   ],
+   "asset_path": "res://assets/art/A23_under_the_wave_off_kanagawa.jpg",
+   "source": "met",
+   "source_key": "36491",
+   "source_url": "https://www.metmuseum.org/art/collection/search/36491",
+   "institution": "The Metropolitan Museum of Art",
+   "prison_label": "IT WILL ALL COME DOWN AT ONCE.",
+   "attribution": "Katsushika Hokusai, Under the Wave off Kanagawa, c. 1830–32. The Metropolitan Museum of Art."
+  },
+  {
+   "id": "A24",
+   "title": "Wanderer above the Sea of Fog",
+   "artist": "Caspar David Friedrich",
+   "year": "c. 1818",
+   "medium": "oil on canvas",
+   "themes": [
+    "isolation",
+    "escape",
+    "faith"
+   ],
+   "asset_path": "res://assets/art/A24_wanderer_above_the_sea_of_fog.jpg",
+   "source": "commons",
+   "source_key": "File:Caspar_David_Friedrich_-_Wanderer_above_the_Sea_of_Fog.jpeg",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Caspar_David_Friedrich_-_Wanderer_above_the_Sea_of_Fog.jpeg",
+   "institution": "Hamburger Kunsthalle",
+   "prison_label": "THE TOWER LOOKS SMALL FROM UP HERE.",
+   "attribution": "Caspar David Friedrich, Wanderer above the Sea of Fog, c. 1818. Hamburger Kunsthalle."
+  },
+  {
+   "id": "A25",
+   "title": "The Voyage of Life: Old Age",
+   "artist": "Thomas Cole",
+   "year": "1842",
+   "medium": "oil on canvas",
+   "themes": [
+    "faith",
+    "escape"
+   ],
+   "asset_path": "res://assets/art/A25_the_voyage_of_life_old_age.jpg",
+   "source": "nga",
+   "source_key": "52453",
+   "source_url": "https://www.nga.gov/artworks/52453-voyage-life-old-age",
+   "institution": "National Gallery of Art, Washington",
+   "prison_label": "THE RIVER ENDS.",
+   "attribution": "Thomas Cole, The Voyage of Life: Old Age, 1842. National Gallery of Art, Washington."
+  },
+  {
+   "id": "A26",
+   "title": "Saint Jerome in His Study",
+   "artist": "Albrecht Dürer",
+   "year": "1514",
+   "medium": "engraving",
+   "themes": [
+    "faith",
+    "isolation"
+   ],
+   "asset_path": "res://assets/art/A26_saint_jerome_in_his_study.jpg",
+   "source": "nga",
+   "source_key": "6642",
+   "source_url": "https://www.nga.gov/artworks/6642-saint-jerome-his-study",
+   "institution": "National Gallery of Art, Washington",
+   "prison_label": "SOMEONE STILL READS IN HERE.",
+   "attribution": "Albrecht Dürer, Saint Jerome in His Study, 1514. National Gallery of Art, Washington."
+  },
+  {
+   "id": "A27",
+   "title": "The Milkmaid",
+   "artist": "Johannes Vermeer",
+   "year": "c. 1660",
+   "medium": "oil on canvas",
+   "themes": [
+    "loneliness",
+    "faith",
+    "survival"
+   ],
+   "asset_path": "res://assets/art/A27_the_milkmaid.jpg",
+   "source": "commons",
+   "source_key": "File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg",
+   "source_url": "https://www.rijksmuseum.nl/en/collection/SK-A-2344",
+   "institution": "Rijksmuseum, Amsterdam",
+   "prison_label": "SOMEWHERE, BREAD IS STILL WARM.",
+   "attribution": "Johannes Vermeer, The Milkmaid, c. 1660. Rijksmuseum, Amsterdam."
+  }
+ ]
+}

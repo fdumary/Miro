@@ -23,6 +23,8 @@ The playable first floor includes the cell opening, three escape choices, guard 
 
 **7 Nov implementation:** [story and systems map](docs/STORY_AND_SYSTEMS_IMPLEMENTATION.md) and [cutscene/art hooks](docs/CUTSCENE_HOOKS.md).
 
+**Inner conflict:** [reactive paintings, two-option replies, lore terminals and verses](docs/INNER_CONFLICT.md). Run `Fetch Art.ps1` locally to download the public-domain paintings with their rights evidence.
+
 See [intro guide](docs/INTRO.md) for controls, editing and verification. Use `Open Miro.ps1`, `Play Miro.ps1`, or the desktop shortcuts. Run `Run Checks.ps1` for the automated playthroughs.
 
 The original movement sandbox remains in `scenes/asset_sandbox.tscn`.
