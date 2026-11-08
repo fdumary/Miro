@@ -58,6 +58,18 @@ func show_screen(id: String) -> void:
 			if get_node("/root/Campaign").dev_mode():
 				review_picker()
 			back_button()
+	# A controller needs something focused on every screen, or Cross has nothing to press.
+	focus_first.call_deferred()
+
+func focus_first() -> void:
+	var focused := get_viewport().gui_get_focus_owner()
+	if not is_instance_valid(page) or (focused != null and page.is_ancestor_of(focused)):
+		return
+	for node in page.find_children("*", "Control", true, false):
+		var control := node as Control
+		if control.focus_mode == Control.FOCUS_ALL and control.is_visible_in_tree():
+			control.grab_focus()
+			return
 
 func build_title() -> void:
 	# The animated start screen (scripts/start_backdrop.gd) draws its own gothic title.

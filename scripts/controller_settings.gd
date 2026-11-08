@@ -16,6 +16,16 @@ func _ready() -> void:
 		preferences[key] = config.get_value("controller", key, DEFAULTS[key])
 	preferences.deadzone = clampf(float(preferences.deadzone), 0.1, 0.45)
 	Input.joy_connection_changed.connect(_on_connection_changed)
+	bind_menu_buttons()
+
+## Menus everywhere (start screen, level select, settings, pause, pop-ups) take Cross / A to
+## press the focused button and Circle / B to go back. Godot's defaults leave these unbound.
+static func bind_menu_buttons() -> void:
+	for pair in [["ui_accept", JOY_BUTTON_A], ["ui_cancel", JOY_BUTTON_B]]:
+		var event := InputEventJoypadButton.new()
+		event.button_index = pair[1]
+		if not InputMap.action_has_event(pair[0], event):
+			InputMap.action_add_event(pair[0], event)
 
 func _on_connection_changed(_device: int, _connected: bool) -> void:
 	devices_changed.emit()

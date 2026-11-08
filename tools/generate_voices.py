@@ -8,7 +8,8 @@
 Cast and emotions: data/voice_cast.json. Clips are cached by text/voice/settings hash, so only
 changed lines cost credits. Niro and PA clips are named by a hash of the subtitle text
 (see scripts/remote_radio.gd), so editing a line in the JSON automatically picks up a new clip.
-Use --keepers-only to refresh the Keeper cast without touching Niro or the PA.
+Use --keepers-only to refresh the Keeper cast without touching Niro or the PA,
+or --miro-only to generate just Miro (dialogue and inner thoughts).
 """
 import argparse, base64, hashlib, json, os, re, sys, time, urllib.error, urllib.request
 from collections import defaultdict
@@ -143,6 +144,38 @@ def collect_lines(cast):
             continue
         seen.add(text.strip())
         add('niro_' + text_hash(text), 'niro', text, delivery or niro_delivery(text, cast['niro_delivery']))
+    # Miro: every line he says out loud (speaker "MIRO" in any data file or script), plus his
+    # inner thoughts. Dialogue clips are named by text hash like Niro's; thoughts by floor and id.
+    if 'miro' in cast['voices']:
+        spoken, said = [], set()
+
+        def walk(node):
+            if isinstance(node, list):
+                if len(node) >= 2 and node[0] == 'MIRO' and isinstance(node[1], str):
+                    spoken.append(node[1])
+                for item in node:
+                    walk(item)
+            elif isinstance(node, dict):
+                for item in node.values():
+                    walk(item)
+
+        for path in sorted((ROOT / 'data').rglob('*.json')):
+            walk(json.loads(path.read_text(encoding='utf-8')))
+        # Miro's two-option replies become MIRO lines when picked.
+        for choice in json.loads((ROOT / 'data/dialogue_choices.json').read_text(encoding='utf-8'))['choices']:
+            spoken += [option['text'] for option in choice['options']]
+        for path in sorted((ROOT / 'scripts').glob('*.gd')):
+            for text in re.findall(r'\["MIRO", "((?:[^"\\]|\\.)*)"', path.read_text(encoding='utf-8')):
+                if '%' not in text:
+                    spoken.append(text.replace('\\n', '\n').replace('\\"', '"'))
+        for text in spoken:
+            if text.strip() and text.strip() not in said:
+                said.add(text.strip())
+                add('miro_' + text_hash(text), 'miro', text, cast.get('miro_delivery', ''))
+        thoughts = json.loads((ROOT / 'data/inner_dialogue.json').read_text(encoding='utf-8'))
+        for floor, entries in thoughts.items():
+            for entry in entries:
+                add(f"thought_{floor}_{entry['id']}", 'miro', entry['text'], cast.get('miro_thought_delivery', '[whispers]'))
     for reputation in ('MISSING', 'HUNTED'):
         for key in ('pa', 'ending_pa'):
             text = branch[reputation][key]
@@ -241,6 +274,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--list', action='store_true')
     parser.add_argument('--keepers-only', action='store_true')
+    parser.add_argument('--miro-only', action='store_true')
     parser.add_argument('--workers', type=int, choices=(1, 2, 3), default=1)
     parser.add_argument('--design-niro', action='store_true')
     parser.add_argument('--keep-niro', type=int)
@@ -249,6 +283,8 @@ def main():
     jobs = collect_lines(cast)
     if args.keepers_only:
         jobs = [job for job in jobs if job['voice'] not in {'niro', 'pa'}]
+    if args.miro_only:
+        jobs = [job for job in jobs if job['voice'] == 'miro']
     if args.list:
         for job in jobs:
             print(f"{job['clip']:<22} {job['voice']:<8} {job['delivery']} {job['text']!r}")

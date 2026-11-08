@@ -142,6 +142,13 @@ static func tower(canvas: CanvasItem, base: Vector2, floor_height: float, width:
 				canvas.draw_circle(center, 6 + ring * 6 * burning, Color(0.95, 0.83, 0.67, 0.08 * burning))
 			emblem(canvas, center, 7, Color(SAND.r, SAND.g, SAND.b, burning), 1.5)
 
+## The tower's banner on its pole, sized to the tower (same proportions as the start screen,
+## where floor_height is 26). `time` should already be slowed by the caller if wanted.
+static func tower_flag(canvas: CanvasItem, base: Vector2, floor_height: float, time: float, wind := 0.8) -> void:
+	var s := floor_height / 26.0
+	var top := Vector2(base.x, base.y - floor_height * 5.5 - 10 * s)
+	flag(canvas, top + Vector2(18, -28) * s, 38 * s, Vector2(34, 15) * s, time, Color("7a2e3a"), wind)
+
 ## Dust plumes rolling out from the base during a collapse.
 static func dust(canvas: CanvasItem, base: Vector2, amount: float) -> void:
 	if amount <= 0:

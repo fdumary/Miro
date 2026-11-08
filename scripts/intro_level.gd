@@ -223,6 +223,8 @@ func _process(delta: float) -> void:
 				radio.say_in_room(str(line[1]), "pa")
 			elif str(line[0]) == "JUDAS":
 				radio.say_in_room(str(line[1]), "judas")
+			elif str(line[0]) == "MIRO":
+				radio.say_in_room(str(line[1]), "miro", "Thought" if dialogue_panel.thought else "Voice")
 			else:
 				radio.stop()
 	elif not radio_line.is_empty():

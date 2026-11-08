@@ -170,6 +170,8 @@ func shot_tower(t: float) -> void:
 	var collapse := C.ease_in_out(C.phase(t, BLAST + 0.35, 3.4))
 	var lit := 1.0 if t < 5.0 else 0.6 + 0.4 * absf(sin(t * 7))
 	C.tower(self, BASE, 32, 80, t, ignite, collapse, lit)
+	if t < BLAST:
+		C.tower_flag(self, BASE, 32, t * 0.4, 0.9)
 	# Dust trickling off the tower as the tremor builds.
 	if t > 4.0 and t < BLAST:
 		for i in range(10):

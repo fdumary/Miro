@@ -1,7 +1,14 @@
 {
   "_comment": "Who voices what (ElevenLabs). tools/generate_voices.py reads this; the game only reads the generated clips. Guards and Niro use eleven_v3 so the [audio tags] in 'delivery' carry the emotion; subtitles never show the tags. Swap any voice_id for one from the ElevenLabs Voice Library and re-run: only changed lines regenerate.",
   "model_id": "eleven_v3",
+  "miro_delivery": "",
+  "miro_thought_delivery": "[whispers]",
   "voices": {
+    "miro": {
+      "name": "Miro (voice chosen by RXLA)",
+      "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+      "stability": 0.5
+    },
     "niro": {
       "name": "Niro (designed voice, preview 1)",
       "voice_id": "iX1zz6Y13Hsin5IIccLG",

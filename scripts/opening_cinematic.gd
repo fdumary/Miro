@@ -6,6 +6,8 @@ extends Control
 ##   12-15    MIRO / LAST MAN STANDING lit by a last flash; YZ33 comes in under the rain
 ## The rain bed carries on into Level 1 and fades as YZ33 takes over.
 const C = preload("res://scripts/cinema.gd")
+## Miro's in-game sprite, so the cutscene shows the same Miro the player controls.
+const MIRO := preload("res://assets/characters/miro_idle.png")
 const NEXT := "res://scenes/intro.tscn"
 const LENGTH := 15.0
 ## Lightning flashes: [time, seed, strength]. Thunder follows each flash.
@@ -19,6 +21,8 @@ var rain_bed: AudioStreamPlayer
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# Pixel-art sprite stays crisp when scaled up.
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	get_node("/root/MusicDirector").silence()
 	audio = preload("res://scripts/cine_audio.gd").new()
 	add_child(audio)
@@ -119,6 +123,7 @@ func shot_storm(t: float) -> void:
 		var target := tower_base + Vector2(0, -21 * 5.5 - 32) if bolt[0] in [3, 4] else Vector2(150 + bolt[0] * 9, 200)
 		C.bolt(self, Vector2(target.x - 40 + bolt[0] * 3, -10), target, bolt[0], bolt[1], 1.6)
 	C.tower(self, tower_base, 21, 52, t, 0, 0, 0.3 + flash)
+	C.tower_flag(self, tower_base, 21, t * 0.4, 1.0)
 	C.pines(self, 250, 50, 44, 0.2, -t * 6)
 	C.storm_rain(self, t, 0.18, -1, 3.0)
 	C.pines(self, 285, 70, 70, 0.6, -t * 14)
@@ -136,6 +141,7 @@ func shot_tilt(t: float) -> void:
 		C.bolt(self, Vector2(520, -10), Vector2(470, 260), bolt[0], bolt[1], 2.2)
 	var base := Vector2(320, 380 + tilt * 420)
 	C.tower(self, base, 120, 260, t, 0, 0, 1.0)
+	C.tower_flag(self, base, 120, t * 0.4, 1.0)
 	if flash > 0:
 		# The flash rakes the stone from the right.
 		draw_rect(Rect2(320 + 130 - 40, 0, 40, 360), Color(0.85, 0.88, 1.0, 0.25 * flash))
@@ -159,9 +165,16 @@ func shot_window(t: float) -> void:
 	var floor_y := window.position.y + window.size.y * 0.82
 	draw_rect(Rect2(window.position.x + window.size.x * 0.18, floor_y - window.size.y * 0.12, window.size.x * 0.45, window.size.y * 0.06), Color("4a3b4f"))
 	var rise := C.ease_out(C.phase(t, 10.25, 0.6))
+	# Miro (his in-game sprite) lies on the bunk, then sits up on the thunder: the sprite
+	# pivots at his feet from lying flat to upright.
 	var figure := Vector2(window.position.x + window.size.x * 0.36, floor_y - window.size.y * 0.12)
-	draw_circle(figure + Vector2(-window.size.x * 0.08 * (1 - rise), -window.size.y * (0.04 + 0.14 * rise)), window.size.y * 0.045, Color("c69fa5"))
-	draw_rect(Rect2(figure + Vector2(-window.size.x * 0.03, -window.size.y * 0.12 * rise), Vector2(window.size.x * 0.06, window.size.y * 0.12 * rise + 2)), Color("c69fa5"))
+	var tall := window.size.y * 0.32
+	var lit := Color(1, 1, 1).lerp(Color(0.75, 0.8, 1.1), flash * 0.6).darkened(0.25 * (1.0 - flash))
+	var unit := size / C.FRAME
+	var shot := Transform2D(0, unit, 0, shake(t) * unit)
+	draw_set_transform_matrix(shot * Transform2D(-PI / 2 * (1.0 - rise), figure + Vector2(window.size.x * 0.06, 0)))
+	draw_texture_rect(MIRO, Rect2(Vector2(-tall / 2, -tall), Vector2(tall, tall)), false, lit)
+	draw_set_transform_matrix(shot)
 	# Bars throw shadows across the cell when the lightning hits.
 	for bar in range(1, 5):
 		var x := window.position.x + bar * window.size.x / 5
