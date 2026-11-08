@@ -18478,5 +18478,117 @@
       "output_lufs": "-18.29",
       "output_true_peak_dbtp": "-2.02"
     }
+  },
+  "garrick_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "2ajXGJNYBR0iNHpS4VZb",
+    "voice_name": "Rob - Tough & Calloused (Level 5 terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Hands off the foundation terminal!",
+    "delivery": "[shouting] [gruff]",
+    "signature": "ad825d4f6aa722d72f5016c2dded23f949cb5841a6aa545b28aa1015cb701078",
+    "leveling": {
+      "source_sha256": "33e31e618434622132af55696370a9292422f5df0a9ba7045c5a904784dc1c09",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-11.43",
+        "input_tp": "-0.38",
+        "input_lra": "0.00",
+        "input_thresh": "-21.43",
+        "output_i": "-17.98",
+        "output_tp": "-6.95",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-6.81"
+    }
+  },
+  "garrick_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "2ajXGJNYBR0iNHpS4VZb",
+    "voice_name": "Rob - Tough & Calloused (Level 5 terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Garrick down at the foundation! Send the doctor!",
+    "delivery": "[shocked] [gruff]",
+    "signature": "0dc939ae04e5cb5b78c86ba1d8aadcafe0180f81a2bae5bf3c39d37895b8b096",
+    "leveling": {
+      "source_sha256": "99989946330548b922a63125d2f788f41ae5532c3153609e376c826ea170b1bb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.75",
+        "input_tp": "-0.32",
+        "input_lra": "0.70",
+        "input_thresh": "-23.24",
+        "output_i": "-17.34",
+        "output_tp": "-5.17",
+        "output_lra": "0.00",
+        "output_thresh": "-27.83",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.66"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-5.44"
+    }
+  },
+  "garrick_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "2ajXGJNYBR0iNHpS4VZb",
+    "voice_name": "Rob - Tough & Calloused (Level 5 terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Everything above rests on this terminal. I keep it that way.",
+    "delivery": "[gruff] [muttering]",
+    "signature": "810b35fbd5262ab873ab756822f1afd38bf780eab926c9fd4526b6510d104148",
+    "leveling": {
+      "source_sha256": "bcb187cfb9cc13c3429a826d638173b1510d2b43445ed12ff500a1cd718b4307",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.57",
+        "input_tp": "-1.61",
+        "input_lra": "0.10",
+        "input_thresh": "-32.14",
+        "output_i": "-17.72",
+        "output_tp": "-2.00",
+        "output_lra": "0.70",
+        "output_thresh": "-28.07",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.28"
+      },
+      "output_lufs": "-18.16",
+      "output_true_peak_dbtp": "-1.71"
+    }
+  },
+  "garrick_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "2ajXGJNYBR0iNHpS4VZb",
+    "voice_name": "Rob - Tough & Calloused (Level 5 terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Twenty years on the lowest floor. The roof has never fallen. Yet.",
+    "delivery": "[gruff] [muttering]",
+    "signature": "f0d74ec8c60cf47e5918d0df2c168219da40ac6e33ecd9fb7aaf1217c5057bfa",
+    "leveling": {
+      "source_sha256": "4df1b842a90bca5588b1dce000b4778c513d72c4d9cfb88acb012edb8f4c20df",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.51",
+        "input_tp": "-5.24",
+        "input_lra": "1.90",
+        "input_thresh": "-34.12",
+        "output_i": "-17.15",
+        "output_tp": "-2.00",
+        "output_lra": "0.60",
+        "output_thresh": "-27.71",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.85"
+      },
+      "output_lufs": "-17.65",
+      "output_true_peak_dbtp": "-1.88"
+    }
   }
 }
