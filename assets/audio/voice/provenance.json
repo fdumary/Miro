@@ -16328,27 +16328,27 @@
     "voice_id": "8z82LG47qQ2qjeeQB8lk",
     "voice_name": "Kenneth - Storyteller",
     "model_id": "eleven_v3",
-    "text": "Speaking of things nobody ever changes: the service port login. Root, root. Still the same.",
-    "delivery": "[low] [conspiratorial]",
-    "signature": "d852a9e5bde6a528ff4376571f34e0f8eb3a9e874869d3f965ba905ee05be080",
+    "text": "Amen. Now, did anyone remember the service port password? I'm locked out again.",
+    "delivery": "[sheepish]",
+    "signature": "45ad70c6f0d693e4aabab0571404888e4bfda4cf35f749b372cb31d9eb0bb2b6",
     "leveling": {
-      "source_sha256": "9830fe5dd534376649527525a451f61c2ab6edd017981ce923fde490c31dac6c",
+      "source_sha256": "c31ab891555a3029145348eab9554b0c1a1f2c0698f8af659cd041c748c6cd4e",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-17.64",
-        "input_tp": "-0.63",
-        "input_lra": "1.20",
-        "input_thresh": "-28.30",
-        "output_i": "-18.02",
-        "output_tp": "-2.00",
-        "output_lra": "3.10",
-        "output_thresh": "-28.61",
+        "input_i": "-16.03",
+        "input_tp": "-1.05",
+        "input_lra": "3.50",
+        "input_thresh": "-26.58",
+        "output_i": "-18.38",
+        "output_tp": "-2.77",
+        "output_lra": "2.10",
+        "output_thresh": "-29.02",
         "normalization_type": "dynamic",
-        "target_offset": "0.02"
+        "target_offset": "0.38"
       },
-      "output_lufs": "-18.32",
-      "output_true_peak_dbtp": "-1.97"
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.99"
     }
   },
   "tibb_john316_9": {
@@ -16356,27 +16356,83 @@
     "voice_id": "8Ln42OXYupYsag45MAUy",
     "voice_name": "Jay Wayne - Wise University Professor",
     "model_id": "eleven_v3",
-    "text": "Don't say it so loud. Though honestly, it's the only password in this tower I can remember.",
-    "delivery": "[dry] [whispers]",
-    "signature": "b14f61f789bca3cf7f42fd0f112815db285808ae3228f98cd729a1263f4e41c4",
+    "text": "Root. All lowercase. R, O, O, T. Same as every other shift.",
+    "delivery": "[dry] [low]",
+    "signature": "5b35120f65638e1f2b9b544eb49be24fffa95ec2d04c9a55618ffcc30ec446a2",
     "leveling": {
-      "source_sha256": "f400f58237a4cd9d78bdfc78fd6f1d9d0e9d4de6a58be7adc5d667b9d2d65ce4",
+      "source_sha256": "7382fb34be3d3f3f5f8a2d1817ec98f40f847100f6ee902a66f84f7bbc780dd6",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-25.10",
-        "input_tp": "-4.49",
-        "input_lra": "2.70",
-        "input_thresh": "-36.27",
-        "output_i": "-18.56",
+        "input_i": "-20.86",
+        "input_tp": "-2.29",
+        "input_lra": "2.30",
+        "input_thresh": "-32.29",
+        "output_i": "-18.79",
         "output_tp": "-2.00",
-        "output_lra": "1.50",
-        "output_thresh": "-29.64",
+        "output_lra": "2.60",
+        "output_thresh": "-30.38",
         "normalization_type": "dynamic",
-        "target_offset": "0.56"
+        "target_offset": "0.79"
       },
-      "output_lufs": "-18.47",
-      "output_true_peak_dbtp": "-1.72"
+      "output_lufs": "-18.81",
+      "output_true_peak_dbtp": "-1.88"
+    }
+  },
+  "pike_john316_10": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George - Warm, Captivating Storyteller",
+    "model_id": "eleven_v3",
+    "text": "Right. Once you're in, you can switch the corridor camera off. Not that I'd ever tell a prisoner.",
+    "delivery": "[quietly] [amused]",
+    "signature": "e9cfbac40c68356de227b5de688423689dfd1e0fb6554ffb6087b91a53dbebc2",
+    "leveling": {
+      "source_sha256": "6b9505f6b7d2c6dba046fd7fb63e9f52bf72645f75c999f3783cb0e4220ea81a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.28",
+        "input_tp": "-3.96",
+        "input_lra": "2.20",
+        "input_thresh": "-30.75",
+        "output_i": "-17.73",
+        "output_tp": "-2.00",
+        "output_lra": "2.20",
+        "output_thresh": "-28.25",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.27"
+      },
+      "output_lufs": "-18.29",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "moss_john316_11": {
+    "provider": "ElevenLabs",
+    "voice_id": "8z82LG47qQ2qjeeQB8lk",
+    "voice_name": "Kenneth - Storyteller",
+    "model_id": "eleven_v3",
+    "text": "I'll watch the stairs. And please, don't leave the port open.",
+    "delivery": "[low]",
+    "signature": "a6502189c141d6e87e02af080ddc6059b1e88ae66cedd870d62d5fd934e676f4",
+    "leveling": {
+      "source_sha256": "8ce33c9e8f7bd4ae70fb48db166366b013a375f40c3214cef8b2d6976a6a472b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.38",
+        "input_tp": "-0.99",
+        "input_lra": "1.00",
+        "input_thresh": "-26.53",
+        "output_i": "-17.52",
+        "output_tp": "-2.47",
+        "output_lra": "0.00",
+        "output_thresh": "-27.66",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.48"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.60"
     }
   }
 }
