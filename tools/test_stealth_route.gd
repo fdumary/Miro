@@ -8,6 +8,9 @@ func tick(count: int = 1) -> void:
 	for i in range(count):
 		await physics_frame
 		await process_frame
+		for extra_guard in level.get_node("Guards").get_children():
+			if str(extra_guard.name).begins_with("TerminalGuard") and extra_guard.is_physics_processing():
+				extra_guard.set_physics_process(false)
 		# The gate scene plays on its own as Miro reaches the barred gate; press E through it.
 		if level.dialogue_event == "brother" and not level.dialogue.is_empty():
 			level.finish_dialogue()

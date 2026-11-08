@@ -9,7 +9,7 @@ func open_floor(number: int) -> void:
 	level = load(path).instantiate()
 	root.add_child(level)
 	current_scene = level
-	await frames(2)
+	await frames(40)  # terminal guards appear a few frames into a floor
 
 func run() -> void:
 	var cast: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/voice_cast.json")).voices

@@ -298,6 +298,9 @@ func loot_weapon(guard: IntroGuard) -> void:
 		ammunition = gun_ammo[equipped_gun]
 		has_gun = true
 		guard.gun_taken = true
+		# A newly picked-up gun goes straight into his hand, so what you see is what you fire.
+		controls.sync_slots()
+		controls.select_item(equipped_gun)
 	else:
 		pending_guard = guard
 		level.notify("Take %s? [Z] replace %s / [X] replace %s / [Esc] cancel" % [guard.weapon_kind, guns[0], guns[1]], 30)
@@ -320,7 +323,8 @@ func resolve_weapon_choice(slot: int) -> void:
 		pending_guard.gun_taken = true
 	pending_guard = null
 	controls.sync_slots()
-	level.notify("Weapon choice saved. Select a slot to equip.")
+	controls.select_item(equipped_gun)
+	level.notify("Weapon choice saved and equipped.")
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton and event.pressed and is_instance_valid(pending_guard):

@@ -18,6 +18,16 @@ func frames(count: int) -> void:
 	for i in range(count):
 		await physics_frame
 		await process_frame
+		freeze_terminal_posts()
+
+## Terminal guards for the records terminals appear a few frames into a floor; route tests
+## predate them, so hold them still.
+func freeze_terminal_posts() -> void:
+	if not is_instance_valid(level) or not level.has_node("Guards"):
+		return
+	for extra_guard in level.get_node("Guards").get_children():
+		if str(extra_guard.name).begins_with("TerminalGuard") and extra_guard.is_physics_processing():
+			extra_guard.set_physics_process(false)
 
 func fresh() -> void:
 	for action in InputMap.get_actions():

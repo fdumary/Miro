@@ -149,6 +149,12 @@ func spawn_terminal_guard(terminal_point: Vector2) -> void:
 	var names: Array = roster.get("terminal_guards", {}).get(str(floor_number), [])
 	if terminal_guard_index >= names.size():
 		return
+	var guard_name: String = names[terminal_guard_index]
+	var slot := terminal_guard_index + 1
+	terminal_guard_index += 1  # reserved now, so names follow terminal order even though we wait below
+	# Floors register their collision a frame or two after _ready; the floor ray needs it.
+	for wait in range(3):
+		await get_tree().physics_frame
 	var query := PhysicsRayQueryParameters2D.create(terminal_point + Vector2(0, -6), terminal_point + Vector2(0, 90), 1)
 	var hit := level.get_world_2d().direct_space_state.intersect_ray(query)
 	if hit.is_empty():
@@ -158,14 +164,13 @@ func spawn_terminal_guard(terminal_point: Vector2) -> void:
 		x = terminal_point.x - 48.0
 	var keeper = load("res://scenes/guard.tscn").instantiate()
 	keeper.set_script(preload("res://scripts/terminal_guard.gd"))
-	keeper.name = "TerminalGuard%d" % (terminal_guard_index + 1)
+	keeper.name = "TerminalGuard%d" % slot
 	keeper.position = Vector2(x, hit.position.y - 16.0)
 	keeper.post_at(x)
 	keeper.level = level
 	keeper.illness_started = true
 	keeper.weapon_kind = "pistol"
-	assign_keeper(keeper, names[terminal_guard_index])
-	terminal_guard_index += 1
+	assign_keeper(keeper, guard_name)
 	level.get_node("Guards").add_child(keeper)
 
 func place_props_after_physics() -> void:

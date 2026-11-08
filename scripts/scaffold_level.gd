@@ -94,12 +94,26 @@ func current_storey() -> int:
 			return index
 	return storeys.size() - 1
 
+var checkpoint_refreshed := 0
+
 func update_checkpoint() -> void:
 	if flow != null or player.is_dead or not player.is_on_floor() or completed:
 		return
 	var campaign = get_node("/root/Campaign")
 	var storey := current_storey()
 	if storey <= int(campaign.checkpoint.get("storey", 0)) and not campaign.checkpoint.is_empty():
+		# Same storey: keep the checkpoint's place and health, but keep its kit current so guns
+		# and ammo picked up since are not lost on a retry (refreshed every couple of seconds).
+		if int(campaign.checkpoint.get("floor", 0)) == int(definition.number) and Time.get_ticks_msec() - checkpoint_refreshed > 2000:
+			checkpoint_refreshed = Time.get_ticks_msec()
+			var kit := player_snapshot()
+			kit["health"] = int(campaign.checkpoint.get("player", {}).get("health", player.health))
+			campaign.checkpoint["player"] = kit
+			campaign.checkpoint["dead"] = dead_guards()
+			campaign.checkpoint["milestones"] = milestones.duplicate()
+			campaign.checkpoint["sigil"] = sigil_placed
+			campaign.checkpoint["thoughts"] = world_features.thought_seen.keys()
+			campaign.save_checkpoint()
 		return
 	if storey == 0 and campaign.checkpoint.is_empty():
 		return
