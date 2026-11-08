@@ -42,6 +42,10 @@ Mantling is deliberately small: contact with a wall, up to a 34-pixel rise and 2
 
 Right click drops a physical charge; E recovers it intact; left click detonates placed charges. Blasts are bounded and wall-occluded. A charge beside the Level 1 lock opens it. Required story charges cannot be spent on optional explosions. Later floors receive one extra charge for this mechanic; the ward still has five required charges across its three authored supports, plus one optional charge. Authored supports remain E interactions and detonate through the established ending sequence.
 
+## PlayStation controller speaker
+
+On Windows, connect the controller by USB and leave the regular speakers or headset as the system output. If Windows exposes a DualSense or DualShock playback device, only Niro's remote transmissions use it. Niro in person, the tower PA, music and effects stay on the regular output. The dialogue bubbles still appear. If the controller output is unavailable, the transmissions play through the regular output with the radio effect. Touchpad presses are not needed for playback.
+
 ## Remote / MP3 acquisition and minimal puzzle
 
 The sick Keeper at the first cell supplies the device when looted after death. The existing pickpocket path also takes it with the key, preserving a nonlethal route. Missing the device does not remove the existing physical Level 3 terminal. Ownership and service-mode unlock carry into later floors. Select its inventory slot and click to open; F is unbound.

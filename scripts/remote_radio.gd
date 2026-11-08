@@ -15,9 +15,13 @@ var burst_left := 0.0
 var clock := 0.0
 var noise_state := 22695477
 var last_text := ""
+var controller_worker := false
+var controller_playing := false
+var controller_link = preload("res://scripts/controller_radio_link.gd").new()
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	controller_worker = "--controller-radio-worker" in OS.get_cmdline_user_args()
 	if AudioServer.get_bus_index(BUS) < 0:
 		AudioServer.add_bus()
 		var index := AudioServer.bus_count - 1
@@ -77,32 +81,47 @@ func say_in_room(text: String, prefix := "niro") -> void:
 func say(text: String) -> float:
 	last_text = text
 	var duration := maxf(2.2, text.length() * 0.06)
-	voice.stop()
+	stop_remote_audio()
 	if has_clip(text):
 		voice.stream = load(clip_path(text))
 		duration = voice.stream.get_length()
-		if audible():
+		controller_playing = not controller_worker and controller_link.send(["say", text])
+		if not controller_playing and audible():
 			voice.play()
 	speaking_left = duration
 	burst_left = 0.22
+	if not controller_playing:
+		start_hiss()
+	return duration
+
+func start_hiss() -> void:
 	if audible() and not hiss.playing:
 		hiss.play()
 		hiss_playback = hiss.get_stream_playback()
-	return duration
+
+func stop_remote_audio() -> void:
+	if controller_playing:
+		controller_link.send(["stop"])
+	controller_playing = false
+	voice.stop()
+	hiss.stop()
+	hiss_playback = null
 
 func stop() -> void:
-	if speaking_left > 0:
-		burst_left = 0.15
+	stop_remote_audio()
 	speaking_left = 0
-	voice.stop()
+	burst_left = 0.0
 	if is_instance_valid(room):
 		room.stop()
+
+func _exit_tree() -> void:
+	controller_link.close()
 
 func busy() -> bool:
 	return speaking_left > 0
 
 func audible() -> bool:
-	return DisplayServer.get_name() != "headless"
+	return controller_worker or DisplayServer.get_name() != "headless"
 
 ## Deterministic noise (no RNG state shared with gameplay).
 func noise() -> float:
@@ -110,6 +129,13 @@ func noise() -> float:
 	return float(noise_state) / float(0x3fffffff) - 1.0
 
 func _process(delta: float) -> void:
+	if not controller_worker:
+		controller_link.update(delta, get_tree().paused)
+		if controller_playing and not controller_link.ready:
+			controller_playing = false
+			if speaking_left > 0.0 and audible() and voice.stream != null:
+				voice.play(maxf(0.0, voice.stream.get_length() - speaking_left))
+				start_hiss()
 	if get_tree().paused:
 		return
 	clock += delta
