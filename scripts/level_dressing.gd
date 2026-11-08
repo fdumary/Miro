@@ -16,6 +16,10 @@ func stamp(id: String, point: Vector2, dimensions := Vector2(32, 32)) -> void:
 	draw_texture_rect(ART.texture(id), Rect2(point, dimensions), false)
 
 func _draw() -> void:
+	# Authored layouts (Levels 2-4) are dressed by scaffold_art.gd across the whole world.
+	var path := str(get_parent().get_parent().get_meta("blueprint", ""))
+	if chapter in [2, 3, 4] and FileAccess.file_exists(path) and FileAccess.get_file_as_string(path).contains("\"tiles\""):
+		return
 	# Chains remain above the movement lanes; Julia's masonry and platforms stay visible.
 	for x in [110, 1010]:
 		stamp("chain_top", Vector2(x, 38))

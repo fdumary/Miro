@@ -1,9 +1,9 @@
 {
   "id": "level_05",
-  "title": "The Brother",
+  "title": "The Foundation",
   "world_size": [
     1120,
-    756
+    952
   ],
   "spawn": [
     100,
@@ -23,7 +23,7 @@
         26
       ],
       "crack_every": 7,
-      "connector_every": 11
+      "connector_every": 0
     },
     {
       "row": 16,
@@ -37,8 +37,19 @@
       "row": 24,
       "first_column": 1,
       "last_column": 38,
-      "gaps": [],
+      "gaps": [
+        33,
+        34
+      ],
       "crack_every": 9,
+      "connector_every": 0
+    },
+    {
+      "row": 31,
+      "first_column": 1,
+      "last_column": 38,
+      "gaps": [],
+      "crack_every": 6,
       "connector_every": 0
     }
   ],
@@ -50,22 +61,6 @@
     [
       16,
       8
-    ],
-    [
-      17,
-      7
-    ],
-    [
-      18,
-      7
-    ],
-    [
-      19,
-      7
-    ],
-    [
-      20,
-      7
     ],
     [
       15,
@@ -98,6 +93,18 @@
     [
       31,
       22
+    ],
+    [
+      18,
+      6
+    ],
+    [
+      19,
+      6
+    ],
+    [
+      20,
+      6
     ]
   ],
   "solids": [
@@ -105,22 +112,22 @@
       "name": "LeftWall",
       "position": [
         14,
-        378
+        476
       ],
       "size": [
         28,
-        756
+        952
       ]
     },
     {
       "name": "RightWall",
       "position": [
         1106,
-        378
+        476
       ],
       "size": [
         28,
-        756
+        952
       ]
     }
   ],
@@ -147,18 +154,6 @@
       "size": [
         40,
         252
-      ]
-    },
-    {
-      "name": "StairGate",
-      "kind": "exit",
-      "position": [
-        1043,
-        646
-      ],
-      "size": [
-        46,
-        60
       ]
     },
     {
@@ -246,6 +241,54 @@
       ]
     },
     {
+      "name": "ThirdLadder",
+      "kind": "ladder",
+      "position": [
+        952,
+        755
+      ],
+      "size": [
+        40,
+        230
+      ]
+    },
+    {
+      "name": "Shadow8",
+      "kind": "cover",
+      "position": [
+        300,
+        832
+      ],
+      "size": [
+        64,
+        72
+      ]
+    },
+    {
+      "name": "Shadow9",
+      "kind": "cover",
+      "position": [
+        760,
+        832
+      ],
+      "size": [
+        64,
+        72
+      ]
+    },
+    {
+      "name": "Guitar",
+      "kind": "note",
+      "position": [
+        190,
+        230
+      ],
+      "size": [
+        40,
+        54
+      ]
+    },
+    {
       "name": "FinalSigil",
       "kind": "sigil",
       "position": [
@@ -273,8 +316,8 @@
       "name": "BrotherEncounter",
       "kind": "brother",
       "position": [
-        650,
-        414
+        560,
+        846
       ],
       "size": [
         40,
@@ -282,11 +325,11 @@
       ]
     },
     {
-      "name": "DyingExchange",
+      "name": "DefeatExchange",
       "kind": "note",
       "position": [
-        410,
-        414
+        430,
+        846
       ],
       "size": [
         40,
@@ -297,86 +340,98 @@
       "name": "ForestViewpoint",
       "kind": "note",
       "position": [
-        650,
-        647
+        880,
+        846
       ],
       "size": [
         40,
         54
+      ]
+    },
+    {
+      "name": "StairGate",
+      "kind": "exit",
+      "position": [
+        1043,
+        836
+      ],
+      "size": [
+        46,
+        60
       ]
     }
   ],
   "guards": [],
   "beats": [
     {
-      "name": "01_FinalSigil",
+      "name": "01_Guitar",
+      "position": [
+        190,
+        230
+      ],
+      "purpose": "5A office: guitar pickup starts Shit Crashed; alarm; wave 1"
+    },
+    {
+      "name": "02_FinalSigil",
       "position": [
         300,
         230
       ],
-      "purpose": "Place the final sigil | draft story"
+      "purpose": "Place the final sigil"
     },
     {
-      "name": "02_FinalOffer",
+      "name": "03_Engagement1",
       "position": [
-        570,
-        226
+        600,
+        236
       ],
-      "purpose": "Hear the final offer | draft story"
+      "purpose": "Wave 1 cleared > Niro #1 (reveal, rush only) > retreat through Hatch1"
     },
     {
-      "name": "03_BrotherEncounter",
+      "name": "04_Engagement2",
       "position": [
-        650,
-        423
-      ],
-      "purpose": "Test the boss encounter handoff | boss placeholder; not combat"
-    },
-    {
-      "name": "04_DyingExchange",
-      "position": [
-        410,
-        423
-      ],
-      "purpose": "Review the fatal exchange | scripted exchange placeholder"
-    },
-    {
-      "name": "05_ForestViewpoint",
-      "position": [
-        650,
-        647
-      ],
-      "purpose": "Reach the forest viewpoint | cinematic storyboard placeholder"
-    },
-    {
-      "name": "BossRushTelegraph",
-      "position": [
-        610,
-        414
-      ],
-      "purpose": "First readable attack; recovery vulnerability."
-    },
-    {
-      "name": "BossProjectileOrigin",
-      "position": [
-        710,
-        392
-      ],
-      "purpose": "Second readable attack; projectile dodge lane."
-    },
-    {
-      "name": "BossRecoveryWindow",
-      "position": [
-        650,
+        800,
         432
       ],
-      "purpose": "Vulnerability state; defeat triggers DyingExchange."
+      "purpose": "Wave 2 > Niro #2 (rush + throw) > retreat through Hatch2"
+    },
+    {
+      "name": "05_Engagement3",
+      "position": [
+        600,
+        656
+      ],
+      "purpose": "Robot Attack; wave 3 > Niro #3 (rush, throw, calls guards) > retreat through Hatch3"
+    },
+    {
+      "name": "06_FinalFight",
+      "position": [
+        560,
+        852
+      ],
+      "purpose": "Deepest floor: final fight, Niro beaten not killed"
+    },
+    {
+      "name": "07_DefeatExchange",
+      "position": [
+        430,
+        852
+      ],
+      "purpose": "Defeat exchange; Miro leaves alone"
+    },
+    {
+      "name": "08_ForestViewpoint",
+      "position": [
+        880,
+        852
+      ],
+      "purpose": "Woods, remote detonation, collapse, Set Me Free"
     },
     {
       "name": "ForestBackdrop",
       "position": [
-        780,
-        620
+        900,
+        820
       ],
       "purpose": "Replace masonry in outdoor segment with authored woods art."
     },
@@ -384,15 +439,37 @@
       "name": "TowerCollapseCinematic",
       "position": [
         1000,
-        610
+        820
       ],
-      "purpose": "Higgsfield/approved cinematic with subtitles and skip; no physics destruction."
+      "purpose": "In-engine cinematic with subtitles and skip; no physics destruction."
     }
   ],
   "number": 5,
-  "opening": "At the bottom of the tower, the prison becomes a laboratory.\nThe tower physician is waiting. His brother.",
-  "closing": "The ending remains morally unresolved. No explanatory epilogue.",
+  "opening": "At the bottom, everything else rests on what they keep here.\nThere's an office ahead. Something in there is humming.",
+  "closing": "Miro leaves alone. The ending stays unresolved.",
   "stations": [
+    {
+      "id": "Guitar",
+      "title": "Pick up the guitar",
+      "position": [
+        190,
+        230
+      ],
+      "kind": "note",
+      "objective": "Pick up the guitar",
+      "lines": [
+        [
+          "MIRO",
+          "A guitar on a stand, strings still in tune.\nMine. He kept it."
+        ],
+        [
+          "MIRO",
+          "My fingers already know where to go."
+        ]
+      ],
+      "requires": [],
+      "status": "implemented: starts Shit Crashed, alarm, wave 1"
+    },
     {
       "id": "FinalSigil",
       "title": "Place the final sigil",
@@ -413,114 +490,126 @@
     },
     {
       "id": "FinalOffer",
-      "title": "Hear the final offer",
+      "title": "Face Niro",
       "position": [
         570,
         226
       ],
       "kind": "brother",
-      "objective": "Hear the final offer",
+      "objective": "Face Niro",
       "lines": [
         [
-          "LAB RECORD",
-          "MIRO \u2014 repeated exposure: no infection.\nAcquired resistance: none. Innate immunity confirmed."
-        ],
-        [
-          "LAB RECORD",
-          "Pathogen development: Tower research division.\nCure program: isolate and reproduce subject Miro's resistance."
+          "NIRO",
+          "Put it down, Miro. You were never supposed to wake up this far down."
         ],
         [
           "MIRO",
-          "You made the sickness. Then locked me up to take me apart."
+          "You. The voice in the remote. Niro."
         ],
         [
-          "BROTHER",
-          "The tower made it. They called it progress.\nWhen it escaped, they told me you were our only chance."
+          "NIRO",
+          "You were never sick. Exposure after exposure, nothing.\nYou are immune, Miro. You always were."
         ],
         [
-          "BROTHER",
-          "You are immune, Miro. I kept you alive.\nI thought if I could understand why, I could save everyone."
+          "NIRO",
+          "The tower made the sickness. They called it progress.\nWhen it got out, they told me you were our only chance."
         ],
         [
           "MIRO",
-          "You told them I was dangerous. You let me believe it."
+          "So you locked me up to take me apart."
         ],
         [
-          "BROTHER",
-          "They said you would destroy the cure if you got out.\nI believed them. I believed keeping you here was love."
+          "NIRO",
+          "I kept you alive. I thought if I understood why, I could save everyone.\nThey said you'd destroy the cure if you got out. I believed them."
+        ],
+        [
+          "MIRO",
+          "You let me believe I was dangerous."
+        ],
+        [
+          "NIRO",
+          "I believed keeping you here was love."
         ],
         [
           "MIRO",
           "You do not get to call it love and lock the door."
-        ],
-        [
-          "BROTHER",
-          "Stay. Help me finish it. If all of this was for nothing...\nI do not know who I have been."
         ]
       ],
       "requires": [
-        "FinalSigil"
+        "Guitar"
       ],
-      "status": "draft story"
+      "status": "automatic: Niro's first appearance after wave 1"
     },
     {
       "id": "BrotherEncounter",
-      "title": "Defeat your brother",
+      "title": "Face Niro",
       "position": [
-        650,
-        414
+        560,
+        846
       ],
       "kind": "brother",
-      "objective": "Defeat your brother",
+      "objective": "Face Niro",
       "lines": [
         [
-          "BROTHER",
+          "NIRO",
+          "Stay. Help me finish it. If all of this was for nothing...\nI do not know who I have been."
+        ],
+        [
+          "MIRO",
+          "Then find out."
+        ],
+        [
+          "NIRO",
           "Then come, brother."
         ]
       ],
       "requires": [
         "FinalOffer"
       ],
-      "status": "implemented: telegraphed rush and projectile, recovery vulnerability, fatal dialogue handoff"
+      "status": "automatic: final fight on the deepest floor"
     },
     {
-      "id": "DyingExchange",
+      "id": "DefeatExchange",
       "title": "Listen to your brother",
       "position": [
-        410,
-        414
+        430,
+        846
       ],
       "kind": "note",
       "objective": "Listen to your brother",
       "lines": [
         [
-          "BROTHER",
+          "NIRO",
           "The sick are still real. Whatever the tower did...\ndo not forget them."
         ],
         [
-          "BROTHER",
+          "NIRO",
           "I wanted a life where I could keep you safe.\nThey gave me a title, and I mistook it for a choice."
         ],
         [
           "MIRO",
-          "You could have come with me."
+          "Then choose now. Come with me."
         ],
         [
-          "BROTHER",
+          "NIRO",
+          "(He looks at the lab, not at Miro.)\nSomeone has to stay with them. Go."
+        ],
+        [
+          "NIRO",
           "You are still my brother."
         ]
       ],
       "requires": [
         "BrotherEncounter"
       ],
-      "status": "scripted exchange placeholder"
+      "status": "defeat exchange: Niro survives"
     },
     {
       "id": "ForestViewpoint",
       "title": "Reach the forest viewpoint",
       "position": [
-        650,
-        647
+        880,
+        846
       ],
       "kind": "note",
       "objective": "Reach the forest viewpoint",
@@ -531,7 +620,7 @@
         ]
       ],
       "requires": [
-        "DyingExchange"
+        "DefeatExchange"
       ],
       "status": "implemented: in-engine ending, pause and skip parity"
     }
@@ -539,11 +628,11 @@
   "sources": [
     {
       "path": "docs/mirospec.md",
-      "section": "Level progression \u2014 5: The Brother"
+      "section": "Level progression — 5: The Foundation"
     },
     {
       "path": "docs/miroguide.pdf",
-      "section": "Page 8 \u2014 five-floor progression and narrative flow"
+      "section": "Page 8 — five-floor progression and narrative flow"
     },
     {
       "path": "docs/class.md",
@@ -562,5 +651,211 @@
       "section": "The final encounter; Art and cinematic production; Narrative rules"
     }
   ],
-  "scope": "Playable five-floor game; narrative updated to the approved immunity/tower-origin reveal. See docs/NARRATIVE_UPDATE.md for review status."
+  "scope": "Level 5 The Foundation: guitar pickup, three waves, three Niro retreats, final non-fatal fight on the deepest floor. See docs/STORY_AND_SYSTEMS_IMPLEMENTATION.md.",
+  "gates": [
+    {
+      "name": "Hatch1",
+      "position": [
+        728,
+        266
+      ],
+      "size": [
+        56,
+        28
+      ],
+      "unlock_milestone": "NiroRetreat1"
+    },
+    {
+      "name": "Hatch2",
+      "position": [
+        345,
+        364
+      ],
+      "size": [
+        18,
+        168
+      ],
+      "unlock_milestone": "NiroRetreat2"
+    },
+    {
+      "name": "Hatch3",
+      "position": [
+        952,
+        686
+      ],
+      "size": [
+        56,
+        28
+      ],
+      "unlock_milestone": "NiroRetreat3"
+    }
+  ],
+  "props": [
+    {
+      "name": "OfficeLab",
+      "kind": "ward_chamber",
+      "position": [
+        420,
+        236
+      ]
+    },
+    {
+      "name": "DeepLab",
+      "kind": "ward_chamber",
+      "position": [
+        700,
+        852
+      ]
+    }
+  ],
+  "niro": {
+    "health": 12,
+    "retreat_at": [
+      9,
+      6,
+      3
+    ],
+    "appear_lines": {
+      "2": [
+        [
+          "NIRO",
+          "Every time you raise that thing, they write it down.\nDangerous. Unstable. You're proving them right."
+        ],
+        [
+          "MIRO",
+          "Then let them read it."
+        ]
+      ],
+      "3": [
+        [
+          "NIRO",
+          "This floor holds everything up. Me included.\nStop, Miro."
+        ]
+      ]
+    },
+    "taunts": [
+      "Can you hear me? Good. I hate this thing too. It makes me sound like them.",
+      "You're running in circles, Miro. I drew the circles.",
+      "Every Keeper you put to sleep is a report I write tonight. In my handwriting.",
+      "They're not hunting you. They're collecting you. There's a difference. I made sure of it.",
+      "Slow down. Your heart rate's on my screen. You'll tear something I stitched.",
+      "Nobody leaves this tower, Miro. Not the sick. Not the Keepers. Not me.",
+      "Down is the wrong way. Down is where I keep the truth. Come and look, then."
+    ],
+    "retreat_lines": {
+      "1": "Not here. Not like this.",
+      "2": "You don't understand what's down there.",
+      "3": "Then come to the bottom. See what you're breaking."
+    }
+  },
+  "waves": [
+    {
+      "row": 0,
+      "spawn": [
+        [
+          620,
+          236
+        ],
+        [
+          900,
+          236
+        ]
+      ],
+      "weapons": [
+        "pistol",
+        "pistol"
+      ]
+    },
+    {
+      "row": 1,
+      "spawn": [
+        [
+          700,
+          432
+        ],
+        [
+          980,
+          432
+        ],
+        [
+          520,
+          432
+        ]
+      ],
+      "weapons": [
+        "pistol",
+        "smg",
+        "pistol"
+      ]
+    },
+    {
+      "row": 2,
+      "spawn": [
+        [
+          560,
+          656
+        ],
+        [
+          780,
+          656
+        ],
+        [
+          180,
+          656
+        ]
+      ],
+      "weapons": [
+        "smg",
+        "pistol",
+        "smg"
+      ]
+    }
+  ],
+  "hints": {
+    "Guitar": [
+      "Something is humming in the office ahead.",
+      "The office is to the right of where I came in. Something's on a stand.",
+      "Walk right into the office and press E at the guitar."
+    ],
+    "FinalSigil": [
+      "One last mark, here at the very bottom.",
+      "The office support is right beside the guitar stand.",
+      "Stand at the support next to the guitar and press E."
+    ],
+    "flow_wave": [
+      "They're coming down the stairs. Don't fight fair.",
+      "Strum the guitar close to them [6, left click]. On the beat it reaches further.",
+      "Select the guitar with 6 or G, get close, left click on the beat. Sleeping Keepers stay down."
+    ],
+    "flow_niro": [
+      "He winds up before he rushes. Watch him, not the room.",
+      "Jump or dodge [C] the rush, then hit him while he recovers.",
+      "When he shows RECOVER, hit him: shank [1] or strum [6]. Dodge with C, then go again."
+    ],
+    "flow_descend": [
+      "He went down through a hatch.",
+      "A hatch on this floor is open now.",
+      "Find the open hatch on this floor and drop through it."
+    ],
+    "flow_final": [
+      "The bottom. Nowhere left for either of us.",
+      "Same as before, faster. Dodge, then punish.",
+      "Wait for RECOVER, hit him, back off. Repeat until he kneels."
+    ],
+    "DefeatExchange": [
+      "He's still talking. Listen.",
+      "Stand beside him.",
+      "Press E beside Niro."
+    ],
+    "ForestViewpoint": [
+      "The woods. Out.",
+      "Right side of the deepest floor.",
+      "Walk right to the opening and press E."
+    ],
+    "exit": [
+      "Out.",
+      "Right side of the deepest floor.",
+      "Walk right and press E."
+    ]
+  }
 }

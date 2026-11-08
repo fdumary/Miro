@@ -1,434 +1,2606 @@
 {
   "symptoms_1": {
     "provider": "ElevenLabs",
-    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
-    "voice_name": "George",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
     "text": "Another prisoner coughing. Did the transfer orders say where they go?",
-    "signature": "53f99dca214c98eb346176fb41857c4f72a2396fbe190d2bb6835dfec9627f4b",
+    "delivery": "[coughs] [uneasy]",
+    "signature": "45a36659ebf57339b8ce9d5b8d077d335552798cb46f450f7effa93469cce1e3",
     "leveling": {
-      "source_sha256": "0bea81d9e160380768bb7773351cef6969a080c9d37edd83f5616505d245aa81",
+      "source_sha256": "36221c3cfa51537ae25f4e79dbf01a58e75545d743715c13a080ae9d5e3826ca",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-23.26",
-        "input_tp": "-4.18",
-        "input_lra": "2.20",
-        "input_thresh": "-33.74",
-        "output_i": "-18.91",
+        "input_i": "-19.33",
+        "input_tp": "-1.65",
+        "input_lra": "1.00",
+        "input_thresh": "-29.56",
+        "output_i": "-17.67",
         "output_tp": "-2.00",
-        "output_lra": "0.00",
-        "output_thresh": "-29.28",
+        "output_lra": "2.60",
+        "output_thresh": "-28.10",
         "normalization_type": "dynamic",
-        "target_offset": "0.91"
+        "target_offset": "-0.33"
       },
-      "output_lufs": "-18.47",
-      "output_true_peak_dbtp": "-1.82"
+      "output_lufs": "-17.68",
+      "output_true_peak_dbtp": "-1.95"
     }
   },
   "symptoms_2": {
     "provider": "ElevenLabs",
-    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
-    "voice_name": "Roger",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
     "text": "Only the ward number. Nobody tells us what happens after that.",
-    "signature": "7a37e6e7bdc4e73a73f53ae8e7d8e9304dd69e184db3bf8ac8cde8f664bf9cdb",
+    "delivery": "[tired] [quietly]",
+    "signature": "2bd25c4b2aec989e904c5c8f80deaab8ba4df6e83e0f85f230006afe8810bdf0",
     "leveling": {
-      "source_sha256": "44c2eba4ab4c8cc21b55baee9d0b48bba404c286ba7aa83a9d098cc547f95b28",
+      "source_sha256": "4864d1b5b1a489b4ac3483044159bd7c203c245f53bf05445576aca9c404a449",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-26.64",
-        "input_tp": "-8.10",
-        "input_lra": "2.90",
-        "input_thresh": "-37.07",
-        "output_i": "-18.56",
-        "output_tp": "-2.00",
-        "output_lra": "0.00",
-        "output_thresh": "-29.10",
+        "input_i": "-16.82",
+        "input_tp": "-3.07",
+        "input_lra": "0.40",
+        "input_thresh": "-26.99",
+        "output_i": "-17.41",
+        "output_tp": "-3.92",
+        "output_lra": "0.20",
+        "output_thresh": "-27.71",
         "normalization_type": "dynamic",
-        "target_offset": "0.56"
+        "target_offset": "-0.59"
       },
-      "output_lufs": "-19.10",
-      "output_true_peak_dbtp": "-1.92"
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.37"
     }
   },
   "symptoms_3": {
     "provider": "ElevenLabs",
-    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
-    "voice_name": "George",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
     "text": "Keep your voice down. I'll check the passage. You watch the stairs.",
-    "signature": "45052ee0db6b58d74a854785080da615c8a29bb9a8e243387c4dcce7f2d47570",
+    "delivery": "[whispers] [tense]",
+    "signature": "679767877a7117e3c53145868dfa98a0532fa5fe71b999eaeb9530d17896e9f9",
     "leveling": {
-      "source_sha256": "4277a958e33a4c182676ff681166baef8b82c5f267e94ba50b91a07a06c866f2",
+      "source_sha256": "0b499098a783cebceb2f0264df3df967866f973fd08916fac165241f61fe4d5d",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-24.53",
-        "input_tp": "-4.44",
-        "input_lra": "1.90",
-        "input_thresh": "-34.73",
-        "output_i": "-18.77",
+        "input_i": "-20.68",
+        "input_tp": "-0.91",
+        "input_lra": "0.80",
+        "input_thresh": "-30.87",
+        "output_i": "-17.13",
         "output_tp": "-2.00",
-        "output_lra": "0.00",
-        "output_thresh": "-28.88",
+        "output_lra": "0.70",
+        "output_thresh": "-27.47",
         "normalization_type": "dynamic",
-        "target_offset": "0.77"
+        "target_offset": "-0.87"
       },
-      "output_lufs": "-18.56",
-      "output_true_peak_dbtp": "-1.89"
+      "output_lufs": "-18.07",
+      "output_true_peak_dbtp": "-1.91"
     }
   },
   "password_1": {
     "provider": "ElevenLabs",
-    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
-    "voice_name": "George",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
     "text": "I need to log into this terminal. What was the password again?",
-    "signature": "5feb1f7daebe8a3761948513838faf82f37ce1a9f2903ff47c1cea9e2a04f455",
+    "delivery": "[annoyed]",
+    "signature": "11aa58078217b62f3409a0be1e0ddfb386529b4d216dd8fe8360c7a7c0188129",
     "leveling": {
-      "source_sha256": "4817e661b74bde6a65c700c5cb3702fcffdd54fa3f9ac1267984457aa29767d7",
+      "source_sha256": "06f7c3384cc4853f2d13cbb97ee527fa519b6c6f8193ba3b615b8d57f8912a48",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-24.37",
-        "input_tp": "-1.48",
-        "input_lra": "2.80",
-        "input_thresh": "-35.21",
-        "output_i": "-18.97",
+        "input_i": "-19.64",
+        "input_tp": "-3.07",
+        "input_lra": "0.40",
+        "input_thresh": "-30.24",
+        "output_i": "-17.00",
         "output_tp": "-2.00",
         "output_lra": "0.00",
-        "output_thresh": "-29.79",
+        "output_thresh": "-27.54",
         "normalization_type": "dynamic",
-        "target_offset": "0.97"
+        "target_offset": "-1.00"
       },
-      "output_lufs": "-18.52",
-      "output_true_peak_dbtp": "-1.93"
+      "output_lufs": "-18.05",
+      "output_true_peak_dbtp": "-1.98"
     }
   },
   "password_2": {
     "provider": "ElevenLabs",
-    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
-    "voice_name": "Roger",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
     "text": "Root. All lowercase. R, O, O, T. Same as last shift.",
-    "signature": "4633fffdb3c36dfd9316fbc239c778820189c92bd083ddec209c56b3ac4d59d9",
+    "delivery": "[bored] [sighs]",
+    "signature": "95adc5dee95fcb8a5f3ffd7fee431db113715b27fa32d1c00005f9f260069ff9",
     "leveling": {
-      "source_sha256": "9562040539026ed7e168b2bbb7dfeb375c93cb6f498d54518e80fd8f4819414d",
+      "source_sha256": "1b99b1c41fa7574bc12d7184b3f4d67b61762c0367f766e7b486d02fde6857f3",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-24.94",
-        "input_tp": "-5.45",
-        "input_lra": "3.70",
-        "input_thresh": "-35.58",
-        "output_i": "-18.68",
-        "output_tp": "-2.00",
-        "output_lra": "2.30",
-        "output_thresh": "-29.26",
+        "input_i": "-18.00",
+        "input_tp": "-2.66",
+        "input_lra": "1.60",
+        "input_thresh": "-28.55",
+        "output_i": "-18.01",
+        "output_tp": "-2.70",
+        "output_lra": "1.40",
+        "output_thresh": "-28.36",
         "normalization_type": "dynamic",
-        "target_offset": "0.68"
+        "target_offset": "0.01"
       },
-      "output_lufs": "-18.48",
-      "output_true_peak_dbtp": "-1.96"
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.54"
     }
   },
   "password_3": {
     "provider": "ElevenLabs",
-    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
-    "voice_name": "George",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
     "text": "Right. Once you're in, you can disable both checkpoint cameras.",
-    "signature": "feda8acdcc854e102ab386df35d59f2ce409f9bc6943be815f447da063eb94b1",
+    "delivery": "[impatient]",
+    "signature": "20a5121108794e6db9c5e3625267cd58fa248d0ab7f341253034dac06f207f44",
     "leveling": {
-      "source_sha256": "7ba82ace4cd360a7282c407e61ffb8bb1f4bcf4b26810af90aa72085f2c0c428",
+      "source_sha256": "0384265000d374d54e8db9b920e983e7e62bd26dae6b69bee4a7c5119f9e1c4a",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-23.08",
-        "input_tp": "-4.94",
-        "input_lra": "0.60",
-        "input_thresh": "-33.41",
-        "output_i": "-18.29",
+        "input_i": "-18.59",
+        "input_tp": "-2.07",
+        "input_lra": "0.40",
+        "input_thresh": "-28.78",
+        "output_i": "-17.93",
         "output_tp": "-2.00",
-        "output_lra": "0.00",
-        "output_thresh": "-28.66",
+        "output_lra": "0.20",
+        "output_thresh": "-28.28",
         "normalization_type": "dynamic",
-        "target_offset": "0.29"
+        "target_offset": "-0.07"
       },
-      "output_lufs": "-18.23",
-      "output_true_peak_dbtp": "-1.98"
+      "output_lufs": "-18.13",
+      "output_true_peak_dbtp": "-1.99"
     }
   },
   "password_4": {
     "provider": "ElevenLabs",
-    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
-    "voice_name": "Roger",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
     "text": "I'll watch the far passage. Don't leave the terminal open.",
-    "signature": "0dc554cd8985c219248dcff87eb011366c5d259e8d2a8ee4462e15c946129cff",
+    "delivery": "[warning]",
+    "signature": "e45dc682ed0f39c78799a978fc76f57d5ec460dfae588965153c5b6eb064473c",
     "leveling": {
-      "source_sha256": "9af9de692055ed6f0465ab696811b9f8104a580b8db80f50e756aa41281beb24",
+      "source_sha256": "192889924688792098e77c17bfa791c7645609582cadaed7eca388f33521023f",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-24.92",
-        "input_tp": "-5.68",
-        "input_lra": "0.50",
-        "input_thresh": "-34.92",
-        "output_i": "-18.43",
-        "output_tp": "-2.00",
+        "input_i": "-18.39",
+        "input_tp": "-4.79",
+        "input_lra": "0.20",
+        "input_thresh": "-28.39",
+        "output_i": "-18.01",
+        "output_tp": "-4.49",
         "output_lra": "0.00",
-        "output_thresh": "-28.43",
+        "output_thresh": "-28.01",
         "normalization_type": "dynamic",
-        "target_offset": "0.43"
+        "target_offset": "0.01"
       },
-      "output_lufs": "-18.27",
-      "output_true_peak_dbtp": "-1.83"
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.43"
     }
   },
   "ward_1": {
     "provider": "ElevenLabs",
-    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
-    "voice_name": "George",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
     "text": "They sealed the ward again. Even our keys won't open that gate.",
-    "signature": "26187cfdac602452cb6292dc9be6a7005ec3cb026ce1475c6290f85d3198299a",
+    "delivery": "[frustrated]",
+    "signature": "0e4935251f5379db82219ad31896ddcb9b22dd2722ee4c5d757ca1d21467d712",
     "leveling": {
-      "source_sha256": "d92abb2c0bdcd9de3df64705652f4fc64dab737716b79cf7b65c09cd6410e845",
+      "source_sha256": "02ac3c0b9d6a5224abb972906380ba1fc993ea11c0cccf3b065b8e19bda6c69d",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-23.71",
-        "input_tp": "-2.89",
-        "input_lra": "2.10",
-        "input_thresh": "-34.34",
-        "output_i": "-18.56",
+        "input_i": "-18.99",
+        "input_tp": "-2.96",
+        "input_lra": "0.30",
+        "input_thresh": "-29.72",
+        "output_i": "-17.50",
         "output_tp": "-2.00",
-        "output_lra": "0.00",
-        "output_thresh": "-29.06",
+        "output_lra": "0.40",
+        "output_thresh": "-28.09",
         "normalization_type": "dynamic",
-        "target_offset": "0.56"
+        "target_offset": "-0.50"
       },
-      "output_lufs": "-18.32",
-      "output_true_peak_dbtp": "-1.76"
+      "output_lufs": "-17.86",
+      "output_true_peak_dbtp": "-1.96"
     }
   },
   "ward_2": {
     "provider": "ElevenLabs",
-    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
-    "voice_name": "Roger",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
     "text": "Read the experiment records first. Then use the manual release.",
-    "signature": "4f3a62f692bc60a2d6356289132332616fff7fd5eb1f7df0cd2dfbb3ee373bb2",
+    "delivery": "[nervous]",
+    "signature": "5fbfdb84b91aa08e755d9619546c65c41f7f9e1589f6a8e54681f4cda12fb59b",
     "leveling": {
-      "source_sha256": "2b305b7a9e52c1f7716064b2e9f65048b6b1cee6bbb4ea71a75165ee0a0dddd1",
+      "source_sha256": "740783e73198ff63943a263ddc460d2390f04f0b8991d811a0c040ad5274fada",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-24.57",
-        "input_tp": "-5.98",
-        "input_lra": "2.50",
-        "input_thresh": "-34.70",
-        "output_i": "-18.91",
-        "output_tp": "-2.00",
-        "output_lra": "0.00",
-        "output_thresh": "-29.03",
+        "input_i": "-17.13",
+        "input_tp": "-3.38",
+        "input_lra": "0.60",
+        "input_thresh": "-27.35",
+        "output_i": "-17.27",
+        "output_tp": "-3.84",
+        "output_lra": "0.40",
+        "output_thresh": "-27.45",
         "normalization_type": "dynamic",
-        "target_offset": "0.91"
+        "target_offset": "-0.73"
       },
-      "output_lufs": "-18.75",
-      "output_true_peak_dbtp": "-1.94"
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.35"
     }
   },
   "ward_3": {
     "provider": "ElevenLabs",
-    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
-    "voice_name": "George",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
     "text": "Fine. I'm turning back to the passage. I don't like standing here.",
-    "signature": "e6eca8fe2b503d787f672d13a19041ba358b0b66abb41eab9239d6fa29a357a1",
+    "delivery": "[scared] [quickly]",
+    "signature": "85d79adb5eb7b7c30c54ba5fae61fd90ff475a0f69fb4193bb73da071e6adfda",
     "leveling": {
-      "source_sha256": "c41801a6ba725355cc9c2ca869dd2b57545f6c3edf7f5011e0ffe8fe2386312c",
+      "source_sha256": "16ad92bac5ca74cbb22b3170981aba6d69502be8f846ce9f70a787aecd3fe4f7",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-23.22",
-        "input_tp": "-2.97",
-        "input_lra": "2.10",
-        "input_thresh": "-33.47",
-        "output_i": "-19.37",
+        "input_i": "-19.71",
+        "input_tp": "-1.63",
+        "input_lra": "1.10",
+        "input_thresh": "-30.41",
+        "output_i": "-18.23",
         "output_tp": "-2.00",
-        "output_lra": "0.80",
-        "output_thresh": "-29.72",
+        "output_lra": "1.40",
+        "output_thresh": "-29.06",
         "normalization_type": "dynamic",
-        "target_offset": "1.37"
+        "target_offset": "0.23"
       },
-      "output_lufs": "-18.96",
-      "output_true_peak_dbtp": "-1.94"
+      "output_lufs": "-18.67",
+      "output_true_peak_dbtp": "-1.71"
     }
   },
   "body_0": {
     "provider": "ElevenLabs",
-    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
-    "voice_name": "George",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
     "text": "No... I know him. We were on shift together. Someone's here!",
-    "signature": "ccb4ee887145bda81447b0f6ad901ac9dd7f9bbff6c7352ebc8ccdde0444cce2",
+    "delivery": "[shocked] [shaky]",
+    "signature": "3dcb3e27cfc40c4989a16d629843583cd1a2c978fdd26c50d220cd40935db9df",
     "leveling": {
-      "source_sha256": "6836c5608f65b548a08aedf1a7328600efc131ddf508dd8dbb2fdb99f08bb683",
+      "source_sha256": "c87bc7582c16eda4273735df5f196d700a2a83a35e09899b7945b7f44032a6fc",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-22.44",
-        "input_tp": "-3.36",
-        "input_lra": "1.40",
-        "input_thresh": "-32.84",
-        "output_i": "-18.98",
+        "input_i": "-18.75",
+        "input_tp": "-3.10",
+        "input_lra": "0.50",
+        "input_thresh": "-29.62",
+        "output_i": "-17.15",
         "output_tp": "-2.00",
-        "output_lra": "0.00",
-        "output_thresh": "-29.34",
+        "output_lra": "0.60",
+        "output_thresh": "-28.08",
         "normalization_type": "dynamic",
-        "target_offset": "0.98"
+        "target_offset": "-0.85"
       },
-      "output_lufs": "-18.86",
-      "output_true_peak_dbtp": "-1.91"
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.36"
     }
   },
   "body_1": {
     "provider": "ElevenLabs",
-    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
-    "voice_name": "Roger",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
     "text": "No... I know him. We were on shift together. Someone's here!",
-    "signature": "51b25da1c300615fa025d0a77322d20e4d2031e839d373b410bb1c3c74a418f1",
+    "delivery": "[shocked] [shaky]",
+    "signature": "dce935500108c172e765bfebd79ea321410db6f123fde602312d6ad74fdc94b3",
     "leveling": {
-      "source_sha256": "6dc51daf77062170beda1eb313cacac9b37d297c5fa5221261b2d0881fc1cb6e",
+      "source_sha256": "f95842e4d2c31dc85a84e9be963c03c083fbc86d7cd9f4384fc3a226315f6637",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-25.08",
-        "input_tp": "-4.63",
-        "input_lra": "0.80",
-        "input_thresh": "-35.43",
-        "output_i": "-18.73",
-        "output_tp": "-2.00",
-        "output_lra": "0.00",
-        "output_thresh": "-29.13",
+        "input_i": "-17.31",
+        "input_tp": "-3.67",
+        "input_lra": "0.50",
+        "input_thresh": "-27.75",
+        "output_i": "-17.86",
+        "output_tp": "-3.84",
+        "output_lra": "1.60",
+        "output_thresh": "-28.36",
         "normalization_type": "dynamic",
-        "target_offset": "0.73"
+        "target_offset": "-0.14"
       },
-      "output_lufs": "-18.36",
-      "output_true_peak_dbtp": "-1.80"
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-4.40"
     }
   },
   "body_2": {
     "provider": "ElevenLabs",
-    "voice_id": "N2lVS1w4EtoT3dr4eOWO",
-    "voice_name": "Callum",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
     "text": "No... I know him. We were on shift together. Someone's here!",
-    "signature": "d260c6bbb064d5be06a8b7a4f2c071994163f3e0e76f97bcab527115106d0e66",
+    "delivery": "[shocked] [shaky]",
+    "signature": "265eee2904a5110009cd0948da4f9bafbead52d827d6511caad5ac0541e8b18c",
     "leveling": {
-      "source_sha256": "2f834dbad530c36a8b3ff28df74fe6ffdeb16d3c20b7454e0015a55b298cb74d",
+      "source_sha256": "26dc40c352b1a763f850d4d5a079301a1d3d3a33b5bf990525c311357aeda6f2",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-19.79",
-        "input_tp": "-1.85",
-        "input_lra": "0.70",
-        "input_thresh": "-30.62",
-        "output_i": "-18.28",
+        "input_i": "-18.80",
+        "input_tp": "-0.71",
+        "input_lra": "2.00",
+        "input_thresh": "-30.16",
+        "output_i": "-17.59",
         "output_tp": "-2.00",
-        "output_lra": "0.30",
-        "output_thresh": "-29.22",
+        "output_lra": "1.80",
+        "output_thresh": "-29.18",
         "normalization_type": "dynamic",
-        "target_offset": "0.28"
+        "target_offset": "-0.41"
       },
-      "output_lufs": "-18.20",
-      "output_true_peak_dbtp": "-1.87"
+      "output_lufs": "-18.16",
+      "output_true_peak_dbtp": "-1.72"
     }
   },
   "alert_0": {
     "provider": "ElevenLabs",
-    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
-    "voice_name": "George",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
     "text": "You there! Stop!",
-    "signature": "f534c0c5efac9fa391d1c8c9d068f71f58ef66a8ee3b7727d4e29f2b4d8ddcff",
+    "delivery": "[shouting]",
+    "signature": "0311a3a4d17b7e32ed988e159ea70a477c04d4a0306f58353841a3aa7d2fb4b4",
     "leveling": {
-      "source_sha256": "90806c68d67bfd911abc2531c1bf152bd07609dc7d81c29c06867037a5c42c01",
+      "source_sha256": "1fabf7cbf1f59b02dcb1572a69d8dc3404e7f4cec43a2556be423f846fe5b094",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-22.45",
-        "input_tp": "-4.68",
+        "input_i": "-16.74",
+        "input_tp": "-2.84",
         "input_lra": "0.00",
-        "input_thresh": "-32.96",
-        "output_i": "-19.75",
-        "output_tp": "-2.00",
+        "input_thresh": "-27.13",
+        "output_i": "-18.00",
+        "output_tp": "-4.10",
         "output_lra": "0.00",
-        "output_thresh": "-30.26",
+        "output_thresh": "-28.40",
         "normalization_type": "linear",
-        "target_offset": "1.75"
+        "target_offset": "0.00"
       },
-      "output_lufs": "-19.76",
-      "output_true_peak_dbtp": "-2.03"
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.90"
     }
   },
   "alert_1": {
     "provider": "ElevenLabs",
-    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
-    "voice_name": "Roger",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
     "text": "You there! Stop!",
-    "signature": "39ba4dee4efc3ac26a9429913c3cf22ef186389f6bcc76edec61ad66ef99d408",
+    "delivery": "[shouting]",
+    "signature": "783eb6c93ab397d618905e959fa194df59428ad8a82591bda9c31f3cccdb3c3b",
     "leveling": {
-      "source_sha256": "085062978d1db3a702c822f86614eebfbdc67ac78508c78409755fdc7827a8a7",
+      "source_sha256": "4a72b0aa7d6c45022b1898a934a36c0d6ec04b098e9025e28a10e7d35677d01c",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
-        "input_i": "-22.18",
-        "input_tp": "-5.14",
+        "input_i": "-15.17",
+        "input_tp": "-2.25",
         "input_lra": "0.00",
-        "input_thresh": "-32.59",
-        "output_i": "-19.05",
-        "output_tp": "-2.00",
+        "input_thresh": "-25.17",
+        "output_i": "-17.99",
+        "output_tp": "-5.08",
         "output_lra": "0.00",
-        "output_thresh": "-29.46",
+        "output_thresh": "-27.99",
         "normalization_type": "linear",
-        "target_offset": "1.05"
+        "target_offset": "-0.01"
       },
-      "output_lufs": "-19.06",
-      "output_true_peak_dbtp": "-2.11"
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-5.04"
     }
   },
   "alert_2": {
     "provider": "ElevenLabs",
-    "voice_id": "N2lVS1w4EtoT3dr4eOWO",
-    "voice_name": "Callum",
-    "model_id": "eleven_multilingual_v2",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
     "text": "You there! Stop!",
-    "signature": "1d0ab78258f84cf5a7329d047da60d6e22821d506bccc718befef315da5dba81",
+    "delivery": "[shouting]",
+    "signature": "341d12f9bf813da21150c554e7f97eccd4785c7202147e055a3c4480a7a7c051",
     "leveling": {
-      "source_sha256": "c49ba210146c7e477c80b3dac1c24d46b27a5448af0f984140f34e16e6eb3f03",
+      "source_sha256": "6adc2144a80a90d1f73bcf429fa511f14a57ea9bea53617edccfd231f11cfcc2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.19",
+        "input_tp": "-1.46",
+        "input_lra": "0.00",
+        "input_thresh": "-26.56",
+        "output_i": "-18.00",
+        "output_tp": "-3.27",
+        "output_lra": "0.00",
+        "output_thresh": "-28.37",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.25"
+    }
+  },
+  "treason_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
+    "text": "The one from Cell 07. They say he opened a door he shouldn't have.",
+    "delivery": "[whispers] [gossiping]",
+    "signature": "6afb0ffad928e199efcba93ab86ad208cadabeec0f1a49c2e0bac366ca4e05ff",
+    "leveling": {
+      "source_sha256": "04acbfd86f588b2471d35a24438c5a584e79c55cd63e6edaa3282b610607f639",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.21",
+        "input_tp": "-3.50",
+        "input_lra": "0.90",
+        "input_thresh": "-27.40",
+        "output_i": "-18.14",
+        "output_tp": "-4.69",
+        "output_lra": "1.70",
+        "output_thresh": "-28.42",
+        "normalization_type": "dynamic",
+        "target_offset": "0.14"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.30"
+    }
+  },
+  "treason_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "I heard he refused an order. Same thing, up here.",
+    "delivery": "[bitter]",
+    "signature": "f593a8a67bb7d63129097d8dbd1657d6d39adf100cdf51fd889b45e1f5a477a5",
+    "leveling": {
+      "source_sha256": "3f28ef592870b094fde9c3bf6079d69b0053edf7a5c4100f49c78285a0e6b9fe",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.68",
+        "input_tp": "-2.88",
+        "input_lra": "0.90",
+        "input_thresh": "-29.12",
+        "output_i": "-16.60",
+        "output_tp": "-2.00",
+        "output_lra": "0.40",
+        "output_thresh": "-26.99",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.40"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.27"
+    }
+  },
+  "branch_missing_0": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Someone let him out. Somebody on our shift.",
+    "delivery": "[suspicious] [low]",
+    "signature": "21c1c3e151983e4e52caad98127c194d8c7215df56b7c4eeba10ddc4405fc830",
+    "leveling": {
+      "source_sha256": "3d90db71be2f61686843f0391d5382284d72a68692d3d9ed12f8f2b42db665e4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.65",
+        "input_tp": "-3.63",
+        "input_lra": "0.80",
+        "input_thresh": "-30.19",
+        "output_i": "-17.19",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.72",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.81"
+      },
+      "output_lufs": "-18.17",
+      "output_true_peak_dbtp": "-2.14"
+    }
+  },
+  "branch_missing_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
+    "text": "Check the lockers again. He can't just vanish.",
+    "delivery": "[frustrated]",
+    "signature": "c8a3b959d291b72bda6087a3d4785c15099c0e6c2ba60c8a14c7c719145cadc8",
+    "leveling": {
+      "source_sha256": "96c3917bb4cad041956df379d88980914f795a6b247c20d094c885ebe063843e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.75",
+        "input_tp": "-3.64",
+        "input_lra": "0.50",
+        "input_thresh": "-27.89",
+        "output_i": "-17.56",
+        "output_tp": "-3.43",
+        "output_lra": "0.00",
+        "output_thresh": "-27.69",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.44"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.96"
+    }
+  },
+  "branch_hunted_0": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "He killed Rowan. Rowan had a daughter.",
+    "delivery": "[angry] [voice breaking]",
+    "signature": "36049a4c94667f2ec09ed673bd98ffee0d9c8b47c2db3522c771f8cf2bc6fd0c",
+    "leveling": {
+      "source_sha256": "9d60183cbb3c98c9b5f0824e2fa5d0df3fd2dd400bafc94a317f97f2e60b47d2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.60",
+        "input_tp": "-1.69",
+        "input_lra": "0.70",
+        "input_thresh": "-29.29",
+        "output_i": "-17.30",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.61",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.70"
+      },
+      "output_lufs": "-17.24",
+      "output_true_peak_dbtp": "-1.93"
+    }
+  },
+  "branch_hunted_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
+    "text": "Stay in pairs. Don't let him get close.",
+    "delivery": "[scared]",
+    "signature": "d7e949d0c161cd826834fe82c9b36704250acf0a91e6fadb0e6f9b1e78260312",
+    "leveling": {
+      "source_sha256": "4a4f83219c6a6a87462b33791e6af90e38a670f5db5d4405ff34a610962e3e14",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.97",
+        "input_tp": "-3.52",
+        "input_lra": "0.10",
+        "input_thresh": "-27.12",
+        "output_i": "-17.81",
+        "output_tp": "-4.39",
+        "output_lra": "0.00",
+        "output_thresh": "-27.96",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.19"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.51"
+    }
+  },
+  "niro_2833dd4b30": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Come back. Let me take you out of here.\nWe used to trust each other.",
+    "delivery": "[intense]",
+    "signature": "5bcc376e4cc3551ce2a551f5d1f63fc4a1862d958cb47da5aef662e05951eada",
+    "leveling": {
+      "source_sha256": "12840d7274a8a584247a63d544c42effe3d0e4f4cd5941c66cfdf05328a83253",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.40",
+        "input_tp": "-0.89",
+        "input_lra": "1.90",
+        "input_thresh": "-29.50",
+        "output_i": "-18.31",
+        "output_tp": "-2.00",
+        "output_lra": "2.60",
+        "output_thresh": "-29.11",
+        "normalization_type": "dynamic",
+        "target_offset": "0.31"
+      },
+      "output_lufs": "-18.06",
+      "output_true_peak_dbtp": "-1.85"
+    }
+  },
+  "niro_628d72a58b": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Miro. It's Niro. You are my brother.\nYou kept order; I kept the ward. I thought we were helping people.",
+    "delivery": "[intense]",
+    "signature": "7928bca530481bc7e5a5ffba8001db23aea44af18c2680c10946769b80adf101",
+    "leveling": {
+      "source_sha256": "1dc66e28a1560c7bdc3dc4ac8ceb8a39f65ae5acce0890d667173e7f923c99f2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.30",
+        "input_tp": "-1.33",
+        "input_lra": "2.40",
+        "input_thresh": "-29.85",
+        "output_i": "-18.58",
+        "output_tp": "-2.00",
+        "output_lra": "2.50",
+        "output_thresh": "-29.10",
+        "normalization_type": "dynamic",
+        "target_offset": "0.58"
+      },
+      "output_lufs": "-18.41",
+      "output_true_peak_dbtp": "-1.67"
+    }
+  },
+  "niro_a05a866c01": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "I became a doctor to help people. These wards are all I know.\nIf the seals fail, prisoners and Keepers both get sick.",
+    "delivery": "[intense]",
+    "signature": "8e17b43cbe627c445ee5ade090a8b251b9d1a175717f99cc92be13c7e1250d53",
+    "leveling": {
+      "source_sha256": "0d9a8cf2da3bc8192d78a228af1b48980bdf9ba4cd431482024a233450f3fe40",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.76",
+        "input_tp": "-2.57",
+        "input_lra": "1.90",
+        "input_thresh": "-29.94",
+        "output_i": "-18.13",
+        "output_tp": "-2.00",
+        "output_lra": "1.80",
+        "output_thresh": "-28.27",
+        "normalization_type": "dynamic",
+        "target_offset": "0.13"
+      },
+      "output_lufs": "-18.18",
+      "output_true_peak_dbtp": "-1.90"
+    }
+  },
+  "niro_59ba31d404": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "They told me there was no other way. I need to believe\nwe can still make this work.",
+    "delivery": "[intense]",
+    "signature": "4d75a2c11421826cf09c8c9413802804e7285cf51b2e929841409ca78830045f",
+    "leveling": {
+      "source_sha256": "0aeaa81d1c596cbd612724adc67101769f1917cb213279fdfe778ec737be2d6e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.24",
+        "input_tp": "-2.69",
+        "input_lra": "1.30",
+        "input_thresh": "-30.24",
+        "output_i": "-17.74",
+        "output_tp": "-2.00",
+        "output_lra": "0.60",
+        "output_thresh": "-27.74",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.26"
+      },
+      "output_lufs": "-17.88",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "niro_6c60638bd7": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Put it down, Miro. You were never supposed to wake up this far down.",
+    "delivery": "[intense]",
+    "signature": "d72100983e63e1e5f9c5fed4048ed7822ee2a0f0f87278d768aeec83c38e12e2",
+    "leveling": {
+      "source_sha256": "e438247068603d55b99d3912b52472223af72b1bd89e421058ef2b1940b619bc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.62",
+        "input_tp": "-1.67",
+        "input_lra": "0.70",
+        "input_thresh": "-30.85",
+        "output_i": "-17.84",
+        "output_tp": "-2.00",
+        "output_lra": "0.80",
+        "output_thresh": "-28.03",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.16"
+      },
+      "output_lufs": "-18.10",
+      "output_true_peak_dbtp": "-1.74"
+    }
+  },
+  "niro_367b7cef9e": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You were never sick. Exposure after exposure, nothing.\nYou are immune, Miro. You always were.",
+    "delivery": "[intense]",
+    "signature": "43dc6f2a776d502c6ba704f5a8443e35c66f146ea9e8e86bf7e64e233e1ec1cf",
+    "leveling": {
+      "source_sha256": "f6626a614b8f410e87a59bc20955355c7043f17ac1a241dca14d9ddc0fac5a91",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.03",
+        "input_tp": "-2.40",
+        "input_lra": "3.30",
+        "input_thresh": "-30.40",
+        "output_i": "-18.54",
+        "output_tp": "-2.00",
+        "output_lra": "2.10",
+        "output_thresh": "-28.83",
+        "normalization_type": "dynamic",
+        "target_offset": "0.54"
+      },
+      "output_lufs": "-18.22",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "niro_99d8018a0e": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "The tower made the sickness. They called it progress.\nWhen it got out, they told me you were our only chance.",
+    "delivery": "[intense]",
+    "signature": "a349aa07bd0ee0ccd7bc79924194e43dd72ce72004ad7fe3ca653baae6e0289c",
+    "leveling": {
+      "source_sha256": "f92e149f76afcc4aaa52c44920a695cec536a6e3e1f3564546dc506a0983762e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.26",
+        "input_tp": "-0.95",
+        "input_lra": "3.80",
+        "input_thresh": "-29.48",
+        "output_i": "-18.88",
+        "output_tp": "-2.00",
+        "output_lra": "2.00",
+        "output_thresh": "-29.17",
+        "normalization_type": "dynamic",
+        "target_offset": "0.88"
+      },
+      "output_lufs": "-18.74",
+      "output_true_peak_dbtp": "-1.42"
+    }
+  },
+  "niro_f037a8ec67": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "I kept you alive. I thought if I understood why, I could save everyone.\nThey said you'd destroy the cure if you got out. I believed them.",
+    "delivery": "[intense]",
+    "signature": "0b967333d4b2fc508342a8cf2f976410a9da4164f7a9b783316d20be987bc147",
+    "leveling": {
+      "source_sha256": "781c6713d74f8d4938f72ed7cea6a958e5ba59e0018bb00cc6fd5b325c63577b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.83",
+        "input_tp": "-1.07",
+        "input_lra": "5.20",
+        "input_thresh": "-29.93",
+        "output_i": "-19.28",
+        "output_tp": "-2.00",
+        "output_lra": "2.00",
+        "output_thresh": "-29.46",
+        "normalization_type": "dynamic",
+        "target_offset": "1.28"
+      },
+      "output_lufs": "-18.68",
+      "output_true_peak_dbtp": "-1.50"
+    }
+  },
+  "niro_700e506fe0": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "I believed keeping you here was love.",
+    "delivery": "[intense]",
+    "signature": "4e648e06a7e242b4cfc174a15ce62c3ac24872967cac0c3a343952cba625d9f0",
+    "leveling": {
+      "source_sha256": "94f5c72104d26cb3b1895923d0b3576b49065de486b5e6adda5e581fe2fd8056",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.58",
+        "input_tp": "-2.76",
+        "input_lra": "0.00",
+        "input_thresh": "-32.58",
+        "output_i": "-21.82",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-31.82",
+        "normalization_type": "linear",
+        "target_offset": "3.82"
+      },
+      "output_lufs": "-21.82",
+      "output_true_peak_dbtp": "-2.05"
+    }
+  },
+  "niro_5b185efc56": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Stay. Help me finish it. If all of this was for nothing...\nI do not know who I have been.",
+    "delivery": "[intense]",
+    "signature": "9303fbce7f355de40d3a41e29857fe43cedc47beb31ff978a13cff9162cbf837",
+    "leveling": {
+      "source_sha256": "893f3f51fb2c1c27608df7304add735fad580552984dbf87558530ef8d0f2426",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.57",
+        "input_tp": "-1.38",
+        "input_lra": "4.20",
+        "input_thresh": "-30.17",
+        "output_i": "-18.71",
+        "output_tp": "-2.00",
+        "output_lra": "2.90",
+        "output_thresh": "-29.22",
+        "normalization_type": "dynamic",
+        "target_offset": "0.71"
+      },
+      "output_lufs": "-18.72",
+      "output_true_peak_dbtp": "-1.35"
+    }
+  },
+  "niro_e4835b9559": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Then come, brother.",
+    "delivery": "[intense]",
+    "signature": "a594c20a67534759e7cb765fd072c5cb05bf422a0fe48b38e03d376adab81b2e",
+    "leveling": {
+      "source_sha256": "35aec5324aa6e528f82a642ecdc946f30e362a4c8067b9a77f38df33b39a81d3",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.22",
+        "input_tp": "-2.92",
+        "input_lra": "0.00",
+        "input_thresh": "-29.22",
+        "output_i": "-18.32",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.32",
+        "normalization_type": "linear",
+        "target_offset": "0.32"
+      },
+      "output_lufs": "-18.30",
+      "output_true_peak_dbtp": "-2.11"
+    }
+  },
+  "niro_737778b375": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "The sick are still real. Whatever the tower did...\ndo not forget them.",
+    "delivery": "[intense]",
+    "signature": "5bd90b38e488d85f498b7273b47f22a5e45ba4ceb57a253e18794af691e767b7",
+    "leveling": {
+      "source_sha256": "e60b2450115cfb85c02a57e668273c9d721a38adc5cdc77e8bfceef735e4f08b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.27",
+        "input_tp": "-3.39",
+        "input_lra": "4.90",
+        "input_thresh": "-29.78",
+        "output_i": "-19.03",
+        "output_tp": "-3.84",
+        "output_lra": "3.50",
+        "output_thresh": "-29.48",
+        "normalization_type": "dynamic",
+        "target_offset": "1.03"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.19"
+    }
+  },
+  "niro_a8901c4c6e": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "I wanted a life where I could keep you safe.\nThey gave me a title, and I mistook it for a choice.",
+    "delivery": "[intense]",
+    "signature": "1b60224c5f6eb21cf3acf15cdbbec31f792b6a5c957b4b51d5428f95b296bbf0",
+    "leveling": {
+      "source_sha256": "d549104fb25257abf6f20c83ad5b16e902f53f4a313bd89cfb50ef3755e71b9b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.90",
+        "input_tp": "-2.51",
+        "input_lra": "1.20",
+        "input_thresh": "-29.35",
+        "output_i": "-17.71",
+        "output_tp": "-2.00",
+        "output_lra": "2.00",
+        "output_thresh": "-28.09",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.29"
+      },
+      "output_lufs": "-17.65",
+      "output_true_peak_dbtp": "-1.61"
+    }
+  },
+  "niro_a066a9621c": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "(He looks at the lab, not at Miro.)\nSomeone has to stay with them. Go.",
+    "delivery": "[intense]",
+    "signature": "6c3ca3497a1bdee10eb0d39bca30bce7560c47fccc1c5797f7cb2ddbe669f331",
+    "leveling": {
+      "source_sha256": "b6efa7e1fe9367d1fff92d19b6e4db231a324478e9abcee5de215713c74a701f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.72",
+        "input_tp": "-3.68",
+        "input_lra": "5.90",
+        "input_thresh": "-33.18",
+        "output_i": "-18.04",
+        "output_tp": "-2.00",
+        "output_lra": "2.30",
+        "output_thresh": "-28.96",
+        "normalization_type": "dynamic",
+        "target_offset": "0.04"
+      },
+      "output_lufs": "-18.34",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "niro_89b72b35cd": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You are still my brother.",
+    "delivery": "[intense]",
+    "signature": "6f9a14510ef0b282e049694fa12ceb5978ef0000e65daa66c10383e0ffe2e6de",
+    "leveling": {
+      "source_sha256": "b4c7b4500deeb1631cc7a33f859ecdc59348c19367700c665f32f07cf74a15fc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.11",
+        "input_tp": "-4.30",
+        "input_lra": "0.50",
+        "input_thresh": "-31.50",
+        "output_i": "-17.37",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.69",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.63"
+      },
+      "output_lufs": "-17.95",
+      "output_true_peak_dbtp": "-1.72"
+    }
+  },
+  "niro_e0ae8640eb": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Every time you raise that thing, they write it down.\nDangerous. Unstable. You're proving them right.",
+    "delivery": "[intense]",
+    "signature": "06f9131ae25a64ab880ff5aa3b1bef619676a51ef34609959c754d0d86c85a5c",
+    "leveling": {
+      "source_sha256": "769b7d63c1047fdc14aa9f2918422aed799c2780bf5e23333d2f70c32adc12ba",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.50",
+        "input_tp": "-3.08",
+        "input_lra": "3.00",
+        "input_thresh": "-30.05",
+        "output_i": "-18.03",
+        "output_tp": "-2.23",
+        "output_lra": "1.50",
+        "output_thresh": "-28.66",
+        "normalization_type": "dynamic",
+        "target_offset": "0.03"
+      },
+      "output_lufs": "-18.47",
+      "output_true_peak_dbtp": "-2.63"
+    }
+  },
+  "niro_b711c20d25": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "This floor holds everything up. Me included.\nStop, Miro.",
+    "delivery": "[pleading]",
+    "signature": "9ed12c240a93202cb6ca39b503872046a2a0adcc27244fec458f7428a8f2e12d",
+    "leveling": {
+      "source_sha256": "99199fae22b1a2a1611daa279462c8e0d3e1bfe60aced8fe34cf71cd7d549024",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.80",
+        "input_tp": "-1.17",
+        "input_lra": "1.00",
+        "input_thresh": "-28.80",
+        "output_i": "-17.65",
+        "output_tp": "-2.00",
+        "output_lra": "0.70",
+        "output_thresh": "-27.65",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.35"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-1.80"
+    }
+  },
+  "niro_2bca09558f": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Not here. Not like this.",
+    "delivery": "[intense]",
+    "signature": "608d87660f42c1f342dffd40c031fd75e8414f15e71eb2eaa5b4f5c2a8001106",
+    "leveling": {
+      "source_sha256": "727925e6bba45a32f1274633b8b8e7509080e5d94e78d363cf6161fa7209e006",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.52",
+        "input_tp": "-2.40",
+        "input_lra": "0.00",
+        "input_thresh": "-28.71",
+        "output_i": "-18.12",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.31",
+        "normalization_type": "linear",
+        "target_offset": "0.12"
+      },
+      "output_lufs": "-18.10",
+      "output_true_peak_dbtp": "-1.84"
+    }
+  },
+  "niro_4e9c139eb2": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You don't understand what's down there.",
+    "delivery": "[intense]",
+    "signature": "528d577007609278e0e7a75b00bb7c94bd757de0b3dcd10ea90f2b2e3f37df0e",
+    "leveling": {
+      "source_sha256": "2e78edf042b4259f0b0f888d9cf3fe47bb0c8fef9308aecb316fdf8b47dbf7c1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.29",
+        "input_tp": "-3.26",
+        "input_lra": "0.00",
+        "input_thresh": "-31.29",
+        "output_i": "-20.03",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.03",
+        "normalization_type": "linear",
+        "target_offset": "2.03"
+      },
+      "output_lufs": "-20.00",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "niro_fb40ed3dde": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Then come to the bottom. See what you're breaking.",
+    "delivery": "[intense]",
+    "signature": "ccd4d76b272ef02a1d39886dae8475e497f8c75d9867afebc69a1e14993b3f44",
+    "leveling": {
+      "source_sha256": "cdfbc18bde2c7f69bbd4aa4f7e379c933335f01059bd74e56687f60a99913ce8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.41",
+        "input_tp": "-1.56",
+        "input_lra": "0.60",
+        "input_thresh": "-28.22",
+        "output_i": "-17.11",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.92",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.89"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.20"
+    }
+  },
+  "niro_99f4f44da6": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Can you hear me? Good. I hate this thing too. It makes me sound like them.",
+    "delivery": "[unhinged]",
+    "signature": "ea06141b46eb771157e4621229332805501bbbae78d38e3a05320008ddc60b58",
+    "leveling": {
+      "source_sha256": "70cd00115fea75621d04711fd7fa02d53ee181e442599dd17245019a570729d2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.24",
+        "input_tp": "-4.44",
+        "input_lra": "1.10",
+        "input_thresh": "-30.35",
+        "output_i": "-17.82",
+        "output_tp": "-2.72",
+        "output_lra": "0.90",
+        "output_thresh": "-27.97",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.18"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.19"
+    }
+  },
+  "niro_9f2a0012ca": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You're running in circles, Miro. I drew the circles.",
+    "delivery": "[unhinged]",
+    "signature": "23a5bb4bdbb63fcdb57efbfdb9b96eee3cf84ca154d836701ca67d317c19ac5e",
+    "leveling": {
+      "source_sha256": "c36a314bf24fc2722479469919c722ea42da5d9eb073a6db8e1148f87a7760a3",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.57",
+        "input_tp": "-0.86",
+        "input_lra": "2.00",
+        "input_thresh": "-27.95",
+        "output_i": "-18.15",
+        "output_tp": "-2.03",
+        "output_lra": "1.70",
+        "output_thresh": "-28.60",
+        "normalization_type": "dynamic",
+        "target_offset": "0.15"
+      },
+      "output_lufs": "-18.63",
+      "output_true_peak_dbtp": "-2.21"
+    }
+  },
+  "niro_6cdd67e828": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Every Keeper you put to sleep is a report I write tonight. In my handwriting.",
+    "delivery": "[unhinged]",
+    "signature": "062caa5993e0102ba4253d37cf71ebae989e39f7f3d3e004d4f2a174b11893c8",
+    "leveling": {
+      "source_sha256": "c7fdb1079a378447430055a6a282c53e62471aa8ac3341c3f0a52f76a325f587",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.08",
+        "input_tp": "-0.79",
+        "input_lra": "2.70",
+        "input_thresh": "-30.56",
+        "output_i": "-18.55",
+        "output_tp": "-2.00",
+        "output_lra": "1.90",
+        "output_thresh": "-28.92",
+        "normalization_type": "dynamic",
+        "target_offset": "0.55"
+      },
+      "output_lufs": "-18.15",
+      "output_true_peak_dbtp": "-1.60"
+    }
+  },
+  "niro_cb07e495f3": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "They're not hunting you. They're collecting you. There's a difference. I made sure of it.",
+    "delivery": "[unhinged]",
+    "signature": "078e46cc3bb6149cc6eaf6ec40ee589b93d03100799234a534e86c7295849ec4",
+    "leveling": {
+      "source_sha256": "2b8bb5a50f1dfc10e66d6a3c5cbc36e8cf6c8ed2133cea207f4a93be8d2ad557",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.76",
+        "input_tp": "-1.49",
+        "input_lra": "2.10",
+        "input_thresh": "-30.17",
+        "output_i": "-18.41",
+        "output_tp": "-2.00",
+        "output_lra": "2.80",
+        "output_thresh": "-28.93",
+        "normalization_type": "dynamic",
+        "target_offset": "0.41"
+      },
+      "output_lufs": "-18.25",
+      "output_true_peak_dbtp": "-1.75"
+    }
+  },
+  "niro_98c21d71f0": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Slow down. Your heart rate's on my screen. You'll tear something I stitched.",
+    "delivery": "[unhinged]",
+    "signature": "bb2a6cc63af52f110b6193515d5715534c4f527cd398e401ee324c346381ef4b",
+    "leveling": {
+      "source_sha256": "4382e821785f1c45378d4951fb7c4bea1259c881c6dc84ef5cc6d3f3cafcffe9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.05",
+        "input_tp": "-0.86",
+        "input_lra": "2.40",
+        "input_thresh": "-28.91",
+        "output_i": "-18.35",
+        "output_tp": "-2.00",
+        "output_lra": "1.90",
+        "output_thresh": "-29.10",
+        "normalization_type": "dynamic",
+        "target_offset": "0.35"
+      },
+      "output_lufs": "-18.16",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "niro_f19602b658": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Nobody leaves this tower, Miro. Not the sick. Not the Keepers. Not me.",
+    "delivery": "[unhinged]",
+    "signature": "46b37e3bc787b658f0191f67fbbb246a665f432e59ab80de23fd6a4e86eba3be",
+    "leveling": {
+      "source_sha256": "ceba590a9efc5938604b9e348d0884a1bc4d1728928d14f7a942ecee96c4ca4d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.29",
+        "input_tp": "-0.93",
+        "input_lra": "4.80",
+        "input_thresh": "-29.72",
+        "output_i": "-18.85",
+        "output_tp": "-2.00",
+        "output_lra": "1.90",
+        "output_thresh": "-29.26",
+        "normalization_type": "dynamic",
+        "target_offset": "0.85"
+      },
+      "output_lufs": "-18.83",
+      "output_true_peak_dbtp": "-1.85"
+    }
+  },
+  "niro_24e11665ef": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Down is the wrong way. Down is where I keep the truth. Come and look, then.",
+    "delivery": "[unhinged]",
+    "signature": "0eafb57047c501f1e8c7475f29165bdd4ec6a399a363cf02afe6065e2cf9420d",
+    "leveling": {
+      "source_sha256": "7801396b93e91bda0fbb93950d3c7e2bf0b9eedc181855329ae0b3409a38d309",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.56",
+        "input_tp": "-2.63",
+        "input_lra": "6.50",
+        "input_thresh": "-32.54",
+        "output_i": "-18.95",
+        "output_tp": "-2.00",
+        "output_lra": "3.50",
+        "output_thresh": "-29.95",
+        "normalization_type": "dynamic",
+        "target_offset": "0.95"
+      },
+      "output_lufs": "-18.39",
+      "output_true_peak_dbtp": "-1.82"
+    }
+  },
+  "niro_529c309714": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Nobody even knows your face anymore. Come home before they do.",
+    "delivery": "[intense]",
+    "signature": "f35d049f5bad42759fd847893ab418659156aca2186d250eefabcc5ca37022ae",
+    "leveling": {
+      "source_sha256": "0ff8589cd75c9a96dfcec136cfe8e4b570a76302a40fa60147f1c0ae2c417ccb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.56",
+        "input_tp": "-2.72",
+        "input_lra": "2.10",
+        "input_thresh": "-33.12",
+        "output_i": "-18.83",
+        "output_tp": "-2.00",
+        "output_lra": "3.30",
+        "output_thresh": "-29.21",
+        "normalization_type": "dynamic",
+        "target_offset": "0.83"
+      },
+      "output_lufs": "-18.59",
+      "output_true_peak_dbtp": "-1.86"
+    }
+  },
+  "niro_68ca6d623e": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You walked through my whole tower and nobody saw you. You could have just left.",
+    "delivery": "[intense]",
+    "signature": "cebaca8e297dfabc534bc2bd9a3414f7f942925a98b264a510a4a73e2ea607fc",
+    "leveling": {
+      "source_sha256": "34a4cbb491145f32ff19d423966b23dd6afb492d6e326f0be766f104ea3d7c99",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.57",
+        "input_tp": "-3.51",
+        "input_lra": "1.20",
+        "input_thresh": "-29.89",
+        "output_i": "-17.70",
+        "output_tp": "-2.00",
+        "output_lra": "1.00",
+        "output_thresh": "-27.94",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.30"
+      },
+      "output_lufs": "-17.93",
+      "output_true_peak_dbtp": "-1.73"
+    }
+  },
+  "niro_b492b2b223": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "They're calling you a monster. Stop proving them right.",
+    "delivery": "[pleading]",
+    "signature": "1999885ae66e0afce8ece4d6a5886fec910db13ff66189f8d27527e2e8be4ba0",
+    "leveling": {
+      "source_sha256": "fab8133e08ad2b9bd68d533b8ac9ce626aee7f0076764c6f9690b5a91bd34072",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.99",
+        "input_tp": "-1.95",
+        "input_lra": "0.30",
+        "input_thresh": "-28.24",
+        "output_i": "-18.18",
+        "output_tp": "-2.00",
+        "output_lra": "0.10",
+        "output_thresh": "-28.41",
+        "normalization_type": "dynamic",
+        "target_offset": "0.18"
+      },
+      "output_lufs": "-17.86",
+      "output_true_peak_dbtp": "-1.90"
+    }
+  },
+  "niro_aafe65c4a0": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "How many, Miro? How many before you're what they said?",
+    "delivery": "[mocking]",
+    "signature": "b8bf4e28b3c0bbbad4f1aac74bd9222dca8543316532e82d34eab7760fca26ea",
+    "leveling": {
+      "source_sha256": "bcab4b52b7d2d5dc5d16bc7375ea20f6ce1f5146b9b0f7155d5cc3923d86b20f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.32",
+        "input_tp": "-0.54",
+        "input_lra": "2.30",
+        "input_thresh": "-28.72",
+        "output_i": "-17.94",
+        "output_tp": "-2.00",
+        "output_lra": "1.40",
+        "output_thresh": "-28.30",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.06"
+      },
+      "output_lufs": "-18.69",
+      "output_true_peak_dbtp": "-1.49"
+    }
+  },
+  "niro_dda0f14fdc": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "...Miro. Why?",
+    "delivery": "[mocking]",
+    "signature": "7e30fbb0ae9ac0b83c73fe029a8992ce70b1521127dba261217f7f290a1fefbd",
+    "leveling": {
+      "source_sha256": "ea095af10559bcdced014768d2c43c549fa1abbf3b05266747f4f34094dc87eb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.54",
+        "input_tp": "-1.06",
+        "input_lra": "0.00",
+        "input_thresh": "-28.03",
+        "output_i": "-18.47",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.96",
+        "normalization_type": "linear",
+        "target_offset": "0.47"
+      },
+      "output_lufs": "-18.44",
+      "output_true_peak_dbtp": "-1.59"
+    }
+  },
+  "niro_960fb22413": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "That was someone's son, Miro.",
+    "delivery": "[intense]",
+    "signature": "2440f2b37c74f1a9eb34efab11be67c4df0247ba7f165be29ec1944040dbf24e",
+    "leveling": {
+      "source_sha256": "b0af259c76c73f0f04ab0cd712aa7f8353449c1051f393c08841aff16c484c13",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.39",
+        "input_tp": "-4.42",
+        "input_lra": "0.00",
+        "input_thresh": "-28.39",
+        "output_i": "-18.01",
+        "output_tp": "-4.03",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.81"
+    }
+  },
+  "niro_3bf8d928f0": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "I can hear the alarms from here. Please stop.",
+    "delivery": "[pleading]",
+    "signature": "d918a194e688bd8b6f979c82415d5dc7816c36385dc924c52fe5c8ccddb6c07f",
+    "leveling": {
+      "source_sha256": "d8c6b89b2193727e952a23bad68d7e848d89235f6dc2f3942fe299aa4ce0c02b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.13",
+        "input_tp": "-2.49",
+        "input_lra": "1.00",
+        "input_thresh": "-28.90",
+        "output_i": "-16.67",
+        "output_tp": "-2.00",
+        "output_lra": "0.90",
+        "output_thresh": "-27.28",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.33"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.38"
+    }
+  },
+  "niro_925f70ceb1": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You used to. Stay there. Let me help you.",
+    "delivery": "[intense]",
+    "signature": "038b207270507566d2a8f9fe3c80837fa551879814fc9216b031b1e40d1e4970",
+    "leveling": {
+      "source_sha256": "a3cd2374f46952f3b4004b9480fe9d37efbb32aad4d6a7d22b57afcf65800c67",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.29",
+        "input_tp": "-2.63",
+        "input_lra": "0.50",
+        "input_thresh": "-31.56",
+        "output_i": "-17.83",
+        "output_tp": "-2.00",
+        "output_lra": "0.50",
+        "output_thresh": "-28.19",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.17"
+      },
+      "output_lufs": "-18.09",
+      "output_true_peak_dbtp": "-1.64"
+    }
+  },
+  "niro_342a4156c2": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Miro. Please. Don't go any lower.\nYou took his life. Was that necessary?",
+    "delivery": "[pleading]",
+    "signature": "c81407c00987ea8e78e4e518c54de1cbc4ddc93c8014007293df459d50541304",
+    "leveling": {
+      "source_sha256": "cd4aafa2ed30f853056908d4bdf61dc305fdbc1e6fea413ca42612c5772deb17",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.99",
+        "input_tp": "-1.34",
+        "input_lra": "1.60",
+        "input_thresh": "-28.69",
+        "output_i": "-17.23",
+        "output_tp": "-2.00",
+        "output_lra": "1.30",
+        "output_thresh": "-27.82",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.77"
+      },
+      "output_lufs": "-17.75",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "niro_7d3065558e": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Miro. Please. Don't go any lower.\nYou got past him without killing. There is still time to stop.",
+    "delivery": "[pleading]",
+    "signature": "81e90b9216edc68d57b2a9269bcb291a83b1be03d4d21842ca14f6668e03fd2e",
+    "leveling": {
+      "source_sha256": "475e15b8c54cfc6d686eab5d457d0576e37e6feafae7ed90b5d5b5155afd1c34",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.99",
+        "input_tp": "-1.03",
+        "input_lra": "1.50",
+        "input_thresh": "-28.01",
+        "output_i": "-17.26",
+        "output_tp": "-2.00",
+        "output_lra": "0.60",
+        "output_thresh": "-28.17",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.74"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.31"
+    }
+  },
+  "pa_ab939b6eb9": {
+    "provider": "ElevenLabs",
+    "voice_id": "onwK4e9ZLuTAKqWW03F9",
+    "voice_name": "Daniel (calm institutional broadcaster)",
+    "model_id": "eleven_v3",
+    "text": "Prisoner M-07 unaccounted for. Search your sections.",
+    "delivery": "",
+    "signature": "e9ce5f35c7584086578416f024f66a5adee49c003d67339d4e39f1e467ceee96",
+    "leveling": {
+      "source_sha256": "ca231ac604aafc53fd6e899f425dc18c42ff654a3fa31f3b0ff5e02eb220bd10",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.69",
+        "input_tp": "-1.25",
+        "input_lra": "5.20",
+        "input_thresh": "-29.57",
+        "output_i": "-18.31",
+        "output_tp": "-2.00",
+        "output_lra": "2.20",
+        "output_thresh": "-28.90",
+        "normalization_type": "dynamic",
+        "target_offset": "0.31"
+      },
+      "output_lufs": "-18.40",
+      "output_true_peak_dbtp": "-1.92"
+    }
+  },
+  "pa_ebc3a1bbab": {
+    "provider": "ElevenLabs",
+    "voice_id": "onwK4e9ZLuTAKqWW03F9",
+    "voice_name": "Daniel (calm institutional broadcaster)",
+    "model_id": "eleven_v3",
+    "text": "Prisoner M-07 remains unaccounted for.",
+    "delivery": "",
+    "signature": "c88ba8eac69f2a2fbc1c7f3fefb4df628d9a15325724ce2e1eb644144df3fd6d",
+    "leveling": {
+      "source_sha256": "912887c9a4c071ab2c3f1d66a2cb8d8438555d447c268af198fe90ac57a71f81",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.22",
+        "input_tp": "-2.34",
+        "input_lra": "1.00",
+        "input_thresh": "-29.36",
+        "output_i": "-18.17",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.30",
+        "normalization_type": "dynamic",
+        "target_offset": "0.17"
+      },
+      "output_lufs": "-18.34",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "pa_e6a4edf388": {
+    "provider": "ElevenLabs",
+    "voice_id": "onwK4e9ZLuTAKqWW03F9",
+    "voice_name": "Daniel (calm institutional broadcaster)",
+    "model_id": "eleven_v3",
+    "text": "Prisoner M-07 is armed and has killed Keepers. Lethal force authorised.",
+    "delivery": "",
+    "signature": "9604e138380ae332afc410b76655010f31798e40596276fd73b8196db8ae4ca7",
+    "leveling": {
+      "source_sha256": "e40098a76e62fa47ca5fb5f907a5a338c9bc5db029f2e3663ce25f23f8d073c9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.81",
+        "input_tp": "-1.61",
+        "input_lra": "4.40",
+        "input_thresh": "-30.23",
+        "output_i": "-18.88",
+        "output_tp": "-2.00",
+        "output_lra": "3.30",
+        "output_thresh": "-29.28",
+        "normalization_type": "dynamic",
+        "target_offset": "0.88"
+      },
+      "output_lufs": "-18.52",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "pa_d5ab4b39ec": {
+    "provider": "ElevenLabs",
+    "voice_id": "onwK4e9ZLuTAKqWW03F9",
+    "voice_name": "Daniel (calm institutional broadcaster)",
+    "model_id": "eleven_v3",
+    "text": "Prisoner M-07 is the bomber. All units...",
+    "delivery": "",
+    "signature": "975e88994f88e0aec29f1a78f6b39f2b0145d724958443b5217c55243d92da00",
+    "leveling": {
+      "source_sha256": "1d528a4d7486acdabf4817c3a0636eb7c46d38b99f97e2deedecc6ab8bb397f3",
       "target_lufs": -18,
       "true_peak_target_dbtp": -2,
       "input": {
         "input_i": "-19.06",
-        "input_tp": "-2.52",
-        "input_lra": "0.00",
-        "input_thresh": "-29.50",
-        "output_i": "-18.54",
+        "input_tp": "-3.23",
+        "input_lra": "0.40",
+        "input_thresh": "-29.36",
+        "output_i": "-17.70",
         "output_tp": "-2.00",
         "output_lra": "0.00",
-        "output_thresh": "-28.98",
-        "normalization_type": "linear",
-        "target_offset": "0.54"
+        "output_thresh": "-28.00",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.30"
       },
-      "output_lufs": "-18.54",
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.17"
+    }
+  },
+  "alert_serious": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Intruder. Hold where you are.",
+    "delivery": "[shouting] [flat] [focused]",
+    "signature": "2ff3a3461434905478f7f407d99e45fa739f6acb764fe84cb552f7b091f52860",
+    "leveling": {
+      "source_sha256": "655a8745e961b13cbd1c6c091281a1c15c0c1188b7882b6f590e6221fd6fc4fc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.65",
+        "input_tp": "-2.53",
+        "input_lra": "0.00",
+        "input_thresh": "-28.17",
+        "output_i": "-17.98",
+        "output_tp": "-2.88",
+        "output_lra": "0.00",
+        "output_thresh": "-28.50",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.61"
+    }
+  },
+  "body_serious": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Man down. Someone is inside the walls.",
+    "delivery": "[shocked] [flat] [focused]",
+    "signature": "0a5698a45b26b881128f509aedabd2a8ac9f0cfb564871eb75febb743c51ba52",
+    "leveling": {
+      "source_sha256": "399602d8870a0bdeac237a54569557683f73b922480c335b648ee3fdb73b81c0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.59",
+        "input_tp": "-2.45",
+        "input_lra": "1.10",
+        "input_thresh": "-29.73",
+        "output_i": "-18.27",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.40",
+        "normalization_type": "dynamic",
+        "target_offset": "0.27"
+      },
+      "output_lufs": "-18.46",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "idle_serious_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Shift change at the bell. Not a minute before.",
+    "delivery": "[flat] [focused] [muttering]",
+    "signature": "57089d3d6189be983affb49f1a66db9f59145429f5f285d1adfcf84ade11a532",
+    "leveling": {
+      "source_sha256": "470a88875e5cf7582cd9706d65758824b6661627a5ef0b36a7b2579c68e38ebc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.82",
+        "input_tp": "-1.97",
+        "input_lra": "0.00",
+        "input_thresh": "-29.19",
+        "output_i": "-18.86",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.23",
+        "normalization_type": "linear",
+        "target_offset": "0.86"
+      },
+      "output_lufs": "-18.86",
+      "output_true_peak_dbtp": "-1.93"
+    }
+  },
+  "idle_serious_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Count's off by one again. I'll do it twice.",
+    "delivery": "[flat] [focused] [muttering]",
+    "signature": "d0ce3590feaae64f1b882c266152bb774e1f8c0f442d31f6629598e40e6694f8",
+    "leveling": {
+      "source_sha256": "421ea28b687955b26487a4205ba73ea0fb4e04435139b338f81e69bee804a9a6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.93",
+        "input_tp": "-2.59",
+        "input_lra": "0.00",
+        "input_thresh": "-30.52",
+        "output_i": "-19.35",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.94",
+        "normalization_type": "linear",
+        "target_offset": "1.35"
+      },
+      "output_lufs": "-19.34",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "alert_goofy": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "Oh no. Oh no no no. HEY!",
+    "delivery": "[shouting] [cheerful] [rambling]",
+    "signature": "3b1dae2cb9413e3ec46a9ae038d12b06316432541323f2603205404ec3cac82e",
+    "leveling": {
+      "source_sha256": "56b84d5f0ad28df8a2e3169c25bfd4df526e240904c6ab7de7cf535438edf965",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.55",
+        "input_tp": "-1.01",
+        "input_lra": "0.00",
+        "input_thresh": "-28.88",
+        "output_i": "-19.55",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.88",
+        "normalization_type": "linear",
+        "target_offset": "1.55"
+      },
+      "output_lufs": "-19.55",
+      "output_true_peak_dbtp": "-1.87"
+    }
+  },
+  "body_goofy": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "Buddy? Buddy, get up. This isn't funny.",
+    "delivery": "[shocked] [cheerful] [rambling]",
+    "signature": "92f599e4c138003e83cfa6b399a5a170cd0e71b2d4458ec87d58f0f1cbe9ed67",
+    "leveling": {
+      "source_sha256": "0445ccb4fb230fb54ddeea448a8480cfecec827ab649956408383261a6d3a80f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.28",
+        "input_tp": "-3.96",
+        "input_lra": "0.00",
+        "input_thresh": "-30.24",
+        "output_i": "-17.99",
+        "output_tp": "-2.68",
+        "output_lra": "0.00",
+        "output_thresh": "-28.95",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.67"
+    }
+  },
+  "idle_goofy_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "If I walk this loop backwards, does the shift go faster?",
+    "delivery": "[cheerful] [rambling] [muttering]",
+    "signature": "1f83e314377b854dbd16b74f37c0b969b094750620446e30e76206c5cda9b90c",
+    "leveling": {
+      "source_sha256": "9cbdafa1ea2c7adac4c287bfdc59cd79b8b8bbadfa7043e8bc9346dbf46a9680",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.84",
+        "input_tp": "-6.52",
+        "input_lra": "0.60",
+        "input_thresh": "-36.12",
+        "output_i": "-18.35",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.48",
+        "normalization_type": "dynamic",
+        "target_offset": "0.35"
+      },
+      "output_lufs": "-18.11",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "idle_goofy_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "Who took the good spoon? It had a dent. I loved that dent.",
+    "delivery": "[cheerful] [rambling] [muttering]",
+    "signature": "e7d5e377fe6774d834c138d2b25d479ff044c05c8f92bb4851d2f84a4ecfcbc0",
+    "leveling": {
+      "source_sha256": "b2bc2ad38edd993193afd3d1c852ca0aae5b51b692003d20050194f882183441",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-28.09",
+        "input_tp": "-11.93",
+        "input_lra": "0.90",
+        "input_thresh": "-38.65",
+        "output_i": "-17.81",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.32",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.19"
+      },
+      "output_lufs": "-18.15",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "alert_stern": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "You. Stop. Now.",
+    "delivery": "[shouting] [stern] [clipped]",
+    "signature": "1d5f2733e37d7556d36c26c8650b5f171378c23c5dd42823a15da099e5099c4c",
+    "leveling": {
+      "source_sha256": "2fed1c84ff7a229e3f9531e9886c0d550f2d33be7dc8bc1e41fceb546f13a287",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.83",
+        "input_tp": "-1.43",
+        "input_lra": "0.00",
+        "input_thresh": "-28.63",
+        "output_i": "-18.42",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.22",
+        "normalization_type": "linear",
+        "target_offset": "0.42"
+      },
+      "output_lufs": "-18.42",
+      "output_true_peak_dbtp": "-1.82"
+    }
+  },
+  "body_stern": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "He's dead. Lock this floor down!",
+    "delivery": "[shocked] [stern] [clipped]",
+    "signature": "023b3dbb26a7fec958a3993db3984adc30f35f25978cd745e36d30e4c0c27378",
+    "leveling": {
+      "source_sha256": "91039687039653d91dcbd81330078b8c12934a1b75f835750e70042db82630fb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.53",
+        "input_tp": "-2.89",
+        "input_lra": "0.00",
+        "input_thresh": "-28.19",
+        "output_i": "-17.99",
+        "output_tp": "-3.37",
+        "output_lra": "0.00",
+        "output_thresh": "-28.66",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.96",
+      "output_true_peak_dbtp": "-3.15"
+    }
+  },
+  "idle_stern_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Boots shined. Mouth shut. That's the job.",
+    "delivery": "[stern] [clipped] [muttering]",
+    "signature": "c00133d707d6374706ff0073c1d2b9bb39d3cf768191154bf43efc0a2e296093",
+    "leveling": {
+      "source_sha256": "cce8e8aa00cc94786c7fe6ef9b9c409e799ae587597063d8c5bf7064ea8fcfa7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.88",
+        "input_tp": "-1.46",
+        "input_lra": "1.00",
+        "input_thresh": "-29.31",
+        "output_i": "-18.04",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.47",
+        "normalization_type": "dynamic",
+        "target_offset": "0.04"
+      },
+      "output_lufs": "-18.31",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "idle_stern_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Nobody sits down on my watch. Nobody.",
+    "delivery": "[stern] [clipped] [muttering]",
+    "signature": "da1acdfb1434af38406eea90d6a3ce8e8e7e76aa6ddce3719755f4ed0429da38",
+    "leveling": {
+      "source_sha256": "267bad6ac6588fd86e2cff850bb4dc841f3bdb64fb27a688ff87f71d8c165a94",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.22",
+        "input_tp": "-1.60",
+        "input_lra": "0.30",
+        "input_thresh": "-29.54",
+        "output_i": "-17.78",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.10",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.22"
+      },
+      "output_lufs": "-18.09",
+      "output_true_peak_dbtp": "-1.55"
+    }
+  },
+  "alert_funny": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "Well, there goes my quiet night. Stop!",
+    "delivery": "[shouting] [dry] [amused]",
+    "signature": "5ad5bd5b2dd73eb15043fd93511e33e77c876f497754ab1d4f3c7f73e2c4c1cb",
+    "leveling": {
+      "source_sha256": "f7c2113696a4f8f21ac697ddba67ebcf07dfd7fcf5d39ab35288b6e10b2dc748",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.68",
+        "input_tp": "-1.59",
+        "input_lra": "0.00",
+        "input_thresh": "-24.87",
+        "output_i": "-18.00",
+        "output_tp": "-4.92",
+        "output_lra": "0.00",
+        "output_thresh": "-28.19",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.82"
+    }
+  },
+  "body_funny": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "No. No jokes. Who did this?",
+    "delivery": "[shocked] [dry] [amused]",
+    "signature": "5a36e6b4d6ecf8785aff56dfe1fd51e5388c39d9b040fef4d19eef874b307cf1",
+    "leveling": {
+      "source_sha256": "96c017c537bd86a6eae976308e7bf882057338864aef0c88d638877495fc1fa0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.38",
+        "input_tp": "-5.75",
+        "input_lra": "2.40",
+        "input_thresh": "-36.70",
+        "output_i": "-17.72",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.99",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.28"
+      },
+      "output_lufs": "-18.44",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "idle_funny_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "They call it a tower. I call it stairs with a grudge.",
+    "delivery": "[dry] [amused] [muttering]",
+    "signature": "e9a0c0a62312853ce9889667a50a875d2dafbd757f5abd1b9fff44727eff3164",
+    "leveling": {
+      "source_sha256": "cb4d97ef49f4f61605de49a098e2d64755682285bef9a32ed9d24da69185cab2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.96",
+        "input_tp": "-7.07",
+        "input_lra": "2.10",
+        "input_thresh": "-33.52",
+        "output_i": "-18.29",
+        "output_tp": "-2.85",
+        "output_lra": "1.90",
+        "output_thresh": "-28.78",
+        "normalization_type": "dynamic",
+        "target_offset": "0.29"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.18"
+    }
+  },
+  "idle_funny_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "Payday's Friday. Which Friday, they won't say.",
+    "delivery": "[dry] [amused] [muttering]",
+    "signature": "3a01709db6776d0ee9cdd6fc8cfba87c7be07e8a31e704e223835a23a63908e1",
+    "leveling": {
+      "source_sha256": "c019f00c26519281978cbac3023fab6d577c45be3545a686ac6bfe099642f892",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-27.76",
+        "input_tp": "-9.07",
+        "input_lra": "0.90",
+        "input_thresh": "-38.51",
+        "output_i": "-18.30",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.99",
+        "normalization_type": "dynamic",
+        "target_offset": "0.30"
+      },
+      "output_lufs": "-18.30",
+      "output_true_peak_dbtp": "-1.91"
+    }
+  },
+  "alert_stupid": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
+    "text": "Wait... are you allowed out? Hey!",
+    "delivery": "[shouting] [confused] [slow]",
+    "signature": "9dbd2af2e6ad6c07ec5e348748674ed324f7d3838edf986d09b62e97dcb737b7",
+    "leveling": {
+      "source_sha256": "635c90e2baa769efb94260dad0484967a48ddb942ef36a2d3dfaf9d76de5998c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.47",
+        "input_tp": "-2.18",
+        "input_lra": "0.00",
+        "input_thresh": "-28.09",
+        "output_i": "-18.01",
+        "output_tp": "-2.71",
+        "output_lra": "0.00",
+        "output_thresh": "-28.63",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.72"
+    }
+  },
+  "body_stupid": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
+    "text": "Why's he sleeping on the... oh. Oh no.",
+    "delivery": "[shocked] [confused] [slow]",
+    "signature": "9e1432eaec0170c48021e66935701f91dce7d8a65a077efe31d69cee98f5bb71",
+    "leveling": {
+      "source_sha256": "78d83086f5d5f1a35aad713c7be95b96efb6556cfe824582bfa02f112bf275a8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.21",
+        "input_tp": "-4.78",
+        "input_lra": "2.10",
+        "input_thresh": "-27.99",
+        "output_i": "-17.46",
+        "output_tp": "-4.97",
+        "output_lra": "3.50",
+        "output_thresh": "-28.01",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.54"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-5.28"
+    }
+  },
+  "idle_stupid_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
+    "text": "Left is... this one. Yeah. Left.",
+    "delivery": "[confused] [slow] [muttering]",
+    "signature": "e33f07cc9ba2cdc2cc7e8dc2730a72f2a57cd4f196e5dbed2823b9d761cc391e",
+    "leveling": {
+      "source_sha256": "c09f4e03ed29ef7120ca65670c8f52f0a3a5ec208e2749e99604f28dbef7f198",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.23",
+        "input_tp": "-2.06",
+        "input_lra": "2.00",
+        "input_thresh": "-29.19",
+        "output_i": "-17.00",
+        "output_tp": "-2.00",
+        "output_lra": "0.70",
+        "output_thresh": "-27.86",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.00"
+      },
+      "output_lufs": "-18.42",
+      "output_true_peak_dbtp": "-2.13"
+    }
+  },
+  "idle_stupid_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
+    "text": "If the stairs go down, who carries them back up?",
+    "delivery": "[confused] [slow] [muttering]",
+    "signature": "5afea27d2b2805dbb864a4da83990fada4921677936aca373ac7567845779b74",
+    "leveling": {
+      "source_sha256": "f6d5b90b40f8bf5e01816e0bd3477500dc8e82b0e8f3972524443e2d2e1f9fd8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.83",
+        "input_tp": "-0.57",
+        "input_lra": "1.20",
+        "input_thresh": "-27.11",
+        "output_i": "-17.87",
+        "output_tp": "-2.01",
+        "output_lra": "0.00",
+        "output_thresh": "-28.13",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.13"
+      },
+      "output_lufs": "-18.36",
+      "output_true_peak_dbtp": "-2.04"
+    }
+  },
+  "john316_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Listen to this one. 'For God so loved the world, that he gave his only begotten Son...'",
+    "delivery": "[reverent] [quietly]",
+    "signature": "f35a0e1b470ac5718eff2cfa4468783d37b92a6ce226d1bf4ee80f195e1afba3",
+    "leveling": {
+      "source_sha256": "62abc0ee98a0a19fc60d817a12dea065af3ac6dea05a9ee52a684701241da71f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.32",
+        "input_tp": "-2.29",
+        "input_lra": "0.20",
+        "input_thresh": "-29.88",
+        "output_i": "-18.00",
+        "output_tp": "-2.00",
+        "output_lra": "1.50",
+        "output_thresh": "-28.44",
+        "normalization_type": "dynamic",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.88",
       "output_true_peak_dbtp": "-1.95"
+    }
+  },
+  "john316_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
+    "text": "Only begotten. So he only had the one?",
+    "delivery": "[confused]",
+    "signature": "c1a293829e0a3df6f1f6523207f0c30842308113b3c57b530b709edd3c18ac35",
+    "leveling": {
+      "source_sha256": "c5db7652877515f85e9a2a50d3ba7c48258befc72793ed85f6232c6700185888",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.04",
+        "input_tp": "-3.56",
+        "input_lra": "0.40",
+        "input_thresh": "-27.66",
+        "output_i": "-16.11",
+        "output_tp": "-2.75",
+        "output_lra": "0.00",
+        "output_thresh": "-26.76",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.89"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.43"
+    }
+  },
+  "john316_3": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "'...that whosoever believeth in him should not perish, but have everlasting life.' John 3:16.",
+    "delivery": "[reverent] [warm]",
+    "signature": "fa6e01e219d383d6fad849d4c269ec7e25485121938118f80a810aafdfda201e",
+    "leveling": {
+      "source_sha256": "f005570e1e5dcf2162d2cda94a043a5a3213c413b71b257f12c2c069d61ff8cb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.52",
+        "input_tp": "-2.34",
+        "input_lra": "3.40",
+        "input_thresh": "-29.85",
+        "output_i": "-18.48",
+        "output_tp": "-2.00",
+        "output_lra": "3.10",
+        "output_thresh": "-28.80",
+        "normalization_type": "dynamic",
+        "target_offset": "0.48"
+      },
+      "output_lufs": "-18.21",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "john316_4": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "Everlasting life. Up here that's just an everlasting night shift.",
+    "delivery": "[dry] [chuckles]",
+    "signature": "28ff5dc361ddc4424e9231c9dace4f5537444fc9a0486b29624ea7fdd3d3a9aa",
+    "leveling": {
+      "source_sha256": "a1c4f3090de5b66be5f74921142b41c59fdb0c0bbe18ebc543a50a15fe9d3e26",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.59",
+        "input_tp": "-4.29",
+        "input_lra": "1.50",
+        "input_thresh": "-35.08",
+        "output_i": "-19.22",
+        "output_tp": "-2.00",
+        "output_lra": "0.80",
+        "output_thresh": "-29.83",
+        "normalization_type": "dynamic",
+        "target_offset": "1.22"
+      },
+      "output_lufs": "-18.30",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "john316_5": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill (older, worn out, sick)",
+    "model_id": "eleven_v3",
+    "text": "Does everlasting come with lunch?",
+    "delivery": "[hopeful]",
+    "signature": "b8f11e940a4795d8a8873fea268580d956cdac7c9327460781b3a04254740625",
+    "leveling": {
+      "source_sha256": "b14dfdde2fe112e8074f658e2cdaa75b06e3364d47eaa889143a56859b7cc4a6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.37",
+        "input_tp": "-4.58",
+        "input_lra": "0.00",
+        "input_thresh": "-26.37",
+        "output_i": "-18.01",
+        "output_tp": "-6.21",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-6.25"
+    }
+  },
+  "john316_6": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Hush. Somebody in this tower should still believe in something.",
+    "delivery": "[sad] [quietly]",
+    "signature": "86b444f45766d72858b15857b980c9ac728129ea7eae969cc79163abe08ded27",
+    "leveling": {
+      "source_sha256": "87e2c9c0b56f8d611e703c6c2a78c48115f05f74815f73ebffa3d8f450867007",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.61",
+        "input_tp": "-4.22",
+        "input_lra": "2.30",
+        "input_thresh": "-29.74",
+        "output_i": "-17.04",
+        "output_tp": "-2.00",
+        "output_lra": "0.90",
+        "output_thresh": "-27.37",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.96"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.60"
+    }
+  },
+  "john316_7": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam (young, jumpy)",
+    "model_id": "eleven_v3",
+    "text": "Then I believe the bell rings at six. Wake me when it does.",
+    "delivery": "[sighs] [amused]",
+    "signature": "98aa6b12a63ccd93ec97db127530ac50c1d7073b49b2cf07f9e02fee9d3ff16b",
+    "leveling": {
+      "source_sha256": "43dd0d12249c1af0943abe436838c524bad2b9a96cf08d3cfb6ce93c1997a5dd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.29",
+        "input_tp": "-8.78",
+        "input_lra": "0.20",
+        "input_thresh": "-36.42",
+        "output_i": "-18.00",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.12",
+        "normalization_type": "dynamic",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.89",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "judas_189b7a2890": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Awake again. Keep it down, traitor.",
+    "delivery": "[stern] [coughs] [greedy]",
+    "signature": "85736e3b1788ef251760d30df37ef705a30ceb0fe2958a7ff66c7a2fcd91a24d",
+    "leveling": {
+      "source_sha256": "804b9fe2cb0e14a974668126e6c1f02c2bf2622a673bdc2193a25c12dbb1d388",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.52",
+        "input_tp": "-1.60",
+        "input_lra": "0.40",
+        "input_thresh": "-30.19",
+        "output_i": "-17.81",
+        "output_tp": "-2.00",
+        "output_lra": "0.50",
+        "output_thresh": "-28.49",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.19"
+      },
+      "output_lufs": "-18.14",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "judas_184e52bbfd": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Depends. Cell 04 gave me his boots. Cell 09 gave me his ration card.\nWhat have you got?",
+    "delivery": "[stern] [coughs] [greedy]",
+    "signature": "0d32ddb8de25b0cb3bf4343c18b9fde190435a6d409ff2c564f9ad60bb679fca",
+    "leveling": {
+      "source_sha256": "e9e82d796acf7639adafa92b5bd0c5a58cccdac93b19eafc64c1fef46aa934c1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.14",
+        "input_tp": "-1.86",
+        "input_lra": "1.70",
+        "input_thresh": "-29.90",
+        "output_i": "-17.84",
+        "output_tp": "-2.00",
+        "output_lra": "1.40",
+        "output_thresh": "-28.55",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.16"
+      },
+      "output_lufs": "-18.08",
+      "output_true_peak_dbtp": "-1.39"
+    }
+  },
+  "judas_4780e8fe6a": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger (stern, in charge)",
+    "model_id": "eleven_v3",
+    "text": "Then I'm not looking. (He turns away, coughing.)\nThe tower doesn't pay me enough to care.",
+    "delivery": "[stern] [coughs] [greedy]",
+    "signature": "0da34f4daffbb6dabbed7847cafbb2620206bef8ed149c08d1f10c0f1541e855",
+    "leveling": {
+      "source_sha256": "fd0a98bf75e7f262006fa498bef50ec6e95a428691df181ac36333c54584022b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.58",
+        "input_tp": "-1.88",
+        "input_lra": "1.30",
+        "input_thresh": "-29.11",
+        "output_i": "-17.78",
+        "output_tp": "-2.00",
+        "output_lra": "1.00",
+        "output_thresh": "-28.22",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.22"
+      },
+      "output_lufs": "-18.37",
+      "output_true_peak_dbtp": "-2.01"
     }
   }
 }

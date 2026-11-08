@@ -19,12 +19,10 @@ func run() -> void:
 	observer.position = Vector2(600, 236)
 	observer.sees_player = false
 	observer.alert_state = IntroGuard.State.PATROL
-	level.player.suppressor_uses = 3
 	level.player.facing = -1
 	level.player.attack_cooldown = 0
 	level.player.fire_gun()
-	check(observer.alert_state == IntroGuard.State.PATROL, "Suppressed shot emits no AI hearing event")
-	check(level.player.suppressor_uses == 2, "Suppressed fired shot consumes one charge")
+	check(observer.alert_state == IntroGuard.State.SEARCH, "Every fired shot emits an AI hearing event")
 	await frames(45)
 	level.player.position = Vector2(220, 236)
 	observer.position = Vector2(280, 236)

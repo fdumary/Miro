@@ -81,7 +81,7 @@ python3 tools/build_review.py --godot /path/to/godot --platform macos
 
 Matching official export templates are required. Windows output: `build/windows/Miro.exe`; macOS output: `build/macos/Miro.zip`. Builds are ignored by Git. Local `.env` credentials, raw candidate library, documentation and generation scripts are explicitly excluded from normal exports.
 
-Rebuild music copies with `python3 tools/prepare_game_audio.py` (FFmpeg required); generate/cache speech using `python3 tools/generate_guard_voices.py` and a local `ELEVENLABS_API_KEY`. The key is never printed, committed or needed to play. The generator submits text to ElevenLabs and uses account credits; unchanged text/voice/settings clips are cached. Do not delete provenance when revising lines.
+Rebuild music copies with `python3 tools/prepare_game_audio.py` (FFmpeg required); generate/cache speech using `python3 tools/generate_voices.py` and a local `ELEVENLABS_API_KEY`. The key is never printed, committed or needed to play. The generator submits text to ElevenLabs and uses account credits; unchanged text/voice/settings clips are cached. Do not delete provenance when revising lines.
 
 Run the existing game suites and `tools/test_music_and_world.gd`; `Run Checks.ps1` includes the new suite. Final build evidence and manual listening limits belong in the next handoff update. Review on headphones/speakers is still required for voice performance, transitions, volume balance, loop seams and chapter pacing.
 

@@ -2,3 +2,21 @@ soundselection/**/*.wav filter=lfs diff=lfs merge=lfs -text
 soundselection/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
 assets/audio/music/*.mp3 filter=lfs diff=lfs merge=lfs -text
 assets/audio/voice/*.mp3 filter=lfs diff=lfs merge=lfs -text
+# Added 7 Nov 2026 from a cloud session that cannot upload LFS objects: stored as plain blobs.
+assets/audio/music/set_me_free.mp3 -filter -diff -merge binary
+assets/audio/music/lil_uzi2.mp3 -filter -diff -merge binary
+assets/audio/music/birthday_melody.mp3 -filter -diff -merge binary
+assets/audio/music/pinkghost.mp3 -filter -diff -merge binary
+assets/audio/music/jazzyhall.mp3 -filter -diff -merge binary
+assets/audio/music/dancehall.mp3 -filter -diff -merge binary
+# Voice clips regenerated 7 Nov 2026 from the cloud session (ElevenLabs): plain blobs, not LFS.
+assets/audio/voice/*.mp3 -filter -diff -merge binary
+assets/audio/music/drill_shxt.mp3 -filter -diff -merge binary
+assets/audio/music/hot_shit.mp3 -filter -diff -merge binary
+assets/audio/music/drill2.mp3 -filter -diff -merge binary
+assets/audio/music/reaper.mp3 -filter -diff -merge binary
+assets/audio/music/ox.mp3 -filter -diff -merge binary
+assets/audio/music/destroyed_lonely.mp3 -filter -diff -merge binary
+assets/audio/music/dancehall_lonesome.mp3 -filter -diff -merge binary
+assets/audio/music/dancehall64.mp3 -filter -diff -merge binary
+assets/audio/music/new_age_dancehall.mp3 -filter -diff -merge binary

@@ -1,0 +1,39 @@
+{
+  "_comment": "Bible verses the Keepers drop into their overheard conversation, picked by Miro's current leaning (scripts/player_behavior.gd). Verses are King James Version (public domain). Two lines per exchange: speaker 0 then speaker 1 of the floor's main conversation. One exchange per floor (Levels 2-4 have conversations), chosen by floor number. They are guards' talk, so the verse is half-remembered, argued with, or used as a joke; never a sermon aimed at the player.",
+  "ghost": [
+    [{"speaker": 0, "text": "Chaplain pinned a verse over the stairs. 'Whither shall I flee from thy presence?' Psalm 139."},
+     {"speaker": 1, "text": "Somebody should tell him. Because M-07 found somewhere."}],
+    [{"speaker": 0, "text": "'The darkness hideth not from thee.' My mother used to say that at bedtime."},
+     {"speaker": 1, "text": "Then she never worked a night shift in this place. Check the vents."}]
+  ],
+  "blackhat": [
+    [{"speaker": 0, "text": "Luke 8. 'Nothing is secret, that shall not be made manifest.'"},
+     {"speaker": 1, "text": "Tell that to the cameras. Half of them went dark and nobody signed for it."}],
+    [{"speaker": 0, "text": "'Men loved darkness rather than light, because their deeds were evil.' John 3."},
+     {"speaker": 1, "text": "Is that about him or about the people who switched the cameras off?"}]
+  ],
+  "defiant": [
+    [{"speaker": 0, "text": "'All they that take the sword shall perish with the sword.' Matthew 26. Remember it."},
+     {"speaker": 1, "text": "He took a shank, not a sword. And he's not the one perishing."}],
+    [{"speaker": 0, "text": "Eye for eye, tooth for tooth. That's in there too, you know."},
+     {"speaker": 1, "text": "'Vengeance is mine, saith the Lord.' Not yours. Not his either."}]
+  ],
+  "survivor": [
+    [{"speaker": 0, "text": "'Troubled on every side, yet not distressed. Cast down, but not destroyed.'"},
+     {"speaker": 1, "text": "Second Corinthians. You read that about yourself, or about him?"}],
+    [{"speaker": 0, "text": "'Yea, though I walk through the valley of the shadow of death...'"},
+     {"speaker": 1, "text": "He walked through two alarms and a firing line. Fear no evil, apparently."}]
+  ],
+  "seeker": [
+    [{"speaker": 0, "text": "'Seek, and ye shall find; knock, and it shall be opened.' Matthew 7."},
+     {"speaker": 1, "text": "Not in here it won't. They changed the locks on the records room."}],
+    [{"speaker": 0, "text": "'Ye shall know the truth, and the truth shall make you free.'"},
+     {"speaker": 1, "text": "Keep that one off the walls. The Ward doesn't like truth on the walls."}]
+  ],
+  "neutral": [
+    [{"speaker": 0, "text": "'Remember them that are in bonds, as bound with them.' Hebrews 13."},
+     {"speaker": 1, "text": "We are bound with them. Same air, same cough."}],
+    [{"speaker": 0, "text": "Isaiah 61. 'To proclaim liberty to the captives, and the opening of the prison.'"},
+     {"speaker": 1, "text": "Don't read that one out loud down here."}]
+  ]
+}

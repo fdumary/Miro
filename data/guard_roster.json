@@ -1,0 +1,61 @@
+{
+  "_comment": "Every Keeper's name and personality, in level.guards() order per floor (the overheard partner takes the last name). Personality picks the voice, the alert and body barks, and the mundane lines a Keeper mutters on patrol when Miro is close. 'huddles' are off-duty Keepers in a tight group, too absorbed to look up unless Miro walks right into them. Voice clips: <kind>_<personality>.mp3, idle_<personality>_<n>.mp3, <scene>_<n>.mp3 (tools/generate_voices.py).",
+  "personalities": {
+    "serious": {
+      "voice": 0,
+      "delivery": "[flat] [focused]",
+      "alert": "Intruder. Hold where you are.",
+      "body": "Man down. Someone is inside the walls.",
+      "idle": ["Shift change at the bell. Not a minute before.", "Count's off by one again. I'll do it twice."]
+    },
+    "goofy": {
+      "voice": 2,
+      "delivery": "[cheerful] [rambling]",
+      "alert": "Oh no. Oh no no no. HEY!",
+      "body": "Buddy? Buddy, get up. This isn't funny.",
+      "idle": ["If I walk this loop backwards, does the shift go faster?", "Who took the good spoon? It had a dent. I loved that dent."]
+    },
+    "stern": {
+      "voice": 0,
+      "delivery": "[stern] [clipped]",
+      "alert": "You. Stop. Now.",
+      "body": "He's dead. Lock this floor down!",
+      "idle": ["Boots shined. Mouth shut. That's the job.", "Nobody sits down on my watch. Nobody."]
+    },
+    "funny": {
+      "voice": 2,
+      "delivery": "[dry] [amused]",
+      "alert": "Well, there goes my quiet night. Stop!",
+      "body": "No. No jokes. Who did this?",
+      "idle": ["They call it a tower. I call it stairs with a grudge.", "Payday's Friday. Which Friday, they won't say."]
+    },
+    "stupid": {
+      "voice": 1,
+      "delivery": "[confused] [slow]",
+      "alert": "Wait... are you allowed out? Hey!",
+      "body": "Why's he sleeping on the... oh. Oh no.",
+      "idle": ["Left is... this one. Yeah. Left.", "If the stairs go down, who carries them back up?"]
+    }
+  },
+  "floors": {
+    "1": [["Judas", "stern"], ["Rowan", "goofy"], ["Ivo", "serious"], ["Bram", "stupid"]],
+    "2": [["Alden", "serious"], ["Corin", "goofy"], ["Dane", "stern"], ["Ellis", "funny"], ["Garrow", "stupid"], ["Hollis", "serious"], ["Jory", "funny"], ["Kell", "stern"], ["Lusk", "goofy"]],
+    "3": [["Marek", "stern"], ["Oren", "funny"], ["Pavel", "serious"], ["Silas", "goofy"], ["Teodor", "stupid"], ["Ansel", "stern"], ["Brin", "funny"], ["Cato", "serious"], ["Dov", "goofy"]],
+    "4": [["Tomas", "serious"], ["Ulric", "stern"], ["Venn", "goofy"], ["Wren", "funny"], ["Edric", "stupid"], ["Fane", "serious"], ["Gil", "goofy"], ["Hask", "stern"], ["Ivar", "funny"]],
+    "5": [["Yorick", "stern"], ["Zane", "goofy"], ["Arlen", "serious"], ["Beck", "funny"], ["Cass", "stupid"], ["Doran", "stern"], ["Elm", "goofy"], ["Fenn", "serious"]]
+  },
+  "huddles": {
+    "john316": {
+      "keepers": [["Pike", "serious"], ["Moss", "stupid"], ["Tibb", "funny"]],
+      "lines": [
+        {"speaker": 0, "text": "Listen to this one. 'For God so loved the world, that he gave his only begotten Son...'", "delivery": "[reverent] [quietly]"},
+        {"speaker": 1, "text": "Only begotten. So he only had the one?", "delivery": "[confused]"},
+        {"speaker": 0, "text": "'...that whosoever believeth in him should not perish, but have everlasting life.' John 3:16.", "delivery": "[reverent] [warm]"},
+        {"speaker": 2, "text": "Everlasting life. Up here that's just an everlasting night shift.", "delivery": "[dry] [chuckles]"},
+        {"speaker": 1, "text": "Does everlasting come with lunch?", "delivery": "[hopeful]"},
+        {"speaker": 0, "text": "Hush. Somebody in this tower should still believe in something.", "delivery": "[sad] [quietly]"},
+        {"speaker": 2, "text": "Then I believe the bell rings at six. Wake me when it does.", "delivery": "[sighs] [amused]"}
+      ]
+    }
+  }
+}

@@ -1,6 +1,9 @@
 extends IntroGuard
-## docs/class.md Brother; docs/mirospec.md final encounter.
-enum Phase { TELEGRAPH, RUSH, RECOVERY }
+## Niro, the tower physician (docs/class.md Brother; Level 5 "The Foundation").
+## Four meetings share one health pool: he retreats at each threshold, then is beaten
+## but NOT killed on the deepest floor. Attacks are timed to the beat when music plays.
+enum Phase { TELEGRAPH, RUSH, RECOVERY, RETREAT, DEFEATED }
+signal retreated(engagement: int)
 var current_phase := Phase.TELEGRAPH
 var is_vulnerable := false
 var phase_left := 1.1
@@ -8,31 +11,90 @@ var attack_number := 0
 var projectile := Vector2.ZERO
 var projectile_velocity := Vector2.ZERO
 var projectile_live := false
+## 1–3: he retreats when health reaches retreat_at[engagement - 1]. 4: the final fight.
+var engagement := 4
+var retreat_at: Array = [9, 6, 3]
+var max_health := 12
+var start_health := 0
+var calls_left := 0
+var retreat_left := 0.0
 
 func _ready() -> void:
 	add_to_group("guards")
-	health = 6
+	health = start_health if start_health > 0 else max_health
 	alert_state = State.ALERT
 	sees_player = true
+	calls_left = 2 if engagement >= 3 else 0
+	phase_left = telegraph_time()
+
+func music() -> Node:
+	return get_node("/root/MusicDirector")
+
+## Telegraph resolves on a beat: at least 0.8 s of warning, landing on the following beat line.
+func telegraph_time() -> float:
+	var beat_length: float = music().seconds_per_beat()
+	var position: float = music().beat_position()
+	var warning := 0.8 if engagement < 4 else 0.6
+	if position < 0:
+		return 1.1
+	var to_next := (1.0 - fmod(position, 1.0)) * beat_length
+	while to_next < warning:
+		to_next += beat_length
+	return to_next
+
+## The vulnerability window lasts one bar (three quarters of one in the final fight).
+func recovery_time() -> float:
+	if music().beat_position() < 0:
+		return 1.6
+	return music().seconds_per_bar() * (1.0 if engagement < 4 else 0.75)
+
+func attacks() -> Array:
+	match engagement:
+		1: return ["rush"]
+		2: return ["rush", "throw"]
+		_: return ["rush", "throw", "call"]
+
+func next_attack() -> String:
+	var list := attacks()
+	var attack: String = list[attack_number % list.size()]
+	if attack == "call" and calls_left <= 0:
+		attack = "rush"
+	return attack
 
 func _physics_process(delta: float) -> void:
 	if is_dead or level.controls_locked() or level.player.is_dead:
+		queue_redraw()
 		return
 	invulnerability_left = maxf(0, invulnerability_left - delta)
 	phase_left -= delta
 	velocity.y += 850 * delta
 	velocity.x = 0
+	if current_phase == Phase.RETREAT:
+		retreat_left -= delta
+		modulate.a = clampf(retreat_left / 0.8, 0, 1)
+		if retreat_left <= 0:
+			retreated.emit(engagement)
+			queue_free()
+		move_and_slide()
+		queue_redraw()
+		return
 	if current_phase == Phase.TELEGRAPH:
 		facing = 1 if level.player.position.x > position.x else -1
 		if phase_left <= 0:
-			if attack_number % 2 == 0:
-				current_phase = Phase.RUSH
-				phase_left = 0.65
-			else:
-				projectile = global_position + Vector2(facing * 15, -5)
-				projectile_velocity = (level.player.global_position - projectile).normalized() * 210
-				projectile_live = true
-				begin_recovery()
+			match next_attack():
+				"rush":
+					current_phase = Phase.RUSH
+					phase_left = 0.65
+				"throw":
+					projectile = global_position + Vector2(facing * 15, -5)
+					projectile_velocity = (level.player.global_position - projectile).normalized() * 210
+					projectile_live = true
+					begin_recovery()
+				"call":
+					calls_left -= 1
+					if level.has_method("niro_calls_guard"):
+						level.niro_calls_guard(global_position)
+					begin_recovery()
 	elif current_phase == Phase.RUSH:
 		if level.has_floor_below(global_position + Vector2(facing * 20, 0)):
 			velocity.x = facing * 230
@@ -44,7 +106,7 @@ func _physics_process(delta: float) -> void:
 		is_vulnerable = false
 		attack_number += 1
 		current_phase = Phase.TELEGRAPH
-		phase_left = 1.1
+		phase_left = telegraph_time()
 	move_and_slide()
 	if projectile_live:
 		var next := projectile + projectile_velocity * delta
@@ -61,20 +123,39 @@ func _physics_process(delta: float) -> void:
 func begin_recovery() -> void:
 	current_phase = Phase.RECOVERY
 	is_vulnerable = true
-	phase_left = 1.6
+	phase_left = recovery_time()
 
 func receive_shank() -> void:
 	take_damage(1)
 
 func take_damage(amount: int) -> void:
-	if is_vulnerable:
-		super.take_damage(amount)
+	if not is_vulnerable or current_phase == Phase.RETREAT or is_dead:
+		return
+	if invulnerability_left > 0:
+		return
+	invulnerability_left = 0.35
+	health = maxi(0, health - amount)
+	level.emit_effect("hit", global_position)
+	if engagement < 4 and health <= int(retreat_at[engagement - 1]):
+		begin_retreat()
+	elif health <= 0:
+		die()
 
+func begin_retreat() -> void:
+	current_phase = Phase.RETREAT
+	is_vulnerable = false
+	projectile_live = false
+	retreat_left = 0.8
+	if level.has_method("niro_retreating"):
+		level.niro_retreating(engagement)
+
+## Defeated, not killed: he kneels and stays inside the tower.
 func die() -> void:
 	if is_dead:
 		return
 	is_dead = true
-	level.emit_effect("blood", global_position + Vector2(0, 12))
+	current_phase = Phase.DEFEATED
+	is_vulnerable = false
 	projectile_live = false
 	velocity = Vector2.ZERO
 	level.brother_defeated()
@@ -82,18 +163,22 @@ func die() -> void:
 
 func _draw() -> void:
 	var color := Color("f2d3ab") if is_vulnerable else Color("8b6d9c")
+	if is_dead:
+		# Kneeling, coat on, alive. Hook: replace with Niro's kneel sprite.
+		draw_texture_rect(preload("res://assets/characters/miro_idle.png"), Rect2(-16, -16, 32, 24), false, Color("8b6d9c"))
+		draw_rect(Rect2(-9, 0, 18, 10), Color("d9d9d9"))
+		draw_circle(Vector2(2, -14), 7, Color("c69fa5"))
+		return
 	draw_texture_rect(preload("res://assets/characters/miro_idle.png"), Rect2(-16, -26, 32, 32), false, color)
-	# A physician's coat, badge and control remote distinguish the brother.
-	draw_rect(Rect2(-9, -6 if not is_dead else -3, 18, 19 if not is_dead else 8), Color("d9d9d9"))
+	# A physician's coat, badge and control remote distinguish Niro.
+	draw_rect(Rect2(-9, -6, 18, 19), Color("d9d9d9"))
 	draw_rect(Rect2(3, -4, 4, 3), Color("b62432"))
 	draw_rect(Rect2(facing * 12 - 3, -3, 6, 9), Color("494d7e"))
-	if is_dead:
-		return
 	draw_circle(Vector2(0, -24), 7, Color("c69fa5"))
-	var cue := "RECOVER" if is_vulnerable else ("RUSH" if attack_number % 2 == 0 else "THROW")
-	draw_string(ThemeDB.fallback_font, Vector2(-30, -43), cue, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color("fbf5ef"))
+	var cue := "RECOVER" if is_vulnerable else ("RETREATING" if current_phase == Phase.RETREAT else next_attack().to_upper())
+	draw_string(ThemeDB.fallback_font, Vector2(-30, -43), "NIRO · " + cue, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color("fbf5ef"))
 	for index in range(health):
-		draw_rect(Rect2(-21 + index * 7, -36, 5, 3), Color("f2d3ab"))
+		draw_rect(Rect2(-36 + index * 6, -36, 4, 3), Color("f2d3ab"))
 	if current_phase == Phase.TELEGRAPH:
 		draw_line(Vector2(0, 8), Vector2(facing * 90, 8), Color("c69fa5"), 2)
 	if projectile_live:

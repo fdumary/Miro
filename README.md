@@ -7,7 +7,7 @@ Canonical repository: [xynprize/Miro.](https://github.com/xynprize/Miro.) (the n
 
 [Library visual polish](docs/LIBRARY_VISUAL_POLISH.md): scenery, interface sprites and effects added while preserving Julia's original assets.
 
-**Playable audio/stealth review:** [feature spec and build instructions](docs/AUDIO_AND_STEALTH_REVIEW.md). Start at the review menu; F10 returns to it. Music, voiced guard conversations, root login, suppressor cases and hiding recesses are implemented for review.
+**Playable audio/stealth review:** [feature spec and build instructions](docs/AUDIO_AND_STEALTH_REVIEW.md). Start at the review menu; F10 returns to it. Music, voiced guard conversations, root login, ammunition cases and hiding recesses are implemented for review.
 
 **Current focus:** [music mechanics handoff and ordered tasks](docs/MUSIC_MECHANICS_HANDOFF.md) — portable player pickup, stealth/offense points, beat unlocks and soundtrack branches (planned).
 
@@ -21,6 +21,10 @@ Godot 4.7 / Forward+. Main scene: `scenes/main_menu.tscn`; gameplay intro: `scen
 
 The playable first floor includes the cell opening, three escape choices, guard sight and searches, blanket stealth, combat, ladders, a sigil objective, and an intro completion screen.
 
+**7 Nov implementation:** [story and systems map](docs/STORY_AND_SYSTEMS_IMPLEMENTATION.md) and [cutscene/art hooks](docs/CUTSCENE_HOOKS.md).
+
+**Inner conflict:** [reactive paintings, two-option replies, lore terminals and verses](docs/INNER_CONFLICT.md). Run `Fetch Art.ps1` locally to download the public-domain paintings with their rights evidence.
+
 See [intro guide](docs/INTRO.md) for controls, editing and verification. Use `Open Miro.ps1`, `Play Miro.ps1`, or the desktop shortcuts. Run `Run Checks.ps1` for the automated playthroughs.
 
 The original movement sandbox remains in `scenes/asset_sandbox.tscn`.
@@ -29,6 +33,6 @@ All five floors now have editable scene scaffolds. See [Level 1 sources and auth
 
 Playable milestone: linked five-floor progression, Level 3 sweeping cameras and one-second hacking, Level 5 two-attack boss and a skippable in-engine ending. Art remains provisional; see the per-floor guide for remaining work.
 
-Latest controls: press **2** for 5-second mobile stealth (8-second cooldown, 55% speed); contact with a living guard reveals Miro. Dialogue uses a simpler bottom text/speaker panel. See [current decisions](docs/GAMEPLAY_DECISIONS.md). Build with `Build Windows.ps1`, then validate standalone startup using `Check Windows Build.ps1`.
+Latest controls: **1–5 select items, Q selects blanket, left click uses, N opens inventory, R reloads, C dashes, Ctrl crouches, Space twice double-jumps, Z thinks of a hint, 6 or G selects the guitar (Level 5)**. See [final controls and remote](docs/CONTROLS_REMOTE_HANDOFF.md). Blanket use requires shadows, with 5-second stealth and an 8-second cooldown; leaving cover or guard contact reveals Miro. The two jumps together reach approximately 65.17 pixels. See the [traversal handoff](docs/TRAVERSAL_FRAN_HANDOFF.md) for trapdoors and Fran’s playtest fixes. Dialogue appears in bubbles over the speaker (E to continue); the bottom strip holds objectives and cues. See [current decisions](docs/GAMEPLAY_DECISIONS.md). Build with `Build Windows.ps1`, then validate standalone startup using `Check Windows Build.ps1`.
 
 Press **M** to toggle sound effects. `Check Exported Playthrough.ps1` verifies a continuous five-floor run in a separate QA export (64 checks), including the boss and watched ending.

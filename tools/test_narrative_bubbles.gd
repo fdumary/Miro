@@ -32,9 +32,9 @@ func run() -> void:
 	for station in final.stations:
 		if station.id == "FinalOffer":
 			reveal = str(station.lines)
-	check("Innate immunity confirmed" in reveal and "Pathogen development: Tower" in reveal, "Final mandatory offer contains both approved revelations")
+	check("You are immune" in reveal and "The tower made the sickness" in reveal, "Final mandatory offer contains both approved revelations")
 	for number in range(2, 5):
 		var earlier := FileAccess.get_file_as_string("res://data/levels/level_%02d.json" % number)
-		check(not "Innate immunity confirmed" in earlier and not "Pathogen development: Tower" in earlier, "Floor %d does not reveal final lab findings" % number)
+		check(not "You are immune" in earlier and not "The tower made the sickness" in earlier, "Floor %d does not reveal final lab findings" % number)
 	print("NARRATIVE_BUBBLES_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

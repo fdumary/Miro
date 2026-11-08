@@ -5,7 +5,6 @@ var shooter: CollisionObject2D
 var direction := Vector2.RIGHT
 var speed := 700.0
 var remaining := 420.0
-var flame := false
 var damage := 2
 var enemy := false
 var trail_start := Vector2.ZERO
@@ -39,9 +38,4 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _draw() -> void:
-	if flame:
-		draw_set_transform(Vector2.ZERO, direction.angle())
-		draw_texture_rect(preload("res://assets/weapons/flame.svg"), Rect2(-14, -5, 20, 10), false)
-		draw_set_transform(Vector2.ZERO)
-	else:
-		draw_line(-direction * 10, Vector2.ZERO, Color("f2d3ab"), 2)
+	draw_line(-direction * 10, Vector2.ZERO, Color("f2d3ab"), 2)

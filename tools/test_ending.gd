@@ -9,9 +9,9 @@ func ending_setup() -> void:
 	current_scene = level
 	await frames(2)
 	level.finish_dialogue()
-	level.player.position = Vector2(650, 655)
+	level.player.position = level.areas.get_node("ForestViewpoint").position + Vector2(0, 6)
 	level.sigil_placed = true
-	level.milestones = {"FinalSigil": true, "FinalOffer": true, "BrotherEncounter": true, "DyingExchange": true}
+	level.milestones = {"FinalSigil": true, "FinalOffer": true, "BrotherEncounter": true, "DefeatExchange": true}
 	level.interact()
 
 func run() -> void:
@@ -33,7 +33,7 @@ func run() -> void:
 	var skipped: Dictionary = campaign.narrative_milestones.duplicate()
 	await ending_setup()
 	check(not campaign.ending_complete and not campaign.completed_sigils.has(5), "Floor retry restores entry progress")
-	await frames(850)
+	await frames(940)
 	check(level.completed and campaign.ending_complete, "Watching full sequence completes ending")
 	check(skipped == campaign.narrative_milestones, "Watch and skip produce identical milestones")
 	var count: int = level.milestones.size()
