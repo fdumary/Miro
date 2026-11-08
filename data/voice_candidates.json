@@ -1,0 +1,158 @@
+[
+  {
+    "name": "Rob - Tough & Calloused",
+    "voice_id": "2ajXGJNYBR0iNHpS4VZb",
+    "gender": "male",
+    "note": "British, gritty veteran; suggested for the Level 5 terminal guard"
+  },
+  {
+    "name": "Jerry B. - Gruff Commander",
+    "voice_id": "TxWZERZ5Hc6h9dGxVmXa",
+    "gender": "male",
+    "note": "American, gruff senior officer barking orders"
+  },
+  {
+    "name": "Mister Gruff",
+    "voice_id": "mSOmKHC6GZcZbSTGlqHO",
+    "gender": "male",
+    "note": "American, grumbling old-timer near retirement"
+  },
+  {
+    "name": "Malakai - Shadowed and Gruff",
+    "voice_id": "7squ7rvxEIZ2rYy7KYPP",
+    "gender": "male",
+    "note": "Low, near-whisper night watchman"
+  },
+  {
+    "name": "John North - Northern Englishman",
+    "voice_id": "7rQX8r6PVq3gfJ8rZzyE",
+    "gender": "male",
+    "note": "Warm, down-to-earth, chatty guard"
+  },
+  {
+    "name": "Andy",
+    "voice_id": "kVBPcEMsUF1nsAO1oNWw",
+    "gender": "male",
+    "note": "British, gruff and high-energy, jumpy"
+  },
+  {
+    "name": "The Fox - Strict & Dominating",
+    "voice_id": "h1IssowVS2h4nL5ZbkkK",
+    "gender": "male",
+    "note": "Clipped, by-the-book disciplinarian"
+  },
+  {
+    "name": "Taras Vovk - Tactical NPC",
+    "voice_id": "11JUpgNlQsWfppULB2T8",
+    "gender": "male",
+    "note": "Ukrainian accent, flat radio-report delivery"
+  },
+  {
+    "name": "Tony - Tough, Cocky",
+    "voice_id": "ICwKbPHDHAM3eal5tHEZ",
+    "gender": "male",
+    "note": "Brooklyn accent, cocky gambler who talks too much"
+  },
+  {
+    "name": "Chris - Tough, Sarcastic",
+    "voice_id": "2vubyVoGjNJ5HPga4SkV",
+    "gender": "male",
+    "note": "Boston accent, sarcastic, hates the job"
+  },
+  {
+    "name": "Bubba Marshal - Southern and Raspy",
+    "voice_id": "YEkUdc7PezGaXaRslSHB",
+    "gender": "male",
+    "note": "Southern drawl, homesick"
+  },
+  {
+    "name": "George - War-torn Sergeant",
+    "voice_id": "GLSWsaquVBsIPLPPRi2s",
+    "gender": "male",
+    "note": "Ex-soldier with too many stories"
+  },
+  {
+    "name": "Matthew Schmitz - Mountain Man",
+    "voice_id": "Q4oILuo4P8VeXtE6FMLI",
+    "gender": "male",
+    "note": "Slow, gravelly, weathered older guard"
+  },
+  {
+    "name": "John Morgan - Rugged Cowboy",
+    "voice_id": "ruirxsoakN0GWmGNIo04",
+    "gender": "male",
+    "note": "Southern, rugged, emotional"
+  },
+  {
+    "name": "Adam",
+    "voice_id": "wBXNqKUATyqu0RtYt25i",
+    "gender": "male",
+    "note": "American, deep and neutral; dependable regular guard"
+  },
+  {
+    "name": "Elinor - The Gruff Aunt",
+    "voice_id": "gDQfVolj9RbmXgumLcOq",
+    "gender": "female",
+    "note": "Commanding alto, stern older supervisor"
+  },
+  {
+    "name": "Beth - Bold and Smooth",
+    "voice_id": "y3UNfL9XC5Bb5htg8B0q",
+    "gender": "female",
+    "note": "Smoky, fearless, confident"
+  },
+  {
+    "name": "Britney - Calm Villain",
+    "voice_id": "esy0r39YPLQjOczyOib8",
+    "gender": "female",
+    "note": "Cold and calculating, believes in the tower"
+  },
+  {
+    "name": "Evelyn - Resourceful and Ironic",
+    "voice_id": "XEoBW4iDmiawQP72xnAF",
+    "gender": "female",
+    "note": "British, dry wit, reads everyone's files"
+  },
+  {
+    "name": "Emma - Wry, Gritty",
+    "voice_id": "dmWfLQZJq7wNPv9WmtiM",
+    "gender": "female",
+    "note": "American, deadpan and sarcastic"
+  },
+  {
+    "name": "Paula - Deep, Sleepy, Serious",
+    "voice_id": "psJnoAClXdhH5gn8uKNb",
+    "gender": "female",
+    "note": "Exhausted night-shift guard"
+  },
+  {
+    "name": "Tessa - Wise Leader",
+    "voice_id": "USEQXnsXRJlw2k9LUzG4",
+    "gender": "female",
+    "note": "British, calm and ominous captain"
+  },
+  {
+    "name": "Soraya - Confident, Commanding",
+    "voice_id": "TNI5EQSCUrYwvhb2wpzt",
+    "gender": "female",
+    "note": "Latin American accent, quiet authority"
+  },
+  {
+    "name": "Samantha - Sad & Mourning",
+    "voice_id": "4MCpTYfyID5zAcKxZn2m",
+    "gender": "female",
+    "note": "Soft, lonely, heartbroken guard"
+  },
+  {
+    "name": "Bella - Bright, Warm",
+    "voice_id": "hpp4J3VqNfWAUOO0d1Us",
+    "gender": "female",
+    "note": "American, warm and upbeat; the friendly one"
+  },
+  {
+    "name": "Samantha - Smooth Voice of Reason",
+    "voice_id": "uIZsnBL0YK1S5j69bAih",
+    "gender": "female",
+    "note": "Relaxed, calm; the guard who meditates on shift"
+  }
+]
