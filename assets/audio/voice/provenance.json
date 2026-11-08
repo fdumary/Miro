@@ -12794,5 +12794,3533 @@
       "output_lufs": "-18.09",
       "output_true_peak_dbtp": "-1.37"
     }
+  },
+  "rhea_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "21m00Tcm4TlvDq8ikWAM",
+    "voice_name": "Rachel (premade)",
+    "model_id": "eleven_v3",
+    "text": "Intruder! Hold the pose, I mean, hold still!",
+    "delivery": "[shouting] [bright]",
+    "signature": "6272d2a21551a006768f2b719b36fc6d085858e80093b2a0a71e2d0162355195",
+    "leveling": {
+      "source_sha256": "a37666adf74d15974f30756c8f6042237598b9667ac1111c442235c864674ca6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.95",
+        "input_tp": "-2.15",
+        "input_lra": "1.80",
+        "input_thresh": "-27.39",
+        "output_i": "-17.52",
+        "output_tp": "-3.19",
+        "output_lra": "0.90",
+        "output_thresh": "-28.01",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.48"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-3.19"
+    }
+  },
+  "marta_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "AZnzlk1XvdvUeBnXmlld",
+    "voice_name": "Domi (premade)",
+    "model_id": "eleven_v3",
+    "text": "Hey! Put that down, you'll ruin my sourdough! I mean, stop!",
+    "delivery": "[shouting] [warm]",
+    "signature": "efa342b45042479a1b00af48d2c2c3bf3f26e3796aaa611cdbd0a8fdae5dd98e",
+    "leveling": {
+      "source_sha256": "583a353cd92d87ecc487400d2712f5b7c102d8154241f55bad48dc78bc29a8ae",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.94",
+        "input_tp": "-1.16",
+        "input_lra": "1.00",
+        "input_thresh": "-25.05",
+        "output_i": "-18.31",
+        "output_tp": "-4.72",
+        "output_lra": "0.70",
+        "output_thresh": "-28.40",
+        "normalization_type": "dynamic",
+        "target_offset": "0.31"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.18"
+    }
+  },
+  "odette_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "MF3mGyEYCl7XYWbV9V6O",
+    "voice_name": "Elli (premade)",
+    "model_id": "eleven_v3",
+    "text": "Stop! You're the most interesting thing that's happened to me all year!",
+    "delivery": "[shouting] [wistful]",
+    "signature": "c2d512f60e177558a9985f40c9f34fcfe42351e93d5b46437590482936ded255",
+    "leveling": {
+      "source_sha256": "0df21613186af3c6bf6668b3933c4f758f7f2a014c519dc3baff7cff129f8078",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.08",
+        "input_tp": "-1.68",
+        "input_lra": "0.30",
+        "input_thresh": "-25.21",
+        "output_i": "-17.10",
+        "output_tp": "-4.17",
+        "output_lra": "0.30",
+        "output_thresh": "-27.34",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.90"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-4.54"
+    }
+  },
+  "sunniva_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "ThT5KcBeYPX3keUQqHPh",
+    "voice_name": "Dorothy (premade)",
+    "model_id": "eleven_v3",
+    "text": "Not now! Eleven days left on my contract. Eleven!",
+    "delivery": "[shouting] [determined]",
+    "signature": "22bbba224afb848eab9225d0911edbe17c9aaf94f3a95e77af58c6cf96fec329",
+    "leveling": {
+      "source_sha256": "58a7705d4484f3b919ef9b4b105a9618c63fbf98a78191535939ad5eb7adccf9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.18",
+        "input_tp": "-0.75",
+        "input_lra": "1.40",
+        "input_thresh": "-24.88",
+        "output_i": "-17.43",
+        "output_tp": "-3.69",
+        "output_lra": "3.30",
+        "output_thresh": "-28.21",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.57"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-4.56"
+    }
+  },
+  "calla_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "XB0fDUnXU5powFXDhCwa",
+    "voice_name": "Charlotte (premade)",
+    "model_id": "eleven_v3",
+    "text": "Oh my, a real runaway! This is going straight into my podcast!",
+    "delivery": "[shouting] [excited]",
+    "signature": "92af0e9ce5b2aa5d6d731c24498e3d1c9095e4565620595f326566badb6b2f1e",
+    "leveling": {
+      "source_sha256": "2c12d4b868bc3496e8f83096bce81fd78b0847da04c64acb79d61c842c6b3412",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.88",
+        "input_tp": "-1.08",
+        "input_lra": "1.90",
+        "input_thresh": "-25.00",
+        "output_i": "-18.29",
+        "output_tp": "-4.98",
+        "output_lra": "0.70",
+        "output_thresh": "-28.40",
+        "normalization_type": "dynamic",
+        "target_offset": "0.29"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-4.35"
+    }
+  },
+  "ingrid_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "voice_name": "Matilda (premade)",
+    "model_id": "eleven_v3",
+    "text": "Intruder in the stacks! Quiet, please! Quiet!",
+    "delivery": "[shouting] [prim]",
+    "signature": "2812e91371777b3d090bd299c52d2e3375cfc32fae2e44d2003be8d77e79f156",
+    "leveling": {
+      "source_sha256": "477be1584908b1f0fdd58c819f44603cdd47c8a220fd211ff56d1db575fbbe8e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.48",
+        "input_tp": "-0.47",
+        "input_lra": "1.50",
+        "input_thresh": "-23.84",
+        "output_i": "-16.56",
+        "output_tp": "-5.08",
+        "output_lra": "0.30",
+        "output_thresh": "-27.90",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.44"
+      },
+      "output_lufs": "-18.04",
+      "output_true_peak_dbtp": "-5.85"
+    }
+  },
+  "noor_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "piTKgcLEGmPE4e6mEKli",
+    "voice_name": "Nicole (premade)",
+    "model_id": "eleven_v3",
+    "text": "Well, well. Look who's out past curfew. Shame about the handcuffs.",
+    "delivery": "[shouting] [husky]",
+    "signature": "3e5bb337cefd99fae7d5cccab25e8b96fab1377f98de345553666060addfa825",
+    "leveling": {
+      "source_sha256": "a18cd8cb5877f8e0e8f6cd1ce9125c7a447e6dfe84b972daa2ab2e72ed553c6e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.21",
+        "input_tp": "-1.06",
+        "input_lra": "1.60",
+        "input_thresh": "-25.60",
+        "output_i": "-17.93",
+        "output_tp": "-4.19",
+        "output_lra": "0.80",
+        "output_thresh": "-28.26",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.07"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.92"
+    }
+  },
+  "rhea_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "21m00Tcm4TlvDq8ikWAM",
+    "voice_name": "Rachel (premade)",
+    "model_id": "eleven_v3",
+    "text": "Oh no. Oh no, I should've stretched him out first.",
+    "delivery": "[shocked] [bright]",
+    "signature": "a8db13c8101eded944523a1d61e177b04b8f8565aa4f19eb80c16f1527258b26",
+    "leveling": {
+      "source_sha256": "593aab6a1ee3a614326b4e5e0d229478549fca8550f64fadc25e7c01ad78a9b2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.30",
+        "input_tp": "-1.28",
+        "input_lra": "0.80",
+        "input_thresh": "-27.44",
+        "output_i": "-17.57",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.82",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.43"
+      },
+      "output_lufs": "-17.84",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "marta_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "AZnzlk1XvdvUeBnXmlld",
+    "voice_name": "Domi (premade)",
+    "model_id": "eleven_v3",
+    "text": "Somebody help him! Somebody get the first aid, and the flour!",
+    "delivery": "[shocked] [warm]",
+    "signature": "8a634aca22cd91062eeee4943708eb1ed41b4e5e36ef19f3488e37dcf3c919fa",
+    "leveling": {
+      "source_sha256": "fb16c235d41545b2749d4bdac413fd4a17c5feee225ae0bb337c43c74079d523",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.34",
+        "input_tp": "-0.81",
+        "input_lra": "0.40",
+        "input_thresh": "-23.61",
+        "output_i": "-17.40",
+        "output_tp": "-5.00",
+        "output_lra": "0.10",
+        "output_thresh": "-27.63",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.60"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-5.33"
+    }
+  },
+  "odette_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "MF3mGyEYCl7XYWbV9V6O",
+    "voice_name": "Elli (premade)",
+    "model_id": "eleven_v3",
+    "text": "Of course. Even the dead ones stop to talk to me.",
+    "delivery": "[shocked] [wistful]",
+    "signature": "22323e1321ce7b01e9fd7a886cf0117ddfdafe5ff98626a87bcf2f8ef88e3fb5",
+    "leveling": {
+      "source_sha256": "57b871df9aaa6793b5cb35cf3728219fb133458dec4399ca2202da481c03aa18",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.93",
+        "input_tp": "-0.69",
+        "input_lra": "0.20",
+        "input_thresh": "-27.35",
+        "output_i": "-17.86",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.13",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.14"
+      },
+      "output_lufs": "-17.70",
+      "output_true_peak_dbtp": "-1.89"
+    }
+  },
+  "sunniva_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "ThT5KcBeYPX3keUQqHPh",
+    "voice_name": "Dorothy (premade)",
+    "model_id": "eleven_v3",
+    "text": "Nope. Not signing the incident report. Eleven days.",
+    "delivery": "[shocked] [determined]",
+    "signature": "6fe303b6b5d0f49f10f050c54ad148161d9202e8ae43d9e4cced2a7d15253074",
+    "leveling": {
+      "source_sha256": "bf36354efdf26acfcf506d332c9a67410ff77dfcb5b25c2ccd5bee3a91222628",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.06",
+        "input_tp": "-0.68",
+        "input_lra": "1.20",
+        "input_thresh": "-26.61",
+        "output_i": "-17.55",
+        "output_tp": "-2.12",
+        "output_lra": "1.60",
+        "output_thresh": "-28.12",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.45"
+      },
+      "output_lufs": "-18.13",
+      "output_true_peak_dbtp": "-2.62"
+    }
+  },
+  "calla_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "XB0fDUnXU5powFXDhCwa",
+    "voice_name": "Charlotte (premade)",
+    "model_id": "eleven_v3",
+    "text": "Okay, that's one for the true crime episode.",
+    "delivery": "[shocked] [excited]",
+    "signature": "48583a82a798ffffcaeb9d2dece894eb9db10d2f614bdf9c655a6a7d174af710",
+    "leveling": {
+      "source_sha256": "8919f91e97be9ea5c892c419d19e7fb45d3cc2a00d9f60b7ded717d69f4dc115",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.99",
+        "input_tp": "-1.20",
+        "input_lra": "0.00",
+        "input_thresh": "-27.17",
+        "output_i": "-18.00",
+        "output_tp": "-2.20",
+        "output_lra": "0.00",
+        "output_thresh": "-28.18",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.25"
+    }
+  },
+  "ingrid_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "voice_name": "Matilda (premade)",
+    "model_id": "eleven_v3",
+    "text": "Overdue. Everything about this is overdue.",
+    "delivery": "[shocked] [prim]",
+    "signature": "337e74ef3979bdb6c9b1da675ed81ece6609fb6f328f8f795bbebf249f16d24b",
+    "leveling": {
+      "source_sha256": "04008e2556948c2349b88536f6a824340bb968ca3f2ce3b51edfe823020e838f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.94",
+        "input_tp": "-0.74",
+        "input_lra": "1.70",
+        "input_thresh": "-26.54",
+        "output_i": "-17.99",
+        "output_tp": "-3.21",
+        "output_lra": "0.00",
+        "output_thresh": "-28.28",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.81"
+    }
+  },
+  "noor_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "piTKgcLEGmPE4e6mEKli",
+    "voice_name": "Nicole (premade)",
+    "model_id": "eleven_v3",
+    "text": "Aw. And I'd just gotten used to the company.",
+    "delivery": "[shocked] [husky]",
+    "signature": "df32c7ebcab82805fcaa78fd091b4b98f58567439dc04342a2b0da601f23a89f",
+    "leveling": {
+      "source_sha256": "e1a7eeb9209fb081bf71177248f7e5e8cc37940d20e56f1979c7ed10dcbad5a2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.33",
+        "input_tp": "-0.98",
+        "input_lra": "0.00",
+        "input_thresh": "-24.50",
+        "output_i": "-17.99",
+        "output_tp": "-4.66",
+        "output_lra": "0.00",
+        "output_thresh": "-28.17",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-4.63"
+    }
+  },
+  "lusk_password_clue_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "yl2ZDV1MzN4HbQJbMihG",
+    "voice_name": "Alex - Upbeat, Energetic and Clear",
+    "model_id": "eleven_v3",
+    "text": "Don't say it so loud. Honestly, though, it's the one password in this place I can remember.",
+    "delivery": "",
+    "signature": "1204d8943ea4f5d9a9e9d9f91ed195c3dbd10596fca0621adce217ecc0d534bb",
+    "leveling": {
+      "source_sha256": "1796bd5a3abd0ad8031d12552f7911e9bf456cf3f635aa42acc8f07072e735f2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.20",
+        "input_tp": "-2.01",
+        "input_lra": "1.60",
+        "input_thresh": "-27.20",
+        "output_i": "-17.86",
+        "output_tp": "-2.22",
+        "output_lra": "1.00",
+        "output_thresh": "-27.86",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.14"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.75"
+    }
+  },
+  "rhea_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "21m00Tcm4TlvDq8ikWAM",
+    "voice_name": "Rachel (premade)",
+    "model_id": "eleven_v3",
+    "text": "Roll the shoulders, long exhale. Even down here, breathe.",
+    "delivery": "[bright] [muttering]",
+    "signature": "67474774ec66cf0b75845ddaa7fe473569e3ad64d1233c035b927873a5e0c34a",
+    "leveling": {
+      "source_sha256": "62739f646508f7dc11a43f494eedc43edfdb6ab95f6e3559c10430900c0cc3ae",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.84",
+        "input_tp": "-3.00",
+        "input_lra": "1.40",
+        "input_thresh": "-28.18",
+        "output_i": "-18.16",
+        "output_tp": "-3.63",
+        "output_lra": "1.40",
+        "output_thresh": "-28.42",
+        "normalization_type": "dynamic",
+        "target_offset": "0.16"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.24"
+    }
+  },
+  "marta_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "AZnzlk1XvdvUeBnXmlld",
+    "voice_name": "Domi (premade)",
+    "model_id": "eleven_v3",
+    "text": "Starter needs feeding at six. The tower never lets me go home on time.",
+    "delivery": "[warm] [muttering]",
+    "signature": "edad988567d8b2e78f89bf6e5f81b851940428ee87fc42350d50ba1592b98dac",
+    "leveling": {
+      "source_sha256": "4fbe674132b800409f31be03923a6dd8f574d1ebb523781a75e191339237f645",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.81",
+        "input_tp": "-0.88",
+        "input_lra": "3.70",
+        "input_thresh": "-27.92",
+        "output_i": "-16.87",
+        "output_tp": "-2.00",
+        "output_lra": "1.80",
+        "output_thresh": "-27.04",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.13"
+      },
+      "output_lufs": "-17.74",
+      "output_true_peak_dbtp": "-1.79"
+    }
+  },
+  "odette_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "MF3mGyEYCl7XYWbV9V6O",
+    "voice_name": "Elli (premade)",
+    "model_id": "eleven_v3",
+    "text": "Four years on this floor and not one man who reads.",
+    "delivery": "[wistful] [muttering]",
+    "signature": "e2450e9a00e47bcf3a173d6f1228dcbdb7f9695fd23fee0d6bbb07810b6edfcf",
+    "leveling": {
+      "source_sha256": "5ea0f79d98cb6452f73049f906b1c9d80360d7e57d0cef75816bb9b3c9ff14b8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.22",
+        "input_tp": "-2.72",
+        "input_lra": "2.00",
+        "input_thresh": "-32.18",
+        "output_i": "-18.19",
+        "output_tp": "-2.00",
+        "output_lra": "1.60",
+        "output_thresh": "-28.59",
+        "normalization_type": "dynamic",
+        "target_offset": "0.19"
+      },
+      "output_lufs": "-17.68",
+      "output_true_peak_dbtp": "-1.81"
+    }
+  },
+  "sunniva_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "ThT5KcBeYPX3keUQqHPh",
+    "voice_name": "Dorothy (premade)",
+    "model_id": "eleven_v3",
+    "text": "Eleven days. Then a goat farm in the north. Goats don't ask for passwords.",
+    "delivery": "[determined] [muttering]",
+    "signature": "521e1202d982e356e4dba32bb641078466efd4d6d698f5ea0b5e91ba13278c83",
+    "leveling": {
+      "source_sha256": "8a756b069d6b19caae4e9fa82735b19d154b1558a18b7da7466c088096c05c7e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.92",
+        "input_tp": "-0.85",
+        "input_lra": "2.90",
+        "input_thresh": "-28.55",
+        "output_i": "-16.89",
+        "output_tp": "-2.00",
+        "output_lra": "2.40",
+        "output_thresh": "-27.38",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.11"
+      },
+      "output_lufs": "-18.16",
+      "output_true_peak_dbtp": "-1.90"
+    }
+  },
+  "calla_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "XB0fDUnXU5powFXDhCwa",
+    "voice_name": "Charlotte (premade)",
+    "model_id": "eleven_v3",
+    "text": "Episode forty. The case of the missing lunch money. Unsolved.",
+    "delivery": "[excited] [muttering]",
+    "signature": "7e8e2484ebdd5fbb976314af39b2eee6ec6f65ae22d0ecb689957ec5ddeb332a",
+    "leveling": {
+      "source_sha256": "a97950ed25de6d66473289c0a158996d5206c05fa03437ba937c3c3e67aed52d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.42",
+        "input_tp": "-3.49",
+        "input_lra": "0.90",
+        "input_thresh": "-28.97",
+        "output_i": "-18.14",
+        "output_tp": "-3.36",
+        "output_lra": "1.00",
+        "output_thresh": "-28.73",
+        "normalization_type": "dynamic",
+        "target_offset": "0.14"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-3.06"
+    }
+  },
+  "ingrid_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "voice_name": "Matilda (premade)",
+    "model_id": "eleven_v3",
+    "text": "Keeper regulations, section nine, subsection four. Nobody ever reads it.",
+    "delivery": "[prim] [muttering]",
+    "signature": "3ce751c79369910f2dee206feb44e62daf746dac926588ca0f344a2afc78eef6",
+    "leveling": {
+      "source_sha256": "2de84daadfd87c619c2786a3a75e308ae99791130247c39f8021efa4f9b86790",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.76",
+        "input_tp": "-2.64",
+        "input_lra": "3.00",
+        "input_thresh": "-29.21",
+        "output_i": "-18.63",
+        "output_tp": "-2.94",
+        "output_lra": "2.30",
+        "output_thresh": "-28.89",
+        "normalization_type": "dynamic",
+        "target_offset": "0.63"
+      },
+      "output_lufs": "-18.42",
+      "output_true_peak_dbtp": "-2.26"
+    }
+  },
+  "noor_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "piTKgcLEGmPE4e6mEKli",
+    "voice_name": "Nicole (premade)",
+    "model_id": "eleven_v3",
+    "text": "The night shift is long and the only company is Garth. Garth!",
+    "delivery": "[husky] [muttering]",
+    "signature": "9e82d7e509083ab9f02ddfa4068c2a770cec9ea06d35ea071ad57eee9ca50183",
+    "leveling": {
+      "source_sha256": "5f0b68e6914a9cf1008e750b44d3065e56cb03080e5c3c3d62de80e4f91bb346",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.48",
+        "input_tp": "-0.41",
+        "input_lra": "1.10",
+        "input_thresh": "-22.95",
+        "output_i": "-17.62",
+        "output_tp": "-5.70",
+        "output_lra": "0.40",
+        "output_thresh": "-27.96",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.38"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-5.80"
+    }
+  },
+  "dane_password_clue": {
+    "provider": "ElevenLabs",
+    "voice_id": "ib8aaABAPZQpTo6hx8Jr",
+    "voice_name": "Severin - Powerful & Commanding",
+    "model_id": "eleven_v3",
+    "text": "And nobody ever changed the service port login. Root, root. Anyone with a screwdriver could walk right in.",
+    "delivery": "",
+    "signature": "eea9997778d119998a42f7244a9d8955bc54c5dfdf632c800577271b75ca607b",
+    "leveling": {
+      "source_sha256": "4aac45ba81eda3cc2ce11152b03d63d652324d270277100889430c7fae67d841",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.87",
+        "input_tp": "-0.97",
+        "input_lra": "4.40",
+        "input_thresh": "-27.45",
+        "output_i": "-18.57",
+        "output_tp": "-2.76",
+        "output_lra": "4.30",
+        "output_thresh": "-29.19",
+        "normalization_type": "dynamic",
+        "target_offset": "0.57"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.26"
+    }
+  },
+  "rhea_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "21m00Tcm4TlvDq8ikWAM",
+    "voice_name": "Rachel (premade)",
+    "model_id": "eleven_v3",
+    "text": "Twelve hours standing. My core has never been stronger.",
+    "delivery": "[bright] [muttering]",
+    "signature": "abdd6e6e9478cfbaf91b687efa9575c88b3042a227076d6b0ef61b629b844c95",
+    "leveling": {
+      "source_sha256": "2c66f7d858122210f2a5dde01ff6ffe000831121215bf573361c45fde22e9516",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.48",
+        "input_tp": "-1.67",
+        "input_lra": "0.30",
+        "input_thresh": "-27.76",
+        "output_i": "-17.48",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.73",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.52"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "marta_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "AZnzlk1XvdvUeBnXmlld",
+    "voice_name": "Domi (premade)",
+    "model_id": "eleven_v3",
+    "text": "Cinnamon rolls on my day off. Ten tower guards, ten rolls.",
+    "delivery": "[warm] [muttering]",
+    "signature": "b4e34dd7a772416e9940805544b4526eb97b1e58e60817390adc86ecd23c32f9",
+    "leveling": {
+      "source_sha256": "bb9d7d189ab8a279321294ec55ebd1648027fbb26b63630bc37927580dd8f372",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.93",
+        "input_tp": "-1.37",
+        "input_lra": "0.40",
+        "input_thresh": "-27.57",
+        "output_i": "-17.39",
+        "output_tp": "-2.34",
+        "output_lra": "1.20",
+        "output_thresh": "-28.05",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.61"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.32"
+    }
+  },
+  "odette_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "MF3mGyEYCl7XYWbV9V6O",
+    "voice_name": "Elli (premade)",
+    "model_id": "eleven_v3",
+    "text": "Maybe the next prisoner will be handsome. A girl can dream.",
+    "delivery": "[wistful] [muttering]",
+    "signature": "93ce1212bbaaa59d900efac8b267c69de68c91347e9617583f3aaf3c39ad2b7c",
+    "leveling": {
+      "source_sha256": "b31127c1fa4884c5cb69ecf05f37fe0397ced3f27501fc033859485ccdef07fc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-27.02",
+        "input_tp": "-7.44",
+        "input_lra": "3.10",
+        "input_thresh": "-37.61",
+        "output_i": "-18.33",
+        "output_tp": "-2.00",
+        "output_lra": "1.90",
+        "output_thresh": "-28.97",
+        "normalization_type": "dynamic",
+        "target_offset": "0.33"
+      },
+      "output_lufs": "-18.73",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "sunniva_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "ThT5KcBeYPX3keUQqHPh",
+    "voice_name": "Dorothy (premade)",
+    "model_id": "eleven_v3",
+    "text": "I've already named the goats. Don't laugh.",
+    "delivery": "[determined] [muttering]",
+    "signature": "5a991edcbece26fcd1844d1b11468546f4e1d8b8bdc20430e105af55d435f8bd",
+    "leveling": {
+      "source_sha256": "890d1ef96164588c066614b64dfd2ca32c10e1fedf65e6861b4f547323c07b98",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.67",
+        "input_tp": "-1.13",
+        "input_lra": "1.70",
+        "input_thresh": "-27.60",
+        "output_i": "-17.14",
+        "output_tp": "-2.08",
+        "output_lra": "0.00",
+        "output_thresh": "-27.95",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.86"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.44"
+    }
+  },
+  "calla_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "XB0fDUnXU5powFXDhCwa",
+    "voice_name": "Charlotte (premade)",
+    "model_id": "eleven_v3",
+    "text": "Everyone here has a motive. Everyone. Even Garrow.",
+    "delivery": "[excited] [muttering]",
+    "signature": "b0285da5dc46ad0abf7b203a6946df0b603fc553b14475bb0d33807161f4e022",
+    "leveling": {
+      "source_sha256": "59399d6994e6976bab6d5d7ca48e19c76b08abe4d3c02dc32ea5e036de1f9eb8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.28",
+        "input_tp": "-6.38",
+        "input_lra": "1.50",
+        "input_thresh": "-32.04",
+        "output_i": "-16.91",
+        "output_tp": "-2.33",
+        "output_lra": "1.60",
+        "output_thresh": "-27.68",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.09"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.24"
+    }
+  },
+  "ingrid_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "voice_name": "Matilda (premade)",
+    "model_id": "eleven_v3",
+    "text": "Alphabetical. Chronological. Then by whom I like less.",
+    "delivery": "[prim] [muttering]",
+    "signature": "3f85fbdc668501e081aa561014375a43ebdde6cf29e5e80f1a348cdbc235a2c3",
+    "leveling": {
+      "source_sha256": "dda5c93cda205bc25fb5f3ce308e34e6c5fa79d6d3c1d78434d9de64e567f99c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.22",
+        "input_tp": "-2.73",
+        "input_lra": "0.10",
+        "input_thresh": "-28.64",
+        "output_i": "-17.47",
+        "output_tp": "-2.03",
+        "output_lra": "0.00",
+        "output_thresh": "-27.96",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.53"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.59"
+    }
+  },
+  "noor_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "piTKgcLEGmPE4e6mEKli",
+    "voice_name": "Nicole (premade)",
+    "model_id": "eleven_v3",
+    "text": "I wore the good boots today and nobody even looked.",
+    "delivery": "[husky] [muttering]",
+    "signature": "2041850b6dce7c0b22b695ac91cdcf4ed0a1a8b8ae9c5d0fd7a268e9558cdb9f",
+    "leveling": {
+      "source_sha256": "ae51f5bd371212581563acdac578bcf414fe4611fce5b817101610d8b5dcded0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.94",
+        "input_tp": "-1.42",
+        "input_lra": "0.40",
+        "input_thresh": "-24.94",
+        "output_i": "-17.82",
+        "output_tp": "-4.24",
+        "output_lra": "0.00",
+        "output_thresh": "-27.82",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.18"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.46"
+    }
+  },
+  "miro_dc4d853c43": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then tell me why I'm here.",
+    "delivery": "",
+    "signature": "22f2844446070131113194c80038708fdb4ca01004f7170fb12a16bfddc17428",
+    "leveling": {
+      "source_sha256": "e17e7e898d1814959bb55fcc8ba7ab050b8b4b7c6afdb042011631f7d8a638df",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.91",
+        "input_tp": "-0.45",
+        "input_lra": "0.00",
+        "input_thresh": "-22.91",
+        "output_i": "-18.01",
+        "output_tp": "-5.54",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-5.54"
+    }
+  },
+  "miro_ef87f3e106": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "I'll find my own way out.",
+    "delivery": "",
+    "signature": "d986ac30622e8222d2b7d778db4e09fb17c1279dfa30c81cbc26291bbd75b4e3",
+    "leveling": {
+      "source_sha256": "4d9f39abed8959894231ca7295db7f433517e8a188c47beb3e9aae57f1381020",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-10.34",
+        "input_tp": "-0.51",
+        "input_lra": "0.00",
+        "input_thresh": "-21.35",
+        "output_i": "-18.00",
+        "output_tp": "-8.16",
+        "output_lra": "0.00",
+        "output_thresh": "-29.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-7.91"
+    }
+  },
+  "niro_e4c9a32842": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Not through a wall, Miro. Come back and I'll tell you everything.",
+    "delivery": "[pleading]",
+    "signature": "7e5a167c36d3fa36e60381d6ddb7b956c205e63a082d20945b10ee90f3477e61",
+    "leveling": {
+      "source_sha256": "99d4238751177a80f3daed99acc34e7f1c2d92662024c4cc971e60c017f7ff70",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.19",
+        "input_tp": "-0.80",
+        "input_lra": "1.40",
+        "input_thresh": "-29.67",
+        "output_i": "-18.42",
+        "output_tp": "-2.00",
+        "output_lra": "0.20",
+        "output_thresh": "-28.82",
+        "normalization_type": "dynamic",
+        "target_offset": "0.42"
+      },
+      "output_lufs": "-18.29",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "niro_725f00c71b": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "There is no way out. Only down. Please, stop before it's too late.",
+    "delivery": "[pleading]",
+    "signature": "707672bf4032b168762b3d9d7e2563f40014ddb9810b3ae876c1996593716605",
+    "leveling": {
+      "source_sha256": "99622ed40d9a66f416e31a62c8f93c283464362b43ea56a48a04a766ac41796e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.93",
+        "input_tp": "-2.19",
+        "input_lra": "2.10",
+        "input_thresh": "-30.21",
+        "output_i": "-17.30",
+        "output_tp": "-2.00",
+        "output_lra": "2.20",
+        "output_thresh": "-27.70",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.70"
+      },
+      "output_lufs": "-17.67",
+      "output_true_peak_dbtp": "-1.79"
+    }
+  },
+  "miro_e1f48ce94b": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Someone is coughing in the first cell. Just look before you run.",
+    "delivery": "[whispers]",
+    "signature": "12e037694926161284ee6679d896c330a04ce6481be5b3fcf59b9c3547679948",
+    "leveling": {
+      "source_sha256": "fb9a0f896efbb30d0dc761fd62e1bf11c598c3fdc6ad440e98a823ec2b5dbd1c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.14",
+        "input_tp": "-6.25",
+        "input_lra": "3.50",
+        "input_thresh": "-32.73",
+        "output_i": "-15.77",
+        "output_tp": "-2.00",
+        "output_lra": "1.80",
+        "output_thresh": "-26.16",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.23"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.11"
+    }
+  },
+  "miro_d3a0af5920": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Walk right a few steps from the stairs. The sick prisoner is in the first cell. [E]",
+    "delivery": "[whispers]",
+    "signature": "08f054374d7ac345abe929210e50e46729dff5eb1c70bae9f0ebcf09d4174b7c",
+    "leveling": {
+      "source_sha256": "b5f882ae1cb10e7bd4f45018978481fc1615159ee70a7057114b04f03965b6db",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.58",
+        "input_tp": "-1.15",
+        "input_lra": "4.90",
+        "input_thresh": "-30.24",
+        "output_i": "-16.63",
+        "output_tp": "-2.00",
+        "output_lra": "1.50",
+        "output_thresh": "-27.00",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.37"
+      },
+      "output_lufs": "-17.50",
+      "output_true_peak_dbtp": "-1.86"
+    }
+  },
+  "miro_e79132eaba": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Stand beside the coughing man, just right of where you came in, and press E.",
+    "delivery": "[whispers]",
+    "signature": "c588075f3f3bcf5bfa0d991b5a1523dc2232f2a185e14168525a150bfe194a36",
+    "leveling": {
+      "source_sha256": "ef4ca4ad1ec539af8cdbfb291425eb4fad1d86bdfdab441f3351e60acfb3664f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.73",
+        "input_tp": "-5.28",
+        "input_lra": "1.60",
+        "input_thresh": "-32.25",
+        "output_i": "-17.12",
+        "output_tp": "-2.00",
+        "output_lra": "1.60",
+        "output_thresh": "-27.66",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.88"
+      },
+      "output_lufs": "-18.22",
+      "output_true_peak_dbtp": "-2.22"
+    }
+  },
+  "miro_568d849f8c": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The wall ahead has a gap at the bottom. Too low to walk through.",
+    "delivery": "[whispers]",
+    "signature": "9ff45af72110df19e486067fdeeadf8ce2b48c9dd57e2d67a22485e81a8f6857",
+    "leveling": {
+      "source_sha256": "fa1b9c16a1a6d7c79af754c750a93769798b543e51d90de6a2f9730765cfd6dc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.80",
+        "input_tp": "-5.06",
+        "input_lra": "1.00",
+        "input_thresh": "-31.60",
+        "output_i": "-15.96",
+        "output_tp": "-2.00",
+        "output_lra": "0.30",
+        "output_thresh": "-26.57",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.04"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.21"
+    }
+  },
+  "miro_230c09e68d": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Hold Left Ctrl to crouch and crawl under the cell block wall.",
+    "delivery": "[whispers]",
+    "signature": "54c7b664d7f8381110be3785168e6c54d9c492d5d1c6df7b5ea5214cf2679ee6",
+    "leveling": {
+      "source_sha256": "9efa65dd273cf901f50d14ce52b0f5911d603f7ac2eae551f1a712074331cd86",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.05",
+        "input_tp": "-6.72",
+        "input_lra": "1.30",
+        "input_thresh": "-31.05",
+        "output_i": "-17.10",
+        "output_tp": "-2.57",
+        "output_lra": "1.30",
+        "output_thresh": "-27.10",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.90"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.67"
+    }
+  },
+  "miro_108595a39e": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Crawl under the wall, then follow the voice at the bars on the far side. [E]",
+    "delivery": "[whispers]",
+    "signature": "e97e0a1530158f025245d130d89cde79e12443a27be7471b614bb0582c90c1b9",
+    "leveling": {
+      "source_sha256": "8775ead9fce2a3bc6eb2d538576dbbaf9a59774cec72be309c4f171159455686",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.32",
+        "input_tp": "-3.93",
+        "input_lra": "8.20",
+        "input_thresh": "-31.21",
+        "output_i": "-18.43",
+        "output_tp": "-2.00",
+        "output_lra": "7.70",
+        "output_thresh": "-28.98",
+        "normalization_type": "dynamic",
+        "target_offset": "0.43"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.03"
+    }
+  },
+  "miro_630113369a": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The ledger will be somewhere they keep paperwork. Lower down, in the barracks.",
+    "delivery": "[whispers]",
+    "signature": "87afbb3144db4228724668dd30709a8d4b6e1509a46a1ccc426386201a1c3e39",
+    "leveling": {
+      "source_sha256": "98b4707bd63d29f010bcc266c76f3ecb7ea4fe758246d95b0cb883a184371b44",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.83",
+        "input_tp": "-2.91",
+        "input_lra": "1.70",
+        "input_thresh": "-30.67",
+        "output_i": "-16.64",
+        "output_tp": "-2.00",
+        "output_lra": "0.70",
+        "output_thresh": "-27.44",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.36"
+      },
+      "output_lufs": "-17.56",
+      "output_true_peak_dbtp": "-2.02"
+    }
+  },
+  "miro_8d2040c141": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Ladder down, drop through the gap by the store room, then take the long ladder past the laundry.",
+    "delivery": "[whispers]",
+    "signature": "854c1cafe3cd0f20dcf1180df5500150b4ebf26b46084abcb17557866a76a435",
+    "leveling": {
+      "source_sha256": "70ccc6c9a7838828beb5ed625cc0c8492c47618c4167289ba7d66774757eb85c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.91",
+        "input_tp": "-3.39",
+        "input_lra": "0.80",
+        "input_thresh": "-30.35",
+        "output_i": "-18.08",
+        "output_tp": "-2.00",
+        "output_lra": "1.30",
+        "output_thresh": "-28.59",
+        "normalization_type": "dynamic",
+        "target_offset": "0.08"
+      },
+      "output_lufs": "-18.12",
+      "output_true_peak_dbtp": "-1.68"
+    }
+  },
+  "miro_2541ef30b9": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "In the barracks, take the ladder at the far left, then climb onto the raised office. The ledger is on the desk. [E]",
+    "delivery": "[whispers]",
+    "signature": "fe43ce53d41105917ff542817248147f1ecb477a65eb946d21d58842811b88da",
+    "leveling": {
+      "source_sha256": "975c90e8fa10c4d598a95e65d118e06c7e14fdcfdf8d700e7acec7849e2a3862",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.34",
+        "input_tp": "-1.70",
+        "input_lra": "4.90",
+        "input_thresh": "-29.85",
+        "output_i": "-17.89",
+        "output_tp": "-2.00",
+        "output_lra": "3.70",
+        "output_thresh": "-28.33",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.11"
+      },
+      "output_lufs": "-18.14",
+      "output_true_peak_dbtp": "-1.77"
+    }
+  },
+  "miro_fd8c24dbf8": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The support is on the lowest floor. One more ladder.",
+    "delivery": "[whispers]",
+    "signature": "12cc9007b9e8ba2e29d79d5df607f30974056a17dc3b4e831f1cbb964f8b23cc",
+    "leveling": {
+      "source_sha256": "b16e097b8afdc55538efeef085aa88aa6186965fe2eb2ea87276f8cbf6c9891f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.85",
+        "input_tp": "-5.79",
+        "input_lra": "5.30",
+        "input_thresh": "-30.34",
+        "output_i": "-14.79",
+        "output_tp": "-2.00",
+        "output_lra": "2.40",
+        "output_thresh": "-25.21",
+        "normalization_type": "dynamic",
+        "target_offset": "-3.21"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-3.86"
+    }
+  },
+  "miro_fcc77ed2a2": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "From the office, keep right to the last ladder, then head left along the bottom.",
+    "delivery": "[whispers]",
+    "signature": "01334517844e0e70a15afa43394c079ac0901fa7b4948a90154d5f944e57acbc",
+    "leveling": {
+      "source_sha256": "922c71717ff6067899b60256440d6bfe88b03c90721fe95110097d8cdec16857",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.62",
+        "input_tp": "-1.80",
+        "input_lra": "0.40",
+        "input_thresh": "-29.17",
+        "output_i": "-17.78",
+        "output_tp": "-2.00",
+        "output_lra": "0.50",
+        "output_thresh": "-28.20",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.22"
+      },
+      "output_lufs": "-17.87",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "miro_2819c3cc5d": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Crouch under the pillar's brace (Left Ctrl). The support is just past it. [E]",
+    "delivery": "[whispers]",
+    "signature": "888b82dcd3a6c422736e51a9de25884f1932711623951fff9dd621cc7ac441e4",
+    "leveling": {
+      "source_sha256": "10e5ea91568baa6bc1f6fa788d452a2305dbfb2c9328f458d745ec00e2dc8a31",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.21",
+        "input_tp": "-4.66",
+        "input_lra": "8.10",
+        "input_thresh": "-31.87",
+        "output_i": "-17.92",
+        "output_tp": "-2.00",
+        "output_lra": "4.50",
+        "output_thresh": "-28.54",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.08"
+      },
+      "output_lufs": "-18.50",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "miro_93d9a97d8e": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The stairs down are at the far left of the bottom floor.",
+    "delivery": "[whispers]",
+    "signature": "66aa18430eabeab0ed9dcf9f6a27c220d958c77616dc49a46b67b03f3f851678",
+    "leveling": {
+      "source_sha256": "c0f40f9b63d43dc021962407e86112c06781ce9b21247e0cc045c2625aadcd7f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.61",
+        "input_tp": "-4.97",
+        "input_lra": "8.30",
+        "input_thresh": "-31.21",
+        "output_i": "-18.20",
+        "output_tp": "-3.00",
+        "output_lra": "6.70",
+        "output_thresh": "-28.73",
+        "normalization_type": "dynamic",
+        "target_offset": "0.20"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.23"
+    }
+  },
+  "miro_fc26edd4da": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Keep going left past the support. [E] at the stair gate.",
+    "delivery": "[whispers]",
+    "signature": "c5d7c1938cfb99a36e601fefc90a19f6141c6399fe3e5f4efe2cc4aaaae47c79",
+    "leveling": {
+      "source_sha256": "7ff8bab70b977c80f71cacf81be02ef71492913468c02b9e33e394339d0dbfab",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.13",
+        "input_tp": "-5.11",
+        "input_lra": "2.40",
+        "input_thresh": "-30.75",
+        "output_i": "-16.60",
+        "output_tp": "-2.33",
+        "output_lra": "1.90",
+        "output_thresh": "-27.13",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.40"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.94"
+    }
+  },
+  "miro_5ca238030b": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Bottom floor, far left wall. Press E at the stairs.",
+    "delivery": "[whispers]",
+    "signature": "0996deb0cb5d0c6160aa302ac08b60de290046d23010de06548e5f2d0e737771",
+    "leveling": {
+      "source_sha256": "3e1059a0a9f8c6ab2907a80de26257139dd19d4ffa0f1422d96a1322a923bd39",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.07",
+        "input_tp": "-2.99",
+        "input_lra": "4.00",
+        "input_thresh": "-30.75",
+        "output_i": "-16.92",
+        "output_tp": "-2.00",
+        "output_lra": "2.80",
+        "output_thresh": "-27.65",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.08"
+      },
+      "output_lufs": "-17.86",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "miro_ff5985f204": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The terminal wants a password. The Keepers will have it written in their heads.",
+    "delivery": "[whispers]",
+    "signature": "c24fd8cd1394a39d5a440a8ea3b686c9db851dcd8011f566d0f3b5e6704b202f",
+    "leveling": {
+      "source_sha256": "63bbe2fac8a56f234fdee1551a212d27650ec2865fcea1877c3b5306d496508b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.49",
+        "input_tp": "-0.98",
+        "input_lra": "2.20",
+        "input_thresh": "-29.21",
+        "output_i": "-15.71",
+        "output_tp": "-2.00",
+        "output_lra": "1.30",
+        "output_thresh": "-26.48",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.29"
+      },
+      "output_lufs": "-17.44",
+      "output_true_peak_dbtp": "-1.85"
+    }
+  },
+  "miro_df8a415c9a": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Two Keepers stand talking on the floor below the vent. Hide close by and listen.",
+    "delivery": "[whispers]",
+    "signature": "0cf75d663354ffd44d87678b23e8fc1a915ca0405eb90fcb5157b23869ca27a6",
+    "leveling": {
+      "source_sha256": "83b88a69636a751382a5ffe37fc18a05b8c284aa1df0ef458518e7dba9dabfe2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.62",
+        "input_tp": "-3.97",
+        "input_lra": "8.80",
+        "input_thresh": "-32.60",
+        "output_i": "-18.74",
+        "output_tp": "-2.00",
+        "output_lra": "3.30",
+        "output_thresh": "-29.58",
+        "normalization_type": "dynamic",
+        "target_offset": "0.74"
+      },
+      "output_lufs": "-18.15",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "miro_db19da8c2f": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Overhear the password on the second floor, then take the left ladder down. The terminal is just past the first shadow. [E]",
+    "delivery": "[whispers]",
+    "signature": "2a8d9c5022626f8fc7f910e10ce1a44facba6b6f814bdd316d123b423f9a44e8",
+    "leveling": {
+      "source_sha256": "240162ef3d34fdea20fbf310ca72978a587d729ae101cc0e24659c07b144706d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.87",
+        "input_tp": "-2.96",
+        "input_lra": "1.50",
+        "input_thresh": "-31.39",
+        "output_i": "-17.69",
+        "output_tp": "-2.00",
+        "output_lra": "2.30",
+        "output_thresh": "-28.13",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.31"
+      },
+      "output_lufs": "-17.59",
+      "output_true_peak_dbtp": "-1.89"
+    }
+  },
+  "miro_36e66f3379": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The gate's open. The checkpoint stairs lead down to the security office.",
+    "delivery": "[whispers]",
+    "signature": "1ee8bfc6db6019597b3eb4a8c39002a2617a07852cee852594f11cd5c03b7af6",
+    "leveling": {
+      "source_sha256": "5e997b1f1433b6ba9986e070a523efa72b61aa3116de2ec160d4c481c8945545",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.03",
+        "input_tp": "-0.58",
+        "input_lra": "1.90",
+        "input_thresh": "-28.27",
+        "output_i": "-17.81",
+        "output_tp": "-2.00",
+        "output_lra": "2.80",
+        "output_thresh": "-28.20",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.19"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "miro_87005e6b69": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Past the gate, take the ladder down, then go left to the raised office.",
+    "delivery": "[whispers]",
+    "signature": "7896e91a0908c30694eb255fdce59011854caf8dedfa6ed2c9d78ac3d013734d",
+    "leveling": {
+      "source_sha256": "19f39a15cfe46e625b3424f9d2f91bef7fa83dd6e9b0fd935564db2ed9460aab",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.96",
+        "input_tp": "-2.73",
+        "input_lra": "10.80",
+        "input_thresh": "-31.65",
+        "output_i": "-18.34",
+        "output_tp": "-2.00",
+        "output_lra": "5.90",
+        "output_thresh": "-28.99",
+        "normalization_type": "dynamic",
+        "target_offset": "0.34"
+      },
+      "output_lufs": "-18.45",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "miro_9f37521e0a": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Jump onto the raised office (double jump) and read the record on the desk. [E]",
+    "delivery": "[whispers]",
+    "signature": "0465b415a23f580bcf3a23dfc6c84e356f702ba7c9195b1b1c89a8e3c2f2af5b",
+    "leveling": {
+      "source_sha256": "ef0d07c3d4f5d4e4630d749c096d8d33eac34c8515df7cc623100b44e357c96d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.58",
+        "input_tp": "-1.02",
+        "input_lra": "12.80",
+        "input_thresh": "-29.48",
+        "output_i": "-18.23",
+        "output_tp": "-2.00",
+        "output_lra": "10.20",
+        "output_thresh": "-29.22",
+        "normalization_type": "dynamic",
+        "target_offset": "0.23"
+      },
+      "output_lufs": "-18.18",
+      "output_true_peak_dbtp": "-1.78"
+    }
+  },
+  "miro_740ca688ff": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The voice is close now. Further down.",
+    "delivery": "[whispers]",
+    "signature": "a7d7fb8baf203eb64d16bf6260690610ca6f1b973d8cf5ef93053edc95393ce6",
+    "leveling": {
+      "source_sha256": "0088362291164d045eb880b89abc65b98c8232903b513bd5b13f455cc4dc041d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.78",
+        "input_tp": "-7.61",
+        "input_lra": "0.50",
+        "input_thresh": "-33.61",
+        "output_i": "-16.19",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-26.96",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.81"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.93"
+    }
+  },
+  "miro_2677afc533": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Take the ladder at the far left of the office floor, then crouch under the pipes (Left Ctrl).",
+    "delivery": "[whispers]",
+    "signature": "43ace16602eb6b15dd34a2e25db46714b30b2adec983362d315daea9cb61dde2",
+    "leveling": {
+      "source_sha256": "38fb0610e515f118b2d28a245fb56db31df59e507010b07557b83d1e13b88df0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.33",
+        "input_tp": "-2.13",
+        "input_lra": "0.80",
+        "input_thresh": "-31.67",
+        "output_i": "-18.26",
+        "output_tp": "-2.00",
+        "output_lra": "1.00",
+        "output_thresh": "-28.52",
+        "normalization_type": "dynamic",
+        "target_offset": "0.26"
+      },
+      "output_lufs": "-18.22",
+      "output_true_peak_dbtp": "-1.74"
+    }
+  },
+  "miro_4d3a1adf61": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Past the pipes, the bars are in the middle of the floor. Stand at them. [E]",
+    "delivery": "[whispers]",
+    "signature": "69bbd7c58f532d77e23ae93bbdb3c688285b3fb5d44ac5e2622c0bee6eb636c9",
+    "leveling": {
+      "source_sha256": "4ca58b079f4a8da43385cd543c84be801a1a4a9f505ccb0fa26cde2be9f499ff",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.95",
+        "input_tp": "-3.28",
+        "input_lra": "1.80",
+        "input_thresh": "-30.73",
+        "output_i": "-17.56",
+        "output_tp": "-2.00",
+        "output_lra": "2.50",
+        "output_thresh": "-28.18",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.44"
+      },
+      "output_lufs": "-17.77",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "miro_97e18f214e": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The support is on the lowest floor.",
+    "delivery": "[whispers]",
+    "signature": "332cdb92bc5fde0cd07028ab5dea34fb64d5867487065169e4e731e03995b148",
+    "leveling": {
+      "source_sha256": "610785dfdc24a2e812ace7fbb72ad8bc10902a7d84a30817020dcaf83bc45ead",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.44",
+        "input_tp": "-5.82",
+        "input_lra": "0.00",
+        "input_thresh": "-32.44",
+        "output_i": "-18.63",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.63",
+        "normalization_type": "linear",
+        "target_offset": "0.63"
+      },
+      "output_lufs": "-18.63",
+      "output_true_peak_dbtp": "-1.92"
+    }
+  },
+  "miro_5dd10f32fc": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Right to the last ladder, then down and left.",
+    "delivery": "[whispers]",
+    "signature": "b77fd704178ed4c3e3885161bc7661094eda5bcec0dd594cbc33308fb61c5a60",
+    "leveling": {
+      "source_sha256": "1297de09f85dde28685ac3f7621afd0f7b61eb6bc1a129c1be5e5e698e29d700",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.76",
+        "input_tp": "-3.89",
+        "input_lra": "0.40",
+        "input_thresh": "-30.06",
+        "output_i": "-17.68",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.97",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.32"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.11"
+    }
+  },
+  "miro_2fcd08c12e": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Bottom floor, middle. Plant the sigil at the support. [E]",
+    "delivery": "[whispers]",
+    "signature": "af481e7dd929aa2059afc16128195a50a87aea4cef93e91cf1b7cc0fc137affc",
+    "leveling": {
+      "source_sha256": "70896733065218d8b5f131de34b2ce3278d656a830c756e1b02d79489b9f4be4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.49",
+        "input_tp": "-4.89",
+        "input_lra": "7.80",
+        "input_thresh": "-32.67",
+        "output_i": "-17.99",
+        "output_tp": "-2.10",
+        "output_lra": "6.10",
+        "output_thresh": "-29.07",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-18.16",
+      "output_true_peak_dbtp": "-2.11"
+    }
+  },
+  "miro_a030fd4c5c": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The stairs are at the far left.",
+    "delivery": "[whispers]",
+    "signature": "d0cdb9b324bf3db25ff49ad587cb4e5872a0bfd07b06bc434c6539e9b11c679d",
+    "leveling": {
+      "source_sha256": "9d97b07be0c55976114d074bf6e3dace993b1dceb2b3547cf9420b05cfb802e8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.14",
+        "input_tp": "-8.48",
+        "input_lra": "0.00",
+        "input_thresh": "-34.14",
+        "output_i": "-18.01",
+        "output_tp": "-2.35",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.66"
+    }
+  },
+  "miro_a7714b5ee1": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Over the crates, keep left.",
+    "delivery": "[whispers]",
+    "signature": "d7540e2e169022053e25437b5a7ce6b2056c4cd5dcfd3378b1568f7db1858502",
+    "leveling": {
+      "source_sha256": "00c84d1b10589142ad402fa9d847421b0c6b62cb4e0df3256d0e47a2d0765586",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.95",
+        "input_tp": "-6.69",
+        "input_lra": "0.00",
+        "input_thresh": "-33.95",
+        "output_i": "-19.26",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.26",
+        "normalization_type": "linear",
+        "target_offset": "1.26"
+      },
+      "output_lufs": "-19.24",
+      "output_true_peak_dbtp": "-2.04"
+    }
+  },
+  "miro_4a093bf697": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Bottom floor, far left wall. [E]",
+    "delivery": "[whispers]",
+    "signature": "178b91afb783a5414272abbf157c8c7683a5c09f393e841bc49491e5b9d333e7",
+    "leveling": {
+      "source_sha256": "78149a89208609f49dcf89c9679b06eb3de1c99a57c8f941ef628d4442336bfb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.33",
+        "input_tp": "-5.89",
+        "input_lra": "1.10",
+        "input_thresh": "-33.77",
+        "output_i": "-16.83",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.09",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.17"
+      },
+      "output_lufs": "-18.03",
+      "output_true_peak_dbtp": "-1.81"
+    }
+  },
+  "miro_cd16f20b18": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Records first. They're close to where I came in.",
+    "delivery": "[whispers]",
+    "signature": "d4b9b5ee156fc92e94b25d198b089b940e9b85d59e2f87fcffaad4215c49c9d3",
+    "leveling": {
+      "source_sha256": "d7577cccae49009a31efba9883bd744ab32a18710059f317bc4b4c3bc7f4beb1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.58",
+        "input_tp": "-4.83",
+        "input_lra": "2.00",
+        "input_thresh": "-32.10",
+        "output_i": "-15.43",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-25.88",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.57"
+      },
+      "output_lufs": "-17.45",
+      "output_true_peak_dbtp": "-1.86"
+    }
+  },
+  "miro_c584d3d3a2": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "A few steps right of the stairs, by the first desk. [E]",
+    "delivery": "[whispers]",
+    "signature": "a17f50314288a0a41383679f95a9254653c8b6b5af2c0dd7708e432481abd611",
+    "leveling": {
+      "source_sha256": "c13a7e955eb45b5d6529207601bcf290dfc593c41393a5a825e950eac7cc3281",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.17",
+        "input_tp": "-4.20",
+        "input_lra": "1.40",
+        "input_thresh": "-32.43",
+        "output_i": "-17.70",
+        "output_tp": "-2.00",
+        "output_lra": "4.00",
+        "output_thresh": "-27.90",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.30"
+      },
+      "output_lufs": "-17.77",
+      "output_true_peak_dbtp": "-1.95"
+    }
+  },
+  "miro_06f279e1aa": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Walk right from the start. The experiment records are on the first desk. [E]",
+    "delivery": "[whispers]",
+    "signature": "e25658e7af5c03a757c45ea823adda44c69a366baab106da308be8a8bfef4b3e",
+    "leveling": {
+      "source_sha256": "4683cbfbe44ebd9ebc07033ddb523f58ed0e2ad16c756d53dcd26b6fba30e032",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.40",
+        "input_tp": "-1.48",
+        "input_lra": "7.20",
+        "input_thresh": "-30.12",
+        "output_i": "-17.25",
+        "output_tp": "-2.00",
+        "output_lra": "3.30",
+        "output_thresh": "-27.69",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.75"
+      },
+      "output_lufs": "-17.79",
+      "output_true_peak_dbtp": "-1.75"
+    }
+  },
+  "miro_d8da8d8b5f": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The ward is sealed. There has to be a manual release somewhere above it.",
+    "delivery": "[whispers]",
+    "signature": "45e2380a3bece1d7396951372cc2799e2ab1e54260d8f90566bd1b3b64464ef0",
+    "leveling": {
+      "source_sha256": "7d3972287848eace0421cc2707d34a716081700ac049bd110e03039000b4341a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.73",
+        "input_tp": "-6.89",
+        "input_lra": "1.80",
+        "input_thresh": "-30.91",
+        "output_i": "-16.57",
+        "output_tp": "-3.53",
+        "output_lra": "1.30",
+        "output_thresh": "-26.87",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.43"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-4.04"
+    }
+  },
+  "miro_fe118ca581": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Ladder down, then go left. Crouch under the window sill (Left Ctrl).",
+    "delivery": "[whispers]",
+    "signature": "2b0c3e988a3c92c7139e7609a30423c2ee4e9d1bf481fcf6d7a246e6163f1fba",
+    "leveling": {
+      "source_sha256": "5ffd7eda1893e10f6d537035eadf8555151bbddc33e7f39d87332caa3268848b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.47",
+        "input_tp": "-3.71",
+        "input_lra": "1.50",
+        "input_thresh": "-29.16",
+        "output_i": "-16.05",
+        "output_tp": "-2.00",
+        "output_lra": "1.00",
+        "output_thresh": "-26.71",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.95"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.25"
+    }
+  },
+  "miro_6d4e1c7293": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The release is on the raised gantry at the far left of the second floor. Double jump up. [E]",
+    "delivery": "[whispers]",
+    "signature": "438fe1280400d9b90ddf463a05cf902792cb81b7a58dba664feaca28e84ed9e7",
+    "leveling": {
+      "source_sha256": "ca471e65725dea6c36a6f50254a6fd82344f6db962ace9038e2aa5249eb70480",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.14",
+        "input_tp": "-3.47",
+        "input_lra": "3.30",
+        "input_thresh": "-30.71",
+        "output_i": "-18.41",
+        "output_tp": "-2.00",
+        "output_lra": "3.40",
+        "output_thresh": "-28.82",
+        "normalization_type": "dynamic",
+        "target_offset": "0.41"
+      },
+      "output_lufs": "-17.95",
+      "output_true_peak_dbtp": "-2.02"
+    }
+  },
+  "miro_24e59b46fa": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The seal's open. The way down is past the ward doors.",
+    "delivery": "[whispers]",
+    "signature": "9547044ff399d16116d9bb1430832eec29387883d6debea9a33610ee7d502f05",
+    "leveling": {
+      "source_sha256": "4233d6374a5022b70fec1bd796ec0f9997e7c95368a482f320e2be15bbd1f105",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.14",
+        "input_tp": "-5.45",
+        "input_lra": "0.80",
+        "input_thresh": "-33.47",
+        "output_i": "-18.24",
+        "output_tp": "-2.00",
+        "output_lra": "1.20",
+        "output_thresh": "-28.70",
+        "normalization_type": "dynamic",
+        "target_offset": "0.24"
+      },
+      "output_lufs": "-18.27",
+      "output_true_peak_dbtp": "-1.85"
+    }
+  },
+  "miro_9586a36ffa": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Ladder down at the left, go right through the opened seal, then the last ladder.",
+    "delivery": "[whispers]",
+    "signature": "b06149e46d56418a186e71aef0ffbbc2ec1a31e75d89e7c1d680b713d25deb60",
+    "leveling": {
+      "source_sha256": "5d6958a48bcdb43e43004739f18ccdb445c5722d33dd0e2a2dfa440b1c9f67ed",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.04",
+        "input_tp": "-0.73",
+        "input_lra": "3.40",
+        "input_thresh": "-29.66",
+        "output_i": "-18.85",
+        "output_tp": "-2.00",
+        "output_lra": "1.20",
+        "output_thresh": "-29.54",
+        "normalization_type": "dynamic",
+        "target_offset": "0.85"
+      },
+      "output_lufs": "-18.75",
+      "output_true_peak_dbtp": "-1.60"
+    }
+  },
+  "miro_5c20a55353": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "In containment, the evidence is just right of the chamber. [E]",
+    "delivery": "[whispers]",
+    "signature": "992ab5efd57b2d555d64fcb004070f7555385a41199274f5f0da236fb6443515",
+    "leveling": {
+      "source_sha256": "b5b1f970cfc6c0adb8af992807d2c2bde750a37276b0b87c2e2cb30083a8f44e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.56",
+        "input_tp": "-2.00",
+        "input_lra": "15.40",
+        "input_thresh": "-31.56",
+        "output_i": "-18.41",
+        "output_tp": "-2.00",
+        "output_lra": "6.10",
+        "output_thresh": "-29.25",
+        "normalization_type": "dynamic",
+        "target_offset": "0.41"
+      },
+      "output_lufs": "-18.46",
+      "output_true_peak_dbtp": "-1.75"
+    }
+  },
+  "miro_205823cfeb": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "He's watching from somewhere below the chamber.",
+    "delivery": "[whispers]",
+    "signature": "c8f30ccb43f95263e3097fd424a619a06f2b474dbb37085495c50e2f926944e8",
+    "leveling": {
+      "source_sha256": "c626e236075dea24e9ff076c9e34a24ed41037c4472cc0fe52929ec90dc7f433",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.70",
+        "input_tp": "-8.94",
+        "input_lra": "0.40",
+        "input_thresh": "-33.97",
+        "output_i": "-17.89",
+        "output_tp": "-3.15",
+        "output_lra": "0.00",
+        "output_thresh": "-28.15",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.11"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.24"
+    }
+  },
+  "miro_621cd04eb7": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Take the ladder at the far left of containment.",
+    "delivery": "[whispers]",
+    "signature": "d3e38d85b35ec240ee9d57d0a1c06df78adc48511761df841aed8d3259f0a3b1",
+    "leveling": {
+      "source_sha256": "7e138f606a9187b3178e231b71e9fb3324e8b3966bd4bc6f6768141fc059a9e5",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.93",
+        "input_tp": "-6.34",
+        "input_lra": "0.00",
+        "input_thresh": "-30.93",
+        "output_i": "-18.00",
+        "output_tp": "-3.41",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.96",
+      "output_true_peak_dbtp": "-3.48"
+    }
+  },
+  "miro_1c54b843ee": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "He's at the glass, a few steps right of the ladder. [E]",
+    "delivery": "[whispers]",
+    "signature": "c8505705ad535812d02ab6c6d1a333652098e220c9823aab6fe112a2374e8841",
+    "leveling": {
+      "source_sha256": "bd006f30122d15f1557faeb7274fa0bd800feb6761269e42e1bcdca7920189e4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.89",
+        "input_tp": "-7.59",
+        "input_lra": "1.10",
+        "input_thresh": "-33.43",
+        "output_i": "-17.73",
+        "output_tp": "-2.28",
+        "output_lra": "0.80",
+        "output_thresh": "-28.23",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.27"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.74"
+    }
+  },
+  "miro_40739ace63": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Two charges on the ward support.",
+    "delivery": "[whispers]",
+    "signature": "bacf3e77702d45763be10e861c71257850d55b68a0048a2c39d4a9839c3813d1",
+    "leveling": {
+      "source_sha256": "187200d7166e0ccffb8b6ee425664352f72c541ef43722e487fb87a552669c8b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.71",
+        "input_tp": "-8.65",
+        "input_lra": "0.00",
+        "input_thresh": "-31.71",
+        "output_i": "-18.01",
+        "output_tp": "-4.95",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-5.03"
+    }
+  },
+  "miro_ad1d0adaef": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The support is right next to the glass.",
+    "delivery": "[whispers]",
+    "signature": "03dfd05e202aa090eece5a0150b41f15f12860c469387c0e44d2e29b7ed94efa",
+    "leveling": {
+      "source_sha256": "594ceaaf3505aa293d22df7db176930e41803b1578a84c5d73843c89a9c8e778",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.36",
+        "input_tp": "-7.33",
+        "input_lra": "0.00",
+        "input_thresh": "-34.36",
+        "output_i": "-19.03",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.03",
+        "normalization_type": "linear",
+        "target_offset": "1.03"
+      },
+      "output_lufs": "-19.00",
+      "output_true_peak_dbtp": "-2.09"
+    }
+  },
+  "miro_d0d1803899": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Stand at the support beside the glass and press E (two charges).",
+    "delivery": "[whispers]",
+    "signature": "79552b8c3808e1cbd8851b91f08b1a9cb98d9e3cdefe04bfbac7089095983a8c",
+    "leveling": {
+      "source_sha256": "5b188fb24eeefd828fa721401f967580ae9bd24a5a1b70651e8a8a9859d99679",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.26",
+        "input_tp": "-2.80",
+        "input_lra": "2.40",
+        "input_thresh": "-30.26",
+        "output_i": "-18.17",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.17",
+        "normalization_type": "dynamic",
+        "target_offset": "0.17"
+      },
+      "output_lufs": "-18.85",
+      "output_true_peak_dbtp": "-1.92"
+    }
+  },
+  "miro_42d6c09f7f": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Two more charges, on the lower support.",
+    "delivery": "[whispers]",
+    "signature": "40c3848bad6447c33d707fe0efabbb96cb453389d7a661a5b72bcd5b7b6ff011",
+    "leveling": {
+      "source_sha256": "c020bc33a9427b2a5c1b3569ebfc9192ddebd7ca702551241ff6f7f4088b6864",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.01",
+        "input_tp": "-7.75",
+        "input_lra": "0.00",
+        "input_thresh": "-32.01",
+        "output_i": "-18.01",
+        "output_tp": "-3.74",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.71"
+    }
+  },
+  "miro_8aa38278fa": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Right to the last ladder, then down.",
+    "delivery": "[whispers]",
+    "signature": "8c78f33b9bdf241de823e01c8712725f032fb13f28ad59539129d50bf5fb553b",
+    "leveling": {
+      "source_sha256": "1a485f065f259e8fa0153ff42ff9ef2cb8b769b0b39dcbfae79b6e3e0fe4d60d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.75",
+        "input_tp": "-9.94",
+        "input_lra": "0.30",
+        "input_thresh": "-34.22",
+        "output_i": "-17.31",
+        "output_tp": "-3.54",
+        "output_lra": "0.00",
+        "output_thresh": "-27.77",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.69"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-4.11"
+    }
+  },
+  "miro_52b77ee591": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Bottom floor, near the ladder: the lower support. [E]",
+    "delivery": "[whispers]",
+    "signature": "d747c92687607827636e1501a280a841f3cf8b1e5e8dbd3ed4faf1a6d8d5a02d",
+    "leveling": {
+      "source_sha256": "741894e60cdb2f43499e47fbfceebe2c8c5cd2861c46657ee7483bdd87eb6fb3",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.75",
+        "input_tp": "-2.52",
+        "input_lra": "4.40",
+        "input_thresh": "-30.76",
+        "output_i": "-17.57",
+        "output_tp": "-2.00",
+        "output_lra": "6.40",
+        "output_thresh": "-28.55",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.43"
+      },
+      "output_lufs": "-18.47",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "miro_b0b5dd2ddd": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "One mark left on this floor.",
+    "delivery": "[whispers]",
+    "signature": "772917ab357ce84d26d071b267b23ac86143b9c274c061f786dac7bfa923b236",
+    "leveling": {
+      "source_sha256": "238b71e85c39f945063b6896b68657de6a8bd750cdf76ff46fac597aa8359b41",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.37",
+        "input_tp": "-2.05",
+        "input_lra": "0.10",
+        "input_thresh": "-28.38",
+        "output_i": "-16.52",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.47",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.48"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.62"
+    }
+  },
+  "miro_7864ea5c19": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Go left; crouch under the brace (Left Ctrl).",
+    "delivery": "[whispers]",
+    "signature": "70cea7336f74d235db628fcff37bb5b5ee15e99f86cd30642e536eae1589d0b7",
+    "leveling": {
+      "source_sha256": "861618d82f41ba44fd42b01c05d11f2c2f0185f4e1812c968a4624be7483e001",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.70",
+        "input_tp": "-5.06",
+        "input_lra": "0.00",
+        "input_thresh": "-32.17",
+        "output_i": "-18.63",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.10",
+        "normalization_type": "linear",
+        "target_offset": "0.63"
+      },
+      "output_lufs": "-18.61",
+      "output_true_peak_dbtp": "-2.06"
+    }
+  },
+  "miro_c5feec08ab": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Past the brace, the sigil support is on the left. [E]",
+    "delivery": "[whispers]",
+    "signature": "3e37e647f6801420f37d8a1a35ffd5200102b360553b3fb3b3d34e94954f109d",
+    "leveling": {
+      "source_sha256": "47111b259ed1e4b0f17b3e9e0dce3cfee22a4a5f4168e59240dcd0dd10bffb21",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.43",
+        "input_tp": "-4.33",
+        "input_lra": "0.10",
+        "input_thresh": "-32.16",
+        "output_i": "-17.56",
+        "output_tp": "-2.00",
+        "output_lra": "0.40",
+        "output_thresh": "-28.19",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.44"
+      },
+      "output_lufs": "-17.73",
+      "output_true_peak_dbtp": "-1.86"
+    }
+  },
+  "miro_a55a517d8d": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Keep going left.",
+    "delivery": "[whispers]",
+    "signature": "c36263f7ef5185934222748f9c1d2006ee580d2c5ea9b30bf66d1ef88f875bf8",
+    "leveling": {
+      "source_sha256": "9906a27c4fdfd9a236107b588cc8072420401a61b3098d961e97653c91f05a83",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.95",
+        "input_tp": "-7.24",
+        "input_lra": "0.00",
+        "input_thresh": "-31.64",
+        "output_i": "-17.97",
+        "output_tp": "-4.29",
+        "output_lra": "0.00",
+        "output_thresh": "-28.67",
+        "normalization_type": "linear",
+        "target_offset": "-0.03"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-4.75"
+    }
+  },
+  "miro_a05e65d189": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Something is humming in the office ahead.",
+    "delivery": "[whispers]",
+    "signature": "ef7bb13e43b43efba07f2212a6d647301957da5b48f4f376adf4737fe6311883",
+    "leveling": {
+      "source_sha256": "4aa506ece7cb657b9b46deeaa462a6c9ee423fb886d3123e819c09c68cada5b2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.45",
+        "input_tp": "-5.84",
+        "input_lra": "0.00",
+        "input_thresh": "-31.45",
+        "output_i": "-18.00",
+        "output_tp": "-2.39",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.23"
+    }
+  },
+  "miro_080aa358e2": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The office is to the right of where I came in. Something's on a stand.",
+    "delivery": "[whispers]",
+    "signature": "1d5784d1fd3f2aabe203eb9c0724b375ba37a3cc867947bd48148d3fec5e18e0",
+    "leveling": {
+      "source_sha256": "b4dd4c250ac304e7b60e07f7711d30acf49e67b49747f3ad347fd04a7df6d80b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.62",
+        "input_tp": "-5.88",
+        "input_lra": "2.20",
+        "input_thresh": "-32.03",
+        "output_i": "-16.07",
+        "output_tp": "-2.00",
+        "output_lra": "1.50",
+        "output_thresh": "-26.40",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.93"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.30"
+    }
+  },
+  "miro_49715b35c4": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Walk right into the office and press E at the guitar.",
+    "delivery": "[whispers]",
+    "signature": "f30d85b78425af1cc52aa3fade520ba1be6d382c0da2df87949f55218f0f80bf",
+    "leveling": {
+      "source_sha256": "3409073b80f61f88c274866a8242d225d2fcc70518a5cc70b8e033757309ef3b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.62",
+        "input_tp": "-2.65",
+        "input_lra": "1.00",
+        "input_thresh": "-27.62",
+        "output_i": "-17.61",
+        "output_tp": "-2.50",
+        "output_lra": "0.00",
+        "output_thresh": "-27.61",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.39"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.12"
+    }
+  },
+  "miro_6a565df6e5": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "One last mark, here at the very bottom.",
+    "delivery": "[whispers]",
+    "signature": "86e07c22366960ea5f43b80599c6d00c0ae7aba90f7e5f600928ba806281c552",
+    "leveling": {
+      "source_sha256": "2bb7f0c8435b64b9b6e03c7b5b3265865c93bc04a6eeeca6190524347ee6683e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.25",
+        "input_tp": "-4.25",
+        "input_lra": "2.20",
+        "input_thresh": "-34.07",
+        "output_i": "-17.58",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.37",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.42"
+      },
+      "output_lufs": "-18.51",
+      "output_true_peak_dbtp": "-2.18"
+    }
+  },
+  "miro_a29eafb672": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The office support is right beside the guitar stand.",
+    "delivery": "[whispers]",
+    "signature": "20c3af2e61035d638de44fa1c8b8e90b3fdf0d4ba13dd403958a3c376ee3b71d",
+    "leveling": {
+      "source_sha256": "5702b4654238035f5bacbb5d569e8fac14f135ea538a38c50e4740c9450a846e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.72",
+        "input_tp": "-6.81",
+        "input_lra": "0.50",
+        "input_thresh": "-32.72",
+        "output_i": "-17.94",
+        "output_tp": "-2.27",
+        "output_lra": "0.00",
+        "output_thresh": "-27.94",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.06"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.04"
+    }
+  },
+  "miro_708269f108": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Stand at the support next to the guitar and press E.",
+    "delivery": "[whispers]",
+    "signature": "4aef940bdf43147b569cd71ef25afc54083cb9aa1e4d574c45f9286d499587dc",
+    "leveling": {
+      "source_sha256": "7bea1bfb4311414ae05cd8858e9b03747c37d4b383e7dbdb3f5e235637812acf",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.80",
+        "input_tp": "-3.41",
+        "input_lra": "2.30",
+        "input_thresh": "-32.07",
+        "output_i": "-18.05",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.30",
+        "normalization_type": "dynamic",
+        "target_offset": "0.05"
+      },
+      "output_lufs": "-18.77",
+      "output_true_peak_dbtp": "-2.06"
+    }
+  },
+  "miro_afa03780c9": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "They're coming down the stairs. Don't fight fair.",
+    "delivery": "[whispers]",
+    "signature": "18a2f2f6757a93a09506a544e095648eec5cac61f5dc0ed13ab9964848bef2f2",
+    "leveling": {
+      "source_sha256": "7747dfbcc56cb40306d93064869e00aa1edccf4bb2bca76e16d81f1aba3993c5",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.72",
+        "input_tp": "-1.40",
+        "input_lra": "1.50",
+        "input_thresh": "-30.15",
+        "output_i": "-16.76",
+        "output_tp": "-2.00",
+        "output_lra": "0.60",
+        "output_thresh": "-27.12",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.24"
+      },
+      "output_lufs": "-18.13",
+      "output_true_peak_dbtp": "-1.90"
+    }
+  },
+  "miro_df4e5a44cc": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Strum the guitar close to them [6, left click]. On the beat it reaches further.",
+    "delivery": "[whispers]",
+    "signature": "915cbfbdbba522961a72802a6fac985d08b4e230aeeab4bee3144ded417e7327",
+    "leveling": {
+      "source_sha256": "7c0d4d62c35e6ce89b4b5edbd7b3164ef77d0da2470ff0ee54c0e96d6189f4f8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.94",
+        "input_tp": "-1.48",
+        "input_lra": "0.70",
+        "input_thresh": "-27.56",
+        "output_i": "-15.73",
+        "output_tp": "-2.00",
+        "output_lra": "0.50",
+        "output_thresh": "-26.37",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.27"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.48"
+    }
+  },
+  "miro_307a2261fc": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Select the guitar with 6 or G, get close, left click on the beat. Sleeping Keepers stay down.",
+    "delivery": "[whispers]",
+    "signature": "12382420dd8177840620d0c44b9ab3fff79e28bf884b7de5cb1e2f7fadca1e33",
+    "leveling": {
+      "source_sha256": "7581c114d6866b239563aeca0d58f2758e31a93f3710c35e1d31f510a3f446de",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.10",
+        "input_tp": "-0.78",
+        "input_lra": "3.70",
+        "input_thresh": "-27.66",
+        "output_i": "-17.47",
+        "output_tp": "-2.00",
+        "output_lra": "3.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.53"
+      },
+      "output_lufs": "-17.57",
+      "output_true_peak_dbtp": "-1.91"
+    }
+  },
+  "miro_2181b4bd3f": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "He winds up before he rushes. Watch him, not the room.",
+    "delivery": "[whispers]",
+    "signature": "d620a254588aa29a51532b0db4c3fd1514272dcbaa814946d71721859c05030e",
+    "leveling": {
+      "source_sha256": "169a695bf5beeefeed894f8437ef38b8e8e59120375825e160efa044967f46b0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.99",
+        "input_tp": "-1.73",
+        "input_lra": "3.10",
+        "input_thresh": "-28.52",
+        "output_i": "-17.27",
+        "output_tp": "-2.00",
+        "output_lra": "3.20",
+        "output_thresh": "-27.69",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.73"
+      },
+      "output_lufs": "-18.10",
+      "output_true_peak_dbtp": "-1.91"
+    }
+  },
+  "miro_7672c16195": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Jump or dodge [C] the rush, then hit him while he recovers.",
+    "delivery": "[whispers]",
+    "signature": "dcec86c1b52174175ff1b3f6afa5b0f53ce8d16a9548a5c134fab30db7adc78b",
+    "leveling": {
+      "source_sha256": "3988be2d41bfedafc6750fc96b5076d159701e7d5361726985894868c5ae18b2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.56",
+        "input_tp": "-1.40",
+        "input_lra": "1.00",
+        "input_thresh": "-31.82",
+        "output_i": "-18.50",
+        "output_tp": "-2.00",
+        "output_lra": "1.20",
+        "output_thresh": "-28.73",
+        "normalization_type": "dynamic",
+        "target_offset": "0.50"
+      },
+      "output_lufs": "-18.49",
+      "output_true_peak_dbtp": "-1.82"
+    }
+  },
+  "miro_f7bcbec3dc": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "When he shows RECOVER, hit him: shank [1] or strum [6]. Dodge with C, then go again.",
+    "delivery": "[whispers]",
+    "signature": "b62a7d7b4f956ae9d02659d3fdb35b1a8c079878e6638c46685c7bf9ef826775",
+    "leveling": {
+      "source_sha256": "06734084dc5ce51d0be8428c7e67fe2eddbd324509d85f093e430386a45c9320",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.74",
+        "input_tp": "-0.94",
+        "input_lra": "3.20",
+        "input_thresh": "-27.71",
+        "output_i": "-17.13",
+        "output_tp": "-2.00",
+        "output_lra": "1.60",
+        "output_thresh": "-27.99",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.87"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.08"
+    }
+  },
+  "miro_34a19d06c7": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "He went down through a hatch.",
+    "delivery": "[whispers]",
+    "signature": "b3c7bd2108329b0c64b152eb9234a7860096fd74478062a343df9f0f95aabc3e",
+    "leveling": {
+      "source_sha256": "609192c19339c46f287737d80e7277536da31ab17f6bfefc493f04b70a937c19",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.60",
+        "input_tp": "-3.09",
+        "input_lra": "0.90",
+        "input_thresh": "-30.80",
+        "output_i": "-17.26",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.46",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.74"
+      },
+      "output_lufs": "-18.11",
+      "output_true_peak_dbtp": "-1.79"
+    }
+  },
+  "miro_657677a68b": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "A hatch on this floor is open now.",
+    "delivery": "[whispers]",
+    "signature": "8c8883fdea6871fda96ac21234c8ceb843b413123223209afc3335fb59394c08",
+    "leveling": {
+      "source_sha256": "3a8c26f37efaa598e1bc021cad6aa3c10cc1016d6263edaa86add4604aaf1cc9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.12",
+        "input_tp": "-2.11",
+        "input_lra": "0.00",
+        "input_thresh": "-30.29",
+        "output_i": "-20.01",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.18",
+        "normalization_type": "linear",
+        "target_offset": "2.01"
+      },
+      "output_lufs": "-20.01",
+      "output_true_peak_dbtp": "-2.07"
+    }
+  },
+  "miro_88ab69af02": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Find the open hatch on this floor and drop through it.",
+    "delivery": "[whispers]",
+    "signature": "b79c578a7ad5c9888a938ac4558f8d7bd36bab717427a85a480557b09844cf29",
+    "leveling": {
+      "source_sha256": "bddf9fb4c6bc0bd826530e8adca13454c1567e3bcde3aff0c43884625f6006ba",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.02",
+        "input_tp": "-5.42",
+        "input_lra": "1.90",
+        "input_thresh": "-31.27",
+        "output_i": "-17.88",
+        "output_tp": "-2.90",
+        "output_lra": "1.30",
+        "output_thresh": "-28.10",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.12"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.53"
+    }
+  },
+  "miro_79ad2515e5": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The bottom. Nowhere left for either of us.",
+    "delivery": "[whispers]",
+    "signature": "14b790550a07dc23bfe5db0b06c6f38772a13701d6505829a7c9c9065f8c7b09",
+    "leveling": {
+      "source_sha256": "9dea2c9e8e31c181d8cb7174cac7a4c083bd59ef135d35ec9b64826628fc76bd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.20",
+        "input_tp": "-3.55",
+        "input_lra": "0.30",
+        "input_thresh": "-28.84",
+        "output_i": "-16.94",
+        "output_tp": "-2.07",
+        "output_lra": "0.10",
+        "output_thresh": "-27.69",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.06"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.30"
+    }
+  },
+  "miro_4147993af5": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Same as before, faster. Dodge, then punish.",
+    "delivery": "[whispers]",
+    "signature": "3d311526417f15f650f75f3fa16425b05144e5feeed237f396ba685d61a70342",
+    "leveling": {
+      "source_sha256": "fab4309ebf416409d88f2059a696bcf6a7b831630443f24b99d00f1dfcc52fc9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.35",
+        "input_tp": "-0.54",
+        "input_lra": "0.10",
+        "input_thresh": "-28.61",
+        "output_i": "-18.01",
+        "output_tp": "-2.00",
+        "output_lra": "0.20",
+        "output_thresh": "-29.05",
+        "normalization_type": "dynamic",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.79",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "miro_2d4bc0b96c": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Wait for RECOVER, hit him, back off. Repeat until he kneels.",
+    "delivery": "[whispers]",
+    "signature": "2c4463216ffbb98a214dc19871948044e67bf656f6e7e6ef9280d743256d9063",
+    "leveling": {
+      "source_sha256": "d74090524c679941df14f816094ec65a2334c9ea8d9f1c3f280ba9337a187a50",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.03",
+        "input_tp": "-2.61",
+        "input_lra": "3.00",
+        "input_thresh": "-32.92",
+        "output_i": "-18.17",
+        "output_tp": "-2.00",
+        "output_lra": "5.60",
+        "output_thresh": "-29.15",
+        "normalization_type": "dynamic",
+        "target_offset": "0.17"
+      },
+      "output_lufs": "-18.40",
+      "output_true_peak_dbtp": "-1.77"
+    }
+  },
+  "miro_26398ee0de": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "He's still talking. Listen.",
+    "delivery": "[whispers]",
+    "signature": "1b0fdb5d9697eb0e667c02d7acc38d0979fef2c457c97a836923e321d9c8a45f",
+    "leveling": {
+      "source_sha256": "92f57b53b3f62a959938a4a0113bee36761d3348acc0836119a1d9a02a10d7ea",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.70",
+        "input_tp": "-6.48",
+        "input_lra": "0.00",
+        "input_thresh": "-32.46",
+        "output_i": "-18.02",
+        "output_tp": "-2.79",
+        "output_lra": "0.00",
+        "output_thresh": "-28.78",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.89"
+    }
+  },
+  "miro_b0d5e5fd05": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Stand beside him.",
+    "delivery": "[whispers]",
+    "signature": "be4aef507041d03f04fd1e9c3f00cc73b3fe4b065185c9cdec9889e63b1a1076",
+    "leveling": {
+      "source_sha256": "40eabb447f9ce9f2130c0eee7dc07ac8218d83a4f2137163c5069c1b7dc91bc0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.81",
+        "input_tp": "-8.05",
+        "input_lra": "1.00",
+        "input_thresh": "-33.61",
+        "output_i": "-15.34",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-26.13",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.66"
+      },
+      "output_lufs": "-18.03",
+      "output_true_peak_dbtp": "-3.04"
+    }
+  },
+  "miro_e157325713": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Press E beside Niro.",
+    "delivery": "[whispers]",
+    "signature": "59240a9bf488a022a01ccbf6c56f79e36ffaab7ea399fca64c4bfb2760da2603",
+    "leveling": {
+      "source_sha256": "b62372142465bc9d46e3507521c90c84f4c5d571f4e4a15a7b28dd17b8634e53",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.81",
+        "input_tp": "-3.81",
+        "input_lra": "0.00",
+        "input_thresh": "-27.81",
+        "output_i": "-17.99",
+        "output_tp": "-4.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.02"
+    }
+  },
+  "miro_7efc89d644": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The woods. Out.",
+    "delivery": "[whispers]",
+    "signature": "95bb166195ac9cb4cd81f6268d039be74468af22f500642dd845bb2fcb8aaf87",
+    "leveling": {
+      "source_sha256": "d41224791807a907cc8121c8c0aebc68f60e9b63022dd61130c07b27c243be87",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.97",
+        "input_tp": "-3.40",
+        "input_lra": "13.10",
+        "input_thresh": "-34.43",
+        "output_i": "-18.22",
+        "output_tp": "-2.00",
+        "output_lra": "11.80",
+        "output_thresh": "-28.45",
+        "normalization_type": "dynamic",
+        "target_offset": "0.22"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-1.91"
+    }
+  },
+  "miro_6678788bf0": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Right side of the deepest floor.",
+    "delivery": "[whispers]",
+    "signature": "84f800392727c60c64f13ed3885eb34afb205320f072b8c80a5178f5b1b69d03",
+    "leveling": {
+      "source_sha256": "7c40e394916f76bf4ba44b4983196b17f5048e68afc629f1a8133905cb1b3405",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.11",
+        "input_tp": "-3.40",
+        "input_lra": "0.00",
+        "input_thresh": "-29.11",
+        "output_i": "-18.01",
+        "output_tp": "-2.29",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.12"
+    }
+  },
+  "miro_e8a082c9fb": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Walk right to the opening and press E.",
+    "delivery": "[whispers]",
+    "signature": "19c8605c342902a8ab1a19f5adef5c696dca204c59e56dbbc4bea9446d406fc9",
+    "leveling": {
+      "source_sha256": "ae8fc6b25cc3eff709f9633d75fe0e9d45322a38a8c830a7db0d12d84fdf3952",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.59",
+        "input_tp": "-2.46",
+        "input_lra": "0.00",
+        "input_thresh": "-27.59",
+        "output_i": "-17.99",
+        "output_tp": "-2.87",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.83"
+    }
+  },
+  "miro_934c65b72b": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Out.",
+    "delivery": "[whispers]",
+    "signature": "6ec8e3f1ea414c7b13fabda419fde46589a80462f008c670c4e25d7562ffefe3",
+    "leveling": {
+      "source_sha256": "8206d7178e6f0ca87e20ccabb6e2a7dcd7896946c1a556b7c5676968dcf59209",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.36",
+        "input_tp": "-5.74",
+        "input_lra": "0.00",
+        "input_thresh": "-35.36",
+        "output_i": "-21.61",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-31.61",
+        "normalization_type": "linear",
+        "target_offset": "3.61"
+      },
+      "output_lufs": "-21.60",
+      "output_true_peak_dbtp": "-2.09"
+    }
+  },
+  "miro_87a99e836a": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Walk right and press E.",
+    "delivery": "[whispers]",
+    "signature": "756ab703521e0f6318b174d1a4372dad6ef2e636be7adc4645a5ff9cf1391bfd",
+    "leveling": {
+      "source_sha256": "9e1a8128c830ca4140d625b69b83cdc2d61a0cf07a86178aa7a3eeb61018726a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.72",
+        "input_tp": "-9.42",
+        "input_lra": "0.00",
+        "input_thresh": "-35.72",
+        "output_i": "-18.29",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.29",
+        "normalization_type": "linear",
+        "target_offset": "0.29"
+      },
+      "output_lufs": "-18.27",
+      "output_true_peak_dbtp": "-1.92"
+    }
+  },
+  "miro_dc17c787c4": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Something is hidden under my bed. I can feel the shape of it.",
+    "delivery": "[whispers]",
+    "signature": "7f6b44cef060de4ff66e6c26f58eb2573fab218051e9cd50428f333b8a0e7b2a",
+    "leveling": {
+      "source_sha256": "9156db4c76e2630b7be6989f021cdf838a48f167bd0cfd16c5af64628621f8e3",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.98",
+        "input_tp": "-4.94",
+        "input_lra": "1.40",
+        "input_thresh": "-30.56",
+        "output_i": "-17.41",
+        "output_tp": "-2.00",
+        "output_lra": "1.10",
+        "output_thresh": "-27.83",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.59"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.87"
+    }
+  },
+  "miro_fea9ee6720": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The bed is right here in the cell. Stand at it.",
+    "delivery": "[whispers]",
+    "signature": "fd0f5fcbad8750f73bd7de9947f8acb8f19f095de026c5610a6ccd560765aecd",
+    "leveling": {
+      "source_sha256": "08f68bc81ec2373ead611390ce5994cb132bddc8a48934bc37e37e20e220ca96",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.58",
+        "input_tp": "-3.17",
+        "input_lra": "3.40",
+        "input_thresh": "-31.51",
+        "output_i": "-17.07",
+        "output_tp": "-2.00",
+        "output_lra": "3.90",
+        "output_thresh": "-27.89",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.93"
+      },
+      "output_lufs": "-18.06",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "miro_cb871c0765": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Walk to the bed in the cell and press E.",
+    "delivery": "[whispers]",
+    "signature": "ad0c83703c6f9bf32c7cdecad575b1151acc9ad2a67585f0d53b859cea3e69d4",
+    "leveling": {
+      "source_sha256": "fbad8edad7e662fac15e64a4aa2228e50b71ee6a096b3b7e304eaf45f6050c3b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.92",
+        "input_tp": "-3.78",
+        "input_lra": "0.70",
+        "input_thresh": "-28.92",
+        "output_i": "-17.64",
+        "output_tp": "-2.41",
+        "output_lra": "0.00",
+        "output_thresh": "-27.64",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.36"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.89"
+    }
+  },
+  "miro_b3cbbf2246": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Judas has a key. Or the lock could just stop existing.",
+    "delivery": "[whispers]",
+    "signature": "4577bb2bef3b557071ec29af02d4f82a64c36d89a82a33b1fea8f9c2f1dd3d52",
+    "leveling": {
+      "source_sha256": "7762427a324f2ac81e2eb3f77c7a9880a700414dace8d0da55f2b78fcc00a7cb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.31",
+        "input_tp": "-0.76",
+        "input_lra": "2.30",
+        "input_thresh": "-26.01",
+        "output_i": "-14.77",
+        "output_tp": "-2.00",
+        "output_lra": "2.20",
+        "output_thresh": "-25.21",
+        "normalization_type": "dynamic",
+        "target_offset": "-3.23"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.38"
+    }
+  },
+  "miro_5270e048f0": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Wait for him to turn away and take the key [E]. Or set a charge on the lock: [2], right click.",
+    "delivery": "[whispers]",
+    "signature": "1add15fb3ddacb84e690ba84347baced52f0a7e728e97e26eeb0779ef30e0646",
+    "leveling": {
+      "source_sha256": "a1fd9b6e21b95e6b0a17ede72c0938a7fdfeb0a99578f364699bf0e49ca38a39",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.35",
+        "input_tp": "-4.55",
+        "input_lra": "7.50",
+        "input_thresh": "-32.41",
+        "output_i": "-17.58",
+        "output_tp": "-2.00",
+        "output_lra": "2.60",
+        "output_thresh": "-28.22",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.42"
+      },
+      "output_lufs": "-18.19",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "miro_f8cc332af7": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Stand behind Judas while he faces away and press E. Or select C4 [2], right click the lock, step back, left click.",
+    "delivery": "[whispers]",
+    "signature": "a776490880a4bf1afd9a8c8c5e4126cd53de961c166eaf23f0145ef9792def3f",
+    "leveling": {
+      "source_sha256": "be962f40877d38c555e435d988f150d3771cf8d1e6107c77cd1ebbf6e79342a8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.15",
+        "input_tp": "-0.42",
+        "input_lra": "3.20",
+        "input_thresh": "-26.95",
+        "output_i": "-17.03",
+        "output_tp": "-2.00",
+        "output_lra": "2.20",
+        "output_thresh": "-27.66",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.97"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-1.84"
+    }
+  },
+  "miro_c1a145ec27": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The gallery leads to a barred gate. Someone's waiting there.",
+    "delivery": "[whispers]",
+    "signature": "ee52ee4094d3923338310edaaec7db3261c42694d4796238012df7187c47a29c",
+    "leveling": {
+      "source_sha256": "f87f832ab28e439e6f7afdaa505efbdde9cf1957d05b2b38e87f170d73ae3cdd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.74",
+        "input_tp": "-1.47",
+        "input_lra": "2.00",
+        "input_thresh": "-32.21",
+        "output_i": "-17.55",
+        "output_tp": "-2.00",
+        "output_lra": "0.90",
+        "output_thresh": "-27.91",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.45"
+      },
+      "output_lufs": "-18.11",
+      "output_true_peak_dbtp": "-1.76"
+    }
+  },
+  "miro_f4469fa57e": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Go right along the gallery, past the cells, to the bars.",
+    "delivery": "[whispers]",
+    "signature": "7d2b6bc3608a8e950621ecd00935cd696b9b5e132cf7a25e85e5d4d1f10646dd",
+    "leveling": {
+      "source_sha256": "de4fd956c78cd8f713e3b01d75a752353e370f1d0c51495e36566485cedc67e5",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.30",
+        "input_tp": "-5.66",
+        "input_lra": "6.40",
+        "input_thresh": "-32.16",
+        "output_i": "-18.32",
+        "output_tp": "-2.83",
+        "output_lra": "5.90",
+        "output_thresh": "-28.95",
+        "normalization_type": "dynamic",
+        "target_offset": "0.32"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.28"
+    }
+  },
+  "miro_d75a949047": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Walk right to the barred gate and press E.",
+    "delivery": "[whispers]",
+    "signature": "90ab3c65eb4ed2cfcd38205b0be533c54563fea2f40c0df400554eb6f5f3d1aa",
+    "leveling": {
+      "source_sha256": "c5e9cdcb5b0a3e34dcd526c69290a0406c844257b0fdfddc3b5dbe31bff97480",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.03",
+        "input_tp": "-2.21",
+        "input_lra": "0.60",
+        "input_thresh": "-29.17",
+        "output_i": "-18.35",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.35",
+        "normalization_type": "dynamic",
+        "target_offset": "0.35"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "miro_fe98247564": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "'Leave a mark.' Down where the tower holds itself up.",
+    "delivery": "[whispers]",
+    "signature": "43f09d6f80a1dae196c876d233c913a1837fe7c7008206502ff878d2438f9aa9",
+    "leveling": {
+      "source_sha256": "cc969dedc0dff47acccda43d75ee51b250c8612ee1bc4fe29320cbcd844cec57",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.11",
+        "input_tp": "-0.44",
+        "input_lra": "1.80",
+        "input_thresh": "-25.85",
+        "output_i": "-17.71",
+        "output_tp": "-3.05",
+        "output_lra": "1.10",
+        "output_thresh": "-28.97",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.29"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.33"
+    }
+  },
+  "miro_93b15a3b63": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Take the ladders down to the lowest floor.",
+    "delivery": "[whispers]",
+    "signature": "6f8f9861f72dd8219909af9e858e5617e978e4c5f1ff83b63501ceba64be9d98",
+    "leveling": {
+      "source_sha256": "32adf840476cb612330770d398056e073e57477036c10ceb3b6c8f20b6e3f1d3",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.96",
+        "input_tp": "-4.77",
+        "input_lra": "0.00",
+        "input_thresh": "-30.96",
+        "output_i": "-18.17",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.17",
+        "normalization_type": "linear",
+        "target_offset": "0.17"
+      },
+      "output_lufs": "-18.14",
+      "output_true_peak_dbtp": "-1.88"
+    }
+  },
+  "miro_b888c9c798": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "On the bottom floor, find the support and press E.",
+    "delivery": "[whispers]",
+    "signature": "a67b27dd74d2e13b7480bff9286512cf52c75c82afdea7883c9c15b648c72194",
+    "leveling": {
+      "source_sha256": "93def4e15698ad2634f1ebd60c79ecc4119c0c34be5a2c78d8cb14aaabf384dd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.19",
+        "input_tp": "-3.20",
+        "input_lra": "0.40",
+        "input_thresh": "-27.33",
+        "output_i": "-17.87",
+        "output_tp": "-3.93",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.13"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.88"
+    }
+  },
+  "miro_57ad728336": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The stairs down. Lower right.",
+    "delivery": "[whispers]",
+    "signature": "068937bbd085477d20ea30a406990ece9c7fc00643af9c8dce01e1f48e63da8c",
+    "leveling": {
+      "source_sha256": "be05b120a7bae73e02a3f2a23ad077c018e9b93c6e77d5bd3b1814e29273b6e9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.02",
+        "input_tp": "-3.40",
+        "input_lra": "0.00",
+        "input_thresh": "-29.45",
+        "output_i": "-18.00",
+        "output_tp": "-2.38",
+        "output_lra": "0.00",
+        "output_thresh": "-28.43",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.53"
+    }
+  },
+  "miro_b09bd4ac61": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Walk to the lower-right stair gate and press E.",
+    "delivery": "[whispers]",
+    "signature": "1b64dbae458ecb3520cdd21c0a024b46677e3957c7ee8275378ce162fdc7162a",
+    "leveling": {
+      "source_sha256": "e56ed62a3256357b947267b1bb65ba968ceebcd9cf0db1bc93144ed0b1676d6b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.35",
+        "input_tp": "-6.39",
+        "input_lra": "1.00",
+        "input_thresh": "-31.62",
+        "output_i": "-17.09",
+        "output_tp": "-2.07",
+        "output_lra": "0.00",
+        "output_thresh": "-27.33",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.91"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.10"
+    }
   }
 }
