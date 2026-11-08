@@ -157,6 +157,8 @@ func apply_checkpoint() -> void:
 			fallen.restore_dead(entry.position, bool(entry.get("looted", false)))
 	# A moment of grace so the respawned Keepers can't strip health the instant he appears.
 	player.invulnerability_left = 3.5
+	player.respawn_cloak_left = 4.0
+	player.is_concealed = true
 	sigil_placed = bool(saved.get("sigil", false))
 	for id in saved.milestones:
 		milestones[id] = true

@@ -33,6 +33,8 @@ var casualty_count: int = 0
 var detection_state: String = "unseen"
 ## Full health in half hearts (set from the difficulty); potions restore up to this.
 var max_health := 6
+## Free cloak on arriving at a checkpoint: hidden for a few seconds with no cooldown spent.
+var respawn_cloak_left := 0.0
 var has_supplies: bool = false
 var has_key: bool = false
 var has_gun: bool = false
@@ -85,7 +87,11 @@ func _physics_process(delta: float) -> void:
 		update_visual(delta)
 		return
 	stealth_cooldown_left = maxf(0, stealth_cooldown_left - delta)
-	if is_concealed:
+	if respawn_cloak_left > 0.0:
+		respawn_cloak_left = maxf(0.0, respawn_cloak_left - delta)
+		is_concealed = respawn_cloak_left > 0.0
+		stealth_remaining = respawn_cloak_left
+	elif is_concealed:
 		stealth_remaining = maxf(0, stealth_remaining - delta)
 		if not level.in_cover(global_position):
 			end_stealth()
@@ -200,6 +206,11 @@ func toggle_stealth() -> void:
 		check_guard_contact()
 
 func end_stealth() -> void:
+	if respawn_cloak_left > 0.0:
+		# The free cloak breaks without costing the blanket its recharge.
+		respawn_cloak_left = 0.0
+		is_concealed = false
+		return
 	if not is_concealed:
 		return
 	is_concealed = false

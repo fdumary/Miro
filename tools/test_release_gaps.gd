@@ -85,6 +85,9 @@ func run() -> void:
 	check(level.get_node("Guards").get_children().filter(func(g): return g.is_dead).size() == 1, "Everyone else is back on their feet")
 	check(level.player.c4_count == 2 and level.player.guns == ["pistol"] and level.player.ammunition == 5 and level.player.health == 3, "A checkpoint restores Miro's items, ammo and health")
 	check(level.player.invulnerability_left > 2.0, "Respawning at a checkpoint grants brief invincibility")
+	check(level.player.is_concealed and level.player.respawn_cloak_left > 2.0, "Respawning at a checkpoint cloaks Miro for a few seconds")
+	await frames(300)
+	check(not level.player.is_concealed and level.player.stealth_cooldown_left == 0.0, "The respawn cloak ends without spending the blanket's recharge")
 	campaign.checkpoint.clear()
 
 	# Level select: a snapshot taken at floor entry comes back after a "relaunch".
