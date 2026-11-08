@@ -98,12 +98,13 @@ static func night_sky(canvas: CanvasItem, top: Color, bottom: Color, moon := Vec
 static func pines(canvas: CanvasItem, baseline: float, height: float, spacing: float, depth: float, shift: float) -> void:
 	var color := Color("3b4a63").lerp(Color("0d1118"), depth)
 	var x := -spacing + fmod(shift, spacing)
-	var index := 0
 	while x < 640 + spacing:
-		var h := height * (0.75 + 0.25 * float((index * 37) % 5) / 4.0)
+		# Each tree keeps its height as the row scrolls: key it to its position in the world,
+		# not its slot on screen (slot keys made every tree jump when the row wrapped).
+		var index := int(round((x - shift) / spacing))
+		var h := height * (0.75 + 0.25 * float(posmod(index * 37, 5)) / 4.0)
 		canvas.draw_colored_polygon(PackedVector2Array([Vector2(x - spacing * 0.45, baseline), Vector2(x + spacing * 0.45, baseline), Vector2(x, baseline - h)]), color)
 		x += spacing
-		index += 1
 	canvas.draw_rect(Rect2(0, baseline, 640, 360 - baseline), color)
 
 ## Diagonal rain streaks, deterministic per frame.

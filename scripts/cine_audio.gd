@@ -2,14 +2,16 @@ extends Node
 ## Sound for cutscenes: one-shots, fading loops and timed cues, on the Effects bus.
 ## Files live in res://assets/audio/cine/ (see tools/synth_cine_audio.py and
 ## tools/generate_cine_sfx_elevenlabs.py). A missing file is skipped silently.
-const DIR := "res://assets/audio/cine/%s.ogg"
+const DIR := "res://assets/audio/cine/%s"
 var cues: Array = []
 
+## Field recordings ship as .wav (rain, thunder); everything else is .ogg.
 static func stream(id: String) -> AudioStream:
-	var path := DIR % id
-	if not ResourceLoader.exists(path):
-		return null
-	return load(path)
+	for extension in [".wav", ".ogg"]:
+		var path: String = (DIR % id) + extension
+		if ResourceLoader.exists(path):
+			return load(path)
+	return null
 
 static func audible() -> bool:
 	return DisplayServer.get_name() != "headless"
@@ -45,7 +47,12 @@ func loop(id: String, volume_db := -10.0, fade_in := 1.0, bus := "Effects") -> A
 	if source == null:
 		return null
 	source = source.duplicate()
-	source.loop = true
+	if source is AudioStreamWAV:
+		source.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		source.loop_begin = 0
+		source.loop_end = int(source.get_length() * source.mix_rate)
+	else:
+		source.loop = true
 	var player := AudioStreamPlayer.new()
 	player.bus = bus
 	player.stream = source
