@@ -52,6 +52,7 @@ var attack_gap := 2.1
 var chase_speed := 78.0
 ## True while a Keeper who lost sight of Miro is still running after him.
 var pursuing := false
+const HOP_SPEED := 300.0
 
 func _ready() -> void:
 	add_to_group("guards")
@@ -179,15 +180,29 @@ func _physics_process(delta: float) -> void:
 			velocity.x = facing * movement_speed * stride()
 	# Do not walk off a floor or chase between tiers. Guards cannot climb.
 	var foot := global_position + Vector2(signf(velocity.x) * 15, 12)
-	if velocity.x != 0 and not level.has_floor_below(foot):
+	var chasing := velocity.x != 0 and (alert_state == State.ALERT or pursuing)
+	var hop_down := chasing and solid_between(foot, foot + Vector2(0, 48))
+	if velocity.x != 0 and is_on_floor() and not level.has_floor_below(foot) and not hop_down:
 		velocity.x = 0
 		facing *= -1
 		if alert_state == State.SEARCH:
 			last_known_position.x = global_position.x
+	# A chasing Keeper hops over anything one tile high instead of giving up at it.
+	var hopping := chasing and is_on_floor() and can_hop()
+	if hopping:
+		velocity.y = -HOP_SPEED
 	velocity.y += 850.0 * delta
 	move_and_slide()
-	if is_on_wall():
+	if is_on_wall() and not hopping and not (chasing and not is_on_floor()):
 		facing *= -1
+
+func solid_between(from: Vector2, to: Vector2) -> bool:
+	return not get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(from, to, 1)).is_empty()
+
+## Something knee-high directly ahead, with clear space above it to land on.
+func can_hop() -> bool:
+	var ahead := Vector2(facing * 20, 0)
+	return solid_between(global_position + Vector2(0, 8), global_position + Vector2(0, 8) + ahead) and not solid_between(global_position + Vector2(0, -24), global_position + Vector2(0, -24) + ahead)
 
 ## Patrols keep time with the music: a Keeper turns at the end of his beat on a beat line
 ## (sick Keepers on every other beat) and leans into each step on the beat.
