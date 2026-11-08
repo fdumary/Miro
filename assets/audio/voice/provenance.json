@@ -16434,5 +16434,1125 @@
       "output_lufs": "-18.00",
       "output_true_peak_dbtp": "-2.60"
     }
+  },
+  "dara_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww",
+    "voice_name": "River (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Records are off limits! Step away from the screen!",
+    "delivery": "[shouting] [stern]",
+    "signature": "9b27554ac9bc2024a71b6b36a112eab3c32033144ddeeb76fbadc40c185f9506",
+    "leveling": {
+      "source_sha256": "0a06eb9cd061cd9b6c54dcab8e66b457aee4b7da69b22024aee52b5e1e64d3e2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.50",
+        "input_tp": "-0.41",
+        "input_lra": "0.30",
+        "input_thresh": "-25.50",
+        "output_i": "-17.87",
+        "output_tp": "-2.78",
+        "output_lra": "0.00",
+        "output_thresh": "-27.87",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.13"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.94"
+    }
+  },
+  "vesna_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "oWAxZDx7w5VEj9dCyTzz",
+    "voice_name": "Grace (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Hands off the port! That's maintenance property!",
+    "delivery": "[shouting] [brisk]",
+    "signature": "2968e75e2559d7348044e1b689fec81fbb1ce11c31a3f3b76fbf542d1e8c6546",
+    "leveling": {
+      "source_sha256": "d07877f23f0c49a3b24a13327b814433313a4275ee58e4581120302f5d63a39c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.29",
+        "input_tp": "-0.39",
+        "input_lra": "0.00",
+        "input_thresh": "-26.49",
+        "output_i": "-18.00",
+        "output_tp": "-2.10",
+        "output_lra": "0.00",
+        "output_thresh": "-28.20",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-1.71"
+    }
+  },
+  "ilse_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "jBpfuIE2acCO8z3wKNLl",
+    "voice_name": "Gigi (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "You! Away from the terminal!",
+    "delivery": "[shouting] [sharp]",
+    "signature": "5d5c59c4e18d59ffb73ed7b2c58293dab0da4c53cb48a34a79295ed2e588ba81",
+    "leveling": {
+      "source_sha256": "0ecd6eb1176756ee98bc62d96f60a942b60b0c2c068e51ef6b52edd7a26d5860",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-11.12",
+        "input_tp": "-0.36",
+        "input_lra": "0.00",
+        "input_thresh": "-21.38",
+        "output_i": "-18.00",
+        "output_tp": "-7.24",
+        "output_lra": "0.00",
+        "output_thresh": "-28.26",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-6.53"
+    }
+  },
+  "bryn_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "jsCqWAovK2LkecY7zXl4",
+    "voice_name": "Freya (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Hey! That terminal is logged, you know!",
+    "delivery": "[shouting] [wry]",
+    "signature": "10c958b2b4ee732ce61a108e2bcb50b83b9c8a26b3642eccca24a4c9ed8d9483",
+    "leveling": {
+      "source_sha256": "e7eab6d67d0ccf76274f024c3d4e0555c89eb7a952ffcbb2f7a221922599c887",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.38",
+        "input_tp": "-0.78",
+        "input_lra": "0.00",
+        "input_thresh": "-22.38",
+        "output_i": "-17.99",
+        "output_tp": "-6.40",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-6.36"
+    }
+  },
+  "odell_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+    "voice_name": "Lily (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Stop right there! Records terminal!",
+    "delivery": "[shouting] [gruff]",
+    "signature": "090abb944abc2d729a33d8ddc08c7cde524a6c16ed6c12a3aa05c4a513cecc55",
+    "leveling": {
+      "source_sha256": "3f3b57a1d14d7e0733081c00e0da0485103433ab0bcd664ad0bc6b7508644023",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.81",
+        "input_tp": "-0.78",
+        "input_lra": "0.00",
+        "input_thresh": "-25.18",
+        "output_i": "-18.01",
+        "output_tp": "-3.97",
+        "output_lra": "0.00",
+        "output_thresh": "-28.38",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.79"
+    }
+  },
+  "corra_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+    "voice_name": "Alice (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Away from the checkpoint terminal! Now!",
+    "delivery": "[shouting] [firm]",
+    "signature": "c19525bf60094253400335723ec0b07f5098ee2e383aa9774654b6bc5bf4f39b",
+    "leveling": {
+      "source_sha256": "9ff343efe36568099e606f7157bde53ca25de5b0ccaf5d75b2999cd30827187d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.95",
+        "input_tp": "-2.46",
+        "input_lra": "0.00",
+        "input_thresh": "-26.95",
+        "output_i": "-18.00",
+        "output_tp": "-3.51",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.70"
+    }
+  },
+  "wren2_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "cgSgspJ2msm6clMCkdW9",
+    "voice_name": "Jessica (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Don't touch that screen!",
+    "delivery": "[shouting] [tense]",
+    "signature": "c68fde44f0721c4a111fb895d4457349dab400fea69fa00eb73fd31787846b03",
+    "leveling": {
+      "source_sha256": "d877f7dc14f7e7e8d560f20ccb503192431579d34196a728ad71dc97b1099a82",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.26",
+        "input_tp": "-1.16",
+        "input_lra": "0.00",
+        "input_thresh": "-25.91",
+        "output_i": "-18.02",
+        "output_tp": "-3.90",
+        "output_lra": "0.00",
+        "output_thresh": "-28.67",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-3.95"
+    }
+  },
+  "fenna_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "9BWtsMINqrJLrRacOk9x",
+    "voice_name": "Aria (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Halt! Don't read that file!",
+    "delivery": "[shouting] [firm]",
+    "signature": "a93ce6874841c2eb52b54e8fa72a95244d59be0ac0509d0679ff76ee003617d8",
+    "leveling": {
+      "source_sha256": "00958194fa4ecce7934ec2c644569ce3467da3f16ddbf881d0fb8a7588e68c77",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-11.78",
+        "input_tp": "-0.47",
+        "input_lra": "0.00",
+        "input_thresh": "-22.68",
+        "output_i": "-17.99",
+        "output_tp": "-6.69",
+        "output_lra": "0.00",
+        "output_thresh": "-28.67",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-6.62"
+    }
+  },
+  "marl_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+    "voice_name": "Laura (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "That log is classified! Stand down!",
+    "delivery": "[shouting] [crisp]",
+    "signature": "9f26cbf8c310b92fd5a360f678036ef4f5cf15b87fbcc30e43e0ee3d0a3a032c",
+    "leveling": {
+      "source_sha256": "842a2c8d5a4d19a2eca6c3f6201e36f1bd06167c048f035faa49b9f6f6347ea9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-11.02",
+        "input_tp": "-0.34",
+        "input_lra": "0.00",
+        "input_thresh": "-21.02",
+        "output_i": "-18.01",
+        "output_tp": "-7.32",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-7.22"
+    }
+  },
+  "pru_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "voice_name": "Sarah (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Intruder at the ward terminal!",
+    "delivery": "[shouting] [urgent]",
+    "signature": "e9a31c1a12f9c8b6c0882bf76c2a50eee29cf1272694269c61f83450d85e9d49",
+    "leveling": {
+      "source_sha256": "d1858125ca2579934882a20cd256c1114e22c16075c0be34a51664b66e515189",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-10.58",
+        "input_tp": "-0.30",
+        "input_lra": "0.00",
+        "input_thresh": "-20.58",
+        "output_i": "-17.98",
+        "output_tp": "-7.72",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-7.57"
+    }
+  },
+  "dara_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww",
+    "voice_name": "River (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Dara's down. Somebody tell the desk, they'll want the keys.",
+    "delivery": "[shocked] [stern]",
+    "signature": "f967757a9a9a5e7c067047a5a3abc410474207b55d9c61bab515171e779cb34c",
+    "leveling": {
+      "source_sha256": "023f3e39f373858c49fcc440839056190357d623b1916a0bc2b44576202e2b22",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.68",
+        "input_tp": "-2.36",
+        "input_lra": "0.30",
+        "input_thresh": "-27.82",
+        "output_i": "-17.81",
+        "output_tp": "-2.59",
+        "output_lra": "0.00",
+        "output_thresh": "-27.95",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.19"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.69"
+    }
+  },
+  "vesna_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "oWAxZDx7w5VEj9dCyTzz",
+    "voice_name": "Grace (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Oh no. And I just got the port working.",
+    "delivery": "[shocked] [brisk]",
+    "signature": "3e559726102bd69afaa8e807faf9b4e69dab0bb593cf9b9b32755a40848c87df",
+    "leveling": {
+      "source_sha256": "8b07b8be6434c905955caab18ba82083fbf95e2bf749f1d66ea89a44703486fb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.16",
+        "input_tp": "-2.26",
+        "input_lra": "0.00",
+        "input_thresh": "-26.68",
+        "output_i": "-17.98",
+        "output_tp": "-4.11",
+        "output_lra": "0.00",
+        "output_thresh": "-28.50",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.08"
+    }
+  },
+  "ilse_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "jBpfuIE2acCO8z3wKNLl",
+    "voice_name": "Gigi (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Not at my terminal. Not on my shift.",
+    "delivery": "[shocked] [sharp]",
+    "signature": "0492cecb16784ffae9678360ed5b1fc56fdec9b38921ea15c2fb498184df4aa0",
+    "leveling": {
+      "source_sha256": "fa093ccf8e1c70677aaae65f9026705def4d4796fe6190cb278037f0af8b930c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.67",
+        "input_tp": "-0.57",
+        "input_lra": "0.00",
+        "input_thresh": "-22.85",
+        "output_i": "-18.00",
+        "output_tp": "-5.90",
+        "output_lra": "0.00",
+        "output_thresh": "-28.17",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-5.67"
+    }
+  },
+  "bryn_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "jsCqWAovK2LkecY7zXl4",
+    "voice_name": "Freya (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I had one job: watch the screen.",
+    "delivery": "[shocked] [wry]",
+    "signature": "3dadcca2f3c7fb6758caf874174721d37dea4da2dd4761bc24245473bfcb15fa",
+    "leveling": {
+      "source_sha256": "f3e164dc9f7516c7f5e97fc43a3d148d52590b88e36729887598dd1f777f8238",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.50",
+        "input_tp": "-2.75",
+        "input_lra": "0.00",
+        "input_thresh": "-24.68",
+        "output_i": "-18.00",
+        "output_tp": "-6.26",
+        "output_lra": "0.00",
+        "output_thresh": "-28.18",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.96",
+      "output_true_peak_dbtp": "-6.22"
+    }
+  },
+  "odell_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+    "voice_name": "Lily (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Nobody warned me about this posting.",
+    "delivery": "[shocked] [gruff]",
+    "signature": "86a788ac6591938ace2ed36752e8919a642fc50621b29e1b0b67026027dbe571",
+    "leveling": {
+      "source_sha256": "b7f3b2bd7a2e1c8bc0587772ea7194a14af4e65913ba8639b3054ad832640f50",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.88",
+        "input_tp": "-1.29",
+        "input_lra": "0.00",
+        "input_thresh": "-26.88",
+        "output_i": "-17.99",
+        "output_tp": "-2.41",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.43"
+    }
+  },
+  "corra_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+    "voice_name": "Alice (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Somebody's going to have to explain this to the captain.",
+    "delivery": "[shocked] [firm]",
+    "signature": "e33423b44e67157351d6e9116f9e139edb3991e8e28daae82ace007cf760ce42",
+    "leveling": {
+      "source_sha256": "3138b4892d981b9b5ae0ff8d31474e075cc5ed9a6e8d9c5d3fab41e4973f62a7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.33",
+        "input_tp": "-2.28",
+        "input_lra": "0.20",
+        "input_thresh": "-28.33",
+        "output_i": "-18.02",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.02",
+        "normalization_type": "dynamic",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-17.95",
+      "output_true_peak_dbtp": "-2.04"
+    }
+  },
+  "wren2_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "cgSgspJ2msm6clMCkdW9",
+    "voice_name": "Jessica (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "This is why I asked for a transfer.",
+    "delivery": "[shocked] [tense]",
+    "signature": "ab7a600fa4aaa072fcc1c6cd3538262a3fdf2834b9a9e22d7b65c384f457f60b",
+    "leveling": {
+      "source_sha256": "9e089556ee53f821bb3cc4b95dfba2405117a2f71a9bdc188b030fe0b2874976",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.67",
+        "input_tp": "-3.02",
+        "input_lra": "0.00",
+        "input_thresh": "-28.67",
+        "output_i": "-18.00",
+        "output_tp": "-2.35",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.31"
+    }
+  },
+  "fenna_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "9BWtsMINqrJLrRacOk9x",
+    "voice_name": "Aria (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Fenna's down. The file stays closed.",
+    "delivery": "[shocked] [firm]",
+    "signature": "2632c6ced6ca14c5396920d1cb1d2c0dec2ae3444e15c365787df251c22bf260",
+    "leveling": {
+      "source_sha256": "478fa93863e0bf240a95d864c59dd39875f9adc83d7074568393e3c7513bb894",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.46",
+        "input_tp": "-0.82",
+        "input_lra": "0.70",
+        "input_thresh": "-24.60",
+        "output_i": "-17.91",
+        "output_tp": "-4.50",
+        "output_lra": "0.00",
+        "output_thresh": "-28.04",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.09"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.40"
+    }
+  },
+  "marl_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+    "voice_name": "Laura (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Not like this. Not by the terminal.",
+    "delivery": "[shocked] [crisp]",
+    "signature": "7226072cf95492fbd41170e9ac00abcbaafde6ba779b6ea117a342c11b0736a3",
+    "leveling": {
+      "source_sha256": "0c4fe8213d15a3157ab59fd5a5fead88530da1731412c08e6d560d5ae3d751d8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.69",
+        "input_tp": "-2.06",
+        "input_lra": "0.00",
+        "input_thresh": "-29.04",
+        "output_i": "-18.63",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.98",
+        "normalization_type": "linear",
+        "target_offset": "0.63"
+      },
+      "output_lufs": "-18.61",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "pru_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "voice_name": "Sarah (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Pru? Somebody get the nurse, now!",
+    "delivery": "[shocked] [urgent]",
+    "signature": "2230d599e5dfdaa70dd9e1f6ac27528e8a557d6791a5640ca1c23e295d93ecd1",
+    "leveling": {
+      "source_sha256": "d47394a40a58e7dc82d682ea367f26667ec1e0a1a4b57db86392b2841001abc5",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-9.84",
+        "input_tp": "-0.27",
+        "input_lra": "0.00",
+        "input_thresh": "-20.42",
+        "output_i": "-17.99",
+        "output_tp": "-8.43",
+        "output_lra": "0.00",
+        "output_thresh": "-28.57",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-8.34"
+    }
+  },
+  "dara_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww",
+    "voice_name": "River (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "The screen hums at night. I've started humming back.",
+    "delivery": "[stern] [muttering]",
+    "signature": "8ee5423858a7fba64c3387d8372fb9e5788daca5af1d9ad2413cff85c5d02de7",
+    "leveling": {
+      "source_sha256": "62e9aefa24a7f57eddcd0767fd7d86dc1bb8ce8381c96d7a3f9beea6619934ba",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.55",
+        "input_tp": "-2.85",
+        "input_lra": "0.30",
+        "input_thresh": "-30.86",
+        "output_i": "-17.54",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.84",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.46"
+      },
+      "output_lufs": "-18.03",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "vesna_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "oWAxZDx7w5VEj9dCyTzz",
+    "voice_name": "Grace (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Root, root. If anyone asks, I never said that.",
+    "delivery": "[brisk] [muttering]",
+    "signature": "63bc787df930647c775877d1a0d791906011583c9a0e49453ffcf5d37e425a25",
+    "leveling": {
+      "source_sha256": "2eb2ad5da7f890f0baefa6d828eae850265032afc0dcaf9870bac39bc10cef8a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.26",
+        "input_tp": "-1.95",
+        "input_lra": "2.30",
+        "input_thresh": "-29.29",
+        "output_i": "-18.34",
+        "output_tp": "-2.13",
+        "output_lra": "1.50",
+        "output_thresh": "-29.02",
+        "normalization_type": "dynamic",
+        "target_offset": "0.34"
+      },
+      "output_lufs": "-18.10",
+      "output_true_peak_dbtp": "-1.87"
+    }
+  },
+  "ilse_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "jBpfuIE2acCO8z3wKNLl",
+    "voice_name": "Gigi (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I clean the screen every shift. No one notices.",
+    "delivery": "[sharp] [muttering]",
+    "signature": "597d2ccc27c7c015cab3258a1d7776df50ba3131fd93fecef03a1aa8784cd0d5",
+    "leveling": {
+      "source_sha256": "cc3eda59ea1be4a54eb6886c8c7bf4f22022c2cde15efd31d5b5c87999821494",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.20",
+        "input_tp": "-3.05",
+        "input_lra": "1.50",
+        "input_thresh": "-25.91",
+        "output_i": "-17.76",
+        "output_tp": "-6.04",
+        "output_lra": "0.00",
+        "output_thresh": "-28.42",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.24"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-5.88"
+    }
+  },
+  "bryn_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "jsCqWAovK2LkecY7zXl4",
+    "voice_name": "Freya (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Every login is logged. Even mine.",
+    "delivery": "[wry] [muttering]",
+    "signature": "7ce7a98c3ce8d526d248063fe7412a8217f847bc978c8ecefbc5bcd538a055fe",
+    "leveling": {
+      "source_sha256": "800f3efec4b5b2b363aa1950e59eaa7b2ecaa8c6433814c06c77c41eb92f99ea",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.85",
+        "input_tp": "-1.34",
+        "input_lra": "0.00",
+        "input_thresh": "-25.37",
+        "output_i": "-18.00",
+        "output_tp": "-4.49",
+        "output_lra": "0.00",
+        "output_thresh": "-28.52",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.41"
+    }
+  },
+  "odell_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+    "voice_name": "Lily (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Third floor smells like paper and bleach.",
+    "delivery": "[gruff] [muttering]",
+    "signature": "1f01c11e867103181d2552ae6b2ae108b705381c71a34f1ce56d1c8a1bbeadfe",
+    "leveling": {
+      "source_sha256": "46ce7cd79740d9d280af74c9085dec8be4e26b3e9a908e6f3ff6e3b8e82589ed",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.07",
+        "input_tp": "-9.81",
+        "input_lra": "0.00",
+        "input_thresh": "-35.07",
+        "output_i": "-18.00",
+        "output_tp": "-2.74",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.87"
+    }
+  },
+  "corra_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+    "voice_name": "Alice (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Checkpoint duty is the quietest post in the tower.",
+    "delivery": "[firm] [muttering]",
+    "signature": "7d2c3051671120c19c49cb27f9536577339c3b27509387d58b0ce2d622b6c95a",
+    "leveling": {
+      "source_sha256": "68d21d7d3c2f3a4a683d55edc28d1e54eaa567ee0453b68953adeaccc2eee7fe",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.33",
+        "input_tp": "-1.95",
+        "input_lra": "0.20",
+        "input_thresh": "-29.33",
+        "output_i": "-18.32",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.32",
+        "normalization_type": "dynamic",
+        "target_offset": "0.32"
+      },
+      "output_lufs": "-17.90",
+      "output_true_peak_dbtp": "-1.95"
+    }
+  },
+  "wren2_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "cgSgspJ2msm6clMCkdW9",
+    "voice_name": "Jessica (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Ward files. Ward files. Ward files.",
+    "delivery": "[tense] [muttering]",
+    "signature": "bc66b94db05321fac4acfc56c15e5f1684638fdc8495a6dc2c72c879dc8d464e",
+    "leveling": {
+      "source_sha256": "5dc1ca1d8b8e18252bcd6ab48fe35e17e5a632086e7ece1de6f5e4c3b604743f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.53",
+        "input_tp": "-4.66",
+        "input_lra": "0.70",
+        "input_thresh": "-33.37",
+        "output_i": "-16.57",
+        "output_tp": "-2.00",
+        "output_lra": "1.20",
+        "output_thresh": "-27.23",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.43"
+      },
+      "output_lufs": "-17.56",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "fenna_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "9BWtsMINqrJLrRacOk9x",
+    "voice_name": "Aria (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "The sick ward files are the worst to guard.",
+    "delivery": "[firm] [muttering]",
+    "signature": "6cfe3f75b8f34f0d71bcc760b5b06138ec917be7aa4a1b2d8a25498ff36517c3",
+    "leveling": {
+      "source_sha256": "35d50f8affd7db6beb35fe9a673554b66b026444fc77a00a0cc54410a93093d9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.46",
+        "input_tp": "-1.82",
+        "input_lra": "0.00",
+        "input_thresh": "-27.46",
+        "output_i": "-17.98",
+        "output_tp": "-2.36",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-2.27"
+    }
+  },
+  "marl_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+    "voice_name": "Laura (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Observation logs have the best handwriting.",
+    "delivery": "[crisp] [muttering]",
+    "signature": "0104227eca07ce7eb3203764024bf877c84b381d2b861a05c6eef2d6bd768bc1",
+    "leveling": {
+      "source_sha256": "b1ca01c9a9106a14d616e827a6a2e9568e5bcff4a26d7d59d436153bc901c272",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.32",
+        "input_tp": "-4.75",
+        "input_lra": "0.00",
+        "input_thresh": "-32.32",
+        "output_i": "-19.58",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.58",
+        "normalization_type": "linear",
+        "target_offset": "1.58"
+      },
+      "output_lufs": "-19.55",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "pru_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "voice_name": "Sarah (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I keep the ward terminal warm for the doctor.",
+    "delivery": "[urgent] [muttering]",
+    "signature": "14002e7107ad04600c1fa75c5b0497afcba5b0071653bbdd9531be95cae08d16",
+    "leveling": {
+      "source_sha256": "95452726377a44053f61ff2903b501e954d47e9c63b4964ba06643c2a6ed7598",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.47",
+        "input_tp": "-0.72",
+        "input_lra": "0.00",
+        "input_thresh": "-23.64",
+        "output_i": "-17.99",
+        "output_tp": "-5.26",
+        "output_lra": "0.00",
+        "output_thresh": "-28.17",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-5.18"
+    }
+  },
+  "dara_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww",
+    "voice_name": "River (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Nobody reads the old files. That's the only reason I guard them.",
+    "delivery": "[stern] [muttering]",
+    "signature": "15c02e75e12e63ba115e87a133f336e79a4a251570653d8639973423071b85db",
+    "leveling": {
+      "source_sha256": "b66074829f0c5276c0eb48330d629639ee03f668c4842d7209e295e4d22079cd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.34",
+        "input_tp": "-6.31",
+        "input_lra": "0.50",
+        "input_thresh": "-32.34",
+        "output_i": "-18.09",
+        "output_tp": "-2.21",
+        "output_lra": "0.00",
+        "output_thresh": "-28.09",
+        "normalization_type": "dynamic",
+        "target_offset": "0.09"
+      },
+      "output_lufs": "-18.15",
+      "output_true_peak_dbtp": "-2.03"
+    }
+  },
+  "vesna_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "oWAxZDx7w5VEj9dCyTzz",
+    "voice_name": "Grace (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Two cables, one spare. That's my whole job.",
+    "delivery": "[brisk] [muttering]",
+    "signature": "11096f6f3741c70f0c823e1e6aa0732b712a882249844df98795ef2623cb349e",
+    "leveling": {
+      "source_sha256": "0850c9d9a4427c4f891f651997a3c7c4492bed252048b8f484f00a812d4787f4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.77",
+        "input_tp": "-1.55",
+        "input_lra": "1.50",
+        "input_thresh": "-28.06",
+        "output_i": "-17.68",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.95",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.32"
+      },
+      "output_lufs": "-18.53",
+      "output_true_peak_dbtp": "-2.14"
+    }
+  },
+  "ilse_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "jBpfuIE2acCO8z3wKNLl",
+    "voice_name": "Gigi (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "If the screen flickers, it's the ghost. I don't believe in ghosts.",
+    "delivery": "[sharp] [muttering]",
+    "signature": "f93d5919b54459a5583c58435598cc72a1865f21570c00558b52097aa04f44f5",
+    "leveling": {
+      "source_sha256": "7e5671f20a6eab511ec5267be5a106026dfab0507861dddf321d30f9d24a44e4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.50",
+        "input_tp": "-3.70",
+        "input_lra": "3.10",
+        "input_thresh": "-28.52",
+        "output_i": "-15.15",
+        "output_tp": "-2.00",
+        "output_lra": "2.60",
+        "output_thresh": "-25.92",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.85"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-4.06"
+    }
+  },
+  "bryn_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "jsCqWAovK2LkecY7zXl4",
+    "voice_name": "Freya (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I've read the whole nine-page manual. Twice.",
+    "delivery": "[wry] [muttering]",
+    "signature": "6ddf98d04f4ca516fe7f273e72ec11ff6bd4ed28865df46e4c53c5ed0832bc16",
+    "leveling": {
+      "source_sha256": "314562b32aed9588d6e59d15afd81c92320c48fecfc56b71648842bf2e6ee625",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.69",
+        "input_tp": "-1.09",
+        "input_lra": "0.40",
+        "input_thresh": "-25.32",
+        "output_i": "-17.28",
+        "output_tp": "-3.83",
+        "output_lra": "0.00",
+        "output_thresh": "-27.90",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.72"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.29"
+    }
+  },
+  "odell_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+    "voice_name": "Lily (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I log everyone who sits down. Except the dead ones.",
+    "delivery": "[gruff] [muttering]",
+    "signature": "ad40161cb31dc2ff1763c88bda73e8dff698b064509f9553d0af6c1d7acd93e8",
+    "leveling": {
+      "source_sha256": "0f0392854fc0c17c8bbb9477ed30da5fffa794289607a1166bcf2df06d076c2b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.24",
+        "input_tp": "-4.03",
+        "input_lra": "3.50",
+        "input_thresh": "-33.66",
+        "output_i": "-18.02",
+        "output_tp": "-2.00",
+        "output_lra": "2.90",
+        "output_thresh": "-28.49",
+        "normalization_type": "dynamic",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-18.95",
+      "output_true_peak_dbtp": "-1.92"
+    }
+  },
+  "corra_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+    "voice_name": "Alice (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "If the cameras fail, I'm the backup. Lucky me.",
+    "delivery": "[firm] [muttering]",
+    "signature": "78f0aeb9ea38d630323a6c8dea652746b234ee99d2b69bb98ba122004bef4b65",
+    "leveling": {
+      "source_sha256": "2b3df0698f8c62d4a5f872c5469580cf9ad8f9fbeda80bf02d99f4d9bfe17f82",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.78",
+        "input_tp": "-2.10",
+        "input_lra": "2.60",
+        "input_thresh": "-29.07",
+        "output_i": "-18.11",
+        "output_tp": "-2.00",
+        "output_lra": "0.60",
+        "output_thresh": "-28.35",
+        "normalization_type": "dynamic",
+        "target_offset": "0.11"
+      },
+      "output_lufs": "-18.38",
+      "output_true_peak_dbtp": "-1.90"
+    }
+  },
+  "wren2_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "cgSgspJ2msm6clMCkdW9",
+    "voice_name": "Jessica (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I read the first line of a record once. Never again.",
+    "delivery": "[tense] [muttering]",
+    "signature": "248949bec21ebefa9ce159af2d1dd1479c3dcbf77751df0639e64201ef99c6c8",
+    "leveling": {
+      "source_sha256": "8c0da7812afcc0735ffa075392aecf1360af1d64eb36b452880c4842a5a0017f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.32",
+        "input_tp": "-5.07",
+        "input_lra": "2.90",
+        "input_thresh": "-33.41",
+        "output_i": "-17.97",
+        "output_tp": "-2.00",
+        "output_lra": "1.50",
+        "output_thresh": "-28.86",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.03"
+      },
+      "output_lufs": "-18.50",
+      "output_true_peak_dbtp": "-1.93"
+    }
+  },
+  "fenna_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "9BWtsMINqrJLrRacOk9x",
+    "voice_name": "Aria (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I memorise each log. It helps the night pass.",
+    "delivery": "[firm] [muttering]",
+    "signature": "9b58dd5317b89ee4cc28bc861d090cbbdfb8889602213ef70484f98ac65c8744",
+    "leveling": {
+      "source_sha256": "207e8e64a5dcdc2456be574f72095b70af06e48eb9ce0b2bb2b158aa5fcb6bc9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.92",
+        "input_tp": "-3.31",
+        "input_lra": "2.80",
+        "input_thresh": "-30.39",
+        "output_i": "-17.14",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.70",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.86"
+      },
+      "output_lufs": "-18.99",
+      "output_true_peak_dbtp": "-2.47"
+    }
+  },
+  "marl_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+    "voice_name": "Laura (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I read the cover pages and pretend I understand.",
+    "delivery": "[crisp] [muttering]",
+    "signature": "4210dbaecc7a53fa887c335be1a5f44754b2ba7f5f3ba6e4b5ea80ea5ba050e1",
+    "leveling": {
+      "source_sha256": "a8a8b3c7873bfd927a267599c53a4245e4c83aa830f50ea9bde359aa70ef5ae7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.05",
+        "input_tp": "-1.50",
+        "input_lra": "0.40",
+        "input_thresh": "-30.05",
+        "output_i": "-18.67",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.67",
+        "normalization_type": "dynamic",
+        "target_offset": "0.67"
+      },
+      "output_lufs": "-18.14",
+      "output_true_peak_dbtp": "-1.87"
+    }
+  },
+  "pru_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "voice_name": "Sarah (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Nobody loves the ward terminal like I do.",
+    "delivery": "[urgent] [muttering]",
+    "signature": "bedfd6421bc4b3655acbb5126117d9718b1dfedd55dc13809ba557252fc66b57",
+    "leveling": {
+      "source_sha256": "adf07a2966d700a0093e0fc338991e7bb1a6789785ff05a20953701f638f6658",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.34",
+        "input_tp": "-0.58",
+        "input_lra": "0.00",
+        "input_thresh": "-22.34",
+        "output_i": "-17.98",
+        "output_tp": "-6.24",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-6.24"
+    }
   }
 }
