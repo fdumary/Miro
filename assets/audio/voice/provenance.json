@@ -9714,5 +9714,1769 @@
       "output_lufs": "-17.90",
       "output_true_peak_dbtp": "-2.13"
     }
+  },
+  "miro_12078348eb": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then tell me why these doors are locked from the outside.",
+    "delivery": "",
+    "signature": "6072d3468000956d983555ec0a809a2c1b4f438501bd30efc326e7fd5cb73e99",
+    "leveling": {
+      "source_sha256": "91911d83deda1c6ed95940766804e0aaeefef5a40adf2bc13d1084a87e2c318c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.98",
+        "input_tp": "-0.32",
+        "input_lra": "4.80",
+        "input_thresh": "-25.23",
+        "output_i": "-18.68",
+        "output_tp": "-5.30",
+        "output_lra": "3.50",
+        "output_thresh": "-28.91",
+        "normalization_type": "dynamic",
+        "target_offset": "0.68"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.60"
+    }
+  },
+  "miro_c11902a1e1": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Another support. Another mark.\nI wish I remembered why this feels familiar.",
+    "delivery": "",
+    "signature": "286b9ec56d0f5d808de993426043b50b57a605a245bcf24f3893f58d1586aeae",
+    "leveling": {
+      "source_sha256": "c9f596a2c6ff6561d4718f42be74a2114dac79f7aacd988f951166fe3d96f430",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.51",
+        "input_tp": "-1.16",
+        "input_lra": "3.40",
+        "input_thresh": "-28.09",
+        "output_i": "-17.80",
+        "output_tp": "-2.00",
+        "output_lra": "5.80",
+        "output_thresh": "-28.61",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.20"
+      },
+      "output_lufs": "-18.07",
+      "output_true_peak_dbtp": "-1.95"
+    }
+  },
+  "miro_49181b5b13": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "My name. Their uniform. I was one of them.",
+    "delivery": "",
+    "signature": "a0f40bc21f8d6ffab2edb6305e35c29ff6cbf69c9fc5eae72175c16e297b7bef",
+    "leveling": {
+      "source_sha256": "b4bb2a522dd6e3267518ef4f1e48c63f7b7e3b31e546478df58794221bda1896",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.87",
+        "input_tp": "-0.90",
+        "input_lra": "0.90",
+        "input_thresh": "-27.14",
+        "output_i": "-16.57",
+        "output_tp": "-2.00",
+        "output_lra": "2.50",
+        "output_thresh": "-27.88",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.43"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.75"
+    }
+  },
+  "miro_2934942b7f": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then neither of us gets to look away.",
+    "delivery": "",
+    "signature": "91a13cfef2680a4b5787e44444ffaa0ed71b05b3e5d9bbb12f7d6b1b30d45266",
+    "leveling": {
+      "source_sha256": "73c7f56c378bef0bdc47b12e25efd62b72d1bd4df0e8586920a715cc8a483608",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.19",
+        "input_tp": "-0.71",
+        "input_lra": "0.00",
+        "input_thresh": "-26.19",
+        "output_i": "-17.99",
+        "output_tp": "-2.52",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.53"
+    }
+  },
+  "miro_da3f0bbe50": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "A Keeper would know where this belongs.\nThat is what frightens me.",
+    "delivery": "",
+    "signature": "6551b6501ae771111de69cf19246577ce798ada7fbdc55482194c7c83f7cf0d8",
+    "leveling": {
+      "source_sha256": "d7befc0632b97a4f02e0fdce8fcdf8893ece88fc25c47e0d3e1a414b855ce801",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.71",
+        "input_tp": "-1.42",
+        "input_lra": "4.80",
+        "input_thresh": "-31.12",
+        "output_i": "-18.64",
+        "output_tp": "-2.00",
+        "output_lra": "5.20",
+        "output_thresh": "-28.85",
+        "normalization_type": "dynamic",
+        "target_offset": "0.64"
+      },
+      "output_lufs": "-18.76",
+      "output_true_peak_dbtp": "-1.67"
+    }
+  },
+  "miro_8900d0d1f3": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "They wrote it down as if that made it acceptable.",
+    "delivery": "",
+    "signature": "57df4e82b54844fc15af8122d44bf1934d8163295545100442a9b626d088ba25",
+    "leveling": {
+      "source_sha256": "b391bbea3524dba8df0910541362f91c0a296dd3dbbfa0415689d5a15df2a9d2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.04",
+        "input_tp": "-0.37",
+        "input_lra": "0.00",
+        "input_thresh": "-25.04",
+        "output_i": "-17.99",
+        "output_tp": "-3.34",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.12"
+    }
+  },
+  "miro_9536076b33": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Someone kept these records behind a locked door.",
+    "delivery": "",
+    "signature": "9e1959b3ff26d65980d18bdeb897f0e9373e3157f63412e8f10e134c0f728d4a",
+    "leveling": {
+      "source_sha256": "08c5abfa7e6804e2e0a7401f6ce260f45e2d90206a739b6f8a961a4e83d263c1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.01",
+        "input_tp": "-0.95",
+        "input_lra": "0.00",
+        "input_thresh": "-25.01",
+        "output_i": "-17.99",
+        "output_tp": "-3.93",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.93"
+    }
+  },
+  "miro_96f18a6fec": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The illness is real. That does not excuse this room.",
+    "delivery": "",
+    "signature": "b3cb19781824ff8b5b78bb55b42c57a104ef429cad6136aba8f005c407c684eb",
+    "leveling": {
+      "source_sha256": "2a377ae9fcd711f56046ef1fef2e50844b8cbd14df74ffc455a473a1145f0c1c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.59",
+        "input_tp": "-0.70",
+        "input_lra": "1.10",
+        "input_thresh": "-25.88",
+        "output_i": "-17.03",
+        "output_tp": "-2.33",
+        "output_lra": "1.20",
+        "output_thresh": "-27.38",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.97"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.95"
+    }
+  },
+  "miro_eba58b3036": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then help them leave. Stop asking them to suffer for this place.",
+    "delivery": "",
+    "signature": "1fc30922a679ac32d656269d93def04803a3753989c9581ddb8d165fc9b1bcbd",
+    "leveling": {
+      "source_sha256": "05fb709ff1f735afb8588f51634719e8c4a3d57cba5220940cebddaf44aa2f21",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.36",
+        "input_tp": "-0.50",
+        "input_lra": "0.60",
+        "input_thresh": "-25.78",
+        "output_i": "-17.95",
+        "output_tp": "-2.67",
+        "output_lra": "0.40",
+        "output_thresh": "-28.56",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.05"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.94"
+    }
+  },
+  "miro_913b4b787e": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Two charges. Set on the support, linked to the marks.",
+    "delivery": "",
+    "signature": "0f27602d4edb00da058292071c0da0101db033f791892650c99f1feca1deec4a",
+    "leveling": {
+      "source_sha256": "5452b13c8c64eaa1b751e9a9b60af7392b24e05a12306352c51884bc2b9a9814",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.41",
+        "input_tp": "-0.55",
+        "input_lra": "1.00",
+        "input_thresh": "-29.30",
+        "output_i": "-18.10",
+        "output_tp": "-2.00",
+        "output_lra": "0.10",
+        "output_thresh": "-28.81",
+        "normalization_type": "dynamic",
+        "target_offset": "0.10"
+      },
+      "output_lufs": "-18.19",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "miro_c3be5c5746": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Five charges in the ward. The marks on the other floors\nwill carry the signal. There is no taking this back.",
+    "delivery": "",
+    "signature": "51c5b37258853f60c0c4141bcba6995b96b7864405a3df99233bb355c938324c",
+    "leveling": {
+      "source_sha256": "3db297fd2f1fc1be7703180af31f1a1ae92290f83675cb122f1580729df1886a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.09",
+        "input_tp": "-0.29",
+        "input_lra": "4.00",
+        "input_thresh": "-25.90",
+        "output_i": "-19.07",
+        "output_tp": "-3.94",
+        "output_lra": "2.80",
+        "output_thresh": "-29.67",
+        "normalization_type": "dynamic",
+        "target_offset": "1.07"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.93"
+    }
+  },
+  "miro_dd91db2d1d": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "A guitar on a stand, strings still in tune.\nMine. He kept it.",
+    "delivery": "",
+    "signature": "1ddb78092cb53c86ad582fcedecfbca00b0b91d67fae649d3aa49bd6b1d09d68",
+    "leveling": {
+      "source_sha256": "c36507a481d6d490b336526c5b72ce22c77927489df6602185cc2959f7f80f98",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.66",
+        "input_tp": "-0.85",
+        "input_lra": "10.20",
+        "input_thresh": "-28.76",
+        "output_i": "-18.74",
+        "output_tp": "-3.06",
+        "output_lra": "11.50",
+        "output_thresh": "-29.76",
+        "normalization_type": "dynamic",
+        "target_offset": "0.74"
+      },
+      "output_lufs": "-18.95",
+      "output_true_peak_dbtp": "-2.13"
+    }
+  },
+  "miro_94e383b3ed": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "My fingers already know where to go.",
+    "delivery": "",
+    "signature": "4e251c33fd6476f2e61397fe5df9bc2514beaba255735182f0aa3a03e816cd86",
+    "leveling": {
+      "source_sha256": "2af49c51e5708c56c5eea5f51cec0c6808890b1688172f6fa161354efc715d7a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.13",
+        "input_tp": "-2.87",
+        "input_lra": "0.00",
+        "input_thresh": "-29.13",
+        "output_i": "-18.27",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.27",
+        "normalization_type": "linear",
+        "target_offset": "0.27"
+      },
+      "output_lufs": "-18.28",
+      "output_true_peak_dbtp": "-2.15"
+    }
+  },
+  "miro_652dd6edc7": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The last support. The last mark.",
+    "delivery": "",
+    "signature": "731c12af00fec61bb4a400dc4f4fe6e9278ce9c19029a5f70d4ce995b6530a7e",
+    "leveling": {
+      "source_sha256": "b1af589afd53a548a1ff0c418d2397ea9a60a815dd70bda25f385d186c2ffac6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.27",
+        "input_tp": "-0.55",
+        "input_lra": "2.00",
+        "input_thresh": "-24.42",
+        "output_i": "-16.36",
+        "output_tp": "-4.23",
+        "output_lra": "0.00",
+        "output_thresh": "-27.58",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.64"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-5.11"
+    }
+  },
+  "miro_89cc079355": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "You. The voice in the remote. Niro.",
+    "delivery": "",
+    "signature": "84de0be8b8a9d9587852d230e12802b41e6f7fdf756f95ceca6b24babecab4e9",
+    "leveling": {
+      "source_sha256": "fb51ea72571dc5293028de23751f8e8e4cba1dd2f59b308290e1361288904f3f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.22",
+        "input_tp": "-0.88",
+        "input_lra": "4.00",
+        "input_thresh": "-29.75",
+        "output_i": "-17.69",
+        "output_tp": "-2.00",
+        "output_lra": "4.70",
+        "output_thresh": "-29.22",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.31"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "miro_d187ac1dea": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "So you locked me up to take me apart.",
+    "delivery": "",
+    "signature": "101aa216124b732d10d4bcd69a9b69b284173fc0d42e89b7f75346133305b975",
+    "leveling": {
+      "source_sha256": "65c4d1c836080ae6d3c3a7c93a16356fdae0c0bfe804bacd66cfaa5f10fd7b63",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.07",
+        "input_tp": "-0.93",
+        "input_lra": "0.40",
+        "input_thresh": "-26.07",
+        "output_i": "-17.81",
+        "output_tp": "-2.73",
+        "output_lra": "0.00",
+        "output_thresh": "-27.81",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.19"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.77"
+    }
+  },
+  "miro_0b4f4d1d59": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "You let me believe I was dangerous.",
+    "delivery": "",
+    "signature": "e6acec7af9a791b63fbb392669534b46e56133fe7232b1f895ce3580dee30149",
+    "leveling": {
+      "source_sha256": "439f92d58419b1bf9c8d46719747ca00b8eedad41d72fde16dd9e221a42bece3",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.72",
+        "input_tp": "-0.58",
+        "input_lra": "0.00",
+        "input_thresh": "-25.06",
+        "output_i": "-17.99",
+        "output_tp": "-3.86",
+        "output_lra": "0.00",
+        "output_thresh": "-28.34",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.76"
+    }
+  },
+  "miro_e12df9a120": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "You do not get to call it love and lock the door.",
+    "delivery": "",
+    "signature": "97c664003e5c53b5547fa5562cf0bf607f21ebadabcf10fcc0b96d93c0581419",
+    "leveling": {
+      "source_sha256": "754ceec98849fadb77a40ab52d3787755e9706b75ded9336442882536e1efc45",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.15",
+        "input_tp": "-0.98",
+        "input_lra": "2.20",
+        "input_thresh": "-30.15",
+        "output_i": "-18.93",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.93",
+        "normalization_type": "dynamic",
+        "target_offset": "0.93"
+      },
+      "output_lufs": "-18.67",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "miro_eead0214bb": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then find out.",
+    "delivery": "",
+    "signature": "63f1d17a1e856e1af1abc156a510b53148bb2c91351e77feae13199b093cf4eb",
+    "leveling": {
+      "source_sha256": "3c2717b5975c8ab9db59d156f4a105eb77ac0fe7c83e68e2dce6b94c01edd747",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.51",
+        "input_tp": "-0.52",
+        "input_lra": "9.50",
+        "input_thresh": "-25.40",
+        "output_i": "-14.16",
+        "output_tp": "-2.29",
+        "output_lra": "0.00",
+        "output_thresh": "-25.48",
+        "normalization_type": "dynamic",
+        "target_offset": "-3.84"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.95"
+    }
+  },
+  "miro_8e32acb0a9": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then choose now. Come with me.",
+    "delivery": "",
+    "signature": "0cb65b26dfa86b1af663ad61e1bcba49a455635ce605ccecd8848a428bce1c0a",
+    "leveling": {
+      "source_sha256": "b3f8fde71300d4f483b81e169f622a07208b5faa87e6cc581cce0a6d9de3746e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.98",
+        "input_tp": "-0.40",
+        "input_lra": "0.00",
+        "input_thresh": "-26.08",
+        "output_i": "-17.99",
+        "output_tp": "-3.42",
+        "output_lra": "0.00",
+        "output_thresh": "-29.09",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.33"
+    }
+  },
+  "miro_cac7219035": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The woods. Air that does not belong to them.",
+    "delivery": "",
+    "signature": "67d42f157b6fa561cb916f7d64b917dd3c699f505c61738b116361bccf40cdfd",
+    "leveling": {
+      "source_sha256": "14d99afd92949053d27ff12ab51938c2c790514b382994bc6e19bf459593a933",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.78",
+        "input_tp": "-0.40",
+        "input_lra": "1.50",
+        "input_thresh": "-27.39",
+        "output_i": "-18.19",
+        "output_tp": "-2.00",
+        "output_lra": "0.30",
+        "output_thresh": "-28.60",
+        "normalization_type": "dynamic",
+        "target_offset": "0.19"
+      },
+      "output_lufs": "-17.66",
+      "output_true_peak_dbtp": "-1.84"
+    }
+  },
+  "miro_194a22bb6a": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then let them read it.",
+    "delivery": "",
+    "signature": "204180356a63124f1ee11fc9d8faca60062377224d08976a9a6f90806f1a3eb2",
+    "leveling": {
+      "source_sha256": "a90d57154c3a021e6242223e5a253fb3b001c768a7070a2b27e9b647105b6e0f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.23",
+        "input_tp": "-0.17",
+        "input_lra": "0.00",
+        "input_thresh": "-22.71",
+        "output_i": "-17.98",
+        "output_tp": "-5.94",
+        "output_lra": "0.00",
+        "output_thresh": "-28.47",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.96",
+      "output_true_peak_dbtp": "-5.52"
+    }
+  },
+  "miro_a7fbc37e7f": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then don't look. That's all I need from you.",
+    "delivery": "",
+    "signature": "a094af187fff3b5ab1cecb815c356d87e16b5116ffbcaaa3528e6639ddbcf80f",
+    "leveling": {
+      "source_sha256": "927900983d95756dc745999b1f3dbdde9165d5b4e2d23c2d98fa227303befaf5",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.49",
+        "input_tp": "-0.52",
+        "input_lra": "3.30",
+        "input_thresh": "-24.51",
+        "output_i": "-17.26",
+        "output_tp": "-5.20",
+        "output_lra": "0.00",
+        "output_thresh": "-28.21",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.74"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.63"
+    }
+  },
+  "miro_787dcb6e97": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Keep looking away. You're good at it.",
+    "delivery": "",
+    "signature": "a8b8e1a2710c058f2166f847b4775ed3fbfa51f057e53c2c6c2cbdd24e3270fd",
+    "leveling": {
+      "source_sha256": "a421ce6c9b347beebabb8caa9eb51b07c195e4537a2b2257268be97d3b90fd2f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.27",
+        "input_tp": "-0.94",
+        "input_lra": "0.70",
+        "input_thresh": "-27.41",
+        "output_i": "-16.45",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.51",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.55"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.67"
+    }
+  },
+  "miro_6b8f57073c": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then tell me who I was.",
+    "delivery": "",
+    "signature": "5ebb341db45299df918dd8c39da58a291ea38c7fdb1ed17022270cb637a7aec6",
+    "leveling": {
+      "source_sha256": "d086107796b73ee241af2e1c579adb7efd3d1e4b28c1edd881d06f5dd0976538",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-11.83",
+        "input_tp": "-0.27",
+        "input_lra": "0.00",
+        "input_thresh": "-22.38",
+        "output_i": "-18.00",
+        "output_tp": "-6.44",
+        "output_lra": "0.00",
+        "output_thresh": "-28.55",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-6.41"
+    }
+  },
+  "miro_11b7ed85b4": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Nobody in here helps anybody.",
+    "delivery": "",
+    "signature": "4deee9fe7be61daa5c3ff36df7d4a23f340b60c7045f27a9a67ba32dc1808794",
+    "leveling": {
+      "source_sha256": "25b7e10f2a95c56c7b0785205f175cb14b4e398f93cb46f2fb610deda38443a4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.77",
+        "input_tp": "-0.44",
+        "input_lra": "0.00",
+        "input_thresh": "-24.77",
+        "output_i": "-18.00",
+        "output_tp": "-3.67",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.22"
+    }
+  },
+  "miro_da9d76f0fe": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "I'm not here. You never saw me.",
+    "delivery": "",
+    "signature": "1141992ec3873b47eea0a52a885aca7463bd70a61773ec231dec1a93cce3b9e8",
+    "leveling": {
+      "source_sha256": "6ef167f1d5e342199b301f396bccee4b57d6e656884f92eb645869bd6a9ed26f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.29",
+        "input_tp": "-0.76",
+        "input_lra": "1.10",
+        "input_thresh": "-28.11",
+        "output_i": "-16.78",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.60",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.22"
+      },
+      "output_lufs": "-18.05",
+      "output_true_peak_dbtp": "-1.92"
+    }
+  },
+  "miro_2ed604d0e8": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Whoever did this to you will answer for it.",
+    "delivery": "",
+    "signature": "04631b632b09a273446c51b58e4bfa18b2be869b4dedba1a3db9ae60cc18e8e3",
+    "leveling": {
+      "source_sha256": "718c5c4a8762770001d61773a22c81d6d156eb063225f3340df572dea5c65d13",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.71",
+        "input_tp": "-0.37",
+        "input_lra": "0.00",
+        "input_thresh": "-24.65",
+        "output_i": "-18.00",
+        "output_tp": "-4.67",
+        "output_lra": "0.00",
+        "output_thresh": "-28.94",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.22"
+    }
+  },
+  "miro_ce543c4d73": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "If we trusted each other, you'd tell me why I'm here.",
+    "delivery": "",
+    "signature": "22e3baca86356a2ef2f4ed8501a508b0d977fadcb6fe01262d85af364acabbf2",
+    "leveling": {
+      "source_sha256": "68ed24226ad01fcbad00230242f49c917173f826b501ec70065b8c7a9c99d9ab",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.32",
+        "input_tp": "-0.79",
+        "input_lra": "1.30",
+        "input_thresh": "-27.95",
+        "output_i": "-17.51",
+        "output_tp": "-2.00",
+        "output_lra": "1.00",
+        "output_thresh": "-28.06",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.49"
+      },
+      "output_lufs": "-18.04",
+      "output_true_peak_dbtp": "-1.85"
+    }
+  },
+  "miro_c8968320b1": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "I'll take myself out.",
+    "delivery": "",
+    "signature": "faf776526742efdd9d94fe4a8e438727a0466e39dea9031ffb9068c5803b4b02",
+    "leveling": {
+      "source_sha256": "479c29b43ab5cad3a0a04c1e293010d637a8a4fc79f60697b9f23ae68a5312ed",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.81",
+        "input_tp": "-0.73",
+        "input_lra": "0.00",
+        "input_thresh": "-24.22",
+        "output_i": "-17.99",
+        "output_tp": "-4.92",
+        "output_lra": "0.00",
+        "output_thresh": "-28.41",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.92"
+    }
+  },
+  "miro_0422ebfcdb": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then I know their doors, their cameras, their passwords.",
+    "delivery": "",
+    "signature": "ecbef4ce8d9cec0f1c806eaa89268f6632e7eeda87d0bb2b96d693851b48f80d",
+    "leveling": {
+      "source_sha256": "d3eb7cec1d1ef0440d282731aec0d544b25386bf4d885c603716d7ba1f1c905d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.15",
+        "input_tp": "-0.59",
+        "input_lra": "5.40",
+        "input_thresh": "-27.37",
+        "output_i": "-18.29",
+        "output_tp": "-3.85",
+        "output_lra": "4.20",
+        "output_thresh": "-29.45",
+        "normalization_type": "dynamic",
+        "target_offset": "0.29"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.37"
+    }
+  },
+  "miro_9575941319": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then I know exactly where it hurts.",
+    "delivery": "",
+    "signature": "0eb7c4908bae4b8b439210ae6f24c51646c87cee5dac471189e3000d75266a47",
+    "leveling": {
+      "source_sha256": "515d67f20d2709ae7bd7bd84a6f52dba76caf1792a3de7c7ddc2a9f72e2ec4a0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.72",
+        "input_tp": "-0.64",
+        "input_lra": "0.00",
+        "input_thresh": "-24.91",
+        "output_i": "-17.99",
+        "output_tp": "-3.92",
+        "output_lra": "0.00",
+        "output_thresh": "-28.18",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.88"
+    }
+  },
+  "miro_e8632c805a": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "I want to believe you, Niro.",
+    "delivery": "",
+    "signature": "56661ad7a1574911db550abfc7fcb198a95ff929f267f1c0ea39eeafb792f7e5",
+    "leveling": {
+      "source_sha256": "374d0207def03dc711655082400076814c7add856990b7026d2a74306c5a6da2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.02",
+        "input_tp": "-0.83",
+        "input_lra": "0.00",
+        "input_thresh": "-25.80",
+        "output_i": "-18.00",
+        "output_tp": "-3.81",
+        "output_lra": "0.00",
+        "output_thresh": "-28.78",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.64"
+    }
+  },
+  "miro_407c81a237": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Helping. Look around you.",
+    "delivery": "",
+    "signature": "70d47f819c62751b02233118f4588347711a18eb4604334a708a3fb50fb379cc",
+    "leveling": {
+      "source_sha256": "ecc9f83a6abb58de54969acfea272a18880f19eda37591d3b58f6c792d8998f2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.02",
+        "input_tp": "-1.02",
+        "input_lra": "0.00",
+        "input_thresh": "-26.47",
+        "output_i": "-18.01",
+        "output_tp": "-3.99",
+        "output_lra": "0.00",
+        "output_thresh": "-29.46",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.98"
+    }
+  },
+  "miro_c1930781d6": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Somebody has to remember them. I'll copy the numbers.",
+    "delivery": "",
+    "signature": "99866740bd62b63447cfbc9dcf604f7e077256ce5310863e5e352177420bc384",
+    "leveling": {
+      "source_sha256": "87558e1303b9f4043a9a65c7b77bd707bf7f6e3b96f52d4263154e75191fb441",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.56",
+        "input_tp": "-0.62",
+        "input_lra": "1.20",
+        "input_thresh": "-27.53",
+        "output_i": "-16.88",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.76",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.12"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "miro_e8cc375971": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Every page of this goes down with the tower.",
+    "delivery": "",
+    "signature": "4a30d00578c572f1cecb580669994a67985a40b3e318565ce092d1fbb28bc103",
+    "leveling": {
+      "source_sha256": "413d507a5ccf1e5c9ec9f3bcf687ad0743f13e51cd5f38cd72e31db9746add1f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.21",
+        "input_tp": "-2.30",
+        "input_lra": "0.20",
+        "input_thresh": "-28.35",
+        "output_i": "-17.78",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.93",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.22"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.07"
+    }
+  },
+  "miro_ab83977026": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then don't follow me. You won't see me again until it's done.",
+    "delivery": "",
+    "signature": "9e5e0f3ae3587e0f5ae4c7b82fe1f45409722ad08e3bc48fed60a8631541e794",
+    "leveling": {
+      "source_sha256": "48dbc8fe6316cb1a096ddc54b58af18c4362c8240e2732ff2b844dbb54350487",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.91",
+        "input_tp": "-0.50",
+        "input_lra": "17.30",
+        "input_thresh": "-25.57",
+        "output_i": "-18.55",
+        "output_tp": "-4.88",
+        "output_lra": "16.70",
+        "output_thresh": "-29.56",
+        "normalization_type": "dynamic",
+        "target_offset": "0.55"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-4.20"
+    }
+  },
+  "miro_05448dfd43": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Then stay out of my way.",
+    "delivery": "",
+    "signature": "186e9c9f989969d74657992ee8801dc6da43cd809951080cd3738d7ae2164f01",
+    "leveling": {
+      "source_sha256": "fa227884328daebfd32abe332db58af486258e540d526a6ef310626532baf3fb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.87",
+        "input_tp": "-0.96",
+        "input_lra": "11.40",
+        "input_thresh": "-25.91",
+        "output_i": "-15.66",
+        "output_tp": "-2.80",
+        "output_lra": "5.20",
+        "output_thresh": "-26.40",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.34"
+      },
+      "output_lufs": "-19.04",
+      "output_true_peak_dbtp": "-5.18"
+    }
+  },
+  "miro_c544bb4c5f": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Stone. Iron. A name scratched into the bed: Miro.\nMine... I think. Nothing before this room.",
+    "delivery": "",
+    "signature": "3a8ad56445ceef6f7e8ba35674430d1f8695feca4318749f7923dc342919880f",
+    "leveling": {
+      "source_sha256": "21b934cd8dc94397935fcc81f64dd5d33124a0063fa0b8fc95ff0b70ed175ae4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.74",
+        "input_tp": "-0.94",
+        "input_lra": "6.90",
+        "input_thresh": "-27.08",
+        "output_i": "-18.26",
+        "output_tp": "-2.15",
+        "output_lra": "5.60",
+        "output_thresh": "-29.57",
+        "normalization_type": "dynamic",
+        "target_offset": "0.26"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.06"
+    }
+  },
+  "miro_e8c98e0834": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Is there anything you can do for me?",
+    "delivery": "",
+    "signature": "48822042094f8398ea4aac3ba92bed6d00c7aee442c4a5672e6ea0f863ba8042",
+    "leveling": {
+      "source_sha256": "21dc4d165ec9fde9a0f30bf63be532f7e44796ed4c3e883d1ddf2ffe66ca8277",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.91",
+        "input_tp": "-0.50",
+        "input_lra": "0.00",
+        "input_thresh": "-25.15",
+        "output_i": "-18.00",
+        "output_tp": "-3.59",
+        "output_lra": "0.00",
+        "output_thresh": "-28.24",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-3.53"
+    }
+  },
+  "miro_3894e92ccd": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "You're looking at it.",
+    "delivery": "",
+    "signature": "dc7b1e2578c391ea3e76ad5784169bc805ca7e0a3ee2ae8c3bc85e1a593c41ce",
+    "leveling": {
+      "source_sha256": "f9743339b4b0a8411a1a3b19ae9131d384e5d1a56e2a425801d06c1916f836b0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.43",
+        "input_tp": "-0.65",
+        "input_lra": "0.00",
+        "input_thresh": "-23.91",
+        "output_i": "-17.98",
+        "output_tp": "-5.22",
+        "output_lra": "0.00",
+        "output_thresh": "-28.46",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-5.14"
+    }
+  },
+  "miro_3301fcd429": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "His hands are shaking. The same marks as the others.\nHe's turned away. This might be my only chance.",
+    "delivery": "",
+    "signature": "e4734ae6e24452b4ce36e69bca8c805d7bd481a80dd680871d6b9101f7a089ea",
+    "leveling": {
+      "source_sha256": "3e82df2e50f9ad3e07adb2e956c23811d6bce05bd51116b2fd26ea41f988f014",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.76",
+        "input_tp": "-0.75",
+        "input_lra": "3.20",
+        "input_thresh": "-28.31",
+        "output_i": "-18.38",
+        "output_tp": "-2.00",
+        "output_lra": "2.90",
+        "output_thresh": "-29.00",
+        "normalization_type": "dynamic",
+        "target_offset": "0.38"
+      },
+      "output_lufs": "-18.59",
+      "output_true_peak_dbtp": "-1.82"
+    }
+  },
+  "miro_9cc602a048": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Wire. Powder. Two charges, hidden beneath the bed.\nI've been building these in secret. My hands remember; I don't.",
+    "delivery": "",
+    "signature": "4413e15c354f54881452434e65d760749d81d0560621d28b3eabb3eed805c6a3",
+    "leveling": {
+      "source_sha256": "90c2e2345404a4bd366883bfd4e9d7113b054f11fe578ca9b9d8d41a1060093e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.66",
+        "input_tp": "-0.45",
+        "input_lra": "8.90",
+        "input_thresh": "-28.89",
+        "output_i": "-17.50",
+        "output_tp": "-2.00",
+        "output_lra": "4.90",
+        "output_thresh": "-28.57",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.50"
+      },
+      "output_lufs": "-18.37",
+      "output_true_peak_dbtp": "-1.64"
+    }
+  },
+  "miro_8c3d9e3545": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "A sharpened spoon. My blanket. Something I scratched\non the wrapping: 'Leave a mark. Keep going down.'",
+    "delivery": "",
+    "signature": "08e51edd020a1aebfe5ec985f86b78b43b0b39f8befa58af1ee6940abf3e4890",
+    "leveling": {
+      "source_sha256": "6146cbea1ae66a8539c4153b79035906da83292a7437c1371f791c05039d3ffe",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.40",
+        "input_tp": "-0.75",
+        "input_lra": "7.00",
+        "input_thresh": "-27.90",
+        "output_i": "-17.94",
+        "output_tp": "-2.00",
+        "output_lra": "5.20",
+        "output_thresh": "-29.31",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.06"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.32"
+    }
+  },
+  "miro_3c18370461": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "His key, while he faces away [E]. The spoon for close work [1, left click].\nThe charges [2]: right click to set one, left click to blow it.",
+    "delivery": "",
+    "signature": "9f4bbdeb8108fd04faf0d66f7891505ab18273fa4d16f54b33315156d38d1941",
+    "leveling": {
+      "source_sha256": "f367cff6006c0f57331cd2767abb8f6f91a8716a6b43fab501e1273f4d4a4d51",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.29",
+        "input_tp": "-0.62",
+        "input_lra": "2.00",
+        "input_thresh": "-27.98",
+        "output_i": "-17.63",
+        "output_tp": "-2.00",
+        "output_lra": "2.70",
+        "output_thresh": "-28.45",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.37"
+      },
+      "output_lufs": "-18.10",
+      "output_true_peak_dbtp": "-1.93"
+    }
+  },
+  "miro_bea2244565": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "This shape... I know it. My hands won't stop shaking.\nOne mark. Then down. Whoever wrote that wanted me to leave.",
+    "delivery": "",
+    "signature": "139b176d37b644d610fcca9aefa7d08932f54e0d9dcbfc4c382c857f170fc030",
+    "leveling": {
+      "source_sha256": "6c18b2c7a523fa3836486edd49d5d521d1b64b34bbc0791d941c2a7210eae398",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.60",
+        "input_tp": "-0.89",
+        "input_lra": "2.60",
+        "input_thresh": "-30.55",
+        "output_i": "-17.41",
+        "output_tp": "-2.00",
+        "output_lra": "1.90",
+        "output_thresh": "-28.43",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.59"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-1.86"
+    }
+  },
+  "miro_75201f46de": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "You know my name. Do I know you?",
+    "delivery": "",
+    "signature": "4c462b266a9e6e4349f764c67caeb389aa37d8f44d8bee5bf61714456f67655d",
+    "leveling": {
+      "source_sha256": "e03e6375f46b3b1c6a6f1c855b10e35bb1bcfe5019c3068e9f6eb9ab7ccdca8a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.40",
+        "input_tp": "-1.86",
+        "input_lra": "0.10",
+        "input_thresh": "-25.22",
+        "output_i": "-16.08",
+        "output_tp": "-3.65",
+        "output_lra": "0.00",
+        "output_thresh": "-26.94",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.92"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-5.47"
+    }
+  },
+  "miro_dfdde87801": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "That voice should mean something. It hurts that it doesn't.\nI can't stay here.",
+    "delivery": "",
+    "signature": "4392c82a6bb231338ffa236b93a8077fc624f4801df7e45c0b2d1c27666e2726",
+    "leveling": {
+      "source_sha256": "6e590964f818bb33eae5881da85d88b04e0a3af49f839bff5c45cf32024133e0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.08",
+        "input_tp": "-3.67",
+        "input_lra": "3.40",
+        "input_thresh": "-31.74",
+        "output_i": "-17.86",
+        "output_tp": "-2.00",
+        "output_lra": "5.80",
+        "output_thresh": "-28.74",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.14"
+      },
+      "output_lufs": "-18.70",
+      "output_true_peak_dbtp": "-2.05"
+    }
+  },
+  "miro_72963738cf": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The cameras went dark. The checkpoint is blind now.",
+    "delivery": "",
+    "signature": "94b318a46e717b4f49f5c59bd1b7bc3a906bc29b7eccae5532461f7953a21a16",
+    "leveling": {
+      "source_sha256": "a1c3eb2350489b2f49cbe2886395f9543ec4372ea19be2b386e49854c08d83cf",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.95",
+        "input_tp": "-0.69",
+        "input_lra": "2.60",
+        "input_thresh": "-28.12",
+        "output_i": "-17.12",
+        "output_tp": "-2.00",
+        "output_lra": "1.80",
+        "output_thresh": "-27.87",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.88"
+      },
+      "output_lufs": "-18.03",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "thought_1_wake": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "One room. One way out. Start with what I can reach.",
+    "delivery": "[whispers]",
+    "signature": "e025f679111618f177f7597787b7860dd87eec2860142b2b27f4ab994d1f05fd",
+    "leveling": {
+      "source_sha256": "e0b0834262fd027e731f3456d4d796ee629464d57ec70b1eaf55bae4a13badf4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.82",
+        "input_tp": "-4.14",
+        "input_lra": "2.60",
+        "input_thresh": "-31.72",
+        "output_i": "-16.38",
+        "output_tp": "-2.00",
+        "output_lra": "2.60",
+        "output_thresh": "-27.42",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.62"
+      },
+      "output_lufs": "-18.04",
+      "output_true_peak_dbtp": "-2.05"
+    }
+  },
+  "thought_1_chords": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "My fingers keep finding chord shapes. I don't remember learning them.",
+    "delivery": "[whispers]",
+    "signature": "608772d2442e92b973617f19b597604567769dd20e731b151c57d0b53386fcf6",
+    "leveling": {
+      "source_sha256": "9d44b507e9b91782986b2d3a4f6fd2b601cb3e3ddd9ad030517226461a7f5b63",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.29",
+        "input_tp": "-4.68",
+        "input_lra": "1.00",
+        "input_thresh": "-30.22",
+        "output_i": "-16.56",
+        "output_tp": "-2.00",
+        "output_lra": "2.70",
+        "output_thresh": "-27.24",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.44"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.61"
+    }
+  },
+  "thought_1_below": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "He is coughing too. A uniform does not keep the sickness out.",
+    "delivery": "[whispers]",
+    "signature": "3c295c1e4f51780186ba773b18efb4dcfdacb19ebb2e3a720013bd865dde1130",
+    "leveling": {
+      "source_sha256": "bec65df82aea2983aa58d77fa234c6d870a58f03103b3992d717e3637058bc28",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.42",
+        "input_tp": "-0.74",
+        "input_lra": "0.90",
+        "input_thresh": "-27.98",
+        "output_i": "-15.61",
+        "output_tp": "-2.00",
+        "output_lra": "2.60",
+        "output_thresh": "-25.96",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.39"
+      },
+      "output_lufs": "-17.15",
+      "output_true_peak_dbtp": "-1.90"
+    }
+  },
+  "thought_2_entry": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "They call this protection. Why do the locks face inward?",
+    "delivery": "[whispers]",
+    "signature": "21e0ef678be172ac437822d65ec521c5f5b8c25a1d7962fe722033df8cca0ffb",
+    "leveling": {
+      "source_sha256": "f48a9cb64ca6760b92c42b563c4d55be37bf150a881fe21f3465c369e88528d4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.37",
+        "input_tp": "-0.92",
+        "input_lra": "6.80",
+        "input_thresh": "-27.07",
+        "output_i": "-14.97",
+        "output_tp": "-2.00",
+        "output_lra": "2.90",
+        "output_thresh": "-25.40",
+        "normalization_type": "dynamic",
+        "target_offset": "-3.03"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.46"
+    }
+  },
+  "thought_2_ledger": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "No symptoms. No hearing. A name on a list is enough.",
+    "delivery": "[whispers]",
+    "signature": "2d264287416712d621d85cd12d0932c82b7b32e29ed01b98f167c6e3679b16f9",
+    "leveling": {
+      "source_sha256": "bf32b413aa5e2c72f5864970c8b58f8cfbc646bdd58ebfe2ba497aff51ce4299",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.31",
+        "input_tp": "-2.35",
+        "input_lra": "8.30",
+        "input_thresh": "-28.79",
+        "output_i": "-15.69",
+        "output_tp": "-2.00",
+        "output_lra": "5.60",
+        "output_thresh": "-26.72",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.31"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.05"
+    }
+  },
+  "thought_3_entry": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Every door trusts an order. Maybe I can give it a different one.",
+    "delivery": "[whispers]",
+    "signature": "c125cccb5e6aa675b3642567638079558410519e9546e8a2a724eb3b9284ee5f",
+    "leveling": {
+      "source_sha256": "f735c610f6b9ed85c4505cd31cdcaa14d88eafd89bf676dfc2b41866e6034ca7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.83",
+        "input_tp": "-2.46",
+        "input_lra": "3.10",
+        "input_thresh": "-28.69",
+        "output_i": "-15.65",
+        "output_tp": "-2.00",
+        "output_lra": "3.70",
+        "output_thresh": "-26.08",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.35"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.51"
+    }
+  },
+  "thought_3_hack": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Root access. Their rules are only instructions someone wrote.",
+    "delivery": "[whispers]",
+    "signature": "89159f13a5ea117cec7d6f662ffd6a4f8c4e6004c0519f7684a5e9651f409a70",
+    "leveling": {
+      "source_sha256": "378794dc97eb38a6c9c2533cb5092723c2c1edc5053a873a269598069b425f97",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.12",
+        "input_tp": "-0.43",
+        "input_lra": "3.30",
+        "input_thresh": "-26.84",
+        "output_i": "-19.28",
+        "output_tp": "-3.86",
+        "output_lra": "1.80",
+        "output_thresh": "-29.93",
+        "normalization_type": "dynamic",
+        "target_offset": "1.28"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.29"
+    }
+  },
+  "thought_3_rank": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "I wore their uniform. Was I dangerous then, or only when I stopped obeying?",
+    "delivery": "[whispers]",
+    "signature": "95cf79c7724861218ec797029a65cef1b50a4d3e485fbbad2bbfa2224470ce17",
+    "leveling": {
+      "source_sha256": "c943018e26f307207870c201481f2f4f018b4543e124f92dbe1fff8899f0e559",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.39",
+        "input_tp": "-0.42",
+        "input_lra": "2.30",
+        "input_thresh": "-26.94",
+        "output_i": "-16.48",
+        "output_tp": "-2.00",
+        "output_lra": "1.80",
+        "output_thresh": "-27.11",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.52"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.23"
+    }
+  },
+  "thought_4_entry": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The deeper I go, the less this place looks like a shelter.",
+    "delivery": "[whispers]",
+    "signature": "1e7dc6521be5680efddeda2ca8ed2823b21f0868d27c56702361112996a3e69e",
+    "leveling": {
+      "source_sha256": "192f7fc43daf8595b44854e2c1d76c118cea799f54930e4679c324fc720585c4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.10",
+        "input_tp": "-8.54",
+        "input_lra": "1.60",
+        "input_thresh": "-33.71",
+        "output_i": "-17.72",
+        "output_tp": "-3.55",
+        "output_lra": "1.20",
+        "output_thresh": "-28.20",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.28"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.41"
+    }
+  },
+  "thought_4_records": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "They kept counting results after they stopped counting people.",
+    "delivery": "[whispers]",
+    "signature": "c8d8edd64c07c6254e282793b1dfb14ae05002d8774ae756b44da9afbd0b80e5",
+    "leveling": {
+      "source_sha256": "56d401a964642dbff5eb17d3b1b17cf40a6761e1419426beed952048d19024bd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.88",
+        "input_tp": "-6.72",
+        "input_lra": "0.90",
+        "input_thresh": "-31.88",
+        "output_i": "-18.19",
+        "output_tp": "-3.28",
+        "output_lra": "0.10",
+        "output_thresh": "-28.19",
+        "normalization_type": "dynamic",
+        "target_offset": "0.19"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.74"
+    }
+  },
+  "thought_4_charges": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "My hands are steady now. That does not make this easy.",
+    "delivery": "[whispers]",
+    "signature": "806ad1556bd87526a3a7bd5211584f212898f7c01132496a5026502e721c3126",
+    "leveling": {
+      "source_sha256": "7cc0b2505ebf758f34392b79cbb080e94509b81c085e3967d15d39895c33430e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.21",
+        "input_tp": "-2.03",
+        "input_lra": "2.00",
+        "input_thresh": "-28.74",
+        "output_i": "-14.90",
+        "output_tp": "-2.00",
+        "output_lra": "0.50",
+        "output_thresh": "-25.49",
+        "normalization_type": "dynamic",
+        "target_offset": "-3.10"
+      },
+      "output_lufs": "-17.35",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "thought_5_entry": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The last door. I wanted the truth. I am afraid of what it will ask of me.",
+    "delivery": "[whispers]",
+    "signature": "fd21ccd885f8cb370b19ceffe986cac072097948ab2d5e6837a5be6abe1e5429",
+    "leveling": {
+      "source_sha256": "924f5ed2834939ffd7bbdbeb1fe2e3b3d885e07046f7e62b3435158687c0e4ef",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.60",
+        "input_tp": "-0.47",
+        "input_lra": "1.90",
+        "input_thresh": "-25.98",
+        "output_i": "-18.23",
+        "output_tp": "-3.85",
+        "output_lra": "1.80",
+        "output_thresh": "-29.39",
+        "normalization_type": "dynamic",
+        "target_offset": "0.23"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.60"
+    }
+  },
+  "thought_5_truth": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "I am not their disease. I am not their cure to own.",
+    "delivery": "[whispers]",
+    "signature": "df7a7b51898ced198c50fbfdad91d75a345ad8829dd347c6d51908d06e2bdb33",
+    "leveling": {
+      "source_sha256": "6c5e8da1d2a1fb9e8bf599137192ed213b85fb1485d38f0ada9022205ec38681",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.38",
+        "input_tp": "-3.12",
+        "input_lra": "2.90",
+        "input_thresh": "-30.96",
+        "output_i": "-17.19",
+        "output_tp": "-2.00",
+        "output_lra": "1.90",
+        "output_thresh": "-27.65",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.81"
+      },
+      "output_lufs": "-17.88",
+      "output_true_peak_dbtp": "-1.87"
+    }
+  },
+  "thought_5_loss": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "He chose the tower again. Or he chose them. I can't tell which.",
+    "delivery": "[whispers]",
+    "signature": "c3c23f45d066df6d8a579f9f9dbba41c8600200aa7c1ffed13b6fe0cd10e112c",
+    "leveling": {
+      "source_sha256": "71e5d62bce65981393dd3556bc3639511a31d02c10243a1d0d46d772f1c1f9fe",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.32",
+        "input_tp": "-4.85",
+        "input_lra": "3.50",
+        "input_thresh": "-32.99",
+        "output_i": "-17.16",
+        "output_tp": "-2.00",
+        "output_lra": "3.60",
+        "output_thresh": "-27.88",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.84"
+      },
+      "output_lufs": "-17.67",
+      "output_true_peak_dbtp": "-1.66"
+    }
   }
 }
