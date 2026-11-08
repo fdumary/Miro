@@ -16,6 +16,8 @@ var audio: Node
 const LIGHTNING_PERIOD := 11.0
 const LIGHTNING_AT := 9.0
 var last_strike := -1
+## Strength of the current lightning flash (0..1), shared by the sky and the screen flash.
+var flash := 0.0
 
 func _init() -> void:
 	name = "Backdrop"
@@ -41,7 +43,7 @@ func _process(delta: float) -> void:
 		if strike >= 0 and strike != last_strike:
 			last_strike = strike
 			# Alternate a close crack and a rolling one so the loop doesn't feel canned.
-			audio.play("thunder_near" if strike % 2 == 0 else "thunder_far", -25.0 if strike % 2 == 0 else -28.0, 0.95 + 0.05 * (strike % 3))
+			audio.play("thunder_near" if strike % 2 == 0 else "thunder_far", -13.0 if strike % 2 == 0 else -16.0, 0.95 + 0.05 * (strike % 3))
 	queue_redraw()
 
 func _draw() -> void:
@@ -53,6 +55,9 @@ func _draw() -> void:
 	else:
 		draw_dusk()
 	C.vignette(self, 0.7)
+	# The strike lights the whole frame for an instant, then flickers out.
+	if not completed and flash > 0.0:
+		C.fade(self, 0.45 * flash * flash, Color(0.86, 0.9, 1.0))
 	C.grain(self, frame_count / 3, 0.03)
 	if draws_title:
 		var shadow := Color(0, 0, 0, 0.5)
@@ -65,18 +70,23 @@ func wind() -> float:
 	return 0.8 + 0.2 * sin(time * 0.7) * sin(time * 1.9 + 1.0)
 
 func draw_dusk() -> void:
-	var flash := 0.0
+	flash = 0.0
 	var cycle := fmod(time, LIGHTNING_PERIOD)
-	if cycle > LIGHTNING_AT and cycle < LIGHTNING_AT + 0.35:
+	if cycle > LIGHTNING_AT and cycle < LIGHTNING_AT + 0.5:
 		var since := cycle - LIGHTNING_AT
-		flash = (1.0 - since / 0.35) * (1.0 if since < 0.06 or since > 0.12 else 0.5)
+		# Main strike, a dark gap, then a second return stroke.
+		flash = (1.0 - since / 0.5) * (1.0 if since < 0.07 or since > 0.14 else 0.35)
+		if since > 0.2 and since < 0.26:
+			flash = maxf(flash, 0.8)
 	C.night_sky(self, Color("141428").lerp(Color("3a4270"), flash * 0.5), Color("6b3f5c").lerp(Color("9b7aa0"), flash * 0.4), Vector2(150, 70))
 	# A low warm band where the sun went down.
 	for i in range(6):
 		draw_rect(Rect2(0, 200 + i * 8, 640, 9), Color(0.95, 0.55, 0.4, 0.07 * (6 - i)))
 	C.storm_clouds(self, time * 0.6, flash * 0.5, 90)
 	if flash > 0.3:
-		C.bolt(self, Vector2(600, -10), Vector2(570, 180), 23, flash, 1.2)
+		# A wide soft glow under a bright core: a heavier, closer strike that lands on the hills.
+		C.bolt(self, Vector2(600, -10), Vector2(560, 236), 23, flash * 0.35, 6.0)
+		C.bolt(self, Vector2(600, -10), Vector2(560, 236), 23, flash, 2.6)
 	C.birds(self, time, Rect2(-20, 110, 680, 60), 7, Color("1b1b30"), 3.5)
 	C.pines(self, 252, 70, 46, 0.15, -time * 2.0)
 	C.tower(self, TOWER_BASE, 26, 64, time, 0, 0, 0.9)
