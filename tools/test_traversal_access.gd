@@ -44,6 +44,32 @@ func run() -> void:
 	await frames(1)
 	Input.action_release("jump")
 	check(p.jumps_used == 2 and p.double_jump_cooldown_left > 2.95, "Second jump works after recharge and starts a three-second cooldown")
+	# Use a real collision with the left wall, with the double jump still recharging.
+	p.position = Vector2(43, 540)
+	p.velocity = Vector2(0, 120)
+	Input.action_press("move_left")
+	for tick in range(20):
+		await frames(1)
+		if p.wall_sliding:
+			break
+	check(p.wall_sliding and p.velocity.y <= p.WALL_SLIDE_SPEED, "Holding toward a wall caps falling speed")
+	var cooldown: float = p.double_jump_cooldown_left
+	var before_bounce: float = p.position.x
+	Input.action_press("jump")
+	await frames(3)
+	Input.action_release("jump")
+	check(p.position.x > before_bounce and p.velocity.y < 0 and not p.wall_sliding, "Timed Space launches Miro away from the wall")
+	check(p.double_jump_cooldown_left > 0 and p.double_jump_cooldown_left < cooldown, "Wall jump does not consume or reset the double jump cooldown")
+	Input.action_release("move_left")
+	await frames(45)
+	p.position = Vector2(43, 490)
+	p.velocity = Vector2(0, 120)
+	Input.action_press("move_left")
+	await frames(27)
+	check(p.wall_sliding and is_zero_approx(p.wall_jump_window_left), "Holding against a wall does not refresh the bounce window")
+	Input.action_release("move_left")
+	await frames(2)
+	check(not p.wall_sliding and p.velocity.y > p.WALL_SLIDE_SPEED, "Letting go restores normal falling speed")
 	var traps = level.world_features.trapdoors
 	check(traps.size() > 0, "Orange connector tiles become trapdoors")
 	var trap = traps[1]

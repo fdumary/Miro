@@ -5,6 +5,16 @@ var controls: Node
 var jumps_used := 0
 const DOUBLE_JUMP_COOLDOWN := 3.0
 var double_jump_cooldown_left := 0.0
+const WALL_JUMP_WINDOW := 0.18
+const WALL_JUMP_PUSH_TIME := 0.16
+const WALL_JUMP_SPEED := 210.0
+const WALL_SLIDE_SPEED := 72.0
+var wall_sliding := false
+var wall_slide_dust_left := 0.0
+var wall_jump_window_left := 0.0
+var wall_jump_side := 0.0
+var last_wall_jump_side := 0.0
+var wall_jump_push_left := 0.0
 var crouching := false
 var level: Node2D
 var facing: float = 1.0
@@ -59,11 +69,13 @@ func _physics_process(delta: float) -> void:
 	dodge_left = maxf(0.0, dodge_left - delta)
 	attack_flash = maxf(0.0, attack_flash - delta)
 	if level.controls_locked() or is_dead:
+		wall_sliding = false
 		velocity = Vector2.ZERO
 		update_visual(delta)
 		return
 	double_jump_cooldown_left = maxf(0.0, double_jump_cooldown_left - delta)
 	if in_hiding_spot:
+		wall_sliding = false
 		velocity = Vector2.ZERO
 		update_visual(delta)
 		return
@@ -86,14 +98,21 @@ func _physics_process(delta: float) -> void:
 		jumps_used = 0
 	elif jumps_used == 0:
 		jumps_used = 1
+	wall_jump_window_left = maxf(0.0, wall_jump_window_left - delta)
+	wall_jump_push_left = maxf(0.0, wall_jump_push_left - delta)
+	if is_on_floor() or climbing:
+		wall_jump_window_left = 0.0
+		wall_jump_push_left = 0.0
+		last_wall_jump_side = 0.0
 	update_crouch()
 	if Input.is_action_just_pressed("jump") and not crouching:
-		if not try_mantle() and (jumps_used == 0 or (jumps_used == 1 and double_jump_cooldown_left <= 0.0)):
-			if jumps_used == 1:
-				double_jump_cooldown_left = DOUBLE_JUMP_COOLDOWN
-			velocity.y = jump_velocity
-			jumps_used += 1
-			climbing = false
+		if not try_mantle() and not try_wall_jump():
+			if jumps_used == 0 or (jumps_used == 1 and double_jump_cooldown_left <= 0.0):
+				if jumps_used == 1:
+					double_jump_cooldown_left = DOUBLE_JUMP_COOLDOWN
+				velocity.y = jump_velocity
+				jumps_used += 1
+				climbing = false
 	if direction != 0.0:
 		facing = direction
 	if Input.is_action_just_pressed("dodge") and dodge_cooldown <= 0.0:
@@ -104,6 +123,9 @@ func _physics_process(delta: float) -> void:
 	velocity.x = direction * movement_speed * speed_multiplier * (0.45 if crouching else (0.6 if controls.focus else 1.0))
 	if dodge_left > 0.0:
 		velocity.x = facing * 245.0
+	if wall_jump_push_left > 0.0:
+		velocity.x = last_wall_jump_side * WALL_JUMP_SPEED
+		facing = last_wall_jump_side
 	if climbing:
 		velocity.y = vertical * 85.0 * speed_multiplier
 		if direction == 0.0:
@@ -111,8 +133,28 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y += 850.0 * delta
 	var was_grounded := is_on_floor()
+	var previous_wall_side := signf(get_wall_normal().x) if is_on_wall() else 0.0
+	var was_sliding := wall_sliding
+	wall_sliding = not was_grounded and not climbing and velocity.y > 0.0 and direction * previous_wall_side < 0.0 and wall_jump_push_left <= 0.0 and dodge_left <= 0.0
+	if wall_sliding:
+		velocity.y = minf(velocity.y, WALL_SLIDE_SPEED)
+		if not was_sliding and previous_wall_side != last_wall_jump_side:
+			wall_jump_side = previous_wall_side
+			wall_jump_window_left = WALL_JUMP_WINDOW
+		wall_slide_dust_left -= delta
+		if wall_slide_dust_left <= 0:
+			level.emit_effect("dust", global_position + Vector2(-previous_wall_side * 7.0, 10.0))
+			wall_slide_dust_left = 0.16
+	else:
+		wall_slide_dust_left = 0.0
 	var fall_speed := velocity.y
 	move_and_slide()
+	wall_sliding = wall_sliding and is_on_wall() and not is_on_floor()
+	if is_on_wall() and not is_on_floor() and not climbing:
+		var wall_side := signf(get_wall_normal().x)
+		if wall_side != previous_wall_side and wall_side != last_wall_jump_side:
+			wall_jump_side = wall_side
+			wall_jump_window_left = WALL_JUMP_WINDOW
 	if not was_grounded and is_on_floor() and fall_speed > 100:
 		level.emit_effect("dust", global_position + Vector2(0, 14))
 	footstep_left = maxf(0, footstep_left - delta)
@@ -346,10 +388,14 @@ func _draw() -> void:
 		var scale_y := 0.65 if crouching else 1.0
 		var origin := Vector2(0, 5 if crouching else 0)
 		var frame_x := sprite.frame * 32 if sprite.hframes == 2 else 0
-		draw_set_transform(origin, 0, Vector2(facing, scale_y))
+		var pose_facing := -signf(get_wall_normal().x) if wall_sliding else facing
+		var lean := pose_facing * 0.12 if wall_sliding else 0.0
+		draw_set_transform(origin, lean, Vector2(pose_facing, scale_y))
 		draw_texture_rect_region(sprite.texture, Rect2(-16, -3, 32, 19), Rect2(frame_x, 13, 32, 19), sprite.modulate)
-		var head_facing := signf(aim_direction.x) if mouse_aim and absf(aim_direction.x) > 0.01 else facing
-		var head_angle := clampf(atan2(aim_direction.y, absf(aim_direction.x)), -0.3, 0.3) * head_facing if mouse_aim else 0.0
+		var head_facing := pose_facing
+		if not wall_sliding and mouse_aim and absf(aim_direction.x) > 0.01:
+			head_facing = signf(aim_direction.x)
+		var head_angle := clampf(atan2(aim_direction.y, absf(aim_direction.x)), -0.3, 0.3) * head_facing if mouse_aim and not wall_sliding else lean
 		draw_set_transform(origin + Vector2(0, -5 * scale_y), head_angle, Vector2(head_facing, scale_y))
 		draw_texture_rect_region(sprite.texture, Rect2(-16, -11, 32, 13), Rect2(frame_x, 0, 32, 13), sprite.modulate)
 		draw_set_transform(Vector2.ZERO)
@@ -385,6 +431,17 @@ func update_crouch() -> void:
 	sprite.scale.y = 0.65 if crouching else 1.0
 	sprite.position.y = 5 if crouching else 0
 
+## Use the contact normal so facing and held input cannot send the bounce into the wall.
+func try_wall_jump() -> bool:
+	if is_on_floor() or climbing or wall_jump_window_left <= 0.0 or wall_jump_side == last_wall_jump_side:
+		return false
+	last_wall_jump_side = wall_jump_side
+	wall_jump_window_left = 0.0
+	wall_jump_push_left = WALL_JUMP_PUSH_TIME
+	dodge_left = 0.0
+	velocity.y = jump_velocity
+	return true
+
 func try_mantle() -> bool:
 	if not is_on_wall() or is_on_floor() or climbing:
 		return false
@@ -400,6 +457,8 @@ func try_mantle() -> bool:
 	if not level.has_floor_below(destination + Vector2(0, 13)):
 		return false
 	global_position = destination
+	wall_jump_window_left = 0.0
+	wall_jump_push_left = 0.0
 	velocity = Vector2.ZERO
 	jumps_used = 1
 	return true

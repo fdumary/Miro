@@ -7,6 +7,8 @@ This supersedes earlier control tables and the pistol-only suppressor interpreta
 | A / D, arrows | Move |
 | Space, then Space in the air | Jump, double jump |
 | Space against a reachable ledge | Mount/mantle if the path and landing are clear |
+| Space just after touching a wall in midair | Bounce away; 0.18 s window on contact or slide start |
+| Hold toward a wall while falling | Slide down the wall; release to fall normally |
 | Left Ctrl | Crouch; cannot stand inside a low ceiling |
 | C | Dash using the jump sprite and existing brief damage protection |
 | 1–5 | Select a numbered item; does not automatically use it |
