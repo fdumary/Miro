@@ -104,6 +104,7 @@ func update_checkpoint() -> void:
 	if storey == 0 and campaign.checkpoint.is_empty():
 		return
 	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed}
+	campaign.save_checkpoint()
 	notify("Checkpoint.")
 
 func apply_checkpoint() -> void:

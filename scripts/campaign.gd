@@ -309,8 +309,29 @@ func set_difficulty(id: String) -> void:
 func tuning() -> Dictionary:
 	return DIFFICULTIES[difficulty()]
 
+## Checkpoints survive closing the game (player mode): picking the floor from level select
+## resumes from its last storey.
+func save_checkpoint() -> void:
+	if not can_persist():
+		return
+	var progress := ConfigFile.new()
+	progress.load("user://progress.cfg")
+	progress.set_value("checkpoint", "data", checkpoint.duplicate(true))
+	progress.save("user://progress.cfg")
+
+func saved_checkpoint(number: int) -> Dictionary:
+	if int(checkpoint.get("floor", 0)) == number:
+		return checkpoint
+	if not can_persist():
+		return {}
+	var progress := ConfigFile.new()
+	progress.load("user://progress.cfg")
+	var data = progress.get_value("checkpoint", "data", {})
+	return data if data is Dictionary and int(data.get("floor", 0)) == number else {}
+
 func complete_floor(number: int, sigil: bool, milestones: Dictionary, raw_stats: Dictionary = {}) -> void:
 	checkpoint.clear()
+	save_checkpoint()
 	floor_stats[number] = score_floor(raw_stats)
 	unlock_level(number + 1)
 	if sigil:
