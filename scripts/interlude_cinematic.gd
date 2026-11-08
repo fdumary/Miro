@@ -17,6 +17,7 @@ var audio: Node
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	audio = preload("res://scripts/cine_audio.gd").new()
 	add_child(audio)
 	var scenes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/interludes.json")).scenes
@@ -65,6 +66,13 @@ func _draw() -> void:
 		draw_circle(Vector2(170, 300), 70.0, Color(0.55, 0.85, 0.7, 0.12 * glow))
 		draw_rect(Rect2(160, 292, 20, 28), Color(0.6, 0.95, 0.8, 0.5 * glow))
 		C.subtitle(self, "%s:  \"%s\"" % [data.speaker, data.voice], glow)
+		# Once his name is known (after Level 3) Niro stands in the remote's glow: Julia's Kael sprite.
+		if str(data.speaker) == "NIRO":
+			var kael: Texture2D = load("res://assets/characters/kael_idle.png")
+			var rise := C.ease_out(C.phase(t, 3.6, 1.2))
+			draw_set_transform(Vector2(470, 330), 0.0, unit * Vector2(-2.6, 2.6))
+			draw_texture(kael, Vector2(-kael.get_width() / 2.0, -kael.get_height()), Color(1, 1, 1, glow * rise))
+			draw_set_transform(Vector2.ZERO, 0.0, unit)
 	elif t >= 9.0:
 		C.subtitle(self, data.thought, C.phase(t, 9.0, 0.8))
 		C.title(self, Vector2(320, 150), data.title, 28, Color("e6d9c3"), 6.0, true)
