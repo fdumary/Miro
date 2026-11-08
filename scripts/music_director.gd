@@ -25,9 +25,6 @@ const SECOND := {2: "swag", 3: "cyberpunk", 4: "sumcrazy", 5: "hot_shit"}
 const GUITAR_TRACK := "shit_crashed"
 const OUTRO_TRACK := "set_me_free"
 const MENU_TRACK := "drill_shxt"
-## Drill Shxt opens on ~70 s of quiet build. The start screen joins it where the beat is
-## already going (bar-aligned at 143.55 BPM) and loops back to the same point.
-const MENU_START := 70.22
 const MENU_COMPLETED_TRACK := "lil_uzi2"
 const BEATS_PER_BAR := 4
 const OPEN_CUTOFF := 20500.0
@@ -131,7 +128,7 @@ func queue_track(id: String) -> void:
 	pending_track = id
 	pending_wait = seconds_to_next_bar()
 
-func play_track(id: String, loop := true, from := 0.0) -> void:
+func play_track(id: String, loop := true) -> void:
 	if id == track_id:
 		return
 	if not catalog.has(id):
@@ -142,14 +139,12 @@ func play_track(id: String, loop := true, from := 0.0) -> void:
 	voices[active].stop()
 	var stream = load(catalog[id].stream).duplicate()
 	stream.loop = loop
-	if from > 0.0 and "loop_offset" in stream:
-		stream.loop_offset = from
 	voices[active].stream = stream
 	voices[active].volume_db = -80
 	if DisplayServer.get_name() != "headless":
-		voices[active].play(from)
+		voices[active].play()
 	fade_progress = 0
-	track_time = from
+	track_time = 0.0
 	last_beat = -1
 	track_changed.emit(id)
 
