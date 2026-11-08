@@ -3669,6 +3669,15 @@
     ]
   ],
   "features": {
+    "hazards": [
+      {"kind": "turret", "position": [966, 644]},
+      {"kind": "turret", "position": [882, 1260]},
+      {"kind": "turret", "position": [1302, 672], "mount": "ceiling"},
+      {"kind": "spikes", "position": [910, 252]},
+      {"kind": "spikes", "position": [994, 1064]},
+      {"kind": "spikes", "position": [1204, 210], "mount": "left"},
+      {"kind": "spikes", "position": [1442, 280], "mount": "ceiling"}
+    ],
     "cases": [
       [
         1386.0,

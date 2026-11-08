@@ -42,6 +42,8 @@ func walk(x: float, crouched := false, limit := 2400) -> bool:
 		var spike_ahead := false
 		if not crouched and p.is_on_floor():
 			for hazard in level.get_tree().get_nodes_in_group("lethal_spikes"):
+				if not is_zero_approx(hazard.rotation):
+					continue
 				var gap: Vector2 = hazard.global_position - p.global_position
 				var ahead := gap.x * (1.0 if right else -1.0)
 				if ahead > 0 and ahead < 30 and absf(gap.y - 15.0) < 12:

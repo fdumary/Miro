@@ -1,5 +1,5 @@
 extends Area2D
-## Blueprint positions are anchored at the walkable floor surface.
+## Local up points away from the mounting surface. Aim is stored in world space.
 const SPIKES := preload("res://assets/environment/spike_trap.png")
 const BASE := preload("res://assets/environment/turret_body.png")
 const HEAD := preload("res://assets/environment/turret_head.png")
@@ -24,6 +24,8 @@ func _ready() -> void:
 		collider.shape = shape
 		collider.position.y = -4.5
 		add_child(collider)
+	else:
+		aim = global_rotation + PI
 
 func _physics_process(delta: float) -> void:
 	if level.controls_locked() or level.player.is_dead:
@@ -33,7 +35,7 @@ func _physics_process(delta: float) -> void:
 			level.player.health = 0
 			level.player.die()
 		return
-	var muzzle: Vector2 = global_position + PIVOT
+	var muzzle := to_global(PIVOT)
 	var offset: Vector2 = level.player.global_position - muzzle
 	if offset.length() > RANGE or level.player.is_concealed or level.player.in_hiding_spot or not level.clear_sight(muzzle, level.player.global_position):
 		charge = 0.0
@@ -59,6 +61,6 @@ func _draw() -> void:
 		draw_texture(SPIKES, Vector2(-16, -32))
 		return
 	draw_texture(BASE, Vector2(-16, -30))
-	draw_set_transform(PIVOT, aim - PI)
+	draw_set_transform(PIVOT, aim - global_rotation - PI)
 	draw_texture(HEAD, Vector2(-25, -14), Color("f2d3ab") if charge > 0.5 else Color.WHITE)
 	draw_set_transform(Vector2.ZERO)

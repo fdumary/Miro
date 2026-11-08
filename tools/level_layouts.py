@@ -152,7 +152,16 @@ def compile_level(number, grid, extra):
         elif kind == 'camera':
             features['cameras'].append({'position': [x, top + 14], 'facing': thing.get('facing', 1.57), 'linked': thing.get('linked', False)})
         elif kind in ('spikes', 'turret'):
-            features['hazards'].append({'kind': kind, 'position': [x, top]})
+            mount = thing.get('mount', 'floor')
+            if mount == 'ceiling':
+                top += T
+            elif mount in ('left', 'right'):
+                x += T / 2 if mount == 'right' else -T / 2
+                top += T / 2
+            hazard = {'kind': kind, 'position': [x, top]}
+            if mount != 'floor':
+                hazard['mount'] = mount
+            features['hazards'].append(hazard)
         elif kind == 'talk':
             features['conversation'] = {'guard': thing['guard'], 'position': [x, top - 16]}
         elif kind == 'huddle':
@@ -260,6 +269,13 @@ def level_2():
     g.crawl(22, 22, 45)
     g.put('station', 16, 45, id='SecondSigil')
     g.put('cover', 9, 45)
+    g.put('turret', 29, 16)
+    g.put('turret', 43, 38)
+    g.put('turret', 35, 6, mount='right')
+    g.put('spikes', 12, 31)
+    g.put('spikes', 22, 38)
+    g.put('spikes', 34, 7, mount='left')
+    g.put('spikes', 35, 29, mount='ceiling')
     g.put('exit', 3, 45)
     route = [
         {'x': x_of(9)}, {'station': 'SickPrisoner'},
@@ -269,6 +285,7 @@ def level_2():
         {'x': x_of(8)}, {'x': x_of(6.5)}, {'fall': top_of(23)},
         {'x': x_of(35)}, {'x': x_of(37.5), 'crouch': True},
         {'x': x_of(54.5)}, {'climb': 'SecondLadder', 'to': top_of(31)},
+        {'x': x_of(37)}, {'x': x_of(33), 'crouch': True},
         {'x': x_of(3.5)}, {'climb': 'ThirdLadder', 'to': top_of(38)},
         {'x': x_of(31)}, {'station': 'TransferLedger'},
         {'x': x_of(55.5)}, {'climb': 'FourthLadder', 'to': top_of(45)},
@@ -363,6 +380,13 @@ def level_3():
     g.put('station', 23, 45, id='ThirdSigil')
     g.block(14, 15, 43, 44)               # crates before the stairs
     g.put('cover', 9, 45)
+    g.put('turret', 34, 23)
+    g.put('turret', 31, 45)
+    g.put('turret', 46, 23, mount='ceiling')
+    g.put('spikes', 32, 9)
+    g.put('spikes', 35, 38)
+    g.put('spikes', 43, 7, mount='left')
+    g.put('spikes', 51, 9, mount='ceiling')
     g.put('exit', 3, 45)
     route = [
         {'x': x_of(41)}, {'x': x_of(46), 'crouch': True},
@@ -464,6 +488,13 @@ def level_4():
     g.crawl(26, 26, 45)
     g.put('station', 14, 45, id='FourthSigil')
     g.put('cover', 9, 45)
+    g.put('turret', 32, 16)
+    g.put('turret', 42, 38)
+    g.put('turret', 23, 12, mount='right')
+    g.put('spikes', 20, 23)
+    g.put('spikes', 33, 45)
+    g.put('spikes', 23, 13, mount='right')
+    g.put('spikes', 49, 9, mount='ceiling')
     g.put('exit', 3, 45)
     route = [
         {'x': x_of(14)}, {'station': 'ExperimentRecords'},

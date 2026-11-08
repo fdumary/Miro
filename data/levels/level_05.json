@@ -13,6 +13,17 @@
     28,
     28
   ],
+  "features": {
+    "hazards": [
+      {"kind": "turret", "position": [854, 252]},
+      {"kind": "turret", "position": [1036, 280], "mount": "ceiling"},
+      {"kind": "turret", "position": [1092, 602], "mount": "left"},
+      {"kind": "spikes", "position": [994, 252]},
+      {"kind": "spikes", "position": [1036, 672]},
+      {"kind": "spikes", "position": [1092, 414], "mount": "left"},
+      {"kind": "spikes", "position": [546, 196], "mount": "ceiling"}
+    ]
+  },
   "floor_rows": [
     {
       "row": 9,

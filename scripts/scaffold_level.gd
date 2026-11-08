@@ -7,6 +7,7 @@ var connected_cameras: Array[Node] = []
 var hack_remaining := 0.0
 var floor_alerts := 0
 var watcher_reserves_called := false
+const HAZARD_ROTATIONS := {"floor": 0.0, "ceiling": PI, "left": -PI / 2, "right": PI / 2}
 var brother: Node
 var cinematic: Control
 ## Level 5 only: guitar, waves and Niro's three retreats (scripts/foundation_flow.gd).
@@ -66,6 +67,7 @@ func _ready() -> void:
 		hazard.level = self
 		hazard.kind = str(entry.kind)
 		hazard.position = Vector2(entry.position[0], entry.position[1])
+		hazard.rotation = HAZARD_ROTATIONS.get(entry.get("mount", "floor"), 0.0)
 		add_child(hazard)
 	if int(definition.number) == 5:
 		flow = Node.new()

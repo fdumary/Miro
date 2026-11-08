@@ -3727,6 +3727,15 @@
   ],
   "gates": [],
   "features": {
+    "hazards": [
+      {"kind": "turret", "position": [826, 448]},
+      {"kind": "turret", "position": [1218, 1064]},
+      {"kind": "turret", "position": [1008, 182], "mount": "right"},
+      {"kind": "spikes", "position": [350, 868]},
+      {"kind": "spikes", "position": [630, 1064]},
+      {"kind": "spikes", "position": [952, 210], "mount": "left"},
+      {"kind": "spikes", "position": [994, 840], "mount": "ceiling"}
+    ],
     "cases": [
       [
         1498.0,
@@ -3864,6 +3873,13 @@
     {
       "climb": "SecondLadder",
       "to": 868
+    },
+    {
+      "x": 1050.0
+    },
+    {
+      "x": 938.0,
+      "crouch": true
     },
     {
       "x": 112.0
