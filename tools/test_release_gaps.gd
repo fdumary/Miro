@@ -52,6 +52,21 @@ func run() -> void:
 		var has_pad := InputMap.action_get_events(action).any(func(event): return event is InputEventJoypadButton)
 		check(has_pad, "%s has a controller binding" % action)
 
+	# Terminal: a small pretend file system with readable records.
+	var console = level.player.controls
+	await frames(2)
+	console.show_console(true)
+	console.run_command("ls")
+	check("readme.txt" in console.output.text, "ls lists the floor's files")
+	console.run_command("cat readme.txt")
+	check("TOWER RECORDS" in console.output.text, "cat reads a file")
+	console.run_command("cat missing.txt")
+	check("No such file" in console.output.text, "cat reports a missing file")
+	console.run_command("pwd")
+	check("floor03" in console.output.text, "pwd shows the floor")
+	console.run_command("whoami")
+	check(console.output.text == "guest", "whoami is guest until you log in")
+
 	# Level select: a snapshot taken at floor entry comes back after a "relaunch".
 	campaign.remote_owned = true
 	campaign.remote_unlocked = true

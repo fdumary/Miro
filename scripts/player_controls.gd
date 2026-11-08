@@ -465,8 +465,44 @@ func show_console(local: bool, terminal_look := false) -> void:
 	command.secret = false
 	command.grab_focus()
 
+## A tiny pretend file system: each floor's records are readable text files (ls, cat).
+var pager: Array = []
+var pager_index := 0
+
+func floor_files() -> Dictionary:
+	var files := {}
+	var floor_number: int = get_node("/root/Campaign").current_floor
+	var data = JSON.parse_string(FileAccess.get_file_as_string("res://data/terminal_logs.json"))
+	for entry in data.get("terminals", []):
+		if int(entry.get("floor", 0)) != floor_number:
+			continue
+		var name := str(entry.file).to_lower().replace(" ", "_")
+		var clean := ""
+		for character in name:
+			if character.is_valid_identifier() or character == "_" or (character >= "0" and character <= "9"):
+				clean += character
+		files[clean + ".txt"] = "
+
+".join(PackedStringArray(entry.get("pages", [])))
+	files["readme.txt"] = "TOWER RECORDS TERMINAL
+Floor %02d archive. Access is logged. Type ls to list files, cat <file> to read one." % floor_number
+	return files
+
+func show_page() -> void:
+	output.text = str(pager[pager_index])
+	if pager_index < pager.size() - 1:
+		output.text += "
+-- more (press Enter) --"
+	pager_index += 1
+
 func run_command(raw: String) -> void:
 	var text := raw.strip_edges()
+	if text.is_empty() and pager_index > 0 and pager_index < pager.size():
+		command.clear()
+		show_page()
+		return
+	pager.clear()
+	pager_index = 0
 	var is_login := text.begins_with("login ")
 	var echo := "login " + "*".repeat(text.trim_prefix("login ").length()) if is_login else ("***" if command.secret else text)
 	console_echo.text = "> " + echo
@@ -475,6 +511,29 @@ func run_command(raw: String) -> void:
 	if local_console and (text in ["hack", "./unlock.sh", "lights test", "music"] or text.begins_with("play ")):
 		output.text = "Unknown command. Type help."
 		return
+	if text == "whoami":
+		var terminal: Node2D = player.level.world_features.security_terminal()
+		output.text = "root" if terminal != null and logged_in.has(terminal.get_instance_id()) else "guest"
+		return
+	if text == "pwd":
+		output.text = "/var/tower/floor%02d" % int(get_node("/root/Campaign").current_floor)
+		return
+	if text == "ls":
+		output.text = "  ".join(PackedStringArray(floor_files().keys()))
+		return
+	if text.begins_with("cat "):
+		var name := text.trim_prefix("cat ").strip_edges()
+		var files := floor_files()
+		if not files.has(name):
+			output.text = "cat: %s: No such file or directory" % name
+			return
+		# Long files page through the console one screen at a time.
+		pager = str(files[name]).split("
+
+")
+		pager_index = 0
+		show_page()
+		return
 	if text == "hack" or text == "./unlock.sh":
 		remote_unlocked = true
 		get_node("/root/Campaign").remote_unlocked = true
@@ -482,7 +541,7 @@ func run_command(raw: String) -> void:
 	elif not remote_unlocked and not local_console:
 		output.text = "Service port locked. Type hack to run your unlock script."
 	elif text == "help":
-		output.text = "scan · login <password> · cameras off · turrets off · next"
+		output.text = "scan · login <password> · ls · cat <file> · pwd · whoami · cameras off · turrets off · next"
 	elif text == "next":
 		output.text = next_beat()
 	elif text == "music":
