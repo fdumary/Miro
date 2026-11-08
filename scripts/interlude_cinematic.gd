@@ -17,6 +17,7 @@ var lengths: Array[float] = []
 var played := -1
 var total := 0.0
 var kael: Texture2D = preload("res://assets/characters/kael_idle.png")
+var miro_idle: Texture2D = preload("res://assets/characters/miro_idle.png")
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -113,9 +114,14 @@ func panel_miro(t: float, light: float) -> void:
 	var flicker := 0.85 + 0.15 * sin(t * 9.0) * sin(t * 5.3)
 	draw_circle(Vector2(52, 110), 46.0, Color(1.0, 0.62, 0.25, 0.10 * light * flicker))
 	draw_rect(Rect2(50, 104, 4, 12), Color(1.0, 0.7, 0.3, light))
-	C.miro(self, Vector2(180, 300), 2.4)
-	draw_circle(Vector2(214, 262), 34.0, Color(0.55, 0.95, 0.8, 0.10 * light))
-	draw_rect(Rect2(208, 254, 12, 18), Color(0.6, 0.95, 0.8, 0.55 * light))
+	# Miro's own sprite, facing the MP3 in his hand.
+	var sprite := miro_idle
+	var tint_miro := Color(1, 1, 1, 1).lerp(Color(0.35, 0.35, 0.4, 1), 1.0 - light)
+	draw_set_transform(Vector2(150, 300) * (size / C.FRAME), 0.0, size / C.FRAME * Vector2(4.2, 4.2))
+	draw_texture(sprite, Vector2(-sprite.get_width() / 2.0, -sprite.get_height()), tint_miro)
+	draw_set_transform(Vector2.ZERO, 0.0, size / C.FRAME)
+	draw_circle(Vector2(188, 262), 34.0, Color(0.55, 0.95, 0.8, 0.10 * light))
+	draw_rect(Rect2(182, 254, 12, 18), Color(0.6, 0.95, 0.8, 0.55 * light))
 	draw_rect(Rect2(0, 0, 317, 360), Color(0, 0, 0, 0.0))
 
 ## Right half: his brother's office; once named he is Kael's sprite, before that a silhouette.
@@ -132,4 +138,4 @@ func panel_niro(t: float, light: float) -> void:
 	draw_texture(kael, Vector2(-kael.get_width() / 2.0, -kael.get_height()), tint)
 	draw_set_transform(Vector2.ZERO, 0.0, size / C.FRAME)
 	if not data.named:
-		draw_string(C.Type.body(), Vector2(430, 336), "UNKNOWN CALLER", HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))
+		draw_string(C.Type.body(), Vector2(420, 120), "UNKNOWN CALLER", HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.85))
