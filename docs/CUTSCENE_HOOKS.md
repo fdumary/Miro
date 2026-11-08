@@ -33,11 +33,22 @@ All cutscenes share one look from `scripts/cinema.gd`: 2.35:1 letterbox bars, vi
 
 | Cutscene | Script | When | Shots |
 |---|---|---|---|
-| Opening (C1) | `scripts/opening_cinematic.gd`, `scenes/opening_cinematic.tscn` | New run from the menu, before Level 1 (17 s; Tab/Enter/E/Space skips) | Storm over the woods with lightning on the far tower, then a tilt up the tower with the PA line, then a push into the cell 07 window where a figure sits up, then the MIRO / LAST MAN STANDING title |
+| Opening (C1) | `scripts/opening_cinematic.gd`, `scenes/opening_cinematic.tscn` | New run from the menu, before Level 1 (15 s; Tab/Enter/E/Space/Esc skips) | 0–4.5 s storm over the woods: rolling clouds, two-depth rain with splashes, a forked bolt strikes the far tower, thunder follows each flash; 4.5–8.5 s tilt up the tower through the rain, a flash rakes the stone, PA line; 8.5–12 s push into the cell 07 window, bar shadows on the flash, the figure sits up on the thunder; 12–15 s gothic MIRO / Last Man Standing lit by a last flash. YZ33 starts at 12.4 s; the rain bed carries into Level 1 and fades over 6 s. |
+| MP3 pickup | `scripts/remote_pickup_card.gd` (from `player_controls.collect_remote()`) | When Miro takes the MP3 player/remote off the first guard (searching or pickpocketing) | 2.8 s close-up on the right edge: the player slides up in Miro's hand, its screen wakes to PLAY. Doesn't pause play. |
 | Floor cards | `scripts/floor_card.gd` (`level.show_card`) | First 3.4 s of every floor | Letterbox, the camera settles in from a closer zoom, then a lower-third with the emblem, floor number, title and the branch report. Doesn't block input or dialogue. |
 | Alarm (C5) | same, mode `alarm` | Level 5 guitar pickup | Red alarm pulse and ALARM |
 | Niro name card (C2) | same, mode `name` | Niro's first appearance | NIRO in the lower third while the reveal plays |
-| Ending (C10) | `scripts/ending_cinematic.gd` | Forest viewpoint (14 s) | 0–1.2 s Miro steps out of the tree line (parallax dolly); 1.2–2.6 s the remote fills the screen, SIGNAL SENT, white flash; 2.5–5 s wide shot, slow push-in, sigils ignite bottom to top; 5–7.5 s the branch PA line while windows flicker; 7.5–11 s collapse with dust and camera shake, Set Me Free starts; 11 s Miro, in the foreground, lowers his head over the last thought; 12–14 s LAST MAN STANDING, fade |
+| Ending (C10) | `scripts/ending_cinematic.gd` | Forest viewpoint (15 s) | 0–1.5 s Miro steps out of the tree line; 1.5–2.8 s the remote fills the screen, ARMED, his thumb comes down, SIGNAL SENT, white flash; 2.8–5 s sigils ignite bottom to top while a rumble and tremor build; 5–6.8 s the branch PA line; 6.8 s DETONATION: white flash, a base blast plus chained blasts up each floor and a second fireball, shock rings, ballistic debris that lands and stops, embers, smoke column, heavy camera shake with roll, sub-bass hit, the tower falls into a burning base and the sky turns orange; 11–13.5 s Miro rim-lit by the fire lowers his head over the last thought; 13.5–15 s Last Man Standing, fade. Music drops out at 1.5 s: the blast is carried by sound design. |
+| Finale | `scripts/finale.gd` (started by the ending, own CanvasLayer) | Straight after the ending | 0–12 s the beach at dawn: waves on a 6 s swell, sun glitter, gulls, a palm in the breeze, a thin smoke trail on the far horizon; Miro sits back with earbuds in, "Finally free."; the camera lifts to the sun. Music: Ethan's chord progression (`assets/audio/cine/ending_chords.ogg`). Then the end credits from `data/credits.json` (about 70 s) over Set Me Free, then the start screen. Tab/Esc/Enter skips the beach, then the credits. |
+| Start screen | `scripts/start_backdrop.gd` (node `Backdrop` in the main menu) | Menu | Before completion: the tower at dusk with its banner rippling, birds, rolling cloud, distant lightning every 11 s, pines and grass leaning in gusts, blown leaves, a wind bed. After completion (`Campaign.game_completed()`): daylight, the tower a broken smoking stump with grass coming back, gulls. Draws the gothic title at the top; the menu sits below y = 100. |
+
+## Cutscene audio
+
+`scripts/cine_audio.gd` plays one-shots, fading loops and timed cues on the Effects bus from `assets/audio/cine/`. The current files are synthesized placeholders from `tools/synth_cine_audio.py` (rain, thunder near/far, the big explosion with a 70→28 Hz sub drop, rumble, fire, waves, wind, gulls). `tools/generate_cine_sfx_elevenlabs.py` replaces any of them with ElevenLabs sound effects (`--list` shows the prompts; needs `ELEVENLABS_API_KEY` and api.elevenlabs.io reachable). `ending_chords.ogg` is Ethan's own track.
+
+## Fonts
+
+`assets/fonts/`: UnifrakturMaguntia (Dracula-style blackletter) for titles, Pirata One for all other text. Autoload `Typeface` (`scripts/typeface.gd`) sets it as the default for every Control and `draw_string`.
 
 Stills for review are written by `tools/capture_cinematics.gd` (run under xvfb).
 

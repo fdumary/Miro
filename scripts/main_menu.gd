@@ -24,12 +24,8 @@ func _ready() -> void:
 	# After a finished Play run the menu switches to the completed-game track.
 	music.play_track(music.MENU_COMPLETED_TRACK if get_node("/root/Campaign").game_completed() else music.MENU_TRACK)
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var backdrop := ColorRect.new()
-	backdrop.name = "Backdrop"
-	backdrop.color = Color("272744")
-	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(backdrop)
+	# Animated start screen (dusk tower, or the ruins in daylight after completion); named "Backdrop".
+	add_child(preload("res://scripts/start_backdrop.gd").new())
 	var campaign = get_node("/root/Campaign")
 	var first: String = "levels" if "--level-select" in OS.get_cmdline_user_args() else "title"
 	if not campaign.menu_screen.is_empty():

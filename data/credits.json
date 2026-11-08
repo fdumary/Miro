@@ -1,0 +1,18 @@
+{
+  "_comment": "End credits, read by scripts/finale.gd. Edit freely: each block is a heading and its lines. Names marked (confirm) are guesses from the project notes.",
+  "title": "Miro",
+  "subtitle": "Last Man Standing",
+  "blocks": [
+    {"heading": "A game by", "lines": ["RXLA (Ethan Risden)"]},
+    {"heading": "Story, direction and music", "lines": ["RXLA"]},
+    {"heading": "Character and tile art", "lines": ["Julia (confirm surname)"]},
+    {"heading": "Playtesting", "lines": ["Fran (confirm surname)"]},
+    {"heading": "Original soundtrack", "lines": ["YZ33", "DOPE2", "Swag", "Bobblehead", "Cyberpunk", "Plane Drums", "Sum Crazy Shi", "Shit Crashed", "Hot Shit 2", "Set Me Free", "LIL UZI2", "Drill Shxt", "all produced by RXLA"]},
+    {"heading": "Voices", "lines": ["Generated with ElevenLabs"]},
+    {"heading": "Asset packs", "lines": ["Kenney (kenney.nl), CC0:", "Tiny Dungeon, Pixel Platformer Industrial Expansion,", "Particle Pack, Smoke Particles, Splat Pack, Emote Pack,", "Foliage Sprites, Generic Items, Input Prompts Pixel,", "UI Pack Pixel Adventure, Impact Sounds, RPG Audio,", "Sci-Fi Sounds, Desert Shooter Pack"]},
+    {"heading": "Typefaces", "lines": ["UnifrakturMaguntia and Pirata One", "SIL Open Font License"]},
+    {"heading": "Made with", "lines": ["Godot Engine"]},
+    {"heading": "", "lines": ["For everyone the tower kept."]}
+  ],
+  "closing": "Thank you for playing"
+}
