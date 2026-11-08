@@ -106,8 +106,23 @@ func hears_player() -> bool:
 	heard_time += get_physics_process_delta_time()
 	return heard_time > 0.5
 
+## The sick Keepers' cough: the animation and its sound share one clock.
+func is_coughing() -> bool:
+	return sick_guard and illness_started and fmod(time, 4.0) < 1.4
+
+var cough_count := 0
+var cough_was := false
+
+func cough_sound() -> void:
+	var now := is_coughing() and not is_dead and not asleep
+	if now and not cough_was and is_instance_valid(level) and is_instance_valid(level.player):
+		cough_count += 1
+		get_node("/root/SoundFX").cough_near(global_position, level.player.global_position, cough_count + int(global_position.x))
+	cough_was = now
+
 func _physics_process(delta: float) -> void:
 	time += delta
+	cough_sound()
 	queue_redraw()
 	if not level or level.controls_locked():
 		return
@@ -397,7 +412,7 @@ func _draw() -> void:
 	if alert_state != State.PATROL or not sick_guard:
 		var cone := PackedVector2Array([Vector2(0, -8), Vector2(facing * 150, -43), Vector2(facing * 150, 23)])
 		draw_colored_polygon(cone, Color(0.78, 0.62, 0.65, 0.07 if alert_state != State.ALERT else 0.16))
-	var coughing := sick_guard and illness_started and fmod(time, 4.0) < 1.4
+	var coughing := is_coughing()
 	var moving: bool = absf(velocity.x) > 1 and level != null and not level.controls_locked()
 	var texture: Texture2D = KEEPER_WALK if moving else KEEPER_IDLE
 	var frame := int(time * 8) % 2 if moving else 0
