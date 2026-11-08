@@ -132,7 +132,7 @@ class LevelCard extends Button:
 
 ## Difficulty buttons and the three volume sliders. `in_run` adds a note that difficulty takes
 ## effect from the next floor or restart.
-static func settings(parent: Node, rect: Rect2, in_run := false) -> VBoxContainer:
+static func settings(parent: Node, rect: Rect2, in_run := false, open_controller := Callable()) -> VBoxContainer:
 	var box := column(parent, rect, 5)
 	box.name = "Settings"
 	heading(box, "SETTINGS", 16)
@@ -186,6 +186,17 @@ static func settings(parent: Node, rect: Rect2, in_run := false) -> VBoxContaine
 		var director = music(parent)
 		slider.value_changed.connect(func(value): director.set_volume(bus, value))
 	note(box, "M mutes all audio. Music lowers during speech; overheard lines have subtitles.", 9)
+	if open_controller.is_valid():
+		var controllers := button(box, "Controller settings", open_controller)
+		controllers.name = "ControllerSettingsButton"
+		controllers.call_deferred("grab_focus")
+	return box
+
+static func controller_settings(parent: Node, rect: Rect2, back: Callable) -> VBoxContainer:
+	var box := column(parent, rect, 3)
+	box.name = "ControllerSettings"
+	box.set_script(load("res://scripts/controller_settings_panel.gd"))
+	box.setup(back)
 	return box
 
 static func describe(tuning: Dictionary) -> String:

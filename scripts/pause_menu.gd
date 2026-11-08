@@ -40,6 +40,7 @@ func _ready() -> void:
 	now_playing.position = Vector2(20, 300)
 	now_playing.size = Vector2(190, 40)
 	side = Control.new()
+	side.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	side.size = Vector2(640, 360)
 	root.add_child(side)
 	shade.visible = false
@@ -79,7 +80,9 @@ func toggle_side(id: String, force := false) -> void:
 	for child in side.get_children():
 		child.queue_free()
 	if id == "settings":
-		SCREENS.settings(side, Rect2(220, 60, 390, 200), true)
+		SCREENS.settings(side, Rect2(220, 60, 390, 200), true, func(): toggle_side("controller"))
+	elif id == "controller":
+		SCREENS.controller_settings(side, Rect2(218, 34, 402, 285), func(): toggle_side("settings"))
 	else:
 		var box := SCREENS.column(side, Rect2(220, 60, 390, 200), 2)
 		SCREENS.heading(box, "CONTROLS", 14)

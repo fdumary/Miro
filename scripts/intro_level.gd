@@ -100,6 +100,16 @@ func setup_inputs() -> void:
 		event.button_index = pair[1]
 		InputMap.action_add_event(pair[0], event)
 
+	apply_controller_deadzone()
+	var settings = get_node("/root/ControllerSettings")
+	if not settings.changed.is_connected(apply_controller_deadzone):
+		settings.changed.connect(apply_controller_deadzone)
+
+func apply_controller_deadzone() -> void:
+	var value: float = get_node("/root/ControllerSettings").preferences.deadzone
+	for action in ["move_left", "move_right", "climb_up", "climb_down"]:
+		InputMap.action_set_deadzone(action, value)
+
 func add_pad_axis(action: String, axis: int, direction: float) -> void:
 	var event := InputEventJoypadMotion.new()
 	event.axis = axis

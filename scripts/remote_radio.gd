@@ -130,7 +130,8 @@ func noise() -> float:
 
 func _process(delta: float) -> void:
 	if not controller_worker:
-		controller_link.update(delta, get_tree().paused)
+		var config: Dictionary = get_node("/root/ControllerSettings").preferences
+		controller_link.update(delta, get_tree().paused, config.speaker_enabled, config.speaker_endpoint)
 		if controller_playing and not controller_link.ready:
 			controller_playing = false
 			if speaking_left > 0.0 and audible() and voice.stream != null:

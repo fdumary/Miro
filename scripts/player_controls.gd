@@ -17,6 +17,7 @@ var focus := false
 var pad_aim := false
 var pad_device := -1
 var pad_prompts := false
+var controller_settings: Node
 var reserves: Dictionary = {}
 var reload_left := 0.0
 var panel: PanelContainer
@@ -36,7 +37,16 @@ const STRUM_RADIUS_ON_BEAT := 170.0
 
 func _ready() -> void:
 	player = get_parent()
+	controller_settings = get_node("/root/ControllerSettings")
+	Input.joy_connection_changed.connect(on_pad_connection)
 	layout.assign(get_node("/root/Campaign").inventory_layout)
+
+func on_pad_connection(device: int, connected: bool) -> void:
+	if not connected and device == pad_device:
+		pad_device = -1
+		pad_aim = false
+		pad_prompts = false
+		player.pad_crouch = false
 
 func locked() -> bool:
 	return inventory_open or remote_open
@@ -70,6 +80,9 @@ func select_item(item: String) -> void:
 func _input(event: InputEvent) -> void:
 	if not is_instance_valid(player.level):
 		return
+	if event is InputEventJoypadMotion and absf(event.axis_value) > float(controller_settings.preferences.deadzone):
+		pad_device = event.device
+		pad_prompts = true
 	if event is InputEventJoypadButton and event.pressed:
 		pad_device = event.device
 		pad_prompts = true
@@ -130,7 +143,8 @@ func handle_pad_button(button: int) -> bool:
 		JOY_BUTTON_Y:
 			select_item("blanket")
 		JOY_BUTTON_LEFT_STICK:
-			player.pad_crouch = not player.pad_crouch
+			if not controller_settings.preferences.hold_crouch:
+				player.pad_crouch = not player.pad_crouch
 		JOY_BUTTON_DPAD_LEFT:
 			next_beat(-1)
 		JOY_BUTTON_DPAD_RIGHT:
@@ -147,6 +161,12 @@ func handle_pad_button(button: int) -> bool:
 		_:
 			return false
 	return true
+
+func wants_pad_crouch() -> bool:
+	if controller_settings.preferences.hold_crouch:
+		player.pad_crouch = false
+		return pad_device >= 0 and Input.is_joy_button_pressed(pad_device, JOY_BUTTON_LEFT_STICK)
+	return player.pad_crouch
 
 func cycle_item(step: int) -> void:
 	var items: Array[String] = []
@@ -197,7 +217,10 @@ func _physics_process(delta: float) -> void:
 		if pad_device not in pads:
 			pad_device = pads[0]
 		var aim := Vector2(Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_X), Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_Y))
-		if aim.length_squared() > 0.22 * 0.22:
+		var deadzone: float = controller_settings.preferences.deadzone
+		if aim.length_squared() > deadzone * deadzone:
+			if controller_settings.preferences.invert_aim_y:
+				aim.y = -aim.y
 			pad_aim = true
 			pad_prompts = true
 			player.mouse_aim = false

@@ -10,29 +10,41 @@ var ready := false
 var retry_left := 0.0
 var handshake_left := 0.0
 var mix_state: Array = []
+var endpoint_preference := ""
 
 const DEVICE_ARG := "--controller-speaker-device="
 
-static func speaker_device() -> String:
+static func speaker_device(preferred := "") -> String:
 	var devices := AudioServer.get_output_device_list()
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with(DEVICE_ARG):
 			var selected := arg.trim_prefix(DEVICE_ARG)
 			return selected if selected != "Default" and selected in devices else ""
+	if not preferred.is_empty():
+		return preferred if preferred != "Default" and preferred in devices else ""
 	for device in devices:
 		var name := device.to_lower()
 		if "dualsense" in name or "dualshock" in name or "wireless controller" in name:
 			return device
 	return ""
 
-func update(delta: float, paused: bool) -> void:
+func update(delta: float, paused: bool, enabled := true, preferred := "") -> void:
+	if not enabled:
+		if pid > 0:
+			close()
+		retry_left = 0.0
+		return
+	if preferred != endpoint_preference:
+		close()
+		retry_left = 0.0
+		endpoint_preference = preferred
 	if pid <= 0:
 		if OS.get_name() != "Windows" or DisplayServer.get_name() == "headless":
 			return
 		retry_left -= delta
 		if retry_left <= 0:
 			retry_left = 3.0
-			var device := speaker_device()
+			var device := speaker_device(preferred)
 			if not device.is_empty():
 				start(device)
 		return

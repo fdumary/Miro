@@ -48,8 +48,10 @@ func show_screen(id: String) -> void:
 			SCREENS.level_select(page, launch_level)
 			back_button()
 		"settings":
-			SCREENS.settings(page, Rect2(130, 70, 380, 180))
+			SCREENS.settings(page, Rect2(130, 70, 380, 180), false, func(): show_screen("controller"))
 			back_button()
+		"controller":
+			SCREENS.controller_settings(page, Rect2(110, 35, 420, 265), func(): show_screen("settings"))
 		"beats":
 			SCREENS.beats(page, Rect2(40, 30, 560, 210))
 			if get_node("/root/Campaign").dev_mode():
@@ -127,8 +129,8 @@ func review_picker() -> void:
 	page.add_child(tracks)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_ESCAPE and screen != "title":
-		show_screen("title")
+	if screen != "title" and event.is_action_pressed("ui_cancel"):
+		show_screen("settings" if screen == "controller" else "title")
 		get_viewport().set_input_as_handled()
 
 func launch_level(number: int) -> void:

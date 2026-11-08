@@ -44,6 +44,8 @@ Right click drops a physical charge; E recovers it intact; left click detonates 
 
 ## PlayStation controls
 
+Settings → Controller shows connected controllers and updates on connect or disconnect. Stick deadzone, right-stick vertical inversion, L3 hold or toggle, and Niro’s speaker output are saved separately from keyboard controls.
+
 - Left stick moves and climbs; right stick aims. Cross interacts at a grounded prompt, advances dialogue, or jumps when there is no interaction. Circle dodges.
 - Square reloads. Triangle selects the blanket; R2 uses it. L3 toggles crouch.
 - L1/R1 cycle items. L2 focuses a gun or places C4. R2 uses the selected item. Touchpad click opens inventory; Options pauses.
