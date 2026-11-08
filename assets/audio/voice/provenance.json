@@ -12626,5 +12626,173 @@
       "output_lufs": "-18.03",
       "output_true_peak_dbtp": "-7.41"
     }
+  },
+  "rook_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "nPczCjzI2devNBz1zQrb",
+    "voice_name": "Brian (premade)",
+    "model_id": "eleven_v3",
+    "text": "Up here? Clever. Not clever enough.",
+    "delivery": "[shouting] [smug]",
+    "signature": "b137fac67360d19e310048da07984b0ae601dc7c5e457548d2a4cbbb569a87d9",
+    "leveling": {
+      "source_sha256": "352b824f6635d3aa9f52617ca76900cb7858010b8bbe33d698698f9c68930d7b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.55",
+        "input_tp": "-0.84",
+        "input_lra": "0.30",
+        "input_thresh": "-29.04",
+        "output_i": "-17.78",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.12",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.22"
+      },
+      "output_lufs": "-17.81",
+      "output_true_peak_dbtp": "-1.82"
+    }
+  },
+  "rook_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "nPczCjzI2devNBz1zQrb",
+    "voice_name": "Brian (premade)",
+    "model_id": "eleven_v3",
+    "text": "Nobody falls off a ledge that quietly.",
+    "delivery": "[shocked] [smug]",
+    "signature": "522e76f99f7d6cd185e066510dd654fbb6f22453910468dbdfc5ce93bf5fa487",
+    "leveling": {
+      "source_sha256": "e7969b32ff44d9508de620267e54b76267b304f868a274bec9968edef7cd4abc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.72",
+        "input_tp": "-1.99",
+        "input_lra": "0.00",
+        "input_thresh": "-28.72",
+        "output_i": "-18.74",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.74",
+        "normalization_type": "linear",
+        "target_offset": "0.74"
+      },
+      "output_lufs": "-18.72",
+      "output_true_peak_dbtp": "-1.92"
+    }
+  },
+  "prisoner_98f58765c8": {
+    "provider": "ElevenLabs",
+    "voice_id": "ZWXPFGxJbpddE1lBgldf",
+    "voice_name": "Sick prisoner (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Don't. They'll only take more of us.",
+    "delivery": "[weak] [coughs]",
+    "signature": "4a24dc082e527330cd7ffd272a2c9d4cd4ae1b2e199826d154d95a55347bd9cb",
+    "leveling": {
+      "source_sha256": "ae4dcf6d8f45794c8a9cf26f15dd36212f1211ffe19b8e34033e8dc839354f5b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.34",
+        "input_tp": "-1.36",
+        "input_lra": "0.70",
+        "input_thresh": "-31.48",
+        "output_i": "-17.73",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.82",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.27"
+      },
+      "output_lufs": "-17.82",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "rook_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "nPczCjzI2devNBz1zQrb",
+    "voice_name": "Brian (premade)",
+    "model_id": "eleven_v3",
+    "text": "Best view in the tower. Worst pay.",
+    "delivery": "[smug] [muttering]",
+    "signature": "16d3ba928f69d0c3ab5a438e0a9341c57aa05247ff286ef6367b4e693c972e0b",
+    "leveling": {
+      "source_sha256": "3f31986abe5615e47f50a80dba666e9ed56759c2c4847ce02eb35815a4e6b046",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.65",
+        "input_tp": "-0.66",
+        "input_lra": "0.00",
+        "input_thresh": "-27.86",
+        "output_i": "-19.00",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.21",
+        "normalization_type": "linear",
+        "target_offset": "1.00"
+      },
+      "output_lufs": "-18.99",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "rook_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "nPczCjzI2devNBz1zQrb",
+    "voice_name": "Brian (premade)",
+    "model_id": "eleven_v3",
+    "text": "They told me nobody climbs up here. So why am I up here?",
+    "delivery": "[smug] [muttering]",
+    "signature": "d74fe4e2c524f05f1241b6007646a056438494a41fe71210ec96c36acfdbfaf7",
+    "leveling": {
+      "source_sha256": "2682a5b735f7d36130781941de27be2c35fca9eae45cc14241dab0df66e305e6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.08",
+        "input_tp": "-1.28",
+        "input_lra": "1.80",
+        "input_thresh": "-29.47",
+        "output_i": "-17.64",
+        "output_tp": "-2.00",
+        "output_lra": "1.10",
+        "output_thresh": "-28.08",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.36"
+      },
+      "output_lufs": "-18.64",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "judas_85258169f8": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger - Laid-Back, Casual, Resonant",
+    "model_id": "eleven_v3",
+    "text": "Careful. I can still hear you.",
+    "delivery": "[stern] [coughs] [greedy]",
+    "signature": "cd2bd6070034f7e6a38087951b1f2bc519a9b33a9ba86fbcbf3a996f7039ccd9",
+    "leveling": {
+      "source_sha256": "d81131715cbcbf5246488f9a34d834f757614f0be58e8f26f72cbb5b6d6c1c42",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.58",
+        "input_tp": "-1.56",
+        "input_lra": "0.60",
+        "input_thresh": "-31.65",
+        "output_i": "-17.62",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.52",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.38"
+      },
+      "output_lufs": "-18.09",
+      "output_true_peak_dbtp": "-1.37"
+    }
   }
 }
