@@ -17806,5 +17806,229 @@
       "output_lufs": "-18.65",
       "output_true_peak_dbtp": "-2.30"
     }
+  },
+  "niro_2f45c56d5d": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "You have the remote. Keep it close, and keep quiet.",
+    "delivery": "[intense]",
+    "signature": "f5fb4c6833d454a89f483d6bd0de7dcfe8181769e55096b7fd3fb208aae5d6ba",
+    "leveling": {
+      "source_sha256": "282b8d39bfe09b7a7be80ca68d2fbbf6d5f09a63e1f053e6d15160875229e2d5",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.36",
+        "input_tp": "-1.97",
+        "input_lra": "2.40",
+        "input_thresh": "-29.41",
+        "output_i": "-18.74",
+        "output_tp": "-2.00",
+        "output_lra": "2.30",
+        "output_thresh": "-28.83",
+        "normalization_type": "dynamic",
+        "target_offset": "0.74"
+      },
+      "output_lufs": "-18.57",
+      "output_true_peak_dbtp": "-1.74"
+    }
+  },
+  "niro_946d693f1a": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "If you go any lower, I can't protect you.",
+    "delivery": "[intense]",
+    "signature": "0478475a3bf85fd8578a769364362b0a3f99cf699b1efa8496350d267de69d1c",
+    "leveling": {
+      "source_sha256": "bf3b6f2452368f1a3bba8980c873b0a4e29aea3ef76a477edfb2f4872ff346e6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.74",
+        "input_tp": "-2.66",
+        "input_lra": "0.30",
+        "input_thresh": "-30.89",
+        "output_i": "-18.27",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.41",
+        "normalization_type": "dynamic",
+        "target_offset": "0.27"
+      },
+      "output_lufs": "-18.16",
+      "output_true_peak_dbtp": "-1.84"
+    }
+  },
+  "niro_00b98dd0e5": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Now you know my name. Please, stop at the records.",
+    "delivery": "[pleading]",
+    "signature": "eebd925621359a2c597c5e361628e6342b9165e02f7e37d1687c63534f8b2b73",
+    "leveling": {
+      "source_sha256": "f3ba83d2082cce194b2ee4607c575774981de0612298d9f16f696ebefb1e829a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.01",
+        "input_tp": "-1.13",
+        "input_lra": "2.00",
+        "input_thresh": "-29.62",
+        "output_i": "-16.73",
+        "output_tp": "-2.00",
+        "output_lra": "0.50",
+        "output_thresh": "-27.44",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.27"
+      },
+      "output_lufs": "-17.48",
+      "output_true_peak_dbtp": "-1.84"
+    }
+  },
+  "niro_177eb18f68": {
+    "provider": "ElevenLabs",
+    "voice_id": "iX1zz6Y13Hsin5IIccLG",
+    "voice_name": "Niro (designed voice, preview 1)",
+    "model_id": "eleven_v3",
+    "text": "Don't come down here, Miro. Please.",
+    "delivery": "[pleading]",
+    "signature": "1d8b361dbed9c553587df598fdd4cfa4e0a2221feec6f81ef5cb76831960cd7c",
+    "leveling": {
+      "source_sha256": "544a56cf115af6f16ca386850c489644828d178e3db9c1ea2b9704672567a7ac",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.49",
+        "input_tp": "-2.13",
+        "input_lra": "0.10",
+        "input_thresh": "-29.96",
+        "output_i": "-18.04",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.53",
+        "normalization_type": "dynamic",
+        "target_offset": "0.04"
+      },
+      "output_lufs": "-17.78",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "miro_b75ff64236": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Someone is guiding me down. I should find out why.",
+    "delivery": "[whispers]",
+    "signature": "d665e3e5e2f759fde81463abdc12d72e89f36bfdc13acbdc7deebc319378696f",
+    "leveling": {
+      "source_sha256": "4a72917310866ce76a73363e503866c006f8470f2978254bc59467407f6fb6c8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.20",
+        "input_tp": "-3.38",
+        "input_lra": "2.00",
+        "input_thresh": "-28.78",
+        "output_i": "-15.36",
+        "output_tp": "-2.00",
+        "output_lra": "1.30",
+        "output_thresh": "-25.75",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.64"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.17"
+    }
+  },
+  "miro_96f894ce07": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "From who?",
+    "delivery": "[whispers]",
+    "signature": "5ca9eea6c3c9afc06c58bce8359a26bb5b412ed960bfd09f46ea88d486697a83",
+    "leveling": {
+      "source_sha256": "7b95be919ab64ac969896234649441b2d92a6790656ae5775bdb399c0e3269f9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.09",
+        "input_tp": "-6.99",
+        "input_lra": "1.80",
+        "input_thresh": "-32.18",
+        "output_i": "-13.85",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-24.94",
+        "normalization_type": "dynamic",
+        "target_offset": "-4.15"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.11"
+    }
+  },
+  "miro_d57b5c2e12": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Brother. The word feels true, and I hate that.",
+    "delivery": "[whispers]",
+    "signature": "3c84b4c24f3f5fc159367b8e8c9ec289e0bdc035ac60f147a5f9d9b0b7232c0a",
+    "leveling": {
+      "source_sha256": "f4a655c0c0de174917c3513bcd0bc48edf9ab7f2b3bf09b0c5e0d7dd875ae1fd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.65",
+        "input_tp": "-4.29",
+        "input_lra": "3.60",
+        "input_thresh": "-30.38",
+        "output_i": "-18.32",
+        "output_tp": "-3.26",
+        "output_lra": "0.60",
+        "output_thresh": "-29.14",
+        "normalization_type": "dynamic",
+        "target_offset": "0.32"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.67"
+    }
+  },
+  "miro_030b513d8a": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The seals, the supports. Everything rests on the floor below.",
+    "delivery": "[whispers]",
+    "signature": "f505ca2a6b2d9d2197cf10eb5b85f82767307475f2394c539ff8cab872361805",
+    "leveling": {
+      "source_sha256": "69df0c7f1945c24be0cfc692c922186ea2c77fd67094083e1b77b06bde762629",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.10",
+        "input_tp": "-5.53",
+        "input_lra": "3.80",
+        "input_thresh": "-33.38",
+        "output_i": "-16.51",
+        "output_tp": "-2.00",
+        "output_lra": "3.00",
+        "output_thresh": "-26.77",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.49"
+      },
+      "output_lufs": "-17.66",
+      "output_true_peak_dbtp": "-1.88"
+    }
   }
 }
