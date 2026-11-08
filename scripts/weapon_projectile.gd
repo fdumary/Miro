@@ -8,6 +8,9 @@ var speed := 700.0
 var remaining := 420.0
 var damage := 2
 var enemy := false
+## SMG rounds lose punch over distance (down to 40% at long range); pistols don't.
+var falloff := false
+var travelled := 0.0
 var sprite: Texture2D
 var trail_start := Vector2.ZERO
 
@@ -31,7 +34,7 @@ func _physics_process(delta: float) -> void:
 		global_position = hit.position
 		var target = hit.collider
 		if target is IntroGuard and not target.is_dead:
-			target.take_damage(1 if target.has_method("begin_recovery") else damage)
+			target.take_damage(1 if target.has_method("begin_recovery") else shot_damage(), true)
 		elif not enemy and target.is_in_group("tower_turrets"):
 			target.take_turret_hit()
 			queue_free()
@@ -44,6 +47,7 @@ func _physics_process(delta: float) -> void:
 		return
 	global_position = destination
 	remaining -= distance
+	travelled += distance
 	queue_redraw()
 	if remaining <= 0:
 		queue_free()
@@ -57,6 +61,11 @@ func _draw() -> void:
 ## Guards are hit by where the round actually passes, not just their collision capsule:
 ## the head (a generous box) is an instant kill and the body box reaches out over the
 ## gun they hold, so a Keeper's weapon never blocks a shot at him. Walls and beds still do.
+func shot_damage() -> int:
+	if not falloff:
+		return damage
+	return maxi(1, roundi(float(damage) * (1.0 - 0.6 * clampf(travelled / 320.0, 0.0, 1.0))))
+
 func strike_guard(from: Vector2, to: Vector2) -> bool:
 	var length := from.distance_to(to)
 	var steps := maxi(1, int(length / 3.0))
@@ -76,7 +85,7 @@ func strike_guard(from: Vector2, to: Vector2) -> bool:
 				level.emit_effect("hit", point)
 				return true
 			if body.has_point(local):
-				guard.take_damage(1 if guard.has_method("begin_recovery") else damage)
+				guard.take_damage(1 if guard.has_method("begin_recovery") else shot_damage(), true)
 				level.emit_effect("hit", point)
 				return true
 	return false

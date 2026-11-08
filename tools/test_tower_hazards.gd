@@ -54,12 +54,14 @@ func run() -> void:
 	check(player.health < starting_health, "An exposed Miro can be hit by the turret")
 	player.position = turret.position + Vector2(-34, -15)
 	player.facing = 1
-	for hit in range(3):
+	for hit in range(4):
 		player.attack_cooldown = 0.0
 		player.shank()
-		check(turret.health == 2 - hit, "Stab %d takes exactly one turret HP" % (hit + 1))
+		check(turret.health == 8 - 2 * hit, "Stab %d takes one HP (two hits) of the turret's five" % (hit + 1))
+	player.attack_cooldown = 0.0
+	player.shank()
 	await frames(2)
-	check(not is_instance_valid(turret), "Third stab destroys the turret")
+	check(not is_instance_valid(turret), "Fifth stab destroys the turret")
 	player.invulnerability_left = 5.0
 	player.position = spikes.position + Vector2(0, -15)
 	await frames(8)
@@ -127,14 +129,15 @@ func run() -> void:
 		player.has_gun = true
 		player.equipped_gun = "pistol"
 		player.ammunition = 3
-		for hit in range(2):
+		player.ammunition = 12
+		for hit in range(9):
 			player.attack_cooldown = 0.0
 			player.fire_gun()
 			await frames(8)
-			check(floor_turret.health == 2 - hit, "Pistol shot %d takes exactly one turret HP" % (hit + 1))
+			check(floor_turret.health == 9 - hit, "Pistol shot %d takes one hit of the turret's ten" % (hit + 1))
 		player.attack_cooldown = 0.0
 		player.fire_gun()
 		await frames(8)
-		check(not is_instance_valid(floor_turret), "Third pistol shot destroys the turret")
+		check(not is_instance_valid(floor_turret), "Tenth pistol shot destroys the turret")
 	print("TOWER_HAZARDS_RESULT: %d/%d passed" % [checks - failures.size(), checks])
 	quit(0 if failures.is_empty() else 1)

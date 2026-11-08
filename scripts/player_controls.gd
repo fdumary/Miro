@@ -715,7 +715,7 @@ func detonate_charges() -> void:
 			player.level.open_door()
 		for guard in player.level.guards():
 			if guard.global_position.distance_to(point) < BLAST_RADIUS and player.level.clear_sight(point, guard.global_position):
-				guard.take_damage(3)
+				guard.take_damage(16, true)
 		# One charge is enough for a turret: stuck to it, or anywhere in the blast.
 		for turret in get_tree().get_nodes_in_group("tower_turrets"):
 			if not is_instance_valid(turret) or turret.health <= 0:

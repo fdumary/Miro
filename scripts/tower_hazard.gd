@@ -13,7 +13,8 @@ var level: Node2D
 var kind := "spikes"
 var aim := PI
 var charge := 0.0
-var health := 3
+## 5 HP: ten shots, five stabs, or any C4.
+var health := 10
 var disabled := false
 var stun_left := 0.0
 
@@ -80,10 +81,10 @@ func _physics_process(delta: float) -> void:
 func target_point() -> Vector2:
 	return to_global(PIVOT)
 
-func take_turret_hit() -> void:
+func take_turret_hit(amount := 1) -> void:
 	if health <= 0:
 		return
-	health -= 1
+	health -= amount
 	level.emit_effect("hit", target_point())
 	if health == 0:
 		queue_free()

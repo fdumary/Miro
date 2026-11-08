@@ -69,7 +69,7 @@ func run() -> void:
 	level.player.facing = 1
 	level.player.attack_cooldown = 0
 	level.player.shank()
-	check(guard.health == 1 and not guard.is_dead, "Alert guard survives first frontal shank")
+	check(guard.health == 8 and not guard.is_dead, "Alert guard survives first frontal shank (half his health)")
 	level.player.attack_cooldown = 0
 	level.player.shank()
 	check(guard.is_dead, "Second frontal shank defeats alert guard")

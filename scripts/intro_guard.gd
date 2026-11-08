@@ -54,6 +54,8 @@ var chase_speed := 78.0
 var pursuing := false
 var lost_barked := false
 const LOST_LINES := ["Where did he go?", "He was just here!", "Where'd he get to?", "He can't have just vanished.", "Check the shadows. He's close."]
+## Keepers take 4 pistol shots, two face-to-face stabs, or one stab from behind.
+const MAX_HEALTH := 16
 const BODY_SIGHT := 260.0
 const HEARING_RANGE := 85.0
 const BODY_NEARBY := 190.0
@@ -61,7 +63,7 @@ const HOP_SPEED := 300.0
 
 func _ready() -> void:
 	add_to_group("guards")
-	health = 2
+	health = MAX_HEALTH
 	movement_speed = 33.0 if sick_guard else 43.0
 	var campaign = get_node_or_null("/root/Campaign")
 	if campaign != null:
@@ -316,7 +318,9 @@ func receive_shank() -> void:
 	conversation_hold = false
 	turn_away_left = 0
 	var unaware := alert_state != State.ALERT and not detect_player()
-	health -= 2 if unaware else 1
+	# From behind (or unseen) a stab kills outright; face to face it takes two.
+	var behind: bool = (level.player.global_position.x - global_position.x) * facing < 0.0
+	health -= MAX_HEALTH if (unaware or behind) else 8
 	if health <= 0:
 		die()
 	else:
@@ -354,6 +358,10 @@ func die() -> void:
 func _draw() -> void:
 	var pale := Color("f2d3ab")
 	draw_string(ThemeDB.fallback_font, Vector2(-18, -36), guard_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
+	# A hurt Keeper shows a small health bar over his head.
+	if not is_dead and health < MAX_HEALTH and health > 0 and not has_method("begin_recovery"):
+		draw_rect(Rect2(-11, -30, 22, 3), Color(0.1, 0.05, 0.1, 0.8))
+		draw_rect(Rect2(-11, -30, 22.0 * float(health) / MAX_HEALTH, 3), Color("c0392b").lerp(Color("e8c07a"), float(health) / MAX_HEALTH))
 	if asleep:
 		draw_set_transform(Vector2(0, 6), PI / 2 * facing)
 		draw_texture(KEEPER_IDLE, Vector2(-16, -16))

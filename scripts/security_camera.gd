@@ -11,8 +11,8 @@ var cone_points := PackedVector2Array()
 const WATCHER := preload("res://assets/environment/watcher_animation.png")
 
 const PROJECTILE := preload("res://scripts/weapon_projectile.gd")
-## A moss watcher takes three hits (stabs, bullets or C4), like a turret.
-var health := 3
+## A moss watcher has 1 HP: two shots, one stab, or any C4.
+var health := 2
 var disabled := false:
 	get:
 		return not is_active
@@ -31,10 +31,10 @@ func _ready() -> void:
 func target_point() -> Vector2:
 	return global_position
 
-func take_turret_hit() -> void:
+func take_turret_hit(amount := 1) -> void:
 	if health <= 0:
 		return
-	health -= 1
+	health -= amount
 	level.emit_effect("hit", global_position)
 	if health == 0:
 		queue_free()

@@ -128,7 +128,7 @@ func begin_recovery() -> void:
 func receive_shank() -> void:
 	take_damage(1)
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, _ignore_recovery := false) -> void:
 	if not is_vulnerable or current_phase == Phase.RETREAT or is_dead:
 		return
 	if invulnerability_left > 0:

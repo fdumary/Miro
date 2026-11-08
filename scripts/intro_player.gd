@@ -270,7 +270,7 @@ func shank() -> void:
 				reach = difference.length_squared()
 	if target != null:
 		if target.is_in_group("tower_turrets"):
-			target.take_turret_hit()
+			target.take_turret_hit(2)
 		else:
 			target.receive_shank()
 
@@ -372,7 +372,8 @@ func fire_gun() -> void:
 	bullet.level = level
 	bullet.shooter = self
 	bullet.direction = aim_direction
-	bullet.damage = 2 if equipped_gun == "pistol" else 1
+	bullet.damage = 4 if equipped_gun == "pistol" else 3
+	bullet.falloff = equipped_gun != "pistol"
 	# Start at the body so a muzzle offset cannot spawn beyond a nearby wall.
 	bullet.position = position + Vector2(0, -4)
 	level.add_child(bullet)
@@ -384,11 +385,11 @@ func fire_gun() -> void:
 	casing.velocity = Vector2(-facing * 65, -100)
 	level.add_child(casing)
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, ignore_recovery := false) -> void:
 	if dodge_left > 0:
 		return
 	var previous_health := health
-	super.take_damage(amount)
+	super.take_damage(amount, ignore_recovery)
 	if health < previous_health:
 		in_hiding_spot = false
 		get_node("/root/SoundFX").play_sound("hit", -16)

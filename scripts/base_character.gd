@@ -7,8 +7,8 @@ extends CharacterBody2D
 var is_dead: bool = false
 var invulnerability_left: float = 0.0
 
-func take_damage(amount: int) -> void:
-	if is_dead or invulnerability_left > 0.0:
+func take_damage(amount: int, ignore_recovery := false) -> void:
+	if is_dead or (invulnerability_left > 0.0 and not ignore_recovery):
 		return
 	health = maxi(0, health - amount)
 	invulnerability_left = 0.8
