@@ -39,6 +39,8 @@ var trapdoors: Array[Node2D] = []
 ## Miro's inner voice plays on the Thought bus (long, spacey reverb). Drop clips at
 ## res://assets/audio/voice/thought_<floor>_<id>.mp3 to voice a thought.
 var thought_voice: AudioStreamPlayer
+const TURRET_HINT := "I smell a turret. Maybe I can use one of my C4 to destroy it."
+var turret_hinted := false
 ## Individual Keeper profiles and authored casting (data/guard_roster.json).
 var roster: Dictionary = {}
 ## Extra overheard scenes after the main conversation: huddles and add_casual_lines().
@@ -139,6 +141,7 @@ func place_props_after_physics() -> void:
 	add_props()
 
 func add_props() -> void:
+	level.player.set_collision_mask_value(6, true)  # crates and window sills
 	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
 	if authored.has("cases"):
 		# Authored layouts place every case and hiding spot by hand (tools/level_layouts.py).
@@ -634,6 +637,13 @@ func update_bubbles(delta: float) -> void:
 		thought_bubble.visible = thought_left > 0
 		thought_bubble.follow_actor()
 		return
+	# The first time a live turret comes into view, Miro sizes it up.
+	if not turret_hinted:
+		for turret in get_tree().get_nodes_in_group("tower_turrets"):
+			if level.is_ancestor_of(turret) and turret.health > 0 and not turret.disabled and turret.target_point().distance_to(level.player.global_position) < 230 and level.clear_sight(level.player.global_position, turret.target_point()):
+				turret_hinted = true
+				think(TURRET_HINT)
+				return
 	for entry in thoughts.get(str(floor_number), []):
 		if thought_seen.has(entry.id):
 			continue

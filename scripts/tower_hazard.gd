@@ -24,9 +24,11 @@ func _ready() -> void:
 		add_to_group("lethal_spikes")
 		var collider := CollisionShape2D.new()
 		var shape := RectangleShape2D.new()
-		shape.size = Vector2(24, 9)
+		# Deep enough that walking under a ceiling or wall run of spikes catches Miro's head;
+		# crouching (16 px tall) slips under.
+		shape.size = Vector2(24, 15)
 		collider.shape = shape
-		collider.position.y = -4.5
+		collider.position.y = -7.5
 		add_child(collider)
 	else:
 		aim = global_rotation + PI
@@ -54,7 +56,9 @@ func _physics_process(delta: float) -> void:
 		return
 	var muzzle := target_point()
 	var offset: Vector2 = level.player.global_position - muzzle
-	if offset.length() > RANGE or level.player.is_concealed or level.player.in_hiding_spot or not level.clear_sight(muzzle, level.player.global_position):
+	# Turrets read heat and motion in the open: the blanket, a hiding spot or a patch of
+	# shadow hides Miro from them.
+	if offset.length() > RANGE or level.player.is_concealed or level.player.in_hiding_spot or level.in_cover(level.player.global_position) or not level.clear_sight(muzzle, level.player.global_position):
 		charge = 0.0
 	else:
 		aim = rotate_toward(aim, offset.angle(), delta * 4.0)

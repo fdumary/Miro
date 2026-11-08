@@ -29,7 +29,7 @@ func _ready() -> void:
 	player.get_node("Camera2D").limit_right = int(definition.world_size[0])
 	player.get_node("Camera2D").limit_bottom = int(definition.world_size[1])
 	player.has_supplies = true
-	player.c4_count = int(definition.get("demolition_charges", 1)) + 1 # One optional charge; story supports stay reserved.
+	player.c4_count = int(definition.get("demolition_charges", 1)) + 3 # Three charges to use freely; story supports stay reserved.
 	door_open = true
 	brother_heard = true
 	for guard in guards():

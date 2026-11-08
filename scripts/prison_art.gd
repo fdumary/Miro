@@ -7,6 +7,13 @@ const VIOLET = Color("8b6d9c")
 const PINK = Color("c69fa5")
 const WARM = Color("f2d3ab")
 
+const WINDOWS := [Vector2(350, 135), Vector2(900, 135), Vector2(560, 330), Vector2(180, 555), Vector2(890, 555)]
+
+func _ready() -> void:
+	super._ready()
+	for point in WINDOWS:
+		add_ledge(Rect2(point + Vector2(-23, 23), Vector2(46, 4)))
+
 func _process(_delta: float) -> void:
 	tick_torches()
 
@@ -25,7 +32,7 @@ func _draw() -> void:
 		for y in range(0, 740, 28):
 			draw_rect(Rect2(x, y, 24, 27), BLUE.darkened(0.15))
 			draw_line(Vector2(x + 2, y + 1), Vector2(x + 21, y + 1), VIOLET.darkened(0.4), 1)
-	for point in [Vector2(350, 135), Vector2(900, 135), Vector2(560, 330), Vector2(180, 555), Vector2(890, 555)]:
+	for point in WINDOWS:
 		window(point)
 	# Cell frame and bars end at the door, leaving the player readable.
 	draw_rect(Rect2(54, 140, 202, 5), VIOLET)

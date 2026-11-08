@@ -276,6 +276,11 @@ def level_2():
     g.put('spikes', 22, 38)
     g.put('spikes', 34, 7, mount='left')
     g.put('spikes', 35, 29, mount='ceiling')
+    # Playtest round 2: more shadows past the sick prisoner, and a Keeper walking the cells
+    # (added last so the roster order of the other Keepers is unchanged).
+    g.put('cover', 20, 9)
+    g.put('cover', 25, 9)
+    g.put('guard', 29, 9, name='CellKeeper', patrol=[24, 32])
     g.put('exit', 3, 45)
     route = [
         {'x': x_of(9)}, {'station': 'SickPrisoner'},

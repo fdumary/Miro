@@ -18,7 +18,7 @@ func run() -> void:
 	check(p.guns.size() == 2 and p.equipped_gun == "smg", "Two distinct guns can be carried")
 	var reserve: int = p.controls.reserves.get("pistol", 0)
 	p.loot_weapon(guards[2])
-	check(guards[2].gun_taken and p.controls.reserves.pistol == reserve + 2, "A duplicate gun becomes reserve ammunition")
+	check(guards[2].gun_taken and p.controls.reserves.pistol == reserve + 3, "A duplicate gun becomes reserve ammunition (at least 3 bullets)")
 	guards[2].gun_taken = false
 	guards[2].weapon_kind = "smg"
 	p.select_gun(0)
@@ -31,7 +31,7 @@ func run() -> void:
 	p.fire_gun()
 	check(p.ammunition == 1 and guards[0].alert_state == IntroGuard.State.SEARCH, "Pistol shot is always audible")
 	p.select_gun(1)
-	check(p.equipped_gun == "smg" and p.ammunition == 12, "Switching back preserves SMG magazine")
+	check(p.equipped_gun == "smg" and p.ammunition == 24, "Switching back preserves SMG magazine (a full mag)")
 	p.ammunition = 0
 	p.attack_cooldown = 0
 	p.fire_gun()

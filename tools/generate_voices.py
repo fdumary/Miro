@@ -180,6 +180,8 @@ def collect_lines(cast):
             if opening:
                 extra.append(opening)
         extra += [branch[reputation]['thought'] for reputation in ('MISSING', 'HUNTED')]
+        source = (ROOT / 'scripts/world_features.gd').read_text(encoding='utf-8')
+        extra += re.findall(r'const TURRET_HINT := "([^"]+)"', source)
         for text in extra:
             if text.strip() and text.strip() not in said:
                 said.add(text.strip())

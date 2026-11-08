@@ -565,6 +565,9 @@ func at_early_port() -> bool:
 func at_checkpoint() -> bool:
 	return get_node("/root/Campaign").current_floor == 3 and player.level.world_features.reachable(player.level.areas.get_node("RemoteTerminal").global_position, 48)
 
+const THROW_SPEED := 190.0
+const BLAST_RADIUS := 130.0
+
 func drop_charge() -> void:
 	# Reserve authored charges so optional explosives cannot soft-lock the story.
 	var reserve := 1
@@ -575,15 +578,24 @@ func drop_charge() -> void:
 				reserve += int(station.get("charge_count", 1))
 	elif player.level.sigil_placed:
 		reserve = 0
-	if player.c4_count <= reserve:
-		player.level.notify("Remaining C4 is reserved for the marked supports. [E] at a support.")
-		return
+	# Every floor gives three charges to use freely (story supports keep their own). Out of
+	# them, the floor hands over a spare, one at a time, so a stuck player always has one.
+	var spare := player.c4_count <= reserve
+	if spare:
+		if planted.any(func(placed): return is_instance_valid(placed)):
+			player.level.notify("Out of C4. Detonate or recover the charge you placed first.")
+			return
+		player.level.notify("Out of C4. A spare charge turns up in your pack.")
 	var charge := Node2D.new()
 	charge.set_script(preload("res://scripts/dropped_charge.gd"))
-	charge.position = player.position
+	charge.position = player.position + Vector2(0, -6)
+	# A short lunge toward the aim (mouse or right stick), or forward and a little up.
+	var direction: Vector2 = player.aim_direction if (player.mouse_aim or pad_aim) else Vector2(player.facing, 0)
+	charge.velocity = (direction.normalized() + Vector2(0, -0.35)).normalized() * THROW_SPEED
 	player.level.add_child(charge)
 	planted.append(charge)
-	player.c4_count -= 1
+	if not spare:
+		player.c4_count -= 1
 	player.end_stealth()
 
 func nearest_charge():
@@ -624,11 +636,18 @@ func detonate_charges() -> void:
 		player.level.emit_effect("breach", point)
 		player.level.make_noise(point, 700)
 		get_node("/root/SoundFX").play_sound("collapse", -20)
-		if get_node("/root/Campaign").current_floor == 1 and not player.level.door_open and point.distance_to(player.level.get_node("Interactables/CellLock").global_position) < 65:
+		if get_node("/root/Campaign").current_floor == 1 and not player.level.door_open and point.distance_to(player.level.get_node("Interactables/CellLock").global_position) < 100:
 			player.level.route = "C4 breach"
 			player.level.open_door()
 		for guard in player.level.guards():
-			if guard.global_position.distance_to(point) < 90 and player.level.clear_sight(point, guard.global_position):
+			if guard.global_position.distance_to(point) < BLAST_RADIUS and player.level.clear_sight(point, guard.global_position):
 				guard.take_damage(3)
+		# One charge is enough for a turret: stuck to it, or anywhere in the blast.
+		for turret in get_tree().get_nodes_in_group("tower_turrets"):
+			if not is_instance_valid(turret) or turret.health <= 0:
+				continue
+			if charge.attached == turret or (turret.target_point().distance_to(point) < BLAST_RADIUS and player.level.clear_sight(point, turret.target_point())):
+				turret.health = 1
+				turret.take_turret_hit()
 		charge.queue_free()
 	planted.clear()

@@ -50,6 +50,8 @@ var suspicion_rate := 1.0
 var windup_time := 0.65
 var attack_gap := 2.1
 var chase_speed := 78.0
+## True while a Keeper who lost sight of Miro is still running after him.
+var pursuing := false
 
 func _ready() -> void:
 	add_to_group("guards")
@@ -105,8 +107,16 @@ func _physics_process(delta: float) -> void:
 		else:
 			alert_state = State.SUSPICIOUS
 	elif alert_state == State.ALERT or alert_state == State.SUSPICIOUS:
+		# Losing sight of Miro mid-chase doesn't stop a Keeper: he runs on to where Miro was
+		# heading, then searches. A suspicious Keeper just goes to look.
+		pursuing = alert_state == State.ALERT
+		if pursuing:
+			var heading := signf(level.player.velocity.x)
+			if heading == 0:
+				heading = signf(last_known_position.x - global_position.x)
+			last_known_position.x += heading * 140.0
 		alert_state = State.SEARCH
-		search_left = 5.0
+		search_left = 8.0 if pursuing else 5.0
 		suspicion = maxf(0.0, suspicion - delta)
 	for body in level.guards():
 		if body != self and body.is_dead and not seen_bodies.has(body.get_instance_id()) and can_see_point(body.global_position):
@@ -142,8 +152,9 @@ func _physics_process(delta: float) -> void:
 		search_left -= delta
 		if absf(last_known_position.x - global_position.x) > 12:
 			facing = signf(last_known_position.x - global_position.x)
-			velocity.x = facing * 42.0
+			velocity.x = facing * (chase_speed if pursuing else 42.0)
 		else:
+			pursuing = false
 			facing = 1.0 if int(time) % 2 == 0 else -1.0
 		if search_left <= 0:
 			alert_state = State.PATROL

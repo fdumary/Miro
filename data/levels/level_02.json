@@ -349,6 +349,30 @@
       ]
     },
     {
+      "name": "Shadow15",
+      "kind": "cover",
+      "position": [
+        574.0,
+        216
+      ],
+      "size": [
+        64,
+        72
+      ]
+    },
+    {
+      "name": "Shadow16",
+      "kind": "cover",
+      "position": [
+        714.0,
+        216
+      ],
+      "size": [
+        64,
+        72
+      ]
+    },
+    {
       "name": "StairGate",
       "kind": "exit",
       "position": [
@@ -440,6 +464,16 @@
       ],
       "patrol_left": 854.0,
       "patrol_right": 1302.0,
+      "sick": false
+    },
+    {
+      "name": "CellKeeper",
+      "position": [
+        826.0,
+        236
+      ],
+      "patrol_left": 686.0,
+      "patrol_right": 910.0,
       "sick": false
     }
   ],
@@ -3728,13 +3762,58 @@
   "gates": [],
   "features": {
     "hazards": [
-      {"kind": "turret", "position": [826, 448]},
-      {"kind": "turret", "position": [1218, 1064]},
-      {"kind": "turret", "position": [1008, 182], "mount": "right"},
-      {"kind": "spikes", "position": [350, 868]},
-      {"kind": "spikes", "position": [630, 1064]},
-      {"kind": "spikes", "position": [952, 210], "mount": "left"},
-      {"kind": "spikes", "position": [994, 840], "mount": "ceiling"}
+      {
+        "kind": "turret",
+        "position": [
+          826.0,
+          448
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1218.0,
+          1064
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1008.0,
+          182.0
+        ],
+        "mount": "right"
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          350.0,
+          868
+        ]
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          630.0,
+          1064
+        ]
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          952.0,
+          210.0
+        ],
+        "mount": "left"
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          994.0,
+          840
+        ],
+        "mount": "ceiling"
+      }
     ],
     "cases": [
       [

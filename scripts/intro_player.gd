@@ -287,8 +287,9 @@ func loot_weapon(guard: IntroGuard) -> void:
 		pending_guard = guard
 		level.notify("Take %s? [Z] replace %s / [X] replace %s / [Esc] cancel" % [guard.weapon_kind, guns[0], guns[1]], 30)
 
+## Bullets a fallen Keeper drops: at least 3 for a pistol, a full magazine for an SMG.
 func weapon_ammo(kind: String) -> int:
-	return 2 if kind == "pistol" else 12
+	return 3 if kind == "pistol" else controls.capacity("smg")
 
 func resolve_weapon_choice(slot: int) -> void:
 	if not is_instance_valid(pending_guard):
