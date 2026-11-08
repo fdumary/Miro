@@ -129,6 +129,10 @@ func run() -> void:
 		player.has_gun = true
 		player.equipped_gun = "pistol"
 		player.ammunition = 3
+		# Keepers (a terminal guard spawns late) must not stand in the line of fire.
+		for stray in level.guards():
+			stray.queue_free()
+		await frames(2)
 		player.ammunition = 12
 		for hit in range(9):
 			player.attack_cooldown = 0.0
