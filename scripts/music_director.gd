@@ -46,12 +46,14 @@ func _ready() -> void:
 		AudioServer.set_bus_name(thought_bus, "Thought")
 		AudioServer.set_bus_send(thought_bus, "Voice")
 		var reverb := AudioEffectReverb.new()
-		reverb.room_size = 0.95
+		reverb.room_size = 0.75
 		reverb.damping = 0.2
 		reverb.spread = 1.0
 		reverb.predelay_msec = 90
-		reverb.wet = 0.55
-		reverb.dry = 0.6
+		reverb.wet = 0.2
+		# No low end in the reverb tail: only the dry voice keeps its body.
+		reverb.hipass = 0.8
+		reverb.dry = 0.9
 		AudioServer.add_bus_effect(thought_bus, reverb)
 	catalog = JSON.parse_string(FileAccess.get_file_as_string("res://data/music/runtime_catalog.json")).tracks
 	lowpass = AudioEffectLowPassFilter.new()

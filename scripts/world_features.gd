@@ -246,6 +246,15 @@ func security_terminal() -> Node2D:
 			distance = gap
 	return nearest
 
+## Every security camera on this floor goes dark (records terminals and the MP3 at one).
+func disable_cameras() -> int:
+	var count := 0
+	for node in level.find_children("*", "", true, false):
+		if node.get_script() == preload("res://scripts/security_camera.gd") and node.is_active:
+			node.disable()
+			count += 1
+	return count
+
 func disable_turrets() -> int:
 	var count := 0
 	for turret in get_tree().get_nodes_in_group("tower_turrets"):
@@ -644,7 +653,11 @@ func think(text: String, clip := "") -> void:
 	thought_bubble.text_label.text = text
 	thought_left = maxf(4, text.length() * 0.07)
 	var path := "res://assets/audio/voice/%s.mp3" % clip
-	if not clip.is_empty() and ResourceLoader.exists(path) and DisplayServer.get_name() != "headless":
+	# Thoughts without their own clip (floor openings, MISSING/HUNTED thoughts) use Miro's
+	# text-hashed clip, like his dialogue.
+	if clip.is_empty() or not ResourceLoader.exists(path):
+		path = preload("res://scripts/remote_radio.gd").clip_path(text, "miro")
+	if ResourceLoader.exists(path) and DisplayServer.get_name() != "headless":
 		thought_voice.stream = load(path)
 		thought_voice.play()
 

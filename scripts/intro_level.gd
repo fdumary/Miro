@@ -8,6 +8,9 @@ var radio_line := ""
 var card: Control
 var door_open: bool = false
 var sigil_placed: bool = false
+## Niro over the remote when Level 1 ends ("The remote crackles").
+const FLOOR_END_CRACKLE := "...Miro?"
+var crackle_played := false
 var brother_heard: bool = false
 var completed: bool = false
 var paused: bool = false
@@ -223,6 +226,8 @@ func _process(delta: float) -> void:
 				radio.say_in_room(str(line[1]), "pa")
 			elif str(line[0]) == "JUDAS":
 				radio.say_in_room(str(line[1]), "judas")
+			elif str(line[0]) in ["PRISONER", "THE PRISONER"]:
+				radio.say_in_room(str(line[1]), "prisoner")
 			elif str(line[0]) == "MIRO":
 				radio.say_in_room(str(line[1]), "miro", "Thought" if dialogue_panel.thought else "Voice")
 			else:
@@ -233,6 +238,10 @@ func _process(delta: float) -> void:
 	# Paused: the pause menu (scripts/pause_menu.gd) covers the screen instead.
 	overlay.visible = completed or player.is_dead
 	if completed:
+		if not crackle_played:
+			# The remote crackles with his brother's voice as the floor report comes up.
+			crackle_played = true
+			get_node("/root/RemoteRadio").say(FLOOR_END_CRACKLE)
 		var raw := floor_raw_stats()
 		overlay_label.text = "THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   ·   %s   ·   Kills %d   ·   Seen %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, get_node("/root/Campaign").style_word(raw), raw.kills, raw.detections]
 	elif player.is_dead:
@@ -335,9 +344,12 @@ func speaker_anchor(speaker: String) -> Node2D:
 			if boss != null and is_instance_valid(boss):
 				return boss
 			return player
-		"A VOICE BEYOND THE BARS", "THE VOICE":
+		"A VOICE BEYOND THE BARS":
 			var gate = nearby("brother", 200)
 			return gate if gate else player
+		"THE VOICE":
+			# His brother is never in the room as "The Voice": it always comes through the remote.
+			return player
 	var reading = nearby("note", 90)
 	if reading == null:
 		reading = nearby("sigil", 90)
@@ -556,7 +568,7 @@ func interact() -> void:
 func start_brother() -> void:
 	var response := "You took his life. Was that necessary?" if player.casualty_count > 0 else "You got past him without killing. There is still time to stop."
 	start_dialogue([
-		["A VOICE BEYOND THE BARS", "Miro. Please. Don't go any lower.\n%s" % response],
+		["THE VOICE", "Miro. Please. Don't go any lower.\n%s" % response],
 		["MIRO", "You know my name. Do I know you?"],
 		["THE VOICE", "You used to. Stay there. Let me help you."],
 		["MIRO", "That voice should mean something. It hurts that it doesn't.\nI can't stay here.", "thought"]

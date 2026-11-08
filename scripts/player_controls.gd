@@ -526,7 +526,7 @@ func run_command(raw: String) -> void:
 			if at_checkpoint():
 				player.level.world_features.terminal_authenticated = true
 			turret_login = terminal
-			output.text = "Authenticated. " + ("Use turrets off for this floor." if terminal != null else "Type help for available commands.")
+			output.text = "Authenticated. " + ("Use cameras off or turrets off for this floor." if terminal != null else "Type help for available commands.")
 	elif text == "turrets off":
 		var terminal: Node2D = player.level.world_features.security_terminal()
 		if terminal == null or (terminal != turret_login and not (at_checkpoint() and player.level.world_features.terminal_authenticated)):
@@ -548,6 +548,12 @@ func run_command(raw: String) -> void:
 		if at_checkpoint() and player.level.world_features.terminal_authenticated:
 			close_panels()
 			player.level.hack_remaining = 1.0
+			return
+		# Any records terminal you've logged into controls this floor's cameras too.
+		var terminal: Node2D = player.level.world_features.security_terminal()
+		if terminal != null and terminal == turret_login:
+			var count: int = player.level.world_features.disable_cameras()
+			output.text = "Cameras disabled on this floor: %d" % count if count > 0 else "No active cameras on this floor."
 		else:
 			output.text = "Connect locally and authenticate first: login <password>"
 	else:

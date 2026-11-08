@@ -124,6 +124,7 @@ def collect_lines(cast):
     for reputation in ('MISSING', 'HUNTED'):
         niro += [branch[reputation]['remote_call'], branch[reputation]['boss_prefight']]
     niro += branch['kill_disappointment']
+    niro.append('...Miro?')  # Level 1 floor report: the remote crackles.
     source = (ROOT / 'scripts/intro_level.gd').read_text()
     for speaker, text in re.findall(r'\["([A-Z ]+)", "((?:[^"\\]|\\.)*)"', source):
         if speaker in NIRO_SPEAKERS and '%' not in text and text not in NIRO_SPEAKERS:
@@ -172,10 +173,34 @@ def collect_lines(cast):
             if text.strip() and text.strip() not in said:
                 said.add(text.strip())
                 add('miro_' + text_hash(text), 'miro', text, cast.get('miro_delivery', ''))
+        # Floor openings and the MISSING/HUNTED thoughts are Miro thinking too.
+        extra = []
+        for path in sorted((ROOT / 'data/levels').glob('level_0*.json')):
+            opening = json.loads(path.read_text(encoding='utf-8')).get('opening')
+            if opening:
+                extra.append(opening)
+        extra += [branch[reputation]['thought'] for reputation in ('MISSING', 'HUNTED')]
+        for text in extra:
+            if text.strip() and text.strip() not in said:
+                said.add(text.strip())
+                add('miro_' + text_hash(text), 'miro', text, cast.get('miro_thought_delivery', '[whispers]'))
         thoughts = json.loads((ROOT / 'data/inner_dialogue.json').read_text(encoding='utf-8'))
         for floor, entries in thoughts.items():
             for entry in entries:
                 add(f"thought_{floor}_{entry['id']}", 'miro', entry['text'], cast.get('miro_thought_delivery', '[whispers]'))
+    # The sick prisoner on Level 2.
+    if 'prisoner' in cast['voices']:
+        def prisoners(node):
+            if isinstance(node, list):
+                if len(node) >= 2 and node[0] in ('PRISONER', 'THE PRISONER') and isinstance(node[1], str):
+                    add('prisoner_' + text_hash(node[1]), 'prisoner', node[1], '[weak] [coughs]')
+                for item in node:
+                    prisoners(item)
+            elif isinstance(node, dict):
+                for item in node.values():
+                    prisoners(item)
+        for path in sorted((ROOT / 'data/levels').glob('level_0*.json')):
+            prisoners(json.loads(path.read_text(encoding='utf-8')))
     for reputation in ('MISSING', 'HUNTED'):
         for key in ('pa', 'ending_pa'):
             text = branch[reputation][key]

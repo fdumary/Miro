@@ -4,6 +4,11 @@
   "miro_delivery": "",
   "miro_thought_delivery": "[whispers]",
   "voices": {
+    "prisoner": {
+      "name": "Sick prisoner (voice chosen by RXLA)",
+      "voice_id": "ZWXPFGxJbpddE1lBgldf",
+      "stability": 0.5
+    },
     "miro": {
       "name": "Miro (voice chosen by RXLA)",
       "voice_id": "d3qrd1ge6zWDvUxIeXiH",
