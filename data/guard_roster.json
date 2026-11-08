@@ -1134,6 +1134,17 @@
       ],
       "personality": "an exhausted night-shift guard who barely stays awake",
       "theme": "sleepy"
+    },
+    "Voss": {
+      "alert": "Not on my corridor, friend. Stop!",
+      "body": "Voss is down. Great. Somebody bring a stretcher.",
+      "delivery": "[sarcastic]",
+      "idle": [
+        "They gave me the quiet corridor. Quiet is when things go wrong.",
+        "If a cabinet moves on my shift, I'm filing it as a ghost."
+      ],
+      "personality": "a sarcastic corridor guard who hates the job and trusts no cabinet",
+      "theme": "dry"
     }
   },
   "hunted": {

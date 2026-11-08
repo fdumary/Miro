@@ -3757,6 +3757,20 @@
           852
         ],
         "title": "CABINET"
+      },
+      {
+        "position": [
+          820.0,
+          852
+        ],
+        "title": "VENT"
+      },
+      {
+        "position": [
+          1010.0,
+          852
+        ],
+        "title": "CRATE"
       }
     ],
     "ports": [],
@@ -3809,24 +3823,36 @@
         "name": "EntryClerk",
         "keeper": "Sable",
         "position": [
-          330.0,
-          236
+          690.0,
+          852
         ],
         "patrol": [
-          260.0,
-          470.0
+          640.0,
+          770.0
         ]
       },
       {
         "name": "DeepKeeper",
         "keeper": "Brandt",
         "position": [
-          1200.0,
-          628
+          920.0,
+          852
         ],
         "patrol": [
-          1050.0,
-          1380.0
+          870.0,
+          970.0
+        ]
+      },
+      {
+        "name": "CorridorFlank",
+        "keeper": "Voss",
+        "position": [
+          1290.0,
+          432
+        ],
+        "patrol": [
+          1200.0,
+          1420.0
         ]
       }
     ]

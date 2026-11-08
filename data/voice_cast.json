@@ -475,6 +475,11 @@
       "name": "Maren (extra guard)",
       "voice_id": "psJnoAClXdhH5gn8uKNb",
       "stability": 0.5
+    },
+    "voss": {
+      "name": "Voss - Chris (extra guard)",
+      "voice_id": "2vubyVoGjNJ5HPga4SkV",
+      "stability": 0.5
     }
   },
   "guard_delivery": {
