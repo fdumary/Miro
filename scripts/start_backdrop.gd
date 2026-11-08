@@ -29,7 +29,7 @@ func _ready() -> void:
 	add_child(audio)
 	audio.loop("wind_loop", -24.0, 3.0)
 	if not completed:
-		audio.loop("rain_loop", -15.0, 2.0)
+		audio.loop("rain_loop", -34.0, 2.0)
 	if completed:
 		audio.at(4.0, func(): audio.play("gulls", -26.0))
 
@@ -41,7 +41,7 @@ func _process(delta: float) -> void:
 		if strike >= 0 and strike != last_strike:
 			last_strike = strike
 			# Alternate a close crack and a rolling one so the loop doesn't feel canned.
-			audio.play("thunder_near" if strike % 2 == 0 else "thunder_far", -9.0 if strike % 2 == 0 else -12.0, 0.95 + 0.05 * (strike % 3))
+			audio.play("thunder_near" if strike % 2 == 0 else "thunder_far", -25.0 if strike % 2 == 0 else -28.0, 0.95 + 0.05 * (strike % 3))
 	queue_redraw()
 
 func _draw() -> void:
