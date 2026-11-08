@@ -52,6 +52,8 @@ var attack_gap := 2.1
 var chase_speed := 78.0
 ## True while a Keeper who lost sight of Miro is still running after him.
 var pursuing := false
+const BODY_SIGHT := 260.0
+const BODY_NEARBY := 190.0
 const HOP_SPEED := 300.0
 
 func _ready() -> void:
@@ -120,7 +122,7 @@ func _physics_process(delta: float) -> void:
 		search_left = 8.0 if pursuing else 5.0
 		suspicion = maxf(0.0, suspicion - delta)
 	for body in level.guards():
-		if body != self and body.is_dead and not seen_bodies.has(body.get_instance_id()) and can_see_point(body.global_position):
+		if body != self and body.is_dead and not seen_bodies.has(body.get_instance_id()) and notices_body(body.global_position):
 			seen_bodies.append(body.get_instance_id())
 			body_reported = true
 			if not sees_player:
@@ -258,6 +260,14 @@ func fall_asleep() -> void:
 	windup = 0
 	burst_left = 0
 	suspicion = 0
+
+## A fallen Keeper is hard to miss: seen from further off than a sneaking prisoner, and
+## noticed nearby even with his back turned.
+func notices_body(point: Vector2) -> bool:
+	var difference := point - global_position
+	if absf(difference.y) >= 45 or not level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8)):
+		return false
+	return difference.length() < BODY_SIGHT and (difference.x * facing >= -8 or difference.length() < BODY_NEARBY)
 
 func investigate(point: Vector2) -> void:
 	if is_dead or asleep or sees_player:
