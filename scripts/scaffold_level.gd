@@ -38,6 +38,7 @@ func _ready() -> void:
 	build_hud()
 	apply_difficulty()
 	setup_world_features(int(definition.number))
+	call_deferred("apply_checkpoint")
 	player.controls.has_remote = get_node("/root/Campaign").remote_owned
 	player.controls.remote_unlocked = get_node("/root/Campaign").remote_unlocked
 	var authored: Dictionary = definition.get("features", {})
@@ -83,13 +84,64 @@ func _ready() -> void:
 	var report: String = get_node("/root/Campaign").branch()[reputation].report if int(definition.number) > 2 else ""
 	show_card("floor", "%02d" % int(definition.number), str(definition.title).to_upper(), report, accents.get(int(definition.number), Color("c69fa5")))
 
+## Each storey of a floor is a checkpoint: the first time Miro stands on a deeper one it is
+## saved, and a retry puts him back there with the floor's progress, with every Keeper
+## respawned (the scene reloads).
+func current_storey() -> int:
+	var storeys: Array = definition.get("storeys", [])
+	for index in range(storeys.size()):
+		if player.global_position.y < float(storeys[index]) + 20.0:
+			return index
+	return storeys.size() - 1
+
+func update_checkpoint() -> void:
+	if flow != null or player.is_dead or not player.is_on_floor() or completed:
+		return
+	var campaign = get_node("/root/Campaign")
+	var storey := current_storey()
+	if storey <= int(campaign.checkpoint.get("storey", 0)) and not campaign.checkpoint.is_empty():
+		return
+	if storey == 0 and campaign.checkpoint.is_empty():
+		return
+	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed}
+	notify("Checkpoint.")
+
+func apply_checkpoint() -> void:
+	var saved: Dictionary = get_node("/root/Campaign").checkpoint
+	if saved.is_empty() or int(saved.get("floor", 0)) != int(definition.number) or flow != null or not saved.get("retry", false):
+		return
+	saved.erase("retry")
+	player.global_position = saved.position
+	player.velocity = Vector2.ZERO
+	sigil_placed = bool(saved.get("sigil", false))
+	for id in saved.milestones:
+		milestones[id] = true
+		var node = areas.get_node_or_null(NodePath(str(id)))
+		if node != null:
+			node.activated = true
+			node.queue_redraw()
+		if has_node("Gates"):
+			for gate in $Gates.get_children():
+				if gate.unlock_milestone == str(id):
+					gate.unlock()
+	# Straight back into play: skip the floor's opening scene.
+	dialogue = []
+	dialogue_index = 0
+	dialogue_event = ""
+	notify("Back at your checkpoint. The Keepers are back too.")
+
 func _process(delta: float) -> void:
 	super._process(delta)
-	# Level 2: his brother's offer comes through the remote on its own as Miro approaches.
-	if flow == null and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and not milestones.has("BrotherOffer") and milestones.has("SickPrisoner"):
+	# Level 2: his brother's offer comes through the remote on its own as Miro reaches that
+	# point in the floor, whether or not he has looked at the sick prisoner first.
+	if flow == null and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and not milestones.has("BrotherOffer"):
 		var offer = areas.get_node_or_null("BrotherOffer")
-		if offer != null and offer.global_position.distance_to(player.global_position) < 70.0:
-			interact()
+		if offer != null and offer.global_position.distance_to(player.global_position) < 90.0:
+			for station in definition.stations:
+				if station.id == "BrotherOffer":
+					pending_milestone = "BrotherOffer"
+					start_dialogue(station.lines, "milestone")
+	update_checkpoint()
 	if not controls_locked() and definition.has("music_region"):
 		var entry: Dictionary = definition.music_region.entry
 		var in_region := player.position.x >= float(entry.get("minimum_x", -INF)) and player.position.y >= float(entry.get("minimum_y", -INF)) and player.position.y <= float(entry.get("maximum_y", INF))
@@ -338,13 +390,19 @@ func camera_alert(point: Vector2) -> void:
 	for guard in guards():
 		if not guard.is_dead:
 			guard.investigate(point)
-	notify("WATCHER ALERT • Reinforcements incoming." if called else "WATCHER ALERT • Keepers are searching your last seen position.")
+			guard.pursuing = true
+	notify("WATCHER ALERT • Reinforcements incoming." if called else "WATCHER ALERT • Every Keeper is closing in on your last seen position.")
 
 ## One reserve squad per floor. Repeated sweeps redirect the squad without spawning endlessly.
 func spawn_watcher_reserves(point: Vector2) -> bool:
 	var reserves: Array = world_features.roster.watcher_reserves.get(str(int(definition.number)), [])
-	if watcher_reserves_called or reserves.is_empty():
+	if reserves.is_empty():
 		return false
+	# The squad comes once and is redirected while it lives; if it is wiped out, the next
+	# alert calls another two.
+	for guard in guards():
+		if guard.name.begins_with("WatcherReserve") and not guard.is_dead:
+			return false
 	watcher_reserves_called = true
 	var slots: Array[Vector2] = []
 	for offset in [-156, 156, -100, 100]:

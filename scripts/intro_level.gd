@@ -41,6 +41,7 @@ var effects: Node2D
 var floor_detections := 0
 var was_spotted := false
 var voice_remote: TextureRect
+var spotted_at := -100.0
 var loud_events := 0
 var stealth_bonus := 0
 
@@ -143,6 +144,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().change_scene_to_file("res://scenes/levels/level_02.tscn")
 		return
 	if event.is_action_pressed("retry") and not event.is_echo():
+		# A retry resumes from the floor's last storey checkpoint (see scaffold_level).
+		var saved: Dictionary = get_node("/root/Campaign").checkpoint
+		if not saved.is_empty():
+			saved["retry"] = true
 		get_tree().paused = false
 		get_viewport().set_input_as_handled()
 		get_tree().reload_current_scene()
@@ -186,6 +191,10 @@ func _process(delta: float) -> void:
 	if pursuing and not was_spotted and counts_detection():
 		floor_detections += 1
 	was_spotted = pursuing
+	# Being seen isn't forgotten the instant the Keepers lose track: stay "searching" a while.
+	if pursuing:
+		spotted_at = elapsed
+	searching = searching or (spotted_at >= 0.0 and elapsed - spotted_at < 8.0)
 	player.detection_state = "SPOTTED" if pursuing else ("HIDDEN" if player.is_concealed else ("SEARCHING" if searching else "UNSEEN"))
 	var status := player.detection_state
 	if player.has_key:

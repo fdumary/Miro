@@ -108,6 +108,8 @@ func run() -> void:
 		await frames(5)
 		level.finish_dialogue()
 		level.brother_heard = true  # the gate scene plays on its own near the gate; this test only probes geometry
+		if number == 2:
+			level.milestones["BrotherOffer"] = true  # the offer plays on its own near that spot
 		for guard in level.guards():
 			guard.set_physics_process(false)
 		var world = level.world_features

@@ -10,6 +10,9 @@ var narrative_milestones: Dictionary = {}
 var boss_defeated := false
 var ending_complete := false
 var launch_consumed := false
+## The last storey checkpoint on the floor being played: {floor, storey, position, milestones, sigil}.
+## Retrying (Backspace) restores it; entering a floor from elsewhere or finishing it clears it.
+var checkpoint := {}
 # True only when this run began at Level 1, so review launches never unlock the completed menu.
 var played_from_start := false
 ## Committed per-floor results: {floor: {kills, detections, stealth, offense}}. Written only by
@@ -32,6 +35,8 @@ func launch_floor() -> int:
 	return 1
 
 func enter_floor(number: int) -> void:
+	if int(checkpoint.get("floor", 0)) != number:
+		checkpoint.clear()
 	if number == 1:
 		played_from_start = true
 		remote_owned = false
@@ -305,6 +310,7 @@ func tuning() -> Dictionary:
 	return DIFFICULTIES[difficulty()]
 
 func complete_floor(number: int, sigil: bool, milestones: Dictionary, raw_stats: Dictionary = {}) -> void:
+	checkpoint.clear()
 	floor_stats[number] = score_floor(raw_stats)
 	unlock_level(number + 1)
 	if sigil:

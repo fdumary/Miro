@@ -150,6 +150,7 @@ func launch_level(number: int) -> void:
 	var campaign = get_node("/root/Campaign")
 	if not campaign.level_unlocked(number):
 		return
+	campaign.checkpoint.clear()
 	campaign.case_anchors.clear()
 	campaign.completed_sigils.clear()
 	campaign.narrative_milestones.clear()

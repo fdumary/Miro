@@ -119,6 +119,17 @@
           "speaker": 2,
           "text": "Then I believe the bell rings at six. Wake me when it does.",
           "delivery": "[sighs] [amused]"
+        },
+        {
+          "speaker": 1,
+          "text": "Speaking of things nobody ever changes: the service port login. Root, root. Still the same.",
+          "delivery": "[low] [conspiratorial]",
+          "clue": "root"
+        },
+        {
+          "speaker": 2,
+          "text": "Don't say it so loud. Though honestly, it's the only password in this tower I can remember.",
+          "delivery": "[dry] [whispers]"
         }
       ]
     }

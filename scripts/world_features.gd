@@ -372,7 +372,7 @@ func hint() -> String:
 		return "[E] Service port · select remote to connect"
 	if prop:
 		if prop.kind == "potion":
-			return "[E] Drink tonic (+1 heart)" if level.player.health < level.player.max_health else "Tonic (you're not hurt)"
+			return "[E] Drink tonic (+half a heart)" if level.player.health < level.player.max_health else "Tonic (you're not hurt)"
 		return "[E] Take ammunition" if prop.kind == "case" else "[E] Hide in " + prop.title.to_lower()
 	return ""
 
@@ -399,11 +399,11 @@ func try_interact() -> bool:
 		if level.player.health >= level.player.max_health:
 			level.notify("You're not hurt. Save it for later.")
 		else:
-			level.player.health = mini(level.player.max_health, level.player.health + 2)
+			level.player.health = mini(level.player.max_health, level.player.health + 1)
 			prop.used = true
 			prop.queue_redraw()
 			get_node("/root/SoundFX").play_sound("sigil", -14, 1.7)
-			level.notify("You drink the tonic. A heart's worth of strength comes back.")
+			level.notify("You drink the tonic. Half a heart comes back.")
 	elif prop.kind == "case":
 		if level.player.controls.collect_ammo_case():
 			prop.used = true
@@ -530,7 +530,11 @@ func main_conversation_busy() -> bool:
 
 ## One casual scene or patrol mutter at a time, only while no one else is speaking.
 func update_casual(delta: float) -> void:
-	if line_left > 0 or voice.playing or main_conversation_busy():
+	if line_left > 0 or voice.playing:
+		return
+	# A half-heard main conversation elsewhere on the floor doesn't hold up a scene Miro is
+	# standing beside (the huddle used to wait on it forever).
+	if main_conversation_busy() and not actors.is_empty() and level.player.global_position.distance_to(actors[0].global_position) < 320:
 		return
 	for scene in casual_scenes:
 		if scene.done:
