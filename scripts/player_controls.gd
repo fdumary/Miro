@@ -7,7 +7,8 @@ var active := "blanket"
 var inventory_open := false
 var remote_open := false
 var local_console := false
-var turret_login: Node2D
+## Records terminals Miro has logged into on this floor: one login per terminal, kept after closing it.
+var logged_in: Dictionary = {}
 var console_title: Label
 var console_icon: TextureRect
 var console_echo: Label
@@ -437,11 +438,11 @@ func close_panels() -> void:
 	remote_panel.hide()
 	swap_from = -1
 
-func open_remote() -> void:
+func open_remote(at_port := false) -> void:
 	if not has_remote:
 		player.level.notify("Judas, the first Keeper, carries an MP3 player. Loot or pickpocket him.")
 		return
-	show_console(false)
+	show_console(false, at_port)
 
 func open_local_console() -> void:
 	if player.level.world_features.security_terminal() == null:
@@ -449,28 +450,103 @@ func open_local_console() -> void:
 		return
 	show_console(true)
 
-func show_console(local: bool) -> void:
+## `terminal_look`: a service port presents as a plain tower terminal, like the records ones.
+func show_console(local: bool, terminal_look := false) -> void:
 	local_console = local
+	var as_terminal := local or terminal_look
 	remote_open = true
 	remote_panel.show()
-	console_title.text = "TOWER SECURITY TERMINAL" if local else "KEEPER MP3 · SERVICE CONSOLE"
-	console_icon.texture = preload("res://assets/library/terminal.png") if local else preload("res://assets/weapons/remote.svg")
+	console_title.text = "TOWER SECURITY TERMINAL" if as_terminal else "KEEPER MP3 · SERVICE CONSOLE"
+	console_icon.texture = preload("res://assets/library/terminal.png") if as_terminal else preload("res://assets/weapons/remote.svg")
 	console_echo.text = ""
 	output.text = "Type help for commands." if local or remote_unlocked else "A script in your handwriting: unlock.sh. Type hack."
-	command.placeholder_text = "tower@local:~$ help" if local else "miro@player:~$ help"
+	command.placeholder_text = "tower@local:~$ help" if as_terminal else "miro@player:~$ help"
 	command.clear()
 	command.secret = false
 	command.grab_focus()
 
+## A tiny pretend file system: each floor's records are readable text files (ls, cat).
+var above_floor := false
+var pager: Array = []
+var pager_index := 0
+
+func floor_files() -> Dictionary:
+	var files := {}
+	var floor_number: int = get_node("/root/Campaign").current_floor
+	var data = JSON.parse_string(FileAccess.get_file_as_string("res://data/terminal_logs.json"))
+	for entry in data.get("terminals", []):
+		if int(entry.get("floor", 0)) != floor_number:
+			continue
+		var name := str(entry.file).to_lower().replace(" ", "_")
+		var clean := ""
+		for character in name:
+			if character.is_valid_identifier() or character == "_" or (character >= "0" and character <= "9"):
+				clean += character
+		files[clean + ".txt"] = "
+
+".join(PackedStringArray(entry.get("pages", [])))
+	files["readme.txt"] = "TOWER RECORDS TERMINAL
+Floor %02d archive. Access is logged. Type ls to list files, cat <file> to read one." % floor_number
+	return files
+
+func show_page() -> void:
+	output.text = str(pager[pager_index])
+	if pager_index < pager.size() - 1:
+		output.text += "
+-- more (press Enter) --"
+	pager_index += 1
+
 func run_command(raw: String) -> void:
 	var text := raw.strip_edges()
+	if text.is_empty() and pager_index > 0 and pager_index < pager.size():
+		command.clear()
+		show_page()
+		return
+	pager.clear()
+	pager_index = 0
 	var is_login := text.begins_with("login ")
 	var echo := "login " + "*".repeat(text.trim_prefix("login ").length()) if is_login else ("***" if command.secret else text)
 	console_echo.text = "> " + echo
 	command.clear()
 	command.secret = false
-	if local_console and (text in ["hack", "./unlock.sh", "lights test", "music", "next"] or text.begins_with("play ")):
-		output.text = "Use the Keeper MP3 for that command. Type help for security commands."
+	if local_console and (text in ["hack", "./unlock.sh", "lights test", "music"] or text.begins_with("play ")):
+		output.text = "Unknown command. Type help."
+		return
+	if text == "whoami":
+		var terminal: Node2D = player.level.world_features.security_terminal()
+		output.text = "root" if terminal != null and logged_in.has(terminal.get_instance_id()) else "guest"
+		return
+	var floor_dir := "floor%02d" % int(get_node("/root/Campaign").current_floor)
+	if text == "pwd":
+		output.text = "/var/tower" if above_floor else "/var/tower/" + floor_dir
+		return
+	if text == "cd .." or text == "cd ../" or text == "cd /":
+		above_floor = true
+		return
+	if text == "cd" or text == "cd ~" or text == "cd " + floor_dir or text == "cd " + floor_dir + "/" or text == "cd ./" + floor_dir:
+		above_floor = false
+		return
+	if text.begins_with("cd "):
+		output.text = "cd: %s: No such file or directory" % text.trim_prefix("cd ").strip_edges()
+		return
+	if text == "ls":
+		output.text = (floor_dir + "/") if above_floor else "  ".join(PackedStringArray(floor_files().keys()))
+		return
+	if text.begins_with("cat ") and above_floor:
+		output.text = "cat: %s: No such file or directory" % text.trim_prefix("cat ").strip_edges()
+		return
+	if text.begins_with("cat "):
+		var name := text.trim_prefix("cat ").strip_edges()
+		var files := floor_files()
+		if not files.has(name):
+			output.text = "cat: %s: No such file or directory" % name
+			return
+		# Long files page through the console one screen at a time.
+		pager = str(files[name]).split("
+
+")
+		pager_index = 0
+		show_page()
 		return
 	if text == "hack" or text == "./unlock.sh":
 		remote_unlocked = true
@@ -479,10 +555,7 @@ func run_command(raw: String) -> void:
 	elif not remote_unlocked and not local_console:
 		output.text = "Service port locked. Type hack to run your unlock script."
 	elif text == "help":
-		output.text = "scan · login <password> · cameras off · turrets off"
-		if not local_console:
-			output.text += " · music · play <n> · next ([B])"
-		output.text += "\nStay near the terminal. Login passwords are hidden. Esc closes."
+		output.text = "scan · login <password> · ls · cat <file> · pwd · whoami · cameras off · turrets off · next"
 	elif text == "next":
 		output.text = next_beat()
 	elif text == "music":
@@ -525,11 +598,12 @@ func run_command(raw: String) -> void:
 				player.level.world_features.early_authenticated = true
 			if at_checkpoint():
 				player.level.world_features.terminal_authenticated = true
-			turret_login = terminal
-			output.text = "Authenticated. " + ("Use turrets off for this floor." if terminal != null else "Type help for available commands.")
+			if terminal != null:
+				logged_in[terminal.get_instance_id()] = true
+			output.text = "Authenticated."
 	elif text == "turrets off":
 		var terminal: Node2D = player.level.world_features.security_terminal()
-		if terminal == null or (terminal != turret_login and not (at_checkpoint() and player.level.world_features.terminal_authenticated)):
+		if terminal == null or (not logged_in.has(terminal.get_instance_id()) and not (at_checkpoint() and player.level.world_features.terminal_authenticated)):
 			output.text = "Stay at an authenticated terminal: login <password>"
 			return
 		var count: int = player.level.world_features.disable_turrets()
@@ -543,21 +617,30 @@ func run_command(raw: String) -> void:
 	elif text == "cameras off":
 		if at_early_port() and player.level.world_features.early_authenticated and is_instance_valid(player.level.world_features.practice_camera):
 			player.level.world_features.practice_camera.disable()
-			output.text = "Corridor camera disabled. This route is optional."
+			output.text = "Corridor camera disabled."
 			return
 		if at_checkpoint() and player.level.world_features.terminal_authenticated:
 			close_panels()
 			player.level.hack_remaining = 1.0
+			return
+		# Any records terminal you've logged into controls this floor's cameras too.
+		var terminal: Node2D = player.level.world_features.security_terminal()
+		if terminal != null and logged_in.has(terminal.get_instance_id()):
+			var count: int = player.level.world_features.disable_cameras()
+			output.text = "Cameras disabled on this floor: %d" % count if count > 0 else "No active cameras on this floor."
 		else:
 			output.text = "Connect locally and authenticate first: login <password>"
 	else:
-		output.text = "Unknown command. Type help. No real network commands are executed."
+		output.text = "Unknown command. Type help."
 
 func at_early_port() -> bool:
 	return get_node("/root/Campaign").current_floor in [1, 2] and player.level.world_features.reachable(player.level.world_features.access_point, 48)
 
 func at_checkpoint() -> bool:
 	return get_node("/root/Campaign").current_floor == 3 and player.level.world_features.reachable(player.level.areas.get_node("RemoteTerminal").global_position, 48)
+
+const THROW_SPEED := 190.0
+const BLAST_RADIUS := 130.0
 
 func drop_charge() -> void:
 	# Reserve authored charges so optional explosives cannot soft-lock the story.
@@ -569,15 +652,24 @@ func drop_charge() -> void:
 				reserve += int(station.get("charge_count", 1))
 	elif player.level.sigil_placed:
 		reserve = 0
-	if player.c4_count <= reserve:
-		player.level.notify("Remaining C4 is reserved for the marked supports. [E] at a support.")
-		return
+	# Every floor gives three charges to use freely (story supports keep their own). Out of
+	# them, the floor hands over a spare, one at a time, so a stuck player always has one.
+	var spare := player.c4_count <= reserve
+	if spare:
+		if planted.any(func(placed): return is_instance_valid(placed)):
+			player.level.notify("Out of C4. Detonate or recover the charge you placed first.")
+			return
+		player.level.notify("Out of C4. A spare charge turns up in your pack.")
 	var charge := Node2D.new()
 	charge.set_script(preload("res://scripts/dropped_charge.gd"))
-	charge.position = player.position
+	charge.position = player.position + Vector2(0, -6)
+	# A short lunge toward the aim (mouse or right stick), or forward and a little up.
+	var direction: Vector2 = player.aim_direction if (player.mouse_aim or pad_aim) else Vector2(player.facing, 0)
+	charge.velocity = (direction.normalized() + Vector2(0, -0.35)).normalized() * THROW_SPEED
 	player.level.add_child(charge)
 	planted.append(charge)
-	player.c4_count -= 1
+	if not spare:
+		player.c4_count -= 1
 	player.end_stealth()
 
 func nearest_charge():
@@ -618,11 +710,18 @@ func detonate_charges() -> void:
 		player.level.emit_effect("breach", point)
 		player.level.make_noise(point, 700)
 		get_node("/root/SoundFX").play_sound("collapse", -20)
-		if get_node("/root/Campaign").current_floor == 1 and not player.level.door_open and point.distance_to(player.level.get_node("Interactables/CellLock").global_position) < 65:
+		if get_node("/root/Campaign").current_floor == 1 and not player.level.door_open and point.distance_to(player.level.get_node("Interactables/CellLock").global_position) < 100:
 			player.level.route = "C4 breach"
 			player.level.open_door()
 		for guard in player.level.guards():
-			if guard.global_position.distance_to(point) < 90 and player.level.clear_sight(point, guard.global_position):
-				guard.take_damage(3)
+			if guard.global_position.distance_to(point) < BLAST_RADIUS and player.level.clear_sight(point, guard.global_position):
+				guard.take_damage(16, true)
+		# One charge is enough for a turret: stuck to it, or anywhere in the blast.
+		for turret in get_tree().get_nodes_in_group("tower_turrets"):
+			if not is_instance_valid(turret) or turret.health <= 0:
+				continue
+			if charge.attached == turret or (turret.target_point().distance_to(point) < BLAST_RADIUS and player.level.clear_sight(point, turret.target_point())):
+				turret.health = 1
+				turret.take_turret_hit()
 		charge.queue_free()
 	planted.clear()

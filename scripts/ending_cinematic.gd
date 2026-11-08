@@ -34,6 +34,17 @@ func _ready() -> void:
 	audio.at(2.8, func(): rumble = audio.loop("rumble_loop", -14.0, 3.5))
 	for floor_index in range(5):
 		audio.at(2.9 + floor_index * 0.5, func(): get_node("/root/SoundFX").play_sound("sigil", -14, 0.8 + floor_index * 0.08))
+	# The Tower PA, heard far off through the trees, then Miro's last thought (his reputation's line).
+	var ending_branch: Dictionary = get_node("/root/Campaign").branch()[get_node("/root/Campaign").reputation()]
+	audio.at(4.6, func(): get_node("/root/RemoteRadio").say_in_room(str(ending_branch.ending_pa), "pa", "Voice", -12.0))
+	audio.at(11.2, func(): get_node("/root/RemoteRadio").say_in_room(str(ending_branch.ending_thought), "miro", "Thought", 0.0))
+	# Ethan's chord progression begins with the blast and carries on into the beach.
+	audio.at(BLAST, func():
+		var carried: AudioStreamPlayer = audio.loop("ending_chords", -6.0, 3.0, "Music")
+		if carried != null:
+			carried.get_parent().remove_child(carried)
+			carried.name = "EndingChords"
+			get_tree().root.add_child(carried))
 	audio.at(BLAST, func():
 		audio.play("explosion_big", 0.0)
 		audio.fade(rumble, -2.0, 0.3)
@@ -109,11 +120,11 @@ func _draw() -> void:
 	var subtitle := ""
 	if t < 1.5:
 		subtitle = "The woods. Air that nobody rationed."
-	elif t >= 2.9 and t < 5.0:
+	elif t >= 2.9 and t < 4.6:
 		subtitle = "Five marks. Five floors."
-	elif t >= 5.0 and t < BLAST:
+	elif t >= 4.6 and t < BLAST:
 		subtitle = "TOWER PA:  \"%s\"" % branch.ending_pa
-	elif t >= 11.2 and t < 13.5:
+	elif t >= 11.2 and t < 14.4:
 		subtitle = "\"%s\"" % branch.ending_thought
 	C.subtitle(self, subtitle, 1.0)
 	draw_string(C.Type.body(), Vector2(16, 352), "[Tab] Skip", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))

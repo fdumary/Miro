@@ -4,6 +4,141 @@
   "miro_delivery": "",
   "miro_thought_delivery": "[whispers]",
   "voices": {
+    "dara": {
+      "name": "River (premade, terminal guard)",
+      "voice_id": "SAz9YHcvj6GT2YYXdXww",
+      "stability": 0.5
+    },
+    "vesna": {
+      "name": "Grace (premade, terminal guard)",
+      "voice_id": "oWAxZDx7w5VEj9dCyTzz",
+      "stability": 0.5
+    },
+    "ilse": {
+      "name": "Gigi (premade, terminal guard)",
+      "voice_id": "jBpfuIE2acCO8z3wKNLl",
+      "stability": 0.5
+    },
+    "bryn": {
+      "name": "Freya (premade, terminal guard)",
+      "voice_id": "jsCqWAovK2LkecY7zXl4",
+      "stability": 0.5
+    },
+    "odell": {
+      "name": "Lily (premade, terminal guard)",
+      "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+      "stability": 0.5
+    },
+    "corra": {
+      "name": "Alice (premade, terminal guard)",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "stability": 0.5
+    },
+    "wren2": {
+      "name": "Jessica (premade, terminal guard)",
+      "voice_id": "cgSgspJ2msm6clMCkdW9",
+      "stability": 0.5
+    },
+    "fenna": {
+      "name": "Aria (premade, terminal guard)",
+      "voice_id": "9BWtsMINqrJLrRacOk9x",
+      "stability": 0.5
+    },
+    "marl": {
+      "name": "Laura (premade, terminal guard)",
+      "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+      "stability": 0.5
+    },
+    "pru": {
+      "name": "Sarah (premade, terminal guard)",
+      "voice_id": "EXAVITQu4vr4xnSDxMaL",
+      "stability": 0.5
+    },
+    "rhea": {
+      "name": "Rachel (premade)",
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "stability": 0.5
+    },
+    "marta": {
+      "name": "Domi (premade)",
+      "voice_id": "AZnzlk1XvdvUeBnXmlld",
+      "stability": 0.5
+    },
+    "odette": {
+      "name": "Elli (premade)",
+      "voice_id": "MF3mGyEYCl7XYWbV9V6O",
+      "stability": 0.5
+    },
+    "sunniva": {
+      "name": "Dorothy (premade)",
+      "voice_id": "ThT5KcBeYPX3keUQqHPh",
+      "stability": 0.5
+    },
+    "calla": {
+      "name": "Charlotte (premade)",
+      "voice_id": "XB0fDUnXU5powFXDhCwa",
+      "stability": 0.5
+    },
+    "ingrid": {
+      "name": "Matilda (premade)",
+      "voice_id": "XrExE9yKIg1WjnnlVkGX",
+      "stability": 0.5
+    },
+    "noor": {
+      "name": "Nicole (premade)",
+      "voice_id": "piTKgcLEGmPE4e6mEKli",
+      "stability": 0.5
+    },
+    "rook": {
+      "name": "Brian (premade)",
+      "voice_id": "nPczCjzI2devNBz1zQrb",
+      "stability": 0.5
+    },
+    "crane": {
+      "name": "Adam (premade)",
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "stability": 0.5
+    },
+    "stroud": {
+      "name": "Arnold (premade)",
+      "voice_id": "VR6AewLTigWG4xSOukaG",
+      "stability": 0.5
+    },
+    "thane": {
+      "name": "Josh (premade)",
+      "voice_id": "TxGEqnHWrfWFTfGW9XjX",
+      "stability": 0.5
+    },
+    "holt": {
+      "name": "Antoni (premade)",
+      "voice_id": "ErXwobaYiN019PkySvjV",
+      "stability": 0.5
+    },
+    "wick": {
+      "name": "Sam (premade)",
+      "voice_id": "yoZ06aMxZJJ28mfd3POQ",
+      "stability": 0.5
+    },
+    "garth": {
+      "name": "Drew (premade)",
+      "voice_id": "29vD33N1CtxCmqQRPOHJ",
+      "stability": 0.5
+    },
+    "mott": {
+      "name": "Clyde (premade)",
+      "voice_id": "2EiwWnXFnvU5JabPnv8n",
+      "stability": 0.5
+    },
+    "pell": {
+      "name": "Thomas (premade)",
+      "voice_id": "GBv7mTt0atIp3Br8iCZE",
+      "stability": 0.5
+    },
+    "prisoner": {
+      "name": "Sick prisoner (voice chosen by RXLA)",
+      "voice_id": "ZWXPFGxJbpddE1lBgldf",
+      "stability": 0.5
+    },
     "miro": {
       "name": "Miro (voice chosen by RXLA)",
       "voice_id": "d3qrd1ge6zWDvUxIeXiH",
@@ -314,6 +449,11 @@
     "ames": {
       "name": "Roland Rodriguez - Smooth Storyteller",
       "voice_id": "iZURAYccQtQd12U8kEcq",
+      "stability": 0.5
+    },
+    "garrick": {
+      "name": "Rob - Tough & Calloused (Level 5 terminal guard)",
+      "voice_id": "2ajXGJNYBR0iNHpS4VZb",
       "stability": 0.5
     }
   },

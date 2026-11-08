@@ -88,6 +88,9 @@ func spawn_wave() -> void:
 	for added in range(maxi(0, extra)):
 		points.append([points[0][0] - 60 - added * 40, points[0][1]])
 		weapons.append("smg")
+	# Level 5 waves run one Keeper larger than the tuned size, and faster.
+	points.append([points[0][0] - 120, points[0][1]])
+	weapons.append("pistol")
 	wave_guards.clear()
 	for index in range(points.size()):
 		var point := Vector2(points[index][0], points[index][1])
@@ -107,6 +110,7 @@ func spawn_guard(point: Vector2, weapon: String) -> Node:
 	guard.level = level
 	guard.illness_started = true
 	guard.wave_guard = true
+	guard.chase_speed *= 1.2
 	guard.weapon_kind = weapon
 	level.world_features.name_keeper(guard, 5, next_reinforcement)
 	next_reinforcement += 1

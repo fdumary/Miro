@@ -10,6 +10,9 @@ var narrative_milestones: Dictionary = {}
 var boss_defeated := false
 var ending_complete := false
 var launch_consumed := false
+## The last storey checkpoint on the floor being played: {floor, storey, position, milestones, sigil}.
+## Retrying (Backspace) restores it; entering a floor from elsewhere or finishing it clears it.
+var checkpoint := {}
 # True only when this run began at Level 1, so review launches never unlock the completed menu.
 var played_from_start := false
 ## Committed per-floor results: {floor: {kills, detections, stealth, offense}}. Written only by
@@ -32,6 +35,8 @@ func launch_floor() -> int:
 	return 1
 
 func enter_floor(number: int) -> void:
+	if int(checkpoint.get("floor", 0)) != number:
+		checkpoint.clear()
 	if number == 1:
 		played_from_start = true
 		remote_owned = false
@@ -180,7 +185,13 @@ static func score_floor(raw: Dictionary) -> Dictionary:
 ## Test runs keep their unlocks in memory only.
 var session_unlocks: Array = []
 
+## Hot Shit is the final boss track: Level 5's second half, never a stealth or kill unlock.
 func unlocked_tracks() -> Array:
+	var tracks := stored_unlocks()
+	tracks.erase("hot_shit")
+	return tracks
+
+func stored_unlocks() -> Array:
 	if not can_persist():
 		return session_unlocks.duplicate()
 	var progress := ConfigFile.new()
@@ -206,6 +217,9 @@ func preview_unlocks(floor_stealth: int, floor_kills := 0) -> Array:
 			names.append(entry.track.replace("_", " "))
 	return names
 
+## Beats earned when the last floor ended; the next floor announces them once.
+var fresh_unlocks: Array = []
+
 func update_unlocks() -> Array:
 	var earned: Array = []
 	var unlocked := unlocked_tracks()
@@ -213,6 +227,8 @@ func update_unlocks() -> Array:
 		if earns(entry, total("stealth"), total("kills")) and not unlocked.has(entry.track):
 			unlocked.append(entry.track)
 			earned.append(entry.track)
+	if not earned.is_empty():
+		fresh_unlocks = earned.duplicate()
 	if earned.is_empty():
 		return earned
 	if can_persist():
@@ -269,9 +285,9 @@ func unlock_level(number: int) -> void:
 ## Difficulty (Settings): Miro's health, blanket recharge, Level 5 wave size and how sharp
 ## the Keepers are. Medium is the authored balance; tests always run on Medium unless asked.
 const DIFFICULTIES := {
-	"easy": {"label": "Easy", "health": 5, "stealth_cooldown": 5.0, "stealth_duration": 6.0, "wave_extra": -1, "suspicion": 0.65, "sight": 140.0, "windup": 0.9, "attack_gap": 2.8, "chase": 66.0, "niro_health": 0.8},
-	"medium": {"label": "Medium", "health": 3, "stealth_cooldown": 8.0, "stealth_duration": 5.0, "wave_extra": 0, "suspicion": 1.0, "sight": 165.0, "windup": 0.65, "attack_gap": 2.1, "chase": 78.0, "niro_health": 1.0},
-	"hard": {"label": "Hard", "health": 2, "stealth_cooldown": 11.0, "stealth_duration": 4.0, "wave_extra": 1, "suspicion": 1.4, "sight": 190.0, "windup": 0.5, "attack_gap": 1.6, "chase": 88.0, "niro_health": 1.3},
+	"easy": {"label": "Easy", "health": 10, "stealth_cooldown": 5.0, "stealth_duration": 6.0, "wave_extra": -1, "suspicion": 0.65, "sight": 140.0, "windup": 0.9, "attack_gap": 2.8, "chase": 66.0, "niro_health": 0.8},
+	"medium": {"label": "Medium", "health": 6, "stealth_cooldown": 8.0, "stealth_duration": 5.0, "wave_extra": 0, "suspicion": 1.0, "sight": 165.0, "windup": 0.65, "attack_gap": 2.1, "chase": 78.0, "niro_health": 1.0},
+	"hard": {"label": "Hard", "health": 4, "stealth_cooldown": 11.0, "stealth_duration": 4.0, "wave_extra": 1, "suspicion": 1.4, "sight": 190.0, "windup": 0.5, "attack_gap": 1.6, "chase": 88.0, "niro_health": 1.3},
 }
 var difficulty_override := ""
 
@@ -304,7 +320,29 @@ func set_difficulty(id: String) -> void:
 func tuning() -> Dictionary:
 	return DIFFICULTIES[difficulty()]
 
+## Checkpoints survive closing the game (player mode): picking the floor from level select
+## resumes from its last storey.
+func save_checkpoint() -> void:
+	if not can_persist():
+		return
+	var progress := ConfigFile.new()
+	progress.load("user://progress.cfg")
+	progress.set_value("checkpoint", "data", checkpoint.duplicate(true))
+	progress.save("user://progress.cfg")
+
+func saved_checkpoint(number: int) -> Dictionary:
+	if int(checkpoint.get("floor", 0)) == number:
+		return checkpoint
+	if not can_persist():
+		return {}
+	var progress := ConfigFile.new()
+	progress.load("user://progress.cfg")
+	var data = progress.get_value("checkpoint", "data", {})
+	return data if data is Dictionary and int(data.get("floor", 0)) == number else {}
+
 func complete_floor(number: int, sigil: bool, milestones: Dictionary, raw_stats: Dictionary = {}) -> void:
+	checkpoint.clear()
+	save_checkpoint()
 	floor_stats[number] = score_floor(raw_stats)
 	unlock_level(number + 1)
 	if sigil:

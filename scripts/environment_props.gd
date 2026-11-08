@@ -12,6 +12,25 @@ func _ready() -> void:
 	dressing.set_script(preload("res://scripts/level_dressing.gd"))
 	add_child(dressing)
 
+## A window sill Miro can stand on: one-way (jump up through it, drop through with down),
+## on its own physics layer (6) so Keepers' sight lines and patrols ignore it.
+func add_ledge(rect: Rect2) -> void:
+	if Engine.is_editor_hint():
+		return
+	var body := StaticBody2D.new()
+	body.name = "Ledge%d" % get_child_count()
+	body.collision_layer = 0
+	body.set_collision_layer_value(6, true)
+	body.collision_mask = 0
+	body.position = rect.get_center()
+	var shape := CollisionShape2D.new()
+	var box := RectangleShape2D.new()
+	box.size = rect.size
+	shape.shape = box
+	shape.one_way_collision = true
+	body.add_child(shape)
+	add_child(body)
+
 const TORCH := preload("res://assets/environment/torch_animation.png")
 var torch_frame := 0
 

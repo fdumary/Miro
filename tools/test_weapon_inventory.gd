@@ -18,20 +18,20 @@ func run() -> void:
 	check(p.guns.size() == 2 and p.equipped_gun == "smg", "Two distinct guns can be carried")
 	var reserve: int = p.controls.reserves.get("pistol", 0)
 	p.loot_weapon(guards[2])
-	check(guards[2].gun_taken and p.controls.reserves.pistol == reserve + 2, "A duplicate gun becomes reserve ammunition")
+	check(guards[2].gun_taken and p.controls.reserves.pistol == reserve + 3, "A duplicate gun becomes reserve ammunition (at least 3 bullets)")
 	guards[2].gun_taken = false
 	guards[2].weapon_kind = "smg"
 	p.select_gun(0)
-	check(p.ammunition == 2, "Switching restores independent pistol ammunition")
+	check(p.ammunition == 3, "Switching restores independent pistol ammunition")
 	p.position = Vector2(300, 236)
 	p.attack_cooldown = 0
 	guards[0].position = Vector2(600, 236)
 	guards[0].sees_player = false
 	guards[0].alert_state = IntroGuard.State.PATROL
 	p.fire_gun()
-	check(p.ammunition == 1 and guards[0].alert_state == IntroGuard.State.SEARCH, "Pistol shot is always audible")
+	check(p.ammunition == 2 and guards[0].alert_state == IntroGuard.State.SEARCH, "Pistol shot is always audible")
 	p.select_gun(1)
-	check(p.equipped_gun == "smg" and p.ammunition == 12, "Switching back preserves SMG magazine")
+	check(p.equipped_gun == "smg" and p.ammunition == 24, "Switching back preserves SMG magazine (a full mag)")
 	p.ammunition = 0
 	p.attack_cooldown = 0
 	p.fire_gun()
@@ -43,15 +43,15 @@ func run() -> void:
 	guards[0].position = Vector2(350, 236)
 	guards[0].shot_direction = Vector2.LEFT
 	guards[0].burst_left = 1
-	p.health = 3
+	p.health = 6
 	p.invulnerability_left = 0
 	guards[0].shoot_weapon()
 	await frames(20)
-	check(p.health == 2, "Keeper projectile damages Miro")
+	check(p.health == 4, "Keeper projectile damages Miro (a pistol round takes a heart)")
 	p.invulnerability_left = 0
 	p.dodge_left = 1
 	guards[0].shoot_weapon()
 	await frames(10)
-	check(p.health == 2, "Dodge protects Miro from gunfire")
+	check(p.health == 4, "Dodge protects Miro from gunfire")
 	print("WEAPON_INVENTORY_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

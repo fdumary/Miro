@@ -13,7 +13,8 @@ var level: Node2D
 var kind := "spikes"
 var aim := PI
 var charge := 0.0
-var health := 3
+## 5 HP: ten shots, five stabs, or any C4.
+var health := 10
 var disabled := false
 var stun_left := 0.0
 
@@ -24,7 +25,9 @@ func _ready() -> void:
 		add_to_group("lethal_spikes")
 		var collider := CollisionShape2D.new()
 		var shape := RectangleShape2D.new()
-		shape.size = Vector2(24, 9)
+		# Long enough that wall spikes above a crawl gap catch a standing Miro's head;
+		# crouching slips under.
+		shape.size = Vector2(32, 9)
 		collider.shape = shape
 		collider.position.y = -4.5
 		add_child(collider)
@@ -54,6 +57,8 @@ func _physics_process(delta: float) -> void:
 		return
 	var muzzle := target_point()
 	var offset: Vector2 = level.player.global_position - muzzle
+	# Turrets read heat and motion in the open: the blanket, a hiding spot or a patch of
+	# shadow hides Miro from them.
 	if offset.length() > RANGE or level.player.is_concealed or level.player.in_hiding_spot or not level.clear_sight(muzzle, level.player.global_position):
 		charge = 0.0
 	else:
@@ -76,10 +81,10 @@ func _physics_process(delta: float) -> void:
 func target_point() -> Vector2:
 	return to_global(PIVOT)
 
-func take_turret_hit() -> void:
+func take_turret_hit(amount := 1) -> void:
 	if health <= 0:
 		return
-	health -= 1
+	health -= amount
 	level.emit_effect("hit", target_point())
 	if health == 0:
 		queue_free()

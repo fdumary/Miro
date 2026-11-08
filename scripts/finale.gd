@@ -39,7 +39,12 @@ func _ready() -> void:
 	get_node("/root/MusicDirector").silence()
 	audio.loop("waves_loop", -10.0, 2.0)
 	audio.loop("wind_loop", -24.0, 3.0)
-	chords = audio.loop("ending_chords", -4.0, 2.5, "Music")
+	# The chords already began under the explosion; carry them on instead of starting them again.
+	chords = get_node_or_null("/root/EndingChords")
+	if chords == null:
+		chords = audio.loop("ending_chords", -4.0, 2.5, "Music")
+	else:
+		chords.volume_db = -4.0
 	audio.at(1.8, func(): audio.play("gulls", -14.0))
 	audio.at(6.5, func(): audio.play("gulls", -18.0, 1.1))
 

@@ -72,8 +72,9 @@ static func has_clip(text: String, prefix := "niro") -> bool:
 
 ## Same clips, no radio: Niro face to face, the tower PA, Judas, or Miro himself
 ## (his thoughts go through the reverb "Thought" bus).
-func say_in_room(text: String, prefix := "niro", bus := "Voice") -> void:
+func say_in_room(text: String, prefix := "niro", bus := "Voice", volume_db := 0.0) -> void:
 	stop()
+	room.volume_db = volume_db
 	if has_clip(text, prefix) and audible():
 		room.bus = bus if AudioServer.get_bus_index(bus) >= 0 else "Voice"
 		room.stream = load(clip_path(text, prefix))

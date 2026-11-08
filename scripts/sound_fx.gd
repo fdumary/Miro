@@ -10,6 +10,13 @@ func _ready() -> void:
 	for cue in ["step", "swing", "hit", "gate", "sigil", "shot", "collapse"]:
 		streams[cue] = load("res://assets/audio/%s.ogg" % cue)
 	streams["flame"] = preload("res://assets/audio/flame.wav")
+	# Sick Keepers and prisoners cough (synthesized; replace the files with any .wav/.ogg of the same name).
+	for index in range(1, 4):
+		for extension in ["ogg", "mp3", "wav"]:
+			var path := "res://assets/audio/cough_%d.%s" % [index, extension]
+			if ResourceLoader.exists(path):
+				streams["cough_%d" % index] = load(path)
+				break
 	for index in range(8):
 		var voice := AudioStreamPlayer.new()
 		voice.bus = "Effects"
@@ -31,6 +38,16 @@ func play_sound(cue: String, volume_db: float = -16, pitch: float = 1.0) -> void
 	voice.volume_db = volume_db
 	voice.pitch_scale = pitch
 	voice.play()
+
+## A sound from the world: quieter with distance from the listener, silent beyond `reach`.
+func play_near(cue: String, from: Vector2, listener: Vector2, base_db := -8.0, reach := 560.0, pitch := 1.0) -> void:
+	var distance := from.distance_to(listener)
+	if distance >= reach:
+		return
+	play_sound(cue, base_db - 22.0 * distance / reach, pitch)
+
+func cough_near(from: Vector2, listener: Vector2, variation: int) -> void:
+	play_near("cough_%d" % (1 + posmod(variation, 3)), from, listener, -9.0, 560.0, 0.92 + 0.04 * posmod(variation, 4))
 
 func _exit_tree() -> void:
 	for voice in voices:

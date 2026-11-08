@@ -31,6 +31,10 @@ var stealth_remaining := 0.0
 var stealth_cooldown_left := 0.0
 var casualty_count: int = 0
 var detection_state: String = "unseen"
+## Full health in half hearts (set from the difficulty); potions restore up to this.
+var max_health := 6
+## Free cloak on arriving at a checkpoint: hidden for a few seconds with no cooldown spent.
+var respawn_cloak_left := 0.0
 var has_supplies: bool = false
 var has_key: bool = false
 var has_gun: bool = false
@@ -53,6 +57,10 @@ var aim_direction := Vector2.RIGHT
 const IDLE = preload("res://assets/characters/miro_idle.png")
 const WALK = preload("res://assets/characters/miro_walk.png")
 const JUMP = preload("res://assets/characters/miro_jump.png")
+const ATTACK = preload("res://assets/characters/miro_attack.png")
+## Julia's two-frame knife swing: wind-up, then the slash.
+const MELEE_ANIM_TIME := 0.24
+var melee_anim: float = 0.0
 @onready var sprite: Sprite2D = $Sprite2D
 
 func _ready() -> void:
@@ -70,6 +78,7 @@ func _physics_process(delta: float) -> void:
 	dodge_cooldown = maxf(0.0, dodge_cooldown - delta)
 	dodge_left = maxf(0.0, dodge_left - delta)
 	attack_flash = maxf(0.0, attack_flash - delta)
+	melee_anim = maxf(0.0, melee_anim - delta)
 	if level.controls_locked() or is_dead:
 		pad_jump_queued = false
 		wall_sliding = false
@@ -83,11 +92,15 @@ func _physics_process(delta: float) -> void:
 		update_visual(delta)
 		return
 	stealth_cooldown_left = maxf(0, stealth_cooldown_left - delta)
-	if is_concealed:
+	if respawn_cloak_left > 0.0:
+		respawn_cloak_left = maxf(0.0, respawn_cloak_left - delta)
+		is_concealed = respawn_cloak_left > 0.0
+		stealth_remaining = respawn_cloak_left
+	elif is_concealed:
 		stealth_remaining = maxf(0, stealth_remaining - delta)
 		if not level.in_cover(global_position):
 			end_stealth()
-			level.notify("Left shadows — cover ended.")
+			level.notify("Stepped into the light — cover ended.")
 		elif stealth_remaining == 0:
 			end_stealth()
 	var direction := Input.get_axis("move_left", "move_right")
@@ -191,13 +204,18 @@ func toggle_stealth() -> void:
 	elif stealth_cooldown_left > 0:
 		level.notify("Stealth recharging: %.1fs" % stealth_cooldown_left)
 	elif not level.in_cover(global_position):
-		level.notify("The blanket only conceals you in shadows.")
+		level.notify("Too bright: the blanket won't hide you in the light. Crouch under it, or step away.")
 	else:
 		is_concealed = true
 		stealth_remaining = stealth_duration
 		check_guard_contact()
 
 func end_stealth() -> void:
+	if respawn_cloak_left > 0.0:
+		# The free cloak breaks without costing the blanket its recharge.
+		respawn_cloak_left = 0.0
+		is_concealed = false
+		return
 	if not is_concealed:
 		return
 	is_concealed = false
@@ -205,6 +223,8 @@ func end_stealth() -> void:
 	stealth_cooldown_left = stealth_cooldown
 
 func check_guard_contact() -> void:
+	# A Keeper who walks right past a hidden Miro doesn't notice him.
+	return
 	if not is_concealed:
 		return
 	var bounds := Rect2(global_position + Vector2(-7, -9), Vector2(14, 24))
@@ -224,7 +244,7 @@ func stealth_status() -> String:
 	if stealth_cooldown_left > 0:
 		return "STEALTH %.1fs cooldown" % stealth_cooldown_left
 	if not is_instance_valid(level) or not level.in_cover(global_position):
-		return "BLANKET [Q + click] · find shadow"
+		return "BLANKET [Q + click] · too bright here"
 	return "BLANKET READY [Q + click]"
 
 func shank() -> void:
@@ -238,6 +258,7 @@ func shank() -> void:
 	end_stealth()
 	attack_cooldown = 0.5
 	attack_flash = 0.16
+	melee_anim = MELEE_ANIM_TIME
 	get_node("/root/SoundFX").play_sound("swing", -18)
 	var target: Node2D
 	var reach := INF
@@ -255,7 +276,7 @@ func shank() -> void:
 				reach = difference.length_squared()
 	if target != null:
 		if target.is_in_group("tower_turrets"):
-			target.take_turret_hit()
+			target.take_turret_hit(2)
 		else:
 			target.receive_shank()
 
@@ -283,12 +304,16 @@ func loot_weapon(guard: IntroGuard) -> void:
 		ammunition = gun_ammo[equipped_gun]
 		has_gun = true
 		guard.gun_taken = true
+		# A newly picked-up gun goes straight into his hand, so what you see is what you fire.
+		controls.sync_slots()
+		controls.select_item(equipped_gun)
 	else:
 		pending_guard = guard
 		level.notify("Take %s? [Z] replace %s / [X] replace %s / [Esc] cancel" % [guard.weapon_kind, guns[0], guns[1]], 30)
 
+## Bullets a fallen Keeper drops: at least 3 for a pistol, a full magazine for an SMG.
 func weapon_ammo(kind: String) -> int:
-	return 2 if kind == "pistol" else 12
+	return 3 if kind == "pistol" else controls.capacity("smg")
 
 func resolve_weapon_choice(slot: int) -> void:
 	if not is_instance_valid(pending_guard):
@@ -304,7 +329,8 @@ func resolve_weapon_choice(slot: int) -> void:
 		pending_guard.gun_taken = true
 	pending_guard = null
 	controls.sync_slots()
-	level.notify("Weapon choice saved. Select a slot to equip.")
+	controls.select_item(equipped_gun)
+	level.notify("Weapon choice saved and equipped.")
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton and event.pressed and is_instance_valid(pending_guard):
@@ -352,7 +378,8 @@ func fire_gun() -> void:
 	bullet.level = level
 	bullet.shooter = self
 	bullet.direction = aim_direction
-	bullet.damage = 2 if equipped_gun == "pistol" else 1
+	bullet.damage = 4 if equipped_gun == "pistol" else 3
+	bullet.falloff = equipped_gun != "pistol"
 	# Start at the body so a muzzle offset cannot spawn beyond a nearby wall.
 	bullet.position = position + Vector2(0, -4)
 	level.add_child(bullet)
@@ -364,11 +391,11 @@ func fire_gun() -> void:
 	casing.velocity = Vector2(-facing * 65, -100)
 	level.add_child(casing)
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, ignore_recovery := false) -> void:
 	if dodge_left > 0:
 		return
 	var previous_health := health
-	super.take_damage(amount)
+	super.take_damage(amount, ignore_recovery)
 	if health < previous_health:
 		in_hiding_spot = false
 		get_node("/root/SoundFX").play_sound("hit", -16)
@@ -393,6 +420,10 @@ func update_visual(delta: float) -> void:
 		sprite.texture = WALK
 		sprite.hframes = 2
 		sprite.frame = int(animation_time * 8) % 2
+	if melee_anim > 0 and not climbing:
+		sprite.texture = ATTACK
+		sprite.hframes = 2
+		sprite.frame = 0 if melee_anim > MELEE_ANIM_TIME * 0.5 else 1
 	sprite.flip_h = facing < 0
 	sprite.modulate = Color("8b6d9c") if is_concealed else Color.WHITE
 	sprite.modulate.a = 0.15 if in_hiding_spot else (0.42 if is_concealed else (0.5 if invulnerability_left > 0 and int(animation_time * 20) % 2 == 0 else 1.0))
@@ -421,7 +452,7 @@ func _draw() -> void:
 		draw_set_transform(Vector2(0, -4), direction.angle(), Vector2(1, -1 if direction.x < 0 else 1))
 		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[equipped_gun], Rect2(0, -10, 24, 24), false)
 		draw_set_transform(Vector2.ZERO)
-	if attack_flash > 0:
+	if attack_flash > 0 and melee_anim <= 0:
 		draw_line(Vector2(facing * 9, -2), Vector2(facing * 35, -7), Color("fbf5ef"), 2)
 	if controls.focus:
 		var cursor := get_local_mouse_position()
@@ -473,9 +504,11 @@ func try_mantle() -> bool:
 	var destination := global_position + up + across
 	if not level.has_floor_below(destination + Vector2(0, 13)):
 		return false
-	global_position = destination
+	# A vault, not a teleport: spring up and over the ledge so it reads as a movement.
 	wall_jump_window_left = 0.0
-	wall_jump_push_left = 0.0
-	velocity = Vector2.ZERO
+	# The same forward shove a wall jump uses, so input doesn't cancel the sideways motion.
+	last_wall_jump_side = facing
+	wall_jump_push_left = 0.2
+	velocity = Vector2(facing * 150.0, jump_velocity * 1.1)
 	jumps_used = 1
 	return true

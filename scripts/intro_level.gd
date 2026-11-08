@@ -4,10 +4,15 @@ extends Node2D
 @onready var player: IntroPlayer = $Player
 @onready var areas: Node2D = $Interactables
 var radio_line := ""
+## Seconds left of the voiced line on screen; E / advance waits so the whole line is heard (Tab still skips).
+var line_lock := 0.0
 ## A cinematic card over the start of a floor or a story beat (scripts/floor_card.gd).
 var card: Control
 var door_open: bool = false
 var sigil_placed: bool = false
+## Niro over the remote when Level 1 ends ("The remote crackles").
+const FLOOR_END_CRACKLE := "...Miro?"
+var crackle_played := false
 var brother_heard: bool = false
 var completed: bool = false
 var paused: bool = false
@@ -37,6 +42,8 @@ var effects: Node2D
 # Branch tracking (committed to Campaign only when the floor is completed).
 var floor_detections := 0
 var was_spotted := false
+var voice_remote: TextureRect
+var spotted_at := -100.0
 var loud_events := 0
 var stealth_bonus := 0
 
@@ -70,6 +77,7 @@ func _ready() -> void:
 func apply_difficulty() -> void:
 	var tuning: Dictionary = get_node("/root/Campaign").tuning()
 	player.health = int(tuning.health)
+	player.max_health = player.health
 	player.stealth_cooldown = float(tuning.stealth_cooldown)
 	player.stealth_duration = float(tuning.stealth_duration)
 
@@ -135,9 +143,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_node("/root/Campaign").complete_floor(1, sigil_placed, {"BrotherVoice": brother_heard}, floor_raw_stats())
 		get_node("/root/Campaign").update_unlocks()
 		get_viewport().set_input_as_handled()
-		get_tree().change_scene_to_file("res://scenes/levels/level_02.tscn")
+		play_interlude(1, "res://scenes/levels/level_02.tscn")
 		return
 	if event.is_action_pressed("retry") and not event.is_echo():
+		# A retry resumes from the floor's last storey checkpoint (see scaffold_level).
+		var saved: Dictionary = get_node("/root/Campaign").checkpoint
+		if not saved.is_empty():
+			saved["retry"] = true
 		get_tree().paused = false
 		get_viewport().set_input_as_handled()
 		get_tree().reload_current_scene()
@@ -147,6 +159,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	elif not dialogue.is_empty() and not paused:
 		if event.is_action_pressed("advance") or event.is_action_pressed("interact"):
+			if line_lock > 0.0:
+				get_viewport().set_input_as_handled()
+				return
 			dialogue_index += 1
 			if dialogue_index >= dialogue.size():
 				finish_dialogue()
@@ -169,20 +184,30 @@ func _process(delta: float) -> void:
 		update_stuck(delta)
 		message_left = maxf(0, message_left - delta)
 		shot_flash = maxf(0, shot_flash - delta)
+	# The voice behind the bars speaks on its own as Miro reaches the gate.
+	if not brother_heard and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and nearby("brother", 90):
+		start_brother()
 	var pursuing := false
 	var searching := false
 	for guard in guards():
 		if not guard.is_dead:
 			pursuing = pursuing or (guard.sees_player and guard.alert_state == IntroGuard.State.ALERT)
-			searching = searching or guard.alert_state == IntroGuard.State.SEARCH or guard.alert_state == IntroGuard.State.SUSPICIOUS
+			searching = searching or guard.alert_state != IntroGuard.State.PATROL
 	if pursuing and not was_spotted and counts_detection():
 		floor_detections += 1
 	was_spotted = pursuing
-	player.detection_state = "SPOTTED" if pursuing else ("HIDDEN" if player.is_concealed else ("SEARCHING / unseen" if searching else "UNSEEN"))
+	# Being seen isn't forgotten the instant the Keepers lose track: stay "searching" a while.
+	if pursuing:
+		spotted_at = elapsed
+	searching = searching or (spotted_at >= 0.0 and elapsed - spotted_at < 8.0)
+	player.detection_state = "SPOTTED" if pursuing else ("HIDDEN" if player.is_concealed else ("SEARCHING" if searching else "UNSEEN"))
 	var status := player.detection_state
 	if player.has_key:
 		status += " · KEY"
-	var hearts := "[img=13x12]res://assets/misc/health_heart.png[/img] ".repeat(clampi(player.health, 0, 5))
+	var halves := clampi(player.health, 0, 20)
+	var hearts := "[img=13x12]res://assets/misc/health_heart.png[/img] ".repeat(halves / 2)
+	if halves % 2 == 1:
+		hearts += "[img=7x12 region=0,0,7,12]res://assets/misc/health_heart.png[/img] "
 	var health_text := "MIRO   " + hearts + "   " + status
 	if health_label.text != health_text:
 		health_label.text = health_text
@@ -197,6 +222,7 @@ func _process(delta: float) -> void:
 	stealth_meter.value = player.stealth_remaining / player.stealth_duration if player.is_concealed else 1.0 - player.stealth_cooldown_left / player.stealth_cooldown
 	message_label.text = message if message_left > 0 else ""
 	dialogue_panel.visible = not dialogue.is_empty() and not paused
+	line_lock = maxf(0.0, line_lock - get_process_delta_time())
 	if not dialogue.is_empty():
 		var line: Array = dialogue[dialogue_index]
 		var anchor := speaker_anchor(str(line[0]))
@@ -223,16 +249,32 @@ func _process(delta: float) -> void:
 				radio.say_in_room(str(line[1]), "pa")
 			elif str(line[0]) == "JUDAS":
 				radio.say_in_room(str(line[1]), "judas")
+			elif str(line[0]) in ["PRISONER", "THE PRISONER"]:
+				radio.say_in_room(str(line[1]), "prisoner")
 			elif str(line[0]) == "MIRO":
 				radio.say_in_room(str(line[1]), "miro", "Thought" if dialogue_panel.thought else "Voice")
 			else:
 				radio.stop()
+			line_lock = 0.0
+			if radio.audible():
+				var length: float = radio.speaking_left
+				if radio.room.playing and radio.room.stream != null:
+					length = maxf(length, radio.room.stream.get_length())
+				line_lock = minf(length, 14.0)
+		# The MP3 pops up at the side of the screen while his brother's voice comes through it.
+		voice_remote.visible = str(line[0]) in ["NIRO", "THE VOICE", "BROTHER"] and anchor == player
+		voice_remote.modulate.a = 0.75 + 0.25 * sin(elapsed * 9.0)
 	elif not radio_line.is_empty():
+		voice_remote.visible = false
 		radio_line = ""
 		get_node("/root/RemoteRadio").stop()
 	# Paused: the pause menu (scripts/pause_menu.gd) covers the screen instead.
 	overlay.visible = completed or player.is_dead
 	if completed:
+		if not crackle_played:
+			# The remote crackles with his brother's voice as the floor report comes up.
+			crackle_played = true
+			get_node("/root/RemoteRadio").say(FLOOR_END_CRACKLE)
 		var raw := floor_raw_stats()
 		overlay_label.text = "THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   ·   %s   ·   Kills %d   ·   Seen %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, get_node("/root/Campaign").style_word(raw), raw.kills, raw.detections]
 	elif player.is_dead:
@@ -335,9 +377,12 @@ func speaker_anchor(speaker: String) -> Node2D:
 			if boss != null and is_instance_valid(boss):
 				return boss
 			return player
-		"A VOICE BEYOND THE BARS", "THE VOICE":
+		"A VOICE BEYOND THE BARS":
 			var gate = nearby("brother", 200)
 			return gate if gate else player
+		"THE VOICE":
+			# His brother is never in the room as "The Voice": it always comes through the remote.
+			return player
 	var reading = nearby("note", 90)
 	if reading == null:
 		reading = nearby("sigil", 90)
@@ -369,6 +414,19 @@ func show_card(mode: String, heading: String, title_text: String, detail := "", 
 	card.level = self
 	hud.add_child(card)
 
+## The cinematic between floors (scripts/interlude_cinematic.gd), then the next scene.
+func play_interlude(floor_done: int, next_scene: String) -> void:
+	if DisplayServer.get_name() == "headless":
+		get_tree().change_scene_to_file(next_scene)
+		return
+	var layer := CanvasLayer.new()
+	layer.layer = 95
+	var scene: Control = preload("res://scripts/interlude_cinematic.gd").new()
+	scene.floor_done = floor_done
+	scene.finished.connect(func(): get_tree().change_scene_to_file(next_scene))
+	layer.add_child(scene)
+	add_child(layer)
+
 func start_dialogue(lines: Array, event: String = "") -> void:
 	dialogue = lines
 	dialogue_index = 0
@@ -392,17 +450,23 @@ func finish_dialogue() -> void:
 func guards() -> Array[Node]:
 	return get_tree().get_nodes_in_group("guards")
 
-func in_cover(point: Vector2) -> bool:
-	var list := areas if is_instance_valid(areas) else get_node_or_null("Interactables")
-	if not list:
+## Light sources (torches, lamps) registered by the level art; moss watchers count too.
+var light_points: Array[Vector2] = []
+const LIGHT_RADIUS := 70.0
+
+## The tower is dark by nature, so the blanket hides Miro anywhere except inside a light's
+## radius. A crouching Miro slips under the radius (the glow is above him).
+func in_light(point: Vector2, crouched := false) -> bool:
+	if crouched:
 		return false
-	for area in list.get_children():
-		if area.kind == "cover":
-			var rect: Rect2 = Rect2(area.global_position - area.area_size / 2, area.area_size)
-			var expanded := Rect2(rect.position.x - 6, rect.position.y - 45, rect.size.x + 12, rect.size.y + 45)
-			if expanded.has_point(point):
-				return true
+	for light in light_points:
+		if absf(light.x - point.x) < LIGHT_RADIUS and absf(light.y - point.y) < 150.0:
+			return true
 	return false
+
+## True where the blanket works (kept under its old name for the HUD and tests).
+func in_cover(point: Vector2) -> bool:
+	return not in_light(point, is_instance_valid(player) and player.crouching)
 
 func ladder_at(point: Vector2):
 	for area in areas.get_children():
@@ -482,7 +546,7 @@ func interact() -> void:
 	var bed = nearby("bed")
 	if bed and not player.has_supplies:
 		player.has_supplies = true
-		player.c4_count = 2
+		player.c4_count = 4 # Three to use freely, one for the support below.
 		bed.activated = true
 		bed.queue_redraw()
 		start_dialogue([
@@ -556,7 +620,7 @@ func interact() -> void:
 func start_brother() -> void:
 	var response := "You took his life. Was that necessary?" if player.casualty_count > 0 else "You got past him without killing. There is still time to stop."
 	start_dialogue([
-		["A VOICE BEYOND THE BARS", "Miro. Please. Don't go any lower.\n%s" % response],
+		["THE VOICE", "Miro. Please. Don't go any lower.\n%s" % response],
 		["MIRO", "You know my name. Do I know you?"],
 		["THE VOICE", "You used to. Stay there. Let me help you."],
 		["MIRO", "That voice should mean something. It hurts that it doesn't.\nI can't stay here.", "thought"]
@@ -635,6 +699,15 @@ func build_hud() -> void:
 	header.color = Color(0.15, 0.15, 0.26, 0.92)
 	header.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.add_child(header)
+	voice_remote = TextureRect.new()
+	voice_remote.texture = preload("res://assets/weapons/remote.svg")
+	voice_remote.custom_minimum_size = Vector2(26, 33)
+	voice_remote.size = Vector2(26, 33)
+	voice_remote.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	voice_remote.position = Vector2(606, 150)
+	voice_remote.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	voice_remote.visible = false
+	hud.add_child(voice_remote)
 	var inventory := Control.new()
 	inventory.set_script(preload("res://scripts/weapon_inventory.gd"))
 	inventory.player = player

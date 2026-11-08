@@ -5,7 +5,13 @@
       "Judas",
       "Rowan",
       "Ivo",
-      "Bram"
+      "Bram",
+      "Mott",
+      "Crane",
+      "Stroud",
+      "Thane",
+      "Holt",
+      "Rook"
     ],
     "2": [
       "Alden",
@@ -16,6 +22,16 @@
       "Hollis",
       "Jory",
       "Kell",
+      "Pell",
+      "Wick",
+      "Garth",
+      "Rhea",
+      "Marta",
+      "Odette",
+      "Sunniva",
+      "Calla",
+      "Ingrid",
+      "Noor",
       "Lusk"
     ],
     "3": [
@@ -103,6 +119,27 @@
           "speaker": 2,
           "text": "Then I believe the bell rings at six. Wake me when it does.",
           "delivery": "[sighs] [amused]"
+        },
+        {
+          "speaker": 1,
+          "text": "Amen. Now, did anyone remember the service port password? I'm locked out again.",
+          "delivery": "[sheepish]"
+        },
+        {
+          "speaker": 2,
+          "text": "Root. All lowercase. R, O, O, T. Same as every other shift.",
+          "delivery": "[dry] [low]",
+          "clue": "root"
+        },
+        {
+          "speaker": 0,
+          "text": "Right. Once you're in, you can switch the corridor camera off. Not that I'd ever tell a prisoner.",
+          "delivery": "[quietly] [amused]"
+        },
+        {
+          "speaker": 1,
+          "text": "I'll watch the stairs. And please, don't leave the port open.",
+          "delivery": "[low]"
         }
       ]
     }
@@ -756,6 +793,303 @@
         "I bring cold soup. It saves the tower the trouble.",
         "The watcher always sees someone when I sit down."
       ]
+    },
+    "Mott": {
+      "alert": "Down here? Nobody comes down here. Except you, apparently.",
+      "body": "Bram? Bram, get up. This isn't funny.",
+      "delivery": "[gruff]",
+      "idle": [
+        "Bottom floor, bottom pay. Story of my life.",
+        "If that support cracks, I'm not the one explaining it."
+      ],
+      "personality": "resents being stationed at the bottom",
+      "theme": "serious"
+    },
+    "Pell": {
+      "alert": "Back in your cell! I said back!",
+      "body": "He was coughing yesterday. Now he's not doing anything.",
+      "delivery": "[stern] [tired]",
+      "idle": [
+        "Another door, another cough. I stopped counting.",
+        "They say it doesn't spread to us. They say a lot."
+      ],
+      "personality": "tired of pretending the sick are dangerous",
+      "theme": "stern"
+    },
+    "Crane": {
+      "alert": "Wrong floor, prisoner. Wrong life, too.",
+      "body": "Somebody's going to make me write this up.",
+      "delivery": "[dry]",
+      "idle": [
+        "I polish this floor and it just gets dirtier.",
+        "Nobody visits the vault. That's the appeal."
+      ],
+      "personality": "takes pride in a floor nobody sees",
+      "theme": "serious"
+    },
+    "Stroud": {
+      "alert": "You! Don't make me run, my knee's gone!",
+      "body": "Oh, wonderful. Another one for the cart.",
+      "delivery": "[wheezing]",
+      "idle": [
+        "Forty years and they still won't fix these stairs.",
+        "My knee says rain. My knee is always right."
+      ],
+      "personality": "blames everything on his bad knee",
+      "theme": "serious"
+    },
+    "Thane": {
+      "alert": "Halt! Halt, I think that's the word!",
+      "body": "Is he asleep? Tell me he's asleep.",
+      "delivery": "[nervous]",
+      "idle": [
+        "First week. Nobody told me about the coughing.",
+        "If I stand very still maybe they'll forget I'm here."
+      ],
+      "personality": "new recruit terrified of being noticed",
+      "theme": "serious"
+    },
+    "Holt": {
+      "alert": "There you are. I bet Mott you'd come this way.",
+      "body": "That's a week's wages I'm never collecting.",
+      "delivery": "[smug]",
+      "idle": [
+        "Two to one says the lamp goes out by midnight.",
+        "I'd bet on the rats, honestly."
+      ],
+      "personality": "bets on everything",
+      "theme": "serious"
+    },
+    "Wick": {
+      "alert": "Get back in line! All of you, in line!",
+      "body": "Nobody touches him. Nobody touches anything.",
+      "delivery": "[barking]",
+      "idle": [
+        "Gloves on. Gloves off. Gloves on again.",
+        "Wash your hands. I said wash them."
+      ],
+      "personality": "obsessed with not catching anything",
+      "theme": "serious"
+    },
+    "Garth": {
+      "alert": "Oi! Visiting hours ended years ago!",
+      "body": "That's two this week. I'm keeping count.",
+      "delivery": "[flat]",
+      "idle": [
+        "Cell nine asked for water again. Cell nine can wait.",
+        "I used to know their names."
+      ],
+      "personality": "has stopped learning prisoners names",
+      "theme": "serious"
+    },
+    "Rook": {
+      "alert": "Up here? Clever. Not clever enough.",
+      "body": "Nobody falls off a ledge that quietly.",
+      "delivery": "[smug]",
+      "idle": [
+        "Best view in the tower. Worst pay.",
+        "They told me nobody climbs up here. So why am I up here?"
+      ],
+      "personality": "likes watching everyone from above",
+      "theme": "serious"
+    },
+    "Rhea": {
+      "alert": "Intruder! Hold the pose, I mean, hold still!",
+      "body": "Oh no. Oh no, I should've stretched him out first.",
+      "delivery": "[bright]",
+      "idle": [
+        "Roll the shoulders, long exhale. Even down here, breathe.",
+        "Twelve hours standing. My core has never been stronger."
+      ],
+      "personality": "pilates devotee who stretches mid-patrol",
+      "theme": "funny"
+    },
+    "Marta": {
+      "alert": "Hey! Put that down, you'll ruin my sourdough! I mean, stop!",
+      "body": "Somebody help him! Somebody get the first aid, and the flour!",
+      "delivery": "[warm]",
+      "idle": [
+        "Starter needs feeding at six. The tower never lets me go home on time.",
+        "Cinnamon rolls on my day off. Ten tower guards, ten rolls."
+      ],
+      "personality": "bakes in her head all shift",
+      "theme": "funny"
+    },
+    "Odette": {
+      "alert": "Stop! You're the most interesting thing that's happened to me all year!",
+      "body": "Of course. Even the dead ones stop to talk to me.",
+      "delivery": "[wistful]",
+      "idle": [
+        "Four years on this floor and not one man who reads.",
+        "Maybe the next prisoner will be handsome. A girl can dream."
+      ],
+      "personality": "lonely and desperate to meet someone",
+      "theme": "funny"
+    },
+    "Sunniva": {
+      "alert": "Not now! Eleven days left on my contract. Eleven!",
+      "body": "Nope. Not signing the incident report. Eleven days.",
+      "delivery": "[determined]",
+      "idle": [
+        "Eleven days. Then a goat farm in the north. Goats don't ask for passwords.",
+        "I've already named the goats. Don't laugh."
+      ],
+      "personality": "counts the days to the end of her contract",
+      "theme": "funny"
+    },
+    "Calla": {
+      "alert": "Oh my, a real runaway! This is going straight into my podcast!",
+      "body": "Okay, that's one for the true crime episode.",
+      "delivery": "[excited]",
+      "idle": [
+        "Episode forty. The case of the missing lunch money. Unsolved.",
+        "Everyone here has a motive. Everyone. Even Garrow."
+      ],
+      "personality": "obsessed with true crime podcasts",
+      "theme": "funny"
+    },
+    "Ingrid": {
+      "alert": "Intruder in the stacks! Quiet, please! Quiet!",
+      "body": "Overdue. Everything about this is overdue.",
+      "delivery": "[prim]",
+      "idle": [
+        "Keeper regulations, section nine, subsection four. Nobody ever reads it.",
+        "Alphabetical. Chronological. Then by whom I like less."
+      ],
+      "personality": "treats the tower like a library she runs",
+      "theme": "funny"
+    },
+    "Noor": {
+      "alert": "Well, well. Look who's out past curfew. Shame about the handcuffs.",
+      "body": "Aw. And I'd just gotten used to the company.",
+      "delivery": "[husky]",
+      "idle": [
+        "The night shift is long and the only company is Garth. Garth!",
+        "I wore the good boots today and nobody even looked."
+      ],
+      "personality": "bored and flirts with everyone, even prisoners",
+      "theme": "funny"
+    },
+    "Dara": {
+      "alert": "Records are off limits! Step away from the screen!",
+      "body": "Dara's down. Somebody tell the desk, they'll want the keys.",
+      "delivery": "[stern]",
+      "idle": [
+        "The screen hums at night. I've started humming back.",
+        "Nobody reads the old files. That's the only reason I guard them."
+      ],
+      "personality": "guards the records like they were his own diary",
+      "theme": "serious"
+    },
+    "Vesna": {
+      "alert": "Hands off the port! That's maintenance property!",
+      "body": "Oh no. And I just got the port working.",
+      "delivery": "[brisk]",
+      "idle": [
+        "Root, root. If anyone asks, I never said that.",
+        "Two cables, one spare. That's my whole job."
+      ],
+      "personality": "proud of a job nobody understands",
+      "theme": "serious"
+    },
+    "Ilse": {
+      "alert": "You! Away from the terminal!",
+      "body": "Not at my terminal. Not on my shift.",
+      "delivery": "[sharp]",
+      "idle": [
+        "I clean the screen every shift. No one notices.",
+        "If the screen flickers, it's the ghost. I don't believe in ghosts."
+      ],
+      "personality": "superstitious about the terminals",
+      "theme": "serious"
+    },
+    "Bryn": {
+      "alert": "Hey! That terminal is logged, you know!",
+      "body": "I had one job: watch the screen.",
+      "delivery": "[wry]",
+      "idle": [
+        "Every login is logged. Even mine.",
+        "I've read the whole nine-page manual. Twice."
+      ],
+      "personality": "quotes the terminal manual",
+      "theme": "serious"
+    },
+    "Odell": {
+      "alert": "Stop right there! Records terminal!",
+      "body": "Nobody warned me about this posting.",
+      "delivery": "[gruff]",
+      "idle": [
+        "Third floor smells like paper and bleach.",
+        "I log everyone who sits down. Except the dead ones."
+      ],
+      "personality": "keeps a tally of who sits at the terminal",
+      "theme": "serious"
+    },
+    "Corra": {
+      "alert": "Away from the checkpoint terminal! Now!",
+      "body": "Somebody's going to have to explain this to the captain.",
+      "delivery": "[firm]",
+      "idle": [
+        "Checkpoint duty is the quietest post in the tower.",
+        "If the cameras fail, I'm the backup. Lucky me."
+      ],
+      "personality": "takes the checkpoint terminal personally",
+      "theme": "serious"
+    },
+    "Wren2": {
+      "alert": "Don't touch that screen!",
+      "body": "This is why I asked for a transfer.",
+      "delivery": "[tense]",
+      "idle": [
+        "Ward files. Ward files. Ward files.",
+        "I read the first line of a record once. Never again."
+      ],
+      "personality": "afraid of what the records say",
+      "theme": "serious"
+    },
+    "Fenna": {
+      "alert": "Halt! Don't read that file!",
+      "body": "Fenna's down. The file stays closed.",
+      "delivery": "[firm]",
+      "idle": [
+        "The sick ward files are the worst to guard.",
+        "I memorise each log. It helps the night pass."
+      ],
+      "personality": "memorises every record",
+      "theme": "serious"
+    },
+    "Marl": {
+      "alert": "That log is classified! Stand down!",
+      "body": "Not like this. Not by the terminal.",
+      "delivery": "[crisp]",
+      "idle": [
+        "Observation logs have the best handwriting.",
+        "I read the cover pages and pretend I understand."
+      ],
+      "personality": "pretends to understand the logs",
+      "theme": "serious"
+    },
+    "Pru": {
+      "alert": "Intruder at the ward terminal!",
+      "body": "Pru? Somebody get the nurse, now!",
+      "delivery": "[urgent]",
+      "idle": [
+        "I keep the ward terminal warm for the doctor.",
+        "Nobody loves the ward terminal like I do."
+      ],
+      "personality": "fond of the ward terminal like a pet",
+      "theme": "serious"
+    },
+    "Garrick": {
+      "alert": "Hands off the foundation terminal!",
+      "body": "Garrick down at the foundation! Send the doctor!",
+      "delivery": "[gruff]",
+      "idle": [
+        "Everything above rests on this terminal. I keep it that way.",
+        "Twenty years on the lowest floor. The roof has never fallen. Yet."
+      ],
+      "personality": "a gruff foundation veteran who guards the last terminal like a bridge",
+      "theme": "stern"
     }
   },
   "hunted": {
@@ -785,6 +1119,29 @@
     "3": [
       "Niall",
       "Ames"
+    ]
+  },
+  "terminal_guards": {
+    "1": [
+      "Dara",
+      "Vesna"
+    ],
+    "2": [
+      "Ilse",
+      "Bryn",
+      "Odell"
+    ],
+    "3": [
+      "Corra",
+      "Wren2",
+      "Fenna"
+    ],
+    "4": [
+      "Marl",
+      "Pru"
+    ],
+    "5": [
+      "Garrick"
     ]
   }
 }

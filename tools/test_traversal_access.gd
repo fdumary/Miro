@@ -100,9 +100,19 @@ func run() -> void:
 		var path := "res://scenes/intro.tscn" if number == 1 else "res://scenes/levels/level_%02d.tscn" % number
 		level = load(path).instantiate()
 		root.add_child(level)
+		for extra_guard in level.get_node("Guards").get_children():
+			if str(extra_guard.name).begins_with("TerminalGuard"):
+				extra_guard.set_physics_process(false)  # these tests probe routes, not the terminal posts
+		for keeper in ["CraneKeeper", "StroudKeeper", "ThaneKeeper", "HoltKeeper", "LedgeKeeper", "VaultKeeper"]:
+			var extra = level.get_node_or_null("Guards/" + keeper)
+			if extra != null:
+				extra.set_physics_process(false)  # these tests probe ladders, not patrols
 		current_scene = level
 		await frames(5)
 		level.finish_dialogue()
+		level.brother_heard = true  # the gate scene plays on its own near the gate; this test only probes geometry
+		if number == 2:
+			level.milestones["BrotherOffer"] = true  # the offer plays on its own near that spot
 		for guard in level.guards():
 			guard.set_physics_process(false)
 		var world = level.world_features

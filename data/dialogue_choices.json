@@ -6,8 +6,22 @@
       "after": "doesn't pay me enough to care",
       "prompt": "He's sick, and he sells what's left of us.",
       "options": [
-        {"text": "Then don't look. That's all I need from you.", "lean": {"ghost": 2}},
-        {"text": "Keep looking away. You're good at it.", "lean": {"defiant": 2}, "reply": ["@anchor", "Careful. I can still hear you."]}
+        {
+          "text": "Then don't look. That's all I need from you.",
+          "lean": {
+            "ghost": 2
+          }
+        },
+        {
+          "text": "Keep looking away. You're good at it.",
+          "lean": {
+            "defiant": 2
+          },
+          "reply": [
+            "@anchor",
+            "Careful. I can still hear you."
+          ]
+        }
       ]
     },
     {
@@ -15,8 +29,18 @@
       "after": "You used to. Stay there. Let me help you.",
       "prompt": "A voice behind bars, asking me to trust it.",
       "options": [
-        {"text": "Then tell me who I was.", "lean": {"seeker": 2}},
-        {"text": "Nobody in here helps anybody.", "lean": {"survivor": 2}}
+        {
+          "text": "Then tell me who I was.",
+          "lean": {
+            "seeker": 2
+          }
+        },
+        {
+          "text": "Nobody in here helps anybody.",
+          "lean": {
+            "survivor": 2
+          }
+        }
       ]
     },
     {
@@ -24,8 +48,22 @@
       "after": "I cannot stop shaking. Please... stand back.",
       "prompt": "He's terrified of me. Or of what they'll do if I'm seen here.",
       "options": [
-        {"text": "I'm not here. You never saw me.", "lean": {"ghost": 2}},
-        {"text": "Whoever did this to you will answer for it.", "lean": {"defiant": 2}, "reply": ["@anchor", "Don't. They'll only take more of us."]}
+        {
+          "text": "I'm not here. You never saw me.",
+          "lean": {
+            "ghost": 2
+          }
+        },
+        {
+          "text": "Whoever did this to you will answer for it.",
+          "lean": {
+            "defiant": 2
+          },
+          "reply": [
+            "@anchor",
+            "Don't. They'll only take more of us."
+          ]
+        }
       ]
     },
     {
@@ -33,8 +71,26 @@
       "after": "We used to trust each other.",
       "prompt": "He wants me to come back. Back to what?",
       "options": [
-        {"text": "If we trusted each other, you'd tell me why I'm here.", "lean": {"seeker": 2}},
-        {"text": "I'll take myself out.", "lean": {"survivor": 2}}
+        {
+          "text": "Then tell me why I'm here.",
+          "lean": {
+            "seeker": 2
+          },
+          "reply": [
+            "@anchor",
+            "Not through a wall, Miro. Come back and I'll tell you everything."
+          ]
+        },
+        {
+          "text": "I'll find my own way out.",
+          "lean": {
+            "survivor": 2
+          },
+          "reply": [
+            "@anchor",
+            "There is no way out. Only down. Please, stop before it's too late."
+          ]
+        }
       ]
     },
     {
@@ -42,8 +98,18 @@
       "after": "My name. Their uniform. I was one of them.",
       "prompt": "If I was one of them, I know how this place works.",
       "options": [
-        {"text": "Then I know their doors, their cameras, their passwords.", "lean": {"blackhat": 2}},
-        {"text": "Then I know exactly where it hurts.", "lean": {"defiant": 2}}
+        {
+          "text": "Then I know their doors, their cameras, their passwords.",
+          "lean": {
+            "blackhat": 2
+          }
+        },
+        {
+          "text": "Then I know exactly where it hurts.",
+          "lean": {
+            "defiant": 2
+          }
+        }
       ]
     },
     {
@@ -51,8 +117,18 @@
       "after": "I thought we were helping people.",
       "prompt": "My brother. I want that to mean something.",
       "options": [
-        {"text": "I want to believe you, Niro.", "lean": {"seeker": 2}},
-        {"text": "Helping. Look around you.", "lean": {"defiant": 2}}
+        {
+          "text": "I want to believe you, Niro.",
+          "lean": {
+            "seeker": 2
+          }
+        },
+        {
+          "text": "Helping. Look around you.",
+          "lean": {
+            "defiant": 2
+          }
+        }
       ]
     },
     {
@@ -60,8 +136,18 @@
       "after": "Names replaced by specimen numbers.",
       "prompt": "Numbers where the names should be.",
       "options": [
-        {"text": "Somebody has to remember them. I'll copy the numbers.", "lean": {"seeker": 2}},
-        {"text": "Every page of this goes down with the tower.", "lean": {"defiant": 2}}
+        {
+          "text": "Somebody has to remember them. I'll copy the numbers.",
+          "lean": {
+            "seeker": 2
+          }
+        },
+        {
+          "text": "Every page of this goes down with the tower.",
+          "lean": {
+            "defiant": 2
+          }
+        }
       ]
     },
     {
@@ -69,8 +155,18 @@
       "after": "we can still make this work.",
       "prompt": "He's still asking me to stop. I'm still not stopping.",
       "options": [
-        {"text": "Then don't follow me. You won't see me again until it's done.", "lean": {"ghost": 2}},
-        {"text": "Then stay out of my way.", "lean": {"survivor": 2}}
+        {
+          "text": "Then don't follow me. You won't see me again until it's done.",
+          "lean": {
+            "ghost": 2
+          }
+        },
+        {
+          "text": "Then stay out of my way.",
+          "lean": {
+            "survivor": 2
+          }
+        }
       ]
     }
   ]

@@ -5,7 +5,7 @@ signal changed
 const PATH := "user://settings.cfg"
 const DEFAULTS := {
 	"deadzone": 0.22, "invert_aim_y": false, "hold_crouch": false,
-	"speaker_enabled": true, "speaker_endpoint": "",
+	"speaker_enabled": false, "speaker_endpoint": "",
 }
 var preferences := DEFAULTS.duplicate()
 

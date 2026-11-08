@@ -4,10 +4,20 @@ extends Node2D
 @export_enum("sick_prisoner", "ward_chamber") var kind := "sick_prisoner"
 var clock := 0.0
 
+var cough_count := 0
+var cough_was := false
+
 func _process(delta: float) -> void:
 	if not Engine.is_editor_hint() and get_parent().get_parent().has_method("controls_locked") and get_parent().get_parent().controls_locked():
 		return
 	clock += delta
+	if kind == "sick_prisoner":
+		var coughing := fmod(clock, 4.0) > 3.2
+		var level = get_parent().get_parent()
+		if coughing and not cough_was and level.get("player") != null:
+			cough_count += 1
+			get_node("/root/SoundFX").cough_near(global_position, level.player.global_position, cough_count + 1)
+		cough_was = coughing
 	queue_redraw()
 
 func _draw() -> void:

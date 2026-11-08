@@ -349,6 +349,42 @@
       ]
     },
     {
+      "name": "Shadow15",
+      "kind": "cover",
+      "position": [
+        574.0,
+        216
+      ],
+      "size": [
+        64,
+        72
+      ]
+    },
+    {
+      "name": "Shadow16",
+      "kind": "cover",
+      "position": [
+        714.0,
+        216
+      ],
+      "size": [
+        64,
+        72
+      ]
+    },
+    {
+      "name": "Shadow17",
+      "kind": "cover",
+      "position": [
+        938.0,
+        216
+      ],
+      "size": [
+        64,
+        72
+      ]
+    },
+    {
       "name": "StairGate",
       "kind": "exit",
       "position": [
@@ -441,6 +477,106 @@
       "patrol_left": 854.0,
       "patrol_right": 1302.0,
       "sick": false
+    },
+    {
+      "name": "CellKeeper",
+      "position": [
+        826.0,
+        236
+      ],
+      "patrol_left": 686.0,
+      "patrol_right": 910.0,
+      "sick": false
+    },
+    {
+      "name": "InfirmaryKeeper",
+      "position": [
+        350.0,
+        236
+      ],
+      "patrol_left": 260.0,
+      "patrol_right": 440.0,
+      "sick": false
+    },
+    {
+      "name": "GateKeeper",
+      "position": [
+        910.0,
+        236
+      ],
+      "patrol_left": 882.0,
+      "patrol_right": 938.0,
+      "sick": false
+    },
+    {
+      "name": "RoundsKeeper",
+      "position": [
+        406.0,
+        432
+      ],
+      "patrol_left": 294.0,
+      "patrol_right": 518.0,
+      "sick": false
+    },
+    {
+      "name": "StairKeeper",
+      "position": [
+        1386.0,
+        432
+      ],
+      "patrol_left": 1302.0,
+      "patrol_right": 1470.0,
+      "sick": false
+    },
+    {
+      "name": "LinenKeeper",
+      "position": [
+        390.0,
+        628
+      ],
+      "patrol_left": 294.0,
+      "patrol_right": 490.0,
+      "sick": false
+    },
+    {
+      "name": "DryerKeeper",
+      "position": [
+        1130.0,
+        628
+      ],
+      "patrol_left": 1010.0,
+      "patrol_right": 1442.0,
+      "sick": false
+    },
+    {
+      "name": "BunkKeeper",
+      "position": [
+        350.0,
+        852
+      ],
+      "patrol_left": 294.0,
+      "patrol_right": 462.0,
+      "sick": false
+    },
+    {
+      "name": "OfficeKeeper",
+      "position": [
+        910.0,
+        992
+      ],
+      "patrol_left": 826.0,
+      "patrol_right": 994.0,
+      "sick": false
+    },
+    {
+      "name": "VaultKeeper",
+      "position": [
+        406.0,
+        1244
+      ],
+      "patrol_left": 322.0,
+      "patrol_right": 546.0,
+      "sick": false
     }
   ],
   "beats": [
@@ -512,10 +648,6 @@
         [
           "THE VOICE",
           "Come back. Let me take you out of here.\nWe used to trust each other."
-        ],
-        [
-          "MIRO",
-          "Then tell me why these doors are locked from the outside."
         ]
       ],
       "requires": [
@@ -3728,13 +3860,66 @@
   "gates": [],
   "features": {
     "hazards": [
-      {"kind": "turret", "position": [826, 448]},
-      {"kind": "turret", "position": [1218, 1064]},
-      {"kind": "turret", "position": [1008, 182], "mount": "right"},
-      {"kind": "spikes", "position": [350, 868]},
-      {"kind": "spikes", "position": [630, 1064]},
-      {"kind": "spikes", "position": [952, 210], "mount": "left"},
-      {"kind": "spikes", "position": [994, 840], "mount": "ceiling"}
+      {
+        "kind": "turret",
+        "position": [
+          826.0,
+          448
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1218.0,
+          1064
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1008.0,
+          182.0
+        ],
+        "mount": "right"
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          350.0,
+          868
+        ]
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          630.0,
+          1064
+        ]
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          952.0,
+          210.0
+        ],
+        "mount": "left"
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          994.0,
+          840
+        ],
+        "mount": "ceiling"
+      },
+      {
+        "kind": "turret",
+        "position": [
+          28.0,
+          406.0
+        ],
+        "mount": "right"
+      }
     ],
     "cases": [
       [

@@ -39,6 +39,8 @@ var trapdoors: Array[Node2D] = []
 ## Miro's inner voice plays on the Thought bus (long, spacey reverb). Drop clips at
 ## res://assets/audio/voice/thought_<floor>_<id>.mp3 to voice a thought.
 var thought_voice: AudioStreamPlayer
+const TURRET_HINT := "I smell a turret. Maybe I can use one of my C4 to destroy it."
+var turret_hinted := false
 ## Individual Keeper profiles and authored casting (data/guard_roster.json).
 var roster: Dictionary = {}
 ## Extra overheard scenes after the main conversation: huddles and add_casual_lines().
@@ -120,18 +122,56 @@ func setup(owner_level: Node2D, number: int) -> void:
 	setup_trapdoors()
 	place_props_after_physics()
 	build_password_panel()
+	var checkpoint_terminal = level.areas.get_node_or_null("RemoteTerminal")
+	if checkpoint_terminal != null:
+		spawn_terminal_guard(checkpoint_terminal.global_position)
 	if not authored.get("ports", []).is_empty():
 		var port: Array = authored.ports[0]
 		access_point = Vector2(port[0], port[1])
 		spawn_prop(access_point, "access", "SERVICE PORT")
+		spawn_terminal_guard(access_point)
 	elif number in [1, 2]:
 		access_point = Vector2(500, 432) if number == 1 else Vector2(440, 432)
 		spawn_prop(access_point, "access", "SERVICE PORT")
+		spawn_terminal_guard(access_point)
 		if number == 2:
 			practice_camera = load("res://scenes/security_camera.tscn").instantiate()
 			practice_camera.level = level
 			practice_camera.position = Vector2(720, 370)
 			level.add_child(practice_camera)
+
+## One Keeper posted beside each terminal (service ports, the checkpoint and the records
+## terminals), named from the roster's `terminal_guards` list for this floor, in the order the
+## terminals are set up. He keeps to a few steps around his post.
+var terminal_guard_index := 0
+
+func spawn_terminal_guard(terminal_point: Vector2) -> void:
+	var names: Array = roster.get("terminal_guards", {}).get(str(floor_number), [])
+	if terminal_guard_index >= names.size():
+		return
+	var guard_name: String = names[terminal_guard_index]
+	var slot := terminal_guard_index + 1
+	terminal_guard_index += 1  # reserved now, so names follow terminal order even though we wait below
+	# Floors register their collision a frame or two after _ready; the floor ray needs it.
+	for wait in range(3):
+		await get_tree().physics_frame
+	var query := PhysicsRayQueryParameters2D.create(terminal_point + Vector2(0, -6), terminal_point + Vector2(0, 90), 1)
+	var hit := level.get_world_2d().direct_space_state.intersect_ray(query)
+	if hit.is_empty():
+		return
+	var x := terminal_point.x + 48.0
+	if not level.has_floor_below(Vector2(x, hit.position.y - 3.0)) or not level.has_floor_below(Vector2(x + 30.0, hit.position.y - 3.0)):
+		x = terminal_point.x - 48.0
+	var keeper = load("res://scenes/guard.tscn").instantiate()
+	keeper.set_script(preload("res://scripts/terminal_guard.gd"))
+	keeper.name = "TerminalGuard%d" % slot
+	keeper.position = Vector2(x, hit.position.y - 16.0)
+	keeper.post_at(x)
+	keeper.level = level
+	keeper.illness_started = true
+	keeper.weapon_kind = "pistol"
+	assign_keeper(keeper, guard_name)
+	level.get_node("Guards").add_child(keeper)
 
 func place_props_after_physics() -> void:
 	await get_tree().physics_frame
@@ -139,7 +179,17 @@ func place_props_after_physics() -> void:
 	add_props()
 
 func add_props() -> void:
+	level.player.set_collision_mask_value(6, true)  # crates and window sills
 	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
+	# Tonics: the little bottles beside the cots (drawn where scaffold_art once stamped them).
+	if floor_number == 2:
+		var storey_list: Array = level.definition.get("storeys", [])
+		for index in range(mini(3, storey_list.size())):
+			for step in range(5):
+				var bottle_x := 220.0 + step * 330 + index * 37 + 70
+				var tonic_point := Vector2(bottle_x, float(storey_list[index]) - 16.0)
+				if bottle_x <= float(level.definition.world_size[0]) - 120.0 and placement_clear(tonic_point):
+					spawn_prop(tonic_point, "potion", "TONIC")
 	if authored.has("cases"):
 		# Authored layouts place every case and hiding spot by hand (tools/level_layouts.py).
 		for point in authored.cases:
@@ -187,7 +237,7 @@ const LEVEL_ONE_CRATES := [Vector2(477, 252), Vector2(968, 448), Vector2(530, 67
 
 func spawn_crate(point: Vector2) -> void:
 	# `point` is on the floor; check clearance from where the crate's prop marker sits.
-	point = free_spot(point - Vector2(0, 16)) + Vector2(0, 16)
+	point = free_spot(point - Vector2(0, 16), "crate") + Vector2(0, 16)
 	var tiles := level.get_node_or_null("StoneFloors") as TileMapLayer
 	if tiles:
 		for step in range(8):
@@ -217,8 +267,8 @@ func spawn_crate(point: Vector2) -> void:
 	add_child(body)
 
 func spawn_prop(point: Vector2, kind: String, title: String) -> void:
-	if kind in ["case", "hide"]:
-		point = free_spot(point)
+	if kind in ["case", "hide", "crate"]:
+		point = free_spot(point, kind)
 	var prop := Node2D.new()
 	prop.set_script(load("res://scripts/review_prop.gd"))
 	prop.position = point
@@ -246,10 +296,19 @@ func security_terminal() -> Node2D:
 			distance = gap
 	return nearest
 
+## Every security camera on this floor goes dark (records terminals and the MP3 at one).
+func disable_cameras() -> int:
+	var count := 0
+	for node in level.find_children("*", "", true, false):
+		if node.get_script() == preload("res://scripts/security_camera.gd") and node.is_active:
+			node.disable()
+			count += 1
+	return count
+
 func disable_turrets() -> int:
 	var count := 0
 	for turret in get_tree().get_nodes_in_group("tower_turrets"):
-		if level.is_ancestor_of(turret) and not turret.disabled:
+		if level.is_ancestor_of(turret) and not turret.disabled and not turret.is_in_group("security_cameras"):
 			turret.disable()
 			count += 1
 	return count
@@ -266,7 +325,7 @@ func nearby_prop():
 	var distance := minf(36, story_distance())
 	for prop in props:
 		var candidate: float = level.player.global_position.distance_to(prop.global_position)
-		if candidate < distance and reachable(prop.global_position) and not (prop.kind == "case" and prop.used):
+		if candidate < distance and reachable(prop.global_position) and not (prop.kind in ["case", "potion", "note"] and prop.used):
 			best = prop
 			distance = candidate
 	return best
@@ -350,6 +409,10 @@ func hint() -> String:
 	if prop and prop.kind == "access":
 		return "[E] Service port · select remote to connect"
 	if prop:
+		if prop.kind == "note":
+			return "[E] Read the note"
+		if prop.kind == "potion":
+			return "[E] Drink tonic (+half a heart)" if level.player.health < level.player.max_health else "Tonic (you're not hurt)"
 		return "[E] Take ammunition" if prop.kind == "case" else "[E] Hide in " + prop.title.to_lower()
 	return ""
 
@@ -370,9 +433,27 @@ func try_interact() -> bool:
 	if prop == null:
 		return false
 	if prop.kind == "access":
-		level.player.controls.open_remote()
+		level.player.controls.open_remote(true)
 		return true
-	if prop.kind == "case":
+	if prop.kind == "note":
+		password_known = true
+		prop.used = true
+		prop.queue_free()
+		props.erase(prop)
+		level.start_dialogue([["NOTE", "Checkpoint terminal login
+user: keeper    password: root
+(all lowercase. Burn this after reading.)"]])
+		return true
+	if prop.kind == "potion":
+		if level.player.health >= level.player.max_health:
+			level.notify("You're not hurt. Save it for later.")
+		else:
+			level.player.health = mini(level.player.max_health, level.player.health + 1)
+			prop.used = true
+			prop.queue_redraw()
+			get_node("/root/SoundFX").play_sound("sigil", -14, 1.7)
+			level.notify("You drink the tonic. Half a heart comes back.")
+	elif prop.kind == "case":
 		if level.player.controls.collect_ammo_case():
 			prop.used = true
 			prop.queue_redraw()
@@ -498,7 +579,11 @@ func main_conversation_busy() -> bool:
 
 ## One casual scene or patrol mutter at a time, only while no one else is speaking.
 func update_casual(delta: float) -> void:
-	if line_left > 0 or voice.playing or main_conversation_busy():
+	if line_left > 0 or voice.playing:
+		return
+	# A half-heard main conversation elsewhere on the floor doesn't hold up a scene Miro is
+	# standing beside (the huddle used to wait on it forever).
+	if main_conversation_busy() and not actors.is_empty() and level.player.global_position.distance_to(actors[0].global_position) < 320:
 		return
 	for scene in casual_scenes:
 		if scene.done:
@@ -581,10 +666,13 @@ func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> v
 func keeper_clip_path(keeper_name: String, line_id: String) -> String:
 	return "res://assets/audio/voice/%s_%s.mp3" % [keeper_name.to_lower(), line_id]
 
-func bark(actor: Node2D, kind: String) -> void:
+func bark(actor: Node2D, kind: String, force := false) -> void:
 	abort_conversation()
 	if voice.playing:
-		return
+		if not force:
+			return
+		voice.stop()
+		line_left = 0.0
 	var profile: Dictionary = roster.keepers.get(actor.guard_name, {})
 	var text: String = profile.get(kind, config.barks[kind].text)
 	speak(actor, kind, text)
@@ -625,6 +713,13 @@ func update_bubbles(delta: float) -> void:
 		thought_bubble.visible = thought_left > 0
 		thought_bubble.follow_actor()
 		return
+	# The first time a live turret comes into view, Miro sizes it up.
+	if not turret_hinted:
+		for turret in get_tree().get_nodes_in_group("tower_turrets"):
+			if level.is_ancestor_of(turret) and not turret.is_in_group("security_cameras") and turret.health > 0 and not turret.disabled and turret.target_point().distance_to(level.player.global_position) < 230 and level.clear_sight(level.player.global_position, turret.target_point()):
+				turret_hinted = true
+				think(TURRET_HINT)
+				return
 	for entry in thoughts.get(str(floor_number), []):
 		if thought_seen.has(entry.id):
 			continue
@@ -644,7 +739,11 @@ func think(text: String, clip := "") -> void:
 	thought_bubble.text_label.text = text
 	thought_left = maxf(4, text.length() * 0.07)
 	var path := "res://assets/audio/voice/%s.mp3" % clip
-	if not clip.is_empty() and ResourceLoader.exists(path) and DisplayServer.get_name() != "headless":
+	# Thoughts without their own clip (floor openings, MISSING/HUNTED thoughts) use Miro's
+	# text-hashed clip, like his dialogue.
+	if clip.is_empty() or not ResourceLoader.exists(path):
+		path = preload("res://scripts/remote_radio.gd").clip_path(text, "miro")
+	if ResourceLoader.exists(path) and DisplayServer.get_name() != "headless":
 		thought_voice.stream = load(path)
 		thought_voice.play()
 
@@ -742,30 +841,41 @@ func _exit_tree() -> void:
 ## Level items never spawn on top of a Keeper, a story station, a ladder or another item.
 ## `point` is a prop position (16 px above the floor). Slides along the same floor in 16 px
 ## steps, alternating sides, up to 192 px; keeps the authored spot if nothing nearby is free.
-func free_spot(point: Vector2) -> Vector2:
+func free_spot(point: Vector2, kind := "") -> Vector2:
 	for step in range(0, 13):
 		for direction in [1, -1]:
 			if step == 0 and direction == -1:
 				continue
 			var candidate := point + Vector2(direction * step * 16.0, 0)
-			if spot_taken(candidate):
+			if spot_taken(candidate, kind):
 				continue
 			if step > 0 and not level.has_floor_below(candidate + Vector2(0, 13)):
 				continue
 			return candidate
 	return point
 
-func spot_taken(point: Vector2) -> bool:
+func spot_taken(point: Vector2, kind := "") -> bool:
 	for guard in level.guards():
 		if not is_instance_valid(guard) or absf(guard.global_position.y - point.y) >= 40:
 			continue
 		# Clear of where the Keeper stands and of the stretch he patrols on this floor.
 		var left := minf(guard.global_position.x, float(guard.get("patrol_left") if guard.get("patrol_left") != null else guard.global_position.x))
 		var right := maxf(guard.global_position.x, float(guard.get("patrol_right") if guard.get("patrol_right") != null else guard.global_position.x))
+		# Crates and wall hides may sit along a patrol (that's the point: hide near Keepers);
+		# they only keep off the spot a Keeper is standing on.
+		if kind in ["hide", "crate"]:
+			left = guard.global_position.x - 20.0
+			right = guard.global_position.x + 20.0
 		if point.x > left - 30 and point.x < right + 30:
 			return true
 	for prop in props:
-		if is_instance_valid(prop) and absf(prop.global_position.x - point.x) < 32 and absf(prop.global_position.y - point.y) < 24:
+		# Crates and the wall hides (vents, lockers, crawlspaces) don't sit side by side; those
+		# hides are drawn taller than their marker, so compare them over a taller band.
+		var pair: bool = (kind == "crate" and prop.kind == "hide") or (kind == "hide" and prop.kind == "crate")
+		if not is_instance_valid(prop) or absf(prop.global_position.y - point.y) >= (70.0 if pair else 24.0):
+			continue
+		var apart := 140.0 if pair else 32.0
+		if absf(prop.global_position.x - point.x) < apart:
 			return true
 	for area in level.areas.get_children():
 		if area.kind == "ladder":

@@ -14,7 +14,12 @@ func run() -> void:
 	level.player.fire_gun()
 	check(not target.is_dead, "Round travels instead of applying instant damage")
 	await frames(12)
-	check(target.is_dead, "Traveling bullet hits target")
+	check(target.health == 12, "Traveling bullet hits target")
+	for shot in range(3):
+		level.player.attack_cooldown = 0
+		level.player.fire_gun()
+		await frames(12)
+	check(target.is_dead, "Four pistol shots defeat a guard")
 	var observer = level.guards()[1]
 	observer.position = Vector2(600, 236)
 	observer.sees_player = false

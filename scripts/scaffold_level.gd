@@ -18,6 +18,8 @@ var hunted := false
 var disappointment_heard := false
 var poster: Node2D
 
+var beat_cue_wait := 0.0
+
 func _ready() -> void:
 	definition = JSON.parse_string(FileAccess.get_file_as_string(get_meta("blueprint")))
 	get_node("/root/Campaign").enter_floor(int(definition.number))
@@ -29,7 +31,7 @@ func _ready() -> void:
 	player.get_node("Camera2D").limit_right = int(definition.world_size[0])
 	player.get_node("Camera2D").limit_bottom = int(definition.world_size[1])
 	player.has_supplies = true
-	player.c4_count = int(definition.get("demolition_charges", 1)) + 1 # One optional charge; story supports stay reserved.
+	player.c4_count = int(definition.get("demolition_charges", 1)) + 3 # Three charges to use freely; story supports stay reserved.
 	door_open = true
 	brother_heard = true
 	for guard in guards():
@@ -38,6 +40,7 @@ func _ready() -> void:
 	build_hud()
 	apply_difficulty()
 	setup_world_features(int(definition.number))
+	call_deferred("apply_checkpoint")
 	player.controls.has_remote = get_node("/root/Campaign").remote_owned
 	player.controls.remote_unlocked = get_node("/root/Campaign").remote_unlocked
 	var authored: Dictionary = definition.get("features", {})
@@ -75,6 +78,24 @@ func _ready() -> void:
 		flow.name = "FoundationFlow"
 		add_child(flow)
 		flow.setup(self)
+	# Extra patrols the layout generator does not place (features.extra_guards).
+	for spot in definition.get("features", {}).get("extra_guards", []):
+		var extra = load("res://scenes/guard.tscn").instantiate()
+		extra.name = str(spot.name)
+		extra.position = Vector2(spot.position[0], spot.position[1])
+		extra.patrol_left = float(spot.patrol[0])
+		extra.patrol_right = float(spot.patrol[1])
+		extra.level = self
+		extra.illness_started = true
+		extra.weapon_kind = "pistol"
+		world_features.assign_keeper(extra, str(spot.keeper))
+		$Guards.add_child(extra)
+	if int(definition.number) == 4:
+		var hunt := Node.new()
+		hunt.set_script(load("res://scripts/hunt_waves.gd"))
+		hunt.name = "HuntWaves"
+		hunt.level = self
+		add_child(hunt)
 	# The floor's opening is Miro thinking it through: his thoughts are the game's cues.
 	var opening: Array = [["MIRO", definition.opening, "thought"]]
 	opening.append_array(setup_branch())
@@ -83,8 +104,148 @@ func _ready() -> void:
 	var report: String = get_node("/root/Campaign").branch()[reputation].report if int(definition.number) > 2 else ""
 	show_card("floor", "%02d" % int(definition.number), str(definition.title).to_upper(), report, accents.get(int(definition.number), Color("c69fa5")))
 
+## Each storey of a floor is a checkpoint: the first time Miro stands on a deeper one it is
+## saved, and a retry puts him back there with the floor's progress, with every Keeper
+## respawned (the scene reloads).
+func current_storey() -> int:
+	var storeys: Array = definition.get("storeys", [])
+	for index in range(storeys.size()):
+		if player.global_position.y < float(storeys[index]) + 20.0:
+			return index
+	return storeys.size() - 1
+
+var checkpoint_refreshed := 0
+
+func update_checkpoint() -> void:
+	if flow != null or player.is_dead or not player.is_on_floor() or completed:
+		return
+	var campaign = get_node("/root/Campaign")
+	var storey := current_storey()
+	if storey <= int(campaign.checkpoint.get("storey", 0)) and not campaign.checkpoint.is_empty():
+		# Same storey: keep the checkpoint's place and health, but keep its kit current so guns
+		# and ammo picked up since are not lost on a retry (refreshed every couple of seconds).
+		if int(campaign.checkpoint.get("floor", 0)) == int(definition.number) and Time.get_ticks_msec() - checkpoint_refreshed > 2000:
+			checkpoint_refreshed = Time.get_ticks_msec()
+			var kit := player_snapshot()
+			kit["health"] = int(campaign.checkpoint.get("player", {}).get("health", player.health))
+			campaign.checkpoint["player"] = kit
+			campaign.checkpoint["dead"] = dead_guards()
+			campaign.checkpoint["milestones"] = milestones.duplicate()
+			campaign.checkpoint["sigil"] = sigil_placed
+			campaign.checkpoint["thoughts"] = world_features.thought_seen.keys()
+			campaign.save_checkpoint()
+		return
+	if storey == 0 and campaign.checkpoint.is_empty():
+		return
+	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed, "player": player_snapshot(), "dead": dead_guards(), "thoughts": world_features.thought_seen.keys()}
+	campaign.save_checkpoint()
+	notify("Checkpoint.")
+
+## What Miro is carrying at a checkpoint, so a retry gives it all back.
+func player_snapshot() -> Dictionary:
+	var c = player.controls
+	return {
+		"health": player.health, "max_health": player.max_health, "has_supplies": player.has_supplies,
+		"has_key": player.has_key, "has_gun": player.has_gun, "guns": Array(player.guns),
+		"gun_ammo": player.gun_ammo.duplicate(), "equipped_gun": player.equipped_gun, "ammunition": player.ammunition,
+		"c4_count": player.c4_count, "casualty_count": player.casualty_count,
+		"reserves": c.reserves.duplicate(), "has_guitar": c.has_guitar, "layout": Array(c.layout),
+	}
+
+func dead_guards() -> Array:
+	var dead: Array = []
+	for guard in guards():
+		if guard.is_dead and guard.get_parent() == $Guards:
+			dead.append({"name": str(guard.name), "position": guard.global_position, "looted": guard.gun_taken})
+	return dead
+
+func apply_player_snapshot(data: Dictionary) -> void:
+	var c = player.controls
+	player.health = int(data.get("health", player.health))
+	player.max_health = int(data.get("max_health", player.max_health))
+	player.has_supplies = bool(data.get("has_supplies", player.has_supplies))
+	player.has_key = bool(data.get("has_key", false))
+	player.has_gun = bool(data.get("has_gun", false))
+	player.guns.assign(data.get("guns", []))
+	player.gun_ammo = Dictionary(data.get("gun_ammo", {})).duplicate()
+	player.equipped_gun = str(data.get("equipped_gun", player.equipped_gun))
+	player.ammunition = int(data.get("ammunition", 0))
+	player.c4_count = int(data.get("c4_count", player.c4_count))
+	player.casualty_count = int(data.get("casualty_count", 0))
+	c.reserves = Dictionary(data.get("reserves", {})).duplicate()
+	c.has_guitar = bool(data.get("has_guitar", false))
+
+func apply_checkpoint() -> void:
+	var saved: Dictionary = get_node("/root/Campaign").checkpoint
+	if saved.is_empty() or int(saved.get("floor", 0)) != int(definition.number) or flow != null or not saved.get("retry", false):
+		return
+	saved.erase("retry")
+	player.global_position = saved.position
+	player.velocity = Vector2.ZERO
+	if saved.has("player"):
+		apply_player_snapshot(saved.player)
+	# Keepers killed before the checkpoint stay dead; everyone else is back on their feet.
+	for entry in saved.get("dead", []):
+		var fallen = $Guards.get_node_or_null(str(entry.name))
+		if fallen != null:
+			fallen.restore_dead(entry.position, bool(entry.get("looted", false)))
+	# A moment of grace so the respawned Keepers can't strip health the instant he appears.
+	player.invulnerability_left = 3.5
+	player.respawn_cloak_left = 4.0
+	player.is_concealed = true
+	sigil_placed = bool(saved.get("sigil", false))
+	for id in saved.milestones:
+		milestones[id] = true
+		var node = areas.get_node_or_null(NodePath(str(id)))
+		if node != null:
+			node.activated = true
+			node.queue_redraw()
+		if has_node("Gates"):
+			for gate in $Gates.get_children():
+				if gate.unlock_milestone == str(id):
+					gate.unlock()
+	# Thoughts Miro already had on this floor are not repeated after a retry; the floor's
+	# opening-line thoughts always count as heard once a checkpoint exists.
+	for id in saved.get("thoughts", []):
+		world_features.thought_seen[id] = true
+	for entry in world_features.thoughts.get(str(int(definition.number)), []):
+		if not entry.has("milestone") and not entry.has("minimum_y"):
+			world_features.thought_seen[entry.id] = true
+	# Straight back into play: skip the floor's opening scene.
+	dialogue = []
+	dialogue_index = 0
+	dialogue_event = ""
+	notify("Back at your checkpoint. The Keepers are back too.")
+
 func _process(delta: float) -> void:
 	super._process(delta)
+	# A beat earned on the last floor is announced once, a few seconds in.
+	beat_cue_wait += delta
+	var campaign = get_node("/root/Campaign")
+	if beat_cue_wait > 4.0 and not campaign.fresh_unlocks.is_empty() and dialogue.is_empty() and not controls_locked():
+		var names: Array = []
+		for track in campaign.fresh_unlocks:
+			names.append(str(track).replace("_", " ").capitalize())
+		campaign.fresh_unlocks = []
+		notify("New beat unlocked: %s. Press B to change beat." % ", ".join(names), 7.0)
+	# Level 2: his brother's offer comes through the remote on its own as Miro reaches that
+	# point in the floor, whether or not he has looked at the sick prisoner first.
+	# Floor 3's familiar voice speaks the same way, once the personnel record has been read.
+	if flow == null and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and not milestones.has("BrotherReveal") and milestones.has("RankRecord"):
+		var reveal = areas.get_node_or_null("BrotherReveal")
+		if reveal != null and reveal.global_position.distance_to(player.global_position) < 90.0:
+			for station in definition.stations:
+				if station.id == "BrotherReveal":
+					pending_milestone = "BrotherReveal"
+					start_dialogue(station.lines, "milestone")
+	if flow == null and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and not milestones.has("BrotherOffer"):
+		var offer = areas.get_node_or_null("BrotherOffer")
+		if offer != null and offer.global_position.distance_to(player.global_position) < 90.0:
+			for station in definition.stations:
+				if station.id == "BrotherOffer":
+					pending_milestone = "BrotherOffer"
+					start_dialogue(station.lines, "milestone")
+	update_checkpoint()
 	if not controls_locked() and definition.has("music_region"):
 		var entry: Dictionary = definition.music_region.entry
 		var in_region := player.position.x >= float(entry.get("minimum_x", -INF)) and player.position.y >= float(entry.get("minimum_y", -INF)) and player.position.y <= float(entry.get("maximum_y", INF))
@@ -101,7 +262,7 @@ func _process(delta: float) -> void:
 				for camera in connected_cameras:
 					camera.disable()
 				pending_milestone = "RemoteTerminal"
-				start_dialogue([["MIRO", "The cameras went dark. The checkpoint is blind now.", "thought"]], "milestone")
+				start_dialogue([["MIRO", "I hacked the system and nobody has even realized.", "thought"]], "milestone")
 	if completed:
 		overlay_label.text = "%s\n\n%s\n\n%s\n\n[Backspace] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing, floor_report()]
 		if int(definition.number) == 5:
@@ -112,7 +273,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_node("/root/Campaign").complete_floor(int(definition.number), sigil_placed, milestones, floor_raw_stats())
 		get_node("/root/Campaign").update_unlocks()
 		get_viewport().set_input_as_handled()
-		get_tree().change_scene_to_file("res://scenes/levels/level_%02d.tscn" % (int(definition.number) + 1) if definition.number < 5 else "res://scenes/intro.tscn")
+		if definition.number < 5:
+			play_interlude(int(definition.number), "res://scenes/levels/level_%02d.tscn" % (int(definition.number) + 1))
+		else:
+			get_tree().change_scene_to_file("res://scenes/intro.tscn")
 		return
 	super._unhandled_input(event)
 
@@ -123,7 +287,7 @@ func setup_branch() -> Array:
 	reputation = campaign.reputation()
 	hunted = reputation == "HUNTED"
 	var data: Dictionary = campaign.branch()[reputation]
-	world_features.thoughts[str(number)].insert(0, {"id": "branch", "text": data.thought})
+	world_features.thoughts[str(number)].insert(0, {"id": "branch", "text": str(data.get("thoughts", {}).get(str(number), data.thought))})
 	poster = Node2D.new()
 	poster.set_script(load("res://scripts/wanted_poster.gd"))
 	poster.wanted = hunted
@@ -148,11 +312,22 @@ func setup_branch() -> Array:
 		$Guards.add_child(extra)
 	var lines: Array = [["TOWER PA", data.pa]]
 	if number < 5:
-		lines.append(["THE VOICE" if number < 3 else "NIRO", data.remote_call])
+		# Each floor has its own line here, so the same threat is never heard twice.
+		lines.append(["THE VOICE" if number < 4 else "NIRO", str(data.get("remote_calls", {}).get(str(number), data.remote_call))])
 	return lines
 
 ## Kills cost: Niro's disappointment over the remote (once per floor) on top of noise and bodies.
-func on_keeper_killed(_guard) -> void:
+## Floor 3: if the guards' password talk is missed, the first Keeper to fall drops a note with it.
+var password_note_dropped := false
+
+func drop_password_note(at: Vector2) -> void:
+	if password_note_dropped or int(definition.number) != 3 or world_features.password_known:
+		return
+	password_note_dropped = true
+	world_features.spawn_prop(at + Vector2(0, -4), "note", "NOTE")
+
+func on_keeper_killed(guard) -> void:
+	drop_password_note(guard.global_position)
 	if disappointment_heard or int(definition.number) >= 5:
 		return
 	disappointment_heard = true
@@ -333,13 +508,19 @@ func camera_alert(point: Vector2) -> void:
 	for guard in guards():
 		if not guard.is_dead:
 			guard.investigate(point)
-	notify("WATCHER ALERT • Reinforcements incoming." if called else "WATCHER ALERT • Keepers are searching your last seen position.")
+			guard.pursuing = true
+	notify("WATCHER ALERT • Reinforcements incoming." if called else "WATCHER ALERT • Every Keeper is closing in on your last seen position.")
 
 ## One reserve squad per floor. Repeated sweeps redirect the squad without spawning endlessly.
 func spawn_watcher_reserves(point: Vector2) -> bool:
 	var reserves: Array = world_features.roster.watcher_reserves.get(str(int(definition.number)), [])
-	if watcher_reserves_called or reserves.is_empty():
+	if reserves.is_empty():
 		return false
+	# The squad comes once and is redirected while it lives; if it is wiped out, the next
+	# alert calls another two.
+	for guard in guards():
+		if guard.name.begins_with("WatcherReserve") and not guard.is_dead:
+			return false
 	watcher_reserves_called = true
 	var slots: Array[Vector2] = []
 	for offset in [-156, 156, -100, 100]:

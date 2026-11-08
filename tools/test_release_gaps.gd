@@ -52,6 +52,52 @@ func run() -> void:
 		var has_pad := InputMap.action_get_events(action).any(func(event): return event is InputEventJoypadButton)
 		check(has_pad, "%s has a controller binding" % action)
 
+	# Terminal: a small pretend file system with readable records.
+	var console = level.player.controls
+	await frames(2)
+	console.show_console(true)
+	console.run_command("ls")
+	check("readme.txt" in console.output.text, "ls lists the floor's files")
+	console.run_command("cat readme.txt")
+	check("TOWER RECORDS" in console.output.text, "cat reads a file")
+	console.run_command("cat missing.txt")
+	check("No such file" in console.output.text, "cat reports a missing file")
+	console.run_command("pwd")
+	check("floor03" in console.output.text, "pwd shows the floor")
+	console.run_command("whoami")
+	check(console.output.text == "guest", "whoami is guest until you log in")
+	console.run_command("cd ..")
+	console.run_command("pwd")
+	check(console.output.text == "/var/tower", "cd .. moves above the floor directory")
+	console.run_command("cd floor03")
+	console.run_command("pwd")
+	check(console.output.text == "/var/tower/floor03", "cd floor03 returns")
+	console.run_command("login root")
+	check(console.output.text == "Authenticated." or "denied" in console.output.text or "No local" in console.output.text, "login gives no hints")
+
+	# Checkpoints carry Miro's kit, and a retry grants a moment of grace.
+	await floor_scene(2)
+	level.player.c4_count = 2
+	level.player.guns.assign(["pistol"])
+	level.player.gun_ammo = {"pistol": 5}
+	level.player.equipped_gun = "pistol"
+	level.player.ammunition = 5
+	level.player.health = 3
+	var victim = level.get_node("Guards").get_child(0)
+	victim.die()
+	campaign.checkpoint = {"floor": 2, "storey": 1, "position": level.player.global_position, "milestones": {}, "sigil": false, "player": level.player_snapshot(), "dead": level.dead_guards(), "retry": true}
+	var victim_name := str(victim.name)
+	await floor_scene(2)
+	await frames(3)
+	check(level.get_node("Guards/" + victim_name).is_dead and level.player.casualty_count == 1, "Keepers dead at the checkpoint stay dead after a retry")
+	check(level.get_node("Guards").get_children().filter(func(g): return g.is_dead).size() == 1, "Everyone else is back on their feet")
+	check(level.player.c4_count == 2 and level.player.guns == ["pistol"] and level.player.ammunition == 5 and level.player.health == 3, "A checkpoint restores Miro's items, ammo and health")
+	check(level.player.invulnerability_left > 2.0, "Respawning at a checkpoint grants brief invincibility")
+	check(level.player.is_concealed and level.player.respawn_cloak_left > 2.0, "Respawning at a checkpoint cloaks Miro for a few seconds")
+	await frames(300)
+	check(not level.player.is_concealed and level.player.stealth_cooldown_left == 0.0, "The respawn cloak ends without spending the blanket's recharge")
+	campaign.checkpoint.clear()
+
 	# Level select: a snapshot taken at floor entry comes back after a "relaunch".
 	campaign.remote_owned = true
 	campaign.remote_unlocked = true

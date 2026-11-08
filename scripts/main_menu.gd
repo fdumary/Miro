@@ -150,6 +150,10 @@ func launch_level(number: int) -> void:
 	var campaign = get_node("/root/Campaign")
 	if not campaign.level_unlocked(number):
 		return
+	# Resume from the floor's last checkpoint if there is one.
+	campaign.checkpoint = campaign.saved_checkpoint(number).duplicate(true)
+	if not campaign.checkpoint.is_empty():
+		campaign.checkpoint["retry"] = true
 	campaign.case_anchors.clear()
 	campaign.completed_sigils.clear()
 	campaign.narrative_milestones.clear()

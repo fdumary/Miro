@@ -3,6 +3,12 @@ extends BaseCharacter
 
 const KEEPER_IDLE = preload("res://assets/characters/standard_keeper_idle.png")
 const KEEPER_WALK = preload("res://assets/characters/standard_keeper_walk.png")
+const KEEPER_ATTACK = preload("res://assets/characters/standard_keeper_attack.png")
+## Point blank, a Keeper swings his knife instead of firing (Julia's two-frame attack).
+const STRIKE_REACH := 30.0
+const STRIKE_SLASH := 0.2
+var strike_left := 0.0
+var strike_landed := false
 const KEY_TEXTURE = preload("res://assets/environment/key.png")
 
 enum State { PATROL, SUSPICIOUS, ALERT, SEARCH }
@@ -50,10 +56,20 @@ var suspicion_rate := 1.0
 var windup_time := 0.65
 var attack_gap := 2.1
 var chase_speed := 78.0
+## True while a Keeper who lost sight of Miro is still running after him.
+var pursuing := false
+var lost_barked := false
+const LOST_LINES := ["Where did he go?", "He was just here!", "Where'd he get to?", "He can't have just vanished.", "Check the shadows. He's close."]
+## Keepers take 4 pistol shots, two face-to-face stabs, or one stab from behind.
+const MAX_HEALTH := 16
+const BODY_SIGHT := 260.0
+const HEARING_RANGE := 85.0
+const BODY_NEARBY := 190.0
+const HOP_SPEED := 300.0
 
 func _ready() -> void:
 	add_to_group("guards")
-	health = 2
+	health = MAX_HEALTH
 	movement_speed = 33.0 if sick_guard else 43.0
 	var campaign = get_node_or_null("/root/Campaign")
 	if campaign != null:
@@ -66,7 +82,7 @@ func _ready() -> void:
 
 func can_see_point(point: Vector2, distance_limit: float = 165.0) -> bool:
 	var difference := point - global_position
-	return difference.length() < distance_limit and absf(difference.y) < 45 and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
+	return difference.length() < distance_limit and absf(difference.y) < (80 if not is_on_floor() else (70 if absf(difference.x) < 40 else 45)) and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
 
 func detect_player() -> bool:
 	if is_dead or asleep or not level or level.player.is_dead or (level.player.is_concealed or level.player.in_hiding_spot):
@@ -74,10 +90,39 @@ func detect_player() -> bool:
 	# Prisoners inside the locked cell are not escapees yet.
 	if not level.door_open and level.player.global_position.x < level.get_node("Interactables/CellLock").global_position.x:
 		return false
-	return can_see_point(level.player.global_position, DISTRACTED_SIGHT if distracted else sight)
+	return can_see_point(level.player.global_position, DISTRACTED_SIGHT if distracted else sight) or hears_player()
+
+## Footsteps at a run: a Keeper who hears Miro pounding along close by, for about half a second,
+## turns on him even unseen. A quick last step in for a pickpocket is too brief to be heard.
+var heard_time := 0.0
+func hears_player() -> bool:
+	if distracted or conversation_hold:
+		return false  # absorbed in a huddle or conversation, they only notice Miro right on top of them
+	var p = level.player
+	var difference: Vector2 = p.global_position - global_position
+	if p.crouching or p.is_concealed or p.in_hiding_spot or absf(p.velocity.x) < p.movement_speed * 0.9 or absf(difference.x) >= HEARING_RANGE or absf(difference.y) >= 40.0:
+		heard_time = 0.0
+		return false
+	heard_time += get_physics_process_delta_time()
+	return heard_time > 0.5
+
+## The sick Keepers' cough: the animation and its sound share one clock.
+func is_coughing() -> bool:
+	return sick_guard and illness_started and fmod(time, 4.0) < 1.4
+
+var cough_count := 0
+var cough_was := false
+
+func cough_sound() -> void:
+	var now := is_coughing() and not is_dead and not asleep
+	if now and not cough_was and is_instance_valid(level) and is_instance_valid(level.player):
+		cough_count += 1
+		get_node("/root/SoundFX").cough_near(global_position, level.player.global_position, cough_count + int(global_position.x))
+	cough_was = now
 
 func _physics_process(delta: float) -> void:
 	time += delta
+	cough_sound()
 	queue_redraw()
 	if not level or level.controls_locked():
 		return
@@ -105,18 +150,42 @@ func _physics_process(delta: float) -> void:
 		else:
 			alert_state = State.SUSPICIOUS
 	elif alert_state == State.ALERT or alert_state == State.SUSPICIOUS:
+		# Losing sight of Miro mid-chase doesn't stop a Keeper: he runs on to where Miro was
+		# heading, then searches. A suspicious Keeper just goes to look.
+		pursuing = alert_state == State.ALERT
+		# Miro vanished into the dark, a vent or a crate: say so.
+		if (level.player.is_concealed or level.player.in_hiding_spot) and level.world_features and not lost_barked:
+			lost_barked = true
+			level.world_features.speak(self, "lost", LOST_LINES[randi() % LOST_LINES.size()])
+		if pursuing:
+			var heading := signf(level.player.velocity.x)
+			if heading == 0:
+				heading = signf(last_known_position.x - global_position.x)
+			last_known_position.x += heading * 140.0
 		alert_state = State.SEARCH
-		search_left = 5.0
+		search_left = 8.0 if pursuing else 5.0
 		suspicion = maxf(0.0, suspicion - delta)
 	for body in level.guards():
-		if body != self and body.is_dead and not seen_bodies.has(body.get_instance_id()) and can_see_point(body.global_position):
+		if body != self and body.is_dead and not seen_bodies.has(body.get_instance_id()) and notices_body(body.global_position):
 			seen_bodies.append(body.get_instance_id())
 			body_reported = true
 			if not sees_player:
 				investigate(body.global_position)
 			level.notify("%s found %s. The Keepers are searching." % [guard_name, body.guard_name])
+			# High alert: grieve out loud (over anything else being said), turn on the area at
+			# a run, and rouse every Keeper within earshot.
+			if alert_state != State.ALERT:
+				alert_state = State.SEARCH
+			pursuing = true
+			lost_barked = false
+			search_left = 12.0
+			suspicion = 1.0
+			for other in level.guards():
+				if other != self and not other.is_dead and not other.asleep and other.global_position.distance_to(global_position) < 380.0 and absf(other.global_position.y - global_position.y) < 90.0:
+					other.investigate(body.global_position)
+					other.pursuing = true
 			if level.world_features:
-				level.world_features.bark(self, "body")
+				level.world_features.bark(self, "body", true)
 	velocity.x = 0
 	burst_timer -= delta
 	if burst_left > 0 and burst_timer <= 0:
@@ -124,7 +193,15 @@ func _physics_process(delta: float) -> void:
 			shoot_weapon()
 		else:
 			burst_left = 0
-	if windup > 0:
+	if strike_left > 0:
+		strike_left -= delta
+		if not strike_landed and strike_left <= STRIKE_SLASH:
+			strike_landed = true
+			get_node("/root/SoundFX").play_sound("swing", -20)
+			var reach: Vector2 = level.player.global_position - global_position
+			if not level.player.is_dead and absf(reach.y) < 22 and absf(reach.x) <= STRIKE_REACH + 4 and reach.x * facing >= -4:
+				level.player.take_damage(1)
+	elif windup > 0:
 		windup -= delta
 		if windup <= 0 and sees_player:
 			burst_left = 1 if weapon_kind == "pistol" else 3
@@ -133,8 +210,13 @@ func _physics_process(delta: float) -> void:
 		facing = signf(last_known_position.x - global_position.x)
 		if global_position.distance_to(last_known_position) < 150:
 			if attack_timer <= 0:
-				windup = windup_time
-				shot_direction = (level.player.global_position - global_position).normalized()
+				var gap: Vector2 = level.player.global_position - global_position
+				if absf(gap.x) < STRIKE_REACH and absf(gap.y) < 20:
+					strike_left = windup_time * 0.5 + STRIKE_SLASH
+					strike_landed = false
+				else:
+					windup = windup_time
+					shot_direction = gap.normalized()
 				attack_timer = attack_gap
 		else:
 			velocity.x = facing * chase_speed
@@ -142,8 +224,9 @@ func _physics_process(delta: float) -> void:
 		search_left -= delta
 		if absf(last_known_position.x - global_position.x) > 12:
 			facing = signf(last_known_position.x - global_position.x)
-			velocity.x = facing * 42.0
+			velocity.x = facing * (chase_speed if pursuing else 42.0)
 		else:
+			pursuing = false
 			facing = 1.0 if int(time) % 2 == 0 else -1.0
 		if search_left <= 0:
 			alert_state = State.PATROL
@@ -168,15 +251,29 @@ func _physics_process(delta: float) -> void:
 			velocity.x = facing * movement_speed * stride()
 	# Do not walk off a floor or chase between tiers. Guards cannot climb.
 	var foot := global_position + Vector2(signf(velocity.x) * 15, 12)
-	if velocity.x != 0 and not level.has_floor_below(foot):
+	var chasing := velocity.x != 0 and (alert_state == State.ALERT or pursuing)
+	var hop_down := chasing and solid_between(foot, foot + Vector2(0, 48))
+	if velocity.x != 0 and is_on_floor() and not level.has_floor_below(foot) and not hop_down:
 		velocity.x = 0
 		facing *= -1
 		if alert_state == State.SEARCH:
 			last_known_position.x = global_position.x
+	# A chasing Keeper hops over anything one tile high instead of giving up at it.
+	var hopping := chasing and is_on_floor() and can_hop()
+	if hopping:
+		velocity.y = -HOP_SPEED
 	velocity.y += 850.0 * delta
 	move_and_slide()
-	if is_on_wall():
+	if is_on_wall() and not hopping and not (chasing and not is_on_floor()):
 		facing *= -1
+
+func solid_between(from: Vector2, to: Vector2) -> bool:
+	return not get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(from, to, 1)).is_empty()
+
+## Something knee-high directly ahead, with clear space above it to land on.
+func can_hop() -> bool:
+	var ahead := Vector2(facing * 20, 0)
+	return solid_between(global_position + Vector2(0, 8), global_position + Vector2(0, 8) + ahead) and not solid_between(global_position + Vector2(0, -24), global_position + Vector2(0, -24) + ahead)
 
 ## Patrols keep time with the music: a Keeper turns at the end of his beat on a beat line
 ## (sick Keepers on every other beat) and leans into each step on the beat.
@@ -233,6 +330,14 @@ func fall_asleep() -> void:
 	burst_left = 0
 	suspicion = 0
 
+## A fallen Keeper is hard to miss: seen from further off than a sneaking prisoner, and
+## noticed nearby even with his back turned.
+func notices_body(point: Vector2) -> bool:
+	var difference := point - global_position
+	if absf(difference.y) >= 45 or not level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8)):
+		return false
+	return difference.length() < BODY_SIGHT and (difference.x * facing >= -8 or difference.length() < BODY_NEARBY)
+
 func investigate(point: Vector2) -> void:
 	if is_dead or asleep or sees_player:
 		return
@@ -247,7 +352,9 @@ func receive_shank() -> void:
 	conversation_hold = false
 	turn_away_left = 0
 	var unaware := alert_state != State.ALERT and not detect_player()
-	health -= 2 if unaware else 1
+	# From behind (or unseen) a stab kills outright; face to face it takes two.
+	var behind: bool = (level.player.global_position.x - global_position.x) * facing < 0.0
+	health -= MAX_HEALTH if (unaware or behind) else 8
 	if health <= 0:
 		die()
 	else:
@@ -256,6 +363,17 @@ func receive_shank() -> void:
 		last_known_position = level.player.global_position
 		facing = signf(last_known_position.x - global_position.x)
 		level.notify("The Keeper turns. One more hit; dodge his wind-up with C.")
+
+## A Keeper who was already dead at the checkpoint stays dead (no new casualty, no new alarm).
+func restore_dead(point: Vector2, looted: bool) -> void:
+	global_position = point
+	death_recorded = true
+	health = 0
+	is_dead = true
+	gun_taken = looted
+	sees_player = false
+	velocity = Vector2.ZERO
+	queue_redraw()
 
 func die() -> void:
 	if death_recorded:
@@ -274,6 +392,10 @@ func die() -> void:
 func _draw() -> void:
 	var pale := Color("f2d3ab")
 	draw_string(ThemeDB.fallback_font, Vector2(-18, -36), guard_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
+	# A hurt Keeper shows a small health bar over his head.
+	if not is_dead and health < MAX_HEALTH and health > 0 and not has_method("begin_recovery"):
+		draw_rect(Rect2(-11, -30, 22, 3), Color(0.1, 0.05, 0.1, 0.8))
+		draw_rect(Rect2(-11, -30, 22.0 * float(health) / MAX_HEALTH, 3), Color("c0392b").lerp(Color("e8c07a"), float(health) / MAX_HEALTH))
 	if asleep:
 		draw_set_transform(Vector2(0, 6), PI / 2 * facing)
 		draw_texture(KEEPER_IDLE, Vector2(-16, -16))
@@ -290,17 +412,21 @@ func _draw() -> void:
 	if alert_state != State.PATROL or not sick_guard:
 		var cone := PackedVector2Array([Vector2(0, -8), Vector2(facing * 150, -43), Vector2(facing * 150, 23)])
 		draw_colored_polygon(cone, Color(0.78, 0.62, 0.65, 0.07 if alert_state != State.ALERT else 0.16))
-	var coughing := sick_guard and illness_started and fmod(time, 4.0) < 1.4
+	var coughing := is_coughing()
 	var moving: bool = absf(velocity.x) > 1 and level != null and not level.controls_locked()
 	var texture: Texture2D = KEEPER_WALK if moving else KEEPER_IDLE
 	var frame := int(time * 8) % 2 if moving else 0
+	if strike_left > 0:
+		texture = KEEPER_ATTACK
+		frame = 0 if strike_left > STRIKE_SLASH else 1
 	# Mirror the art, not the guard's collision, FOV or attached indicators.
 	draw_set_transform(Vector2(0, 15), -facing * 0.12 if coughing else 0.0, Vector2(facing, 0.9 if coughing else 1.0))
 	draw_texture_rect_region(texture, Rect2(-16, -31, 32, 32), Rect2(frame * 32, 0, 32, 32))
 	draw_set_transform(Vector2.ZERO)
-	draw_set_transform(Vector2(0, -4), 0, Vector2(facing, 1))
-	draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[weapon_kind], Rect2(0, -10, 24, 24), false)
-	draw_set_transform(Vector2.ZERO)
+	if strike_left <= 0:
+		draw_set_transform(Vector2(0, -4), 0, Vector2(facing, 1))
+		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[weapon_kind], Rect2(0, -10, 24, 24), false)
+		draw_set_transform(Vector2.ZERO)
 	if windup > 0:
 		draw_line(Vector2(facing * 9, 0), Vector2(facing * 27, -9), pale, 2)
 	if coughing:

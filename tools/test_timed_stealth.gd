@@ -63,13 +63,7 @@ func run() -> void:
 
 	guard.position = player.position + Vector2(10, 0)
 	player.check_guard_contact()
-	check(not player.is_concealed and guard.alert_state == IntroGuard.State.ALERT and guard.sees_player, "Body overlap breaks stealth and alerts contacted guard")
-	check(player.stealth_cooldown_left == 8, "Contact starts full cooldown")
-
-	guard.is_dead = true
-	player.stealth_cooldown_left = 0
-	player.toggle_stealth()
-	check(player.is_concealed, "Dead guards do not break stealth")
+	check(player.is_concealed and guard.alert_state != IntroGuard.State.ALERT, "A Keeper who walks right past a hidden Miro doesn't notice him")
 
 	player.toggle_stealth()
 	check(not player.is_concealed and player.stealth_cooldown_left == 8, "Manual cancellation starts cooldown")

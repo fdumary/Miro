@@ -31,6 +31,21 @@ func _ready() -> void:
 		world = Vector2(data.world_size[0], data.world_size[1])
 		storeys = data.get("storeys", [])
 		authored = data.has("tiles") and THEMES.has(chapter)
+	if authored:
+		# Each storey's window has a sill Miro can stand on (same placement as dress_storey).
+		var previous := 0.0
+		for index in range(storeys.size()):
+			var floor_y := float(storeys[index])
+			var height := floor_y - previous
+			var window_x := 300.0 + float((index * 520) % int(world.x - 400))
+			var top := previous + height * 0.22
+			add_ledge(Rect2(window_x - 6, top + 54 + 3, 38, 4))
+			# Torches and lamps (same placement as dress_storey) light the blanket's no-go zones.
+			for step in range(3):
+				var lx := 140.0 + step * 560 + (index % 2) * 240
+				if lx <= world.x - 60 and get_parent().get("light_points") != null:
+					get_parent().light_points.append(Vector2(lx, previous + minf(60.0, height * 0.35) + 8))
+			previous = floor_y + 28.0
 	queue_redraw()
 
 func _process(_delta: float) -> void:
@@ -138,6 +153,8 @@ func draw_window(point: Vector2, depth: int) -> void:
 		draw_colored_polygon(PackedVector2Array([base + Vector2(-6, 0), base + Vector2(6, 0), tip]), Color("1d2a2a"))
 	for bar in range(1, 4):
 		draw_rect(Rect2(point.x + bar * size.x / 4 - 1, point.y, 2, size.y), Color("8b6d9c"))
+	# The stone sill Miro can stand on.
+	draw_rect(Rect2(point + Vector2(-6, size.y + 3), Vector2(38, 4)), Color("8b6d9c"))
 
 func draw_emblem(center: Vector2, look: Dictionary) -> void:
 	var color: Color = look.accent
@@ -172,7 +189,6 @@ func dress_barracks(index: int, ceiling: float, floor_y: float, second_half: boo
 			draw_rect(Rect2(x + 2, floor_y - 12, 3, 12), frame)
 			draw_rect(Rect2(x + 49, floor_y - 12, 3, 12), frame)
 			draw_rect(Rect2(x + 4, floor_y - 23, 46, 5), Color(0.85, 0.82, 0.86, 0.25))
-			stamp("bottle", Rect2(x + 64, floor_y - 16, 12, 16), Color(1, 1, 1, 0.7))
 
 ## Level 3: banks of monitors, filing cabinets, pipes, warning lights.
 func dress_surveillance(index: int, ceiling: float, floor_y: float, second_half: bool, look: Dictionary) -> void:
