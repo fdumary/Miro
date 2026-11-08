@@ -122,6 +122,7 @@ func cough_sound() -> void:
 
 func _physics_process(delta: float) -> void:
 	time += delta
+	glance_left = maxf(0.0, glance_left - delta)
 	cough_sound()
 	queue_redraw()
 	if not level or level.controls_locked():
@@ -249,7 +250,9 @@ func _physics_process(delta: float) -> void:
 			facing = -1
 		if turn_wait <= 0:
 			velocity.x = facing * movement_speed * stride()
-	# Do not walk off a floor or chase between tiers. Guards cannot climb.
+	if ladder_follow(delta):
+		return
+	# Do not walk off a floor or chase between tiers (ladders are followed above).
 	var foot := global_position + Vector2(signf(velocity.x) * 15, 12)
 	var chasing := velocity.x != 0 and (alert_state == State.ALERT or pursuing)
 	var hop_down := chasing and solid_between(foot, foot + Vector2(0, 48))
@@ -266,6 +269,33 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if is_on_wall() and not hopping and not (chasing and not is_on_floor()):
 		facing *= -1
+
+## Ladders: a hunting Keeper climbs after Miro; an unaware one near the ladder glances up (or down).
+var glance_left := 0.0
+
+func ladder_follow(delta: float) -> bool:
+	var player = level.player
+	if not is_instance_valid(player) or player.is_dead or not player.climbing:
+		return false
+	var ladder = level.ladder_at(player.global_position)
+	if ladder == null:
+		return false
+	var hunting := alert_state == State.ALERT or pursuing
+	if not hunting:
+		if alert_state == State.PATROL and absf(player.global_position.x - global_position.x) < 160.0 and absf(player.global_position.y - global_position.y) < 140.0 and not conversation_hold:
+			glance_left = 0.6
+			facing = signf(player.global_position.x - global_position.x) if absf(player.global_position.x - global_position.x) > 4.0 else facing
+		return false
+	var here = level.ladder_at(global_position)
+	if here != ladder and absf(global_position.x - ladder.global_position.x) > 28.0:
+		return false
+	var dy: float = player.global_position.y - global_position.y
+	if absf(dy) < 14.0:
+		return false
+	global_position.x = move_toward(global_position.x, ladder.global_position.x, 120.0 * delta)
+	velocity = Vector2(0.0, signf(dy) * 92.0)
+	move_and_slide()
+	return true
 
 func solid_between(from: Vector2, to: Vector2) -> bool:
 	return not get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(from, to, 1)).is_empty()
@@ -427,6 +457,9 @@ func _draw() -> void:
 		draw_set_transform(Vector2(0, -4), 0, Vector2(facing, 1))
 		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[weapon_kind], Rect2(0, -10, 24, 24), false)
 		draw_set_transform(Vector2.ZERO)
+	if glance_left > 0.0:
+		# Looking up the ladder: a chevron over his head.
+		draw_polyline(PackedVector2Array([Vector2(-4, -33), Vector2(0, -38), Vector2(4, -33)]), pale, 2.0)
 	if windup > 0:
 		draw_line(Vector2(facing * 9, 0), Vector2(facing * 27, -9), pale, 2)
 	if coughing:

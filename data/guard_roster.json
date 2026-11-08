@@ -685,15 +685,15 @@
       ]
     },
     "Quill": {
-      "theme": "funny",
-      "personality": "dry clerk drafted out of the records office",
-      "delivery": "[dry] [precise]",
-      "alert": "First the paperwork, then the escape. Stop.",
-      "body": "I know his handwriting. I don't want this to be his last entry.",
+      "alert": "Oh no. Not on my shift. Stop right there.",
+      "body": "Quill is down. Somebody wake the doctor.",
+      "delivery": "[tired]",
       "idle": [
-        "They swapped my pen for a pistol. The pen jammed less.",
-        "If I get out of this, I'm filing one very long complaint."
-      ]
+        "Four nights without sleep. The ward lights start to hum.",
+        "If I close my eyes for one second, wake me. Or don't."
+      ],
+      "personality": "an exhausted night-shift guard who barely stays awake",
+      "theme": "sleepy"
     },
     "Nash": {
       "theme": "goofy",
@@ -1090,6 +1090,39 @@
       ],
       "personality": "a gruff foundation veteran who guards the last terminal like a bridge",
       "theme": "stern"
+    },
+    "Brandt": {
+      "alert": "Hold that corridor! Intruder in my section!",
+      "body": "Brandt is down! Medic, move!",
+      "delivery": "[commanding]",
+      "idle": [
+        "Eyes front. The records do not guard themselves.",
+        "If I hear one wrong footstep on three, someone runs laps."
+      ],
+      "personality": "a commander who barks every patrol like a drill",
+      "theme": "stern"
+    },
+    "Sable": {
+      "alert": "Found you. Your file says you'd run.",
+      "body": "Sable down. Somebody log that, and fetch the nurse.",
+      "delivery": "[dry]",
+      "idle": [
+        "I have read every file on this floor. Yours was the dullest.",
+        "They told me the filing was temporary. That was nine years ago."
+      ],
+      "personality": "a records clerk with a dry wit who reads everyone's files",
+      "theme": "dry"
+    },
+    "Tolliver": {
+      "alert": "There. By the sealed door. Quietly now.",
+      "body": "Tolliver is hurt. Keep it quiet, and get help.",
+      "delivery": "[whispers]",
+      "idle": [
+        "Sealed rooms hold their breath. I hold mine with them.",
+        "I never raise my voice down here. The walls listen."
+      ],
+      "personality": "a night watchman who speaks in a near-whisper",
+      "theme": "quiet"
     }
   },
   "hunted": {

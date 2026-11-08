@@ -3670,13 +3670,58 @@
   ],
   "features": {
     "hazards": [
-      {"kind": "turret", "position": [966, 644]},
-      {"kind": "turret", "position": [882, 1260]},
-      {"kind": "turret", "position": [1302, 672], "mount": "ceiling"},
-      {"kind": "spikes", "position": [910, 252]},
-      {"kind": "spikes", "position": [994, 1064]},
-      {"kind": "spikes", "position": [1204, 210], "mount": "left"},
-      {"kind": "spikes", "position": [1442, 280], "mount": "ceiling"}
+      {
+        "kind": "turret",
+        "position": [
+          966,
+          644
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          882,
+          1260
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1302,
+          672
+        ],
+        "mount": "ceiling"
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          910,
+          252
+        ]
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          994,
+          1064
+        ]
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          1204,
+          210
+        ],
+        "mount": "left"
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          1442,
+          280
+        ],
+        "mount": "ceiling"
+      }
     ],
     "cases": [
       [
@@ -3758,7 +3803,33 @@
         1078.0
       ]
     },
-    "huddles": []
+    "huddles": [],
+    "extra_guards": [
+      {
+        "name": "EntryClerk",
+        "keeper": "Sable",
+        "position": [
+          330.0,
+          236
+        ],
+        "patrol": [
+          260.0,
+          470.0
+        ]
+      },
+      {
+        "name": "DeepKeeper",
+        "keeper": "Brandt",
+        "position": [
+          1200.0,
+          628
+        ],
+        "patrol": [
+          1050.0,
+          1380.0
+        ]
+      }
+    ]
   },
   "storeys": [
     252,

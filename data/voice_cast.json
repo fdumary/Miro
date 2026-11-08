@@ -402,8 +402,8 @@
       "stability": 0.5
     },
     "quill": {
-      "name": "Andrew - Smooth, Smart and Clear",
-      "voice_id": "gUABw7pXQjhjt0kNFBTF",
+      "name": "Quill (extra guard)",
+      "voice_id": "psJnoAClXdhH5gn8uKNb",
       "stability": 0.5
     },
     "nash": {
@@ -454,6 +454,21 @@
     "garrick": {
       "name": "Rob - Tough & Calloused (Level 5 terminal guard)",
       "voice_id": "2ajXGJNYBR0iNHpS4VZb",
+      "stability": 0.5
+    },
+    "brandt": {
+      "name": "Brandt (extra guard)",
+      "voice_id": "TxWZERZ5Hc6h9dGxVmXa",
+      "stability": 0.5
+    },
+    "sable": {
+      "name": "Sable (extra guard)",
+      "voice_id": "XEoBW4iDmiawQP72xnAF",
+      "stability": 0.5
+    },
+    "tolliver": {
+      "name": "Tolliver (extra guard)",
+      "voice_id": "7squ7rvxEIZ2rYy7KYPP",
       "stability": 0.5
     }
   },
