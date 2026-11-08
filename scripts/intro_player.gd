@@ -480,7 +480,9 @@ func try_mantle() -> bool:
 		return false
 	# A vault, not a teleport: spring up and over the ledge so it reads as a movement.
 	wall_jump_window_left = 0.0
-	wall_jump_push_left = 0.0
-	velocity = Vector2(facing * 120.0, jump_velocity * 0.92)
+	# The same forward shove a wall jump uses, so input doesn't cancel the sideways motion.
+	last_wall_jump_side = facing
+	wall_jump_push_left = 0.2
+	velocity = Vector2(facing * 150.0, jump_velocity * 1.1)
 	jumps_used = 1
 	return true

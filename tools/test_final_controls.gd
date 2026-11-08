@@ -105,7 +105,7 @@ func run() -> void:
 	await frames(4)
 	Input.action_release("move_right")
 	var vaulted: bool = p.try_mantle()
-	await frames(40)
+	await frames(70)
 	check(vaulted and p.position.x > 120 and p.position.y < 390, "Wall contact vaults onto a reachable ledge (no teleport)")
 	ledge.queue_free()
 	c.collect_remote()

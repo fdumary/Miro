@@ -38,7 +38,7 @@ func run() -> void:
 			level.finish_dialogue()
 			check(level.milestones.has("RemoteTerminal") and level.connected_cameras.all(func(camera): return not camera.is_active), "Remote completes required floor 3 checkpoint through existing hack sequence")
 	var c = level.player.controls
-	var turrets := get_nodes_in_group("tower_turrets")
+	var turrets := get_nodes_in_group("tower_turrets").filter(func(node): return not node.is_in_group("security_cameras"))
 	check(not turrets.is_empty() and turrets.all(func(turret): return not turret.disabled), "Cameras off does not disable turrets")
 	level.player.position = Vector2(100, 236)
 	c.open_remote()

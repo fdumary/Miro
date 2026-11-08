@@ -100,9 +100,14 @@ func run() -> void:
 		var path := "res://scenes/intro.tscn" if number == 1 else "res://scenes/levels/level_%02d.tscn" % number
 		level = load(path).instantiate()
 		root.add_child(level)
+		for keeper in ["CraneKeeper", "StroudKeeper", "ThaneKeeper", "HoltKeeper", "LedgeKeeper", "VaultKeeper"]:
+			var extra = level.get_node_or_null("Guards/" + keeper)
+			if extra != null:
+				extra.set_physics_process(false)  # these tests probe ladders, not patrols
 		current_scene = level
 		await frames(5)
 		level.finish_dialogue()
+		level.brother_heard = true  # the gate scene plays on its own near the gate; this test only probes geometry
 		for guard in level.guards():
 			guard.set_physics_process(false)
 		var world = level.world_features

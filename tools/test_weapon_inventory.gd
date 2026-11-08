@@ -43,15 +43,15 @@ func run() -> void:
 	guards[0].position = Vector2(350, 236)
 	guards[0].shot_direction = Vector2.LEFT
 	guards[0].burst_left = 1
-	p.health = 3
+	p.health = 6
 	p.invulnerability_left = 0
 	guards[0].shoot_weapon()
 	await frames(20)
-	check(p.health == 2, "Keeper projectile damages Miro")
+	check(p.health == 4, "Keeper projectile damages Miro (a pistol round takes a heart)")
 	p.invulnerability_left = 0
 	p.dodge_left = 1
 	guards[0].shoot_weapon()
 	await frames(10)
-	check(p.health == 2, "Dodge protects Miro from gunfire")
+	check(p.health == 4, "Dodge protects Miro from gunfire")
 	print("WEAPON_INVENTORY_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

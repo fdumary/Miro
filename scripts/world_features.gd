@@ -149,8 +149,9 @@ func add_props() -> void:
 		for index in range(mini(3, storey_list.size())):
 			for step in range(5):
 				var bottle_x := 220.0 + step * 330 + index * 37 + 70
-				if bottle_x <= float(level.definition.world_size[0]) - 120.0:
-					spawn_prop(Vector2(bottle_x, float(storey_list[index]) - 8.0), "potion", "TONIC")
+				var tonic_point := Vector2(bottle_x, float(storey_list[index]) - 16.0)
+				if bottle_x <= float(level.definition.world_size[0]) - 120.0 and placement_clear(tonic_point):
+					spawn_prop(tonic_point, "potion", "TONIC")
 	if authored.has("cases"):
 		# Authored layouts place every case and hiding spot by hand (tools/level_layouts.py).
 		for point in authored.cases:
