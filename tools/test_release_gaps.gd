@@ -67,6 +67,21 @@ func run() -> void:
 	console.run_command("whoami")
 	check(console.output.text == "guest", "whoami is guest until you log in")
 
+	# Checkpoints carry Miro's kit, and a retry grants a moment of grace.
+	await floor_scene(2)
+	level.player.c4_count = 2
+	level.player.guns.assign(["pistol"])
+	level.player.gun_ammo = {"pistol": 5}
+	level.player.equipped_gun = "pistol"
+	level.player.ammunition = 5
+	level.player.health = 3
+	campaign.checkpoint = {"floor": 2, "storey": 1, "position": level.player.global_position, "milestones": {}, "sigil": false, "player": level.player_snapshot(), "retry": true}
+	await floor_scene(2)
+	await frames(3)
+	check(level.player.c4_count == 2 and level.player.guns == ["pistol"] and level.player.ammunition == 5 and level.player.health == 3, "A checkpoint restores Miro's items, ammo and health")
+	check(level.player.invulnerability_left > 2.0, "Respawning at a checkpoint grants brief invincibility")
+	campaign.checkpoint.clear()
+
 	# Level select: a snapshot taken at floor entry comes back after a "relaunch".
 	campaign.remote_owned = true
 	campaign.remote_unlocked = true

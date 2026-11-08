@@ -103,9 +103,36 @@ func update_checkpoint() -> void:
 		return
 	if storey == 0 and campaign.checkpoint.is_empty():
 		return
-	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed}
+	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed, "player": player_snapshot()}
 	campaign.save_checkpoint()
 	notify("Checkpoint.")
+
+## What Miro is carrying at a checkpoint, so a retry gives it all back.
+func player_snapshot() -> Dictionary:
+	var c = player.controls
+	return {
+		"health": player.health, "max_health": player.max_health, "has_supplies": player.has_supplies,
+		"has_key": player.has_key, "has_gun": player.has_gun, "guns": Array(player.guns),
+		"gun_ammo": player.gun_ammo.duplicate(), "equipped_gun": player.equipped_gun, "ammunition": player.ammunition,
+		"c4_count": player.c4_count, "casualty_count": player.casualty_count,
+		"reserves": c.reserves.duplicate(), "has_guitar": c.has_guitar, "layout": Array(c.layout),
+	}
+
+func apply_player_snapshot(data: Dictionary) -> void:
+	var c = player.controls
+	player.health = int(data.get("health", player.health))
+	player.max_health = int(data.get("max_health", player.max_health))
+	player.has_supplies = bool(data.get("has_supplies", player.has_supplies))
+	player.has_key = bool(data.get("has_key", false))
+	player.has_gun = bool(data.get("has_gun", false))
+	player.guns.assign(data.get("guns", []))
+	player.gun_ammo = Dictionary(data.get("gun_ammo", {})).duplicate()
+	player.equipped_gun = str(data.get("equipped_gun", player.equipped_gun))
+	player.ammunition = int(data.get("ammunition", 0))
+	player.c4_count = int(data.get("c4_count", player.c4_count))
+	player.casualty_count = int(data.get("casualty_count", 0))
+	c.reserves = Dictionary(data.get("reserves", {})).duplicate()
+	c.has_guitar = bool(data.get("has_guitar", false))
 
 func apply_checkpoint() -> void:
 	var saved: Dictionary = get_node("/root/Campaign").checkpoint
@@ -114,6 +141,10 @@ func apply_checkpoint() -> void:
 	saved.erase("retry")
 	player.global_position = saved.position
 	player.velocity = Vector2.ZERO
+	if saved.has("player"):
+		apply_player_snapshot(saved.player)
+	# A moment of grace so the respawned Keepers can't strip health the instant he appears.
+	player.invulnerability_left = 3.5
 	sigil_placed = bool(saved.get("sigil", false))
 	for id in saved.milestones:
 		milestones[id] = true
