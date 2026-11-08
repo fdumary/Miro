@@ -36,7 +36,7 @@ var trapdoors: Array[Node2D] = []
 ## Miro's inner voice plays on the Thought bus (long, spacey reverb). Drop clips at
 ## res://assets/audio/voice/thought_<floor>_<id>.mp3 to voice a thought.
 var thought_voice: AudioStreamPlayer
-## Names and personalities (data/guard_roster.json). NAMES stays as the fallback list.
+## Individual Keeper profiles and authored casting (data/guard_roster.json).
 var roster: Dictionary = {}
 ## Extra overheard scenes after the main conversation: huddles and add_casual_lines().
 ## Each: {actors, lines, index, started, done}. Only one voice speaks at a time.
@@ -45,7 +45,6 @@ var mutter_wait := 6.0
 var muttered: Dictionary = {}
 const MUTTER_RANGE := 190.0
 const MUTTER_GAP := 14.0
-const NAMES := {1: ["Rowan", "Ivo", "Bram", "Seth"], 2: ["Alden", "Corin", "Dane", "Ellis", "Garrow", "Hollis", "Jory", "Kell", "Lusk"], 3: ["Marek", "Oren", "Pavel", "Silas", "Teodor", "Ansel", "Brin", "Cato", "Dov"], 4: ["Tomas", "Ulric", "Venn", "Wren", "Edric", "Fane", "Gil", "Hask", "Ivar"], 5: ["Yorick", "Zane", "Arlen", "Beck"]}
 
 func setup(owner_level: Node2D, number: int) -> void:
 	level = owner_level
@@ -82,8 +81,6 @@ func setup(owner_level: Node2D, number: int) -> void:
 	var keepers: Array[Node] = level.guards()
 	for index in range(keepers.size()):
 		name_keeper(keepers[index], number, index)
-		if keepers[index].name == "CorruptKeeper":
-			name_keeper(keepers[index], 1, 0) # Judas, the first Keeper
 		if number > 1 and not keepers[index].has_method("begin_recovery"):
 			keepers[index].weapon_kind = ["pistol", "smg"][index % 2]
 	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
@@ -104,9 +101,9 @@ func setup(owner_level: Node2D, number: int) -> void:
 		partner.patrol_right = partner.position.x + 100
 		partner.level = level
 		partner.illness_started = true
-		name_keeper(partner, number, roster_size(number) - 1)
-		if partner.voice_index == first.voice_index:
-			partner.voice_index = (first.voice_index + 1) % 3
+		var cast: Array = roster.conversation_cast[str(number)]
+		assert(first.guard_name == cast[0], "Keeper conversation cast must match the authored scene")
+		assign_keeper(partner, cast[1])
 		level.get_node("Guards").add_child(partner)
 		actors = [first, partner]
 		conversation = config.conversations[str(number)]
@@ -413,20 +410,15 @@ func _process(delta: float) -> void:
 		var line: Dictionary = conversation[conversation_index]
 		speak(actors[int(line.speaker)], line.id, line.text, line)
 
-func roster_size(number: int) -> int:
-	return roster.get("floors", {}).get(str(number), NAMES.get(number, ["Keeper"])).size()
-
-## The index-th Keeper of a floor takes that roster entry's name and personality.
+## The floor roster is in authored spawn order. Level 5 uses a running reinforcement index.
 func name_keeper(keeper: Node, number: int, index: int) -> void:
-	var entries: Array = roster.get("floors", {}).get(str(number), [])
-	if entries.is_empty():
-		keeper.guard_name = NAMES[number][index % NAMES[number].size()]
-		keeper.voice_index = index % 3
-		return
-	var entry: Array = entries[index % entries.size()]
-	keeper.guard_name = entry[0]
-	keeper.personality = entry[1]
-	keeper.voice_index = int(roster.personalities[entry[1]].voice)
+	var entries: Array = roster.floors.get(str(number), [])
+	if index < entries.size():
+		assign_keeper(keeper, entries[index])
+
+func assign_keeper(keeper: Node, keeper_name: String) -> void:
+	keeper.guard_name = keeper_name
+	keeper.personality = roster.keepers[keeper_name].personality
 
 ## Off-duty Keepers in a tight group (features.huddles): they stand still, face in, and play
 ## their scene when Miro comes near. Too absorbed to see him unless he walks into them.
@@ -446,9 +438,7 @@ func spawn_huddle(huddle: Dictionary) -> void:
 		keeper.level = level
 		keeper.illness_started = true
 		keeper.weapon_kind = "pistol"
-		keeper.guard_name = scene.keepers[index][0]
-		keeper.personality = scene.keepers[index][1]
-		keeper.voice_index = int(roster.personalities[keeper.personality].voice)
+		assign_keeper(keeper, scene.keepers[index])
 		level.get_node("Guards").add_child(keeper)
 		keeper.facing = 1.0 if index == 0 else -1.0
 		keeper.conversation_hold = true
@@ -520,22 +510,22 @@ func update_mutters(delta: float) -> void:
 	for scene in casual_scenes:
 		if not scene.done and level.player.global_position.distance_to(scene.actors[0].global_position) < 320:
 			return
-	var personalities: Dictionary = roster.get("personalities", {})
+	var profiles: Dictionary = roster.keepers
 	for keeper in level.guards():
 		if keeper.get("personality") == null:
 			continue
 		if keeper.is_dead or keeper.asleep or keeper.alert_state != IntroGuard.State.PATROL or muttered.has(keeper.get_instance_id()) or actors.has(keeper):
 			continue
-		if keeper.distracted or not personalities.has(keeper.personality):
+		if keeper.distracted or not profiles.has(keeper.guard_name):
 			continue
 		var gap: Vector2 = keeper.global_position - level.player.global_position
 		if gap.length() > MUTTER_RANGE or absf(gap.y) > 40:
 			continue
-		var idle: Array = personalities[keeper.personality].idle
+		var idle: Array = profiles[keeper.guard_name].idle
 		var choice := muttered.size() % idle.size()
 		muttered[keeper.get_instance_id()] = true
 		mutter_wait = MUTTER_GAP
-		speak(keeper, "idle_%s_%d" % [keeper.personality, choice + 1], idle[choice])
+		speak(keeper, "idle_%d" % (choice + 1), idle[choice])
 		return
 
 func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> void:
@@ -543,10 +533,10 @@ func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> v
 	voice_speaker = actor
 	speech_bubble.actor = actor
 	voice.global_position = actor.global_position
-	var path := "res://assets/audio/voice/%s.mp3" % id
+	var path := keeper_clip_path(actor.guard_name, id)
 	var duration := maxf(2.5, text.length() * 0.055)
-	if ResourceLoader.exists(path):
-		voice.stream = load(path)
+	voice.stream = load(path) if ResourceLoader.exists(path) else null
+	if voice.stream:
 		duration = voice.stream.get_length()
 		if DisplayServer.get_name() != "headless":
 			voice.play()
@@ -556,15 +546,17 @@ func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> v
 	if last_line.is_empty():
 		last_line = {"bark": true}
 
+## All spatial dialogue uses the actor's own voice, even when several floors share a line.
+func keeper_clip_path(keeper_name: String, line_id: String) -> String:
+	return "res://assets/audio/voice/%s_%s.mp3" % [keeper_name.to_lower(), line_id]
+
 func bark(actor: Node2D, kind: String) -> void:
 	abort_conversation()
 	if voice.playing:
 		return
-	var kind_data: Dictionary = roster.get("personalities", {}).get(actor.get("personality"), {})
-	if kind_data.has(kind):
-		speak(actor, "%s_%s" % [kind, actor.personality], kind_data[kind])
-	else:
-		speak(actor, "%s_%d" % [kind, actor.voice_index], config.barks[kind].text)
+	var profile: Dictionary = roster.keepers.get(actor.guard_name, {})
+	var text: String = profile.get(kind, config.barks[kind].text)
+	speak(actor, kind, text)
 
 func abort_conversation() -> void:
 	if conversation_started and not conversation_done:

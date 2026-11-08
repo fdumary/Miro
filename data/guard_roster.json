@@ -1,61 +1,736 @@
 {
-  "_comment": "Every Keeper's name and personality, in level.guards() order per floor (the overheard partner takes the last name). Personality picks the voice, the alert and body barks, and the mundane lines a Keeper mutters on patrol when Miro is close. 'huddles' are off-duty Keepers in a tight group, too absorbed to look up unless Miro walks right into them. Voice clips: <kind>_<personality>.mp3, idle_<personality>_<n>.mp3, <scene>_<n>.mp3 (tools/generate_voices.py).",
-  "personalities": {
-    "serious": {
-      "voice": 0,
-      "delivery": "[flat] [focused]",
-      "alert": "Intruder. Hold where you are.",
-      "body": "Man down. Someone is inside the walls.",
-      "idle": ["Shift change at the bell. Not a minute before.", "Count's off by one again. I'll do it twice."]
-    },
-    "goofy": {
-      "voice": 2,
-      "delivery": "[cheerful] [rambling]",
-      "alert": "Oh no. Oh no no no. HEY!",
-      "body": "Buddy? Buddy, get up. This isn't funny.",
-      "idle": ["If I walk this loop backwards, does the shift go faster?", "Who took the good spoon? It had a dent. I loved that dent."]
-    },
-    "stern": {
-      "voice": 0,
-      "delivery": "[stern] [clipped]",
-      "alert": "You. Stop. Now.",
-      "body": "He's dead. Lock this floor down!",
-      "idle": ["Boots shined. Mouth shut. That's the job.", "Nobody sits down on my watch. Nobody."]
-    },
-    "funny": {
-      "voice": 2,
-      "delivery": "[dry] [amused]",
-      "alert": "Well, there goes my quiet night. Stop!",
-      "body": "No. No jokes. Who did this?",
-      "idle": ["They call it a tower. I call it stairs with a grudge.", "Payday's Friday. Which Friday, they won't say."]
-    },
-    "stupid": {
-      "voice": 1,
-      "delivery": "[confused] [slow]",
-      "alert": "Wait... are you allowed out? Hey!",
-      "body": "Why's he sleeping on the... oh. Oh no.",
-      "idle": ["Left is... this one. Yeah. Left.", "If the stairs go down, who carries them back up?"]
-    }
-  },
+  "_comment": "Themes describe the five inspirations. Each named Keeper has an individual personality, script and ElevenLabs cast entry. Floor lists are in patrol scene order, with conversation partners last on floors 2–4. Level 5 lists all possible wave and boss reinforcements.",
   "floors": {
-    "1": [["Judas", "stern"], ["Rowan", "goofy"], ["Ivo", "serious"], ["Bram", "stupid"]],
-    "2": [["Alden", "serious"], ["Corin", "goofy"], ["Dane", "stern"], ["Ellis", "funny"], ["Garrow", "stupid"], ["Hollis", "serious"], ["Jory", "funny"], ["Kell", "stern"], ["Lusk", "goofy"]],
-    "3": [["Marek", "stern"], ["Oren", "funny"], ["Pavel", "serious"], ["Silas", "goofy"], ["Teodor", "stupid"], ["Ansel", "stern"], ["Brin", "funny"], ["Cato", "serious"], ["Dov", "goofy"]],
-    "4": [["Tomas", "serious"], ["Ulric", "stern"], ["Venn", "goofy"], ["Wren", "funny"], ["Edric", "stupid"], ["Fane", "serious"], ["Gil", "goofy"], ["Hask", "stern"], ["Ivar", "funny"]],
-    "5": [["Yorick", "stern"], ["Zane", "goofy"], ["Arlen", "serious"], ["Beck", "funny"], ["Cass", "stupid"], ["Doran", "stern"], ["Elm", "goofy"], ["Fenn", "serious"]]
+    "1": [
+      "Judas",
+      "Rowan",
+      "Ivo",
+      "Bram"
+    ],
+    "2": [
+      "Alden",
+      "Corin",
+      "Dane",
+      "Ellis",
+      "Garrow",
+      "Hollis",
+      "Jory",
+      "Kell",
+      "Lusk"
+    ],
+    "3": [
+      "Marek",
+      "Oren",
+      "Pavel",
+      "Silas",
+      "Teodor",
+      "Ansel",
+      "Brin",
+      "Cato",
+      "Dov"
+    ],
+    "4": [
+      "Tomas",
+      "Ulric",
+      "Venn",
+      "Wren",
+      "Edric",
+      "Fane",
+      "Gil",
+      "Hask",
+      "Ivar"
+    ],
+    "5": [
+      "Yorick",
+      "Zane",
+      "Arlen",
+      "Beck",
+      "Cass",
+      "Doran",
+      "Elm",
+      "Fenn",
+      "Gideon",
+      "Fenwick",
+      "Osric",
+      "Leif",
+      "Quill",
+      "Nash",
+      "Bastian",
+      "Reeve",
+      "Seth",
+      "Vale"
+    ]
   },
   "huddles": {
     "john316": {
-      "keepers": [["Pike", "serious"], ["Moss", "stupid"], ["Tibb", "funny"]],
+      "keepers": [
+        "Pike",
+        "Moss",
+        "Tibb"
+      ],
       "lines": [
-        {"speaker": 0, "text": "Listen to this one. 'For God so loved the world, that he gave his only begotten Son...'", "delivery": "[reverent] [quietly]"},
-        {"speaker": 1, "text": "Only begotten. So he only had the one?", "delivery": "[confused]"},
-        {"speaker": 0, "text": "'...that whosoever believeth in him should not perish, but have everlasting life.' John 3:16.", "delivery": "[reverent] [warm]"},
-        {"speaker": 2, "text": "Everlasting life. Up here that's just an everlasting night shift.", "delivery": "[dry] [chuckles]"},
-        {"speaker": 1, "text": "Does everlasting come with lunch?", "delivery": "[hopeful]"},
-        {"speaker": 0, "text": "Hush. Somebody in this tower should still believe in something.", "delivery": "[sad] [quietly]"},
-        {"speaker": 2, "text": "Then I believe the bell rings at six. Wake me when it does.", "delivery": "[sighs] [amused]"}
+        {
+          "speaker": 0,
+          "text": "Listen to this one. 'For God so loved the world, that he gave his only begotten Son...'",
+          "delivery": "[reverent] [quietly]"
+        },
+        {
+          "speaker": 1,
+          "text": "Only begotten. So he only had the one?",
+          "delivery": "[confused]"
+        },
+        {
+          "speaker": 0,
+          "text": "'...that whosoever believeth in him should not perish, but have everlasting life.' John 3:16.",
+          "delivery": "[reverent] [warm]"
+        },
+        {
+          "speaker": 2,
+          "text": "Everlasting life. Up here that's just an everlasting night shift.",
+          "delivery": "[dry] [chuckles]"
+        },
+        {
+          "speaker": 1,
+          "text": "Does everlasting come with lunch?",
+          "delivery": "[hopeful]"
+        },
+        {
+          "speaker": 0,
+          "text": "Hush. Somebody in this tower should still believe in something.",
+          "delivery": "[sad] [quietly]"
+        },
+        {
+          "speaker": 2,
+          "text": "Then I believe the bell rings at six. Wake me when it does.",
+          "delivery": "[sighs] [amused]"
+        }
       ]
     }
+  },
+  "keepers": {
+    "Judas": {
+      "theme": "stern",
+      "personality": "petty racketeer guarding his side business",
+      "delivery": "[clipped] [hoarse]",
+      "alert": "Back in your cell. We had a deal.",
+      "body": "Who saw this? Tell me who saw.",
+      "idle": [
+        "I don't run a charity. The rate went up.",
+        "Keep the key in the inside pocket. Trust nobody."
+      ]
+    },
+    "Rowan": {
+      "theme": "goofy",
+      "personality": "fills silence with imaginary games",
+      "delivery": "[bright] [quickly]",
+      "alert": "Time out! You're not supposed to be playing!",
+      "body": "Come on. Say I lose. Say something.",
+      "idle": [
+        "Four laps. If I beat my record I get absolutely nothing.",
+        "I'll race my shadow. It cheats on the corners."
+      ]
+    },
+    "Ivo": {
+      "theme": "serious",
+      "personality": "quietly documents every irregularity",
+      "delivery": "[measured]",
+      "alert": "Prisoner out of bounds. Stop at the next line.",
+      "body": "Mark the time. Nobody move the body.",
+      "idle": [
+        "Same boot prints as yesterday. Different direction.",
+        "A clean report starts with the things you can't explain."
+      ]
+    },
+    "Bram": {
+      "theme": "stupid",
+      "personality": "trusts signs more than his own eyes",
+      "delivery": "[hesitant]",
+      "alert": "The sign says stay inside. That's you, right?",
+      "body": "It says sleeping quarters upstairs. This can't be right.",
+      "idle": [
+        "The arrow points down, but someone hung it upside down.",
+        "I'd read the handbook if I knew which end to start."
+      ]
+    },
+    "Alden": {
+      "theme": "serious",
+      "personality": "worries about patients under his care",
+      "delivery": "[low] [concerned]",
+      "alert": "Stop there. Are you hurt, or are you running?",
+      "body": "Get a cloth. No, a clean one. Hurry.",
+      "idle": [
+        "Three beds on the transfer sheet. Only two blankets.",
+        "I should have asked where they took the coughing one."
+      ]
+    },
+    "Corin": {
+      "theme": "goofy",
+      "personality": "turns chores into bad stage magic",
+      "delivery": "[animated]",
+      "alert": "And for my next trick... wait, where did you come from?",
+      "body": "That's blood. I can't make that disappear.",
+      "idle": [
+        "Coin in this hand. No, the other hand. Ruined it again.",
+        "The trick is to look at the audience. The rats never look back."
+      ]
+    },
+    "Dane": {
+      "theme": "stern",
+      "personality": "takes spotless equipment as a moral duty",
+      "delivery": "[firm]",
+      "alert": "Hands off the rail. Face the wall.",
+      "body": "Seal the corridor. I don't want a boot through this scene.",
+      "idle": [
+        "Rust starts where you stop looking.",
+        "Someone used my polishing rag to wipe a plate."
+      ]
+    },
+    "Ellis": {
+      "theme": "funny",
+      "personality": "quiet labor organizer with a dry wit",
+      "delivery": "[dry]",
+      "alert": "I'd let it slide, but that's how they dock my pay.",
+      "body": "He was owed two weeks. Someone needs to tell his family.",
+      "idle": [
+        "The uniform is free. They take it out of your pay.",
+        "If we're all essential, how come none of us gets a chair?"
+      ]
+    },
+    "Garrow": {
+      "theme": "stupid",
+      "personality": "misapplies elaborate safety rules",
+      "delivery": "[uncertain]",
+      "alert": "Hold on. Do I blow the whistle before I shout?",
+      "body": "Don't touch him. Unless the rule says touch him first.",
+      "idle": [
+        "No running on wet stairs. What about running up them?",
+        "Fire drill on Thursday. Hope the fire knows."
+      ]
+    },
+    "Hollis": {
+      "theme": "serious",
+      "personality": "homesick and protective of small comforts",
+      "delivery": "[soft]",
+      "alert": "Stop. Please don't make me raise the alarm.",
+      "body": "He had a letter in his pocket. It never got sent.",
+      "idle": [
+        "If I close my eyes this smells almost like home. Almost.",
+        "I forgot what bread sounds like when you cut the crust."
+      ]
+    },
+    "Jory": {
+      "theme": "funny",
+      "personality": "keeps score of the tower's minor absurdities",
+      "delivery": "[wry]",
+      "alert": "An escape. That's a new square on my card.",
+      "body": "No. Cross that one off. I never wanted to see it.",
+      "idle": [
+        "Leak in the laundry, rat in the oats. Two more and I win.",
+        "My prize for a perfect shift is another shift."
+      ]
+    },
+    "Kell": {
+      "theme": "stern",
+      "personality": "old drill instructor counting everyone's cadence",
+      "delivery": "[commanding]",
+      "alert": "Heel down. Face front. That's an order.",
+      "body": "One down. Form up before we lose another.",
+      "idle": [
+        "Left, right. If the floor can keep time, so can you.",
+        "One more step out of time and I'll march the stairs myself."
+      ]
+    },
+    "Lusk": {
+      "theme": "goofy",
+      "personality": "desperate to impress with tall stories",
+      "delivery": "[eager]",
+      "alert": "I caught three like you last week! Wait up!",
+      "body": "I said I'd keep him safe. I really said that.",
+      "idle": [
+        "The beast was this big. Bigger when I tell it upstairs.",
+        "I could make captain if they'd just ask about my record."
+      ]
+    },
+    "Marek": {
+      "theme": "stern",
+      "personality": "sees the tower as his ship to keep watertight",
+      "delivery": "[gruff]",
+      "alert": "Breach on this deck. Stand fast.",
+      "body": "Close both ends of the passage. Nobody else goes down.",
+      "idle": [
+        "Every door is a bulkhead if you do your job.",
+        "I miss a floor that moves for a reason."
+      ]
+    },
+    "Oren": {
+      "theme": "funny",
+      "personality": "compulsively gives every inconvenience a title",
+      "delivery": "[deadpan]",
+      "alert": "And now, the escape artist. Hold the applause.",
+      "body": "No clever title for this one. Somebody get help.",
+      "idle": [
+        "A study in wet socks, by Keeper Oren.",
+        "Portrait of a man waiting for a bell that hates him."
+      ]
+    },
+    "Pavel": {
+      "theme": "serious",
+      "personality": "literal-minded technician who checks his work twice",
+      "delivery": "[precise]",
+      "alert": "Unscheduled movement. Show me your pass.",
+      "body": "This wasn't a fall. Look at the angle.",
+      "idle": [
+        "If the latch needs a kick, the latch is broken.",
+        "I put the good screws in a separate tin. Someone mixed them."
+      ]
+    },
+    "Silas": {
+      "theme": "goofy",
+      "personality": "self-appointed tower tour guide",
+      "delivery": "[sunny]",
+      "alert": "Visitors go the other way. Actually, stay right there.",
+      "body": "I show people this landing. I can't show them this.",
+      "idle": [
+        "On your left, the tower's second most disappointing window.",
+        "Questions at the end, please. There is no end."
+      ]
+    },
+    "Teodor": {
+      "theme": "stupid",
+      "personality": "overthinks simple choices until he freezes",
+      "delivery": "[halting]",
+      "alert": "Right. Stop. Or should I get someone? Stop anyway.",
+      "body": "I can't decide who to call. Somebody decide for me.",
+      "idle": [
+        "If I start with the bottom step, I won't get the top one wrong.",
+        "I've been weighing lunch since breakfast."
+      ]
+    },
+    "Ansel": {
+      "theme": "stern",
+      "personality": "secretly ashamed of an old lapse in discipline",
+      "delivery": "[tense]",
+      "alert": "Stop. I won't let it happen on my watch again.",
+      "body": "Not again. I was here this time. I was right here.",
+      "idle": [
+        "I wrote the report twice. Neither version said why I left.",
+        "I don't trade shifts. I don't owe anyone another favor."
+      ]
+    },
+    "Brin": {
+      "theme": "funny",
+      "personality": "buries fear under cheerful bad omens",
+      "delivery": "[wry]",
+      "alert": "I knew the creaking stair meant trouble. Halt!",
+      "body": "I joked about bad luck. I didn't mean this.",
+      "idle": [
+        "A bird hit the window. Probably wants a transfer.",
+        "If the candle goes out, that's my excuse to go home."
+      ]
+    },
+    "Cato": {
+      "theme": "serious",
+      "personality": "protective apprentice cataloguing prohibited books",
+      "delivery": "[quiet] [focused]",
+      "alert": "Step away from the shelves. Let me see your hands.",
+      "body": "I know him. He let me finish the chapter.",
+      "idle": [
+        "The best books have the dullest labels.",
+        "If I file it under inventory, nobody opens it."
+      ]
+    },
+    "Dov": {
+      "theme": "goofy",
+      "personality": "treats password duty like an embarrassing performance",
+      "delivery": "[sheepish]",
+      "alert": "You're not on the list. Please don't ask to see it.",
+      "body": "I can't joke my way past this. Get the captain.",
+      "idle": [
+        "I practiced saying access denied in the mirror.",
+        "The terminal doesn't laugh either. That's reassuring."
+      ]
+    },
+    "Tomas": {
+      "theme": "serious",
+      "personality": "cannot unsee the human cost of the ward",
+      "delivery": "[weary]",
+      "alert": "Stay out of the ward. That's for your sake too.",
+      "body": "Get the medic. Don't let them put him on the list.",
+      "idle": [
+        "Names go in the ledger. Numbers come back out.",
+        "The worst part is how quiet the doors are."
+      ]
+    },
+    "Ulric": {
+      "theme": "stern",
+      "personality": "runs rounds like inspection of a failing fortress",
+      "delivery": "[hard]",
+      "alert": "Intruder in the ward. Keep the exits sealed.",
+      "body": "First secure the door. Then we'll count our own.",
+      "idle": [
+        "The lock is only as good as the Keeper checking it.",
+        "I listen for the click. Other people just pull the handle."
+      ]
+    },
+    "Venn": {
+      "theme": "goofy",
+      "personality": "tries to befriend the wards' machinery",
+      "delivery": "[playful]",
+      "alert": "That wasn't the pipes. Hey, you there!",
+      "body": "Wake up. Even the boiler makes more noise than you.",
+      "idle": [
+        "Morning, valve three. You sound dreadful today.",
+        "One knock means steam. Two knocks means Venn needs lunch."
+      ]
+    },
+    "Wren": {
+      "theme": "funny",
+      "personality": "soft-spoken gallows humor about medical bureaucracy",
+      "delivery": "[dry] [soft]",
+      "alert": "Escaping without a discharge form? Stop right there.",
+      "body": "He won't need a discharge form. Someone get a doctor.",
+      "idle": [
+        "They sent me three forms and one bandage.",
+        "The medicine cabinet has more locks than medicine."
+      ]
+    },
+    "Edric": {
+      "theme": "stupid",
+      "personality": "earnestly mistakes technical jargon for ordinary words",
+      "delivery": "[puzzled]",
+      "alert": "The door is under observation. Wait, so are you!",
+      "body": "Is this what the records meant by critical? Help!",
+      "idle": [
+        "It says isolate the chamber. I haven't spoken to it all day.",
+        "I was told to take inventory. Nobody said where to take it."
+      ]
+    },
+    "Fane": {
+      "theme": "serious",
+      "personality": "careful pragmatist checking supplies for a disaster",
+      "delivery": "[steady]",
+      "alert": "Stop at the red stripe. Nothing crosses it.",
+      "body": "Find the first aid tin. I checked it this morning.",
+      "idle": [
+        "Two lanterns work. Which means we have one spare.",
+        "If the water stops, open the barrel before the taps run dry."
+      ]
+    },
+    "Gil": {
+      "theme": "goofy",
+      "personality": "distracts himself by composing awful songs",
+      "delivery": "[tuneful] [quickly]",
+      "alert": "I had a rhyme for that. Never mind. Stop!",
+      "body": "No song for this. Go get someone.",
+      "idle": [
+        "Ward door, stone floor. That's not enough for a chorus.",
+        "Someone told me to sing under my breath. I'm trying."
+      ]
+    },
+    "Hask": {
+      "theme": "stern",
+      "personality": "insists on a clean handover even in a crisis",
+      "delivery": "[clipped]",
+      "alert": "Hold position. State your name and destination.",
+      "body": "Mark his post uncovered. I'll take it until relief.",
+      "idle": [
+        "I brief the next shift even when it's the same shift.",
+        "Don't say all clear unless you've looked."
+      ]
+    },
+    "Ivar": {
+      "theme": "funny",
+      "personality": "collects cruel sayings but goes gentle under pressure",
+      "delivery": "[dry] [low]",
+      "alert": "Well, you're the first interesting thing all night. Halt.",
+      "body": "Easy now. I'll stay with you. Somebody fetch help.",
+      "idle": [
+        "I keep a list of things worse than this job. It's short.",
+        "They say the lower you go, the closer you are to promotion."
+      ]
+    },
+    "Yorick": {
+      "theme": "stern",
+      "personality": "grim veteran expecting the foundation to fail",
+      "delivery": "[gravelly]",
+      "alert": "Against the wall. Not the one that's cracking.",
+      "body": "Get away from the stonework. I need a clear path.",
+      "idle": [
+        "You hear that? The whole tower settling on our heads.",
+        "I keep one boot pointed at the exit."
+      ]
+    },
+    "Zane": {
+      "theme": "goofy",
+      "personality": "reckless optimist who volunteers before thinking",
+      "delivery": "[buoyant]",
+      "alert": "I'll get him! Wait, which way did he go?",
+      "body": "I said follow me. I shouldn't have said that.",
+      "idle": [
+        "I volunteered for the basement. What a tremendous decision.",
+        "Bet I can make it back before anybody notices I left."
+      ]
+    },
+    "Arlen": {
+      "theme": "serious",
+      "personality": "fixated on keeping his squad alive",
+      "delivery": "[calm]",
+      "alert": "Don't push your luck. Set it down and back away.",
+      "body": "Cover me. I'm going to bring him out.",
+      "idle": [
+        "Know the person behind you. That's who brings you home.",
+        "I count heads at the top and the bottom."
+      ]
+    },
+    "Beck": {
+      "theme": "funny",
+      "personality": "quietly sarcastic about Niro's leadership",
+      "delivery": "[acid] [dry]",
+      "alert": "The doctor's expecting you. I'm not letting you pass.",
+      "body": "Where's the doctor when it's one of us?",
+      "idle": [
+        "He said this post was quiet. Maybe he meant afterward.",
+        "When the boss whispers, the rest of us run."
+      ]
+    },
+    "Cass": {
+      "theme": "stupid",
+      "personality": "well-meaning recruit who confuses left and right",
+      "delivery": "[flustered]",
+      "alert": "Over there! I mean here! Don't move!",
+      "body": "I went the wrong way. I should have been here.",
+      "idle": [
+        "Tie a string to the left glove. Now where's the string?",
+        "They told me to cover the rear. Rear of what?"
+      ]
+    },
+    "Doran": {
+      "theme": "stern",
+      "personality": "resentful former quartermaster who thinks in shortages",
+      "delivery": "[stern]",
+      "alert": "Stay put. I'm not wasting a second round.",
+      "body": "We're short a Keeper. Close ranks and make it count.",
+      "idle": [
+        "They issue one spare for everything except people.",
+        "If anyone asks, there were six rounds in that box."
+      ]
+    },
+    "Elm": {
+      "theme": "goofy",
+      "personality": "nervous scavenger making treasures from scrap",
+      "delivery": "[quick] [nervous]",
+      "alert": "Drop it! I mean stop! I wasn't taking anything.",
+      "body": "I found his badge. I didn't think I'd find him too.",
+      "idle": [
+        "This copper will make a good ring if I can bend it.",
+        "Don't throw away a good spring just because it's sprung."
+      ]
+    },
+    "Fenn": {
+      "theme": "serious",
+      "personality": "patiently reads structural faults by sound",
+      "delivery": "[measured] [low]",
+      "alert": "Footsteps. Stop before you cross that beam.",
+      "body": "I heard a body fall. It wasn't the ceiling.",
+      "idle": [
+        "A dry crack is stone. A wet one means get out.",
+        "The little sounds matter before the big ones start."
+      ]
+    },
+    "Pike": {
+      "theme": "serious",
+      "personality": "quiet believer who reads scripture to exhausted peers",
+      "delivery": "[gentle] [reverent]",
+      "alert": "Peace. Put that down and nobody needs to bleed.",
+      "body": "Rest now. I'll stay until they come.",
+      "idle": [
+        "Read it slowly. You miss the good part if you rush.",
+        "A bell can call you to more than a shift."
+      ]
+    },
+    "Moss": {
+      "theme": "stupid",
+      "personality": "earnest literalist who turns theology into practical questions",
+      "delivery": "[earnest] [confused]",
+      "alert": "Are you looking for the stairs? Wait, that's a weapon.",
+      "body": "Is he hurt? I can fetch someone. Who do I fetch?",
+      "idle": [
+        "If we all share the bread, does the last man get the crust?",
+        "I can remember the verse if I remember what's for lunch."
+      ]
+    },
+    "Tibb": {
+      "theme": "funny",
+      "personality": "tired skeptic who teases the people he cares for",
+      "delivery": "[wry] [tired]",
+      "alert": "You picked a rotten time for a visit. Stop.",
+      "body": "Come on, friend. I won't laugh if you get up.",
+      "idle": [
+        "If heaven has a night shift, they can keep my place.",
+        "I tease Pike because he keeps reading anyway."
+      ]
+    },
+    "Hale": {
+      "theme": "stern",
+      "personality": "overzealous tracker who treats evidence as personal",
+      "delivery": "[intense]",
+      "alert": "Those prints were yours. End of the trail.",
+      "body": "This is his work. Nobody touch the ground around him.",
+      "idle": [
+        "Fresh dust on the hinge. Someone went through.",
+        "I don't need a face if I've got a trail."
+      ]
+    },
+    "Rusk": {
+      "theme": "serious",
+      "personality": "competitive checkpoint investigator eager for a clean arrest",
+      "delivery": "[sharp]",
+      "alert": "Caught you between posts. On your knees.",
+      "body": "He slipped a checkpoint. Tighten the next one.",
+      "idle": [
+        "If I get the arrest, I get out of booth duty.",
+        "The trick is to wait where a runner stops to breathe."
+      ]
+    },
+    "Soren": {
+      "theme": "stern",
+      "personality": "fearful ward reinforcement hiding behind procedure",
+      "delivery": "[tight]",
+      "alert": "Stop there. I have orders to fire this time.",
+      "body": "They said there'd be two of us. What do I do now?",
+      "idle": [
+        "Read the order again. My hands won't stop shaking.",
+        "They didn't tell me what he looked like until they shut the gate."
+      ]
+    },
+    "Gideon": {
+      "theme": "serious",
+      "personality": "patient marksman who dislikes close quarters",
+      "delivery": "[slow] [steady]",
+      "alert": "Don't close the distance. Hands where I see them.",
+      "body": "Move to cover. He didn't have a clear lane.",
+      "idle": [
+        "Long hall, straight shot. If I can get my hands still.",
+        "Someone keeps putting crates in the firing lanes."
+      ]
+    },
+    "Fenwick": {
+      "theme": "funny",
+      "personality": "sour reservist who records every unpaid hour",
+      "delivery": "[bitter]",
+      "alert": "Overtime ends here. Drop it.",
+      "body": "That's his last shift. At least write down when it ended.",
+      "idle": [
+        "I write the hours on my cuff. The ledger lies.",
+        "Don't call it voluntary if they lock the door behind us."
+      ]
+    },
+    "Osric": {
+      "theme": "stern",
+      "personality": "young formalist who quotes regulations under stress",
+      "delivery": "[crisp]",
+      "alert": "By order of the tower, you will stop. Now!",
+      "body": "Section nine. The one about casualties. I can't remember it.",
+      "idle": [
+        "Learn the rule before you need to break it.",
+        "They never put the hard cases on the exam."
+      ]
+    },
+    "Leif": {
+      "theme": "serious",
+      "personality": "former carpenter sizing up exits and repairs",
+      "delivery": "[plain]",
+      "alert": "Stay there. I've got the only clear way out.",
+      "body": "He's pinned. Bring a bar, not a gun.",
+      "idle": [
+        "Whoever framed this door didn't own a square.",
+        "I could fix the stair if they gave me a saw worth using."
+      ]
+    },
+    "Quill": {
+      "theme": "funny",
+      "personality": "dry clerk drafted out of the records office",
+      "delivery": "[dry] [precise]",
+      "alert": "First the paperwork, then the escape. Stop.",
+      "body": "I know his handwriting. I don't want this to be his last entry.",
+      "idle": [
+        "They swapped my pen for a pistol. The pen jammed less.",
+        "If I get out of this, I'm filing one very long complaint."
+      ]
+    },
+    "Nash": {
+      "theme": "goofy",
+      "personality": "superstitious runner listening for warnings in echoes",
+      "delivery": "[breathy]",
+      "alert": "I heard you before I saw you. Don't move.",
+      "body": "The echo stopped. Get somebody down here.",
+      "idle": [
+        "Never answer the second echo. It isn't yours.",
+        "I count four footsteps when there should be three."
+      ]
+    },
+    "Bastian": {
+      "theme": "stern",
+      "personality": "brooding brawler wary of enclosed spaces",
+      "delivery": "[rough]",
+      "alert": "Come out where I can see you. Slowly.",
+      "body": "Get the doors open. I need room to move him.",
+      "idle": [
+        "If the ceiling gets any lower, I'm taking the stairs.",
+        "I can fight a man. I can't fight a locked room."
+      ]
+    },
+    "Reeve": {
+      "theme": "funny",
+      "personality": "exasperated relief guard with a strong sense of duty",
+      "delivery": "[tired] [firm]",
+      "alert": "You can wait. I've been waiting all night.",
+      "body": "He was waiting for me to relieve him. I came too late.",
+      "idle": [
+        "I had my boots off when they rang the bell.",
+        "An extra shift is fine. It's the missing sleep I mind."
+      ]
+    },
+    "Seth": {
+      "theme": "serious",
+      "personality": "quiet messenger trying to avoid being noticed",
+      "delivery": "[hushed] [tense]",
+      "alert": "I don't want a fight. Just stop there.",
+      "body": "I'll get help. Someone stay with him.",
+      "idle": [
+        "Deliver the order and walk away. That's all I have to do.",
+        "I prefer notes. Nobody asks a note why it's shaking."
+      ]
+    },
+    "Vale": {
+      "theme": "stern",
+      "personality": "vain new officer afraid of losing command",
+      "delivery": "[brisk]",
+      "alert": "Eyes on me, prisoner. On me!",
+      "body": "Look at me. Listen to me. We can still save him.",
+      "idle": [
+        "Nobody remembers your orders if you say them quietly.",
+        "I learned to shout before I learned what to say."
+      ]
+    }
+  },
+  "hunted": {
+    "2": "Hale",
+    "3": "Rusk",
+    "4": "Soren"
+  },
+  "conversation_cast": {
+    "2": [
+      "Dane",
+      "Lusk"
+    ],
+    "3": [
+      "Oren",
+      "Dov"
+    ],
+    "4": [
+      "Tomas",
+      "Ivar"
+    ]
   }
 }

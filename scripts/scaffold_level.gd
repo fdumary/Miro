@@ -141,7 +141,7 @@ func setup_branch() -> Array:
 		extra.level = self
 		extra.illness_started = true
 		extra.weapon_kind = "pistol"
-		extra.guard_name = "Hale"
+		world_features.assign_keeper(extra, world_features.roster.hunted[str(number)])
 		$Guards.add_child(extra)
 	var lines: Array = [["TOWER PA", data.pa]]
 	if number < 5:

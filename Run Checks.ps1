@@ -11,6 +11,7 @@ $checks = @(
     @('res://tools/test_remaining_levels.gd', '--', '4'),
     @('res://tools/test_security.gd'),
     @('res://tools/test_tower_hazards.gd'),
+    @('res://tools/test_keeper_cast.gd'),
     @('res://tools/test_brother.gd'),
     @('res://tools/test_ending.gd'),
     @('res://tools/test_gates_and_loot.gd'),

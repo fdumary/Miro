@@ -28,7 +28,7 @@ func run() -> void:
 	for id in music.catalog:
 		var stream = load(music.catalog[id].stream)
 		check(stream is AudioStream and stream.get_length() > 0, "Runtime track decodes: " + id)
-	check(world.actors.size() == 2 and world.actors[0].voice_index != world.actors[1].voice_index, "Conversation has distinct guard voices")
+	check(world.actors.size() == 2 and world.actors[0].guard_name != world.actors[1].guard_name, "Conversation has distinct guard voices")
 	check(world.conversation_started and not level.controls_locked(), "Overhearing does not lock controls")
 	var remaining: float = world.line_left
 	level.paused = true

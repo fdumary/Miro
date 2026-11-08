@@ -3,8 +3,9 @@ func _initialize() -> void:
 	call_deferred("run")
 func run() -> void:
 	var failures: Array[String] = []
-	if not FileAccess.file_exists("res://data/inner_dialogue.json"):
-		failures.append("Missing inner dialogue")
+	for file in ["inner_dialogue", "guard_roster", "guard_dialogue", "branch_verses"]:
+		if not FileAccess.file_exists("res://data/%s.json" % file):
+			failures.append("Missing dialogue data: " + file)
 	for path in ["res://assets/weapons/remote.svg", "res://scripts/trapdoor.gd", "res://scripts/player_controls.gd", "res://assets/weapons/smg.svg"]:
 		if not ResourceLoader.exists(path):
 			failures.append("Missing combat asset: " + path)

@@ -8,9 +8,12 @@
 Cast and emotions: data/voice_cast.json. Clips are cached by text/voice/settings hash, so only
 changed lines cost credits. Niro and PA clips are named by a hash of the subtitle text
 (see scripts/remote_radio.gd), so editing a line in the JSON automatically picks up a new clip.
-Untested against the live API from the cloud session (no key there); run it locally.
+Use --keepers-only to refresh the Keeper cast without touching Niro or the PA.
 """
-import argparse, base64, hashlib, json, os, re, sys, urllib.request
+import argparse, base64, hashlib, json, os, re, sys, time, urllib.error, urllib.request
+from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
+from threading import Lock
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,11 +43,17 @@ def api_key():
 def request(path, key, body):
     req = urllib.request.Request(API + path, data=json.dumps(body).encode(),
                                  headers={'xi-api-key': key, 'Content-Type': 'application/json'})
-    try:
-        return urllib.request.urlopen(req, timeout=180).read()
-    except Exception as error:
-        detail = getattr(error, 'read', lambda: b'')()[:300]
-        raise SystemExit(f'ElevenLabs {path} failed: status={getattr(error, "code", "?")} {detail!r}') from None
+    for attempt in range(4):
+        try:
+            return urllib.request.urlopen(req, timeout=180).read()
+        except urllib.error.HTTPError as error:
+            detail = error.read()[:300]
+            if error.code in (409, 429, 503) and attempt < 3 and b'quota' not in detail:
+                time.sleep(2 ** attempt)
+                continue
+            raise SystemExit(f'ElevenLabs {path} failed: HTTP {error.code} {detail!r}') from None
+        except urllib.error.URLError as error:
+            raise SystemExit(f'ElevenLabs {path} failed: {error.reason}') from None
 
 
 def niro_delivery(text, default):
@@ -64,29 +73,40 @@ def collect_lines(cast):
         jobs.append({'clip': clip, 'voice': voice, 'text': text.strip(), 'delivery': delivery})
 
     tags = cast['guard_delivery']
-    for conversation in guard['conversations'].values():
-        for line in conversation:
-            add(line['id'], f"guard_{line['speaker']}", line['text'], tags.get(line['id'], ''))
-    for reputation in ('MISSING', 'HUNTED'):
-        for index, text in enumerate(branch[reputation]['guard_line']):
-            clip = f'branch_{reputation.lower()}_{index}'
-            add(clip, f'guard_{index % 2}', text, tags.get(clip, ''))
-    for kind, bark in guard['barks'].items():
-        for voice in range(3):
-            add(f'{kind}_{voice}', f'guard_{voice}', bark['text'], tags.get(kind, ''))
-    # Personalities (data/guard_roster.json): alert and body barks, patrol mutters, huddle scenes.
     roster = json.loads((ROOT / 'data/guard_roster.json').read_text())
-    for name, kind in roster['personalities'].items():
-        voice = f"guard_{kind['voice']}"
-        add(f'alert_{name}', voice, kind['alert'], '[shouting] ' + kind['delivery'])
-        add(f'body_{name}', voice, kind['body'], '[shocked] ' + kind['delivery'])
-        for index, text in enumerate(kind['idle']):
-            add(f'idle_{name}_{index + 1}', voice, text, kind['delivery'] + ' [muttering]')
+    verses = json.loads((ROOT / 'data/branch_verses.json').read_text())
+    voice_keys = [name.lower() for name in roster['keepers']] + ['niro', 'pa']
+    voice_ids = [cast['voices'].get(name, {}).get('voice_id') for name in voice_keys]
+    if not all(voice_ids) or len(set(voice_ids)) != len(voice_ids):
+        raise SystemExit('Assign a separate ElevenLabs voice ID to every named Keeper, Niro and the PA.')
+
+    def dialogue(ident, speaker, text, delivery=''):
+        voice = speaker.lower()
+        add(f'{voice}_{ident}', voice, text, delivery)
+
+    for floor, conversation in guard['conversations'].items():
+        speakers = roster['conversation_cast'][floor]
+        for line in conversation:
+            dialogue(line['id'], speakers[line['speaker']], line['text'], tags.get(line['id'], ''))
+        for reputation in ('MISSING', 'HUNTED'):
+            for index, text in enumerate(branch[reputation]['guard_line']):
+                clip = f'branch_{reputation.lower()}_{index}'
+                dialogue(clip, speakers[index % 2], text, tags.get(clip, ''))
+        for leaning, pool in verses.items():
+            if leaning.startswith('_') or not pool:
+                continue
+            index = int(floor) % len(pool)
+            for line_index, line in enumerate(pool[index]):
+                clip = f'verse_{leaning}_{index}_{line_index}'
+                dialogue(clip, speakers[line['speaker']], line['text'], '[quietly]')
+    for speaker, profile in roster['keepers'].items():
+        dialogue('alert', speaker, profile['alert'], '[shouting] ' + profile['delivery'])
+        dialogue('body', speaker, profile['body'], '[shocked] ' + profile['delivery'])
+        for index, text in enumerate(profile['idle'], 1):
+            dialogue(f'idle_{index}', speaker, text, profile['delivery'] + ' [muttering]')
     for scene_id, scene in roster['huddles'].items():
-        for index, line in enumerate(scene['lines']):
-            personality = scene['keepers'][line['speaker']][1]
-            voice = f"guard_{roster['personalities'][personality]['voice']}"
-            add(f'{scene_id}_{index + 1}', voice, line['text'], line.get('delivery', ''))
+        for index, line in enumerate(scene['lines'], 1):
+            dialogue(f'{scene_id}_{index}', scene['keepers'][line['speaker']], line['text'], line.get('delivery', ''))
     # Niro: every line he speaks, in person or over the remote.
     niro = []
     for path in sorted((ROOT / 'data/levels').glob('level_0*.json')):
@@ -111,7 +131,7 @@ def collect_lines(cast):
     for speaker, text in re.findall(r'\["([A-Z ]+)", "((?:[^"\\]|\\.)*)"', source):
         if speaker == 'JUDAS':
             clean = text.replace('\\n', '\n').replace('\\"', '"')
-            add('judas_' + text_hash(clean), 'guard_0', clean, '[stern] [coughs] [greedy]')
+            add('judas_' + text_hash(clean), 'judas', clean, '[stern] [coughs] [greedy]')
     bars = re.search(r'var response := "([^"]+)" if .* else "([^"]+)"', source)
     if bars:
         for response in bars.groups():
@@ -130,15 +150,16 @@ def collect_lines(cast):
     return jobs
 
 
-def generate(cast, jobs, key):
+def generate(cast, jobs, key, workers=1):
     from prepare_game_audio import level
     OUT.mkdir(parents=True, exist_ok=True)
     manifest = OUT / 'provenance.json'
     records = json.loads(manifest.read_text()) if manifest.exists() else {}
-    made = 0
-    for job in jobs:
+    voice_locks = {name: Lock() for name in cast['voices']}
+
+    def render(job):
         voice = cast['voices'][job['voice']]
-        # Stage directions in brackets are for the reader, not the voice.
+        # Parenthetical stage directions are for the reader, not the voice.
         words = re.sub(r'\([^)]*\)', '', job['text'])
         spoken = (job['delivery'] + ' ' + words).strip().replace('\n', ' ')
         body = {'text': spoken, 'model_id': cast['model_id'],
@@ -146,18 +167,48 @@ def generate(cast, jobs, key):
         signature = hashlib.sha256(json.dumps({'voice': voice['voice_id'], **body}, sort_keys=True).encode()).hexdigest()
         dest = OUT / (job['clip'] + '.mp3')
         if dest.exists() and records.get(job['clip'], {}).get('signature') == signature:
-            continue
-        print('Generating', job['clip'], '(' + voice['name'] + ')', flush=True)
-        audio = request(f"/text-to-speech/{voice['voice_id']}?output_format=mp3_44100_128", key, body)
+            return None
         raw = ROOT / 'tmp' / f"voice-{job['clip']}-{signature[:12]}.mp3"
-        raw.parent.mkdir(exist_ok=True)
-        raw.write_bytes(audio)
+        if not raw.exists():
+            with voice_locks[job['voice']]:
+                audio = request(f"/text-to-speech/{voice['voice_id']}?output_format=mp3_44100_128", key, body)
+            raw.parent.mkdir(exist_ok=True)
+            pending = raw.with_suffix('.tmp')
+            pending.write_bytes(audio)
+            pending.replace(raw)
         measurement = level(raw, dest, -18)
-        records[job['clip']] = {'provider': 'ElevenLabs', 'voice_id': voice['voice_id'], 'voice_name': voice['name'],
-                                'model_id': cast['model_id'], 'text': job['text'], 'delivery': job['delivery'],
-                                'signature': signature, 'leveling': measurement}
-        manifest.write_text(json.dumps(records, indent=2) + '\n')
-        made += 1
+        return {'provider': 'ElevenLabs', 'voice_id': voice['voice_id'], 'voice_name': voice['name'],
+                'model_id': cast['model_id'], 'text': job['text'], 'delivery': job['delivery'],
+                'signature': signature, 'leveling': measurement}
+
+    # Rotate voices between requests; a shared voice can only be initialized once at a time.
+    by_voice = defaultdict(list)
+    for job in jobs:
+        by_voice[job['voice']].append(job)
+    jobs = [group[index] for index in range(max(map(len, by_voice.values()), default=0))
+            for group in by_voice.values() if index < len(group)]
+    made = 0
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        # Bound pending requests so a provider error stops the batch promptly.
+        for start in range(0, len(jobs), workers):
+            batch = jobs[start:start + workers]
+            tasks = [pool.submit(render, job) for job in batch]
+            failed = []
+            for job, task in zip(batch, tasks):
+                try:
+                    result = task.result()
+                except (Exception, SystemExit) as error:
+                    failed.append(f"{job['clip']}: {error}")
+                    continue
+                if result is not None:
+                    records[job['clip']] = result
+                    made += 1
+                    print('Generated', job['clip'], flush=True)
+            pending = manifest.with_suffix('.tmp')
+            pending.write_text(json.dumps(records, indent=2) + '\n')
+            pending.replace(manifest)
+            if failed:
+                raise SystemExit('\n'.join(failed))
     print(f'Voice library ready: {made} new clips, {len(jobs)} lines in the cast', flush=True)
 
 
@@ -189,11 +240,15 @@ def keep_niro(cast, key, number):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--list', action='store_true')
+    parser.add_argument('--keepers-only', action='store_true')
+    parser.add_argument('--workers', type=int, choices=(1, 2, 3), default=1)
     parser.add_argument('--design-niro', action='store_true')
     parser.add_argument('--keep-niro', type=int)
     args = parser.parse_args()
     cast = json.loads(CAST.read_text())
     jobs = collect_lines(cast)
+    if args.keepers_only:
+        jobs = [job for job in jobs if job['voice'] not in {'niro', 'pa'}]
     if args.list:
         for job in jobs:
             print(f"{job['clip']:<22} {job['voice']:<8} {job['delivery']} {job['text']!r}")
@@ -204,7 +259,7 @@ def main():
         return design_niro(cast, key)
     if args.keep_niro:
         keep_niro(cast, key, args.keep_niro)
-    generate(cast, jobs, key)
+    generate(cast, jobs, key, args.workers)
 
 
 if __name__ == '__main__':

@@ -73,10 +73,12 @@ func run() -> void:
 
 	# Keepers: unique names, personalities, the huddle over John 3:16.
 	var names := {}
+	var personalities := {}
 	for guard in level.guards():
 		check(not names.has(guard.guard_name), "Unique Keeper name " + guard.guard_name)
 		names[guard.guard_name] = true
-		check(guard.personality in ["serious", "goofy", "stern", "funny", "stupid"], "%s has a personality (%s)" % [guard.guard_name, guard.personality])
+		check(not guard.personality.is_empty() and not personalities.has(guard.personality), "%s has an individual personality" % guard.guard_name)
+		personalities[guard.personality] = true
 	var huddle: Array = level.guards().filter(func(guard): return guard.distracted)
 	check(huddle.size() == 3, "Three off-duty Keepers huddle on Level 2")
 	level.player.position = huddle[0].position + Vector2(-200, 0)
@@ -87,6 +89,8 @@ func run() -> void:
 			heard = true
 			break
 	check(heard, "One of them reads John 3:16")
+	var huddle_voice: AudioStream = level.world_features.voice.stream
+	check(huddle_voice != null and huddle_voice.resource_path.ends_with("/pike_john316_1.mp3"), "Pike reads in his own voice")
 	check(huddle.all(func(guard): return guard.alert_state == IntroGuard.State.PATROL), "Absorbed huddle doesn't notice Miro from a distance")
 
 	# Beats: calm for stealth, aggressive for kills; [B] steps through them on the MP3.

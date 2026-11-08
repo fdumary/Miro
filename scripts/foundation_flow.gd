@@ -17,6 +17,7 @@ var level: Node2D
 var step := Step.OFFICE
 var row := 0
 var wave_guards: Array[Node] = []
+var next_reinforcement := 0
 var wait_left := 0.0
 var niro_health := 12
 var engagement := 0
@@ -107,7 +108,8 @@ func spawn_guard(point: Vector2, weapon: String) -> Node:
 	guard.illness_started = true
 	guard.wave_guard = true
 	guard.weapon_kind = weapon
-	level.world_features.name_keeper(guard, 5, level.guards().size())
+	level.world_features.name_keeper(guard, 5, next_reinforcement)
+	next_reinforcement += 1
 	level.get_node("Guards").add_child(guard)
 	# Discovery is forced in The Foundation: every wave arrives already hunting Miro.
 	guard.alert_state = IntroGuard.State.SEARCH

@@ -14,20 +14,280 @@
       "voice_id": "onwK4e9ZLuTAKqWW03F9",
       "stability": 1.0
     },
-    "guard_0": {
-      "name": "Roger (stern, in charge)",
+    "judas": {
+      "name": "Roger - Laid-Back, Casual, Resonant",
       "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
       "stability": 0.5
     },
-    "guard_1": {
-      "name": "Bill (older, worn out, sick)",
+    "rowan": {
+      "name": "Liam - Energetic, Social Media Creator",
+      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+      "stability": 0.5
+    },
+    "ivo": {
+      "name": "Bradford - Expressive and Articulate",
+      "voice_id": "NNl6r8mD7vthiJatiJt1",
+      "stability": 0.5
+    },
+    "bram": {
+      "name": "Joseph - Nasally and Steady",
+      "voice_id": "J5iaaqzR5zn6HFG4jV3b",
+      "stability": 0.5
+    },
+    "alden": {
+      "name": "Christopher - Gentle and Trustworthy",
+      "voice_id": "G17SuINrv2H9FC6nvetn",
+      "stability": 0.5
+    },
+    "corin": {
+      "name": "Gabriel Ripley - Facetious, Quick-Spoken",
+      "voice_id": "o2zd9K5QOO7ppTb04Lx0",
+      "stability": 0.5
+    },
+    "dane": {
+      "name": "Severin - Powerful & Commanding",
+      "voice_id": "ib8aaABAPZQpTo6hx8Jr",
+      "stability": 0.5
+    },
+    "ellis": {
+      "name": "Steve - Australian Male",
+      "voice_id": "aGkVQvWUZi16EH8aZJvT",
+      "stability": 0.5
+    },
+    "garrow": {
+      "name": "Mark - Natural Conversations",
+      "voice_id": "UgBBYS2sOqTuMpoF3BR0",
+      "stability": 0.5
+    },
+    "hollis": {
+      "name": "Nathaniel - Engaging, British and Calm",
+      "voice_id": "AeRdCCKzvd23BpJoofzx",
+      "stability": 0.5
+    },
+    "jory": {
+      "name": "Lucan Rook  - Energetic Male",
+      "voice_id": "15CVCzDByBinCIoCblXo",
+      "stability": 0.5
+    },
+    "kell": {
+      "name": "Russell - Dramatic British TV",
+      "voice_id": "NYC9WEgkq1u4jiqBseQ9",
+      "stability": 0.5
+    },
+    "lusk": {
+      "name": "Alex - Upbeat, Energetic and Clear",
+      "voice_id": "yl2ZDV1MzN4HbQJbMihG",
+      "stability": 0.5
+    },
+    "marek": {
+      "name": "Harry - Fierce Warrior",
+      "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+      "stability": 0.5
+    },
+    "oren": {
+      "name": "Edward - British, Dark, Seductive, Low",
+      "voice_id": "goT3UYdM9bhm0n2lmKQx",
+      "stability": 0.5
+    },
+    "pavel": {
+      "name": "Ranbir - Neutral and Clean",
+      "voice_id": "2iAXJEMO2o0PqUHzvZwQ",
+      "stability": 0.5
+    },
+    "silas": {
+      "name": "Ruhaan - Clear, Loud and Cheerful",
+      "voice_id": "siw1N9V8LmYeEWKyWBxv",
+      "stability": 0.5
+    },
+    "teodor": {
+      "name": "Viraj - Smooth and Gentle",
+      "voice_id": "1U02n4nD6AdIZ9CjF053",
+      "stability": 0.5
+    },
+    "ansel": {
+      "name": "Ian Cartwell - Suspense and Mystery",
+      "voice_id": "e5WNhrdI30aXpS2RSGm1",
+      "stability": 0.5
+    },
+    "brin": {
+      "name": "Callum - Husky Trickster",
+      "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+      "stability": 0.5
+    },
+    "cato": {
+      "name": "Hugh - Natural Conversational Agent",
+      "voice_id": "2UMI2FME0FFUFMlUoRER",
+      "stability": 0.5
+    },
+    "dov": {
+      "name": "Lowy - Kind, Warm and Hopeful",
+      "voice_id": "24EI9FmmGvJruwUi7TJM",
+      "stability": 0.5
+    },
+    "tomas": {
+      "name": "Bill - Wise, Mature, Balanced",
       "voice_id": "pqHfZKP75CvOlQylNhV4",
       "stability": 0.5
     },
-    "guard_2": {
-      "name": "Liam (young, jumpy)",
-      "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
-      "stability": 0.0
+    "ulric": {
+      "name": "Adam - American, Dark and Tough",
+      "voice_id": "IRHApOXLvnW57QJPQH2P",
+      "stability": 0.5
+    },
+    "venn": {
+      "name": "Young Jamal",
+      "voice_id": "6OzrBCQf8cjERkYgzSg8",
+      "stability": 0.5
+    },
+    "wren": {
+      "name": "Frederick Surrey - Smooth and Velvety",
+      "voice_id": "j9jfwdrw7BRfcR43Qohk",
+      "stability": 0.5
+    },
+    "edric": {
+      "name": "Will - Relaxed Optimist",
+      "voice_id": "bIHbv24MWmeRgasZH58o",
+      "stability": 0.5
+    },
+    "fane": {
+      "name": "Max - Elearning and Documentary",
+      "voice_id": "Gfpl8Yo74Is0W6cPUWWT",
+      "stability": 0.5
+    },
+    "gil": {
+      "name": "Jack John - Conversational and Upbeat",
+      "voice_id": "7EzWGsX10sAS4c9m9cPf",
+      "stability": 0.5
+    },
+    "hask": {
+      "name": "Viraj - Bold & Commanding Banking Agent",
+      "voice_id": "Ock0AL5DBkvTUDePt4Hm",
+      "stability": 0.5
+    },
+    "ivar": {
+      "name": "Eric - Smooth, Trustworthy",
+      "voice_id": "cjVigY5qzO86Huf0OWal",
+      "stability": 0.5
+    },
+    "yorick": {
+      "name": "Austin - Deep, Raspy and Authentic",
+      "voice_id": "Bj9UqZbhQsanLzgalpEG",
+      "stability": 0.5
+    },
+    "zane": {
+      "name": "Charlie - Deep, Confident, Energetic",
+      "voice_id": "IKne3meq5aSn9XLyUdCD",
+      "stability": 0.5
+    },
+    "arlen": {
+      "name": "Jon - Warm & Grounded Storyteller",
+      "voice_id": "MFZUKuGQUsGJPQjTS4wC",
+      "stability": 0.5
+    },
+    "beck": {
+      "name": "Archer - Conversational",
+      "voice_id": "Fahco4VZzobUeiPqni1S",
+      "stability": 0.5
+    },
+    "cass": {
+      "name": "Ryan Kurk - Pleasant and Smooth",
+      "voice_id": "rU18Fk3uSDhmg5Xh41o4",
+      "stability": 0.5
+    },
+    "doran": {
+      "name": "Knox Dark - Serious, Deep, and Steady",
+      "voice_id": "dPah2VEoifKnZT37774q",
+      "stability": 0.5
+    },
+    "elm": {
+      "name": "Josh - Teacher for Kids",
+      "voice_id": "nzFihrBIvB34imQBuxub",
+      "stability": 0.5
+    },
+    "fenn": {
+      "name": "Declan Sage - Wise and Captivating",
+      "voice_id": "kqVT88a5QfII1HNAEPTJ",
+      "stability": 0.5
+    },
+    "pike": {
+      "name": "George - Warm, Captivating Storyteller",
+      "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+      "stability": 0.5
+    },
+    "moss": {
+      "name": "Kenneth - Storyteller",
+      "voice_id": "8z82LG47qQ2qjeeQB8lk",
+      "stability": 0.5
+    },
+    "tibb": {
+      "name": "Jay Wayne - Wise University Professor",
+      "voice_id": "8Ln42OXYupYsag45MAUy",
+      "stability": 0.5
+    },
+    "hale": {
+      "name": "Titan - Deep, Bold, and Powerful",
+      "voice_id": "dtSEyYGNJqjrtBArPCVZ",
+      "stability": 0.5
+    },
+    "rusk": {
+      "name": "Rex Thunder - Deep N Tough",
+      "voice_id": "mtrellq69YZsNwzUSyXh",
+      "stability": 0.5
+    },
+    "soren": {
+      "name": "Raju - Authentic and Relatable",
+      "voice_id": "3gsg3cxXyFLcGIfNbM6C",
+      "stability": 0.5
+    },
+    "gideon": {
+      "name": "William Shanks - Rich and Deep",
+      "voice_id": "8Es4wFxsDlHBmFWAOWRS",
+      "stability": 0.5
+    },
+    "fenwick": {
+      "name": "Sully - Mature, Deep and Intriguing",
+      "voice_id": "wAGzRVkxKEs8La0lmdrE",
+      "stability": 0.5
+    },
+    "osric": {
+      "name": "Michael C. Vincent - Confident, Expressive",
+      "voice_id": "uju3wxzG5OhpWcoi3SMy",
+      "stability": 0.5
+    },
+    "leif": {
+      "name": "Chris - Charming, Down-to-Earth",
+      "voice_id": "iP95p4xoKVk53GoZ742B",
+      "stability": 0.5
+    },
+    "quill": {
+      "name": "Andrew - Smooth, Smart and Clear",
+      "voice_id": "gUABw7pXQjhjt0kNFBTF",
+      "stability": 0.5
+    },
+    "nash": {
+      "name": "Milo - Calm, Soothing and Meditative",
+      "voice_id": "GUDYcgRAONiI1nXDcNQQ",
+      "stability": 0.5
+    },
+    "bastian": {
+      "name": "James - Husky, Engaging and Bold",
+      "voice_id": "EkK5I93UQWFDigLMpZcX",
+      "stability": 0.5
+    },
+    "reeve": {
+      "name": "David Castlemore - Newsreader and Educator",
+      "voice_id": "XjLkpWUlnhS8i7gGz3lZ",
+      "stability": 0.5
+    },
+    "seth": {
+      "name": "Adam - Deep English Story Voice",
+      "voice_id": "6FiCmD8eY5VyjOdG5Zjk",
+      "stability": 0.5
+    },
+    "vale": {
+      "name": "Donovan - Articulate, Strong and Deep",
+      "voice_id": "DMyrgzQFny3JI1Y1paM5",
+      "stability": 0.5
     }
   },
   "guard_delivery": {

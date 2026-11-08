@@ -31,12 +31,11 @@ var death_recorded: bool = false
 var sees_player: bool = false
 var body_reported: bool = false
 var guard_name := "Keeper"
-## serious / goofy / stern / funny / stupid (data/guard_roster.json): voice, barks, patrol mutters.
-var personality := "serious"
+## Individual character description from the Keeper roster.
+var personality := ""
 ## Off duty in a huddle: absorbed in each other, they only notice Miro right on top of them.
 var distracted := false
 const DISTRACTED_SIGHT := 40.0
-var voice_index := 0
 var conversation_hold := false
 var turn_away_left := 0.0
 var alert_barked := false
