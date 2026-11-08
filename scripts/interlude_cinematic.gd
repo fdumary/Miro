@@ -7,13 +7,8 @@ signal finished
 const C = preload("res://scripts/cinema.gd")
 const LENGTH := 12.0
 const BASE := Vector2(410, 262)
-## Keyed by the floor just finished.
-const SCENES := {
-	1: {"title": "LEVEL 2", "speaker": "THE VOICE", "voice": "You have the remote. Keep it close, and keep quiet.", "thought": "Someone is guiding me down. I should find out why."},
-	2: {"title": "LEVEL 3", "speaker": "THE VOICE", "voice": "If you go any lower, I can't protect you.", "thought": "From who?"},
-	3: {"title": "LEVEL 4", "speaker": "NIRO", "voice": "Now you know my name. Please, stop at the records.", "thought": "Brother. The word feels true, and I hate that."},
-	4: {"title": "LEVEL 5", "speaker": "NIRO", "voice": "Don't come down here, Miro. Please.", "thought": "The seals, the supports. Everything rests on the floor below."},
-}
+## data/interludes.json, keyed by the floor just finished.
+var data: Dictionary = {}
 var floor_done := 1
 var elapsed := 0.0
 var done := false
@@ -24,7 +19,12 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	audio = preload("res://scripts/cine_audio.gd").new()
 	add_child(audio)
+	var scenes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/interludes.json")).scenes
+	data = scenes.get(str(floor_done), scenes["1"])
 	audio.loop("wind_loop", -20.0, 1.0)
+	# The voice comes through the remote; Miro's thought goes through the reverb bus.
+	audio.at(3.6, func(): get_node("/root/RemoteRadio").say(str(data.voice)))
+	audio.at(9.0, func(): get_node("/root/RemoteRadio").say_in_room(str(data.thought), "miro", "Thought"))
 	audio.at(1.0, func(): get_node("/root/SoundFX").play_sound("sigil", -10, 1.0 + floor_done * 0.1))
 
 func _process(delta: float) -> void:
@@ -45,13 +45,13 @@ func finish() -> void:
 	if done:
 		return
 	done = true
+	get_node("/root/RemoteRadio").stop()
 	finished.emit()
 	queue_free()
 
 func _draw() -> void:
 	var unit := size / C.FRAME
 	draw_set_transform(Vector2.ZERO, 0.0, unit)
-	var data: Dictionary = SCENES.get(floor_done, SCENES[1])
 	var t := elapsed
 	C.night_sky(self, Color("090b1a"), Color("1d2140"))
 	C.pines(self, 300.0, 60.0, 26.0, 0.5, t * 2.0)

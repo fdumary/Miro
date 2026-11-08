@@ -126,6 +126,8 @@ def collect_lines(cast):
         niro += list(branch[reputation].get('remote_calls', {}).values())
     niro += branch['kill_disappointment']
     niro.append('...Miro?')  # Level 1 floor report: the remote crackles.
+    for scene in json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8'))['scenes'].values():
+        niro.append(scene['voice'])  # between-level cinematics
     source = (ROOT / 'scripts/intro_level.gd').read_text()
     for speaker, text in re.findall(r'\["([A-Z ]+)", "((?:[^"\\]|\\.)*)"', source):
         if speaker in NIRO_SPEAKERS and '%' not in text and text not in NIRO_SPEAKERS:
@@ -181,6 +183,7 @@ def collect_lines(cast):
             if opening:
                 extra.append(opening)
         extra += [branch[reputation]['thought'] for reputation in ('MISSING', 'HUNTED')]
+        extra += [scene['thought'] for scene in json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8'))['scenes'].values()]
         for reputation in ('MISSING', 'HUNTED'):
             extra += list(branch[reputation].get('thoughts', {}).values())
         # The Z hints are Miro thinking it through: every tier, every floor.

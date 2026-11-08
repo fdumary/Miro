@@ -54,6 +54,10 @@ func leave() -> void:
 	leaving = true
 	get_node("/root/MusicDirector").start_floor(1)
 	audio.hand_off(rain_bed, 6.0)
+	if has_meta("reel"):
+		get_meta("reel").call_deferred()
+		queue_free()
+		return
 	get_tree().call_deferred("change_scene_to_file", NEXT)
 
 ## 0..1 brightness of the sky at time t (a fast flash with a flicker, then decay).
