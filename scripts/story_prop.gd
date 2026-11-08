@@ -32,3 +32,7 @@ func _draw() -> void:
 			draw_line(Vector2(x, -8), Vector2(x, 4), Color("c69fa5"), 3)
 		draw_rect(Rect2(40, -50, 10, 20), Color("c69fa5"))
 		draw_line(Vector2(45, -30), Vector2(20, -7), Color("8b6d9c"), 1)
+		var art = preload("res://scripts/visual_assets.gd")
+		draw_texture_rect(art.texture("microscope"), Rect2(-54, -37, 28, 32), false)
+		draw_texture_rect(art.texture("bottle"), Rect2(-18, -25, 16, 20), false)
+		draw_texture_rect(art.texture("flask"), Rect2(2, -25, 16, 20), false)

@@ -17,7 +17,7 @@ func _ready() -> void:
 	player.level = self
 	player.position = $LevelPlan/PlayerSpawn.position
 	player.has_supplies = true
-	player.c4_count = 1
+	player.c4_count = int(definition.get("demolition_charges", 1))
 	door_open = true
 	brother_heard = true
 	for guard in guards():
@@ -149,10 +149,7 @@ func interact() -> void:
 		return
 	var guard = closest_guard()
 	if guard and guard.is_dead and not guard.gun_taken:
-		guard.gun_taken = true
-		player.has_gun = true
-		player.ammunition += 2
-		notify("Taken: Keeper weapon and ammunition. [4] Fire; shots draw a search.")
+		player.loot_weapon(guard)
 		return
 	if nearby("exit", 65):
 		if milestones.size() == definition.stations.size() and sigil_placed:
@@ -174,7 +171,11 @@ func finish_dialogue() -> void:
 		if node.kind == "sigil":
 			get_node("/root/SoundFX").play_sound("sigil", -16)
 			sigil_placed = true
-			player.c4_count = maxi(0, player.c4_count - 1)
+			var charge_count := 1
+			for station in definition.stations:
+				if station.id == pending_milestone:
+					charge_count = int(station.get("charge_count", 1))
+			player.c4_count = maxi(0, player.c4_count - charge_count)
 			make_noise(node.global_position, 220)
 		pending_milestone = ""
 	dialogue = []

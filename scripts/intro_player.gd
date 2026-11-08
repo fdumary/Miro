@@ -14,6 +14,10 @@ var detection_state: String = "unseen"
 var has_supplies: bool = false
 var has_key: bool = false
 var has_gun: bool = false
+var guns: Array[String] = []
+var gun_ammo: Dictionary = {}
+var equipped_gun := "pistol"
+var pending_guard: IntroGuard
 var suppressor_uses := 0
 var in_hiding_spot := false
 var ammunition: int = 0
@@ -25,6 +29,8 @@ var animation_time: float = 0.0
 var climbing: bool = false
 var attack_flash: float = 0.0
 var footstep_left := 0.0
+var mouse_aim := false
+var aim_direction := Vector2.RIGHT
 const IDLE = preload("res://assets/characters/miro_idle.png")
 const WALK = preload("res://assets/characters/miro_walk.png")
 const JUMP = preload("res://assets/characters/miro_jump.png")
@@ -82,7 +88,11 @@ func _physics_process(delta: float) -> void:
 			global_position.x = move_toward(global_position.x, ladder.global_position.x, delta * 120.0)
 	else:
 		velocity.y += 850.0 * delta
+	var was_grounded := is_on_floor()
+	var fall_speed := velocity.y
 	move_and_slide()
+	if not was_grounded and is_on_floor() and fall_speed > 100:
+		level.emit_effect("dust", global_position + Vector2(0, 14))
 	footstep_left = maxf(0, footstep_left - delta)
 	if is_on_floor() and absf(velocity.x) > 20 and footstep_left <= 0:
 		get_node("/root/SoundFX").play_sound("step", -25 if is_concealed else -19)
@@ -94,6 +104,8 @@ func _physics_process(delta: float) -> void:
 		shank()
 	if Input.is_action_just_pressed("explosive"):
 		level.plant_c4()
+	if equipped_gun != "pistol" and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		fire_gun()
 	if Input.is_action_just_pressed("fire"):
 		fire_gun()
 	if global_position.y > 800:
@@ -161,6 +173,72 @@ func shank() -> void:
 				guard.receive_shank()
 				break
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_instance_valid(level) or level.controls_locked() or is_dead or in_hiding_spot:
+		return
+	if event is InputEventMouseMotion:
+		mouse_aim = true
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		mouse_aim = true
+		fire_gun()
+		get_viewport().set_input_as_handled()
+
+func select_gun(index: int) -> void:
+	if index < 0 or index >= guns.size():
+		return
+	gun_ammo[equipped_gun] = ammunition
+	equipped_gun = guns[index]
+	ammunition = gun_ammo.get(equipped_gun, 0)
+
+func loot_weapon(guard: IntroGuard) -> void:
+	if guard.gun_taken or is_instance_valid(pending_guard):
+		return
+	if has_gun and guns.is_empty():
+		guns.append(equipped_gun)
+	gun_ammo[equipped_gun] = ammunition
+	if guns.has(guard.weapon_kind):
+		gun_ammo[guard.weapon_kind] = gun_ammo.get(guard.weapon_kind, 0) + weapon_ammo(guard.weapon_kind)
+		ammunition = gun_ammo.get(equipped_gun, 0)
+		guard.gun_taken = true
+	elif guns.size() < 2:
+		guns.append(guard.weapon_kind)
+		gun_ammo[guard.weapon_kind] = weapon_ammo(guard.weapon_kind)
+		equipped_gun = guard.weapon_kind
+		ammunition = gun_ammo[equipped_gun]
+		has_gun = true
+		guard.gun_taken = true
+	else:
+		pending_guard = guard
+		level.notify("Take %s? [Z] replace %s / [X] replace %s / [Esc] cancel" % [guard.weapon_kind, guns[0], guns[1]], 30)
+
+func weapon_ammo(kind: String) -> int:
+	return 2 if kind == "pistol" else (12 if kind == "smg" else 16)
+
+func resolve_weapon_choice(slot: int) -> void:
+	if not is_instance_valid(pending_guard):
+		return
+	if slot >= 0 and slot < guns.size():
+		gun_ammo[equipped_gun] = ammunition
+		gun_ammo.erase(guns[slot])
+		guns[slot] = pending_guard.weapon_kind
+		equipped_gun = guns[slot]
+		gun_ammo[equipped_gun] = weapon_ammo(equipped_gun)
+		ammunition = gun_ammo[equipped_gun]
+		pending_guard.gun_taken = true
+	pending_guard = null
+	level.notify("[Q] Switch guns. Mouse aim / click or [4] fire.")
+
+func _input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.pressed or event.echo:
+		return
+	if is_instance_valid(pending_guard):
+		if event.physical_keycode in [KEY_Z, KEY_X, KEY_ESCAPE]:
+			resolve_weapon_choice(0 if event.physical_keycode == KEY_Z else (1 if event.physical_keycode == KEY_X else -1))
+			get_viewport().set_input_as_handled()
+	elif event.physical_keycode == KEY_Q and not level.controls_locked():
+		select_gun((guns.find(equipped_gun) + 1) % maxi(1, guns.size()))
+		get_viewport().set_input_as_handled()
+
 func fire_gun() -> void:
 	if in_hiding_spot or level.controls_locked() or is_dead:
 		return
@@ -170,23 +248,42 @@ func fire_gun() -> void:
 	if attack_cooldown > 0:
 		return
 	ammunition -= 1
-	attack_cooldown = 0.65
+	attack_cooldown = 0.65 if equipped_gun == "pistol" else (0.13 if equipped_gun == "smg" else 0.12)
 	attack_flash = 0.2
-	var suppressed := suppressor_uses > 0
+	var suppressed := suppressor_uses > 0 and equipped_gun == "pistol"
 	if suppressed:
 		suppressor_uses -= 1
-	get_node("/root/SoundFX").play_sound("shot", -32 if suppressed else -20)
+	get_node("/root/SoundFX").play_sound("flame" if equipped_gun == "flamethrower" else "shot", -32 if suppressed else -22, 1.25 if equipped_gun == "smg" else 1.0)
 	end_stealth()
-	level.make_noise(global_position, 90.0 if suppressed else 600.0)
-	for guard in level.guards():
-		var difference: Vector2 = guard.global_position - global_position
-		if not guard.is_dead and absf(difference.y) < 22 and difference.x * facing > 0 and difference.length() < 320 and level.clear_sight(global_position, guard.global_position):
-			if guard.has_method("begin_recovery"):
-				guard.take_damage(1)
-			else:
-				guard.health = 0
-				guard.die()
-			break
+	if not suppressed:
+		level.make_noise(global_position, 600.0)
+	aim_direction = (get_global_mouse_position() - global_position).normalized() if mouse_aim else Vector2(facing, 0)
+	if aim_direction.length_squared() < 0.1:
+		aim_direction = Vector2(facing, 0)
+	if absf(aim_direction.x) > 0.01:
+		facing = signf(aim_direction.x)
+	var bullet := Node2D.new()
+	bullet.set_script(load("res://scripts/weapon_projectile.gd"))
+	bullet.level = level
+	bullet.shooter = self
+	bullet.direction = aim_direction
+	bullet.flame = equipped_gun == "flamethrower"
+	bullet.damage = 2 if equipped_gun == "pistol" else 1
+	if bullet.flame:
+		bullet.speed = 240.0
+		bullet.remaining = 100.0
+	# Start at the body so a muzzle offset cannot spawn beyond a nearby wall.
+	bullet.position = position + Vector2(0, -4)
+	level.add_child(bullet)
+	level.emit_effect("hit", global_position + aim_direction * 12)
+	if equipped_gun == "flamethrower":
+		return
+	var casing := Node2D.new()
+	casing.set_script(load("res://scripts/weapon_casing.gd"))
+	casing.level = level
+	casing.position = position + Vector2(0, -6)
+	casing.velocity = Vector2(-facing * 65, -100)
+	level.add_child(casing)
 
 func take_damage(amount: int) -> void:
 	if dodge_left > 0:
@@ -196,6 +293,7 @@ func take_damage(amount: int) -> void:
 	if health < previous_health:
 		in_hiding_spot = false
 		get_node("/root/SoundFX").play_sound("hit", -16)
+		level.emit_effect("hit", global_position)
 	end_stealth()
 
 func die() -> void:
@@ -205,10 +303,12 @@ func die() -> void:
 	level.notify("The tower keeps its prisoners. Press R to retry.", 20.0)
 
 func update_visual(delta: float) -> void:
+	if has_gun and mouse_aim and not level.controls_locked():
+		aim_direction = (get_global_mouse_position() - global_position).normalized()
 	animation_time += delta
 	sprite.hframes = 1
 	sprite.texture = IDLE
-	if not is_on_floor() and not climbing:
+	if dodge_left > 0 or (not is_on_floor() and not climbing):
 		sprite.texture = JUMP
 	elif absf(velocity.x) > 1:
 		sprite.texture = WALK
@@ -221,6 +321,11 @@ func update_visual(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	if has_gun and not is_dead and not in_hiding_spot:
+		var direction := aim_direction if mouse_aim else Vector2(facing, 0)
+		draw_set_transform(Vector2(0, -4), direction.angle(), Vector2(1, -1 if direction.x < 0 else 1))
+		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[equipped_gun], Rect2(0, -10, 24, 24), false)
+		draw_set_transform(Vector2.ZERO)
 	if attack_flash > 0:
 		draw_line(Vector2(facing * 9, -2), Vector2(facing * 35, -7), Color("fbf5ef"), 2)
 	if is_concealed:

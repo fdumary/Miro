@@ -390,7 +390,7 @@
     }
   ],
   "number": 5,
-  "opening": "The lowest gate stands between Miro and the woods.\nHis brother is waiting.",
+  "opening": "At the bottom of the tower, the prison becomes a laboratory.\nThe tower physician is waiting. His brother.",
   "closing": "The ending remains morally unresolved. No explanatory epilogue.",
   "stations": [
     {
@@ -422,8 +422,40 @@
       "objective": "Hear the final offer",
       "lines": [
         [
+          "LAB RECORD",
+          "MIRO \u2014 repeated exposure: no infection.\nAcquired resistance: none. Innate immunity confirmed."
+        ],
+        [
+          "LAB RECORD",
+          "Pathogen development: Tower research division.\nCure program: isolate and reproduce subject Miro's resistance."
+        ],
+        [
+          "MIRO",
+          "You made the sickness. Then locked me up to take me apart."
+        ],
+        [
           "BROTHER",
-          "Stay. Help me rebuild what we broke.\nWalking away will not undo what either of us has done."
+          "The tower made it. They called it progress.\nWhen it escaped, they told me you were our only chance."
+        ],
+        [
+          "BROTHER",
+          "You are immune, Miro. I kept you alive.\nI thought if I could understand why, I could save everyone."
+        ],
+        [
+          "MIRO",
+          "You told them I was dangerous. You let me believe it."
+        ],
+        [
+          "BROTHER",
+          "They said you would destroy the cure if you got out.\nI believed them. I believed keeping you here was love."
+        ],
+        [
+          "MIRO",
+          "You do not get to call it love and lock the door."
+        ],
+        [
+          "BROTHER",
+          "Stay. Help me finish it. If all of this was for nothing...\nI do not know who I have been."
         ]
       ],
       "requires": [
@@ -463,15 +495,19 @@
       "lines": [
         [
           "BROTHER",
-          "You read the ward logs. Remember what they said.\nWhatever happens... you are still my brother."
+          "The sick are still real. Whatever the tower did...\ndo not forget them."
+        ],
+        [
+          "BROTHER",
+          "I wanted a life where I could keep you safe.\nThey gave me a title, and I mistook it for a choice."
         ],
         [
           "MIRO",
-          "I know."
+          "You could have come with me."
         ],
         [
-          "STAGING",
-          "The brother is fatally wounded. Miro leaves him behind.\nNo second combat phase."
+          "BROTHER",
+          "You are still my brother."
         ]
       ],
       "requires": [
@@ -490,18 +526,14 @@
       "objective": "Reach the forest viewpoint",
       "lines": [
         [
-          "ENDING STORYBOARD",
-          "Miro reaches the woods and looks back.\nThe five marks activate in sequence: demolition charges.\nThe tower falls. Miro lowers his head. Fade to black."
-        ],
-        [
-          "CINEMATIC BLOCKOUT",
-          "Prepared cinematic / still-image fallback goes here.\nSkipping must apply the same completion flags.\nNo epilogue decides which brother was right."
+          "MIRO",
+          "The woods. Air that does not belong to them."
         ]
       ],
       "requires": [
         "DyingExchange"
       ],
-      "status": "implemented: prepared in-engine fallback cinematic, subtitles, pause, skip parity"
+      "status": "implemented: in-engine ending, pause and skip parity"
     }
   ],
   "sources": [
@@ -530,5 +562,5 @@
       "section": "The final encounter; Art and cinematic production; Narrative rules"
     }
   ],
-  "scope": "Playable layout scaffold with draft dialogue; systems explicitly marked as placeholders are not implemented."
+  "scope": "Playable five-floor game; narrative updated to the approved immunity/tower-origin reveal. See docs/NARRATIVE_UPDATE.md for review status."
 }

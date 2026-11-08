@@ -57,6 +57,8 @@ func _draw() -> void:
 		draw_rect(Rect2(x, 100, 10, 190), Color("494d7e"))
 		draw_colored_polygon(PackedVector2Array([Vector2(x - 40, 170), Vector2(x + 5, 50), Vector2(x + 50, 170)]), Color("494d7e"))
 	draw_rect(Rect2(0, 280, 640, 80), Color("272744"))
+	for x in [10, 60, 120, 510, 560, 610]:
+		draw_texture_rect(preload("res://assets/library/grass.png"), Rect2(x - 24, 251, 48, 32), false, Color("494d7e"))
 	# Miro looks toward the tower; the final pose lowers his head.
 	draw_rect(Rect2(211, 241, 15, 37), Color("c69fa5"))
 	var head := Vector2(221, 234) + (Vector2(4, 5) if elapsed >= 11 else Vector2.ZERO)
@@ -65,7 +67,7 @@ func _draw() -> void:
 	draw_rect(Rect2(234, 244, 7, 8), Color("8b6d9c"))
 	var subtitle := "Miro reaches the woods. He looks back."
 	if elapsed >= 2.5:
-		subtitle = "Five marks. Five charges on the tower's supports."
+		subtitle = "The marks ignite. The ward charges follow."
 	if elapsed >= 7.5:
 		subtitle = "The tower falls."
 	if elapsed >= 11:

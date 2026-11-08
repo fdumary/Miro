@@ -28,6 +28,10 @@ var overlay: PanelContainer
 var overlay_label: Label
 var shot_flash: float = 0.0
 var world_features: Node2D
+const VISUALS = preload("res://scripts/visual_assets.gd")
+var hint_icon: TextureRect
+var stealth_meter: Control
+var effects: Node2D
 
 func _ready() -> void:
 	get_node("/root/Campaign").enter_floor(1)
@@ -63,7 +67,7 @@ func setup_inputs() -> void:
 				InputMap.action_add_event(action, event)
 
 func controls_locked() -> bool:
-	return paused or not dialogue.is_empty() or completed or (is_instance_valid(world_features) and world_features.modal_open())
+	return is_instance_valid(player.pending_guard) or paused or not dialogue.is_empty() or completed or (is_instance_valid(world_features) and world_features.modal_open())
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.physical_keycode == KEY_F10:
@@ -117,6 +121,10 @@ func _process(delta: float) -> void:
 		status_label.text += "\n" + player.stealth_status()
 	objective_label.text = objective()
 	hint_label.text = context_hint()
+	hint_icon.texture = VISUALS.hint_texture(hint_label.text)
+	hint_icon.visible = hint_icon.texture != null
+	stealth_meter.visible = player.has_supplies
+	stealth_meter.value = player.stealth_remaining / player.stealth_duration if player.is_concealed else 1.0 - player.stealth_cooldown_left / player.stealth_cooldown
 	message_label.text = message if message_left > 0 else ""
 	dialogue_panel.visible = not dialogue.is_empty()
 	if not dialogue.is_empty():
@@ -271,10 +279,7 @@ func interact() -> void:
 				if route == "":
 					route = "shank"
 			if not guard.gun_taken:
-				player.has_gun = true
-				player.ammunition += 2
-				guard.gun_taken = true
-				notify("Taken: ammunition and a Keeper's weapon. [4] Fire; shots draw a search.")
+				player.loot_weapon(guard)
 			else:
 				notify("Nothing else to take.")
 		elif guard.facing * (player.global_position.x - guard.global_position.x) < -6 and guard.alert_state != IntroGuard.State.ALERT:
@@ -345,6 +350,7 @@ func plant_c4() -> void:
 		route = "C4 breach"
 		open_door()
 		shot_flash = 0.4
+		emit_effect("breach", $Interactables/CellLock.global_position)
 		get_node("/root/SoundFX").play_sound("collapse", -20)
 		make_noise(player.global_position, 700)
 		notify("The lock bursts. Keepers heard it! Find shadow or fight your way through.", 7)
@@ -381,16 +387,8 @@ func panel_at(pos: Vector2, size: Vector2) -> PanelContainer:
 	var panel := PanelContainer.new()
 	panel.position = pos
 	panel.size = size
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color("272744")
-	style.bg_color.a = 0.97
-	style.border_color = Color("8b6d9c")
-	style.set_border_width_all(1)
-	style.content_margin_left = 16
-	style.content_margin_top = 12
-	style.content_margin_right = 16
-	style.content_margin_bottom = 12
-	panel.add_theme_stylebox_override("panel", style)
+	panel.theme = VISUALS.ui_theme()
+	panel.add_theme_stylebox_override("panel", VISUALS.panel_style())
 	hud.add_child(panel)
 	return panel
 
@@ -403,10 +401,28 @@ func build_hud() -> void:
 	header.color = Color(0.15, 0.15, 0.26, 0.92)
 	header.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hud.add_child(header)
+	var inventory := Control.new()
+	inventory.set_script(preload("res://scripts/weapon_inventory.gd"))
+	inventory.player = player
+	inventory.position = Vector2(14, 70)
+	inventory.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hud.add_child(inventory)
 	status_label = label_at(hud, Vector2(14, 10), Vector2(348, 50), 11)
+	status_label.clip_text = true
 	objective_label = label_at(hud, Vector2(370, 10), Vector2(254, 48), 11)
 	objective_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	hint_label = label_at(hud, Vector2(14, 333), Vector2(612, 22), 11)
+	hint_icon = TextureRect.new()
+	hint_icon.position = Vector2(12, 329)
+	hint_icon.size = Vector2(24, 24)
+	hint_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	hint_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	hud.add_child(hint_icon)
+	hint_label = label_at(hud, Vector2(42, 333), Vector2(584, 22), 11)
+	stealth_meter = Control.new()
+	stealth_meter.set_script(preload("res://scripts/stealth_meter.gd"))
+	stealth_meter.position = Vector2(245, 57)
+	stealth_meter.size = Vector2(104, 4)
+	hud.add_child(stealth_meter)
 	message_label = label_at(hud, Vector2(14, 295), Vector2(612, 34), 11)
 	message_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	dialogue_panel = panel_at(Vector2(16, 222), Vector2(608, 126))
@@ -441,8 +457,16 @@ func _draw() -> void:
 		draw_circle(to_local($Interactables/CellLock.global_position), (0.4 - shot_flash) * 160, Color(0.95, 0.83, 0.67, shot_flash))
 
 func setup_world_features(number: int) -> void:
+	effects = Node2D.new()
+	effects.set_script(preload("res://scripts/visual_effects.gd"))
+	add_child(effects)
+	effects.level = self
 	world_features = Node2D.new()
 	world_features.set_script(load("res://scripts/world_features.gd"))
 	add_child(world_features)
 	world_features.setup(self, number)
 	get_node("/root/MusicDirector").start_floor(number)
+
+func emit_effect(cue: String, point: Vector2) -> void:
+	if is_instance_valid(effects):
+		effects.emit_burst(cue, point)

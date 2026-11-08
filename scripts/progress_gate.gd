@@ -1,5 +1,6 @@
 @tool
 extends StaticBody2D
+const LIBRARY = preload("res://scripts/visual_assets.gd")
 ## Physical milestone gate. See mirospec.md floors 3/4 and class.md Door.
 @export var unlock_milestone := ""
 @export var gate_size := Vector2(18, 252):
@@ -35,6 +36,8 @@ func _draw() -> void:
 	if is_open:
 		draw_rect(Rect2(rectangle.position, Vector2(gate_size.x, 10)), Color("c69fa5"))
 	else:
-		for x in range(-6, 7, 6):
-			draw_line(Vector2(x, -gate_size.y / 2), Vector2(x, gate_size.y / 2), Color("c69fa5"), 2)
-		draw_rect(Rect2(-12, gate_size.y / 2 - 50, 24, 24), Color("8b6d9c"))
+		var segment := gate_size.x
+		for y in range(int(-gate_size.y / 2), int(gate_size.y / 2), int(segment)):
+			var height := minf(segment, gate_size.y / 2 - y)
+			draw_texture_rect(LIBRARY.texture("vent"), Rect2(-gate_size.x / 2, y, gate_size.x, height), false, Color("c69fa5"))
+		draw_texture_rect(LIBRARY.texture("hazard"), Rect2(-12, gate_size.y / 2 - 50, 24, 24), false)
