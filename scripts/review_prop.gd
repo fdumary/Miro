@@ -20,6 +20,11 @@ func _draw() -> void:
 		draw_rect(Rect2(-11, -20, 22, 20), ink)
 		draw_texture_rect(preload("res://assets/library/terminal.png"), Rect2(-9, -18, 18, 18), false, glow)
 		draw_string(ThemeDB.fallback_font, Vector2(-30, -25), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
+	elif kind == "note":
+		draw_rect(Rect2(-6, 2, 12, 14), Color("e8e0d0"))
+		draw_line(Vector2(-4, 6), Vector2(4, 6), Color("8b6d9c"), 1)
+		draw_line(Vector2(-4, 10), Vector2(3, 10), Color("8b6d9c"), 1)
+		draw_string(ThemeDB.fallback_font, Vector2(-14, -4), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
 	elif kind == "potion":
 		if not used:
 			draw_texture_rect(ART.texture("bottle"), Rect2(-6, 0, 12, 16), false, Color(1, 1, 1, 0.95))

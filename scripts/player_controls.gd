@@ -466,6 +466,7 @@ func show_console(local: bool, terminal_look := false) -> void:
 	command.grab_focus()
 
 ## A tiny pretend file system: each floor's records are readable text files (ls, cat).
+var above_floor := false
 var pager: Array = []
 var pager_index := 0
 
@@ -515,11 +516,24 @@ func run_command(raw: String) -> void:
 		var terminal: Node2D = player.level.world_features.security_terminal()
 		output.text = "root" if terminal != null and logged_in.has(terminal.get_instance_id()) else "guest"
 		return
+	var floor_dir := "floor%02d" % int(get_node("/root/Campaign").current_floor)
 	if text == "pwd":
-		output.text = "/var/tower/floor%02d" % int(get_node("/root/Campaign").current_floor)
+		output.text = "/var/tower" if above_floor else "/var/tower/" + floor_dir
+		return
+	if text == "cd .." or text == "cd ../" or text == "cd /":
+		above_floor = true
+		return
+	if text == "cd" or text == "cd ~" or text == "cd " + floor_dir or text == "cd " + floor_dir + "/" or text == "cd ./" + floor_dir:
+		above_floor = false
+		return
+	if text.begins_with("cd "):
+		output.text = "cd: %s: No such file or directory" % text.trim_prefix("cd ").strip_edges()
 		return
 	if text == "ls":
-		output.text = "  ".join(PackedStringArray(floor_files().keys()))
+		output.text = (floor_dir + "/") if above_floor else "  ".join(PackedStringArray(floor_files().keys()))
+		return
+	if text.begins_with("cat ") and above_floor:
+		output.text = "cat: %s: No such file or directory" % text.trim_prefix("cat ").strip_edges()
 		return
 	if text.begins_with("cat "):
 		var name := text.trim_prefix("cat ").strip_edges()
@@ -586,7 +600,7 @@ func run_command(raw: String) -> void:
 				player.level.world_features.terminal_authenticated = true
 			if terminal != null:
 				logged_in[terminal.get_instance_id()] = true
-			output.text = "Authenticated. " + ("Use cameras off or turrets off for this floor." if terminal != null else "Type help for available commands.")
+			output.text = "Authenticated."
 	elif text == "turrets off":
 		var terminal: Node2D = player.level.world_features.security_terminal()
 		if terminal == null or (not logged_in.has(terminal.get_instance_id()) and not (at_checkpoint() and player.level.world_features.terminal_authenticated)):

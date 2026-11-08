@@ -5,22 +5,44 @@
     "pa": "Prisoner M-07 unaccounted for. Search your sections.",
     "thought": "If nobody sees me, I'm only a rumour.",
     "remote_call": "Nobody even knows your face anymore. Come home before they do.",
-    "guard_line": ["Someone let him out. Somebody on our shift.", "Check the lockers again. He can't just vanish."],
+    "guard_line": [
+      "Someone let him out. Somebody on our shift.",
+      "Check the lockers again. He can't just vanish."
+    ],
     "boss_prefight": "You walked through my whole tower and nobody saw you. You could have just left.",
     "ending_pa": "Prisoner M-07 remains unaccounted for.",
     "ending_thought": "They'll never know who did it. Maybe that's what freedom is.",
-    "report": "The tower thinks you're missing."
+    "report": "The tower thinks you're missing.",
+    "remote_calls": {
+      "3": "You move like you've done this before. You have, Miro. Come back before the tower remembers it for you.",
+      "4": "Whatever you find in the ward, brother, remember I tried to keep you out of it."
+    },
+    "thoughts": {
+      "3": "A rumour can still bring a tower down. Even one who used to guard it.",
+      "4": "Quiet feet. Louder questions: what is the ward hiding?"
+    }
   },
   "HUNTED": {
     "poster": "WANTED - DANGEROUS",
     "pa": "Prisoner M-07 is armed and has killed Keepers. Lethal force authorised.",
     "thought": "Maybe they were right about me.",
     "remote_call": "They're calling you a monster. Stop proving them right.",
-    "guard_line": ["He killed Rowan. Rowan had a daughter.", "Stay in pairs. Don't let him get close."],
+    "guard_line": [
+      "He killed Rowan. Rowan had a daughter.",
+      "Stay in pairs. Don't let him get close."
+    ],
     "boss_prefight": "How many, Miro? How many before you're what they said?",
     "ending_pa": "Prisoner M-07 is the bomber. All units...",
     "ending_thought": "They'll tell it their way. Let them.",
-    "report": "The tower thinks you're hunting them."
+    "report": "The tower thinks you're hunting them.",
+    "remote_calls": {
+      "3": "You wore their uniform once. Every Keeper you drop fought beside you. Think about that.",
+      "4": "Brother, the ward isn't what the records say. Whatever you do, don't burn it down before you've seen it."
+    },
+    "thoughts": {
+      "3": "I wore their uniform once. Maybe that's why none of this feels new.",
+      "4": "Every alarm I set off drowns out what the ward is trying to tell me."
+    }
   },
   "kill_disappointment": [
     "...Miro. Why?",
@@ -28,18 +50,70 @@
     "I can hear the alarms from here. Please stop."
   ],
   "mp3_unlocks": [
-    {"track": "birthday_melody", "stealth_points": 2, "mood": "calm"},
-    {"track": "destroyed_lonely", "stealth_points": 3, "mood": "calm"},
-    {"track": "pinkghost", "stealth_points": 5, "mood": "calm"},
-    {"track": "dancehall64", "stealth_points": 6, "mood": "calm"},
-    {"track": "jazzyhall", "stealth_points": 8, "mood": "calm"},
-    {"track": "new_age_dancehall", "stealth_points": 9, "mood": "calm"},
-    {"track": "dancehall_lonesome", "stealth_points": 10, "mood": "calm"},
-    {"track": "dancehall", "stealth_points": 11, "mood": "calm"},
-    {"track": "drill2", "kills": 1, "mood": "aggressive"},
-    {"track": "drill_shxt", "kills": 3, "mood": "aggressive"},
-    {"track": "reaper", "kills": 5, "mood": "aggressive"},
-    {"track": "ox", "kills": 8, "mood": "aggressive"},
-    {"track": "hot_shit", "kills": 12, "mood": "aggressive"}
+    {
+      "track": "birthday_melody",
+      "stealth_points": 2,
+      "mood": "calm"
+    },
+    {
+      "track": "destroyed_lonely",
+      "stealth_points": 3,
+      "mood": "calm"
+    },
+    {
+      "track": "pinkghost",
+      "stealth_points": 5,
+      "mood": "calm"
+    },
+    {
+      "track": "dancehall64",
+      "stealth_points": 6,
+      "mood": "calm"
+    },
+    {
+      "track": "jazzyhall",
+      "stealth_points": 8,
+      "mood": "calm"
+    },
+    {
+      "track": "new_age_dancehall",
+      "stealth_points": 9,
+      "mood": "calm"
+    },
+    {
+      "track": "dancehall_lonesome",
+      "stealth_points": 10,
+      "mood": "calm"
+    },
+    {
+      "track": "dancehall",
+      "stealth_points": 11,
+      "mood": "calm"
+    },
+    {
+      "track": "drill2",
+      "kills": 1,
+      "mood": "aggressive"
+    },
+    {
+      "track": "drill_shxt",
+      "kills": 3,
+      "mood": "aggressive"
+    },
+    {
+      "track": "reaper",
+      "kills": 5,
+      "mood": "aggressive"
+    },
+    {
+      "track": "ox",
+      "kills": 8,
+      "mood": "aggressive"
+    },
+    {
+      "track": "hot_shit",
+      "kills": 12,
+      "mood": "aggressive"
+    }
   ]
 }

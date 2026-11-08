@@ -123,6 +123,7 @@ def collect_lines(cast):
         niro += [(text, '[unhinged]') for text in config.get('taunts', [])]
     for reputation in ('MISSING', 'HUNTED'):
         niro += [branch[reputation]['remote_call'], branch[reputation]['boss_prefight']]
+        niro += list(branch[reputation].get('remote_calls', {}).values())
     niro += branch['kill_disappointment']
     niro.append('...Miro?')  # Level 1 floor report: the remote crackles.
     source = (ROOT / 'scripts/intro_level.gd').read_text()
@@ -180,6 +181,8 @@ def collect_lines(cast):
             if opening:
                 extra.append(opening)
         extra += [branch[reputation]['thought'] for reputation in ('MISSING', 'HUNTED')]
+        for reputation in ('MISSING', 'HUNTED'):
+            extra += list(branch[reputation].get('thoughts', {}).values())
         # The Z hints are Miro thinking it through: every tier, every floor.
         for path in sorted((ROOT / 'data/levels').glob('level_0*.json')):
             for tiers in json.loads(path.read_text(encoding='utf-8')).get('hints', {}).values():

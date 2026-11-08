@@ -52,6 +52,8 @@ var attack_gap := 2.1
 var chase_speed := 78.0
 ## True while a Keeper who lost sight of Miro is still running after him.
 var pursuing := false
+var lost_barked := false
+const LOST_LINES := ["Where did he go?", "He was just here!", "Where'd he get to?", "He can't have just vanished.", "Check the shadows. He's close."]
 const BODY_SIGHT := 260.0
 const HEARING_RANGE := 85.0
 const BODY_NEARBY := 190.0
@@ -128,6 +130,10 @@ func _physics_process(delta: float) -> void:
 		# Losing sight of Miro mid-chase doesn't stop a Keeper: he runs on to where Miro was
 		# heading, then searches. A suspicious Keeper just goes to look.
 		pursuing = alert_state == State.ALERT
+		# Miro vanished into the dark, a vent or a crate: say so.
+		if (level.player.is_concealed or level.player.in_hiding_spot) and level.world_features and not lost_barked:
+			lost_barked = true
+			level.world_features.speak(self, "lost", LOST_LINES[randi() % LOST_LINES.size()])
 		if pursuing:
 			var heading := signf(level.player.velocity.x)
 			if heading == 0:
@@ -148,6 +154,7 @@ func _physics_process(delta: float) -> void:
 			if alert_state != State.ALERT:
 				alert_state = State.SEARCH
 			pursuing = true
+			lost_barked = false
 			search_left = 12.0
 			suspicion = 1.0
 			for other in level.guards():

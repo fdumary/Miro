@@ -66,6 +66,14 @@ func run() -> void:
 	check("floor03" in console.output.text, "pwd shows the floor")
 	console.run_command("whoami")
 	check(console.output.text == "guest", "whoami is guest until you log in")
+	console.run_command("cd ..")
+	console.run_command("pwd")
+	check(console.output.text == "/var/tower", "cd .. moves above the floor directory")
+	console.run_command("cd floor03")
+	console.run_command("pwd")
+	check(console.output.text == "/var/tower/floor03", "cd floor03 returns")
+	console.run_command("login root")
+	check(console.output.text == "Authenticated." or "denied" in console.output.text or "No local" in console.output.text, "login gives no hints")
 
 	# Checkpoints carry Miro's kit, and a retry grants a moment of grace.
 	await floor_scene(2)

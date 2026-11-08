@@ -29,7 +29,7 @@ func run() -> void:
 	check(campaign.reputation() == "HUNTED", "Three committed kills make Miro HUNTED")
 	await floor_scene(3)
 	opening = str(level.dialogue)
-	check("Lethal force" in opening and "monster" in opening, "HUNTED floor opens with the lethal-force PA and Niro's plea")
+	check("Lethal force" in opening and "wore their uniform" in opening, "HUNTED floor 3 opens with the lethal-force PA and the voice's own line (no repeats of floor 2's)")
 	check(level.hunted and level.has_node("Guards/HuntedKeeper") and level.poster.wanted, "HUNTED floor adds an armed Keeper and a WANTED poster")
 	check(level.objective().contains("checkpoint"), "Objectives are the same on both branches")
 	level.finish_dialogue()

@@ -201,6 +201,14 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	# Level 2: his brother's offer comes through the remote on its own as Miro reaches that
 	# point in the floor, whether or not he has looked at the sick prisoner first.
+	# Floor 3's familiar voice speaks the same way, once the personnel record has been read.
+	if flow == null and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and not milestones.has("BrotherReveal") and milestones.has("RankRecord"):
+		var reveal = areas.get_node_or_null("BrotherReveal")
+		if reveal != null and reveal.global_position.distance_to(player.global_position) < 90.0:
+			for station in definition.stations:
+				if station.id == "BrotherReveal":
+					pending_milestone = "BrotherReveal"
+					start_dialogue(station.lines, "milestone")
 	if flow == null and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and not milestones.has("BrotherOffer"):
 		var offer = areas.get_node_or_null("BrotherOffer")
 		if offer != null and offer.global_position.distance_to(player.global_position) < 90.0:
@@ -225,7 +233,7 @@ func _process(delta: float) -> void:
 				for camera in connected_cameras:
 					camera.disable()
 				pending_milestone = "RemoteTerminal"
-				start_dialogue([["MIRO", "The cameras went dark. The checkpoint is blind now.", "thought"]], "milestone")
+				start_dialogue([["MIRO", "I hacked the system and nobody has even realized.", "thought"]], "milestone")
 	if completed:
 		overlay_label.text = "%s\n\n%s\n\n%s\n\n[Backspace] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing, floor_report()]
 		if int(definition.number) == 5:
@@ -247,7 +255,7 @@ func setup_branch() -> Array:
 	reputation = campaign.reputation()
 	hunted = reputation == "HUNTED"
 	var data: Dictionary = campaign.branch()[reputation]
-	world_features.thoughts[str(number)].insert(0, {"id": "branch", "text": data.thought})
+	world_features.thoughts[str(number)].insert(0, {"id": "branch", "text": str(data.get("thoughts", {}).get(str(number), data.thought))})
 	poster = Node2D.new()
 	poster.set_script(load("res://scripts/wanted_poster.gd"))
 	poster.wanted = hunted
@@ -272,11 +280,22 @@ func setup_branch() -> Array:
 		$Guards.add_child(extra)
 	var lines: Array = [["TOWER PA", data.pa]]
 	if number < 5:
-		lines.append(["THE VOICE" if number < 3 else "NIRO", data.remote_call])
+		# Each floor has its own line here, so the same threat is never heard twice.
+		lines.append(["THE VOICE" if number < 4 else "NIRO", str(data.get("remote_calls", {}).get(str(number), data.remote_call))])
 	return lines
 
 ## Kills cost: Niro's disappointment over the remote (once per floor) on top of noise and bodies.
-func on_keeper_killed(_guard) -> void:
+## Floor 3: if the guards' password talk is missed, the first Keeper to fall drops a note with it.
+var password_note_dropped := false
+
+func drop_password_note(at: Vector2) -> void:
+	if password_note_dropped or int(definition.number) != 3 or world_features.password_known:
+		return
+	password_note_dropped = true
+	world_features.spawn_prop(at + Vector2(0, -4), "note", "NOTE")
+
+func on_keeper_killed(guard) -> void:
+	drop_password_note(guard.global_position)
 	if disappointment_heard or int(definition.number) >= 5:
 		return
 	disappointment_heard = true

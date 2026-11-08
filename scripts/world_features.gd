@@ -325,7 +325,7 @@ func nearby_prop():
 	var distance := minf(36, story_distance())
 	for prop in props:
 		var candidate: float = level.player.global_position.distance_to(prop.global_position)
-		if candidate < distance and reachable(prop.global_position) and not (prop.kind in ["case", "potion"] and prop.used):
+		if candidate < distance and reachable(prop.global_position) and not (prop.kind in ["case", "potion", "note"] and prop.used):
 			best = prop
 			distance = candidate
 	return best
@@ -409,6 +409,8 @@ func hint() -> String:
 	if prop and prop.kind == "access":
 		return "[E] Service port · select remote to connect"
 	if prop:
+		if prop.kind == "note":
+			return "[E] Read the note"
 		if prop.kind == "potion":
 			return "[E] Drink tonic (+half a heart)" if level.player.health < level.player.max_health else "Tonic (you're not hurt)"
 		return "[E] Take ammunition" if prop.kind == "case" else "[E] Hide in " + prop.title.to_lower()
@@ -432,6 +434,15 @@ func try_interact() -> bool:
 		return false
 	if prop.kind == "access":
 		level.player.controls.open_remote(true)
+		return true
+	if prop.kind == "note":
+		password_known = true
+		prop.used = true
+		prop.queue_free()
+		props.erase(prop)
+		level.start_dialogue([["NOTE", "Checkpoint terminal login
+user: keeper    password: root
+(all lowercase. Burn this after reading.)"]])
 		return true
 	if prop.kind == "potion":
 		if level.player.health >= level.player.max_health:
