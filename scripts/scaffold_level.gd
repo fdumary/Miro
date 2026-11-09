@@ -634,5 +634,3 @@ func finish_ending() -> void:
 	milestones["ForestViewpoint"] = true
 	completed = true
 	get_node("/root/Campaign").complete_floor(5, sigil_placed, milestones, floor_raw_stats())
-	if get_node("/root/Campaign").played_from_start:
-		get_node("/root/Campaign").mark_game_completed()

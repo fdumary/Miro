@@ -13,7 +13,7 @@ var launch_consumed := false
 ## The last storey checkpoint on the floor being played: {floor, storey, position, milestones, sigil}.
 ## Retrying (Backspace) restores it; entering a floor from elsewhere or finishing it clears it.
 var checkpoint := {}
-# True only when this run began at Level 1, so review launches never unlock the completed menu.
+# Records the run origin for snapshots; ending completion is saved for resumed runs too.
 var played_from_start := false
 ## Committed per-floor results: {floor: {kills, detections, stealth, offense}}. Written only by
 ## complete_floor(), so a retry restores the state at floor entry.
@@ -95,9 +95,9 @@ func save_floor_snapshot(number: int) -> void:
 	if not can_persist():
 		return
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	progress.set_value("snapshots", "floor_%d" % number, snapshot)
-	progress.save("user://progress.cfg")
+	progress.save(progress_path())
 
 func floor_snapshot(number: int) -> Dictionary:
 	if floor_snapshots.has(number):
@@ -105,7 +105,7 @@ func floor_snapshot(number: int) -> Dictionary:
 	if not can_persist():
 		return {}
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	var saved = progress.get_value("snapshots", "floor_%d" % number, {})
 	return saved if saved is Dictionary else {}
 
@@ -128,9 +128,12 @@ func restore_floor_snapshot(number: int) -> bool:
 		behavior.last_selected = str(snapshot.get("behavior_last_selected", "neutral"))
 	return not snapshot.is_empty()
 
+func progress_path() -> String:
+	return "user://progress.cfg"
+
 func game_completed() -> bool:
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	return bool(progress.get_value("game", "completed", false))
 
 ## Editor/dev reviews, tests and QA exports never write the player's progress.
@@ -141,9 +144,9 @@ func mark_game_completed() -> void:
 	if not can_persist():
 		return
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	progress.set_value("game", "completed", true)
-	progress.save("user://progress.cfg")
+	progress.save(progress_path())
 
 func total(key: String) -> int:
 	var sum := 0
@@ -193,7 +196,7 @@ func has_achievement(id: String) -> bool:
 	if not can_persist():
 		return achievements_earned.has(id)
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	return Array(progress.get_value("achievements", "earned", [])).has(id)
 
 ## True the first time only.
@@ -203,11 +206,11 @@ func unlock_achievement(id: String) -> bool:
 	achievements_earned[id] = true
 	if can_persist():
 		var progress := ConfigFile.new()
-		progress.load("user://progress.cfg")
+		progress.load(progress_path())
 		var earned: Array = Array(progress.get_value("achievements", "earned", []))
 		earned.append(id)
 		progress.set_value("achievements", "earned", earned)
-		progress.save("user://progress.cfg")
+		progress.save(progress_path())
 	return true
 
 ## A secret beat (the Foreva note) goes onto the MP3 for good.
@@ -218,9 +221,9 @@ func add_track_unlock(track: String) -> void:
 	tracks.append(track)
 	if can_persist():
 		var progress := ConfigFile.new()
-		progress.load("user://progress.cfg")
+		progress.load(progress_path())
 		progress.set_value("mp3", "unlocked", tracks)
-		progress.save("user://progress.cfg")
+		progress.save(progress_path())
 	else:
 		session_unlocks = tracks
 
@@ -234,7 +237,7 @@ func stored_unlocks() -> Array:
 	if not can_persist():
 		return session_unlocks.duplicate()
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	return progress.get_value("mp3", "unlocked", [])
 
 ## "stealth_points" or "kills" and the threshold for one mp3_unlocks entry.
@@ -275,9 +278,9 @@ func update_unlocks() -> Array:
 		return earned
 	if can_persist():
 		var progress := ConfigFile.new()
-		progress.load("user://progress.cfg")
+		progress.load(progress_path())
 		progress.set_value("mp3", "unlocked", unlocked)
-		progress.save("user://progress.cfg")
+		progress.save(progress_path())
 	else:
 		session_unlocks = unlocked
 	return earned
@@ -298,7 +301,7 @@ func highest_level() -> int:
 	if not can_persist():
 		return session_level
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	return clampi(int(progress.get_value("levels", "highest", 1)), 1, 5)
 
 ## Cleared floors get a check on level select (real progress, also in dev).
@@ -308,7 +311,7 @@ func level_completed(number: int) -> bool:
 	if not can_persist():
 		return session_level > number
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	return int(progress.get_value("levels", "highest", 1)) > number
 
 func level_unlocked(number: int) -> bool:
@@ -319,10 +322,10 @@ func unlock_level(number: int) -> void:
 	if not can_persist():
 		return
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	if int(progress.get_value("levels", "highest", 1)) < number:
 		progress.set_value("levels", "highest", clampi(number, 1, 5))
-		progress.save("user://progress.cfg")
+		progress.save(progress_path())
 
 ## Difficulty (Settings): Miro's health, blanket recharge, Level 5 wave size and how sharp
 ## the Keepers are. Medium is the authored balance; tests always run on Medium unless asked.
@@ -368,9 +371,9 @@ func save_checkpoint() -> void:
 	if not can_persist():
 		return
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	progress.set_value("checkpoint", "data", checkpoint.duplicate(true))
-	progress.save("user://progress.cfg")
+	progress.save(progress_path())
 
 func saved_checkpoint(number: int) -> Dictionary:
 	if int(checkpoint.get("floor", 0)) == number:
@@ -378,7 +381,7 @@ func saved_checkpoint(number: int) -> Dictionary:
 	if not can_persist():
 		return {}
 	var progress := ConfigFile.new()
-	progress.load("user://progress.cfg")
+	progress.load(progress_path())
 	var data = progress.get_value("checkpoint", "data", {})
 	return data if data is Dictionary and int(data.get("floor", 0)) == number else {}
 
@@ -394,3 +397,5 @@ func complete_floor(number: int, sigil: bool, milestones: Dictionary, raw_stats:
 	if number == 5:
 		boss_defeated = milestones.has("BrotherEncounter")
 		ending_complete = milestones.has("ForestViewpoint")
+		if ending_complete:
+			mark_game_completed()
