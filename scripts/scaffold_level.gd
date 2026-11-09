@@ -293,6 +293,11 @@ func _process(delta: float) -> void:
 		var ready_milestone := not entry.has("requires_milestone") or milestones.has(entry.requires_milestone)
 		if in_region and ready_milestone and (not entry.get("requires_landing", true) or player.is_on_floor()):
 			get_node("/root/MusicDirector").second_section(int(definition.number))
+	# A gate always matches the milestones: whatever opened the milestone, the gate follows.
+	if has_node("Gates") and int(Engine.get_physics_frames()) % 30 == 0:
+		for gate in $Gates.get_children():
+			if gate.unlock_milestone != "" and milestones.has(gate.unlock_milestone) and not gate.is_open:
+				gate.unlock()
 	if hack_remaining > 0 and not controls_locked():
 		if player.is_dead or player.global_position.distance_to(areas.get_node("RemoteTerminal").global_position) >= 90:
 			hack_remaining = 0
