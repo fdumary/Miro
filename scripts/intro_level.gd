@@ -467,7 +467,7 @@ func guards() -> Array[Node]:
 
 ## Light sources (torches, lamps) registered by the level art; moss watchers count too.
 var light_points: Array[Vector2] = []
-const LIGHT_RADIUS := 70.0
+const LIGHT_RADIUS := 52.0
 
 ## The tower is dark by nature, so the blanket hides Miro anywhere except inside a light's
 ## radius. A crouching Miro slips under the radius (the glow is above him).
@@ -475,8 +475,13 @@ func in_light(point: Vector2, crouched := false) -> bool:
 	if crouched:
 		return false
 	for light in light_points:
-		if absf(light.x - point.x) < LIGHT_RADIUS and absf(light.y - point.y) < 150.0:
-			return true
+		# A lamp lights only its own floor: it hangs above Miro, and its pool is an oval under it.
+		var below: float = point.y - light.y
+		if below > -10.0 and below < 150.0:
+			var across := (light.x - point.x) / LIGHT_RADIUS
+			var down := below / 150.0
+			if across * across + down * down < 1.0:
+				return true
 	return false
 
 ## True where the blanket works (kept under its old name for the HUD and tests).
