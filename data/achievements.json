@@ -1,0 +1,148 @@
+{
+  "_comment": "Mapping of gameplay achievements to music track unlocks.",
+  "achievements": [
+    {
+      "id": "kill_1",
+      "label": "Kill a Guard",
+      "event": "keeper_killed",
+      "threshold": 1,
+      "track": "drill2"
+    },
+    {
+      "id": "kill_10",
+      "label": "Kill 10 Guards",
+      "event": "keeper_killed",
+      "threshold": 10,
+      "track": "evilhall2"
+    },
+    {
+      "id": "kill_50",
+      "label": "Kill 50 Guards",
+      "event": "keeper_killed",
+      "threshold": 50,
+      "track": "reaper"
+    },
+    {
+      "id": "kill_100",
+      "label": "Kill 100 Guards",
+      "event": "keeper_killed",
+      "threshold": 100,
+      "track": "ox"
+    },
+    {
+      "id": "kill_named",
+      "label": "Kill all Named Guards",
+      "event": "named_guard_killed_all",
+      "track": "destroyed_lonely"
+    },
+    {
+      "id": "c4_spree",
+      "label": "Kill 3+ Guards with C4",
+      "event": "c4_kill",
+      "threshold": 3,
+      "track": "project_dancehall_hard_af_2"
+    },
+    {
+      "id": "defeat_niro",
+      "label": "Defeat Niro & Blow Up Tower",
+      "event": "niro_defeated",
+      "track": "set_me_free"
+    },
+    {
+      "id": "strangle_1",
+      "label": "Strangle a Guard",
+      "event": "strangle",
+      "threshold": 1,
+      "track": "birthday_melody"
+    },
+    {
+      "id": "ghost_1",
+      "label": "Go 1 Level without killing",
+      "event": "floor_completed_no_kills",
+      "threshold": 1,
+      "track": "destroyed_lonely"
+    },
+    {
+      "id": "ghost_2",
+      "label": "Go 2 Levels without killing",
+      "event": "floor_completed_no_kills",
+      "threshold": 2,
+      "track": "dancehall64"
+    },
+    {
+      "id": "ghost_3",
+      "label": "Go 3 Levels without killing",
+      "event": "floor_completed_no_kills",
+      "threshold": 3,
+      "track": "jazzyhall"
+    },
+    {
+      "id": "ghost_4",
+      "label": "Go 4 Levels without killing",
+      "event": "floor_completed_no_kills",
+      "threshold": 4,
+      "track": "new_age_dancehall"
+    },
+    {
+      "id": "ghost_full",
+      "label": "Complete Game without killing",
+      "event": "game_completed_no_kills",
+      "track": "dancehall_lonesome"
+    },
+    {
+      "id": "hack_early",
+      "label": "Disable Cameras/Turrets (Lvl < 3)",
+      "event": "security_disabled_early",
+      "track": "project_14"
+    },
+    {
+      "id": "hack_all",
+      "label": "Disable all Cameras/Turrets all levels",
+      "event": "security_disabled_all",
+      "track": "ken carson"
+    },
+    {
+      "id": "terminal_5",
+      "label": "Execute 5+ Terminal Commands",
+      "event": "terminal_commands",
+      "threshold": 5,
+      "track": "egyptian beat_2"
+    },
+    {
+      "id": "terminal_all",
+      "label": "Execute All Terminal Commands",
+      "event": "terminal_commands_all",
+      "track": "space_dancehall_yf"
+    },
+    {
+      "id": "mp3_hack",
+      "label": "Use MP3 to hack near terminal",
+      "event": "mp3_hack_terminal",
+      "track": "house_cyah_skate"
+    },
+    {
+      "id": "pickpocket_judas",
+      "label": "Pickpocket Judas",
+      "event": "pickpocket_judas",
+      "track": "skillibeng type beat"
+    },
+    {
+      "id": "destroy_turret",
+      "label": "Destroy a Turret",
+      "event": "turret_destroyed",
+      "track": "qwella1"
+    },
+    {
+      "id": "destroy_mosswatcher",
+      "label": "Destroy a Mosswatcher",
+      "event": "mosswatcher_destroyed",
+      "track": "relapse_3"
+    },
+    {
+      "id": "foreva_secret",
+      "label": "Found the Foreva Note",
+      "event": "foreva_easter_egg",
+      "track": "spanish_guitarhall"
+    }
+  ]
+}

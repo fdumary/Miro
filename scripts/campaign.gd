@@ -258,17 +258,20 @@ func unlock_achievement(id: String) -> bool:
 
 ## A secret beat (the Foreva note) goes onto the MP3 for good.
 func add_track_unlock(track: String) -> void:
-	var tracks := stored_unlocks()
-	if tracks.has(track):
-		return
-	tracks.append(track)
-	if can_persist():
-		var progress := ConfigFile.new()
-		progress.load(progress_path())
-		progress.set_value("mp3", "unlocked", tracks)
-		progress.save(progress_path())
-	else:
-		session_unlocks = tracks
+	var tracks_to_unlock := track.split(",")
+	for t in tracks_to_unlock:
+		var trimmed_t := t.strip_edges()
+		var current_unlocks := stored_unlocks()
+		if current_unlocks.has(trimmed_t):
+			continue
+		current_unlocks.append(trimmed_t)
+		if can_persist():
+			var progress := ConfigFile.new()
+			progress.load(progress_path())
+			progress.set_value("mp3", "unlocked", current_unlocks)
+			progress.save(progress_path())
+		else:
+			session_unlocks = current_unlocks
 
 ## Hot Shit is the final boss track: Level 5's second half, never a stealth or kill unlock.
 func unlocked_tracks() -> Array:

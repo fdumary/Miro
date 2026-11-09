@@ -101,9 +101,9 @@
       "bpm": 123.05
     },
     "sumcrazy": {
-      "title": "sum crazy shi_3.mp3",
+      "title": "sum crazy shi_4.wav",
       "stream": "res://assets/audio/music/sumcrazy.mp3",
-      "source": "sum crazy shi_3.mp3",
+      "source": "sum crazy shi_4.wav",
       "leveling": {
         "source_sha256": "493ae081a01952b327b1d79037531df18c61449a26ca3f5d1241e09ad23a5ce1",
         "target_lufs": -20,
@@ -619,6 +619,12 @@
       "title": "FOREVA (FXREVA) - Mantaana",
       "stream": "res://assets/audio/music/foreva.mp3",
       "source": "_FXREVER_.mp3",
+      "bpm": 0.0
+    },
+    "spanish_guitarhall": {
+      "title": "Spanish Guitarhall",
+      "stream": "res://assets/audio/music/spanish_guitarhall.mp3",
+      "source": "spanish guitarhall.mp3",
       "bpm": 0.0
     }
   },

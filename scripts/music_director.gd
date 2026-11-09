@@ -85,12 +85,18 @@ func resume_floor() -> void:
 func start_floor(number: int) -> void:
 	review_override = false
 	pending_track = ""
+	var was_second := section_id.contains("_second")
 	section_id = "floor_%d_entry" % number
+
 	floor_track = FIRST[number]
-	if FIRST[number].is_empty():
+	if was_second and SECOND.has(number):
+		floor_track = SECOND[number]
+		section_id = "floor_%d_second" % number
+
+	if FIRST[number].is_empty() and (not was_second or not SECOND.has(number)):
 		silence()
 	else:
-		play_track(FIRST[number])
+		play_track(floor_track)
 
 func second_section(number: int) -> void:
 	if section_id == "floor_%d_second" % number or not SECOND.has(number):

@@ -10,10 +10,10 @@
       ],
       "image": "res://assets/easter_eggs/foreva.png",
       "title": "FOREVA",
-      "caption": "FOREVA - Mantaana\nBean Edital · RXLA\n\nA note pinned behind the huddle. The beat is on your MP3 now.",
+      "caption": "FOREVA - Mantaana\nBean Edital · RXLA\n\nA note pinned behind the huddle. The beat is on your MP3 now.\n\nBonus: Spanish Guitarhall unlocked!",
       "achievement": "Foreva",
       "achievement_text": "Found the note behind the huddle",
-      "unlock_track": "foreva"
+      "unlock_track": "foreva,spanish_guitarhall"
     },
     {
       "id": "rxla",
