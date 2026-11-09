@@ -3741,16 +3741,79 @@
     "ports": [],
     "cameras": [],
     "hazards": [
-      {"kind": "spikes", "position": [882, 252]},
-      {"kind": "spikes", "position": [322, 644]},
-      {"kind": "turret", "position": [1246, 868]},
-      {"kind": "turret", "position": [910, 448]},
-      {"kind": "turret", "position": [1190, 1064]},
-      {"kind": "turret", "position": [672, 350], "mount": "right"},
-      {"kind": "spikes", "position": [574, 644]},
-      {"kind": "spikes", "position": [938, 1260]},
-      {"kind": "spikes", "position": [672, 378], "mount": "right"},
-      {"kind": "spikes", "position": [1386, 280], "mount": "ceiling"}
+      {
+        "kind": "spikes",
+        "position": [
+          882,
+          252
+        ]
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          322,
+          644
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1246,
+          868
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          910,
+          448
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1190,
+          1064
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          672,
+          350
+        ],
+        "mount": "right"
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          574,
+          644
+        ]
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          938,
+          1260
+        ]
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          672,
+          378
+        ],
+        "mount": "right"
+      },
+      {
+        "kind": "spikes",
+        "position": [
+          1386,
+          280
+        ],
+        "mount": "ceiling"
+      }
     ],
     "conversation": null,
     "hunted_guard": {
@@ -3763,7 +3826,33 @@
         770.0
       ]
     },
-    "huddles": []
+    "huddles": [],
+    "extra_guards": [
+      {
+        "name": "AnnexKeeper",
+        "keeper": "Tolliver",
+        "position": [
+          1110.0,
+          236
+        ],
+        "patrol": [
+          1000.0,
+          1300.0
+        ]
+      },
+      {
+        "name": "HallKeeper",
+        "keeper": "Maren",
+        "position": [
+          1010.0,
+          628
+        ],
+        "patrol": [
+          920.0,
+          1090.0
+        ]
+      }
+    ]
   },
   "storeys": [
     252,

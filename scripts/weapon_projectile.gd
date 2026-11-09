@@ -39,6 +39,16 @@ func _physics_process(delta: float) -> void:
 			target.take_turret_hit()
 			queue_free()
 			return
+		elif enemy and target is IntroPlayer and target.controls.has_guitar and target.controls.active == "guitar":
+			# The guitar deflects every shot: the round turns back toward whoever fired it.
+			enemy = false
+			shooter = target
+			direction = -direction
+			remaining = 300.0
+			position = hit.position + direction * 6.0
+			level.emit_effect("hit", global_position)
+			get_node("/root/SoundFX").play_sound("hit", -10, 1.6)
+			return
 		elif enemy and target is IntroPlayer:
 			# A pistol round or a turret bolt takes a heart; an SMG round takes half of one.
 			target.take_damage(1 if is_instance_valid(shooter) and shooter.get("weapon_kind") == "smg" else 2)

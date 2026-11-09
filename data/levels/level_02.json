@@ -3975,6 +3975,22 @@
         ],
         "facing": 1.9,
         "linked": false
+      },
+      {
+        "position": [
+          1000.0,
+          486
+        ],
+        "facing": 1.57,
+        "linked": false
+      },
+      {
+        "position": [
+          860.0,
+          294
+        ],
+        "facing": 1.7,
+        "linked": false
       }
     ],
     "conversation": {
