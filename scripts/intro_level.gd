@@ -12,6 +12,9 @@ var door_open: bool = false
 var sigil_placed: bool = false
 ## Niro over the remote when Level 1 ends ("The remote crackles").
 const FLOOR_END_CRACKLE := "...Miro?"
+## What the remote says as each floor's report comes up (floors without an entry stay quiet): the
+## written closing line, never the same "Miro" twice.
+const FLOOR_END_LINES := {1: "...Miro?", 2: "If you go any lower, I can't protect you.", 4: "Don't come down here, Miro. Please."}
 var crackle_played := false
 var brother_heard: bool = false
 var completed: bool = false
@@ -274,7 +277,9 @@ func _process(delta: float) -> void:
 		if not crackle_played:
 			# The remote crackles with his brother's voice as the floor report comes up.
 			crackle_played = true
-			get_node("/root/RemoteRadio").say(FLOOR_END_CRACKLE)
+			var end_line: String = FLOOR_END_LINES.get(int(get("definition").number) if get("definition") != null else 1, "")
+			if not end_line.is_empty():
+				get_node("/root/RemoteRadio").say(end_line)
 		var raw := floor_raw_stats()
 		overlay_label.text = "THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   ·   %s   ·   Kills %d   ·   Seen %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, get_node("/root/Campaign").style_word(raw), raw.kills, raw.detections]
 	elif player.is_dead:
@@ -415,7 +420,17 @@ func show_card(mode: String, heading: String, title_text: String, detail := "", 
 	hud.add_child(card)
 
 ## The cinematic between floors (scripts/interlude_cinematic.gd), then the next scene.
+func kit_snapshot() -> Dictionary:
+	var c = player.controls
+	return {
+		"has_supplies": player.has_supplies, "has_gun": player.has_gun, "guns": Array(player.guns),
+		"gun_ammo": player.gun_ammo.duplicate(), "equipped_gun": player.equipped_gun, "ammunition": player.ammunition,
+		"c4_count": player.c4_count, "reserves": c.reserves.duplicate(), "health": player.health,
+	}
+
 func play_interlude(floor_done: int, next_scene: String) -> void:
+	get_node("/root/Campaign").carried_kit = kit_snapshot()
+	get_node("/root/Campaign").carried_from = floor_done
 	if DisplayServer.get_name() == "headless":
 		get_tree().change_scene_to_file(next_scene)
 		return

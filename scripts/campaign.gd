@@ -38,6 +38,7 @@ func enter_floor(number: int) -> void:
 	if int(checkpoint.get("floor", 0)) != number:
 		checkpoint.clear()
 	if number == 1:
+		carried_kit = {}
 		played_from_start = true
 		remote_owned = false
 		remote_unlocked = false
@@ -219,6 +220,9 @@ func preview_unlocks(floor_stealth: int, floor_kills := 0) -> Array:
 
 ## Beats earned when the last floor ended; the next floor announces them once.
 var fresh_unlocks: Array = []
+## What Miro is carrying when a floor ends: guns, ammo, C4, tonics. The next floor hands it back.
+var carried_kit: Dictionary = {}
+var carried_from := 0
 
 func update_unlocks() -> Array:
 	var earned: Array = []

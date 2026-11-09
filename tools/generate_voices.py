@@ -185,6 +185,7 @@ def collect_lines(cast):
             if opening:
                 extra.append(opening)
         extra += [branch[reputation]['thought'] for reputation in ('MISSING', 'HUNTED')]
+        extra += json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8')).get('hunt_thoughts', [])
         extra += [branch[reputation]['ending_thought'] for reputation in ('MISSING', 'HUNTED')]
         extra += [text for scene in json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8'))['scenes'].values() for who, text in scene['lines'] if who == 'MIRO']
         for reputation in ('MISSING', 'HUNTED'):

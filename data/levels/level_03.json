@@ -3753,7 +3753,7 @@
       },
       {
         "position": [
-          266.0,
+          1400.0,
           852
         ],
         "title": "CABINET"
@@ -3764,13 +3764,6 @@
           852
         ],
         "title": "VENT"
-      },
-      {
-        "position": [
-          1080.0,
-          852
-        ],
-        "title": "CRATE"
       }
     ],
     "ports": [],
@@ -3798,6 +3791,30 @@
         ],
         "facing": 1.45,
         "linked": false
+      },
+      {
+        "position": [
+          860.0,
+          294.0
+        ],
+        "facing": 1.7,
+        "linked": true
+      },
+      {
+        "position": [
+          1190.0,
+          490.0
+        ],
+        "facing": 1.5,
+        "linked": true
+      },
+      {
+        "position": [
+          640.0,
+          906.0
+        ],
+        "facing": 1.6,
+        "linked": true
       }
     ],
     "conversation": {

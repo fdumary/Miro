@@ -40,6 +40,7 @@ func _ready() -> void:
 	build_hud()
 	apply_difficulty()
 	setup_world_features(int(definition.number))
+	call_deferred("apply_carried_kit")
 	call_deferred("apply_checkpoint")
 	player.controls.has_remote = get_node("/root/Campaign").remote_owned
 	player.controls.remote_unlocked = get_node("/root/Campaign").remote_unlocked
@@ -175,12 +176,40 @@ func apply_player_snapshot(data: Dictionary) -> void:
 	c.reserves = Dictionary(data.get("reserves", {})).duplicate()
 	c.has_guitar = bool(data.get("has_guitar", false))
 
+## Guns, ammo, C4 and health come with Miro from the floor above (not on a retry: the checkpoint has its own kit).
+func apply_carried_kit() -> void:
+	var campaign = get_node("/root/Campaign")
+	var kit: Dictionary = campaign.carried_kit
+	if kit.is_empty() or int(campaign.carried_from) != int(definition.number) - 1:
+		return
+	var checkpoint: Dictionary = campaign.checkpoint
+	if int(checkpoint.get("floor", 0)) == int(definition.number) and checkpoint.get("retry", false):
+		return
+	var c = player.controls
+	player.has_supplies = bool(kit.get("has_supplies", player.has_supplies))
+	player.has_gun = bool(kit.get("has_gun", false))
+	player.guns.assign(kit.get("guns", []))
+	player.gun_ammo = Dictionary(kit.get("gun_ammo", {})).duplicate()
+	player.equipped_gun = str(kit.get("equipped_gun", player.equipped_gun))
+	player.ammunition = int(kit.get("ammunition", 0))
+	player.c4_count = maxi(player.c4_count, int(kit.get("c4_count", 0)))
+	c.reserves = Dictionary(kit.get("reserves", {})).duplicate()
+	player.health = clampi(int(kit.get("health", player.health)), 1, player.max_health)
+	c.sync_slots()
+	if player.has_gun:
+		c.select_item(player.equipped_gun)
+
 func apply_checkpoint() -> void:
 	var saved: Dictionary = get_node("/root/Campaign").checkpoint
 	if saved.is_empty() or int(saved.get("floor", 0)) != int(definition.number) or flow != null or not saved.get("retry", false):
 		return
 	saved.erase("retry")
 	player.global_position = saved.position
+	# Resuming past the point where the floor's second song starts: that song, not the first.
+	if definition.has("music_region"):
+		var entry: Dictionary = definition.music_region.entry
+		if saved.position.y >= float(entry.get("minimum_y", INF)) and (not entry.has("requires_milestone") or saved.milestones.has(entry.requires_milestone)):
+			get_node("/root/MusicDirector").second_section(int(definition.number))
 	player.velocity = Vector2.ZERO
 	if saved.has("player"):
 		apply_player_snapshot(saved.player)
@@ -237,6 +266,13 @@ func _process(delta: float) -> void:
 			for station in definition.stations:
 				if station.id == "BrotherReveal":
 					pending_milestone = "BrotherReveal"
+					start_dialogue(station.lines, "milestone")
+	if int(definition.number) == 4 and flow == null and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and not milestones.has("BrotherWarning") and milestones.has("ExperimentRecords") and milestones.has("ContainmentEvidence"):
+		var warning = areas.get_node_or_null("BrotherWarning")
+		if warning != null and warning.global_position.distance_to(player.global_position) < 90.0:
+			for station in definition.stations:
+				if station.id == "BrotherWarning":
+					pending_milestone = "BrotherWarning"
 					start_dialogue(station.lines, "milestone")
 	if flow == null and dialogue.is_empty() and not controls_locked() and not player.is_dead and player.is_on_floor() and not milestones.has("BrotherOffer"):
 		var offer = areas.get_node_or_null("BrotherOffer")
