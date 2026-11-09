@@ -497,6 +497,7 @@ func die() -> void:
 	sees_player = false
 	velocity = Vector2.ZERO
 	level.player.casualty_count += 1
+	get_node("/root/Campaign").record_event("keeper_killed")
 	level.emit_effect("blood", global_position + Vector2(0, 12))
 	level.notify("A body remains. Other Keepers may discover it. [E] Loot")
 	if level.has_method("on_keeper_killed"):

@@ -356,6 +356,7 @@ func open_prop(prop: Node2D) -> void:
 			lines.append(["PAINTING", "%s\n%s, %s\n%s" % [work.title, work.artist, work.year, work.institution]])
 		lines.append(["PAINTING", "Scratched into the frame, in a Keeper's hand:\n\"%s\"" % work.prison_label])
 		frame.inspected = true
+		get_node("/root/Campaign").view_art(str(work.get("id", "")))
 		frame.queue_redraw()
 		behavior.record("art_" + str(frame.slot_id), "seeker", 1, "art", 2)
 	else:

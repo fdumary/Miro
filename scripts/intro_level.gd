@@ -588,6 +588,7 @@ func try_strangle() -> bool:
 	if victim == null:
 		return false
 	victim.strangle()
+	get_node("/root/Campaign").record_event("strangle")
 	stealth_bonus += 1
 	# A quiet takedown feeds the ghost branch (the artwork), never the offense one.
 	var behavior = get_node_or_null("/root/PlayerBehavior")

@@ -234,6 +234,48 @@ var session_unlocks: Array = []
 
 ## Achievements (easter eggs): saved in progress.cfg, kept in memory for test runs.
 var achievements_earned: Dictionary = {}
+var viewed_art: Dictionary = {}
+var achievement_events: Dictionary = {}
+var achievements_data: Array = []
+
+func _ready() -> void:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/achievements.json"))
+	if parsed is Dictionary:
+		achievements_data = Array(parsed.get("achievements", []))
+
+func has_viewed_art(id: String) -> bool:
+	if not can_persist():
+		return viewed_art.has(id)
+	var progress := ConfigFile.new()
+	progress.load(progress_path())
+	return Array(progress.get_value("art", "viewed", [])).has(id)
+
+func view_art(id: String) -> void:
+	if id.is_empty() or has_viewed_art(id):
+		return
+	viewed_art[id] = true
+	if can_persist():
+		var progress := ConfigFile.new()
+		progress.load(progress_path())
+		var viewed: Array = []
+		viewed.assign(Array(progress.get_value("art", "viewed", [])))
+		viewed.append(id)
+		progress.set_value("art", "viewed", viewed)
+		progress.save(progress_path())
+
+## Count a named gameplay event and grant any matching JSON achievements once.
+func record_event(name: String) -> void:
+	achievement_events[name] = int(achievement_events.get(name, 0)) + 1
+	for entry in achievements_data:
+		if str(entry.get("event", "")) != name:
+			continue
+		if int(achievement_events[name]) < int(entry.get("threshold", 1)):
+			continue
+		var id := str(entry.get("id", ""))
+		if not id.is_empty() and unlock_achievement(id):
+			var track := str(entry.get("track", ""))
+			if not track.is_empty() and track != "hot_shit":
+				add_track_unlock(track)
 
 func has_achievement(id: String) -> bool:
 	if not can_persist():
@@ -436,6 +478,8 @@ func complete_floor(number: int, sigil: bool, milestones: Dictionary, raw_stats:
 	checkpoint.clear()
 	save_checkpoint()
 	floor_stats[number] = score_floor(raw_stats)
+	if int(raw_stats.get("kills", 0)) == 0:
+		record_event("floor_completed_no_kills")
 	unlock_level(number + 1)
 	if sigil:
 		completed_sigils[number] = true

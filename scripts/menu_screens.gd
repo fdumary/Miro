@@ -205,6 +205,50 @@ static func describe(tuning: Dictionary) -> String:
 
 # --- Beats tracker --------------------------------------------------------------------------
 
+static func achievements(parent: Node, rect: Rect2) -> TabContainer:
+	var tabs := TabContainer.new()
+	tabs.name = "Achievements"
+	tabs.position = rect.position
+	tabs.size = rect.size
+	parent.add_child(tabs)
+	var beats_tab := Control.new()
+	beats_tab.name = "Beats"
+	tabs.add_child(beats_tab)
+	beats(beats_tab, Rect2(0, 0, rect.size.x, rect.size.y - 20))
+	var art_tab := ScrollContainer.new()
+	art_tab.name = "Artwork"
+	tabs.add_child(art_tab)
+	var grid := GridContainer.new()
+	grid.columns = 3
+	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	grid.add_theme_constant_override("h_separation", 10)
+	grid.add_theme_constant_override("v_separation", 8)
+	art_tab.add_child(grid)
+	var progress = campaign(parent)
+	var catalog = JSON.parse_string(FileAccess.get_file_as_string("res://data/art_catalog.json"))
+	for work in Array(catalog.get("works", []) if catalog is Dictionary else []):
+		var item := VBoxContainer.new()
+		item.custom_minimum_size = Vector2(170, 110)
+		var id := str(work.get("id", ""))
+		var viewed: bool = progress.has_viewed_art(id)
+		var image := TextureRect.new()
+		image.custom_minimum_size = Vector2(160, 78)
+		image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		if viewed:
+			image.texture = load(str(work.get("asset_path", "")))
+		else:
+			image.modulate = Color(0.25, 0.25, 0.25)
+		item.add_child(image)
+		var label := Label.new()
+		label.text = str(work.get("title", "???")) if viewed else "???"
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.add_theme_font_size_override("font_size", 9)
+		label.add_theme_color_override("font_color", SAND if viewed else DIM)
+		item.add_child(label)
+		grid.add_child(item)
+	return tabs
+
 ## Every beat the MP3 can hold: unlocked ones play on click, locked ones are greyed out with
 ## what earns them. Calm beats come from staying unseen, aggressive ones from Keepers taken down.
 static func beats(parent: Node, rect: Rect2) -> VBoxContainer:

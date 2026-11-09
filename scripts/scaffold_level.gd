@@ -387,6 +387,7 @@ func drop_password_note(at: Vector2) -> void:
 	world_features.spawn_prop(at + Vector2(0, -4), "note", "NOTE")
 
 func on_keeper_killed(guard) -> void:
+	get_node("/root/Campaign").record_event("keeper_killed")
 	drop_password_note(guard.global_position)
 	if disappointment_heard or int(definition.number) >= 5:
 		return
@@ -618,6 +619,7 @@ func niro_calls_guard(point: Vector2) -> void:
 		flow.niro_calls_guard(point)
 
 func brother_defeated() -> void:
+	get_node("/root/Campaign").record_event("niro_defeated")
 	if flow != null:
 		flow.step = flow.Step.DONE
 	get_node("/root/MusicDirector").silence()

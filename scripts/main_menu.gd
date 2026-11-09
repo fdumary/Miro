@@ -53,8 +53,8 @@ func show_screen(id: String) -> void:
 			back_button()
 		"controller":
 			SCREENS.controller_settings(page, Rect2(110, 35, 420, 265), func(): show_screen("settings"))
-		"beats":
-			SCREENS.beats(page, Rect2(40, 30, 560, 210))
+		"achievements":
+			SCREENS.achievements(page, Rect2(40, 30, 560, 260))
 			if get_node("/root/Campaign").dev_mode():
 				review_picker()
 			back_button()
@@ -104,7 +104,7 @@ func build_title_buttons() -> void:
 	page.add_child(box)
 	var play := SCREENS.button(box, "Play", func(): show_screen("levels"), 14)
 	play.name = "Play"
-	SCREENS.button(box, "Beats", func(): show_screen("beats"), 14).name = "BeatsButton"
+	SCREENS.button(box, "Achievements", func(): show_screen("achievements"), 14).name = "AchievementsButton"
 	SCREENS.button(box, "Settings", func(): show_screen("settings"), 14).name = "SettingsButton"
 	if get_node("/root/Campaign").game_completed():
 		SCREENS.button(box, "Credits", func(): get_tree().change_scene_to_file("res://scenes/credits.tscn"), 14).name = "CreditsButton"
