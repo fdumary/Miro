@@ -807,7 +807,13 @@ func keeper_clip_path(keeper_name: String, line_id: String) -> String:
 	return "res://assets/audio/voice/%s_%s.mp3" % [keeper_name.to_lower(), line_id]
 
 func bark(actor: Node2D, kind: String, force := false) -> void:
-	abort_conversation()
+	# A Keeper far from Miro and from the talkers must not cut an overheard conversation short.
+	var near_player: bool = actor.global_position.distance_to(level.player.global_position) < 340.0
+	var is_talker: bool = actors.has(actor)
+	if voice.playing and not force and not (near_player or is_talker):
+		return
+	if near_player or is_talker or force:
+		abort_conversation()
 	if voice.playing:
 		if not force:
 			return
