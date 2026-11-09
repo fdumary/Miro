@@ -930,6 +930,7 @@ func build_password_panel() -> void:
 	password_input = LineEdit.new()
 	password_input.secret = true
 	password_input.secret_character = "*"
+	password_input.keep_editing_on_text_submit = true
 	password_input.placeholder_text = "Password (case-sensitive)"
 	box.add_child(password_input)
 	password_input.text_submitted.connect(submit_password)
@@ -968,6 +969,7 @@ func open_terminal() -> void:
 func submit_password(text: String) -> void:
 	if text != "root":
 		password_status.text = "Access denied. Password is case-sensitive."
+		password_input.call_deferred("grab_focus")
 		return
 	terminal_authenticated = true
 	password_panel.hide()
