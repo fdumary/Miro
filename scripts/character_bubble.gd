@@ -46,13 +46,15 @@ func follow_actor() -> void:
 	var named := (dialogue and not thought) or not tag.is_empty()
 	name_label.visible = named
 	prompt_label.visible = dialogue
+	if dialogue:
+		prompt_label.text = get_node("/root/ControllerSettings").prompt("[E] Continue   [Tab] Skip")
 	name_label.text = tag if not tag.is_empty() else speaker
 	var top := 18.0 if named else 7.0
 	var bottom := 20.0 if dialogue else 7.0
 	text_label.position.y = top
 	size.y = maxf(42, text_label.get_line_count() * text_label.get_line_height() + top + bottom)
 	text_label.size.y = size.y - top - bottom
-	prompt_label.position = Vector2(size.x - 118, size.y - 15)
+	prompt_label.position = Vector2(7, size.y - 15)
 	var point := actor.get_global_transform_with_canvas().origin
 	var viewport := get_viewport_rect().size
 	var top_limit := 52.0 if dialogue else 124.0

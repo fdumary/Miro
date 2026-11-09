@@ -17,7 +17,14 @@ var remote_unlocked := false
 var focus := false
 var pad_aim := false
 var pad_device := -1
-var pad_prompts := false
+var _pad_prompts := false
+var pad_prompts: bool:
+	get:
+		return controller_settings.using_controller if is_instance_valid(controller_settings) else _pad_prompts
+	set(value):
+		_pad_prompts = value
+		if is_instance_valid(controller_settings):
+			controller_settings.using_controller = value
 var controller_settings: Node
 var reserves: Dictionary = {}
 var reload_left := 0.0
@@ -158,6 +165,8 @@ func handle_pad_button(button: int) -> bool:
 			next_beat(-1)
 		JOY_BUTTON_DPAD_RIGHT:
 			next_beat()
+		JOY_BUTTON_DPAD_DOWN:
+			open_local_console()
 		JOY_BUTTON_DPAD_UP:
 			player.level.world_features.think(player.level.z_hint(), "", true)
 		JOY_BUTTON_LEFT_SHOULDER:
@@ -194,7 +203,7 @@ func cycle_item(step: int) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_instance_valid(player.level) or player.level.controls_locked() or player.is_dead or player.in_hiding_spot:
 		return
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and event.relative.length() > 3:
 		pad_aim = false
 		pad_prompts = false
 		player.mouse_aim = true
@@ -226,15 +235,7 @@ func _physics_process(delta: float) -> void:
 	if not pads.is_empty():
 		if pad_device not in pads:
 			pad_device = pads[0]
-		var aim := Vector2(Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_X), Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_Y))
-		var deadzone: float = controller_settings.preferences.deadzone
-		if aim.length_squared() > deadzone * deadzone:
-			if controller_settings.preferences.invert_aim_y:
-				aim.y = -aim.y
-			pad_aim = true
-			pad_prompts = true
-			player.mouse_aim = false
-			player.aim_direction = aim.normalized()
+		update_pad_aim(Vector2(Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_X), Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_Y)))
 	else:
 		pad_aim = false
 	focus = (focus and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)) or (player.guns.has(active) and Input.is_action_pressed("pad_focus"))
@@ -743,3 +744,15 @@ func detonate_charges() -> void:
 				turret.take_turret_hit()
 		charge.queue_free()
 	planted.clear()
+
+## Shared by the live right stick and input regression checks; remember the last aim at rest.
+func update_pad_aim(stick: Vector2) -> void:
+	var deadzone: float = controller_settings.preferences.deadzone
+	if stick.length_squared() <= deadzone * deadzone:
+		return
+	if controller_settings.preferences.invert_aim_y:
+		stick.y = -stick.y
+	pad_aim = true
+	pad_prompts = true
+	player.mouse_aim = false
+	player.aim_direction = stick.normalized()

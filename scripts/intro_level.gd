@@ -230,16 +230,14 @@ func _process(delta: float) -> void:
 	var health_text := "MIRO   " + hearts + "   " + status
 	if health_label.text != health_text:
 		health_label.text = health_text
-	status_label.text = player.stealth_status() if player.has_supplies else ""
-	objective_label.text = objective()
-	hint_label.text = context_hint()
-	hint_icon.texture = VISUALS.hint_texture(hint_label.text)
-	if player.controls.pad_prompts:
-		hint_label.text = hint_label.text.replace("[E]", "[Cross]").replace("[Z]", "[D-pad Up]")
+	status_label.text = get_node("/root/ControllerSettings").prompt(player.stealth_status()) if player.has_supplies else ""
+	objective_label.text = get_node("/root/ControllerSettings").prompt(objective())
+	hint_label.text = get_node("/root/ControllerSettings").prompt(context_hint())
+	hint_icon.texture = null if player.controls.pad_prompts else VISUALS.hint_texture(hint_label.text)
 	hint_icon.visible = hint_icon.texture != null
 	stealth_meter.visible = player.has_supplies
 	stealth_meter.value = player.stealth_remaining / player.stealth_duration if player.is_concealed else 1.0 - player.stealth_cooldown_left / player.stealth_cooldown
-	message_label.text = message if message_left > 0 else ""
+	message_label.text = get_node("/root/ControllerSettings").prompt(message) if message_left > 0 else ""
 	dialogue_panel.visible = not dialogue.is_empty() and not paused
 	line_lock = maxf(0.0, line_lock - get_process_delta_time())
 	if not dialogue.is_empty():
@@ -252,7 +250,7 @@ func _process(delta: float) -> void:
 		if anchor == player and str(line[0]) not in ["MIRO"]:
 			label += " · remote" if str(line[0]) in ["NIRO", "THE VOICE", "BROTHER"] else ""
 		dialogue_panel.speaker = label
-		dialogue_label.text = str(line[1])
+		dialogue_label.text = get_node("/root/ControllerSettings").prompt(str(line[1]))
 		dialogue_panel.follow_actor()
 		# Niro's lines over the remote come out of the radio: bitcrushed, static, dropouts.
 		var key := "%d:%s" % [dialogue_index, str(line[1])]
@@ -302,9 +300,9 @@ func _process(delta: float) -> void:
 			if not end_line.is_empty():
 				get_node("/root/RemoteRadio").say(end_line)
 		var raw := floor_raw_stats()
-		overlay_label.text = "THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   ·   %s   ·   Kills %d   ·   Seen %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, get_node("/root/Campaign").style_word(raw), raw.kills, raw.detections]
+		overlay_label.text = get_node("/root/ControllerSettings").prompt("THE PRISONER\n\nThe first mark is set. The remote crackles: \"...Miro?\"\n\nEscape: %s   ·   %s   ·   Kills %d   ·   Seen %d\n\n[Enter] Descend to Level 2\n[Backspace] Replay the floor" % [route, get_node("/root/Campaign").style_word(raw), raw.kills, raw.detections])
 	elif player.is_dead:
-		overlay_label.text = "THE TOWER KEEPS ITS PRISONERS\n\n[Backspace] Retry from the cell\nTry cover, a quiet key theft, or dodge the wind-up."
+		overlay_label.text = get_node("/root/ControllerSettings").prompt("THE TOWER KEEPS ITS PRISONERS\n\n[Backspace] Retry from the cell\nTry cover, a quiet key theft, or dodge the wind-up.")
 	queue_redraw()
 
 ## Z: Miro thinks it through. Up to three hints per objective, each press more direct

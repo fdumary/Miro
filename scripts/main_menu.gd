@@ -111,7 +111,7 @@ func build_title_buttons() -> void:
 	SCREENS.button(box, "Quit", func(): get_tree().quit(), 14)
 	play.call_deferred("grab_focus")
 	var caption := Label.new()
-	caption.text = "M mutes all audio · F10 returns here from a floor" + (" · dev build" if get_node("/root/Campaign").dev_mode() else "")
+	caption.text = ("D-pad Navigate · Cross/A Select · Circle/B Back · Options Pause in game" if get_node("/root/ControllerSettings").using_controller else "M mutes all audio · F10 returns here from a floor") + (" · dev build" if get_node("/root/Campaign").dev_mode() else "")
 	caption.add_theme_font_size_override("font_size", 9)
 	caption.add_theme_color_override("font_color", SCREENS.DIM)
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

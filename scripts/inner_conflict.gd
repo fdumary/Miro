@@ -148,10 +148,10 @@ func update_choice_bubble() -> void:
 	if original_prompt.is_empty():
 		original_prompt = panel.prompt_label.text
 	if choice.is_empty():
-		if panel.prompt_label.text != original_prompt:
-			panel.prompt_label.text = original_prompt
+		if panel.prompt_label.text != get_node("/root/ControllerSettings").prompt(original_prompt):
+			panel.prompt_label.text = get_node("/root/ControllerSettings").prompt(original_prompt)
 		return
-	panel.prompt_label.text = "[1] [2] Choose   [E] Confirm"
+	panel.prompt_label.text = get_node("/root/ControllerSettings").prompt("[1] [2] Choose   [E] Confirm")
 	var line: Array = level.dialogue[level.dialogue_index]
 	line[1] = choice_text(choice, choice_selected)
 	level.dialogue_label.text = line[1]
@@ -338,7 +338,7 @@ func update_hint() -> void:
 	if prop == null:
 		return
 	var text := "[E] Look at the painting" if prop == frame else "[E] Read records  •  [T] Open security console"
-	level.hint_label.text = text.replace("[E]", "[Cross]") if level.player.controls.pad_prompts else text
+	level.hint_label.text = get_node("/root/ControllerSettings").prompt(text)
 	level.hint_icon.texture = VISUALS.hint_texture(text)
 	level.hint_icon.visible = level.hint_icon.texture != null
 

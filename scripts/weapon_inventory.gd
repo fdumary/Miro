@@ -24,7 +24,7 @@ func _draw() -> void:
 	# On the last floor the guitar takes the blanket's place on Q.
 	var guitar_on_q: bool = controls.has_guitar and get_node("/root/Campaign").current_floor == 5
 	draw_style_box(panel_style(controls.active == ("guitar" if guitar_on_q else "blanket")), Rect2(274, 0, 50, 38))
-	draw_string(ThemeDB.fallback_font, Vector2(278, 11), "△" if controls.pad_prompts else "Q", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
+	draw_string(ThemeDB.fallback_font, Vector2(277, 11), ("△" if controls.controller_settings.playstation() else "Y") if controls.pad_prompts else "Q", HORIZONTAL_ALIGNMENT_LEFT, -1, 8)
 	if guitar_on_q:
 		draw_texture_rect(ART.TEXTURES.guitar, Rect2(291, 3, 27, 27), false)
 	elif not controls.blanket_removed():
@@ -35,7 +35,7 @@ func _draw() -> void:
 		draw_string(ThemeDB.fallback_font, Vector2(331, 11), "" if controls.pad_prompts else "6", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
 		draw_guitar(Vector2(352, 18), Color("f2d3ab") if controls.strum_flash <= 0 else Color("fbf5ef"))
 		inventory_x = 388.0
-	draw_string(ThemeDB.fallback_font, Vector2(inventory_x, 14), "L1/R1 Equip · Touchpad Inventory" if controls.pad_prompts else "[N] Inventory", HORIZONTAL_ALIGNMENT_LEFT, -1, 11)
+	draw_string(ThemeDB.fallback_font, Vector2(inventory_x, 14), controls.controller_settings.prompt("L1/R1 Equip · Touchpad Inventory") if controls.pad_prompts else "[N] Inventory", HORIZONTAL_ALIGNMENT_LEFT, -1, 11)
 	var hint := "Left click: use"
 	if controls.active == "c4":
 		hint = "Right click: place · Left click: detonate · E: recover"
@@ -47,6 +47,7 @@ func _draw() -> void:
 		hint = "Left click: open remote / MP3"
 	if controls.pad_prompts:
 		hint = hint.replace("Left click", "R2").replace("Right click", "L2").replace("E: recover", "Cross: recover").replace("R: reload", "Square: reload")
+	hint = controls.controller_settings.prompt(hint)
 	draw_string(ThemeDB.fallback_font, Vector2(0, 51), hint, HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
 	if controls.reload_left > 0:
 		var center := Vector2(340, 32)

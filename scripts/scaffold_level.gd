@@ -324,9 +324,9 @@ func _process(delta: float) -> void:
 				if dialogue.is_empty():
 					start_dialogue([["MIRO", "I hacked the system and nobody has even realized.", "thought"]])
 	if completed:
-		overlay_label.text = "%s\n\n%s\n\n%s\n\n[Backspace] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing, floor_report()]
+		overlay_label.text = get_node("/root/ControllerSettings").prompt("%s\n\n%s\n\n%s\n\n[Backspace] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing, floor_report()])
 		if int(definition.number) == 5:
-			overlay_label.text = "MIRO\n\nThe end.\n\n[Backspace] Replay final floor   [Enter] New run"
+			overlay_label.text = get_node("/root/ControllerSettings").prompt("MIRO\n\nThe end.\n\n[Backspace] Replay final floor   [Enter] New run")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if completed and event.is_action_pressed("advance") and not event.is_echo():

@@ -9,6 +9,7 @@ var side: Control
 var side_id := ""
 var now_playing: Label
 var was_open := false
+var last_pad_mode := false
 
 func _ready() -> void:
 	layer = 40
@@ -50,14 +51,17 @@ func _process(_delta: float) -> void:
 		return
 	var open: bool = level.paused and not level.completed and not level.player.is_dead
 	shade.visible = open
-	if open and not was_open:
+	var pad_mode: bool = get_node("/root/ControllerSettings").using_controller
+	if open and (not was_open or pad_mode != last_pad_mode):
 		toggle_side("controls", true)
 		menu.get_node("Resume").grab_focus()
 	was_open = open
+	last_pad_mode = pad_mode
+	menu.get_node("Resume").text = ("Resume  [Options]" if get_node("/root/ControllerSettings").playstation() else "Resume  [Menu]") if pad_mode else "Resume  [Esc]"
 	if open:
 		var music = get_node("/root/MusicDirector")
 		var title: String = music.catalog.get(music.track_id, {}).get("title", "silence")
-		now_playing.text = "Now playing: %s\n%s · [B] next beat on the MP3" % [title, get_node("/root/Campaign").tuning().label]
+		now_playing.text = get_node("/root/ControllerSettings").prompt("Now playing: %s\n%s · [B] next beat on the MP3" % [title, get_node("/root/Campaign").tuning().label])
 
 func resume_game() -> void:
 	level.paused = false
@@ -88,4 +92,6 @@ func toggle_side(id: String, force := false) -> void:
 		SCREENS.heading(box, "CONTROLS", 14)
 		var tuning: Dictionary = get_node("/root/Campaign").tuning()
 		var text := "A/D Move · W/S Ladders · Space twice Double jump\nHold toward wall to slide · Space on contact to bounce\nC Dash · Left Ctrl Crouch (crawl under walls) · E Interact\n1–5 Select · Q Blanket · N Inventory · R Reload\nLeft click Use · Right click Focus / place C4\nZ Think it through (up to 3 hints per objective)\nT Open a nearby terminal · B Next beat · M Mute\nBlanket: use it to hide · %ds active / %ds recharge\nEsc Resume · Backspace Retry · F10 Menu" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
+		if get_node("/root/ControllerSettings").using_controller:
+			text = get_node("/root/ControllerSettings").controls_help(tuning)
 		SCREENS.note(box, text, 10, SCREENS.SAND)

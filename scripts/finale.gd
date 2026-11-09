@@ -110,7 +110,7 @@ func _draw() -> void:
 		C.letterbox(self, 1.0 - C.phase(t, 9.5, 2.0))
 		if t >= 4.6 and t < 8.4:
 			C.title(self, Vector2(320, 96), "Finally free.", 20, Color(C.PAPER.r, C.PAPER.g, C.PAPER.b, C.phase(t, 4.6, 0.8) * (1.0 - C.phase(t, 7.8, 0.6))), 2, false)
-		draw_string(C.Type.body(), Vector2(16, 352), "[Tab] Skip", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))
+		draw_string(C.Type.body(), Vector2(16, 352), get_node("/root/ControllerSettings").prompt("[Enter] Skip"), HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))
 	else:
 		draw_credits()
 	C.fade(self, 1.0 - C.phase(t, 0.0, 2.0))

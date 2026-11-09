@@ -132,7 +132,7 @@ func _physics_process(delta: float) -> void:
 				jumps_used += 1
 				climbing = false
 	if direction != 0.0:
-		facing = direction
+		facing = signf(direction)
 	if Input.is_action_just_pressed("dodge") and dodge_cooldown <= 0.0:
 		dodge_left = 0.22
 		dodge_cooldown = 0.85
@@ -370,9 +370,7 @@ func fire_gun() -> void:
 	end_stealth()
 	# Gunfire is always loud: kills cost noise.
 	level.make_noise(global_position, 600.0)
-	aim_direction = (get_global_mouse_position() - global_position).normalized() if mouse_aim else (aim_direction if controls.pad_aim else Vector2(facing, 0))
-	if aim_direction.length_squared() < 0.1:
-		aim_direction = Vector2(facing, 0)
+	aim_direction = weapon_aim_direction()
 	if absf(aim_direction.x) > 0.01:
 		facing = signf(aim_direction.x)
 	var bullet := Node2D.new()
@@ -464,14 +462,15 @@ func _draw() -> void:
 		draw_texture_rect_region(sprite.texture, Rect2(-16, -11, 32, 13), Rect2(frame_x, 0, 32, 13), sprite.modulate)
 		draw_set_transform(Vector2.ZERO)
 	if has_gun and controls.active in guns and not is_dead and not in_hiding_spot:
-		var direction := aim_direction if mouse_aim else Vector2(facing, 0)
+		var direction := weapon_aim_direction()
 		draw_set_transform(Vector2(0, -4), direction.angle(), Vector2(1, -1 if direction.x < 0 else 1))
 		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[equipped_gun], Rect2(0, -10, 24, 24), false)
 		draw_set_transform(Vector2.ZERO)
 	if attack_flash > 0 and melee_anim <= 0:
 		draw_line(Vector2(facing * 9, -2), Vector2(facing * 35, -7), Color("fbf5ef"), 2)
-	if controls.focus:
-		var cursor := get_local_mouse_position()
+	if controls.focus and has_gun and controls.active in guns and not is_dead and not in_hiding_spot:
+		var cursor := focus_reticle_position()
+		draw_line(Vector2(0, -4), cursor, Color(1, 1, 1, 0.15), 1)
 		draw_arc(cursor, 5, 0, TAU, 16, Color(1, 1, 1, 0.7), 1)
 	if is_concealed:
 		draw_arc(Vector2(0, -20), 5, 0, PI, 8, Color("c69fa5"), 1)
@@ -528,3 +527,11 @@ func try_mantle() -> bool:
 	velocity = Vector2(facing * 150.0, jump_velocity * 1.1)
 	jumps_used = 1
 	return true
+
+## One normalized direction for the gun artwork, projectile and controller ADS reticle.
+func weapon_aim_direction() -> Vector2:
+	var direction := (get_global_mouse_position() - global_position) if mouse_aim else (aim_direction if controls.pad_aim else Vector2(facing, 0))
+	return direction.normalized() if direction.length_squared() > 0.01 else Vector2(-1 if facing < 0 else 1, 0)
+
+func focus_reticle_position() -> Vector2:
+	return get_local_mouse_position() if mouse_aim else Vector2(0, -4) + weapon_aim_direction() * 96.0

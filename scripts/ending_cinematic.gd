@@ -127,7 +127,7 @@ func _draw() -> void:
 	elif t >= 11.2 and t < 14.4:
 		subtitle = "\"%s\"" % branch.ending_thought
 	C.subtitle(self, subtitle, 1.0)
-	draw_string(C.Type.body(), Vector2(16, 352), "[Tab] Skip", HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))
+	draw_string(C.Type.body(), Vector2(16, 352), get_node("/root/ControllerSettings").prompt("[Tab] Skip"), HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(C.ROSE.r, C.ROSE.g, C.ROSE.b, 0.7))
 	# The C4 detonator fills the screen as the charges go. This is the gameplay C4 trigger,
 	# not the MP3: the MP3 only comes back on the beach, as a music player.
 	if t >= 1.5 and t < 2.8:
