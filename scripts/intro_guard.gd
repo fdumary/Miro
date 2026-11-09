@@ -77,20 +77,25 @@ const HOP_SPEED := 300.0
 
 func _ready() -> void:
 	add_to_group("guards")
-	health = MAX_HEALTH
-	movement_speed = 33.0 if sick_guard else 43.0
 	var campaign = get_node_or_null("/root/Campaign")
 	if campaign != null:
 		var tuning: Dictionary = campaign.tuning()
+		health = MAX_HEALTH
+		movement_speed = (33.0 if sick_guard else 43.0) * float(tuning.get("attack_speed", 1.0))
 		sight = float(tuning.sight)
 		suspicion_rate = float(tuning.suspicion)
 		windup_time = float(tuning.windup)
 		attack_gap = float(tuning.attack_gap)
 		chase_speed = float(tuning.chase)
+	else:
+		health = MAX_HEALTH
+		movement_speed = 33.0 if sick_guard else 43.0
+
 
 func can_see_point(point: Vector2, distance_limit: float = 165.0) -> bool:
 	var difference := point - global_position
 	return difference.length() < distance_limit and absf(difference.y) < (80 if not is_on_floor() else (70 if absf(difference.x) < 40 else 45)) and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
+
 
 func detect_player() -> bool:
 	if is_dead or asleep or not level or level.player.is_dead or (level.player.is_concealed or level.player.in_hiding_spot):
