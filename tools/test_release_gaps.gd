@@ -36,11 +36,9 @@ func run() -> void:
 	var world = level.world_features
 	world.password_known = false
 	world.open_terminal()
-	check(not world.password_use.visible, "Known-password button hides until the password is known")
-	world.password_slip.pressed.emit()
-	check(world.password_known and world.password_use.visible, "Maintenance slip reveals the password button")
-	world.password_use.pressed.emit()
-	check(world.terminal_authenticated and not world.modal_open() and level.hack_remaining > 0, "Password button logs in and starts the hack")
+	check(not world.password_use.visible and not world.password_slip.visible, "The login panel gives no password hints")
+	world.submit_password("root")
+	check(world.terminal_authenticated and not world.modal_open() and level.hack_remaining > 0, "Typing the password logs in and starts the hack")
 	world.open_terminal()
 	var cancel := InputEventAction.new()
 	cancel.action = "ui_cancel"

@@ -294,7 +294,7 @@ func _process(delta: float) -> void:
 		if in_region and ready_milestone and (not entry.get("requires_landing", true) or player.is_on_floor()):
 			get_node("/root/MusicDirector").second_section(int(definition.number))
 	if hack_remaining > 0 and not controls_locked():
-		if player.is_dead or player.global_position.distance_to(areas.get_node("RemoteTerminal").global_position) >= 48:
+		if player.is_dead or player.global_position.distance_to(areas.get_node("RemoteTerminal").global_position) >= 90:
 			hack_remaining = 0
 			notify("Reprogramming interrupted. Stay beside the terminal for one second.")
 		else:

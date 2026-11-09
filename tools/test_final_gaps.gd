@@ -46,6 +46,20 @@ func run() -> void:
 	await frames(50)
 	check(climber.global_position.y < start_y - 20.0, "A hunting Keeper climbs the ladder after Miro")
 	player.climbing = false
+	# A searching Keeper walks to the ladder and climbs down to where he last saw Miro.
+	var searcher = level.get_node("Guards/VaultWestKeeper")
+	searcher.set_physics_process(true)
+	searcher.global_position = Vector2(1480, 1048)
+	searcher.alert_state = IntroGuard.State.SEARCH
+	searcher.pursuing = false
+	searcher.search_left = 30.0
+	searcher.last_known_position = Vector2(1500, 1244)
+	var before_y: float = searcher.global_position.y
+	searcher.set_physics_process(false)
+	for step in range(300):
+		searcher.ladder_search(1.0 / 60.0)
+		await frames(1)
+	check(searcher.global_position.y > before_y + 25.0 and absf(searcher.global_position.x - 1540.0) < 6.0, "A searching Keeper takes the ladder down to the floor he last saw Miro")
 	level = null
 	print("FINAL_GAPS_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

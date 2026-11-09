@@ -1222,6 +1222,17 @@
       ],
       "personality": "a commanding aunt of a supervisor who inspects everything",
       "theme": "stern"
+    },
+    "Rocco": {
+      "alert": "Hey! Hey, you! Get back here!",
+      "body": "Rocco's down! Somebody get the doctor!",
+      "delivery": "[cocky]",
+      "idle": [
+        "I bet the new guy ten bucks you wouldn't come this way.",
+        "Second floor's the quiet floor. That's why I like it."
+      ],
+      "personality": "a cocky Brooklyn gambler who bets on everything",
+      "theme": "goofy"
     }
   },
   "hunted": {

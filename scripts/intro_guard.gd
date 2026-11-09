@@ -258,7 +258,7 @@ func _physics_process(delta: float) -> void:
 			facing = -1
 		if turn_wait <= 0:
 			velocity.x = facing * movement_speed * stride()
-	if ladder_follow(delta):
+	if ladder_follow(delta) or ladder_search(delta):
 		return
 	# Do not walk off a floor or chase between tiers (ladders are followed above).
 	var foot := global_position + Vector2(signf(velocity.x) * 15, 12)
@@ -301,6 +301,43 @@ func ladder_follow(delta: float) -> bool:
 	if absf(dy) < 14.0:
 		return false
 	global_position.x = move_toward(global_position.x, ladder.global_position.x, 120.0 * delta)
+	velocity = Vector2(0.0, signf(dy) * 92.0)
+	move_and_slide()
+	return true
+
+## A searching or hunting Keeper whose target is on another floor walks to the nearest ladder that
+## joins the two floors and climbs it all the way, then carries on looking.
+func ladder_search(delta: float) -> bool:
+	if alert_state == State.PATROL and not pursuing:
+		return false
+	var target := last_known_position
+	var dy := target.y - global_position.y
+	if absf(dy) < 70.0:
+		return false
+	var low := minf(global_position.y, target.y)
+	var high := maxf(global_position.y, target.y)
+	var best = null
+	var best_gap := INF
+	for area in level.areas.get_children():
+		if area.kind != "ladder":
+			continue
+		var rect := Rect2(area.global_position - area.area_size / 2.0, area.area_size)
+		if rect.position.y <= low + 40.0 and rect.end.y >= high - 40.0:
+			var gap := absf(area.global_position.x - global_position.x)
+			if gap < best_gap:
+				best_gap = gap
+				best = area
+	if best == null:
+		return false
+	var ladder_x: float = best.global_position.x
+	if absf(global_position.x - ladder_x) > 14.0 and level.ladder_at(global_position) == null:
+		# Walk to the foot (or top) of the ladder on this floor.
+		facing = signf(ladder_x - global_position.x)
+		velocity.x = facing * chase_speed
+		velocity.y += 850.0 * delta
+		move_and_slide()
+		return true
+	global_position.x = move_toward(global_position.x, ladder_x, 120.0 * delta)
 	velocity = Vector2(0.0, signf(dy) * 92.0)
 	move_and_slide()
 	return true

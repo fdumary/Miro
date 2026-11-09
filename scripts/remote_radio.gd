@@ -67,6 +67,11 @@ func _ready() -> void:
 static func clip_path(text: String, prefix := "niro") -> String:
 	return "res://assets/audio/voice/%s_%s.mp3" % [prefix, text.strip_edges().sha1_text().substr(0, 10)]
 
+static func clip_length(text: String, prefix := "niro") -> float:
+	if text.is_empty() or not has_clip(text, prefix):
+		return 2.5
+	return load(clip_path(text, prefix)).get_length()
+
 static func has_clip(text: String, prefix := "niro") -> bool:
 	return ResourceLoader.exists(clip_path(text, prefix))
 
