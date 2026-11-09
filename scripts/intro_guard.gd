@@ -175,7 +175,18 @@ func _physics_process(delta: float) -> void:
 		search_left = 8.0 if pursuing else 5.0
 		suspicion = maxf(0.0, suspicion - delta)
 	for body in level.guards():
-		if body != self and body.is_dead and not seen_bodies.has(body.get_instance_id()) and notices_body(body.global_position):
+		if body != self and body.strangled and not body.is_dead and not seen_bodies.has(body.get_instance_id()) and notices_body(body.global_position):
+			# A Keeper down and out: they go and look (no grieving, no chase, no rousing the floor).
+			seen_bodies.append(body.get_instance_id())
+			if not sees_player:
+				investigate(body.global_position)
+			if alert_state != State.ALERT:
+				alert_state = State.SEARCH
+			search_left = 7.0
+			level.notify("%s found %s out cold. The Keepers are looking." % [display_name, body.display_name])
+			if level.world_features:
+				level.world_features.bark(self, "alert")
+		elif body != self and body.is_dead and not seen_bodies.has(body.get_instance_id()) and notices_body(body.global_position):
 			seen_bodies.append(body.get_instance_id())
 			body_reported = true
 			if not sees_player:
@@ -409,6 +420,14 @@ func shoot_weapon() -> void:
 	casing.position = position
 	casing.velocity = Vector2(-facing * 65, -100)
 	level.add_child(casing)
+
+## Strangled from behind: out cold, no blood, not a casualty. Other Keepers who find him are
+## alarmed, but nobody cries out that he is dead.
+var strangled := false
+
+func strangle() -> void:
+	strangled = true
+	fall_asleep()
 
 func fall_asleep() -> void:
 	if is_dead or asleep:

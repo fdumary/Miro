@@ -112,6 +112,30 @@ func run() -> void:
 	flow.final_wave_wait = 0.0
 	flow.update_final_waves(0.1)
 	check(flow.final_waves_sent == 2, "No more than two extra waves")
+	# Strangle: only from behind, no blood, not a casualty.
+	level.queue_free()
+	await frames(2)
+	level = load("res://scenes/levels/level_03.tscn").instantiate()
+	root.add_child(level)
+	current_scene = level
+	await frames(10)
+	level.finish_dialogue()
+	for stray in level.guards():
+		stray.set_physics_process(false)
+		stray.global_position = Vector2(-600, -600)
+	var victim = level.get_node("Guards/StairKeeper")
+	victim.global_position = Vector2(400, 432)
+	victim.facing = 1.0
+	level.player.global_position = Vector2(415, 432)
+	await frames(3)
+	check(level.world_features.strangle_target() == null, "No strangling from the front")
+	victim.facing = 1.0
+	level.player.global_position = Vector2(385, 432)
+	await frames(3)
+	check(level.world_features.strangle_target() == victim, "Strangle is offered from behind")
+	var kills_before: int = level.player.casualty_count
+	level.interact()
+	check(victim.asleep and victim.strangled and not victim.is_dead and level.player.casualty_count == kills_before, "Strangling leaves him out cold, not dead, and costs no casualty")
 	level = null
 	print("FINAL_GAPS_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)
