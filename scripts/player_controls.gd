@@ -413,6 +413,8 @@ func build_panels() -> void:
 	command.add_theme_font_size_override("font_size", 12)
 	command.max_length = 120
 	command.secret_character = "*"
+	# Enter must not drop the cursor: keep editing after each command (no re-clicking the box).
+	command.keep_editing_on_text_submit = true
 	command.text_changed.connect(func(value: String):
 		command.secret = not value.is_empty() and (command.secret or value.strip_edges().begins_with("login ")))
 	command.text_submitted.connect(run_command)
@@ -518,6 +520,8 @@ func run_command(raw: String) -> void:
 		return
 	pager.clear()
 	pager_index = 0
+	# Whatever the command, the text box keeps (or regains) focus once it has run.
+	command.call_deferred("grab_focus")
 	var is_login := text.begins_with("login ")
 	var echo := "login " + "*".repeat(text.trim_prefix("login ").length()) if is_login else ("***" if command.secret else text)
 	console_echo.text = "> " + echo
