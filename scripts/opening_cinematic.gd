@@ -46,7 +46,8 @@ func _process(delta: float) -> void:
 		leave()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode in [KEY_TAB, KEY_ENTER, KEY_E, KEY_SPACE, KEY_ESCAPE]:
+	var pad_skip: bool = event is InputEventJoypadButton and event.pressed and event.button_index in [JOY_BUTTON_A, JOY_BUTTON_B, JOY_BUTTON_START]
+	if pad_skip or (event is InputEventKey and event.pressed and not event.echo and event.physical_keycode in [KEY_TAB, KEY_ENTER, KEY_E, KEY_SPACE, KEY_ESCAPE]):
 		get_viewport().set_input_as_handled()
 		leave()
 

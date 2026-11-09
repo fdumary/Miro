@@ -65,10 +65,11 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _input(event: InputEvent) -> void:
-	if not (event is InputEventKey) or not event.pressed or event.echo:
+	var pad_skip: bool = event is InputEventJoypadButton and event.pressed and event.button_index in [JOY_BUTTON_A, JOY_BUTTON_B, JOY_BUTTON_START]
+	if not pad_skip and (not (event is InputEventKey) or not event.pressed or event.echo):
 		return
 	get_viewport().set_input_as_handled()
-	if event.physical_keycode in [KEY_TAB, KEY_ESCAPE, KEY_ENTER, KEY_SPACE]:
+	if pad_skip or event.physical_keycode in [KEY_TAB, KEY_ESCAPE, KEY_ENTER, KEY_SPACE]:
 		if credits_time < 0:
 			elapsed = BEACH
 			start_credits()

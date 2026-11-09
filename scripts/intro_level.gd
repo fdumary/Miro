@@ -119,7 +119,8 @@ func setup_inputs() -> void:
 	add_pad_axis("climb_down", JOY_AXIS_LEFT_Y, 1.0)
 	add_pad_axis("pad_use", JOY_AXIS_TRIGGER_RIGHT, 1.0)
 	add_pad_axis("pad_focus", JOY_AXIS_TRIGGER_LEFT, 1.0)
-	for pair in [["dodge", JOY_BUTTON_B], ["advance", JOY_BUTTON_A], ["pause_game", JOY_BUTTON_START]]:
+	# Back/Select skips a dialogue (Tab on the keyboard).
+	for pair in [["dodge", JOY_BUTTON_B], ["advance", JOY_BUTTON_A], ["pause_game", JOY_BUTTON_START], ["skip", JOY_BUTTON_BACK]]:
 		var event := InputEventJoypadButton.new()
 		event.button_index = pair[1]
 		InputMap.action_add_event(pair[0], event)
@@ -161,7 +162,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		play_interlude(1, "res://scenes/levels/level_02.tscn")
 		return
-	if event.is_action_pressed("retry") and not event.is_echo():
+	# Retry on a controller: Square (X) on the death or floor-complete screen only, never mid-play.
+	var pad_retry: bool = (player.is_dead or completed) and event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_X
+	if (event.is_action_pressed("retry") or pad_retry) and not event.is_echo():
 		# A retry resumes from the floor's last storey checkpoint (see scaffold_level).
 		var saved: Dictionary = get_node("/root/Campaign").checkpoint
 		if not saved.is_empty():
