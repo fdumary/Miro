@@ -40,7 +40,7 @@ func run() -> void:
 	check(cards.size() == 5, "Level select shows five floors")
 	check(not cards[0].disabled and not cards[1].disabled and cards[2].disabled and cards[4].disabled, "Floors 3-5 are locked, 1-2 open")
 	check(cards[0].completed and not cards[1].completed, "Cleared floor carries a check")
-	menu.show_screen("beats")
+	menu.show_screen("achievements")
 	await frames(2)
 	var beats: Node = menu.page.find_child("Beats", true, false)
 	var locked := beats.find_child("Beat_reaper", true, false)
