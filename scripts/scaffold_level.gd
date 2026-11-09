@@ -306,7 +306,9 @@ func _process(delta: float) -> void:
 			hack_remaining = maxf(0, hack_remaining - delta)
 			if hack_remaining == 0:
 				for camera in connected_cameras:
-					camera.disable()
+					# A watcher Miro already destroyed is simply gone: skip it.
+					if is_instance_valid(camera):
+						camera.disable()
 				# The hack counts the moment it completes, so no other scene starting at the same
 				# time (a remote threat, a Keeper's bark) can swallow it and leave the gate locked.
 				milestones["RemoteTerminal"] = true
