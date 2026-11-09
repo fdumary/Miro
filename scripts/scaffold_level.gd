@@ -53,6 +53,10 @@ func _ready() -> void:
 			camera.facing_angle = float(entry.get("facing", 1.57))
 			camera.level = self
 			add_child(camera)
+			if entry.get("disabled", false):
+				# Already dead when Miro arrives: the tower's earlier floors were reprogrammed, these stay dark as scenery.
+				camera.disable()
+				continue
 			if entry.get("linked", false):
 				connected_cameras.append(camera)
 			elif int(definition.number) == 2 and world_features.practice_camera == null:
@@ -72,6 +76,7 @@ func _ready() -> void:
 		hazard.kind = str(entry.kind)
 		hazard.position = Vector2(entry.position[0], entry.position[1])
 		hazard.rotation = HAZARD_ROTATIONS.get(entry.get("mount", "floor"), 0.0)
+		hazard.disabled = bool(entry.get("disabled", false))
 		add_child(hazard)
 	if int(definition.number) == 5:
 		flow = Node.new()

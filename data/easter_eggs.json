@@ -1,0 +1,58 @@
+{
+  "_comment": "Wall-note easter eggs (world_features.spawn_easter_eggs). position is a standing point; the note snaps to the floor below.",
+  "eggs": [
+    {
+      "id": "foreva",
+      "floor": 2,
+      "position": [
+        1630,
+        236
+      ],
+      "image": "res://assets/easter_eggs/foreva.png",
+      "title": "FOREVA",
+      "caption": "FOREVA - Mantaana\nBean Edital · RXLA\n\nA note pinned behind the huddle. The beat is on your MP3 now.",
+      "achievement": "Foreva",
+      "achievement_text": "Found the note behind the huddle",
+      "unlock_track": "foreva"
+    },
+    {
+      "id": "rxla",
+      "floor": 3,
+      "position": [
+        1640,
+        1244
+      ],
+      "image": "res://assets/easter_eggs/rxla.png",
+      "title": "RXLA",
+      "caption": "RXLA\nSomeone left a signature where nobody was meant to look.",
+      "achievement": "Signed in the Dark",
+      "achievement_text": "Found the RXLA signature on the lowest floor"
+    },
+    {
+      "id": "ramwarden",
+      "floor": 4,
+      "position": [
+        1640,
+        252
+      ],
+      "image": "res://assets/easter_eggs/ramwarden.png",
+      "title": "RAMWARDEN",
+      "caption": "Best antivirus.\nramwarden.com\nThe ward could have used one.",
+      "achievement": "Best Antivirus",
+      "achievement_text": "Found the ramwarden.com note"
+    },
+    {
+      "id": "scholarcal",
+      "floor": 5,
+      "position": [
+        60,
+        656
+      ],
+      "image": "res://assets/easter_eggs/scholarcal.png",
+      "title": "SCHOLARCAL",
+      "caption": "Best calendar.\nscholarcal.com\nEven a prisoner keeps a schedule.",
+      "achievement": "Best Calendar",
+      "achievement_text": "Found the scholarcal.com note"
+    }
+  ]
+}

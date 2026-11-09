@@ -102,5 +102,8 @@
   "hunt_thoughts": [
     "They are looking for me upstairs. They're too late.",
     "They know my cell is empty. From here on, nobody is idle."
-  ]
+  ],
+  "floor_end_lines": {
+    "3": "You've read it by now. Miro, please... let me explain."
+  }
 }

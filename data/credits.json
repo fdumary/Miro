@@ -3,17 +3,101 @@
   "title": "Miro",
   "subtitle": "Last Man Standing",
   "blocks": [
-    {"heading": "A game by", "lines": ["RXLA (Ethan Risden)"]},
-    {"heading": "Story, direction and music", "lines": ["RXLA"]},
-    {"heading": "Character sprites, animations and tile art", "lines": ["Julia S."]},
-    {"heading": "Playtesting", "lines": ["Francesca Dumary"]},
-    {"heading": "Original soundtrack", "lines": ["YZ33", "DOPE2", "Swag", "Bobblehead", "Cyberpunk", "Plane Drums", "Sum Crazy Shi", "Shit Crashed", "Hot Shit 2", "Set Me Free", "LIL UZI2", "Drill Shxt", "all produced by RXLA"]},
-    {"heading": "Voices", "lines": ["Generated with ElevenLabs"]},
-    {"heading": "Asset packs", "lines": ["Provided by Francesca Dumary", "Kenney (kenney.nl), CC0:", "Tiny Dungeon, Pixel Platformer Industrial Expansion,", "Particle Pack, Smoke Particles, Splat Pack, Emote Pack,", "Foliage Sprites, Generic Items, Input Prompts Pixel,", "UI Pack Pixel Adventure, Impact Sounds, RPG Audio,", "Sci-Fi Sounds, Desert Shooter Pack"]},
-    {"heading": "Rain and thunder", "lines": ["\"Rain + Long Thunder\" by WuxiaScrub", "OpenGameArt.org, CC0"]},
-    {"heading": "Typefaces", "lines": ["UnifrakturMaguntia and Pirata One", "SIL Open Font License"]},
-    {"heading": "Made with", "lines": ["Godot Engine"]},
-    {"heading": "", "lines": ["For everyone the tower kept."]}
+    {
+      "heading": "A game by",
+      "lines": [
+        "RXLA (Ethan Risden)"
+      ]
+    },
+    {
+      "heading": "Story, direction and music",
+      "lines": [
+        "RXLA"
+      ]
+    },
+    {
+      "heading": "Character sprites, animations and tile art",
+      "lines": [
+        "Julia S."
+      ]
+    },
+    {
+      "heading": "Playtesting",
+      "lines": [
+        "Francesca Dumary"
+      ]
+    },
+    {
+      "heading": "Original soundtrack",
+      "lines": [
+        "YZ33",
+        "DOPE2",
+        "Swag",
+        "Bobblehead",
+        "Cyberpunk",
+        "Plane Drums",
+        "Sum Crazy Shi",
+        "Shit Crashed",
+        "Hot Shit 2",
+        "Set Me Free",
+        "LIL UZI2",
+        "Drill Shxt",
+        "all produced by RXLA"
+      ]
+    },
+    {
+      "heading": "Secret track",
+      "lines": [
+        "FOREVA",
+        "Performed by Mantaana",
+        "℗ 2024 Master Key Music, RXLA",
+        "music.apple.com/us/album/foreva/1756854079"
+      ]
+    },
+    {
+      "heading": "Voices",
+      "lines": [
+        "Generated with ElevenLabs"
+      ]
+    },
+    {
+      "heading": "Asset packs",
+      "lines": [
+        "Provided by Francesca Dumary",
+        "Kenney (kenney.nl), CC0:",
+        "Tiny Dungeon, Pixel Platformer Industrial Expansion,",
+        "Particle Pack, Smoke Particles, Splat Pack, Emote Pack,",
+        "Foliage Sprites, Generic Items, Input Prompts Pixel,",
+        "UI Pack Pixel Adventure, Impact Sounds, RPG Audio,",
+        "Sci-Fi Sounds, Desert Shooter Pack"
+      ]
+    },
+    {
+      "heading": "Rain and thunder",
+      "lines": [
+        "\"Rain + Long Thunder\" by WuxiaScrub",
+        "OpenGameArt.org, CC0"
+      ]
+    },
+    {
+      "heading": "Typefaces",
+      "lines": [
+        "UnifrakturMaguntia and Pirata One",
+        "SIL Open Font License"
+      ]
+    },
+    {
+      "heading": "Made with",
+      "lines": [
+        "Godot Engine"
+      ]
+    },
+    {
+      "heading": "",
+      "lines": [
+        "For everyone the tower kept."
+      ]
+    }
   ],
   "closing": "Thank you for playing"
 }

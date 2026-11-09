@@ -126,6 +126,7 @@ def collect_lines(cast):
         niro += list(branch[reputation].get('remote_calls', {}).values())
     niro += branch['kill_disappointment']
     niro.append('...Miro?')  # Level 1 floor report: the remote crackles.
+    niro += list(json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8')).get('floor_end_lines', {}).values())
     for scene in json.loads((ROOT / 'data/interludes.json').read_text(encoding='utf-8'))['scenes'].values():
         niro += [text for who, text in scene['lines'] if who != 'MIRO']  # between-level cinematics
         if 'hunted_first' in scene:

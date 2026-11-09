@@ -270,7 +270,7 @@ func slot_point(slot: Dictionary) -> Vector2:
 ## stations, ladders, props, the stair gate and other lore props. INF when none fits.
 func find_spot(point: Vector2) -> Vector2:
 	var space: PhysicsDirectSpaceState2D = level.get_world_2d().direct_space_state
-	for step in [0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5, 6, -6]:
+	for step in [0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5, 6, -6, 7, -7, 8, -8, 9, -9, 10, -10]:
 		var probe: Vector2 = point + Vector2(step * 28, 0)
 		var query := PhysicsRayQueryParameters2D.create(probe + Vector2(0, -12), probe + Vector2(0, 150), 1)
 		var hit := space.intersect_ray(query)
@@ -287,14 +287,19 @@ func spot_clear(stand: Vector2) -> bool:
 		return false
 	for area in level.areas.get_children():
 		var kind := str(area.get("kind"))
-		if kind != "cover" and kind != "ladder" and area.global_position.distance_to(stand) < 64:
+		# Doors, sigils, gates and station markers keep a wide berth: a painting never hangs over them.
+		if kind != "cover" and kind != "ladder" and area.global_position.distance_to(stand) < (110 if kind in ["exit", "brother", "sigil", "door"] else 78):
+			return false
+	# Authored set pieces (the Foundation labs, ward chambers) are wide: keep clear of them too.
+	for piece in (level.get("definition").get("props", []) if level.get("definition") != null else []):
+		if absf(float(piece.position[0]) - stand.x) < 110.0 and absf(float(piece.position[1]) - stand.y) < 60.0:
 			return false
 	if is_instance_valid(features):
 		for prop in features.props:
 			if is_instance_valid(prop) and prop.global_position.distance_to(stand) < 56:
 				return false
 	for other in lore_props():
-		if other.global_position.distance_to(stand) < 64:
+		if other.global_position.distance_to(stand) < 90:
 			return false
 	return true
 

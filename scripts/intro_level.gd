@@ -14,7 +14,7 @@ var sigil_placed: bool = false
 const FLOOR_END_CRACKLE := "...Miro?"
 ## What the remote says as each floor's report comes up (floors without an entry stay quiet): the
 ## written closing line, never the same "Miro" twice.
-const FLOOR_END_LINES := {1: "...Miro?", 2: "If you go any lower, I can't protect you.", 4: "Don't come down here, Miro. Please."}
+const FLOOR_END_LINES := {1: "...Miro?", 2: "If you go any lower, I can't protect you.", 3: "You've read it by now. Miro, please... let me explain.", 4: "Don't come down here, Miro. Please."}
 var crackle_played := false
 var brother_heard: bool = false
 var completed: bool = false
@@ -475,8 +475,18 @@ func in_light(point: Vector2, crouched := false) -> bool:
 	if crouched:
 		return false
 	for light in light_points:
-		if absf(light.x - point.x) < LIGHT_RADIUS and absf(light.y - point.y) < 150.0:
-			return true
+		if get("definition") == null:
+			# Level 1 keeps its authored torch boxes (the quiet route is tuned to them).
+			if absf(light.x - point.x) < LIGHT_RADIUS and absf(light.y - point.y) < 150.0:
+				return true
+			continue
+		# Floors 2-5: a lamp lights only its own floor: it hangs above Miro, and its pool is an oval under it.
+		var below: float = point.y - light.y
+		if below > -60.0 and below < 150.0:
+			var across := (light.x - point.x) / 56.0
+			var down := below / 150.0
+			if across * across + down * down < 1.0:
+				return true
 	return false
 
 ## True where the blanket works (kept under its old name for the HUD and tests).

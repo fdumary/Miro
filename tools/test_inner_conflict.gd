@@ -147,7 +147,7 @@ func run() -> void:
 		controls.run_command("scan")
 		check("local" in controls.output.text, "Floor %d console can scan its connection" % number)
 		if number == 4:
-			var turrets := get_nodes_in_group("tower_turrets")
+			var turrets := get_nodes_in_group("tower_turrets").filter(func(turret): return not turret.disabled)  # scenery turrets start off
 			controls.run_command("turrets off")
 			check(turrets.all(func(turret): return not turret.disabled), "Physical console requires authentication")
 			controls.command.text = "login incorrect"

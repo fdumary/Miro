@@ -179,6 +179,57 @@ func place_props_after_physics() -> void:
 	add_props()
 
 func add_props() -> void:
+	call_deferred("convert_cover_zones")
+	add_authored_props()
+
+## The old shadow zones become hiding spots in exactly the same places: vents, cabinets and
+## lockers (never beside another hide or crate, never on a ladder landing).
+func convert_cover_zones() -> void:
+	spawn_easter_eggs()
+	# The ward and foundation lab tables carry real tonics: one beside each chamber.
+	for piece in level.definition.get("props", []) if level.get("definition") != null else []:
+		for offset in [-80.0, 80.0]:
+			var from := Vector2(float(piece.position[0]) + offset, float(piece.position[1]) - 20.0)
+			var drop := PhysicsRayQueryParameters2D.create(from, from + Vector2(0, 160), 1)
+			var found := get_world_2d().direct_space_state.intersect_ray(drop)
+			if found.is_empty():
+				continue
+			var spot := Vector2(from.x, found.position.y - 16.0)
+			if placement_clear(spot) and not spot_taken(spot, "potion"):
+				spawn_prop(spot, "potion", "TONIC")
+				break
+	if floor_number == 5:
+		# The Foundation is three open rows: a few tonics along each, since the waves are relentless.
+		for row in [236.0, 432.0, 656.0]:
+			for x in [180.0, 520.0, 880.0]:
+				var drop := PhysicsRayQueryParameters2D.create(Vector2(x, row - 24.0), Vector2(x, row + 120.0), 1)
+				var hit_row := get_world_2d().direct_space_state.intersect_ray(drop)
+				if hit_row.is_empty():
+					continue
+				var tonic_spot := Vector2(x, hit_row.position.y - 16.0)
+				if placement_clear(tonic_spot) and not spot_taken(tonic_spot, "potion"):
+					spawn_prop(tonic_spot, "potion", "TONIC")
+	var titles := ["VENT", "CABINET", "LOCKER"]
+	var made := 0
+	for area in level.areas.get_children():
+		if str(area.get("kind")) != "cover":
+			continue
+		var from: Vector2 = area.global_position
+		var query := PhysicsRayQueryParameters2D.create(from + Vector2(0, -12), from + Vector2(0, 160), 1)
+		var hit := get_world_2d().direct_space_state.intersect_ray(query)
+		if hit.is_empty():
+			continue
+		var point := Vector2(from.x, hit.position.y - 16.0)
+		var crowded := false
+		for prop in props:
+			if is_instance_valid(prop) and prop.kind in ["hide", "crate"] and absf(prop.global_position.y - point.y) < 60.0 and absf(prop.global_position.x - point.x) < 220.0:
+				crowded = true
+		if crowded or spot_taken(point, "hide") or not placement_clear(point):
+			continue
+		spawn_prop(point, "hide", titles[made % titles.size()])
+		made += 1
+
+func add_authored_props() -> void:
 	level.player.set_collision_mask_value(6, true)  # crates and window sills
 	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
 	# Tonics: the little bottles beside the cots (drawn where scaffold_art once stamped them).
@@ -320,6 +371,67 @@ func story_distance() -> float:
 			closest = minf(closest, level.player.global_position.distance_to(area.global_position))
 	return closest
 
+## Wall-note easter eggs (data/easter_eggs.json): one picture each, an achievement, and for
+## the Foreva note a beat that goes onto Miro's MP3.
+func spawn_easter_eggs() -> void:
+	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/easter_eggs.json"))
+	for entry in data.eggs:
+		if int(entry.floor) != floor_number:
+			continue
+		var from := Vector2(float(entry.position[0]), float(entry.position[1]) - 20.0)
+		var drop := PhysicsRayQueryParameters2D.create(from, from + Vector2(0, 200), 1)
+		var found := get_world_2d().direct_space_state.intersect_ray(drop)
+		if found.is_empty():
+			continue
+		var spot := Vector2(from.x, found.position.y - 16.0)
+		var prop := Node2D.new()
+		prop.set_script(load("res://scripts/review_prop.gd"))
+		prop.position = spot
+		prop.kind = "egg"
+		prop.title = str(entry.title)
+		prop.egg = entry
+		prop.egg_texture = load(str(entry.image))
+		add_child(prop)
+		props.append(prop)
+
+var egg_view: Control
+
+func show_egg(entry: Dictionary) -> void:
+	hide_egg()
+	egg_view = Control.new()
+	egg_view.size = Vector2(640, 360)
+	var shade := ColorRect.new()
+	shade.color = Color(0, 0, 0, 0.78)
+	shade.size = Vector2(640, 360)
+	egg_view.add_child(shade)
+	var picture := TextureRect.new()
+	picture.texture = load(str(entry.image))
+	picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	picture.size = Vector2(230, 230)
+	picture.position = Vector2(30, 60)
+	egg_view.add_child(picture)
+	var words := Label.new()
+	words.text = "%s\n\n[E] Close" % str(entry.caption)
+	words.position = Vector2(290, 90)
+	words.size = Vector2(320, 200)
+	words.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	egg_view.add_child(words)
+	level.hud.add_child(egg_view)
+	# The achievement, and the secret beat if there is one.
+	var campaign = get_node("/root/Campaign")
+	var first: bool = campaign.unlock_achievement(str(entry.id))
+	if entry.has("unlock_track"):
+		campaign.add_track_unlock(str(entry.unlock_track))
+	if first:
+		level.notify("ACHIEVEMENT UNLOCKED: %s · %s" % [entry.achievement, entry.achievement_text], 6.0)
+		get_node("/root/SoundFX").play_sound("sigil", -8, 1.5)
+
+func hide_egg() -> void:
+	if is_instance_valid(egg_view):
+		egg_view.queue_free()
+	egg_view = null
+
 func nearby_prop():
 	var best = null
 	var distance := minf(36, story_distance())
@@ -409,6 +521,8 @@ func hint() -> String:
 	if prop and prop.kind == "access":
 		return "[E] Service port · select remote to connect"
 	if prop:
+		if prop.kind == "egg":
+			return "[E] Read the note"
 		if prop.kind == "note":
 			return "[E] Read the note"
 		if prop.kind == "potion":
@@ -417,6 +531,9 @@ func hint() -> String:
 	return ""
 
 func try_interact() -> bool:
+	if is_instance_valid(egg_view):
+		hide_egg()
+		return true
 	if level.player.in_hiding_spot:
 		level.player.in_hiding_spot = false
 		return true
@@ -434,6 +551,9 @@ func try_interact() -> bool:
 		return false
 	if prop.kind == "access":
 		level.player.controls.open_remote(true)
+		return true
+	if prop.kind == "egg":
+		show_egg(prop.egg)
 		return true
 	if prop.kind == "note":
 		password_known = true
