@@ -54,9 +54,21 @@ func attacks() -> Array:
 		2: return ["rush", "throw"]
 		_: return ["rush", "throw", "call"]
 
+var last_attack := ""
+var combo := 0
+## Test hook: the next attack, once.
+var forced_attack := ""
+
+## Not a fixed rotation: he picks at random, never the same attack three times running.
 func next_attack() -> String:
+	if forced_attack != "":
+		var forced := forced_attack
+		forced_attack = ""
+		return forced
 	var list := attacks()
-	var attack: String = list[attack_number % list.size()]
+	var attack: String = list[randi() % list.size()]
+	if attack == last_attack and list.size() > 1 and randf() < 0.6:
+		attack = list[(list.find(attack) + 1) % list.size()]
 	if attack == "call" and calls_left <= 0:
 		attack = "rush"
 	return attack
@@ -82,7 +94,9 @@ func _physics_process(delta: float) -> void:
 	if current_phase == Phase.TELEGRAPH:
 		facing = 1 if level.player.position.x > position.x else -1
 		if phase_left <= 0:
-			match next_attack():
+			var chosen := next_attack()
+			last_attack = chosen
+			match chosen:
 				"rush":
 					current_phase = Phase.RUSH
 					phase_left = 0.65
@@ -99,10 +113,23 @@ func _physics_process(delta: float) -> void:
 	elif current_phase == Phase.RUSH:
 		if level.has_floor_below(global_position + Vector2(facing * 20, 0)):
 			velocity.x = facing * 230
+		elif phase_left > 0.3:
+			# No floor to rush along: throw instead of standing there.
+			projectile = global_position + Vector2(facing * 15, -5)
+			projectile_velocity = (level.player.global_position - projectile).normalized() * 230
+			projectile_live = true
+			phase_left = 0.0
 		if global_position.distance_to(level.player.global_position) < 28:
 			level.player.take_damage(2)
-		if phase_left <= 0 or is_on_wall():
-			begin_recovery()
+		if phase_left <= 0 or (is_on_wall() and phase_left < 0.4):
+			# Sometimes he comes straight back for a second rush before he gives Miro an opening.
+			if engagement >= 2 and combo < 1 and randf() < (0.35 if engagement < 4 else 0.55):
+				combo += 1
+				facing = 1 if level.player.position.x > position.x else -1
+				phase_left = 0.5
+			else:
+				combo = 0
+				begin_recovery()
 	elif phase_left <= 0:
 		is_vulnerable = false
 		attack_number += 1

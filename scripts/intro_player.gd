@@ -239,6 +239,8 @@ func check_guard_contact() -> void:
 			return
 
 func stealth_status() -> String:
+	if is_instance_valid(controls) and controls.blanket_removed():
+		return ""
 	if is_concealed:
 		return "STEALTH %.1fs" % stealth_remaining
 	if stealth_cooldown_left > 0:
@@ -431,7 +433,15 @@ func update_visual(delta: float) -> void:
 	sprite.visible = is_dead
 	queue_redraw()
 
+## The guitar's ray: a widening beam of notes along the aim while a strum rings out.
+func draw_strum_ray() -> void:
+	if not is_instance_valid(controls) or controls.strum_flash <= 0.0:
+		return
+	var direction := aim_direction if aim_direction.length_squared() > 0.1 else Vector2(facing, 0)
+	preload("res://scripts/guitar_music_fx.gd").draw_burst(self, Vector2(0, -6), direction, controls.strum_flash / 0.35, controls.strum_visual_reach)
+
 func _draw() -> void:
+	draw_strum_ray()
 	if not is_dead and is_instance_valid(sprite):
 		var scale_y := 0.65 if crouching else 1.0
 		var origin := Vector2(0, 5 if crouching else 0)

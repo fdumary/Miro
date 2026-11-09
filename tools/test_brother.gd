@@ -92,7 +92,7 @@ func run() -> void:
 	level.finish_dialogue()
 	check(boss.engagement == 3 and "call" in boss.attacks(), "Third meeting can call guards")
 	var before: int = flow.wave_guards.size()
-	boss.attack_number = 2
+	boss.forced_attack = "call"
 	boss.current_phase = boss.Phase.TELEGRAPH
 	boss.phase_left = 0
 	await frames(2)

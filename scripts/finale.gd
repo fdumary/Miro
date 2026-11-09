@@ -22,6 +22,8 @@ var audio: Node
 var chords: AudioStreamPlayer
 var credits: Dictionary = {}
 var credits_height := 0.0
+## Set by the menu's Credits button: skip the beach and roll the credits.
+@export var credits_only := false
 var leaving := false
 
 func _ready() -> void:
@@ -47,6 +49,9 @@ func _ready() -> void:
 		chords.volume_db = -4.0
 	audio.at(1.8, func(): audio.play("gulls", -14.0))
 	audio.at(6.5, func(): audio.play("gulls", -18.0, 1.1))
+	if credits_only:
+		elapsed = BEACH
+		start_credits()
 
 func _process(delta: float) -> void:
 	elapsed += delta

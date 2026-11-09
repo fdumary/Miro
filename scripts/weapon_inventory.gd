@@ -21,11 +21,16 @@ func _draw() -> void:
 			elif item in player.guns:
 				count = "%d / %d" % [player.ammunition if item == player.equipped_gun else player.gun_ammo.get(item, 0), controls.reserves.get(item, 0)]
 			draw_string(ThemeDB.fallback_font, Vector2(x + 12, 35), count, HORIZONTAL_ALIGNMENT_LEFT, -1, 9)
-	draw_style_box(panel_style(controls.active == "blanket"), Rect2(274, 0, 50, 38))
+	# On the last floor the guitar takes the blanket's place on Q.
+	var guitar_on_q: bool = controls.has_guitar and get_node("/root/Campaign").current_floor == 5
+	draw_style_box(panel_style(controls.active == ("guitar" if guitar_on_q else "blanket")), Rect2(274, 0, 50, 38))
 	draw_string(ThemeDB.fallback_font, Vector2(278, 11), "△" if controls.pad_prompts else "Q", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
-	draw_texture_rect(ART.TEXTURES.blanket, Rect2(291, 3, 27, 27), false)
+	if guitar_on_q:
+		draw_texture_rect(ART.TEXTURES.guitar, Rect2(291, 3, 27, 27), false)
+	elif not controls.blanket_removed():
+		draw_texture_rect(ART.TEXTURES.blanket, Rect2(291, 3, 27, 27), false)
 	var inventory_x := 335.0
-	if controls.has_guitar:
+	if controls.has_guitar and not guitar_on_q:
 		draw_style_box(panel_style(controls.active == "guitar"), Rect2(327, 0, 50, 38))
 		draw_string(ThemeDB.fallback_font, Vector2(331, 11), "" if controls.pad_prompts else "6", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
 		draw_guitar(Vector2(352, 18), Color("f2d3ab") if controls.strum_flash <= 0 else Color("fbf5ef"))
@@ -55,7 +60,7 @@ func _draw() -> void:
 ## Placeholder guitar icon. Hook: drop art at res://assets/weapons/guitar.png and it is used instead.
 func draw_guitar(center: Vector2, color: Color) -> void:
 	if ResourceLoader.exists("res://assets/weapons/guitar.png"):
-		draw_texture_rect(load("res://assets/weapons/guitar.png"), Rect2(center - Vector2(13, 13), Vector2(27, 27)), false)
+		draw_texture_rect(ART.TEXTURES.guitar, Rect2(center - Vector2(13, 13), Vector2(27, 27)), false)
 		return
 	draw_circle(center + Vector2(-4, 5), 6, color)
 	draw_circle(center + Vector2(-1, -1), 4.5, color)

@@ -106,6 +106,8 @@ func build_title_buttons() -> void:
 	play.name = "Play"
 	SCREENS.button(box, "Beats", func(): show_screen("beats"), 14).name = "BeatsButton"
 	SCREENS.button(box, "Settings", func(): show_screen("settings"), 14).name = "SettingsButton"
+	if get_node("/root/Campaign").game_completed():
+		SCREENS.button(box, "Credits", func(): get_tree().change_scene_to_file("res://scenes/credits.tscn"), 14).name = "CreditsButton"
 	SCREENS.button(box, "Quit", func(): get_tree().quit(), 14)
 	play.call_deferred("grab_focus")
 	var caption := Label.new()

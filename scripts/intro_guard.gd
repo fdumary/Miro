@@ -319,6 +319,15 @@ func ladder_search(delta: float) -> bool:
 	# Once on a ladder he keeps going until he is level with the target floor.
 	var on_ladder := level.ladder_at(global_position) != null
 	if absf(dy) < (16.0 if on_ladder else 70.0):
+		if on_ladder and dy <= 0.0:
+			# At the top: hop up and over the lip onto the floor, toward whoever he is after.
+			var step_to := signf(target.x - global_position.x)
+			if step_to == 0.0:
+				step_to = facing
+			facing = step_to
+			velocity = Vector2(step_to * 120.0, -190.0)
+			move_and_slide()
+			return true
 		return false
 	var low := minf(global_position.y, target.y)
 	var high := maxf(global_position.y, target.y)

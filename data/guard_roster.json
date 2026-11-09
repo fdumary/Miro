@@ -1233,6 +1233,28 @@
       ],
       "personality": "a cocky Brooklyn gambler who bets on everything",
       "theme": "goofy"
+    },
+    "Ormond": {
+      "alert": "Oi! Over here, everyone, he's on the ledge!",
+      "body": "Ormond's down! Somebody put the kettle on and fetch a medic!",
+      "delivery": "[chatty]",
+      "idle": [
+        "Proper cold up here. I keep a flask under the ledge, mind.",
+        "If the records go missing again, nobody tell the Commander I was chatting."
+      ],
+      "personality": "a warm chatty northerner who watches the ledge",
+      "theme": "goofy"
+    },
+    "Delphine": {
+      "alert": "There you are. I knew the tower would give you away.",
+      "body": "Delphine is down. The tower will remember this.",
+      "delivery": "[cold]",
+      "idle": [
+        "The tower keeps its order. I keep the tower's order.",
+        "Every prisoner believes they are the exception. None of them are."
+      ],
+      "personality": "a cold believer in the tower's order",
+      "theme": "stern"
     }
   },
   "hunted": {
