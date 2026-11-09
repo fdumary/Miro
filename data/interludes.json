@@ -98,5 +98,9 @@
       ],
       "hunted_first": "You are making this harder, Miro. Don't come down here. Please."
     }
-  }
+  },
+  "hunt_thoughts": [
+    "They are looking for me upstairs. They're too late.",
+    "They know my cell is empty. From here on, nobody is idle."
+  ]
 }

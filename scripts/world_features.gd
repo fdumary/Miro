@@ -182,10 +182,10 @@ func add_props() -> void:
 	level.player.set_collision_mask_value(6, true)  # crates and window sills
 	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
 	# Tonics: the little bottles beside the cots (drawn where scaffold_art once stamped them).
-	if floor_number == 2:
+	if floor_number >= 2:
 		var storey_list: Array = level.definition.get("storeys", [])
-		for index in range(mini(3, storey_list.size())):
-			for step in range(5):
+		for index in range(mini(6, storey_list.size())):
+			for step in range(5 if floor_number == 2 else 4):
 				var bottle_x := 220.0 + step * 330 + index * 37 + 70
 				var tonic_point := Vector2(bottle_x, float(storey_list[index]) - 16.0)
 				if bottle_x <= float(level.definition.world_size[0]) - 120.0 and placement_clear(tonic_point):
@@ -458,9 +458,6 @@ user: keeper    password: root
 			prop.used = true
 			prop.queue_redraw()
 	else:
-		if level.player.detection_state == "SPOTTED" or level.guards().any(func(guard): return guard.detect_player()):
-			level.notify("Break sight before entering a hiding spot.")
-			return true
 		level.player.end_stealth()
 		level.player.in_hiding_spot = true
 		level.player.velocity = Vector2.ZERO
@@ -657,7 +654,7 @@ func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> v
 		if DisplayServer.get_name() != "headless":
 			voice.play()
 	line_left = duration + 0.35
-	subtitle.text = "%s: %s" % [actor.guard_name, text]
+	subtitle.text = "%s: %s" % [actor.display_name, text]
 	last_line = extra.duplicate()
 	if last_line.is_empty():
 		last_line = {"bark": true}
@@ -712,6 +709,9 @@ func update_bubbles(delta: float) -> void:
 		thought_left = maxf(0, thought_left - delta)
 		thought_bubble.visible = thought_left > 0
 		thought_bubble.follow_actor()
+		if thought_left <= 0 and not pending_thoughts.is_empty():
+			var next_thought: Array = pending_thoughts.pop_front()
+			think(str(next_thought[0]), str(next_thought[1]))
 		return
 	# The first time a live turret comes into view, Miro sizes it up.
 	if not turret_hinted:
@@ -733,8 +733,15 @@ func update_bubbles(delta: float) -> void:
 			think(entry.text, "thought_%d_%s" % [floor_number, entry.id])
 			break
 
-func think(text: String, clip := "") -> void:
+## Thoughts queue: a new one waits for the one on screen to finish (and be heard in full)
+## unless it is Miro's own Z hint, which cuts in.
+var pending_thoughts: Array = []
+
+func think(text: String, clip := "", cut_in := false) -> void:
 	if text.is_empty():
+		return
+	if thought_left > 0 and not cut_in:
+		pending_thoughts.append([text, clip])
 		return
 	thought_bubble.text_label.text = text
 	thought_left = maxf(4, text.length() * 0.07)
@@ -746,6 +753,7 @@ func think(text: String, clip := "") -> void:
 	if ResourceLoader.exists(path) and DisplayServer.get_name() != "headless":
 		thought_voice.stream = load(path)
 		thought_voice.play()
+		thought_left = maxf(thought_left, thought_voice.stream.get_length() + 0.7)
 
 ## A line over the remote: shown above Miro, heard through the bitcrushed radio bus.
 ## With an actor (Niro in the room) the line hangs over him instead and is not radioed.

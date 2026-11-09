@@ -37,6 +37,14 @@ var death_recorded: bool = false
 var sees_player: bool = false
 var body_reported: bool = false
 var guard_name := "Keeper"
+## The name shown to the player: no digits ("Wren2" shows as "Wren T."), clip lookups keep guard_name.
+var display_name: String:
+	get:
+		var plain := guard_name
+		var stripped := guard_name.rstrip("0123456789")
+		if stripped != guard_name:
+			plain = stripped + " T."
+		return plain
 ## Individual character description from the Keeper roster.
 var personality := ""
 ## Off duty in a huddle: absorbed in each other, they only notice Miro right on top of them.
@@ -172,7 +180,7 @@ func _physics_process(delta: float) -> void:
 			body_reported = true
 			if not sees_player:
 				investigate(body.global_position)
-			level.notify("%s found %s. The Keepers are searching." % [guard_name, body.guard_name])
+			level.notify("%s found %s. The Keepers are searching." % [display_name, body.display_name])
 			# High alert: grieve out loud (over anything else being said), turn on the area at
 			# a run, and rouse every Keeper within earshot.
 			if alert_state != State.ALERT:
@@ -421,7 +429,7 @@ func die() -> void:
 
 func _draw() -> void:
 	var pale := Color("f2d3ab")
-	draw_string(ThemeDB.fallback_font, Vector2(-18, -36), guard_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
+	draw_string(ThemeDB.fallback_font, Vector2(-18, -36), display_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
 	# A hurt Keeper shows a small health bar over his head.
 	if not is_dead and health < MAX_HEALTH and health > 0 and not has_method("begin_recovery"):
 		draw_rect(Rect2(-11, -30, 22, 3), Color(0.1, 0.05, 0.1, 0.8))

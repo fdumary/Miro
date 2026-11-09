@@ -15,6 +15,7 @@ var waves_sent := 0
 var next_wave_at := 0.0
 var run_done := false
 var thoughts_said := 0
+var floor_waved := {}
 
 var started := false
 var world_width := 1680.0
@@ -63,16 +64,41 @@ func _physics_process(delta: float) -> void:
 				guard.queue_free()
 	if clock > 2.0 and thoughts_said == 0:
 		thoughts_said = 1
-		level.world_features.think("They are running right past me. They are looking for someone in the other rooms.")
-	elif clock > 6.5 and thoughts_said == 1:
+		level.world_features.think(thought_line(0))
+	elif clock > 7.5 and thoughts_said == 1:
 		thoughts_said = 2
-		level.world_features.think("They know my cell is empty. From here on, nobody is idle.")
+		level.world_features.think(thought_line(1))
 	elif clock > CLOAK_TIME + 0.5 and thoughts_said == 2:
 		thoughts_said = 3
 		level.notify("The cloak fades. More Keepers are coming.", 4.0)
+	# A fresh wave rushes the last floors (the sigil floors) the first time Miro steps onto each.
+	var depth := 0
+	for storey in level.definition.get("storeys", []):
+		if float(storey) <= level.player.position.y + 24.0:
+			depth += 1
+	if depth >= 5 and not floor_waved.has(depth) and clock > CLOAK_TIME + 2.0:
+		floor_waved[depth] = true
+		send_wave()
 	if clock >= next_wave_at and waves_sent < MAX_WAVES and wave_clear():
 		send_wave()
 		next_wave_at = clock + WAVE_GAP
+
+## Miro's thoughts for the pass-by (data/interludes.json, voiced like his other thoughts).
+func thought_line(index: int) -> String:
+	var lines: Array = JSON.parse_string(FileAccess.get_file_as_string("res://data/interludes.json")).hunt_thoughts
+	return str(lines[index])
+
+## Keepers never stack: every new spawn point keeps 44 px from the others.
+func spread(points: Array) -> Array:
+	var placed: Array = []
+	for point in points:
+		var x: float = point
+		var tries := 0
+		while placed.any(func(other): return absf(other - x) < 44.0) and tries < 40:
+			x += 44.0 if (tries % 2 == 0) else -88.0
+			tries += 1
+		placed.append(clampf(x, 120.0, world_width - 120.0))
+	return placed
 
 func wave_clear() -> bool:
 	return wave_guards.all(func(guard): return not is_instance_valid(guard) or guard.is_dead or guard.asleep or guard.alert_state == 0)
@@ -82,10 +108,13 @@ func send_wave() -> void:
 	wave_guards.clear()
 	var player = level.player
 	var count := WAVE_SIZE + int(level.get_node("/root/Campaign").tuning().wave_extra)
+	var xs: Array = []
+	for index in range(maxi(1, count)):
+		xs.append(clampf(player.position.x + (-1.0 if index % 2 == 0 else 1.0) * (520 + index * 40), 120, world_width - 120))
+	xs = spread(xs)
 	for index in range(maxi(1, count)):
 		var guard = load("res://scenes/guard.tscn").instantiate()
-		var side := -1.0 if index % 2 == 0 else 1.0
-		guard.position = Vector2(clampf(player.position.x + side * (520 + index * 40), 120, world_width - 120), player.position.y)
+		guard.position = Vector2(xs[index], player.position.y)
 		guard.patrol_left = guard.position.x - 80
 		guard.patrol_right = guard.position.x + 80
 		guard.level = level

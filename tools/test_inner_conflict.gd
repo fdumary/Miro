@@ -116,7 +116,7 @@ func run() -> void:
 	check(behavior.committed.has(1) and int(behavior.committed[1].ghost) == 4, "Completing a floor folds in its stealth (unseen +3, pickpocket +1)")
 	# Floor 2: verses join the Keepers' talk, two terminals, a frame by the stair gate.
 	await floor_scene(2)
-	check(director().terminals.size() == 2 and is_instance_valid(director().frame), "Floor 2 places two terminals and a frame")
+	check(director().terminals.size() == 3 and is_instance_valid(director().frame), "Floor 2 places three terminals and a frame")
 	var verses: Array = level.world_features.conversation.filter(func(line): return line.get("verse", false))
 	if level.world_features.get("casual_scenes") != null:
 		for scene in level.world_features.casual_scenes:

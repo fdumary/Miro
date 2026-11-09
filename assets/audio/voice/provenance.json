@@ -19150,5 +19150,61 @@
       "output_lufs": "-18.27",
       "output_true_peak_dbtp": "-1.98"
     }
+  },
+  "miro_e2bf6d8526": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "They are looking for me upstairs. They're too late.",
+    "delivery": "[whispers]",
+    "signature": "0e71e00b6b2a5b740753a6df10d142a22a8a31f0e5456b3e2768d80a5e6d2f15",
+    "leveling": {
+      "source_sha256": "ea535c057004fb29b88874afbc463a90cfc2a6b871f01b1fd2b8e6746db3a223",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.04",
+        "input_tp": "-2.08",
+        "input_lra": "2.90",
+        "input_thresh": "-33.36",
+        "output_i": "-18.02",
+        "output_tp": "-2.00",
+        "output_lra": "1.60",
+        "output_thresh": "-28.30",
+        "normalization_type": "dynamic",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-18.51",
+      "output_true_peak_dbtp": "-1.76"
+    }
+  },
+  "miro_48157340f9": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "They know my cell is empty. From here on, nobody is idle.",
+    "delivery": "[whispers]",
+    "signature": "5f63297e4373e9a844873dbada3f59f8fa8fb631473598adb7c3b2d3ae34a40e",
+    "leveling": {
+      "source_sha256": "9bc8ec97447e297c2d5a573a596f944f77593ba65e728caf13037c838be72a5a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.80",
+        "input_tp": "-0.80",
+        "input_lra": "6.50",
+        "input_thresh": "-27.37",
+        "output_i": "-16.28",
+        "output_tp": "-2.00",
+        "output_lra": "4.60",
+        "output_thresh": "-26.91",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.72"
+      },
+      "output_lufs": "-17.73",
+      "output_true_peak_dbtp": "-2.31"
+    }
   }
 }
