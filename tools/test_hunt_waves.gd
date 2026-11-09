@@ -13,8 +13,17 @@ func run() -> void:
 	check(level.player.is_concealed, "Miro starts cloaked")
 	var runner = hunt.runners[0]
 	var begin_x: float = runner.position.x
+	var begin_time: float = runner.time
+	check(runner.velocity.x == 150.0, "Scripted runners report movement for the Keeper walk sprite")
 	await frames(60)
 	check(runner.position.x > begin_x + 50, "The runners pass Miro")
+	check(runner.time > begin_time + 0.5, "Scripted runners advance their walk animation clock")
+	var pause_x: float = runner.position.x
+	var pause_time: float = runner.time
+	level.paused = true
+	await frames(8)
+	check(runner.position.x == pause_x and runner.time == pause_time, "Pausing freezes scripted movement and animation")
+	level.paused = false
 	check(runner.alert_state == IntroGuard.State.PATROL and level.player.is_concealed, "They do not notice him")
 	hunt.clock = hunt.next_wave_at
 	await frames(5)

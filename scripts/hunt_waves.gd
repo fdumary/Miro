@@ -45,6 +45,7 @@ func send_runners() -> void:
 		guard.collision_layer = 0
 		guard.collision_mask = 0
 		guard.facing = 1
+		guard.velocity = Vector2(150.0, 0)
 		runners.append(guard)
 
 func _physics_process(delta: float) -> void:
@@ -58,7 +59,12 @@ func _physics_process(delta: float) -> void:
 	clock += delta
 	for guard in runners:
 		if is_instance_valid(guard):
-			guard.position.x += 150.0 * delta
+			# Scripted runners skip IntroGuard physics, so advance its animation
+			# clock and publish the movement velocity used by its sprite selection.
+			guard.velocity = Vector2(150.0, 0)
+			guard.time += delta
+			guard.position += guard.velocity * delta
+			guard.queue_redraw()
 			guard.facing = 1
 			if guard.position.x > world_width - 220:
 				guard.queue_free()
