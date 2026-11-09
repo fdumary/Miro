@@ -56,9 +56,15 @@ func attacks() -> Array:
 
 var last_attack := ""
 var combo := 0
+## Test hook: the next attack, once.
+var forced_attack := ""
 
 ## Not a fixed rotation: he picks at random, never the same attack three times running.
 func next_attack() -> String:
+	if forced_attack != "":
+		var forced := forced_attack
+		forced_attack = ""
+		return forced
 	var list := attacks()
 	var attack: String = list[randi() % list.size()]
 	if attack == last_attack and list.size() > 1 and randf() < 0.6:

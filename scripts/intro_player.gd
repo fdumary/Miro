@@ -239,7 +239,7 @@ func check_guard_contact() -> void:
 			return
 
 func stealth_status() -> String:
-	if controls.blanket_removed():
+	if is_instance_valid(controls) and controls.blanket_removed():
 		return ""
 	if is_concealed:
 		return "STEALTH %.1fs" % stealth_remaining
