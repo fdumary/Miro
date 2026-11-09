@@ -85,7 +85,9 @@ func resume_floor() -> void:
 func start_floor(number: int) -> void:
 	review_override = false
 	pending_track = ""
-	var was_second := section_id.contains("_second")
+	# Re-entering the same floor from its second section (a retry) resumes that second track;
+	# a new floor never inherits the last floor's second track.
+	var was_second := section_id == "floor_%d_second" % number
 	section_id = "floor_%d_entry" % number
 
 	floor_track = FIRST[number]
@@ -144,7 +146,13 @@ func play_track(id: String, loop := true) -> void:
 	active = 1 - active
 	voices[active].stop()
 	var stream = load(catalog[id].stream).duplicate()
-	stream.loop = loop
+	if stream is AudioStreamWAV:
+		# A WAV track (Sum Crazy) loops through its sample range instead of a loop flag.
+		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD if loop else AudioStreamWAV.LOOP_DISABLED
+		stream.loop_begin = 0
+		stream.loop_end = int(stream.get_length() * stream.mix_rate)
+	else:
+		stream.loop = loop
 	voices[active].stream = stream
 	voices[active].volume_db = -80
 	if DisplayServer.get_name() != "headless":
