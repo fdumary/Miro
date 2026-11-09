@@ -376,7 +376,7 @@ const DIFFICULTIES := {
 	"easy": {"label": "Easy", "health": 10, "stealth_cooldown": 5.0, "stealth_duration": 6.0, "wave_extra": -1, "suspicion": 0.65, "sight": 140.0, "windup": 0.9, "attack_gap": 2.8, "chase": 66.0, "niro_health": 0.8},
 	"medium": {"label": "Medium", "health": 6, "stealth_cooldown": 8.0, "stealth_duration": 5.0, "wave_extra": 0, "suspicion": 1.0, "sight": 165.0, "windup": 0.65, "attack_gap": 2.1, "chase": 78.0, "niro_health": 1.0},
 	"hard": {"label": "Hard", "health": 4, "stealth_cooldown": 11.0, "stealth_duration": 4.0, "wave_extra": 1, "suspicion": 1.4, "sight": 190.0, "windup": 0.5, "attack_gap": 1.6, "chase": 88.0, "niro_health": 1.3},
-	"super_hard": {"label": "Super Hard", "health": 1, "stealth_cooldown": 12.0, "stealth_duration": 3.0, "wave_extra": 2, "suspicion": 2.0, "sight": 210.0, "windup": 0.4, "attack_gap": 1.2, "chase": 95.0, "niro_health": 2.0},
+	"super_hard": {"label": "Super Hard", "health": 2, "stealth_cooldown": 12.0, "stealth_duration": 3.0, "wave_extra": 2, "suspicion": 2.0, "sight": 210.0, "windup": 0.4, "attack_gap": 1.2, "chase": 95.0, "niro_health": 2.0},
 }
 var difficulty_override := ""
 
