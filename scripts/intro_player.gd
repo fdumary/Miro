@@ -69,6 +69,14 @@ func _ready() -> void:
 	controls = preload("res://scripts/player_controls.gd").new()
 	add_child(controls)
 	$CollisionShape2D.shape = $CollisionShape2D.shape.duplicate()
+	
+	var campaign = get_node_or_null("/root/Campaign")
+	if campaign != null:
+		var tuning: Dictionary = campaign.tuning()
+		health = int(tuning.health)
+		stealth_duration = float(tuning.stealth_duration)
+		stealth_cooldown = float(tuning.stealth_cooldown)
+
 
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(level):
