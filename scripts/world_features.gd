@@ -486,6 +486,24 @@ func setup_trapdoors() -> void:
 		trapdoors.append(trap)
 		floor.erase_cell(cell)
 
+## A live Keeper right behind Miro who has not noticed him: E strangles him (never from the front).
+func strangle_target():
+	if level.player.is_dead or level.player.in_hiding_spot:
+		return null
+	var best = null
+	var distance := 30.0
+	for guard in level.guards():
+		if guard.is_dead or guard.asleep or guard.has_method("begin_recovery"):
+			continue
+		if guard.get("sick_guard") and not guard.get("key_taken"):
+			continue  # Judas keeps his own pickpocket
+		var gap: Vector2 = level.player.global_position - guard.global_position
+		var behind: bool = gap.x * guard.facing < -6.0
+		if behind and absf(gap.y) < 26.0 and absf(gap.x) < distance and guard.alert_state != IntroGuard.State.ALERT and level.can_melee_reach(level.player.global_position, guard.global_position):
+			best = guard
+			distance = absf(gap.x)
+	return best
+
 func nearest_loot():
 	var best = null
 	var distance := 45.0
@@ -513,6 +531,8 @@ func hint() -> String:
 		return "[E] Leave hiding spot • movement and attacks disabled inside"
 	if loot_takes_priority():
 		return ""
+	if strangle_target() != null:
+		return "[E] Strangle (from behind)"
 	var trap = nearby_trapdoor()
 	if trap != null:
 		if not trap.available():

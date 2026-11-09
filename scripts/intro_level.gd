@@ -579,10 +579,29 @@ func context_hint() -> String:
 		return "Not sure where to go? [Z] Think it through"
 	return "A / D  Move    Space  Jump    C  Dash    Esc  Controls"
 
+## E behind an unaware Keeper strangles him: out cold, no blood, not a casualty.
+func try_strangle() -> bool:
+	if world_features == null or world_features.loot_takes_priority():
+		return false
+	var victim = world_features.strangle_target()
+	if victim == null:
+		return false
+	victim.strangle()
+	stealth_bonus += 1
+	# A quiet takedown feeds the ghost branch (the artwork), never the offense one.
+	var behavior = get_node_or_null("/root/PlayerBehavior")
+	if behavior != null:
+		behavior.record("strangle_%d" % victim.get_instance_id(), "ghost", 2)
+	get_node("/root/SoundFX").play_sound("swing", -12, 0.7)
+	notify("He goes limp. Out cold, not dead. [E] to loot him.")
+	return true
+
 func interact() -> void:
 	if controls_locked() or player.is_dead:
 		return
 	if player.controls.recover_charge():
+		return
+	if try_strangle():
 		return
 	if world_features and world_features.try_interact():
 		return

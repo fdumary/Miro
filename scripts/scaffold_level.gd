@@ -476,6 +476,8 @@ func interact() -> void:
 		return
 	if player.controls.recover_charge():
 		return
+	if try_strangle():
+		return
 	if world_features and world_features.try_interact():
 		return
 	var station := station_nearby()
