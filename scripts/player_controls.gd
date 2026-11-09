@@ -308,7 +308,9 @@ func collect_ammo_case() -> bool:
 		return false
 	var gun: String = player.equipped_gun
 	reserves[gun] = reserves.get(gun, 0) + capacity(gun)
-	player.level.notify("Ammunition case: +%d %s rounds" % [capacity(gun), gun])
+	# The case also holds a field dressing: one full heart.
+	player.health = mini(player.max_health, player.health + 2)
+	player.level.notify("Ammunition case: +%d %s rounds, and a full heart" % [capacity(gun), gun])
 	return true
 
 ## [B] or "next" on the remote: skip to the next unlocked beat on Miro's MP3, then back to the floor.
@@ -580,9 +582,9 @@ func run_command(raw: String) -> void:
 	elif text == "scan":
 		var terminal: Node2D = player.level.world_features.security_terminal()
 		if at_checkpoint():
-			output.text = "checkpoint.local · linked cameras and floor turrets · login required\nPassword clue: listen to the Keepers or inspect the maintenance slip."
+			output.text = "checkpoint.local · linked cameras and floor turrets · login required"
 		elif terminal != null:
-			output.text = "records.local · floor turret controls\nMaintenance slip: password root"
+			output.text = "records.local · floor turret controls · login required"
 		elif at_early_port():
 			output.text = "service.local · maintenance account\nSticker: user root · password root\n" + ("Practice lamp: lights test" if get_node("/root/Campaign").current_floor == 1 else "Optional corridor camera: cameras off")
 		else:

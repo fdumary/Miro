@@ -294,7 +294,7 @@ func _process(delta: float) -> void:
 		if in_region and ready_milestone and (not entry.get("requires_landing", true) or player.is_on_floor()):
 			get_node("/root/MusicDirector").second_section(int(definition.number))
 	if hack_remaining > 0 and not controls_locked():
-		if player.is_dead or player.global_position.distance_to(areas.get_node("RemoteTerminal").global_position) >= 48:
+		if player.is_dead or player.global_position.distance_to(areas.get_node("RemoteTerminal").global_position) >= 90:
 			hack_remaining = 0
 			notify("Reprogramming interrupted. Stay beside the terminal for one second.")
 		else:
@@ -302,8 +302,20 @@ func _process(delta: float) -> void:
 			if hack_remaining == 0:
 				for camera in connected_cameras:
 					camera.disable()
-				pending_milestone = "RemoteTerminal"
-				start_dialogue([["MIRO", "I hacked the system and nobody has even realized.", "thought"]], "milestone")
+				# The hack counts the moment it completes, so no other scene starting at the same
+				# time (a remote threat, a Keeper's bark) can swallow it and leave the gate locked.
+				milestones["RemoteTerminal"] = true
+				if has_node("Gates"):
+					for gate in $Gates.get_children():
+						if gate.unlock_milestone == "RemoteTerminal":
+							gate.unlock()
+				var terminal_area = areas.get_node_or_null("RemoteTerminal")
+				if terminal_area != null:
+					terminal_area.activated = true
+					terminal_area.queue_redraw()
+				notify("Checkpoint controls disabled. The gate is open.", 5.0)
+				if dialogue.is_empty():
+					start_dialogue([["MIRO", "I hacked the system and nobody has even realized.", "thought"]])
 	if completed:
 		overlay_label.text = "%s\n\n%s\n\n%s\n\n[Backspace] Retry   [Enter] Descend" % [definition.title.to_upper(), definition.closing, floor_report()]
 		if int(definition.number) == 5:

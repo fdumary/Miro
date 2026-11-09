@@ -20018,5 +20018,117 @@
       "output_lufs": "-18.15",
       "output_true_peak_dbtp": "-1.68"
     }
+  },
+  "rocco_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "ICwKbPHDHAM3eal5tHEZ",
+    "voice_name": "Rocco - Tony (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Hey! Hey, you! Get back here!",
+    "delivery": "[shouting] [cocky]",
+    "signature": "664298ac8e356b679ea2125985f25cf969b9c61b724459f8f695d7e591b00594",
+    "leveling": {
+      "source_sha256": "c582a9378bda20a3e646896e5c20170b5d0d48cda2eaeb435d780fb71af32a88",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.08",
+        "input_tp": "-1.64",
+        "input_lra": "0.00",
+        "input_thresh": "-26.08",
+        "output_i": "-17.99",
+        "output_tp": "-3.56",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.50"
+    }
+  },
+  "rocco_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "ICwKbPHDHAM3eal5tHEZ",
+    "voice_name": "Rocco - Tony (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Rocco's down! Somebody get the doctor!",
+    "delivery": "[shocked] [cocky]",
+    "signature": "6d8ed703725d5eab7197289f39c78486be8683537111736a86c2558442d73555",
+    "leveling": {
+      "source_sha256": "f9800979b6db91cf6c5edabe561889f69210eeb788609287f61c2b11b0a9e76c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.70",
+        "input_tp": "-1.42",
+        "input_lra": "0.00",
+        "input_thresh": "-27.70",
+        "output_i": "-18.28",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.28",
+        "normalization_type": "linear",
+        "target_offset": "0.28"
+      },
+      "output_lufs": "-18.27",
+      "output_true_peak_dbtp": "-1.87"
+    }
+  },
+  "rocco_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "ICwKbPHDHAM3eal5tHEZ",
+    "voice_name": "Rocco - Tony (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "I bet the new guy ten bucks you wouldn't come this way.",
+    "delivery": "[cocky] [muttering]",
+    "signature": "5b3ebb5cbea2075763ab3b1ed8c3bbc1965580c6b9ba0fffe45f8bf6c9149381",
+    "leveling": {
+      "source_sha256": "4d7cfdcf799f2d9ab89379e1a2fc6a76c40c2e6589dae41bbad53e7b083a44c8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.57",
+        "input_tp": "-6.87",
+        "input_lra": "0.40",
+        "input_thresh": "-34.57",
+        "output_i": "-18.24",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.24",
+        "normalization_type": "dynamic",
+        "target_offset": "0.24"
+      },
+      "output_lufs": "-18.12",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "rocco_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "ICwKbPHDHAM3eal5tHEZ",
+    "voice_name": "Rocco - Tony (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Second floor's the quiet floor. That's why I like it.",
+    "delivery": "[cocky] [muttering]",
+    "signature": "ab4ae3f86a417fcca5353ac1d3df1f0f29831ddfcd1fb17ab9d41ed62e31389f",
+    "leveling": {
+      "source_sha256": "4de41cb058e6b6ab0de52bab4c5d5a3fc1f4c119cf4420d9cfe49f98643377a1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-29.84",
+        "input_tp": "-8.54",
+        "input_lra": "0.90",
+        "input_thresh": "-40.41",
+        "output_i": "-18.73",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.23",
+        "normalization_type": "dynamic",
+        "target_offset": "0.73"
+      },
+      "output_lufs": "-18.66",
+      "output_true_peak_dbtp": "-1.70"
+    }
   }
 }

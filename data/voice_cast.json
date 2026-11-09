@@ -515,6 +515,11 @@
       "name": "Yara (extra guard)",
       "voice_id": "gDQfVolj9RbmXgumLcOq",
       "stability": 0.5
+    },
+    "rocco": {
+      "name": "Rocco - Tony (extra guard)",
+      "voice_id": "ICwKbPHDHAM3eal5tHEZ",
+      "stability": 0.5
     }
   },
   "guard_delivery": {

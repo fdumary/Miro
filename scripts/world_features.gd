@@ -58,8 +58,9 @@ func setup(owner_level: Node2D, number: int) -> void:
 	voice = AudioStreamPlayer2D.new()
 	voice.bus = "Voice"
 	voice.process_mode = Node.PROCESS_MODE_PAUSABLE
-	voice.max_distance = 300
-	voice.attenuation = 1.5
+	# Heard clearly from the whole conversation range; fading, never cut, with distance.
+	voice.max_distance = 560
+	voice.attenuation = 1.0
 	add_child(voice)
 	thought_voice = AudioStreamPlayer.new()
 	thought_voice.bus = "Thought" if AudioServer.get_bus_index("Thought") >= 0 else "Voice"
@@ -766,6 +767,8 @@ func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> v
 	voice_speaker = actor
 	speech_bubble.actor = actor
 	voice.global_position = actor.global_position
+	# Still audible while Miro is cloaked or hiding, only softer.
+	voice.volume_db = -7.0 if (level.player.is_concealed or level.player.in_hiding_spot) else 0.0
 	var path := keeper_clip_path(actor.guard_name, id)
 	var duration := maxf(2.5, text.length() * 0.055)
 	voice.stream = load(path) if ResourceLoader.exists(path) else null
@@ -916,13 +919,10 @@ func build_password_panel() -> void:
 	password_slip = slip
 	slip.text = "Inspect maintenance slip"
 	slip.pressed.connect(func():
-		password_known = true
-		password_status.text = "Maintenance slip: root (all lowercase)."
-		password_use.show()
-		password_use.grab_focus())
+		password_known = true)
 	box.add_child(slip)
 	password_status = Label.new()
-	password_status.text = "Listen nearby, or inspect the maintenance slip."
+	password_status.text = ""
 	box.add_child(password_status)
 	var cancel := Button.new()
 	cancel.text = "Close"
@@ -933,15 +933,11 @@ func build_password_panel() -> void:
 func open_terminal() -> void:
 	password_panel.show()
 	password_input.text = ""
-	password_status.text = "Overheard password: root" if password_known else "Listen nearby, or inspect the maintenance slip."
-	password_use.visible = password_known
-	# With a controller there is no keyboard to type into, so focus starts on a button.
-	if Input.get_connected_joypads().is_empty():
-		password_input.grab_focus()
-	elif password_known:
-		password_use.grab_focus()
-	else:
-		password_slip.grab_focus()
+	# No hints here: the player works the password out (the Keepers' talk, a dropped note).
+	password_status.text = ""
+	password_use.visible = false
+	password_slip.visible = false
+	password_input.grab_focus()
 
 func submit_password(text: String) -> void:
 	if text != "root":

@@ -14,6 +14,8 @@ var sigil_placed: bool = false
 const FLOOR_END_CRACKLE := "...Miro?"
 ## What the remote says as each floor's report comes up (floors without an entry stay quiet): the
 ## written closing line, never the same "Miro" twice.
+## Miro answers the remote after the line (floor 2: "From who?" was only text).
+const FLOOR_END_REPLIES := {2: "From who?"}
 const FLOOR_END_LINES := {1: "...Miro?", 2: "If you go any lower, I can't protect you.", 3: "You've read it by now. Miro, please... let me explain.", 4: "Don't come down here, Miro. Please."}
 var crackle_played := false
 var brother_heard: bool = false
@@ -62,6 +64,17 @@ func _ready() -> void:
 	build_hud()
 	apply_difficulty()
 	setup_world_features(1)
+	# One more patrol on the second floor, right of the first ladder.
+	var annex = load("res://scenes/guard.tscn").instantiate()
+	annex.name = "AnnexKeeper"
+	annex.position = Vector2(1010, 432)
+	annex.patrol_left = 940.0
+	annex.patrol_right = 1070.0
+	annex.level = self
+	annex.illness_started = true
+	annex.weapon_kind = "pistol"
+	world_features.assign_keeper(annex, "Rocco")
+	$Guards.add_child(annex)
 	start_dialogue([
 		["MIRO", "Stone. Iron. A name scratched into the bed: Miro.\nMine... I think. Nothing before this room.", "thought"],
 		["JUDAS", "Awake again. Keep it down, traitor."],
@@ -277,6 +290,11 @@ func _process(delta: float) -> void:
 		if not crackle_played:
 			# The remote crackles with his brother's voice as the floor report comes up.
 			crackle_played = true
+			var reply: String = FLOOR_END_REPLIES.get(int(get("definition").number) if get("definition") != null else 1, "")
+			if not reply.is_empty():
+				# Miro answers the remote once it has finished speaking.
+				var wait: float = get_node("/root/RemoteRadio").clip_length(str(FLOOR_END_LINES.get(int(get("definition").number), ""))) + 0.5
+				get_tree().create_timer(wait).timeout.connect(func(): get_node("/root/RemoteRadio").say_in_room(reply, "miro", "Voice"))
 			var end_line: String = FLOOR_END_LINES.get(int(get("definition").number) if get("definition") != null else 1, "")
 			if not end_line.is_empty():
 				get_node("/root/RemoteRadio").say(end_line)
