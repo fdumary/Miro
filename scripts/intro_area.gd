@@ -67,7 +67,12 @@ func _draw() -> void:
 			if kind == "exit":
 				draw_polyline(PackedVector2Array([Vector2(-8, -12), Vector2(0, -4), Vector2(8, -12)]), pale, 2)
 		"note":
-			if name == "RemoteTerminal":
+			if name == "Guitar":
+				draw_line(Vector2(0, -8), Vector2(0, 12), purple, 2)
+				draw_line(Vector2(-10, 14), Vector2(10, 14), purple, 2)
+				if not activated:
+					draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES.guitar, Rect2(-17, -30, 34, 34), false)
+			elif name == "RemoteTerminal":
 				draw_texture_rect(LIBRARY.texture("terminal"), Rect2(-24, -34, 48, 48), false)
 				draw_circle(Vector2(0, -21), 2, pale if activated else pink)
 			elif name == "WardRelease":

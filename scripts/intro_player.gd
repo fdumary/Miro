@@ -435,11 +435,11 @@ func update_visual(delta: float) -> void:
 func draw_strum_ray() -> void:
 	if not is_instance_valid(controls) or controls.strum_flash <= 0.0:
 		return
-	var direction := aim_direction if aim_direction.length_squared() > 0.1 else Vector2(facing, 0)
+	var direction: Vector2 = controls.strum_direction
 	var strength: float = clampf(controls.strum_flash / 0.35, 0.0, 1.0)
 	var reach: float = controls.strum_visual_reach
 	var side := Vector2(-direction.y, direction.x)
-	var origin := Vector2(0, -6)
+	var origin := guitar_sound_origin()
 	# A soft widening cone underneath, then the line-and-note burst on top of it.
 	draw_colored_polygon(PackedVector2Array([origin, origin + direction * reach + side * (reach * 0.16), origin + direction * reach - side * (reach * 0.16)]), Color(0.95, 0.83, 0.67, 0.16 * strength))
 	preload("res://scripts/guitar_music_fx.gd").draw_burst(self, origin, direction, strength, reach)
@@ -465,6 +465,13 @@ func _draw() -> void:
 		var direction := weapon_aim_direction()
 		draw_set_transform(Vector2(0, -4), direction.angle(), Vector2(1, -1 if direction.x < 0 else 1))
 		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES[equipped_gun], Rect2(0, -10, 24, 24), false)
+		draw_set_transform(Vector2.ZERO)
+	if controls.has_guitar and controls.active == "guitar" and not is_dead and not in_hiding_spot:
+		var direction := weapon_aim_direction()
+		var flip := -1.0 if direction.x < 0 else 1.0
+		var strum_tilt := sin(controls.strum_flash / 0.35 * PI) * 0.1
+		draw_set_transform(guitar_sound_origin(), direction.angle() + flip * PI / 4 + strum_tilt, Vector2(1, flip))
+		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES.guitar, Rect2(-10, -20, 30, 30), false)
 		draw_set_transform(Vector2.ZERO)
 	if attack_flash > 0 and melee_anim <= 0:
 		draw_line(Vector2(facing * 9, -2), Vector2(facing * 35, -7), Color("fbf5ef"), 2)
@@ -535,3 +542,6 @@ func weapon_aim_direction() -> Vector2:
 
 func focus_reticle_position() -> Vector2:
 	return get_local_mouse_position() if mouse_aim else Vector2(0, -4) + weapon_aim_direction() * 96.0
+
+func guitar_sound_origin() -> Vector2:
+	return Vector2(-6 if weapon_aim_direction().x < 0 else 6, -2)

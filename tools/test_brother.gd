@@ -32,6 +32,10 @@ func run() -> void:
 	flow.wave_started.connect(func(_row): bar_phase[0] = fmod(music.beat_position(), 4.0))
 	level.finish_dialogue()
 	check(level.player.controls.has_guitar and level.player.controls.active == "guitar", "Guitar is taken and selected")
+	level.player.controls.show_inventory()
+	check(level.player.controls.guitar_button.visible and level.player.controls.guitar_button.icon == preload("res://scripts/weapon_art.gd").TEXTURES.guitar, "Guitar appears as an inventory item with its art")
+	level.player.controls.guitar_button.pressed.emit()
+	check(level.player.controls.active == "guitar" and not level.player.controls.inventory_open, "Inventory guitar entry equips it")
 	# Fixture: the scripted section checks the flow, not survival; the final fight below uses normal health.
 	level.player.health = 99
 	check(music.track_id == "shit_crashed", "Picking up the guitar starts Shit Crashed")

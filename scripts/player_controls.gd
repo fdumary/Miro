@@ -28,6 +28,8 @@ var pad_prompts: bool:
 var controller_settings: Node
 var reserves: Dictionary = {}
 var reload_left := 0.0
+var guitar_button: Button
+var inventory_title: Label
 var panel: PanelContainer
 var remote_panel: PanelContainer
 var output: Label
@@ -40,6 +42,7 @@ var progress := 0.0
 var has_guitar := false
 var strum_cooldown := 0.0
 var strum_flash := 0.0
+var strum_direction := Vector2.RIGHT
 var strum_visual_reach := 120.0
 const STRUM_RADIUS := 120.0
 const STRUM_RADIUS_ON_BEAT := 170.0
@@ -288,6 +291,7 @@ func strum() -> int:
 		return -1
 	strum_cooldown = 0.55
 	strum_flash = 0.35
+	strum_direction = player.weapon_aim_direction()
 	var on_beat: bool = get_node("/root/MusicDirector").is_on_beat(0.12)
 	var radius := STRUM_RADIUS_ON_BEAT if on_beat else STRUM_RADIUS
 	strum_visual_reach = radius
@@ -366,6 +370,7 @@ func build_panels() -> void:
 	var box := VBoxContainer.new()
 	panel.add_child(box)
 	var title := Label.new()
+	inventory_title = title
 	title.text = "INVENTORY · Click two slots to swap · Q always selects blanket"
 	title.add_theme_font_size_override("font_size", 12)
 	box.add_child(title)
@@ -373,11 +378,21 @@ func build_panels() -> void:
 	box.add_child(row)
 	for i in range(5):
 		var button := Button.new()
-		button.custom_minimum_size = Vector2(88, 45)
+		button.custom_minimum_size = Vector2(72, 45)
 		button.add_theme_font_size_override("font_size", 11)
 		button.pressed.connect(swap_slot.bind(i))
 		row.add_child(button)
 		buttons.append(button)
+	guitar_button = Button.new()
+	guitar_button.name = "GuitarItem"
+	guitar_button.text = "Guitar"
+	guitar_button.icon = preload("res://scripts/weapon_art.gd").TEXTURES.guitar
+	guitar_button.expand_icon = true
+	guitar_button.add_theme_constant_override("icon_max_width", 20)
+	guitar_button.custom_minimum_size = Vector2(72, 45)
+	guitar_button.pressed.connect(func(): select_item("guitar"); close_panels())
+	row.add_child(guitar_button)
+	guitar_button.visible = has_guitar
 	var close := Button.new()
 	close.text = "Done [N / Esc]"
 	close.pressed.connect(close_panels)
@@ -432,6 +447,11 @@ func show_inventory() -> void:
 	refresh_slots()
 
 func refresh_slots() -> void:
+	if is_instance_valid(guitar_button):
+		guitar_button.visible = has_guitar
+	if is_instance_valid(inventory_title):
+		var item := "guitar" if has_guitar else "blanket"
+		inventory_title.text = ("INVENTORY · D-pad navigate · Cross/A swap · Triangle/Y " + item) if pad_prompts else ("INVENTORY · Click two slots to swap · Q " + item)
 	for i in range(5):
 		buttons[i].text = "%d\n%s%s" % [i + 1, slots[i] if not slots[i].is_empty() else "empty", " *" if swap_from == i else ""]
 

@@ -7,3 +7,5 @@ D-pad Down opens a nearby terminal, matching the displayed console hint. Existin
 Analog movement now stores facing as +1 or -1 instead of the stick's fractional strength. Movement speed remains analog; Miro no longer becomes paper-thin. Gun drawing, projectile direction and L2 focus reticle share the same aim calculation. The controller reticle follows the right stick instead of the mouse cursor; releasing L2 clears focus.
 
 `tools/test_controller_prompts_and_aim.gd` covers the reported issues (15 checks). Existing PlayStation input, mouse projectiles and dialogue suites also pass. Rendered dialogue, aiming and pause-control previews are under tmp locally.
+
+The Level 5 guitar pickup uses the guitar art rather than the generic record/note image. Picking it up unlocks its inventory button and shows the held guitar on Miro. Both existing ray layers share the guitar sound origin, attack direction snapshot and on-beat range. Strum targeting remains the established wall-checked sound radius; this cosmetic pass does not introduce new projectile physics or change boss balance. The boss-flow check also verifies the inventory item and equip action (49 checks).
