@@ -178,7 +178,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_Z and not controls_locked() and not player.is_dead:
 		# Z: Miro thinks through what to do next, in his thought bubble.
 		if is_instance_valid(world_features):
-			world_features.think(z_hint())
+			world_features.think(z_hint(), "", true)
 		get_viewport().set_input_as_handled()
 
 func _process(delta: float) -> void:
@@ -259,7 +259,7 @@ func _process(delta: float) -> void:
 			else:
 				radio.stop()
 			line_lock = 0.0
-			if radio.audible():
+			if radio.audible() and niro_line:
 				var length: float = radio.speaking_left
 				if radio.room.playing and radio.room.stream != null:
 					length = maxf(length, radio.room.stream.get_length())

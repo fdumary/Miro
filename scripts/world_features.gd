@@ -709,6 +709,9 @@ func update_bubbles(delta: float) -> void:
 		thought_left = maxf(0, thought_left - delta)
 		thought_bubble.visible = thought_left > 0
 		thought_bubble.follow_actor()
+		if thought_left <= 0 and not pending_thoughts.is_empty():
+			var next_thought: Array = pending_thoughts.pop_front()
+			think(str(next_thought[0]), str(next_thought[1]))
 		return
 	# The first time a live turret comes into view, Miro sizes it up.
 	if not turret_hinted:
@@ -730,8 +733,15 @@ func update_bubbles(delta: float) -> void:
 			think(entry.text, "thought_%d_%s" % [floor_number, entry.id])
 			break
 
-func think(text: String, clip := "") -> void:
+## Thoughts queue: a new one waits for the one on screen to finish (and be heard in full)
+## unless it is Miro's own Z hint, which cuts in.
+var pending_thoughts: Array = []
+
+func think(text: String, clip := "", cut_in := false) -> void:
 	if text.is_empty():
+		return
+	if thought_left > 0 and not cut_in:
+		pending_thoughts.append([text, clip])
 		return
 	thought_bubble.text_label.text = text
 	thought_left = maxf(4, text.length() * 0.07)
@@ -743,6 +753,7 @@ func think(text: String, clip := "") -> void:
 	if ResourceLoader.exists(path) and DisplayServer.get_name() != "headless":
 		thought_voice.stream = load(path)
 		thought_voice.play()
+		thought_left = maxf(thought_left, thought_voice.stream.get_length() + 0.7)
 
 ## A line over the remote: shown above Miro, heard through the bitcrushed radio bus.
 ## With an actor (Niro in the room) the line hangs over him instead and is not radioed.

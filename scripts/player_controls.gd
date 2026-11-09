@@ -151,7 +151,7 @@ func handle_pad_button(button: int) -> bool:
 		JOY_BUTTON_DPAD_RIGHT:
 			next_beat()
 		JOY_BUTTON_DPAD_UP:
-			player.level.world_features.think(player.level.z_hint())
+			player.level.world_features.think(player.level.z_hint(), "", true)
 		JOY_BUTTON_LEFT_SHOULDER:
 			cycle_item(-1)
 		JOY_BUTTON_RIGHT_SHOULDER:
