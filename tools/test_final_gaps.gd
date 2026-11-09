@@ -60,6 +60,25 @@ func run() -> void:
 		searcher.ladder_search(1.0 / 60.0)
 		await frames(1)
 	check(searcher.global_position.y > before_y + 25.0 and absf(searcher.global_position.x - 1540.0) < 6.0, "A searching Keeper takes the ladder down to the floor he last saw Miro")
+	# The checkpoint hack opens the gate even if another scene starts at the same moment.
+	level.queue_free()
+	await frames(2)
+	level = load("res://scenes/levels/level_03.tscn").instantiate()
+	root.add_child(level)
+	current_scene = level
+	await frames(10)
+	level.finish_dialogue()
+	for stray in level.guards():
+		stray.set_physics_process(false)
+	level.player.global_position = level.areas.get_node("RemoteTerminal").global_position + Vector2(0, 8)
+	level.world_features.open_terminal()
+	level.world_features.submit_password("root")
+	await frames(30)
+	level.start_dialogue([["TOWER PA", "Something interrupts."]])
+	await frames(20)
+	level.finish_dialogue()
+	await frames(90)
+	check(level.milestones.has("RemoteTerminal") and level.get_node("Gates/CheckpointGate").is_open, "The hack opens the checkpoint gate even when another scene interrupts")
 	level = null
 	print("FINAL_GAPS_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

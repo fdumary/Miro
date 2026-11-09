@@ -67,9 +67,9 @@ func _ready() -> void:
 	# One more patrol on the second floor, right of the first ladder.
 	var annex = load("res://scenes/guard.tscn").instantiate()
 	annex.name = "AnnexKeeper"
-	annex.position = Vector2(900, 432)
-	annex.patrol_left = 800.0
-	annex.patrol_right = 1010.0
+	annex.position = Vector2(1010, 432)
+	annex.patrol_left = 940.0
+	annex.patrol_right = 1070.0
 	annex.level = self
 	annex.illness_started = true
 	annex.weapon_kind = "pistol"

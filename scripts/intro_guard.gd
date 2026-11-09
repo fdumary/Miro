@@ -311,8 +311,14 @@ func ladder_search(delta: float) -> bool:
 	if alert_state == State.PATROL and not pursuing:
 		return false
 	var target := last_known_position
+	# A hunting Keeper tracks Miro himself, so he follows him up and down a ladder without stopping.
+	if (alert_state == State.ALERT or pursuing) and sees_player and is_instance_valid(level.player) and not level.player.is_dead:
+		target = level.player.global_position
+		last_known_position = target
 	var dy := target.y - global_position.y
-	if absf(dy) < 70.0:
+	# Once on a ladder he keeps going until he is level with the target floor.
+	var on_ladder := level.ladder_at(global_position) != null
+	if absf(dy) < (16.0 if on_ladder else 70.0):
 		return false
 	var low := minf(global_position.y, target.y)
 	var high := maxf(global_position.y, target.y)
