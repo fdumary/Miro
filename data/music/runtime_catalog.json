@@ -358,7 +358,7 @@
     "dancehall": {
       "title": "Dancehall YF",
       "stream": "res://assets/audio/music/dancehall.mp3",
-      "source": "dancehall yf_2....\ud83d\udccc.mp3",
+      "source": "dancehall yf_2....📌.mp3",
       "role": "mp3_unlock",
       "leveling": {
         "source_sha256": "edf97f60a3a08d5f6bcf330e4017f07c3ccb708de729843dff609cd8ac01a603",
@@ -614,6 +614,12 @@
         "output_true_peak_dbtp": "-8.36"
       },
       "bpm": 116.15
+    },
+    "foreva": {
+      "title": "FOREVA (FXREVA) - Mantaana",
+      "stream": "res://assets/audio/music/foreva.mp3",
+      "source": "_FXREVER_.mp3",
+      "bpm": 0.0
     }
   },
   "music_bus_db": -6,

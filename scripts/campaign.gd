@@ -186,6 +186,44 @@ static func score_floor(raw: Dictionary) -> Dictionary:
 ## Test runs keep their unlocks in memory only.
 var session_unlocks: Array = []
 
+## Achievements (easter eggs): saved in progress.cfg, kept in memory for test runs.
+var achievements_earned: Dictionary = {}
+
+func has_achievement(id: String) -> bool:
+	if not can_persist():
+		return achievements_earned.has(id)
+	var progress := ConfigFile.new()
+	progress.load("user://progress.cfg")
+	return Array(progress.get_value("achievements", "earned", [])).has(id)
+
+## True the first time only.
+func unlock_achievement(id: String) -> bool:
+	if has_achievement(id):
+		return false
+	achievements_earned[id] = true
+	if can_persist():
+		var progress := ConfigFile.new()
+		progress.load("user://progress.cfg")
+		var earned: Array = Array(progress.get_value("achievements", "earned", []))
+		earned.append(id)
+		progress.set_value("achievements", "earned", earned)
+		progress.save("user://progress.cfg")
+	return true
+
+## A secret beat (the Foreva note) goes onto the MP3 for good.
+func add_track_unlock(track: String) -> void:
+	var tracks := stored_unlocks()
+	if tracks.has(track):
+		return
+	tracks.append(track)
+	if can_persist():
+		var progress := ConfigFile.new()
+		progress.load("user://progress.cfg")
+		progress.set_value("mp3", "unlocked", tracks)
+		progress.save("user://progress.cfg")
+	else:
+		session_unlocks = tracks
+
 ## Hot Shit is the final boss track: Level 5's second half, never a stealth or kill unlock.
 func unlocked_tracks() -> Array:
 	var tracks := stored_unlocks()

@@ -31,7 +31,8 @@ $checks = @(
     @('res://tools/test_inner_conflict.gd'),
     @('res://tools/test_release_gaps.gd'),
     @('res://tools/test_hunt_waves.gd'),
-    @('res://tools/test_final_gaps.gd')
+    @('res://tools/test_final_gaps.gd'),
+    @('res://tools/test_easter_eggs.gd')
 )
 New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'tmp') | Out-Null
 $index = 0

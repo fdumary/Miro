@@ -3,6 +3,8 @@ const ART = preload("res://scripts/visual_assets.gd")
 var kind := "case"
 var used := false
 var title := ""
+var egg_texture: Texture2D
+var egg: Dictionary = {}
 
 func _draw() -> void:
 	var ink := Color("272744")
@@ -20,6 +22,14 @@ func _draw() -> void:
 		draw_rect(Rect2(-11, -20, 22, 20), ink)
 		draw_texture_rect(preload("res://assets/library/terminal.png"), Rect2(-9, -18, 18, 18), false, glow)
 		draw_string(ThemeDB.fallback_font, Vector2(-30, -25), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, pale)
+	elif kind == "egg":
+		# A paper pinned to the wall with a thumbnail of what it shows.
+		draw_rect(Rect2(-10, -22, 20, 25), Color("e8e0d0"))
+		draw_rect(Rect2(-8, -20, 16, 16), Color("272744"))
+		if egg_texture != null:
+			draw_texture_rect(egg_texture, Rect2(-8, -20, 16, 16), false)
+		draw_circle(Vector2(0, -23), 1.6, Color("c0392b"))
+		draw_string(ThemeDB.fallback_font, Vector2(-22, -28), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 8, pale)
 	elif kind == "note":
 		draw_rect(Rect2(-6, 2, 12, 14), Color("e8e0d0"))
 		draw_line(Vector2(-4, 6), Vector2(4, 6), Color("8b6d9c"), 1)
