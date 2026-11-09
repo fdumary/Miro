@@ -9,7 +9,7 @@
       "art": {"neutral": "A16", "ghost": "A06", "blackhat": "A17", "defiant": "A10", "survivor": "A15", "seeker": "A09"}},
     "4": {"id": "frame_c4_route", "anchor": "start", "offset": [150, 0], "assign": "approach",
       "art": {"neutral": "A08", "ghost": "A11", "blackhat": "A22", "defiant": "A23", "survivor": "A19", "seeker": "A13"}},
-    "5": {"id": "frame_final_exit", "anchor": "point", "position": [430, 236], "assign": "entry",
+    "5": {"id": "frame_final_exit", "anchor": "point", "position": [190, 236], "assign": "entry",
       "art": {"neutral": "A14", "ghost": "A24", "blackhat": "A15", "defiant": "A20", "survivor": "A12", "seeker": "A25"}}
   }
 }

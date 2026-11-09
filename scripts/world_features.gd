@@ -185,6 +185,18 @@ func add_props() -> void:
 ## The old shadow zones become hiding spots in exactly the same places: vents, cabinets and
 ## lockers (never beside another hide or crate, never on a ladder landing).
 func convert_cover_zones() -> void:
+	# The ward and foundation lab tables carry real tonics: one beside each chamber.
+	for piece in level.definition.get("props", []) if level.get("definition") != null else []:
+		for offset in [-80.0, 80.0]:
+			var from := Vector2(float(piece.position[0]) + offset, float(piece.position[1]) - 20.0)
+			var drop := PhysicsRayQueryParameters2D.create(from, from + Vector2(0, 160), 1)
+			var found := get_world_2d().direct_space_state.intersect_ray(drop)
+			if found.is_empty():
+				continue
+			var spot := Vector2(from.x, found.position.y - 16.0)
+			if placement_clear(spot) and not spot_taken(spot, "potion"):
+				spawn_prop(spot, "potion", "TONIC")
+				break
 	var titles := ["VENT", "CABINET", "LOCKER"]
 	var made := 0
 	for area in level.areas.get_children():

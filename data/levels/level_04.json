@@ -3739,7 +3739,44 @@
       }
     ],
     "ports": [],
-    "cameras": [],
+    "cameras": [
+      {
+        "position": [
+          300.0,
+          294.0
+        ],
+        "facing": 1.6,
+        "linked": false,
+        "disabled": true
+      },
+      {
+        "position": [
+          1300.0,
+          490.0
+        ],
+        "facing": 1.5,
+        "linked": false,
+        "disabled": true
+      },
+      {
+        "position": [
+          800.0,
+          686.0
+        ],
+        "facing": 1.6,
+        "linked": false,
+        "disabled": true
+      },
+      {
+        "position": [
+          1450.0,
+          906.0
+        ],
+        "facing": 1.55,
+        "linked": false,
+        "disabled": true
+      }
+    ],
     "hazards": [
       {
         "kind": "spikes",
@@ -3813,6 +3850,22 @@
           280
         ],
         "mount": "ceiling"
+      },
+      {
+        "kind": "turret",
+        "position": [
+          260,
+          868
+        ],
+        "disabled": true
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1480,
+          1064
+        ],
+        "disabled": true
       }
     ],
     "conversation": null,

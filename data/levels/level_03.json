@@ -3721,6 +3721,27 @@
           280
         ],
         "mount": "ceiling"
+      },
+      {
+        "kind": "turret",
+        "position": [
+          300,
+          868
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1190,
+          1064
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          400,
+          1260
+        ]
       }
     ],
     "cases": [
@@ -3794,14 +3815,6 @@
       },
       {
         "position": [
-          860.0,
-          294.0
-        ],
-        "facing": 1.7,
-        "linked": true
-      },
-      {
-        "position": [
           1190.0,
           490.0
         ],
@@ -3812,6 +3825,62 @@
         "position": [
           640.0,
           906.0
+        ],
+        "facing": 1.6,
+        "linked": true
+      },
+      {
+        "position": [
+          1150.0,
+          42.0
+        ],
+        "facing": 1.6,
+        "linked": true
+      },
+      {
+        "position": [
+          1300.0,
+          294.0
+        ],
+        "facing": 1.5,
+        "linked": true
+      },
+      {
+        "position": [
+          400.0,
+          490.0
+        ],
+        "facing": 1.6,
+        "linked": true
+      },
+      {
+        "position": [
+          500.0,
+          686.0
+        ],
+        "facing": 1.55,
+        "linked": true
+      },
+      {
+        "position": [
+          1200.0,
+          906.0
+        ],
+        "facing": 1.6,
+        "linked": true
+      },
+      {
+        "position": [
+          700.0,
+          1102.0
+        ],
+        "facing": 1.55,
+        "linked": true
+      },
+      {
+        "position": [
+          1300.0,
+          1102.0
         ],
         "facing": 1.6,
         "linked": true
