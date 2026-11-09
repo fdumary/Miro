@@ -72,6 +72,11 @@ func run() -> void:
 	for stray in level.guards():
 		stray.set_physics_process(false)
 	level.player.global_position = level.areas.get_node("RemoteTerminal").global_position + Vector2(0, 8)
+	# Miro has already shot one of the linked watchers dead.
+	for watcher in level.connected_cameras:
+		if is_instance_valid(watcher):
+			watcher.take_turret_hit(2)
+			break
 	level.world_features.open_terminal()
 	level.world_features.submit_password("root")
 	await frames(30)
