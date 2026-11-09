@@ -438,7 +438,13 @@ func draw_strum_ray() -> void:
 	if not is_instance_valid(controls) or controls.strum_flash <= 0.0:
 		return
 	var direction := aim_direction if aim_direction.length_squared() > 0.1 else Vector2(facing, 0)
-	preload("res://scripts/guitar_music_fx.gd").draw_burst(self, Vector2(0, -6), direction, controls.strum_flash / 0.35, controls.strum_visual_reach)
+	var strength: float = clampf(controls.strum_flash / 0.35, 0.0, 1.0)
+	var reach: float = controls.strum_visual_reach
+	var side := Vector2(-direction.y, direction.x)
+	var origin := Vector2(0, -6)
+	# A soft widening cone underneath, then the line-and-note burst on top of it.
+	draw_colored_polygon(PackedVector2Array([origin, origin + direction * reach + side * (reach * 0.16), origin + direction * reach - side * (reach * 0.16)]), Color(0.95, 0.83, 0.67, 0.16 * strength))
+	preload("res://scripts/guitar_music_fx.gd").draw_burst(self, origin, direction, strength, reach)
 
 func _draw() -> void:
 	draw_strum_ray()
