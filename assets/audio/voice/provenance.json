@@ -20130,5 +20130,341 @@
       "output_lufs": "-18.66",
       "output_true_peak_dbtp": "-1.70"
     }
+  },
+  "ormond_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "7rQX8r6PVq3gfJ8rZzyE",
+    "voice_name": "Ormond - John North (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Oi! Over here, everyone, he's on the ledge!",
+    "delivery": "[shouting] [chatty]",
+    "signature": "4b179b41dda2e1f0f3f02a64834b785e483ed0184344b3ecc65e2b925611ea35",
+    "leveling": {
+      "source_sha256": "946abe194ffc12e051b6355316679b221f743a870c20f705a613aa2500c0886d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.84",
+        "input_tp": "-5.31",
+        "input_lra": "0.00",
+        "input_thresh": "-26.84",
+        "output_i": "-18.00",
+        "output_tp": "-6.47",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-6.59"
+    }
+  },
+  "delphine_alert": {
+    "provider": "ElevenLabs",
+    "voice_id": "esy0r39YPLQjOczyOib8",
+    "voice_name": "Delphine - Britney (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "There you are. I knew the tower would give you away.",
+    "delivery": "[shouting] [cold]",
+    "signature": "c39de7917c13ed1096af8af4e68b9473846106ea19abc321efb41466a8800011",
+    "leveling": {
+      "source_sha256": "ec4b9bc26fa9501fe119db6b270d578232c3f9d35d5fcc3e453736a46fb05399",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.92",
+        "input_tp": "-0.30",
+        "input_lra": "4.10",
+        "input_thresh": "-26.51",
+        "output_i": "-17.59",
+        "output_tp": "-3.41",
+        "output_lra": "0.00",
+        "output_thresh": "-28.28",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.41"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "ormond_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "7rQX8r6PVq3gfJ8rZzyE",
+    "voice_name": "Ormond - John North (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Ormond's down! Somebody put the kettle on and fetch a medic!",
+    "delivery": "[shocked] [chatty]",
+    "signature": "ffd8dd83e202b8bdbafc0675735e129b5cacbc4e7fa89c3c27b0a7227f4dc20a",
+    "leveling": {
+      "source_sha256": "60dc0814b652e470749774541257effc0e76eb63968ec6df08a305f169aea04c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.36",
+        "input_tp": "-2.14",
+        "input_lra": "0.50",
+        "input_thresh": "-26.50",
+        "output_i": "-17.67",
+        "output_tp": "-3.73",
+        "output_lra": "0.00",
+        "output_thresh": "-27.79",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.33"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.85"
+    }
+  },
+  "delphine_body": {
+    "provider": "ElevenLabs",
+    "voice_id": "esy0r39YPLQjOczyOib8",
+    "voice_name": "Delphine - Britney (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Delphine is down. The tower will remember this.",
+    "delivery": "[shocked] [cold]",
+    "signature": "a41927231c38c2b0537df961ec9b290df225761c3a816d6154c6fe681bb02673",
+    "leveling": {
+      "source_sha256": "91c97b53fc6015a85640d753f49a2150093618dd504e7bae8484ff6f957b0544",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.94",
+        "input_tp": "-1.00",
+        "input_lra": "6.30",
+        "input_thresh": "-31.80",
+        "output_i": "-18.80",
+        "output_tp": "-2.00",
+        "output_lra": "3.50",
+        "output_thresh": "-30.43",
+        "normalization_type": "dynamic",
+        "target_offset": "0.80"
+      },
+      "output_lufs": "-19.01",
+      "output_true_peak_dbtp": "-1.88"
+    }
+  },
+  "ormond_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "7rQX8r6PVq3gfJ8rZzyE",
+    "voice_name": "Ormond - John North (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Proper cold up here. I keep a flask under the ledge, mind.",
+    "delivery": "[chatty] [muttering]",
+    "signature": "fa002b86cadc41a114189f7580a36926c8a2cede0f5357d49c2b0d24a0dbc247",
+    "leveling": {
+      "source_sha256": "d81c053194c615987bfa5dbabdc7187c9ebde2418c85ff1576db5329899e8a94",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.96",
+        "input_tp": "-3.78",
+        "input_lra": "0.40",
+        "input_thresh": "-28.45",
+        "output_i": "-17.11",
+        "output_tp": "-3.05",
+        "output_lra": "0.00",
+        "output_thresh": "-27.57",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.89"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-3.76"
+    }
+  },
+  "delphine_idle_1": {
+    "provider": "ElevenLabs",
+    "voice_id": "esy0r39YPLQjOczyOib8",
+    "voice_name": "Delphine - Britney (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "The tower keeps its order. I keep the tower's order.",
+    "delivery": "[cold] [muttering]",
+    "signature": "2f2580178f040ac9ad2d4516746ae5e272ce16ea33b14beb37a744a33fede6c7",
+    "leveling": {
+      "source_sha256": "2ba7e54d25eec1267f46ad795328286653222f6b85db757c364c5c2e2f6e96de",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.98",
+        "input_tp": "-4.68",
+        "input_lra": "2.40",
+        "input_thresh": "-34.15",
+        "output_i": "-17.57",
+        "output_tp": "-2.00",
+        "output_lra": "1.20",
+        "output_thresh": "-28.48",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.43"
+      },
+      "output_lufs": "-18.39",
+      "output_true_peak_dbtp": "-1.56"
+    }
+  },
+  "ormond_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "7rQX8r6PVq3gfJ8rZzyE",
+    "voice_name": "Ormond - John North (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "If the records go missing again, nobody tell the Commander I was chatting.",
+    "delivery": "[chatty] [muttering]",
+    "signature": "de326338dc72ae0bd0f7b007d93110aa5dd7659809aae9bdaa43805068b2179e",
+    "leveling": {
+      "source_sha256": "c4fb02d54fe63a1942f4b83fc8abd97b307b1ca65069783191e93e6134d68da4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.84",
+        "input_tp": "-3.49",
+        "input_lra": "1.40",
+        "input_thresh": "-27.26",
+        "output_i": "-18.04",
+        "output_tp": "-5.04",
+        "output_lra": "0.10",
+        "output_thresh": "-28.33",
+        "normalization_type": "dynamic",
+        "target_offset": "0.04"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.64"
+    }
+  },
+  "delphine_idle_2": {
+    "provider": "ElevenLabs",
+    "voice_id": "esy0r39YPLQjOczyOib8",
+    "voice_name": "Delphine - Britney (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Every prisoner believes they are the exception. None of them are.",
+    "delivery": "[cold] [muttering]",
+    "signature": "27369f264cd78cf89054d5f161fa5cbd845f7b14002829bf99f32ef089fa5df8",
+    "leveling": {
+      "source_sha256": "a9bb77f2e13ef45351fc029e126de7c882b2f82998c129e1a90747e632d4eb9d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.12",
+        "input_tp": "-5.07",
+        "input_lra": "4.60",
+        "input_thresh": "-34.38",
+        "output_i": "-18.57",
+        "output_tp": "-2.00",
+        "output_lra": "2.60",
+        "output_thresh": "-29.63",
+        "normalization_type": "dynamic",
+        "target_offset": "0.57"
+      },
+      "output_lufs": "-18.80",
+      "output_true_peak_dbtp": "-1.81"
+    }
+  },
+  "miro_974156d051": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "The guitar's song stuns Keepers, turrets and even Niro. Strum it [Q, left click].",
+    "delivery": "[whispers]",
+    "signature": "94cffbf8ad84f7898bef2b1c128b352c6041235c65ecfeffed7915024e5e1d72",
+    "leveling": {
+      "source_sha256": "055fd8776d7617387efcd1bb0faba1bfda924848a68f51c2d656fe0e5bec3694",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.13",
+        "input_tp": "-0.42",
+        "input_lra": "2.60",
+        "input_thresh": "-28.22",
+        "output_i": "-17.95",
+        "output_tp": "-2.00",
+        "output_lra": "2.20",
+        "output_thresh": "-28.51",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.05"
+      },
+      "output_lufs": "-17.53",
+      "output_true_peak_dbtp": "-1.76"
+    }
+  },
+  "miro_3a81af8e89": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Strum near them: Keepers sleep, turrets go dark, Niro staggers. On the beat it reaches further.",
+    "delivery": "[whispers]",
+    "signature": "950e68d998fe5ee8eee3e7a80af970e26d49064bb5385b4ebecb83bca3b855f4",
+    "leveling": {
+      "source_sha256": "cf72911ececece9f6caadea3b9688abef17fbe9b22cae08f2a531440ab50020c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.50",
+        "input_tp": "-0.95",
+        "input_lra": "3.90",
+        "input_thresh": "-28.50",
+        "output_i": "-17.13",
+        "output_tp": "-2.00",
+        "output_lra": "2.40",
+        "output_thresh": "-28.15",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.87"
+      },
+      "output_lufs": "-17.92",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "miro_ceb18e3929": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Jump or dodge [C] the rush. A strum staggers him, or hit him while he recovers.",
+    "delivery": "[whispers]",
+    "signature": "1c1a9d7fabd9def5ed8944da2a0481b18a7519bcf95d259a78ddc660bea457aa",
+    "leveling": {
+      "source_sha256": "35029a332818a87f54d4e5a382298eba99bff50b82291699bc93937a24715f20",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.59",
+        "input_tp": "-0.52",
+        "input_lra": "4.50",
+        "input_thresh": "-28.11",
+        "output_i": "-16.97",
+        "output_tp": "-2.00",
+        "output_lra": "2.30",
+        "output_thresh": "-27.35",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.03"
+      },
+      "output_lufs": "-17.84",
+      "output_true_peak_dbtp": "-1.72"
+    }
+  },
+  "miro_4dc9072578": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "When he shows RECOVER, hit him: shank [1] or strum [Q]. Dodge with C, then go again.",
+    "delivery": "[whispers]",
+    "signature": "6541d5407637ffd34ca66c5cec8c1bb0ae8829a489e996133eeeb7dd448b42bc",
+    "leveling": {
+      "source_sha256": "8bcd0b4c4b34de346d9159613befe6c3ea9dc2f1a1e020feee0232e8eae8b455",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.06",
+        "input_tp": "-1.14",
+        "input_lra": "2.60",
+        "input_thresh": "-28.95",
+        "output_i": "-17.38",
+        "output_tp": "-2.00",
+        "output_lra": "2.00",
+        "output_thresh": "-28.18",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.62"
+      },
+      "output_lufs": "-18.07",
+      "output_true_peak_dbtp": "-1.98"
+    }
   }
 }
