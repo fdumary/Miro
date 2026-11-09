@@ -29,7 +29,6 @@ func _draw() -> void:
 		if egg_texture != null:
 			draw_texture_rect(egg_texture, Rect2(-8, -20, 16, 16), false)
 		draw_circle(Vector2(0, -23), 1.6, Color("c0392b"))
-		draw_string(ThemeDB.fallback_font, Vector2(-22, -28), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 8, pale)
 	elif kind == "note":
 		draw_rect(Rect2(-6, 2, 12, 14), Color("e8e0d0"))
 		draw_line(Vector2(-4, 6), Vector2(4, 6), Color("8b6d9c"), 1)

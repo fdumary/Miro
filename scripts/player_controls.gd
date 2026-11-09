@@ -106,7 +106,8 @@ func _input(event: InputEvent) -> void:
 		if key >= KEY_1 and key <= KEY_5:
 			select_item(slots[key - KEY_1])
 		elif key == KEY_Q:
-			select_item("blanket")
+			# On the last floor the guitar replaces the blanket on Q.
+			select_item("guitar" if (has_guitar and get_node("/root/Campaign").current_floor == 5) else "blanket")
 		elif (key == KEY_6 or key == KEY_G) and has_guitar:
 			select_item("guitar")
 		elif key == KEY_N:
@@ -142,7 +143,7 @@ func handle_pad_button(button: int) -> bool:
 		JOY_BUTTON_X:
 			start_reload()
 		JOY_BUTTON_Y:
-			select_item("blanket")
+			select_item("guitar" if (has_guitar and get_node("/root/Campaign").current_floor == 5) else "blanket")
 		JOY_BUTTON_LEFT_STICK:
 			if not controller_settings.preferences.hold_crouch:
 				player.pad_crouch = not player.pad_crouch

@@ -912,13 +912,13 @@
     ],
     "flow_wave": [
       "They're coming down the stairs. Don't fight fair.",
-      "Strum the guitar close to them [6, left click]. On the beat it reaches further.",
-      "Select the guitar with 6 or G, get close, left click on the beat. Sleeping Keepers stay down."
+      "The guitar's song stuns Keepers, turrets and even Niro. Strum it [Q or 6, left click].",
+      "Strum near them: Keepers sleep, turrets go dark, Niro staggers. On the beat it reaches further."
     ],
     "flow_niro": [
       "He winds up before he rushes. Watch him, not the room.",
-      "Jump or dodge [C] the rush, then hit him while he recovers.",
-      "When he shows RECOVER, hit him: shank [1] or strum [6]. Dodge with C, then go again."
+      "Jump or dodge [C] the rush. A strum staggers him, or hit him while he recovers.",
+      "When he shows RECOVER, hit him: shank [1] or strum [Q]. Dodge with C, then go again."
     ],
     "flow_descend": [
       "He went down through a hatch.",
