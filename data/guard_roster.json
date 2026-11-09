@@ -1145,6 +1145,83 @@
       ],
       "personality": "a sarcastic corridor guard who hates the job and trusts no cabinet",
       "theme": "dry"
+    },
+    "Hobb": {
+      "alert": "Not on my last shift, you don't! Stop!",
+      "body": "Hobb's down. Somebody tell my wife I tried.",
+      "delivery": "[grumbling]",
+      "idle": [
+        "Eleven days to retirement. Do not make it twelve.",
+        "I have seen three prisoners escape. I mention none of them."
+      ],
+      "personality": "a grumbling old-timer counting days to retirement",
+      "theme": "grumbling"
+    },
+    "Tamsin": {
+      "alert": "Come on, then. Show me what you've got.",
+      "body": "Tamsin is down. Lucky punch. Get the medic.",
+      "delivery": "[confident]",
+      "idle": [
+        "Fear is a habit. I never picked it up.",
+        "Try me on the laundry floor. Everyone else already has."
+      ],
+      "personality": "a fearless smoky-voiced guard who dares everyone to try her",
+      "theme": "bold"
+    },
+    "Corvin": {
+      "alert": "Intruder! Section four, on the double!",
+      "body": "Corvin is down. Section four needs relief.",
+      "delivery": "[clipped]",
+      "idle": [
+        "Regulations are not suggestions. Remember that.",
+        "Report every cough. Including your own. Especially your own."
+      ],
+      "personality": "a clipped by-the-book disciplinarian",
+      "theme": "strict"
+    },
+    "Ilka": {
+      "alert": "I see you. Stop where you are.",
+      "body": "Ilka is down. Quietly, now. Get help.",
+      "delivery": "[calm]",
+      "idle": [
+        "Quiet floors are the loud ones. Remember that.",
+        "I keep the lowest post. Everything above rests on it."
+      ],
+      "personality": "a quiet commander who never raises her voice",
+      "theme": "calm"
+    },
+    "Dunmore": {
+      "alert": "I've seen worse than you. Halt!",
+      "body": "Dunmore is hit. Tell the others I held the line.",
+      "delivery": "[gruff]",
+      "idle": [
+        "Back in the border war we had no ward. We had ditches.",
+        "Every corridor is the same corridor. Ask me how I know."
+      ],
+      "personality": "a war-weary sergeant with too many stories",
+      "theme": "veteran"
+    },
+    "Perrin": {
+      "alert": "Well, I'll be. Hold it right there, friend!",
+      "body": "Perrin's down. Tell my mama it was quick.",
+      "delivery": "[drawling]",
+      "idle": [
+        "I miss the creek behind our house. This place has no creek.",
+        "They promised me a rotation home. That was two winters ago."
+      ],
+      "personality": "a raspy homesick guard from the southern farms",
+      "theme": "homesick"
+    },
+    "Yara": {
+      "alert": "Not in my corridor. Stop at once!",
+      "body": "Yara is down. Somebody fetch the doctor, now.",
+      "delivery": "[stern]",
+      "idle": [
+        "I inspect every post twice. Then I inspect the inspectors.",
+        "Straighten your belt. The tower is watching."
+      ],
+      "personality": "a commanding aunt of a supervisor who inspects everything",
+      "theme": "stern"
     }
   },
   "hunted": {

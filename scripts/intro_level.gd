@@ -14,7 +14,7 @@ var sigil_placed: bool = false
 const FLOOR_END_CRACKLE := "...Miro?"
 ## What the remote says as each floor's report comes up (floors without an entry stay quiet): the
 ## written closing line, never the same "Miro" twice.
-const FLOOR_END_LINES := {1: "...Miro?", 2: "If you go any lower, I can't protect you.", 4: "Don't come down here, Miro. Please."}
+const FLOOR_END_LINES := {1: "...Miro?", 2: "If you go any lower, I can't protect you.", 3: "You've read it by now. Miro, please... let me explain.", 4: "Don't come down here, Miro. Please."}
 var crackle_played := false
 var brother_heard: bool = false
 var completed: bool = false

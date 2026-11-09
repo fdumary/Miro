@@ -47,9 +47,8 @@ func _draw() -> void:
 				draw_circle(Vector2(1, 2), 2, dark)
 				draw_texture_rect(LIBRARY.texture("hazard"), Rect2(-10, -8, 20, 20), false)
 		"cover":
-			draw_rect(Rect2(-area_size / 2, area_size), Color(0.08, 0.08, 0.15, 0.65))
-			draw_arc(Vector2(0, -area_size.y / 2 + 13), 5, 0, PI * 1.7, 12, purple, 1)
-			draw_line(Vector2(-area_size.x / 2, area_size.y / 2), Vector2(area_size.x / 2, area_size.y / 2), purple, 1)
+			# Shadow zones are gone: a vent or cabinet stands where each one was (world_features.convert_cover_zones).
+			pass
 		"ladder":
 			for x in [-9, 9]:
 				draw_rect(Rect2(x, -area_size.y / 2, 2, area_size.y), purple)

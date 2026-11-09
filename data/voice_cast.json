@@ -480,6 +480,41 @@
       "name": "Voss - Chris (extra guard)",
       "voice_id": "2vubyVoGjNJ5HPga4SkV",
       "stability": 0.5
+    },
+    "hobb": {
+      "name": "Hobb (extra guard)",
+      "voice_id": "mSOmKHC6GZcZbSTGlqHO",
+      "stability": 0.5
+    },
+    "tamsin": {
+      "name": "Tamsin (extra guard)",
+      "voice_id": "y3UNfL9XC5Bb5htg8B0q",
+      "stability": 0.5
+    },
+    "corvin": {
+      "name": "Corvin (extra guard)",
+      "voice_id": "h1IssowVS2h4nL5ZbkkK",
+      "stability": 0.5
+    },
+    "ilka": {
+      "name": "Ilka (extra guard)",
+      "voice_id": "TNI5EQSCUrYwvhb2wpzt",
+      "stability": 0.5
+    },
+    "dunmore": {
+      "name": "Dunmore (extra guard)",
+      "voice_id": "GLSWsaquVBsIPLPPRi2s",
+      "stability": 0.5
+    },
+    "perrin": {
+      "name": "Perrin (extra guard)",
+      "voice_id": "YEkUdc7PezGaXaRslSHB",
+      "stability": 0.5
+    },
+    "yara": {
+      "name": "Yara (extra guard)",
+      "voice_id": "gDQfVolj9RbmXgumLcOq",
+      "stability": 0.5
     }
   },
   "guard_delivery": {

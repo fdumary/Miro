@@ -3851,6 +3851,42 @@
           920.0,
           1090.0
         ]
+      },
+      {
+        "name": "WatchWestKeeper",
+        "keeper": "Dunmore",
+        "position": [
+          430.0,
+          432
+        ],
+        "patrol": [
+          330.0,
+          620.0
+        ]
+      },
+      {
+        "name": "WardWestKeeper",
+        "keeper": "Perrin",
+        "position": [
+          470.0,
+          1048
+        ],
+        "patrol": [
+          350.0,
+          650.0
+        ]
+      },
+      {
+        "name": "LowWestKeeper",
+        "keeper": "Yara",
+        "position": [
+          480.0,
+          1244
+        ],
+        "patrol": [
+          360.0,
+          700.0
+        ]
       }
     ]
   },

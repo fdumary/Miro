@@ -3871,6 +3871,54 @@
           1290.0,
           1470.0
         ]
+      },
+      {
+        "name": "TopRightKeeper",
+        "keeper": "Hobb",
+        "position": [
+          1300.0,
+          236
+        ],
+        "patrol": [
+          1180.0,
+          1420.0
+        ]
+      },
+      {
+        "name": "LaundryRightKeeper",
+        "keeper": "Tamsin",
+        "position": [
+          1260.0,
+          628
+        ],
+        "patrol": [
+          1130.0,
+          1400.0
+        ]
+      },
+      {
+        "name": "VaultWestKeeper",
+        "keeper": "Corvin",
+        "position": [
+          400.0,
+          1048
+        ],
+        "patrol": [
+          300.0,
+          560.0
+        ]
+      },
+      {
+        "name": "LowWestKeeper",
+        "keeper": "Ilka",
+        "position": [
+          430.0,
+          1244
+        ],
+        "patrol": [
+          320.0,
+          600.0
+        ]
       }
     ]
   },

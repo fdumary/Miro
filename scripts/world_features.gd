@@ -179,6 +179,33 @@ func place_props_after_physics() -> void:
 	add_props()
 
 func add_props() -> void:
+	call_deferred("convert_cover_zones")
+	add_authored_props()
+
+## The old shadow zones become hiding spots in exactly the same places: vents, cabinets and
+## lockers (never beside another hide or crate, never on a ladder landing).
+func convert_cover_zones() -> void:
+	var titles := ["VENT", "CABINET", "LOCKER"]
+	var made := 0
+	for area in level.areas.get_children():
+		if str(area.get("kind")) != "cover":
+			continue
+		var from: Vector2 = area.global_position
+		var query := PhysicsRayQueryParameters2D.create(from + Vector2(0, -12), from + Vector2(0, 160), 1)
+		var hit := get_world_2d().direct_space_state.intersect_ray(query)
+		if hit.is_empty():
+			continue
+		var point := Vector2(from.x, hit.position.y - 16.0)
+		var crowded := false
+		for prop in props:
+			if is_instance_valid(prop) and prop.kind in ["hide", "crate"] and absf(prop.global_position.y - point.y) < 60.0 and absf(prop.global_position.x - point.x) < 220.0:
+				crowded = true
+		if crowded or spot_taken(point, "hide") or not placement_clear(point):
+			continue
+		spawn_prop(point, "hide", titles[made % titles.size()])
+		made += 1
+
+func add_authored_props() -> void:
 	level.player.set_collision_mask_value(6, true)  # crates and window sills
 	var authored: Dictionary = level.definition.get("features", {}) if level.get("definition") != null else {}
 	# Tonics: the little bottles beside the cots (drawn where scaffold_art once stamped them).
