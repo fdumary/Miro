@@ -7,5 +7,5 @@ const TEXTURES := {
 	"shank": preload("res://assets/weapons/shank.svg"),
 	"blanket": preload("res://assets/weapons/blanket.svg"),
 	"c4": preload("res://assets/weapons/c4.svg"),
-	"guitar": preload("res://assets/weapons/guitar.png")
+	"guitar": preload("res://assets/weapons/guitar_red_v2.png")
 }

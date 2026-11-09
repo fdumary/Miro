@@ -239,6 +239,8 @@ func check_guard_contact() -> void:
 			return
 
 func stealth_status() -> String:
+	if controls.blanket_removed():
+		return ""
 	if is_concealed:
 		return "STEALTH %.1fs" % stealth_remaining
 	if stealth_cooldown_left > 0:
@@ -433,21 +435,10 @@ func update_visual(delta: float) -> void:
 
 ## The guitar's ray: a widening beam of notes along the aim while a strum rings out.
 func draw_strum_ray() -> void:
-	var flash := controls.strum_flash
-	if flash <= 0.0 or not is_instance_valid(controls):
+	if not is_instance_valid(controls) or controls.strum_flash <= 0.0:
 		return
 	var direction := aim_direction if aim_direction.length_squared() > 0.1 else Vector2(facing, 0)
-	var reach := 170.0 if controls.strum_flash > 0.2 else 120.0
-	var side := Vector2(-direction.y, direction.x)
-	var origin := Vector2(0, -6)
-	var strength := flash / 0.35
-	draw_colored_polygon(PackedVector2Array([origin, origin + direction * reach + side * 26.0, origin + direction * reach - side * 26.0]), Color(0.95, 0.83, 0.67, 0.18 * strength))
-	var glyphs := ["\u266a", "\u266b", "\u266a", "\u266c"]
-	for index in range(7):
-		var along := fposmod(float(index) / 7.0 + (1.0 - strength) * 0.7, 1.0)
-		var wobble := sin(along * 14.0 + index * 1.7) * 7.0
-		var point := origin + direction * (14.0 + along * reach) + side * wobble
-		draw_string(ThemeDB.fallback_font, point, glyphs[index % glyphs.size()], HORIZONTAL_ALIGNMENT_LEFT, -1, 11, Color(0.98, 0.9, 0.7, strength * (1.0 - along * 0.6)))
+	preload("res://scripts/guitar_music_fx.gd").draw_burst(self, Vector2(0, -6), direction, controls.strum_flash / 0.35, controls.strum_visual_reach)
 
 func _draw() -> void:
 	draw_strum_ray()

@@ -33,6 +33,7 @@ var progress := 0.0
 var has_guitar := false
 var strum_cooldown := 0.0
 var strum_flash := 0.0
+var strum_visual_reach := 120.0
 const STRUM_RADIUS := 120.0
 const STRUM_RADIUS_ON_BEAT := 170.0
 
@@ -65,12 +66,18 @@ func sync_slots() -> void:
 			reserves[gun] = capacity(gun) * 2
 	if active in ["pistol", "smg"] and not player.guns.has(active):
 		active = "blanket"
+	if active == "blanket" and blanket_removed():
+		active = "shank"
 
 func capacity(gun: String) -> int:
 	return 8 if gun == "pistol" else 24
 
+## The last floor takes the blanket away: Q is the guitar there.
+func blanket_removed() -> bool:
+	return get_node("/root/Campaign").current_floor == 5
+
 func select_item(item: String) -> void:
-	if item.is_empty():
+	if item.is_empty() or (item == "blanket" and blanket_removed()):
 		return
 	reload_left = 0
 	focus = false
@@ -175,7 +182,8 @@ func cycle_item(step: int) -> void:
 	for item in slots:
 		if not item.is_empty() and (item != "remote" or has_remote):
 			items.append(item)
-	items.append("blanket")
+	if not blanket_removed():
+		items.append("blanket")
 	if has_guitar:
 		items.append("guitar")
 	var index := items.find(active)
@@ -251,7 +259,9 @@ func use_item() -> void:
 	if (player.mouse_aim or pad_aim) and absf(player.aim_direction.x) > 0.01:
 		player.facing = signf(player.aim_direction.x)
 	match active:
-		"blanket": player.toggle_stealth()
+		"blanket":
+			if not blanket_removed():
+				player.toggle_stealth()
 		"shank": player.shank()
 		"c4": detonate_charges()
 		"remote": open_remote()
@@ -279,6 +289,7 @@ func strum() -> int:
 	strum_flash = 0.35
 	var on_beat: bool = get_node("/root/MusicDirector").is_on_beat(0.12)
 	var radius := STRUM_RADIUS_ON_BEAT if on_beat else STRUM_RADIUS
+	strum_visual_reach = radius
 	var affected := 0
 	get_node("/root/SoundFX").play_sound("sigil", -14, 1.6 if on_beat else 1.3)
 	player.level.emit_effect("hit", player.global_position + Vector2(0, -8))

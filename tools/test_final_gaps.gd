@@ -57,6 +57,7 @@ func run() -> void:
 	var before_y: float = searcher.global_position.y
 	searcher.set_physics_process(false)
 	for step in range(300):
+		searcher.last_known_position = Vector2(1500, 1244)
 		searcher.ladder_search(1.0 / 60.0)
 		await frames(1)
 	check(searcher.global_position.y > before_y + 25.0 and absf(searcher.global_position.x - 1540.0) < 6.0, "A searching Keeper takes the ladder down to the floor he last saw Miro")
@@ -79,6 +80,33 @@ func run() -> void:
 	level.finish_dialogue()
 	await frames(90)
 	check(level.milestones.has("RemoteTerminal") and level.get_node("Gates/CheckpointGate").is_open, "The hack opens the checkpoint gate even when another scene interrupts")
+	# Last floor: the guitar takes the blanket's Q slot and the blanket is gone.
+	root.get_node("Campaign").enter_floor(5)
+	level.queue_free()
+	await frames(2)
+	level = load("res://scenes/levels/level_05.tscn").instantiate()
+	root.add_child(level)
+	current_scene = level
+	await frames(10)
+	level.finish_dialogue()
+	level.player.controls.has_guitar = true
+	level.player.controls.select_item("blanket")
+	check(level.player.controls.active != "blanket", "The blanket cannot be selected on the last floor")
+	level.player.controls.select_item("guitar")
+	check(level.player.controls.active == "guitar" and level.player.stealth_status() == "", "Q is the guitar and the blanket HUD is gone on the last floor")
+	var flow = level.flow
+	flow.engagement = 3
+	flow.spawn_niro()
+	flow.final_wave_wait = 0.0
+	var before: int = flow.wave_guards.size()
+	flow.update_final_waves(0.1)
+	check(flow.final_waves_sent == 1 and flow.wave_guards.size() >= before + 4, "A wave of Keepers joins the final Niro fight")
+	flow.final_wave_wait = 0.0
+	flow.update_final_waves(0.1)
+	check(flow.final_waves_sent == 2, "A second wave follows")
+	flow.final_wave_wait = 0.0
+	flow.update_final_waves(0.1)
+	check(flow.final_waves_sent == 2, "No more than two extra waves")
 	level = null
 	print("FINAL_GAPS_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

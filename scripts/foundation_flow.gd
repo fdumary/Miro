@@ -20,6 +20,9 @@ var wave_guards: Array[Node] = []
 var next_reinforcement := 0
 var wait_left := 0.0
 var niro_health := 12
+## Two extra waves of Keepers pour in during the last fight with Niro.
+var final_waves_sent := 0
+var final_wave_wait := 0.0
 var engagement := 0
 ## Niro's taunts over the remote while he is off screen, in authored order, on a bar line.
 var taunt_index := 0
@@ -58,7 +61,7 @@ func on_guitar() -> void:
 	level.player.controls.collect_guitar()
 	music().guitar_section()
 	get_node("/root/SoundFX").play_sound("gate", -12)
-	level.notify("An alarm. They know exactly where you are. [6] Guitar: click to strum.", 7)
+	level.notify("An alarm. They know exactly where you are. [Q] Guitar: click to strum.", 7)
 	guitar_taken.emit()
 	level.show_card("alarm", "", "", "", Color.RED, 2.4)
 	request_wave(0)
@@ -125,6 +128,28 @@ func spawn_guard(point: Vector2, weapon: String) -> Node:
 func wave_clear() -> bool:
 	return wave_guards.all(func(guard): return not is_instance_valid(guard) or guard.is_dead or guard.asleep)
 
+## Keepers arrive in two waves while Niro is still on his feet (the fight's finale, as asked).
+func update_final_waves(delta: float) -> void:
+	if final_waves_sent >= 2 or not is_instance_valid(level.brother) or level.brother.is_dead:
+		return
+	final_wave_wait -= delta
+	if final_wave_wait > 0.0:
+		return
+	final_waves_sent += 1
+	final_wave_wait = 22.0
+	var points := [260.0, 520.0, 820.0, 1000.0]
+	var weapons := ["pistol", "smg", "pistol", "smg"]
+	var player_x: float = level.player.position.x
+	var spawned: Array = []
+	for index in range(points.size()):
+		var x: float = points[index]
+		# Never right on top of Miro, never on top of each other.
+		if absf(x - player_x) < 120.0:
+			x = clampf(x + (160.0 if x >= player_x else -160.0), 80.0, 1040.0)
+		spawned.append(spawn_guard(Vector2(x, ROW_FLOOR_Y[3]), weapons[index]))
+	wave_guards.append_array(spawned)
+	level.notify("More Keepers pour down the stairs.", 4.0)
+
 func spawn_niro() -> void:
 	engagement += 1
 	var boss = load("res://scenes/brother_boss.tscn").instantiate()
@@ -136,6 +161,8 @@ func spawn_niro() -> void:
 	boss.retreated.connect(_on_niro_gone)
 	level.add_child(boss)
 	level.brother = boss
+	if engagement >= 4:
+		final_wave_wait = 14.0
 	step = Step.NIRO if engagement <= 3 else Step.FINAL
 	niro_appeared.emit(engagement)
 	if engagement == 1:
@@ -254,13 +281,15 @@ func _process(delta: float) -> void:
 			wait_left -= delta
 			if wait_left <= 0:
 				spawn_niro()
+		Step.FINAL:
+			update_final_waves(delta)
 
 func objective() -> String:
 	match step:
 		Step.OFFICE:
 			return ""
 		Step.WAVE_PENDING, Step.WAVE:
-			return "05 / THE FOUNDATION\nSurvive the Keepers. Strum [6] to put them to sleep."
+			return "05 / THE FOUNDATION\nSurvive the Keepers. Strum [Q] to put them to sleep."
 		Step.NIRO_PENDING, Step.NIRO:
 			return "05 / THE FOUNDATION\nFace Niro. Hit him while he recovers."
 		Step.DESCEND:
@@ -282,4 +311,4 @@ func hint_step() -> String:
 	return ""
 
 func niro_fight_hint() -> String:
-	return "[1] Shank or [6] strum during RECOVER • [C] Dodge • Space Jump"
+	return "[1] Shank or [Q] strum during RECOVER • [C] Dodge • Space Jump"

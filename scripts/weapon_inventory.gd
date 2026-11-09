@@ -25,7 +25,10 @@ func _draw() -> void:
 	var guitar_on_q: bool = controls.has_guitar and get_node("/root/Campaign").current_floor == 5
 	draw_style_box(panel_style(controls.active == ("guitar" if guitar_on_q else "blanket")), Rect2(274, 0, 50, 38))
 	draw_string(ThemeDB.fallback_font, Vector2(278, 11), "△" if controls.pad_prompts else "Q", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
-	draw_texture_rect(ART.TEXTURES.guitar if guitar_on_q else ART.TEXTURES.blanket, Rect2(291, 3, 27, 27), false)
+	if guitar_on_q:
+		draw_texture_rect(ART.TEXTURES.guitar, Rect2(291, 3, 27, 27), false)
+	elif not controls.blanket_removed():
+		draw_texture_rect(ART.TEXTURES.blanket, Rect2(291, 3, 27, 27), false)
 	var inventory_x := 335.0
 	if controls.has_guitar and not guitar_on_q:
 		draw_style_box(panel_style(controls.active == "guitar"), Rect2(327, 0, 50, 38))
