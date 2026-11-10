@@ -1,7 +1,7 @@
 {
   "tracks": {
     "yz33": {
-      "title": "YZ33.mp3",
+      "title": "YZ33",
       "stream": "res://assets/audio/music/yz33.mp3",
       "source": "YZ33.mp3",
       "leveling": {
@@ -26,7 +26,7 @@
       "bpm": 112.35
     },
     "bobblehead": {
-      "title": "BOBBLEHEAD2.mp3",
+      "title": "BOBBLEHEAD2",
       "stream": "res://assets/audio/music/bobblehead.mp3",
       "source": "BOBBLEHEAD2.mp3",
       "leveling": {
@@ -51,7 +51,7 @@
       "bpm": 143.55
     },
     "dope2": {
-      "title": "DOPE2.mp3",
+      "title": "DOPE2",
       "stream": "res://assets/audio/music/dope2.mp3",
       "source": "DOPE2.mp3",
       "leveling": {
@@ -76,7 +76,7 @@
       "bpm": 129.2
     },
     "swag": {
-      "title": "swag.wav",
+      "title": "swag",
       "stream": "res://assets/audio/music/swag.mp3",
       "source": "swag.wav",
       "leveling": {
@@ -101,7 +101,7 @@
       "bpm": 123.05
     },
     "sumcrazy": {
-      "title": "sum crazy shi_4.wav",
+      "title": "sum crazy shi_4",
       "stream": "res://assets/audio/music/sumcrazy.wav",
       "source": "sum crazy shi_4.wav",
       "leveling": {
@@ -126,7 +126,7 @@
       "bpm": 129.2
     },
     "plane_drums": {
-      "title": "plane drums nig.wav",
+      "title": "plane drums nig",
       "stream": "res://assets/audio/music/plane_drums.mp3",
       "source": "plane drums nig.wav",
       "leveling": {
@@ -151,7 +151,7 @@
       "bpm": 99.38
     },
     "cyberpunk": {
-      "title": "cyberpunk_2.mp3",
+      "title": "cyberpunk_2",
       "stream": "res://assets/audio/music/cyberpunk.mp3",
       "source": "cyberpunk_2.mp3",
       "leveling": {
@@ -176,7 +176,7 @@
       "bpm": 117.45
     },
     "shit_crashed": {
-      "title": "shit crashed 2.wav",
+      "title": "shit crashed 2",
       "stream": "res://assets/audio/music/shit_crashed.mp3",
       "source": "shit crashed 2.wav",
       "leveling": {
@@ -201,7 +201,7 @@
       "bpm": 129.2
     },
     "robot_attack": {
-      "title": "robot attack.wav",
+      "title": "robot attack",
       "stream": "res://assets/audio/music/robot_attack.mp3",
       "source": "robot attack.wav",
       "leveling": {
@@ -226,7 +226,7 @@
       "bpm": 136.0
     },
     "set_me_free": {
-      "title": "set me free",
+      "title": "set me free_2",
       "stream": "res://assets/audio/music/set_me_free.mp3",
       "source": "set me free_2.mp3",
       "role": "outro",
@@ -278,7 +278,7 @@
       "bpm": 0
     },
     "birthday_melody": {
-      "title": "Birthday Melody",
+      "title": "birthday melody YZ",
       "stream": "res://assets/audio/music/birthday_melody.mp3",
       "source": "birthday melody YZ.mp3",
       "role": "mp3_unlock",
@@ -304,7 +304,7 @@
       "bpm": 112.35
     },
     "pinkghost": {
-      "title": "Pink Ghost",
+      "title": "not new jazz x pinkghost",
       "stream": "res://assets/audio/music/pinkghost.mp3",
       "source": "not new jazz x pinkghost.mp3",
       "role": "mp3_unlock",
@@ -330,7 +330,7 @@
       "bpm": 71.78
     },
     "jazzyhall": {
-      "title": "Jazzy Hall",
+      "title": "jazzyhall_4",
       "stream": "res://assets/audio/music/jazzyhall.mp3",
       "source": "jazzyhall_4.mp3",
       "role": "mp3_unlock",
@@ -356,7 +356,7 @@
       "bpm": 99.38
     },
     "dancehall": {
-      "title": "Dancehall YF",
+      "title": "dancehall yf_2....📌",
       "stream": "res://assets/audio/music/dancehall.mp3",
       "source": "dancehall yf_2....📌.mp3",
       "role": "mp3_unlock",
@@ -382,7 +382,7 @@
       "bpm": 99.38
     },
     "drill_shxt": {
-      "title": "Drill Shxt",
+      "title": "drill shxt",
       "stream": "res://assets/audio/music/drill_shxt.mp3",
       "source": "drill shxt.mp3",
       "role": "menu",
@@ -408,7 +408,7 @@
       "bpm": 143.55
     },
     "hot_shit": {
-      "title": "Hot Shit",
+      "title": "hot shit_23",
       "stream": "res://assets/audio/music/hot_shit.mp3",
       "source": "hot shit_23.wav",
       "role": "level",
@@ -434,7 +434,7 @@
       "bpm": 132.55
     },
     "drill2": {
-      "title": "Drill 2",
+      "title": "drill2_3",
       "stream": "res://assets/audio/music/drill2.mp3",
       "source": "drill2_3.mp3",
       "role": "mp3_unlock",
@@ -460,7 +460,7 @@
       "bpm": 141.6
     },
     "reaper": {
-      "title": "Reaper Beat",
+      "title": "reaper beat2",
       "stream": "res://assets/audio/music/reaper.mp3",
       "source": "reaper beat2.wav",
       "role": "mp3_unlock",
@@ -512,7 +512,7 @@
       "bpm": 103.35
     },
     "destroyed_lonely": {
-      "title": "Destroyed Lonely",
+      "title": "destroyed lonely",
       "stream": "res://assets/audio/music/destroyed_lonely.mp3",
       "source": "destroyed lonely.mp3",
       "role": "mp3_unlock",
@@ -538,7 +538,7 @@
       "bpm": 139.7
     },
     "dancehall_lonesome": {
-      "title": "Dancehall Lonesome",
+      "title": "dancehall lonesome 3 155 rxla fmaj",
       "stream": "res://assets/audio/music/dancehall_lonesome.mp3",
       "source": "dancehall lonesome 3 155 rxla fmaj.mp3",
       "role": "mp3_unlock",
@@ -564,7 +564,7 @@
       "bpm": 155.0
     },
     "dancehall64": {
-      "title": "Dancehall 64",
+      "title": "dancehallbeat64",
       "stream": "res://assets/audio/music/dancehall64.mp3",
       "source": "dancehallbeat64.mp3",
       "role": "mp3_unlock",
@@ -590,7 +590,7 @@
       "bpm": 99.4
     },
     "new_age_dancehall": {
-      "title": "New Age Dancehall",
+      "title": "new age dancehall_52",
       "stream": "res://assets/audio/music/new_age_dancehall.mp3",
       "source": "new age dancehall_52.mp3",
       "role": "mp3_unlock",
@@ -616,15 +616,113 @@
       "bpm": 116.15
     },
     "foreva": {
-      "title": "FOREVA (FXREVA) - Mantaana",
+      "title": "_FXREVER_",
       "stream": "res://assets/audio/music/foreva.mp3",
       "source": "_FXREVER_.mp3",
       "bpm": 0.0
     },
     "spanish_guitarhall": {
-      "title": "Spanish Guitarhall",
+      "title": "spanish guitarhall",
       "stream": "res://assets/audio/music/spanish_guitarhall.mp3",
       "source": "spanish guitarhall.mp3",
+      "bpm": 0.0
+    },
+    "evilhall2": {
+      "title": "evilhall2",
+      "stream": "res://assets/audio/music/evilhall2.mp3",
+      "source": "evilhall2.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "project_dancehall_hard_af_2": {
+      "title": "project_dancehall_hard_af_2",
+      "stream": "res://assets/audio/music/project_dancehall_hard_af_2.mp3",
+      "source": "project_dancehall_hard_af_2.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "project_14": {
+      "title": "Project_14",
+      "stream": "res://assets/audio/music/project_14.mp3",
+      "source": "Project_14.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "ken_carson": {
+      "title": "ken carson",
+      "stream": "res://assets/audio/music/ken_carson.mp3",
+      "source": "ken carson.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "egyptian_beat_2": {
+      "title": "egyptian beat_2_rxla_emaj_11bpm",
+      "stream": "res://assets/audio/music/egyptian_beat_2.mp3",
+      "source": "egyptian beat_2_rxla_emaj_11bpm.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "space_dancehall_yf": {
+      "title": "space_dancehall_yf_tagged",
+      "stream": "res://assets/audio/music/space_dancehall_yf.mp3",
+      "source": "space_dancehall_yf_tagged.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "house_cyah_skate": {
+      "title": "house_cyah_skate",
+      "stream": "res://assets/audio/music/house_cyah_skate.mp3",
+      "source": "house_cyah_skate.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "skillibeng_type_beat": {
+      "title": "skillibeng type beat",
+      "stream": "res://assets/audio/music/skillibeng_type_beat.mp3",
+      "source": "skillibeng type beat.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "qwella1": {
+      "title": "qwella1",
+      "stream": "res://assets/audio/music/qwella1.mp3",
+      "source": "qwella1.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "relapse_3": {
+      "title": "relapse_3",
+      "stream": "res://assets/audio/music/relapse_3.mp3",
+      "source": "relapse_3.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "driffannnn": {
+      "title": "driffannnn",
+      "stream": "res://assets/audio/music/driffannnn.mp3",
+      "source": "driffannnn.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "fell_from_heaven": {
+      "title": "fell_from_heaven",
+      "stream": "res://assets/audio/music/fell_from_heaven.mp3",
+      "source": "fell_from_heaven.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "b6": {
+      "title": "B!6",
+      "stream": "res://assets/audio/music/b6.mp3",
+      "source": "B!6.mp3",
+      "role": "mp3_unlock",
+      "bpm": 0.0
+    },
+    "ready_3_go3": {
+      "title": "ready 3 go3",
+      "stream": "res://assets/audio/music/ready_3_go3.mp3",
+      "source": "ready 3 go3.mp3",
+      "role": "mp3_unlock",
       "bpm": 0.0
     }
   },

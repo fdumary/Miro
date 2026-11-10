@@ -25,7 +25,7 @@ static func heading(parent: Node, text: String, size := 18) -> Label:
 
 static func note(parent: Node, text: String, size := 10, color := DIM) -> Label:
 	var label := Label.new()
-	label.text = text
+	parent.get_node("/root/ControllerSettings").bind_prompt(label, text)
 	label.add_theme_font_size_override("font_size", size)
 	label.add_theme_color_override("font_color", color)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -35,7 +35,7 @@ static func note(parent: Node, text: String, size := 10, color := DIM) -> Label:
 
 static func button(parent: Node, text: String, action: Callable, size := 12) -> Button:
 	var item := Button.new()
-	item.text = text
+	parent.get_node("/root/ControllerSettings").bind_prompt(item, text)
 	item.add_theme_font_size_override("font_size", size)
 	item.pressed.connect(action)
 	parent.add_child(item)
@@ -207,60 +207,248 @@ static func describe(tuning: Dictionary) -> String:
 
 ## Every beat the MP3 can hold: unlocked ones play on click, locked ones are greyed out with
 ## what earns them. Calm beats come from staying unseen, aggressive ones from Keepers taken down.
+## Also includes an Artwork tab showing reactive paintings Miro has seen.
 static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 	var box := column(parent, rect, 3)
 	box.name = "Beats"
 	var progress = campaign(parent)
 	var director = music(parent)
+
+	# Build the full entry list: threshold beats + achievement beats + completion beats.
 	var unlocked: Array = progress.unlocked_tracks()
-	var entries: Array = progress.branch().get("mp3_unlocks", []).duplicate()
-	entries.append({"track": director.MENU_COMPLETED_TRACK, "completion": true, "mood": "menu"})
+	var threshold_entries: Array = progress.branch().get("mp3_unlocks", []).duplicate()
+
+	# Achievement entries: load achievements.json and collect tracks not already in threshold list.
+	var achievement_data: Array = []
+	var achievements_raw = JSON.parse_string(FileAccess.get_file_as_string("res://data/achievements.json"))
+	if achievements_raw is Dictionary:
+		achievement_data = achievements_raw.get("achievements", [])
+	var threshold_tracks: Array = []
+	for e in threshold_entries:
+		threshold_tracks.append(e.track)
+	var achievement_entries: Array = []
+	for ach in achievement_data:
+		var t: String = str(ach.get("track", ""))
+		if t.is_empty() or not director.catalog.has(t):
+			continue
+		if threshold_tracks.has(t):
+			continue  # Already shown via threshold list; skip duplicate
+		achievement_entries.append({"track": t, "achievement_id": str(ach.id), "mood": "achievement"})
+
+	var level_entries: Array = []
+	for number in range(1, 6):
+		for track in progress.level_music_tracks(number):
+			level_entries.append({"track": track, "reach_floor": number})
+	# Completion and secret tracks.
+	var completion_entries: Array = [
+		{"track": director.MENU_COMPLETED_TRACK, "completion": true, "mood": "menu"},
+		{"track": "hot_shit", "niro_completion": true, "mood": "combat"},
+		{"track": "set_me_free", "forest_completion": true, "mood": "outro"},
+		{"track": "foreva", "achievement_id": "foreva_secret", "requirement": "Find the Foreva note"},
+	]
+
+	var all_entries: Array = threshold_entries.duplicate()
+	all_entries.append_array(level_entries)
+	all_entries.append_array(achievement_entries)
+	all_entries.append_array(completion_entries)
+	var unique_entries: Array = []
+	var listed_tracks: Dictionary = {}
+	for entry in all_entries:
+		if not listed_tracks.has(entry.track):
+			listed_tracks[entry.track] = true
+			unique_entries.append(entry)
+	all_entries = unique_entries
+
 	var owned := 0
-	for entry in entries:
+	for entry in all_entries:
 		if beat_owned(progress, unlocked, entry):
 			owned += 1
-	heading(box, "MP3 · BEATS %d / %d" % [owned, entries.size()], 15)
+
+	# Two-tab layout: Beats / Artwork
+	var tab_row := HBoxContainer.new()
+	tab_row.add_theme_constant_override("separation", 4)
+	box.add_child(tab_row)
+
+	var tab_beats := Button.new()
+	tab_beats.text = "BEATS %d / %d" % [owned, all_entries.size()]
+	tab_beats.toggle_mode = true
+	tab_beats.set_pressed_no_signal(true)
+	tab_beats.add_theme_font_size_override("font_size", 11)
+	tab_row.add_child(tab_beats)
+
+	var tab_art := Button.new()
+	tab_art.text = "ARTWORK"
+	tab_art.toggle_mode = true
+	tab_art.set_pressed_no_signal(false)
+	tab_art.add_theme_font_size_override("font_size", 11)
+	tab_row.add_child(tab_art)
+
+	# Beats panel
+	var beats_panel := VBoxContainer.new()
+	beats_panel.name = "BeatsPanel"
+	beats_panel.add_theme_constant_override("separation", 2)
+	box.add_child(beats_panel)
+
 	var grid := GridContainer.new()
 	grid.columns = 2
 	grid.add_theme_constant_override("h_separation", 8)
 	grid.add_theme_constant_override("v_separation", 2)
-	box.add_child(grid)
-	for entry in entries:
+	var beats_scroll := ScrollContainer.new()
+	beats_scroll.name = "BeatsScroll"
+	beats_scroll.custom_minimum_size = Vector2(0, 160)
+	beats_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	beats_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	beats_panel.add_child(beats_scroll)
+	beats_scroll.add_child(grid)
+	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+	for entry in all_entries:
 		var track: String = entry.track
+		if not director.catalog.has(track):
+			continue
 		var have := beat_owned(progress, unlocked, entry)
 		var item := Button.new()
 		item.name = "Beat_" + track
 		item.custom_minimum_size = Vector2(250, 18)
 		item.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		item.clip_text = true
+		item.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		item.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		item.add_theme_font_size_override("font_size", 10)
-		var title: String = director.catalog.get(track, {}).get("title", track)
+		var display_name: String = str(director.catalog.get(track, {}).get("source", track)).get_basename()
 		if have:
-			item.text = "%s   · %s" % [title, mood_word(entry)]
+			item.text = "%s   · %s" % [display_name, mood_word(entry)]
 			item.add_theme_color_override("font_color", SAND)
 			item.pressed.connect(func():
 				director.review_override = true
 				director.play_track(track))
 		else:
-			item.text = "LOCKED  %s   · %s" % [title, requirement(entry)]
+			item.text = "LOCKED  %s   · %s" % [display_name, requirement(entry, achievement_data)]
 			item.disabled = true
 			item.modulate = Color(1, 1, 1, 0.45)
 		grid.add_child(item)
-	note(box, "On a floor, [B] skips to the next beat on Miro's MP3 (or type next on the remote).", 9)
+
+	note(beats_panel, "On a floor, [B] skips to the next beat on Miro's MP3 (or type next on the remote).", 9)
+
+	# Artwork panel (hidden by default)
+	var art_panel := ScrollContainer.new()
+	art_panel.name = "ArtPanel"
+	art_panel.visible = false
+	art_panel.custom_minimum_size = Vector2(0, 160)
+	art_panel.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	box.add_child(art_panel)
+
+	var art_grid := GridContainer.new()
+	art_grid.columns = 3
+	art_grid.add_theme_constant_override("h_separation", 6)
+	art_grid.add_theme_constant_override("v_separation", 4)
+	art_panel.add_child(art_grid)
+
+	var art_rights_raw = JSON.parse_string(FileAccess.get_file_as_string("res://data/art_rights.json"))
+	var art_rights: Dictionary = art_rights_raw.get("works", {}) if art_rights_raw is Dictionary else {}
+	var art_catalog_raw = JSON.parse_string(FileAccess.get_file_as_string("res://data/art_catalog.json"))
+	var art_works: Array = art_catalog_raw.get("works", []) if art_catalog_raw is Dictionary else []
+
+	for work in art_works:
+		var work_id: String = str(work.id)
+		var seen: bool = progress.has_achievement("art_" + work_id)
+		var cell := VBoxContainer.new()
+		cell.custom_minimum_size = Vector2(178, 80)
+		cell.add_theme_constant_override("separation", 2)
+		art_grid.add_child(cell)
+
+		var rights_entry: Dictionary = art_rights.get(work_id, {})
+		var rights_ok: bool = rights_entry.get("status", "") == "verified"
+		var asset_path: String = str(work.get("asset_path", ""))
+		var can_show: bool = seen and rights_ok and not asset_path.is_empty() and ResourceLoader.exists(asset_path)
+
+		if can_show:
+			var thumb := TextureButton.new()
+			thumb.name = "Artwork_" + work_id
+			thumb.custom_minimum_size = Vector2(178, 60)
+			thumb.ignore_texture_size = true
+			thumb.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+			thumb.texture_normal = load(asset_path)
+			thumb.tooltip_text = "Inspect " + str(work.title)
+			thumb.pressed.connect(open_artwork.bind(parent, work, thumb.texture_normal))
+			cell.add_child(thumb)
+		else:
+			var placeholder := ColorRect.new()
+			placeholder.custom_minimum_size = Vector2(178, 60)
+			placeholder.color = Color(0.18, 0.17, 0.26)
+			cell.add_child(placeholder)
+
+		var caption := Label.new()
+		caption.text = "%s — %s" % [str(work.get("title", "")), str(work.get("artist", ""))]
+		caption.add_theme_font_size_override("font_size", 9)
+		caption.add_theme_color_override("font_color", SAND if seen else DIM)
+		caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		caption.custom_minimum_size = Vector2(178, 0)
+		cell.add_child(caption)
+
+	# Tab switching
+	tab_beats.pressed.connect(func():
+		tab_beats.set_pressed_no_signal(true)
+		tab_art.set_pressed_no_signal(false)
+		beats_panel.visible = true
+		art_panel.visible = false)
+	tab_art.pressed.connect(func():
+		tab_art.set_pressed_no_signal(true)
+		tab_beats.set_pressed_no_signal(false)
+		beats_panel.visible = false
+		art_panel.visible = true)
+
 	return box
+
+static func open_artwork(parent: Node, work: Dictionary, texture: Texture2D) -> void:
+	var viewer = preload("res://scripts/art_gallery_viewer.gd").new()
+	parent.get_tree().root.add_child(viewer)
+	viewer.open(work, texture)
 
 static func beat_owned(progress: Node, unlocked: Array, entry: Dictionary) -> bool:
 	if entry.get("completion", false):
 		return progress.game_completed()
+	if entry.get("niro_completion", false):
+		return progress.has_achievement("defeat_niro")
+	if entry.get("forest_completion", false):
+		return unlocked.has("set_me_free")
+	if entry.has("achievement_id"):
+		return unlocked.has(entry.track)
 	return unlocked.has(entry.track)
 
 static func mood_word(entry: Dictionary) -> String:
+	if entry.has("reach_floor"):
+		return "level %d" % int(entry.reach_floor)
+	if entry.get("mood", "") == "bonus":
+		return "completion bonus"
 	if entry.get("completion", false):
 		return "menu theme"
+	if entry.get("niro_completion", false):
+		return "combat"
+	if entry.get("forest_completion", false):
+		return "outro"
+	if entry.has("achievement_id"):
+		return "achievement"
 	return "stealth" if entry.has("stealth_points") else "combat"
 
-static func requirement(entry: Dictionary) -> String:
+static func requirement(entry: Dictionary, achievement_data: Array = []) -> String:
+	if entry.has("reach_floor"):
+		return "Reach Level %d" % int(entry.reach_floor)
+	if entry.has("requirement"):
+		return entry.requirement
 	if entry.get("completion", false):
 		return "finish the game"
+	if entry.get("niro_completion", false):
+		return "Defeat Niro & Blow Up Tower"
+	if entry.get("forest_completion", false):
+		return "reach the forest viewpoint"
+	# Check achievement_data for a matching track label
+	var track: String = str(entry.get("track", ""))
+	for ach in achievement_data:
+		if str(ach.get("track", "")) == track:
+			return str(ach.get("label", track))
 	if entry.has("kills"):
 		return "take down %d Keepers" % int(entry.kills)
-	return "%d stealth points" % int(entry.stealth_points)
+	if entry.has("stealth_points"):
+		return "%d stealth points" % int(entry.stealth_points)
+	return track

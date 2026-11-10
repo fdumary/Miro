@@ -5,6 +5,7 @@ var inventory_layout: Array[String] = ["shank", "c4", "gun_1", "gun_2", "remote"
 var remote_owned := false
 var remote_unlocked := false
 var current_floor := 1
+var active_floor_difficulty := "medium"
 var completed_sigils: Dictionary = {}
 var narrative_milestones: Dictionary = {}
 var boss_defeated := false
@@ -88,7 +89,9 @@ func enter_floor(number: int) -> void:
 	if number == 1 and current_floor != 1:
 		case_anchors.clear()
 	current_floor = number
+	active_floor_difficulty = difficulty()
 	unlock_level(number)
+	unlock_level_music(number)
 	print("FLOOR_READY: ", number)
 	for floor_number in completed_sigils.keys():
 		if int(floor_number) >= number:
@@ -127,6 +130,9 @@ func save_floor_snapshot(number: int) -> void:
 		"remote_unlocked": remote_unlocked,
 		"inventory_layout": Array(inventory_layout.duplicate()),
 		"floor_stats": floor_stats.duplicate(true),
+		"carried_kit": carried_kit.duplicate(true),
+		"carried_from": carried_from,
+		"case_anchors": case_anchors.duplicate(),
 		"completed_sigils": completed_sigils.duplicate(),
 		"narrative_milestones": narrative_milestones.duplicate(),
 		"played_from_start": played_from_start,
@@ -161,6 +167,9 @@ func restore_floor_snapshot(number: int) -> bool:
 	if snapshot.has("inventory_layout"):
 		inventory_layout.assign(snapshot.inventory_layout)
 	floor_stats = Dictionary(snapshot.get("floor_stats", {})).duplicate(true)
+	carried_kit = Dictionary(snapshot.get("carried_kit", {})).duplicate(true)
+	carried_from = int(snapshot.get("carried_from", 0))
+	case_anchors = Dictionary(snapshot.get("case_anchors", {})).duplicate()
 	completed_sigils = Dictionary(snapshot.get("completed_sigils", {})).duplicate()
 	narrative_milestones = Dictionary(snapshot.get("narrative_milestones", {})).duplicate()
 	played_from_start = bool(snapshot.get("played_from_start", false))
@@ -190,6 +199,7 @@ func mark_game_completed() -> void:
 	progress.load(progress_path())
 	progress.set_value("game", "completed", true)
 	progress.save(progress_path())
+	add_track_unlock("lil_uzi2")
 
 func total(key: String) -> int:
 	var sum := 0
@@ -265,6 +275,7 @@ func add_track_unlock(track: String) -> void:
 		if current_unlocks.has(trimmed_t):
 			continue
 		current_unlocks.append(trimmed_t)
+		fresh_unlocks.append(trimmed_t)
 		if can_persist():
 			var progress := ConfigFile.new()
 			progress.load(progress_path())
@@ -273,11 +284,9 @@ func add_track_unlock(track: String) -> void:
 		else:
 			session_unlocks = current_unlocks
 
-## Hot Shit is the final boss track: Level 5's second half, never a stealth or kill unlock.
+## Hot Shit is earned via the defeat_niro achievement; it always appears in unlocked_tracks().
 func unlocked_tracks() -> Array:
-	var tracks := stored_unlocks()
-	tracks.erase("hot_shit")
-	return tracks
+	return stored_unlocks()
 
 func stored_unlocks() -> Array:
 	if not can_persist():
@@ -310,6 +319,208 @@ var fresh_unlocks: Array = []
 ## What Miro is carrying when a floor ends: guns, ammo, C4, tonics. The next floor hands it back.
 var carried_kit: Dictionary = {}
 var carried_from := 0
+
+## Achievement tracking: cumulative across the whole run, persisted in progress.cfg.
+## Strangle count and named-strangle tracking for strangle_* achievements.
+var kill_count := 0
+var named_killed: Dictionary = {}
+var security_disabled_ids: Dictionary = {}
+var strangle_count := 0
+var named_strangled: Dictionary = {}
+## C4 kill count for c4_spree achievement.
+var c4_kill_count := 0
+## Camera+turret disable count per floor for hack_early / hack_all.
+var security_disabled_count := 0
+## Terminal command count and set of distinct commands run, for terminal_5 / terminal_all.
+var terminal_command_count := 0
+var terminal_commands_run: Dictionary = {}
+## Whether mp3_hack has already been unlocked this session.
+var mp3_hack_unlocked := false
+
+## Load achievement strangle_count from progress.cfg on startup.
+func _ready() -> void:
+	if can_persist():
+		var progress := ConfigFile.new()
+		progress.load(progress_path())
+		kill_count = int(progress.get_value("achievements", "kill_count", 0))
+		for guard_name in progress.get_value("achievements", "named_killed", []):
+			named_killed[guard_name] = true
+		for device_id in progress.get_value("achievements", "security_disabled_ids", []):
+			security_disabled_ids[device_id] = true
+		strangle_count = int(progress.get_value("achievements", "strangle_count", 0))
+		var ns = progress.get_value("achievements", "named_strangled", [])
+		for n in ns:
+			named_strangled[n] = true
+		c4_kill_count = int(progress.get_value("achievements", "c4_kill_count", 0))
+		security_disabled_count = int(progress.get_value("achievements", "security_disabled_count", 0))
+		terminal_command_count = int(progress.get_value("achievements", "terminal_command_count", 0))
+		var cmds = progress.get_value("achievements", "terminal_commands_run", [])
+		for cmd in cmds:
+			terminal_commands_run[terminal_command_id(str(cmd))] = true
+	if can_persist():
+		call_deferred("unlock_reached_level_music")
+
+func level_music_tracks(number: int) -> Array:
+	var director = get_node_or_null("/root/MusicDirector")
+	if director == null:
+		return []
+	var tracks: Array = []
+	var first: String = director.GUITAR_TRACK if number == 5 else str(director.FIRST.get(number, ""))
+	if not first.is_empty():
+		tracks.append(first)
+	if director.SECOND.has(number):
+		tracks.append(director.SECOND[number])
+	return tracks
+
+func unlock_level_music(number: int) -> void:
+	unlock_achievement("reach_level_%d" % number)
+	for track in level_music_tracks(number):
+		add_track_unlock(track)
+
+func unlock_reached_level_music() -> void:
+	for number in range(1, highest_level() + 1):
+		unlock_level_music(number)
+
+## Save strangle_count etc. back to progress.cfg.
+func _save_achievement_progress() -> void:
+	if not can_persist():
+		return
+	var progress := ConfigFile.new()
+	progress.load(progress_path())
+	progress.set_value("achievements", "kill_count", kill_count)
+	progress.set_value("achievements", "named_killed", named_killed.keys())
+	progress.set_value("achievements", "security_disabled_ids", security_disabled_ids.keys())
+	progress.set_value("achievements", "strangle_count", strangle_count)
+	progress.set_value("achievements", "named_strangled", named_strangled.keys())
+	progress.set_value("achievements", "c4_kill_count", c4_kill_count)
+	progress.set_value("achievements", "security_disabled_count", security_disabled_count)
+	progress.set_value("achievements", "terminal_command_count", terminal_command_count)
+	progress.set_value("achievements", "terminal_commands_run", terminal_commands_run.keys())
+	progress.save(progress_path())
+
+## Called when a Keeper is killed. Checks kill-milestone achievements.
+func on_keeper_killed(guard_name: String, is_named: bool) -> void:
+	kill_count = maxi(kill_count, total("kills")) + 1
+	_check_kill_achievement("kill_1", "drill2", kill_count, 1)
+	_check_kill_achievement("kill_10", "evilhall2", kill_count, 10)
+	_check_kill_achievement("kill_50", "reaper", kill_count, 50)
+	_check_kill_achievement("kill_100", "ox", kill_count, 100)
+	if is_named:
+		named_killed[guard_name] = true
+	if _all_named_recorded(named_killed) and unlock_achievement("kill_named"):
+		add_track_unlock("destroyed_lonely")
+	_save_achievement_progress()
+
+func _check_kill_achievement(id: String, track: String, count: int, threshold: int) -> void:
+	if count >= threshold and unlock_achievement(id):
+		add_track_unlock(track)
+
+## Use roster identities: repeated kills or unnamed reinforcements cannot stand in for missing Keepers.
+func _all_named_recorded(recorded: Dictionary) -> bool:
+	var roster: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/guard_roster.json"))
+	for guard_name in roster.keepers:
+		if not recorded.has(guard_name):
+			return false
+	return not roster.keepers.is_empty()
+
+## Called when a Keeper is strangled. Checks strangle-milestone achievements.
+func on_keeper_strangled(guard_name: String, is_named: bool) -> void:
+	strangle_count += 1
+	if is_named:
+		named_strangled[guard_name] = true
+	_check_strangle_achievement("strangle_1", "birthday_melody", strangle_count, 1)
+	_check_strangle_achievement("strangle_10", "driffannnn", strangle_count, 10)
+	_check_strangle_achievement("strangle_50", "fell_from_heaven", strangle_count, 50)
+	_check_strangle_achievement("strangle_100", "b6", strangle_count, 100)
+	if _all_named_recorded(named_strangled) and unlock_achievement("strangle_named"):
+		add_track_unlock("ready_3_go3")
+	_save_achievement_progress()
+
+func _check_strangle_achievement(id: String, track: String, count: int, threshold: int) -> void:
+	if count >= threshold and unlock_achievement(id):
+		add_track_unlock(track)
+
+## Called by dropped_charge when a C4 blast kills a Keeper.
+func on_c4_kill() -> void:
+	c4_kill_count += 1
+	if c4_kill_count >= 3 and unlock_achievement("c4_spree"):
+		add_track_unlock("project_dancehall_hard_af_2")
+	_save_achievement_progress()
+
+## Called by security_camera.disable() and tower_hazard.disable() when floor <= 2.
+func on_security_disabled_early() -> void:
+	if unlock_achievement("hack_early"):
+		add_track_unlock("project_14")
+
+## Stable authored identities prevent repeated disables or retries from inflating progress.
+func security_device_id(number: int, kind: String, point: Vector2) -> String:
+	return "%d:%s:%d:%d" % [number, kind, roundi(point.x), roundi(point.y)]
+
+func security_targets() -> Dictionary:
+	var targets: Dictionary = {}
+	for number in range(2, 6):
+		var definition: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/levels/level_%02d.json" % number))
+		var features: Dictionary = definition.get("features", {})
+		for camera in features.get("cameras", []):
+			if not camera.get("disabled", false):
+				var point := Vector2(camera.position[0], camera.position[1])
+				targets[security_device_id(number, "camera", point)] = true
+		for hazard in features.get("hazards", []):
+			if hazard.kind == "turret" and not hazard.get("disabled", false):
+				var point := Vector2(hazard.position[0], hazard.position[1])
+				targets[security_device_id(number, "turret", point)] = true
+		# Compatibility for the original practice/checkpoint layouts.
+		if number == 2 and features.get("ports", []).is_empty():
+			targets[security_device_id(2, "camera", Vector2(720, 370))] = true
+		if number == 3 and not features.has("cameras"):
+			for point in [Vector2(450, 180), Vector2(820, 370)]:
+				targets[security_device_id(3, "camera", point)] = true
+	return targets
+
+func on_security_disabled(kind: String, point: Vector2) -> void:
+	var targets := security_targets()
+	var id := security_device_id(current_floor, kind, point)
+	# Scripted scenery that starts disabled never earns an achievement.
+	if not targets.has(id) or security_disabled_ids.has(id):
+		return
+	security_disabled_ids[id] = true
+	security_disabled_count = security_disabled_ids.size()
+	if current_floor <= 2:
+		on_security_disabled_early()
+	var all_disabled := not targets.is_empty()
+	for target in targets:
+		if not security_disabled_ids.has(target):
+			all_disabled = false
+	if all_disabled and unlock_achievement("hack_all"):
+		add_track_unlock("ken_carson")
+	_save_achievement_progress()
+
+## Called by player_controls.run_command for each command typed.
+func terminal_command_id(cmd: String) -> String:
+	var id := cmd.strip_edges()
+	if id.begins_with("cat ") or id.begins_with("login ") or id.begins_with("cd "):
+		return id.get_slice(" ", 0)
+	return id
+
+func on_terminal_command(cmd: String) -> void:
+	var id := terminal_command_id(cmd)
+	if not id in ["ls", "cat", "pwd", "whoami", "cd", "login", "scan", "turrets off", "cameras off", "help", "next", "hack", "./unlock.sh", "music", "play", "lights test"] and not cmd.begins_with("play "):
+		return
+	terminal_command_count += 1
+	terminal_commands_run[terminal_command_id(cmd)] = true
+	if terminal_command_count >= 5 and unlock_achievement("terminal_5"):
+		add_track_unlock("egyptian_beat_2")
+	var known_commands := ["ls", "cat", "pwd", "whoami", "cd", "login", "scan", "turrets off"]
+	var all_run := known_commands.all(func(c): return terminal_commands_run.has(c))
+	if all_run and unlock_achievement("terminal_all"):
+		add_track_unlock("space_dancehall_yf")
+	_save_achievement_progress()
+
+## Called once when the player uses the MP3 near a terminal.
+func on_mp3_hack() -> void:
+	if not mp3_hack_unlocked and unlock_achievement("mp3_hack"):
+		mp3_hack_unlocked = true
+		add_track_unlock("house_cyah_skate")
 
 func update_unlocks() -> Array:
 	var earned: Array = []
@@ -436,6 +647,7 @@ func complete_floor(number: int, sigil: bool, milestones: Dictionary, raw_stats:
 	checkpoint.clear()
 	save_checkpoint()
 	floor_stats[number] = score_floor(raw_stats)
+	floor_stats[number]["difficulty"] = active_floor_difficulty
 	unlock_level(number + 1)
 	if sigil:
 		completed_sigils[number] = true
@@ -446,3 +658,25 @@ func complete_floor(number: int, sigil: bool, milestones: Dictionary, raw_stats:
 		ending_complete = milestones.has("ForestViewpoint")
 		if ending_complete:
 			mark_game_completed()
+			if completed_super_hard() and unlock_achievement("complete_super_hard"):
+				add_track_unlock("robot_attack")
+	check_peaceful_achievements()
+
+## Completed peaceful floors award the achievement IDs as well as their MP3 tracks.
+func check_peaceful_achievements() -> void:
+	var peaceful := 0
+	for stats in floor_stats.values():
+		if int(stats.get("kills", 0)) == 0:
+			peaceful += 1
+	for entry in [["ghost_1", "destroyed_lonely", 1], ["ghost_2", "dancehall64", 2], ["ghost_3", "jazzyhall", 3], ["ghost_4", "new_age_dancehall", 4]]:
+		if peaceful >= int(entry[2]) and unlock_achievement(entry[0]):
+			add_track_unlock(entry[1])
+	if ending_complete and peaceful == 5 and total("kills") == 0 and unlock_achievement("ghost_full"):
+		add_track_unlock("dancehall_lonesome")
+
+## Every floor must have been played on Super Hard; changing settings at the finale is insufficient.
+func completed_super_hard() -> bool:
+	for number in range(1, 6):
+		if not floor_stats.has(number) or floor_stats[number].get("difficulty", "") != "super_hard":
+			return false
+	return true

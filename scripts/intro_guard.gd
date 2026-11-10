@@ -241,7 +241,7 @@ func _physics_process(delta: float) -> void:
 					strike_landed = false
 				else:
 					windup = windup_time
-					shot_direction = gap.normalized()
+					shot_direction = (level.player.get_node("CollisionShape2D").global_position - (global_position + Vector2(0, -4))).normalized()
 				attack_timer = attack_gap
 		else:
 			velocity.x = facing * chase_speed

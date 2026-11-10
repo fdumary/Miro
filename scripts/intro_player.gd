@@ -146,7 +146,8 @@ func _physics_process(delta: float) -> void:
 		dodge_cooldown = 0.85
 		end_stealth()
 	var speed_multiplier := stealth_speed_multiplier if is_concealed else 1.0
-	velocity.x = direction * movement_speed * speed_multiplier * (0.45 if crouching else (0.6 if controls.focus else 1.0))
+	var walk_multiplier := 0.55 if Input.is_action_pressed("slow_walk") else 1.0
+	velocity.x = direction * movement_speed * speed_multiplier * walk_multiplier * (0.45 if crouching else (0.6 if controls.focus else 1.0))
 	if dodge_left > 0.0:
 		velocity.x = facing * 245.0
 	if wall_jump_push_left > 0.0:

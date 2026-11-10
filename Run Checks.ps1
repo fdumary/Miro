@@ -35,14 +35,26 @@ $checks = @(
     @('res://tools/test_hunt_waves.gd'),
     @('res://tools/test_final_gaps.gd'),
     @('res://tools/test_easter_eggs.gd'),
-    @('res://tools/test_terminal_focus.gd')
+    @('res://tools/test_terminal_focus.gd'),
+    @('res://tools/test_prelaunch_regressions.gd', '--', '--player'),
+    @('res://tools/test_launch_checklist.gd', '--', '--player'),
+    @('res://tools/test_saves_and_loot.gd', '--', '--player'),
+    @('res://tools/test_combat_zones.gd', '--', '--player'),
+    @('res://tools/test_quiet_walk_and_voice.gd', '--', '--player'),
+    @('res://tools/test_supplies_and_closing.gd', '--', '--player')
 )
 New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'tmp') | Out-Null
+& $engine --headless --editor --path $PSScriptRoot --import *> (Join-Path $PSScriptRoot 'tmp/check-import.log')
+if ($LASTEXITCODE -ne 0) { throw 'Godot resource import failed before checks.' }
+& python (Join-Path $PSScriptRoot 'tools/check_voice_coverage.py') *> (Join-Path $PSScriptRoot 'tmp/check-voice-coverage.log')
+if ($LASTEXITCODE -ne 0) { Get-Content (Join-Path $PSScriptRoot 'tmp/check-voice-coverage.log'); throw 'Voice library has missing or outdated clips.' }
 $index = 0
 foreach ($check in $checks) {
     $index += 1
     $arguments = @('--headless', '--path', $PSScriptRoot, '--fixed-fps', '60', '--script') + $check
+    $ErrorActionPreference = 'Continue'
     $result = & $engine @arguments 2>&1
+    $ErrorActionPreference = 'Stop'
     $exitCode = $LASTEXITCODE
     $result | Set-Content (Join-Path $PSScriptRoot "tmp/check-$index.log")
     if ($exitCode -ne 0 -or ($result -match 'SCRIPT ERROR:|ERROR:|FAIL:')) {

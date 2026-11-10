@@ -111,7 +111,8 @@ func build_title_buttons() -> void:
 	SCREENS.button(box, "Quit", func(): get_tree().quit(), 14)
 	play.call_deferred("grab_focus")
 	var caption := Label.new()
-	caption.text = ("D-pad Navigate · Cross/A Select · Circle/B Back · Options Pause in game" if get_node("/root/ControllerSettings").using_controller else "M mutes all audio · F10 returns here from a floor") + (" · dev build" if get_node("/root/Campaign").dev_mode() else "")
+	var suffix := " · dev build" if get_node("/root/Campaign").dev_mode() else ""
+	get_node("/root/ControllerSettings").bind_prompt(caption, "M mutes all audio · F10 returns here from a floor" + suffix, "D-pad Navigate · Cross Select · Circle Back · Options Pause in game" + suffix)
 	caption.add_theme_font_size_override("font_size", 9)
 	caption.add_theme_color_override("font_color", SCREENS.DIM)
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -122,7 +123,7 @@ func build_title_buttons() -> void:
 func back_button() -> void:
 	var back := Button.new()
 	back.name = "Back"
-	back.text = "Back  [Esc]"
+	get_node("/root/ControllerSettings").bind_prompt(back, "Back  [Esc]")
 	back.add_theme_font_size_override("font_size", 11)
 	back.position = Vector2(14, 326)
 	back.pressed.connect(func(): show_screen("title"))

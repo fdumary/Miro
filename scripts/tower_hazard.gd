@@ -86,6 +86,13 @@ func take_turret_hit(amount := 1) -> void:
 		return
 	health -= amount
 	level.emit_effect("hit", target_point())
+	if health <= 0:
+		# Achievement wiring for destruction, including C4 overkill.
+		var campaign = get_node_or_null("/root/Campaign")
+		if campaign != null:
+			if kind == "turret":
+				campaign.unlock_achievement("destroy_turret")
+				campaign.add_track_unlock("qwella1")
 	if health == 0:
 		queue_free()
 
@@ -93,6 +100,10 @@ func disable() -> void:
 	disabled = true
 	charge = 0.0
 	queue_redraw()
+	var campaign = get_node_or_null("/root/Campaign")
+	if campaign == null:
+		return
+	campaign.on_security_disabled(kind, position)
 
 func stun() -> bool:
 	if disabled or health <= 0:

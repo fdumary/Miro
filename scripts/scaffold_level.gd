@@ -139,11 +139,13 @@ func update_checkpoint() -> void:
 			campaign.checkpoint["milestones"] = milestones.duplicate()
 			campaign.checkpoint["sigil"] = sigil_placed
 			campaign.checkpoint["thoughts"] = world_features.thought_seen.keys()
+			campaign.checkpoint["used_cases"] = used_ammo_cases()
+			campaign.checkpoint["looted_guards"] = looted_guard_names()
 			campaign.save_checkpoint()
 		return
 	if storey == 0 and campaign.checkpoint.is_empty():
 		return
-	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed, "player": player_snapshot(), "dead": dead_guards(), "thoughts": world_features.thought_seen.keys()}
+	campaign.checkpoint = {"floor": int(definition.number), "storey": storey, "position": player.global_position, "milestones": milestones.duplicate(), "sigil": sigil_placed, "player": player_snapshot(), "dead": dead_guards(), "thoughts": world_features.thought_seen.keys(), "used_cases": used_ammo_cases(), "looted_guards": looted_guard_names()}
 	campaign.save_checkpoint()
 	notify("Checkpoint.")
 
@@ -156,6 +158,7 @@ func player_snapshot() -> Dictionary:
 		"gun_ammo": player.gun_ammo.duplicate(), "equipped_gun": player.equipped_gun, "ammunition": player.ammunition,
 		"c4_count": player.c4_count, "casualty_count": player.casualty_count,
 		"reserves": c.reserves.duplicate(), "has_guitar": c.has_guitar, "layout": Array(c.layout),
+		"has_remote": c.has_remote, "remote_unlocked": c.remote_unlocked, "active_item": c.active,
 	}
 
 func dead_guards() -> Array:
@@ -164,6 +167,50 @@ func dead_guards() -> Array:
 		if guard.is_dead and guard.get_parent() == $Guards:
 			dead.append({"name": str(guard.name), "position": guard.global_position, "looted": guard.gun_taken})
 	return dead
+
+## Loot already included in the saved kit cannot be collected a second time after a retry.
+func used_ammo_cases() -> Array:
+	var used: Array = []
+	var index := 0
+	for prop in world_features.props:
+		if is_instance_valid(prop) and prop.kind == "case":
+			if prop.used:
+				used.append({"index": index, "position": prop.global_position})
+			index += 1
+	return used
+
+func looted_guard_names() -> Array:
+	var names: Array = []
+	for guard in guards():
+		if guard.gun_taken:
+			names.append(str(guard.name))
+	return names
+
+func restore_checkpoint_loot(saved: Dictionary) -> void:
+	# Cases and terminal posts are authored asynchronously after the first physics frames.
+	for tick in range(4):
+		await get_tree().physics_frame
+	for entry in saved.get("dead", []):
+		var fallen = $Guards.get_node_or_null(str(entry.name))
+		if fallen != null and not fallen.is_dead:
+			fallen.restore_dead(entry.position, bool(entry.get("looted", false)))
+	for guard_name in saved.get("looted_guards", []):
+		var guard = $Guards.get_node_or_null(str(guard_name))
+		if guard != null:
+			guard.gun_taken = true
+	var cases: Array = world_features.props.filter(func(prop): return is_instance_valid(prop) and prop.kind == "case")
+	for entry in saved.get("used_cases", []):
+		var index := int(entry.index)
+		var found = null
+		for prop in cases:
+			if prop.global_position.distance_to(entry.position) < 1.0:
+				found = prop
+				break
+		if found == null and index >= 0 and index < cases.size():
+			found = cases[index]
+		if found != null:
+			found.used = true
+			found.queue_redraw()
 
 func apply_player_snapshot(data: Dictionary) -> void:
 	var c = player.controls
@@ -180,6 +227,16 @@ func apply_player_snapshot(data: Dictionary) -> void:
 	player.casualty_count = int(data.get("casualty_count", 0))
 	c.reserves = Dictionary(data.get("reserves", {})).duplicate()
 	c.has_guitar = bool(data.get("has_guitar", false))
+	c.has_remote = bool(data.get("has_remote", c.has_remote))
+	c.remote_unlocked = bool(data.get("remote_unlocked", c.remote_unlocked))
+	var campaign = get_node("/root/Campaign")
+	campaign.remote_owned = c.has_remote
+	campaign.remote_unlocked = c.remote_unlocked
+	if data.has("layout"):
+		c.layout.assign(data.layout)
+		campaign.inventory_layout.assign(data.layout)
+	c.sync_slots()
+	c.select_item(str(data.get("active_item", player.equipped_gun if player.has_gun else c.active)))
 
 ## Guns, ammo, C4 and health come with Miro from the floor above (not on a retry: the checkpoint has its own kit).
 func apply_carried_kit() -> void:
@@ -223,6 +280,7 @@ func apply_checkpoint() -> void:
 		var fallen = $Guards.get_node_or_null(str(entry.name))
 		if fallen != null:
 			fallen.restore_dead(entry.position, bool(entry.get("looted", false)))
+	restore_checkpoint_loot(saved)
 	# A moment of grace so the respawned Keepers can't strip health the instant he appears.
 	player.invulnerability_left = 3.5
 	player.respawn_cloak_left = 4.0
@@ -388,10 +446,13 @@ func drop_password_note(at: Vector2) -> void:
 
 func on_keeper_killed(guard) -> void:
 	drop_password_note(guard.global_position)
+	var campaign = get_node("/root/Campaign")
+	var is_named: bool = not str(guard.get("guard_name")).is_empty()
+	campaign.on_keeper_killed(str(guard.get("guard_name")), is_named)
 	if disappointment_heard or int(definition.number) >= 5:
 		return
 	disappointment_heard = true
-	var lines: Array = get_node("/root/Campaign").branch().kill_disappointment
+	var lines: Array = campaign.branch().kill_disappointment
 	world_features.remote_say(lines[(int(definition.number) + player.casualty_count) % lines.size()], "NIRO" if int(definition.number) >= 3 else "THE VOICE")
 
 func floor_report() -> String:
@@ -495,6 +556,7 @@ func interact() -> void:
 		pending_milestone = station.id
 		if station.id == "ForestViewpoint":
 			pending_milestone = ""
+			get_node("/root/Campaign").add_track_unlock("set_me_free")
 			cinematic = load("res://scenes/ending_cinematic.tscn").instantiate()
 			cinematic.level = self
 			cinematic.finished.connect(finish_ending)
@@ -624,6 +686,9 @@ func brother_defeated() -> void:
 	milestones["BrotherEncounter"] = true
 	areas.get_node("BrotherEncounter").activated = true
 	areas.get_node("BrotherEncounter").queue_redraw()
+	var campaign = get_node("/root/Campaign")
+	campaign.unlock_achievement("defeat_niro")
+	campaign.add_track_unlock("hot_shit")
 	for station in definition.stations:
 		if station.id == "DefeatExchange":
 			pending_milestone = "DefeatExchange"

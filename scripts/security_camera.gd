@@ -36,6 +36,11 @@ func take_turret_hit(amount := 1) -> void:
 		return
 	health -= amount
 	level.emit_effect("hit", global_position)
+	if health <= 0:
+		var campaign = get_node_or_null("/root/Campaign")
+		if campaign != null:
+			campaign.unlock_achievement("destroy_mosswatcher")
+			campaign.add_track_unlock("relapse_3")
 	if health == 0:
 		queue_free()
 
@@ -74,6 +79,10 @@ func detects_player() -> bool:
 func disable() -> void:
 	is_active = false
 	queue_redraw()
+	var campaign = get_node_or_null("/root/Campaign")
+	if campaign == null:
+		return
+	campaign.on_security_disabled("camera", position)
 
 func _draw() -> void:
 	if is_active and cone_points.size() > 2:

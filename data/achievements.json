@@ -36,6 +36,40 @@
       "track": "destroyed_lonely"
     },
     {
+      "id": "strangle_1",
+      "label": "Strangle a Guard",
+      "event": "strangle",
+      "threshold": 1,
+      "track": "birthday_melody"
+    },
+    {
+      "id": "strangle_10",
+      "label": "Strangle 10 Guards",
+      "event": "strangle",
+      "threshold": 10,
+      "track": "driffannnn"
+    },
+    {
+      "id": "strangle_50",
+      "label": "Strangle 50 Guards",
+      "event": "strangle",
+      "threshold": 50,
+      "track": "fell_from_heaven"
+    },
+    {
+      "id": "strangle_100",
+      "label": "Strangle 100 Guards",
+      "event": "strangle",
+      "threshold": 100,
+      "track": "b6"
+    },
+    {
+      "id": "strangle_named",
+      "label": "Strangle all Named Guards",
+      "event": "named_guard_strangled_all",
+      "track": "ready_3_go3"
+    },
+    {
       "id": "c4_spree",
       "label": "Kill 3+ Guards with C4",
       "event": "c4_kill",
@@ -46,14 +80,7 @@
       "id": "defeat_niro",
       "label": "Defeat Niro & Blow Up Tower",
       "event": "niro_defeated",
-      "track": "set_me_free"
-    },
-    {
-      "id": "strangle_1",
-      "label": "Strangle a Guard",
-      "event": "strangle",
-      "threshold": 1,
-      "track": "birthday_melody"
+      "track": "hot_shit"
     },
     {
       "id": "ghost_1",
@@ -99,14 +126,14 @@
       "id": "hack_all",
       "label": "Disable all Cameras/Turrets all levels",
       "event": "security_disabled_all",
-      "track": "ken carson"
+      "track": "ken_carson"
     },
     {
       "id": "terminal_5",
       "label": "Execute 5+ Terminal Commands",
       "event": "terminal_commands",
       "threshold": 5,
-      "track": "egyptian beat_2"
+      "track": "egyptian_beat_2"
     },
     {
       "id": "terminal_all",
@@ -124,7 +151,7 @@
       "id": "pickpocket_judas",
       "label": "Pickpocket Judas",
       "event": "pickpocket_judas",
-      "track": "skillibeng type beat"
+      "track": "skillibeng_type_beat"
     },
     {
       "id": "destroy_turret",
@@ -143,6 +170,12 @@
       "label": "Found the Foreva Note",
       "event": "foreva_easter_egg",
       "track": "spanish_guitarhall"
+    },
+    {
+      "id": "complete_super_hard",
+      "label": "Beat the game on Super Hard",
+      "event": "game_completed_super_hard",
+      "track": "robot_attack"
     }
   ]
 }

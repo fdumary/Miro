@@ -26,6 +26,7 @@ func _ready() -> void:
 	sees_player = true
 	calls_left = 2 if engagement >= 3 else 0
 	phase_left = telegraph_time()
+	planned_attack = next_attack()
 
 func music() -> Node:
 	return get_node("/root/MusicDirector")
@@ -58,6 +59,7 @@ var last_attack := ""
 var combo := 0
 ## Test hook: the next attack, once.
 var forced_attack := ""
+var planned_attack := "rush"
 
 ## Not a fixed rotation: he picks at random, never the same attack three times running.
 func next_attack() -> String:
@@ -94,7 +96,7 @@ func _physics_process(delta: float) -> void:
 	if current_phase == Phase.TELEGRAPH:
 		facing = 1 if level.player.position.x > position.x else -1
 		if phase_left <= 0:
-			var chosen := next_attack()
+			var chosen := next_attack() if not forced_attack.is_empty() else planned_attack
 			last_attack = chosen
 			match chosen:
 				"rush":
@@ -135,14 +137,18 @@ func _physics_process(delta: float) -> void:
 		attack_number += 1
 		current_phase = Phase.TELEGRAPH
 		phase_left = telegraph_time()
+		planned_attack = next_attack()
 	move_and_slide()
 	if projectile_live:
 		var next := projectile + projectile_velocity * delta
 		if not level.clear_sight(projectile, next):
 			projectile_live = false
-		elif Geometry2D.get_closest_point_to_segment(level.player.global_position, projectile, next).distance_to(level.player.global_position) < 13:
-			level.player.take_damage(2)
-			projectile_live = false
+		else:
+			var zones = load("res://scripts/weapon_projectile.gd")
+			var hit: Dictionary = zones.find_player_hit(level.player, projectile, next)
+			if not hit.is_empty():
+				level.player.take_damage(zones.player_damage(level.player, hit.position))
+				projectile_live = false
 		projectile = next
 		if projectile.distance_to(global_position) > 600:
 			projectile_live = false
@@ -162,7 +168,8 @@ func take_damage(amount: int, _ignore_recovery := false) -> void:
 	if invulnerability_left > 0:
 		return
 	invulnerability_left = 0.35
-	health = maxi(0, health - amount)
+	var minimum_health := int(retreat_at[engagement - 1]) if engagement < 4 else 0
+	health = maxi(minimum_health, health - amount)
 	level.emit_effect("hit", global_position)
 	if engagement < 4 and health <= int(retreat_at[engagement - 1]):
 		begin_retreat()
@@ -201,13 +208,17 @@ func draw_kael(texture: Texture2D, frames: int, frame: int, tint: Color, squash 
 	draw_texture_rect_region(texture, Rect2(-frame_size.x / 2, 6 - height, frame_size.x, height), Rect2(frame * frame_size.x, 0, frame_size.x, frame_size.y), tint)
 	draw_set_transform(Vector2.ZERO)
 
+## Drawing the tell must not reroll or consume the upcoming attack.
+func telegraph_attack() -> String:
+	return forced_attack if not forced_attack.is_empty() else planned_attack
+
 func _draw() -> void:
 	if is_dead:
 		# Kneeling, alive: Kael's idle pressed down.
 		draw_kael(KAEL_IDLE, 1, 0, Color("c9b6d1"), 0.7)
 		return
 	var tint := Color("f2d3ab") if is_vulnerable else Color.WHITE
-	var winding_up := current_phase == Phase.TELEGRAPH and phase_left < 0.3 and next_attack() != "call"
+	var winding_up := current_phase == Phase.TELEGRAPH and phase_left < 0.3 and telegraph_attack() != "call"
 	if current_phase == Phase.RUSH:
 		draw_kael(KAEL_ATTACK, 2, 1, tint)
 	elif winding_up:
@@ -216,7 +227,7 @@ func _draw() -> void:
 		draw_kael(KAEL_WALK, 2, int(time * 8) % 2, tint)
 	else:
 		draw_kael(KAEL_IDLE, 1, 0, tint)
-	var cue := "RECOVER" if is_vulnerable else ("RETREATING" if current_phase == Phase.RETREAT else next_attack().to_upper())
+	var cue := "RECOVER" if is_vulnerable else ("RETREATING" if current_phase == Phase.RETREAT else telegraph_attack().to_upper())
 	draw_string(ThemeDB.fallback_font, Vector2(-30, -43), "NIRO · " + cue, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color("fbf5ef"))
 	for index in range(health):
 		draw_rect(Rect2(-36 + index * 6, -36, 4, 3), Color("f2d3ab"))

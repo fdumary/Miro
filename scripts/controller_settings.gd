@@ -8,7 +8,15 @@ const DEFAULTS := {
 	"speaker_enabled": false, "speaker_endpoint": "",
 }
 var preferences := DEFAULTS.duplicate()
-var using_controller := false
+var using_controller := false:
+	set(value):
+		if using_controller == value:
+			return
+		using_controller = value
+		if is_inside_tree():
+			refresh_bound_prompts()
+		changed.emit()
+var keyboard: CanvasLayer
 var active_device := -1
 
 func _ready() -> void:
@@ -19,6 +27,8 @@ func _ready() -> void:
 	preferences.deadzone = clampf(float(preferences.deadzone), 0.1, 0.45)
 	Input.joy_connection_changed.connect(_on_connection_changed)
 	bind_menu_buttons()
+	keyboard = preload("res://scripts/controller_keyboard.gd").new()
+	add_child(keyboard)
 	var devices := Input.get_connected_joypads()
 	using_controller = not devices.is_empty()
 	if using_controller:
@@ -41,12 +51,16 @@ func _on_connection_changed(device: int, connected: bool) -> void:
 		var devices := Input.get_connected_joypads()
 		active_device = devices[0] if not devices.is_empty() else -1
 		using_controller = active_device >= 0
+	refresh_bound_prompts()
 	devices_changed.emit()
 
 func _input(event: InputEvent) -> void:
 	if (event is InputEventJoypadButton and event.pressed) or (event is InputEventJoypadMotion and absf(event.axis_value) > float(preferences.deadzone)):
-		using_controller = true
+		var device_changed := active_device != event.device
 		active_device = event.device
+		using_controller = true
+		if device_changed:
+			refresh_bound_prompts()
 	elif (event is InputEventKey and event.pressed and not event.echo) or (event is InputEventMouseButton and event.pressed) or (event is InputEventMouseMotion and event.relative.length() > 3):
 		using_controller = false
 
@@ -55,7 +69,7 @@ func playstation() -> bool:
 	return name.is_empty() or ["ps4", "ps5", "playstation", "dual", "wireless controller"].any(func(part): return part in name)
 
 func prompt(text: String) -> String:
-	return controller_text(text, playstation()) if using_controller else text
+	return controller_text(text, playstation()) if using_controller else text.replace("A/D Move · W/S Ladders", "A/D Move · Shift Quiet walk · W/S Ladders")
 
 static func controller_text(text: String, ps := true) -> String:
 	var cross := "Cross" if ps else "A"
@@ -70,11 +84,15 @@ static func controller_text(text: String, ps := true) -> String:
 	if text.begins_with("A / D  Move"):
 		return "Left stick Move/Climb   %s Jump/Interact   %s Dash   %s Pause" % [cross, circle, options]
 	text = text.replace("[1] [2] Choose", "[D-pad] Choose")
+	text = text.replace("[Z] replace", "[L1] replace").replace("[X] replace", "[R1] replace")
+	text = text.replace("[N / Esc]", "[Touchpad / Circle]" if ps else "[View / B]")
+	text = text.replace("[Q, left click]", "[%s, %s]" % [triangle, use])
 	text = text.replace("[Q + click]", "[%s + %s]" % [triangle, use])
 	text = text.replace("[1, left click]", "[%s + %s]" % [shoulder, use])
+	text = text.replace("STEALTH READY [2]", "STEALTH READY [%s]" % triangle)
 	for key in ["[1]", "[2]", "[3]", "[4]", "[5]"]:
 		text = text.replace(key, "[%s]" % shoulder)
-	var replacements := {"[E]": "[%s]" % cross, "[Enter]": "[%s]" % cross, "[Tab]": "[%s]" % select, "[Backspace]": "[%s]" % square, "[Esc]": "[%s]" % circle, "[Q]": "[%s]" % triangle, "[N]": "[Touchpad]" if ps else "[View]", "[Z]": "[D-pad Up]", "[T]": "[D-pad Down]", "[B]": "[D-pad Left/Right]", "[W / S]": "[Left stick]", "Press Backspace": "Press %s" % square, "right click": focus, "left click": use, "Left click": use, "Right click": focus, "STEALTH READY [2]": "STEALTH READY [%s]" % triangle}
+	var replacements := {"[C]": "[%s]" % circle, "[R]": "[%s]" % square, "[Space]": "[%s]" % cross, "[E]": "[%s]" % cross, "[Enter]": "[%s]" % cross, "[Tab]": "[%s]" % select, "[Backspace]": "[%s]" % square, "[Esc]": "[%s]" % circle, "[Q]": "[%s]" % triangle, "[N]": "[Touchpad]" if ps else "[View]", "[Z]": "[D-pad Up]", "[T]": "[D-pad Down]", "[B]": "[D-pad Left/Right]", "[W / S]": "[Left stick]", "Press Backspace": "Press %s" % square, "right click": focus, "left click": use, "Left click": use, "Right click": focus, "Space": cross, "press Enter": "press %s" % cross, "STEALTH READY [2]": "STEALTH READY [%s]" % triangle}
 	# Stealth is selected with Triangle/Y, not the item-cycle buttons.
 	text = text.replace("STEALTH READY [2]", "STEALTH READY [%s]" % triangle)
 	for key in replacements:
@@ -84,6 +102,22 @@ static func controller_text(text: String, ps := true) -> String:
 			text = text.replace(pair[0], pair[1])
 	return text
 
+
+## Bind static UI copy once; changing input mode updates every living bound control.
+func bind_prompt(control: Control, text: String, pad_text := "") -> void:
+	control.set_meta("keyboard_prompt", text)
+	control.set_meta("controller_prompt", pad_text)
+	control.add_to_group("device_prompts")
+	apply_bound_prompt(control)
+
+func apply_bound_prompt(control: Control) -> void:
+	var base: String = control.get_meta("keyboard_prompt", "")
+	var pad: String = control.get_meta("controller_prompt", "")
+	control.set("text", controller_text(pad, playstation()) if using_controller and not pad.is_empty() else prompt(base))
+
+func refresh_bound_prompts() -> void:
+	for control in get_tree().get_nodes_in_group("device_prompts"):
+		apply_bound_prompt(control)
 
 func device_status() -> String:
 	var names := PackedStringArray()

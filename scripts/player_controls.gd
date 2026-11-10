@@ -55,9 +55,10 @@ func _ready() -> void:
 
 func on_pad_connection(device: int, connected: bool) -> void:
 	if not connected and device == pad_device:
-		pad_device = -1
+		var pads := Input.get_connected_joypads()
+		pad_device = pads[0] if not pads.is_empty() else -1
 		pad_aim = false
-		pad_prompts = false
+		pad_prompts = not pads.is_empty()
 		player.pad_crouch = false
 
 func locked() -> bool:
@@ -140,6 +141,11 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func handle_pad_button(button: int) -> bool:
+	if is_instance_valid(player.pending_guard):
+		if button in [JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER, JOY_BUTTON_B]:
+			player.resolve_weapon_choice(0 if button == JOY_BUTTON_LEFT_SHOULDER else (1 if button == JOY_BUTTON_RIGHT_SHOULDER else -1))
+			return true
+		return false
 	if locked():
 		if button == JOY_BUTTON_B or (inventory_open and button in [JOY_BUTTON_TOUCHPAD, JOY_BUTTON_BACK]):
 			close_panels()
@@ -228,6 +234,8 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(player.level):
 		return
 	sync_slots()
+	if inventory_open:
+		refresh_slots()
 	if panel == null and is_instance_valid(player.level.hud):
 		build_panels()
 	if player.level.controls_locked() or player.is_dead or player.in_hiding_spot:
@@ -394,7 +402,7 @@ func build_panels() -> void:
 	row.add_child(guitar_button)
 	guitar_button.visible = has_guitar
 	var close := Button.new()
-	close.text = "Done [N / Esc]"
+	controller_settings.bind_prompt(close, "Done [N / Esc]")
 	close.pressed.connect(close_panels)
 	box.add_child(close)
 	panel.hide()
@@ -436,7 +444,7 @@ func build_panels() -> void:
 	command.text_submitted.connect(run_command)
 	remote_box.add_child(command)
 	var done := Button.new()
-	done.text = "Close terminal [Esc]"
+	controller_settings.bind_prompt(done, "Close terminal [Esc]")
 	done.pressed.connect(close_panels)
 	remote_box.add_child(done)
 	remote_panel.hide()
@@ -451,7 +459,7 @@ func refresh_slots() -> void:
 		guitar_button.visible = has_guitar
 	if is_instance_valid(inventory_title):
 		var item := "guitar" if has_guitar else "blanket"
-		inventory_title.text = ("INVENTORY · D-pad navigate · Cross/A swap · Triangle/Y " + item) if pad_prompts else ("INVENTORY · Click two slots to swap · Q " + item)
+		inventory_title.text = controller_settings.controller_text("INVENTORY · D-pad navigate · Cross swap · Triangle " + item, controller_settings.playstation()) if pad_prompts else ("INVENTORY · Click two slots to swap · Q " + item)
 	for i in range(5):
 		buttons[i].text = "%d\n%s%s" % [i + 1, slots[i] if not slots[i].is_empty() else "empty", " *" if swap_from == i else ""]
 
@@ -529,8 +537,7 @@ Floor %02d archive. Access is logged. Type ls to list files, cat <file> to read 
 func show_page() -> void:
 	output.text = str(pager[pager_index])
 	if pager_index < pager.size() - 1:
-		output.text += "
--- more (press Enter) --"
+		output.text += controller_settings.prompt("\n-- more (press Enter) --")
 	pager_index += 1
 
 func run_command(raw: String) -> void:
@@ -548,6 +555,10 @@ func run_command(raw: String) -> void:
 	console_echo.text = "> " + echo
 	command.clear()
 	command.secret = false
+	# Track terminal commands for achievements (non-empty, non-paging commands)
+	if not text.is_empty():
+		var campaign_node = get_node("/root/Campaign")
+		campaign_node.on_terminal_command(text)
 	if local_console and (text in ["hack", "./unlock.sh", "lights test", "music"] or text.begins_with("play ")):
 		output.text = "Unknown command. Type help."
 		return
@@ -646,6 +657,8 @@ func run_command(raw: String) -> void:
 			output.text = "Stay at an authenticated terminal: login <password>"
 			return
 		var count: int = player.level.world_features.disable_turrets()
+		if count > 0:
+			record_mp3_hack()
 		output.text = "Turrets disabled on this floor: %d" % count if count > 0 else "No active turrets on this floor."
 	elif text == "lights test":
 		if at_early_port() and player.level.world_features.early_authenticated:
@@ -655,10 +668,14 @@ func run_command(raw: String) -> void:
 			output.text = "Connect at the service port and login root first."
 	elif text == "cameras off":
 		if at_early_port() and player.level.world_features.early_authenticated and is_instance_valid(player.level.world_features.practice_camera):
+			var was_active: bool = player.level.world_features.practice_camera.is_active
 			player.level.world_features.practice_camera.disable()
+			if was_active:
+				record_mp3_hack()
 			output.text = "Corridor camera disabled."
 			return
 		if at_checkpoint() and player.level.world_features.terminal_authenticated:
+			record_mp3_hack()
 			close_panels()
 			player.level.hack_remaining = 1.0
 			return
@@ -666,11 +683,17 @@ func run_command(raw: String) -> void:
 		var terminal: Node2D = player.level.world_features.security_terminal()
 		if terminal != null and logged_in.has(terminal.get_instance_id()):
 			var count: int = player.level.world_features.disable_cameras()
+			if count > 0:
+				record_mp3_hack()
 			output.text = "Cameras disabled on this floor: %d" % count if count > 0 else "No active cameras on this floor."
 		else:
 			output.text = "Connect locally and authenticate first: login <password>"
 	else:
 		output.text = "Unknown command. Type help."
+
+func record_mp3_hack() -> void:
+	if has_remote and not local_console:
+		get_node("/root/Campaign").on_mp3_hack()
 
 func at_early_port() -> bool:
 	return get_node("/root/Campaign").current_floor in [1, 2] and player.level.world_features.reachable(player.level.world_features.access_point, 48)
@@ -754,7 +777,10 @@ func detonate_charges() -> void:
 			player.level.open_door()
 		for guard in player.level.guards():
 			if guard.global_position.distance_to(point) < BLAST_RADIUS and player.level.clear_sight(point, guard.global_position):
+				var was_dead: bool = guard.is_dead
 				guard.take_damage(16, true)
+				if not was_dead and guard.is_dead:
+					get_node("/root/Campaign").on_c4_kill()
 		# One charge is enough for a turret: stuck to it, or anywhere in the blast.
 		for turret in get_tree().get_nodes_in_group("tower_turrets"):
 			if not is_instance_valid(turret) or turret.health <= 0:

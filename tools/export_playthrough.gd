@@ -3,6 +3,9 @@ extends Node
 var level
 var failures: Array[String] = []
 var checks := 0
+# Route coverage uses a health buffer; normal combat/difficulty is tested by Run Checks.ps1.
+# The original 30 HP buffer predates the additional terminal guards and tower hazards.
+const ROUTE_HEALTH := 100
 
 func _ready() -> void:
  call_deferred("run")
@@ -44,6 +47,8 @@ func next_floor(number: int) -> void:
 func run() -> void:
  await frames(4)
  level = get_tree().current_scene
+ # Match the route harness on later floors: exercise progression, not bot combat balance.
+ level.player.health = maxi(level.player.health, ROUTE_HEALTH)
  level.finish_dialogue()
  level.interact()
  level.finish_dialogue()
@@ -64,19 +69,29 @@ func run() -> void:
  check(await move_to(1030, 650, true), "Reach first exit")
  level.interact()
  check(level.completed and not level.player.is_dead, "Floor 1 completed alive")
+ if not level.completed:
+  print("QA_ROUTE_DIAGNOSTIC: dialogue=", level.dialogue_event, " ", level.dialogue, " hp=", level.player.health)
+  print("EXPORTED_PLAYTHROUGH_RESULT: ", checks - failures.size(), "/", checks, " passed")
+  get_tree().quit(1)
+  return
  for number in range(2, 6):
   await next_floor(number)
   level.finish_dialogue()
+  level.player.health = maxi(level.player.health, ROUTE_HEALTH)
   if number == 5:
    await foundation_run()
    check(level.completed and not level.player.is_dead, "Floor 5 completed alive")
    continue
   # Levels 2-4: follow the authored route (tools/level_layouts.py) with real inputs.
   var runner = preload("res://tools/route_runner.gd").new(self)
-  level.player.health = maxi(level.player.health, 30)
+  level.player.health = maxi(level.player.health, ROUTE_HEALTH)
   var failed: Array[String] = await runner.follow(level)
   check(failed.is_empty(), "Floor %d authored route %s" % [number, ", ".join(failed)])
   check(level.completed and not level.player.is_dead, "Floor %d completed alive" % number)
+  if not level.completed:
+   print("EXPORTED_PLAYTHROUGH_RESULT: ", checks - failures.size(), "/", checks, " passed")
+   get_tree().quit(1)
+   return
  var campaign = get_node("/root/Campaign")
  check(campaign.completed_sigils.size() == 5, "All five sigils committed")
  check(campaign.boss_defeated and campaign.ending_complete, "Boss and watched ending completed")
@@ -100,6 +115,9 @@ func move_to(x: float, limit: int = 500, fight: bool = false) -> bool:
      p.facing = signf(g.position.x - p.position.x)
      p.shank()
   await frames(1)
+  # Advance the authored brother-voice scene as a player would.
+  if level.dialogue_event == "brother" and not level.dialogue.is_empty():
+   level.finish_dialogue()
   count += 1
  Input.action_release("move_left")
  Input.action_release("move_right")

@@ -13,3 +13,6 @@ foreach ($number in 1..5) {
     }
     Write-Output "Exported floor $number startup passed."
 }
+
+& python (Join-Path $PSScriptRoot 'tools/check_executable_icon.py') $executable (Join-Path $PSScriptRoot 'assets/icons/miro_app.ico')
+if ($LASTEXITCODE -ne 0) { throw 'Exported executable icon does not match the source ICO.' }

@@ -255,6 +255,13 @@ func add_authored_props() -> void:
 	if floor_number == 1:
 		for point in LEVEL_ONE_CRATES:
 			spawn_crate(point)
+		# One reachable tonic per storey, clear of walls, patrols and ladder landings.
+		for row in [236.0, 432.0, 656.0]:
+			for bottle_x in range(356, 1060, 32):
+				var tonic_point := Vector2(float(bottle_x), row)
+				if level.has_floor_below(tonic_point + Vector2(0, 13)) and placement_clear(tonic_point) and not spot_taken(tonic_point, "potion") and not level.areas.get_children().any(func(area): return area.global_position.distance_to(tonic_point) < 70):
+					spawn_prop(tonic_point, "potion", "TONIC")
+					break
 	# Authored flat-floor anchors only: no random world-coordinate placements.
 	var anchors := [Vector2(910, 236), Vector2(750, 432), Vector2(550, 656)]
 	if floor_number == 1:

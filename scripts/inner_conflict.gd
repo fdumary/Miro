@@ -358,6 +358,7 @@ func open_prop(prop: Node2D) -> void:
 		frame.inspected = true
 		frame.queue_redraw()
 		behavior.record("art_" + str(frame.slot_id), "seeker", 1, "art", 2)
+		get_node("/root/Campaign").unlock_achievement("art_" + str(frame.art_id))
 	else:
 		var entry: Dictionary = prop.log_entry
 		var pages: Array = entry.get("pages", [])

@@ -27,6 +27,10 @@ func _physics_process(delta: float) -> void:
 	if is_instance_valid(shooter):
 		query.exclude = [shooter.get_rid()]
 	var hit := get_world_2d().direct_space_state.intersect_ray(query)
+	if enemy:
+		var player_hit := find_player_hit(level.player, global_position, hit.position if not hit.is_empty() else destination)
+		if not player_hit.is_empty():
+			hit = player_hit
 	if not enemy and strike_guard(global_position, hit.position if not hit.is_empty() else destination):
 		queue_free()
 		return
@@ -34,7 +38,7 @@ func _physics_process(delta: float) -> void:
 		global_position = hit.position
 		var target = hit.collider
 		if target is IntroGuard and not target.is_dead:
-			target.take_damage(1 if target.has_method("begin_recovery") else shot_damage(), true)
+			target.take_damage(guard_damage(target, hit.position), true)
 		elif not enemy and target.is_in_group("tower_turrets"):
 			target.take_turret_hit()
 			queue_free()
@@ -51,7 +55,8 @@ func _physics_process(delta: float) -> void:
 			return
 		elif enemy and target is IntroPlayer:
 			# A pistol round or a turret bolt takes a heart; an SMG round takes half of one.
-			target.take_damage(1 if is_instance_valid(shooter) and shooter.get("weapon_kind") == "smg" else 2)
+			var smg: bool = is_instance_valid(shooter) and shooter.get("weapon_kind") == "smg"
+			target.take_damage(player_damage(target, hit.position, smg))
 		level.emit_effect("hit", global_position)
 		queue_free()
 		return
@@ -76,9 +81,53 @@ func shot_damage() -> int:
 		return damage
 	return maxi(1, roundi(float(damage) * (1.0 - 0.6 * clampf(travelled / 320.0, 0.0, 1.0))))
 
+## Visual hit regions include the head above the physics capsule, for both postures.
+static func player_zone(player: Node2D, point: Vector2) -> String:
+	var local := point - player.global_position
+	if player.get("crouching"):
+		if Rect2(-8, -12, 16, 9).has_point(local):
+			return "head"
+		if Rect2(-8, -3, 16, 12).has_point(local):
+			return "body"
+		if Rect2(-7, 9, 14, 9).has_point(local):
+			return "legs"
+	else:
+		if Rect2(-8, -26, 16, 14).has_point(local):
+			return "head"
+		if Rect2(-8, -12, 16, 18).has_point(local):
+			return "body"
+		if Rect2(-7, 6, 14, 12).has_point(local):
+			return "legs"
+	return ""
+
+static func find_player_hit(player: Node2D, from: Vector2, to: Vector2) -> Dictionary:
+	if not is_instance_valid(player) or player.get("is_dead"):
+		return {}
+	var steps := maxi(1, ceili(from.distance_to(to) / 2.0))
+	for index in range(steps + 1):
+		var point := from.lerp(to, float(index) / steps)
+		if not player_zone(player, point).is_empty():
+			return {"collider": player, "position": point}
+	return {}
+
+static func player_damage(player: Node2D, point: Vector2, smg := false) -> int:
+	match player_zone(player, point):
+		"head": return 3 if smg else 4
+		"legs": return 1
+		_: return 2
+
+func guard_damage(guard: Node2D, point: Vector2) -> int:
+	var local := point - guard.global_position
+	var head := Rect2(-9, -30, 18, 14).has_point(local)
+	if guard.has_method("begin_recovery"):
+		return 3 if head else (1 if local.y >= 7 else 2)
+	if head:
+		return 99
+	return maxi(1, floori(shot_damage() * 0.5)) if local.y >= 7 else shot_damage()
+
 func strike_guard(from: Vector2, to: Vector2) -> bool:
 	var length := from.distance_to(to)
-	var steps := maxi(1, int(length / 3.0))
+	var steps := maxi(1, ceili(length / 2.0))
 	for step in range(steps + 1):
 		var point := from.lerp(to, float(step) / steps)
 		for guard in level.guards():
@@ -88,14 +137,11 @@ func strike_guard(from: Vector2, to: Vector2) -> bool:
 			var reach := 14.0
 			var body := Rect2(-10.0 - (reach if guard.facing < 0 else 0.0), -22.0, 20.0 + reach, 40.0)
 			var head := Rect2(-9.0, -30.0, 18.0, 14.0)
-			if head.has_point(local):
-				# A headshot ignores the brief hit-recovery window; Niro just takes extra damage.
-				guard.invulnerability_left = 0.0
-				guard.take_damage(damage * 2 if guard.has_method("begin_recovery") else 99)
-				level.emit_effect("hit", point)
-				return true
-			if body.has_point(local):
-				guard.take_damage(1 if guard.has_method("begin_recovery") else shot_damage(), true)
+			if head.has_point(local) or body.has_point(local):
+				# Regular Keeper headshots retain their existing lethal hit; Niro respects recovery.
+				if head.has_point(local) and not guard.has_method("begin_recovery"):
+					guard.invulnerability_left = 0.0
+				guard.take_damage(guard_damage(guard, point), true)
 				level.emit_effect("hit", point)
 				return true
 	return false

@@ -6,3 +6,8 @@ New-Item -ItemType Directory -Force $outputDirectory | Out-Null
 & $engine --headless --path $PSScriptRoot --export-release 'Windows Desktop' (Join-Path $outputDirectory $ExecutableName)
 if ($LASTEXITCODE -ne 0) { throw 'Godot Windows export failed.' }
 Write-Output "Windows build: $outputDirectory\$ExecutableName"
+
+$archive = Join-Path $PSScriptRoot 'build/Miro-Playtest-Windows.zip'
+Compress-Archive -LiteralPath (Join-Path $outputDirectory $ExecutableName) -DestinationPath $archive -Force
+Write-Output "Windows ZIP: $archive"
+Get-FileHash -LiteralPath (Join-Path $outputDirectory $ExecutableName), $archive -Algorithm SHA256 | Format-Table -AutoSize

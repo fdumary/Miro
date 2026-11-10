@@ -25,6 +25,7 @@ var credits_height := 0.0
 ## Set by the menu's Credits button: skip the beach and roll the credits.
 @export var credits_only := false
 var leaving := false
+var closing_scene: Control
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -34,7 +35,7 @@ func _ready() -> void:
 		credits = JSON.parse_string(file.get_as_text())
 	credits_height = 140.0
 	for block in credits.get("blocks", []):
-		credits_height += 30.0 + 16.0 * block.lines.size()
+		credits_height += (18.0 if str(block.heading) != "" else 0.0) + 30.0 + 16.0 * block.lines.size()
 	scroll_speed = clampf((credits_height + 200.0) / CREDITS_LENGTH, 4.0, 40.0)
 	audio = preload("res://scripts/cine_audio.gd").new()
 	add_child(audio)
@@ -54,6 +55,8 @@ func _ready() -> void:
 		start_credits()
 
 func _process(delta: float) -> void:
+	if is_instance_valid(closing_scene):
+		return
 	elapsed += delta
 	audio.tick(elapsed)
 	if credits_time < 0 and elapsed >= BEACH:
@@ -61,10 +64,12 @@ func _process(delta: float) -> void:
 	if credits_time >= 0:
 		credits_time += delta
 		if credits_time > SONG_LENGTH + 1.0:
-			to_menu()
+			start_postcredits()
 	queue_redraw()
 
 func _input(event: InputEvent) -> void:
+	if is_instance_valid(closing_scene):
+		return
 	var pad_skip: bool = event is InputEventJoypadButton and event.pressed and event.button_index in [JOY_BUTTON_A, JOY_BUTTON_B, JOY_BUTTON_START]
 	if not pad_skip and (not (event is InputEventKey) or not event.pressed or event.echo):
 		return
@@ -74,7 +79,7 @@ func _input(event: InputEvent) -> void:
 			elapsed = BEACH
 			start_credits()
 		else:
-			to_menu()
+			start_postcredits()
 
 func start_credits() -> void:
 	if credits_time >= 0:
@@ -83,6 +88,21 @@ func start_credits() -> void:
 	audio.fade(chords, -40.0, 3.0, true)
 	get_node("/root/MusicDirector").play_outro()
 
+func start_postcredits() -> void:
+	if is_instance_valid(closing_scene):
+		return
+	get_node("/root/MusicDirector").silence()
+	get_node("/root/RemoteRadio").stop()
+	for child in audio.get_children():
+		if child is AudioStreamPlayer:
+			child.stop()
+			child.stream = null
+	if is_instance_valid(chords):
+		chords.stop()
+	closing_scene = preload("res://scripts/post_credits_stinger.gd").new()
+	add_child(closing_scene)
+	closing_scene.finished.connect(to_menu)
+
 func to_menu() -> void:
 	if leaving:
 		return
@@ -90,6 +110,9 @@ func to_menu() -> void:
 	get_tree().call_deferred("change_scene_to_file", MENU)
 
 func _draw() -> void:
+	if is_instance_valid(closing_scene):
+		draw_rect(Rect2(Vector2.ZERO, size), Color.BLACK)
+		return
 	frame_count += 1
 	var unit := size / C.FRAME
 	var t := minf(elapsed, BEACH + 30.0)
@@ -180,7 +203,8 @@ func draw_credits() -> void:
 			C.title(self, Vector2(320, y), str(block.heading), 18, C.ROSE, 1)
 			y += 18
 		for line in block.lines:
-			C.title(self, Vector2(320, y), str(line), 14, C.PAPER, 1, false)
+			var music_artist: bool = str(line) == "RXLA"
+			C.title(self, Vector2(320, y), str(line), 18 if music_artist else 14, C.ROSE if music_artist else C.PAPER, 1, music_artist)
 			y += 16
 		y += 30
 	var closing_y := maxf(180.0, y + 40.0)

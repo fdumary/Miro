@@ -98,7 +98,7 @@ func apply_difficulty() -> void:
 	player.stealth_duration = float(tuning.stealth_duration)
 
 func setup_inputs() -> void:
-	var bindings := {"move_left": [KEY_A, KEY_LEFT], "move_right": [KEY_D, KEY_RIGHT], "climb_up": [KEY_W, KEY_UP], "climb_down": [KEY_S, KEY_DOWN], "jump": [KEY_SPACE], "dodge": [KEY_C], "attack": [], "cloak": [], "explosive": [], "fire": [], "interact": [KEY_E], "advance": [KEY_ENTER], "skip": [KEY_TAB], "pause_game": [KEY_ESCAPE], "retry": [KEY_BACKSPACE]}
+	var bindings := {"slow_walk": [KEY_SHIFT], "move_left": [KEY_A, KEY_LEFT], "move_right": [KEY_D, KEY_RIGHT], "climb_up": [KEY_W, KEY_UP], "climb_down": [KEY_S, KEY_DOWN], "jump": [KEY_SPACE], "dodge": [KEY_C], "attack": [], "cloak": [], "explosive": [], "fire": [], "interact": [KEY_E], "advance": [KEY_ENTER], "skip": [KEY_TAB], "pause_game": [KEY_ESCAPE], "retry": [KEY_BACKSPACE]}
 	for action in bindings:
 		if not InputMap.has_action(action):
 			InputMap.add_action(action)
@@ -580,6 +580,10 @@ func context_hint() -> String:
 		return "Not sure where to go? [Z] Think it through"
 	return "A / D  Move    Space  Jump    C  Dash    Esc  Controls"
 
+## Achievement hook shared with later floors; combat behavior remains in IntroGuard.
+func on_keeper_killed(guard) -> void:
+	get_node("/root/Campaign").on_keeper_killed(str(guard.guard_name), true)
+
 ## E behind an unaware Keeper strangles him: out cold, no blood, not a casualty.
 func try_strangle() -> bool:
 	if world_features == null or world_features.loot_takes_priority():
@@ -595,6 +599,10 @@ func try_strangle() -> bool:
 		behavior.record("strangle_%d" % victim.get_instance_id(), "ghost", 2)
 	get_node("/root/SoundFX").play_sound("swing", -12, 0.7)
 	notify("He goes limp. Out cold, not dead. [E] to loot him.")
+	# Achievement tracking
+	var campaign = get_node("/root/Campaign")
+	var is_named: bool = not str(victim.get("guard_name")).is_empty()
+	campaign.on_keeper_strangled(str(victim.get("guard_name")), is_named)
 	return true
 
 func interact() -> void:
@@ -641,6 +649,9 @@ func interact() -> void:
 			route = "pickpocket"
 			stealth_bonus += 1
 			notify("The key slips free. No one noticed. [E] at the lock to open it.")
+			# Achievement: pickpocket Judas
+			get_node("/root/Campaign").unlock_achievement("pickpocket_judas")
+			get_node("/root/Campaign").add_track_unlock("skillibeng_type_beat")
 		else:
 			notify("He can see your hand. Wait until he turns his back.")
 		return
