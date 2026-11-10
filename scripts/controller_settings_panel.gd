@@ -36,7 +36,7 @@ func setup(back: Callable) -> void:
 	deadzone.value_changed.connect(func(value: float): preferences.set_preference("deadzone", value))
 	invert = check_option("Invert right stick Y", "invert_aim_y")
 	crouch = check_option("Hold L3 to crouch", "hold_crouch")
-	speaker = check_option("Niro on controller speaker", "speaker_enabled")
+	speaker = check_option("Remote dialogue on controller speaker", "speaker_enabled")
 	endpoint = OptionButton.new()
 	endpoint.name = "ControllerSpeakerDevice"
 	endpoint.clip_text = true
@@ -97,7 +97,7 @@ func refresh() -> void:
 	if not windows:
 		speaker_status.text = "Controller speaker output is available on Windows."
 	elif not config.speaker_enabled:
-		speaker_status.text = "Niro plays through the normal audio output."
+		speaker_status.text = "Remote dialogue plays through the normal audio output."
 	else:
 		var output: String = preload("res://scripts/controller_radio_link.gd").speaker_device(config.speaker_endpoint)
 		speaker_status.text = "Radio output: " + output if not output.is_empty() else "No speaker endpoint available. Using normal audio."

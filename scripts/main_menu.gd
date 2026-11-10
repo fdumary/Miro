@@ -107,7 +107,7 @@ func build_title_buttons() -> void:
 	page.add_child(box)
 	var play := SCREENS.button(box, "Play", func(): show_screen("levels"), 14)
 	play.name = "Play"
-	SCREENS.button(box, "Beats", func(): show_screen("beats"), 14).name = "BeatsButton"
+	SCREENS.button(box, "Achievements", func(): show_screen("beats"), 14).name = "BeatsButton"
 	SCREENS.button(box, "Settings", func(): show_screen("settings"), 14).name = "SettingsButton"
 	if get_node("/root/Campaign").game_completed():
 		SCREENS.button(box, "Credits", func(): get_tree().change_scene_to_file("res://scenes/credits.tscn"), 14).name = "CreditsButton"

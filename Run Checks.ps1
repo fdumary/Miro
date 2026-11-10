@@ -1,6 +1,10 @@
 $ErrorActionPreference = 'Stop'
 $engine = 'C:\towerdefense\tools\godot\Godot_v4.7.2-stable_win64_console.exe'
 $checks = @(
+    @('res://tools/test_menu_privacy_and_credits.gd'),
+    @('res://tools/test_guard_floor_contacts.gd'),
+    @('res://tools/test_scene_retry_soak.gd'),
+    @('res://tools/test_music_prefetch_shutdown.gd'),
     @('res://tools/test_music_prefetch.gd'),
     @('res://tools/test_prompt_cache.gd'),
     @('res://tools/test_controller_prompts_and_aim.gd'),

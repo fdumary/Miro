@@ -267,11 +267,15 @@ static func display_settings(parent: Node, rect: Rect2) -> VBoxContainer:
 	return outer
 
 static func controller_settings(parent: Node, rect: Rect2, back: Callable) -> VBoxContainer:
+	var panel := PanelContainer.new()
+	panel.position = rect.position
+	panel.size = rect.size
+	panel.add_theme_stylebox_override("panel", VISUALS.panel_style())
+	parent.add_child(panel)
 	var scroll := ScrollContainer.new()
-	scroll.position=rect.position
-	scroll.size=rect.size
-	scroll.follow_focus=true
-	parent.add_child(scroll)
+	scroll.follow_focus = true
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	panel.add_child(scroll)
 	var box := VBoxContainer.new()
 	box.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	scroll.add_child(box)
@@ -463,7 +467,7 @@ static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 			cell.add_child(placeholder)
 
 		var caption := Label.new()
-		caption.text = "%s — %s" % [str(work.get("title", "")), str(work.get("artist", ""))]
+		caption.text = ("%s — %s" % [str(work.get("title", "")), str(work.get("artist", ""))]) if seen else "??? — ???"
 		caption.add_theme_font_size_override("font_size", 9)
 		caption.add_theme_color_override("font_color", SAND if seen else DIM)
 		caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

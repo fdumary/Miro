@@ -16,6 +16,7 @@ var endpoint := ""
 var perf_tag := ""
 var output_dir := "res://tmp/performance"
 var expected_fps := -1
+var test_label: Label
 func _initialize() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--perf-output="): output_dir = arg.trim_prefix("--perf-output=").replace("\\", "/")
@@ -45,6 +46,7 @@ func wait_seconds(seconds: float) -> void:
 	await create_timer(seconds).timeout
 func mark(name_: String, extra: Dictionary = {}) -> void:
 	stage = name_
+	if is_instance_valid(test_label): test_label.text = "AUTOMATED TEST: "+stage+" (scripted health / positions)"
 	extra["stage"] = stage
 	extra["elapsed_us"] = Time.get_ticks_usec()-start_us
 	events.append(extra)
@@ -79,7 +81,37 @@ func save() -> void:
 	var e = FileAccess.open(stem+"_events.json",FileAccess.WRITE)
 	e.store_string(JSON.stringify(events,"\t"))
 	e.close()
+func place_fixture_actor(actor: CharacterBody2D, requested: Vector2) -> void:
+	var collider: CollisionShape2D = actor.get_node("CollisionShape2D")
+	var shape := collider.shape.duplicate()
+	if shape is RectangleShape2D: shape.size -= Vector2(2,2)
+	elif shape is CapsuleShape2D:
+		shape.radius = maxf(0.5,shape.radius-1.0)
+		shape.height = maxf(shape.radius*2.0,shape.height-2.0)
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = shape
+	query.collision_mask = 1
+	query.exclude = [actor.get_rid()]
+	for offset in [0.0,28.0,-28.0,56.0,-56.0,84.0,-84.0]:
+		actor.global_position = requested+Vector2(offset,0)
+		query.transform = collider.global_transform
+		if actor.get_world_2d().direct_space_state.intersect_shape(query,1).is_empty():
+			actor.velocity = Vector2.ZERO
+			events.append({"event":"fixture_placement","actor":actor.name,"requested":str(requested),"placed":str(actor.global_position),"solid_overlap":false})
+			return
+	push_error("FAIL: no safe test placement for "+str(actor.name))
+	quit(1)
+
 func run() -> void:
+	DisplayServer.window_set_title("Miro — automated performance test")
+	var banner := CanvasLayer.new()
+	banner.layer = 200
+	root.add_child(banner)
+	test_label = Label.new()
+	test_label.position = Vector2(8,340)
+	test_label.add_theme_font_size_override("font_size",10)
+	test_label.add_theme_color_override("font_color",Color.YELLOW)
+	banner.add_child(test_label)
 	if expected_fps >= 0 and Engine.max_fps != expected_fps:
 		push_error("Profiling launcher cap mismatch: expected %d, actual %d" % [expected_fps, Engine.max_fps])
 		quit(1)
@@ -106,7 +138,7 @@ func run() -> void:
 	await wait_seconds(5.0)
 	mark("smg_combat")
 	var p = level.player
-	p.position = Vector2(350, 236 if floor_number == 1 else float(level.definition.get("storeys", [236.0])[0]))
+	place_fixture_actor(p,Vector2(650 if floor_number == 4 else 350,236 if floor_number == 1 else float(level.definition.get("storeys",[252.0])[0])-16.0))
 	for guard in level.guards(): guard.health = 10000
 	p.has_gun = true
 	p.guns.assign(["smg"])
@@ -127,19 +159,19 @@ func run() -> void:
 	unlock()
 	# Explicit fixture: multiple discoveries by live AI, preserving native perception/raycast logic.
 	p = level.player
-	var row_y := 236.0 if floor_number == 1 else float(level.definition.get("storeys", [236.0])[0])
-	p.position = Vector2(950,row_y)
+	var row_y := 236.0 if floor_number == 1 else float(level.definition.get("storeys", [252.0])[0])-16.0
+	place_fixture_actor(p,Vector2(950,row_y))
 	p.in_hiding_spot = true
 	var guards: Array = level.guards()
 	var count := mini(3, guards.size()/2)
 	for i in range(count):
 		var victim = guards[i]
-		victim.position = Vector2(400+i*45,row_y)
+		place_fixture_actor(victim,Vector2(600+i*35,row_y))
 		victim.is_dead = true
 		victim.asleep = false
 		victim.queue_redraw()
 		var observer = guards[count+i]
-		observer.position = Vector2(530+i*30,row_y)
+		place_fixture_actor(observer,Vector2(730+i*25,row_y))
 		observer.facing = -1
 		observer.seen_bodies.clear()
 		observer.seen_sleepers.clear()
@@ -148,6 +180,7 @@ func run() -> void:
 	for guard in level.guards(): discovery_count += guard.seen_bodies.size()
 	events.append({"event":"body_complete","discovery_pairs":discovery_count})
 	unlock()
+	p.in_hiding_spot = false
 	mark("dialogue")
 	for i in range(5):
 		var line := str(level.FLOOR_END_LINES.get(i+1,"...Miro?"))

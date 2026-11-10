@@ -294,6 +294,16 @@ func _exit_tree() -> void:
 	for voice in voices:
 		voice.stop()
 		voice.stream = null
+	# A request owns a native loader token until get() consumes it. Drain at shutdown
+	# only; doing this during gameplay would defeat asynchronous preparation.
+	if not warming_path.is_empty():
+		var status := ResourceLoader.load_threaded_get_status(warming_path)
+		if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS or status == ResourceLoader.THREAD_LOAD_LOADED:
+			ResourceLoader.load_threaded_get(warming_path)
+		warming_path = ""
+	prepared_stream = null
+	prepared_path = ""
+	desired_path = ""
 	voices.clear()
 
 func apply_balanced_mix() -> void:

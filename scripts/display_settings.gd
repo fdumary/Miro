@@ -129,7 +129,7 @@ func update_fps() -> void:
 		fps_label.size = Vector2(86, 18)
 		fps_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		fps_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		fps_label.add_theme_font_size_override("font_size", 12)
+		fps_label.add_theme_font_size_override("font_size", 8)
 		fps_label.add_theme_color_override("font_color", Color.WHITE)
 		fps_label.add_theme_color_override("font_shadow_color", Color.BLACK)
 		fps_label.add_theme_constant_override("shadow_offset_x", 1)
