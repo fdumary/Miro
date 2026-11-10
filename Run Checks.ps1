@@ -1,6 +1,7 @@
 $ErrorActionPreference = 'Stop'
 $engine = 'C:\towerdefense\tools\godot\Godot_v4.7.2-stable_win64_console.exe'
 $checks = @(
+    @('res://tools/test_prompt_cache.gd'),
     @('res://tools/test_controller_prompts_and_aim.gd'),
     @('res://tools/test_completion_persistence.gd', '--', '--player'),
     @('res://tools/test_intro.gd'),
@@ -43,7 +44,13 @@ $checks = @(
     @('res://tools/test_quiet_walk_and_voice.gd', '--', '--player'),
     @('res://tools/test_supplies_and_closing.gd', '--', '--player'),
     @('res://tools/test_rebinding.gd', '--', '--player'),
-    @('res://tools/test_strangle_reactions.gd', '--', '--player')
+    @('res://tools/test_strangle_reactions.gd', '--', '--player'),
+    @('res://tools/test_display_settings.gd'),
+    @('res://tools/test_performance_regressions.gd'),
+    @('res://tools/test_spatial_audio.gd'),
+    @('res://tools/test_art_thumbnails.gd'),
+    @('res://tools/test_trapdoor_reward.gd'),
+    @('res://tools/test_display_startup.gd', '--max-fps', '60')
 )
 New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'tmp') | Out-Null
 & $engine --headless --editor --path $PSScriptRoot --import *> (Join-Path $PSScriptRoot 'tmp/check-import.log')

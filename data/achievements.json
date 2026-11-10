@@ -176,6 +176,12 @@
       "label": "Beat the game on Super Hard",
       "event": "game_completed_super_hard",
       "track": "robot_attack"
+    },
+    {
+      "id": "trapdoor_used",
+      "label": "Down the Hatch · Use a Trapdoor",
+      "event": "trapdoor_traversed",
+      "track": "trapdoor_bonus"
     }
   ]
 }

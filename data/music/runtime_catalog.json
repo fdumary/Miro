@@ -724,6 +724,31 @@
       "source": "ready 3 go3.mp3",
       "role": "mp3_unlock",
       "bpm": 0.0
+    },
+    "trapdoor_bonus": {
+      "title": "carson jbau",
+      "stream": "res://assets/audio/music/trapdoor_bonus.mp3",
+      "source": "carson jbau.mp3",
+      "leveling": {
+        "source_sha256": "4da8a281056e2e86dfa967308bd9e9d9c5ccf234eb90580896b30bd7595981ca",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-11.77",
+          "input_tp": "-2.85",
+          "input_lra": "7.20",
+          "input_thresh": "-21.78",
+          "output_i": "-19.35",
+          "output_tp": "-7.22",
+          "output_lra": "3.90",
+          "output_thresh": "-29.36",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.65"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-10.56"
+      },
+      "bpm": 99.38401442307692
     }
   },
   "music_bus_db": -6,

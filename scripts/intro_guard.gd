@@ -30,8 +30,8 @@ var windup: float = 0.0
 var turn_wait: float = 0.0
 var time: float = 0.0
 var illness_started: bool = false
-var seen_bodies: Array[int] = []
-var seen_sleepers: Array[int] = []
+var seen_bodies: Dictionary = {}
+var seen_sleepers: Dictionary = {}
 var key_taken: bool = false
 var gun_taken: bool = false
 var death_recorded: bool = false
@@ -55,7 +55,11 @@ var conversation_hold := false
 var turn_away_left := 0.0
 var alert_barked := false
 ## Put to sleep by Miro's guitar (Level 5). Lootable, never counted as a kill, sleeps for the rest of the floor.
-var asleep := false
+var asleep := false:
+	set(value):
+		if asleep == value: return
+		asleep = value
+		sync_discoverable_group()
 ## Spawned by a Level 5 wave or by Niro calling for help.
 var wave_guard := false
 
@@ -78,6 +82,7 @@ const HOP_SPEED := 300.0
 
 func _ready() -> void:
 	add_to_group("guards")
+	sync_discoverable_group()
 	var campaign = get_node_or_null("/root/Campaign")
 	if campaign != null:
 		var tuning: Dictionary = campaign.tuning()
@@ -180,9 +185,9 @@ func _physics_process(delta: float) -> void:
 		alert_state = State.SEARCH
 		search_left = 8.0 if pursuing else 5.0
 		suspicion = maxf(0.0, suspicion - delta)
-	for body in level.guards():
+	for body in get_tree().get_nodes_in_group("discoverable_guards"):
 		if body != self and body.asleep and not body.is_dead and not seen_sleepers.has(body.get_instance_id()) and notices_body(body.global_position):
-			seen_sleepers.append(body.get_instance_id())
+			seen_sleepers[body.get_instance_id()] = true
 			# A live sleeper merits a local check; a corpse below still triggers the full alarm.
 			if not sees_player and alert_state != State.ALERT and not pursuing:
 				var profile: Dictionary = level.world_features.roster.keepers.get(guard_name,{})
@@ -196,7 +201,7 @@ func _physics_process(delta: float) -> void:
 			if level.world_features:
 				level.world_features.bark(self, "sleeping")
 		elif body != self and body.is_dead and not seen_bodies.has(body.get_instance_id()) and notices_body(body.global_position):
-			seen_bodies.append(body.get_instance_id())
+			seen_bodies[body.get_instance_id()] = true
 			body_reported = true
 			if not sees_player:
 				investigate(body.global_position)
@@ -226,7 +231,7 @@ func _physics_process(delta: float) -> void:
 		strike_left -= delta
 		if not strike_landed and strike_left <= STRIKE_SLASH:
 			strike_landed = true
-			get_node("/root/SoundFX").play_sound("swing", -20)
+			get_node("/root/SoundFX").play_near("swing", global_position, level.player.global_position, -20)
 			var reach: Vector2 = level.player.global_position - global_position
 			if not level.player.is_dead and absf(reach.y) < 22 and absf(reach.x) <= STRIKE_REACH + 4 and reach.x * facing >= -4:
 				level.player.take_damage(1)
@@ -421,7 +426,7 @@ func shoot_weapon() -> void:
 	bullet.remaining = 260.0
 	bullet.position = position + Vector2(0, -4)
 	level.add_child(bullet)
-	get_node("/root/SoundFX").play_sound("shot", -25, 1.25 if weapon_kind == "smg" else 1.0)
+	get_node("/root/SoundFX").play_near("shot", global_position, level.player.global_position, -25, 600.0, 1.25 if weapon_kind == "smg" else 1.0)
 	level.make_noise(global_position, 600)
 	var casing := Node2D.new()
 	casing.set_script(load("res://scripts/weapon_casing.gd"))
@@ -450,11 +455,20 @@ func fall_asleep() -> void:
 
 ## A fallen Keeper is hard to miss: seen from further off than a sneaking prisoner, and
 ## noticed nearby even with his back turned.
+func sync_discoverable_group() -> void:
+	# Setters cover checkpoint restores, sleeping, death, and test/dev state changes immediately.
+	if not is_inside_tree() or not is_in_group("guards"): return
+	if is_dead or asleep:
+		if not is_in_group("discoverable_guards"): add_to_group("discoverable_guards")
+	elif is_in_group("discoverable_guards"):
+		remove_from_group("discoverable_guards")
+
 func notices_body(point: Vector2) -> bool:
 	var difference := point - global_position
-	if absf(difference.y) >= 45 or not level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8)):
-		return false
-	return difference.length() < BODY_SIGHT and (difference.x * facing >= -8 or difference.length() < BODY_NEARBY)
+	if absf(difference.y) >= 45: return false
+	var distance := difference.length()
+	if distance >= BODY_SIGHT or (difference.x * facing < -8 and distance >= BODY_NEARBY): return false
+	return level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
 
 func investigate(point: Vector2) -> void:
 	if is_dead or asleep or sees_player:

@@ -1,209 +1,210 @@
 {
-    "_comment":  "End credits, read by scripts/finale.gd. Edit freely: each block is a heading and its lines.",
-    "title":  "Miro",
-    "subtitle":  "Last Man Standing",
-    "blocks":  [
-                   {
-                       "heading":  "Story by",
-                       "lines":  [
-                                     "Ethan Risden"
-                                 ]
-                   },
-                   {
-                       "heading":  "Lead Software Engineer",
-                       "lines":  [
-                                     "Ethan Risden"
-                                 ]
-                   },
-                   {
-                       "heading":  "Level Design",
-                       "lines":  [
-                                     "Ethan Risden"
-                                 ]
-                   },
-                   {
-                       "heading":  "Creative Director",
-                       "lines":  [
-                                     "Ethan Risden"
-                                 ]
-                   },
-                   {
-                       "heading":  "Creative Lead",
-                       "lines":  [
-                                     "Julia S."
-                                 ]
-                   },
-                   {
-                       "heading":  "Character sprites, animations and tile art",
-                       "lines":  [
-                                     "Julia S."
-                                 ]
-                   },
-                   {
-                       "heading":  "App icon artwork",
-                       "lines":  [
-                                     "Lindsey-Anne Rattray"
-                                 ]
-                   },
-                   {
-                       "heading":  "Playtesting",
-                       "lines":  [
-                                     "Francesca Dumary"
-                                 ]
-                   },
-                   {
-                       "heading":  "Music composed and produced by RXLA",
-                       "lines":  [
-                                     "YZ33",
-                                     "DOPE2",
-                                     "swag",
-                                     "BOBBLEHEAD2",
-                                     "cyberpunk_2",
-                                     "plane drums nig",
-                                     "sum crazy shi_4",
-                                     "shit crashed 2",
-                                     "hot shit_23",
-                                     "set me free_2",
-                                     "LIL UZI2",
-                                     "drill shxt",
-                                     "robot attack",
-                                     "birthday melody YZ",
-                                     "not new jazz x pinkghost",
-                                     "jazzyhall_4",
-                                     "dancehall yf_2....ðŸ“Œ",
-                                     "drill2_3",
-                                     "reaper beat2",
-                                     "OX",
-                                     "destroyed lonely",
-                                     "dancehall lonesome 3 155 rxla fmaj",
-                                     "dancehallbeat64",
-                                     "new age dancehall_52",
-                                     "spanish guitarhall",
-                                     "evilhall2",
-                                     "project_dancehall_hard_af_2",
-                                     "Project_14",
-                                     "ken carson",
-                                     "egyptian beat_2_rxla_emaj_11bpm",
-                                     "space_dancehall_yf_tagged",
-                                     "house_cyah_skate",
-                                     "skillibeng type beat",
-                                     "qwella1",
-                                     "relapse_3",
-                                     "driffannnn",
-                                     "fell_from_heaven",
-                                     "B!6",
-                                     "ready 3 go3"
-                                 ]
-                   },
-                   {
-                       "heading":  "Loop credits",
-                       "lines":  [
-                                     "carson jbau â€” prodbybeven",
-                                     "ken carson â€” probbybeven",
-                                     "destroyed lonely â€” prod.aarjav",
-                                     "evilhall2 â€” Die Sonne Satan: Pleurotomaria",
-                                     "drill2_3 â€” prodbycarduh x 1llokebeats",
-                                     "drill shxt â€” nihil2free prodarmaan allslo4u",
-                                     "Some fire dancehall â€” jmizzy x Coopthetruth",
-                                     "dancehall lonesome 3 155 rxla fmaj â€” maxximsorry",
-                                     "Project_14 â€” delenquent",
-                                     "jazzyhall_4 â€” Thats Why - udoyeleg, co produced with Mantaana"
-                                 ]
-                   },
-                   {
-                       "heading":  "Secret track",
-                       "lines":  [
-                                     "FOREVA",
-                                     "Performed by Mantaana",
-                                     "â„— 2024 Master Key Music, RXLA",
-                                     "music.apple.com/us/album/foreva/1756854079"
-                                 ]
-                   },
-                   {
-                       "heading":  "Voices",
-                       "lines":  [
-                                     "Generated with ElevenLabs"
-                                 ]
-                   },
-                   {
-                       "heading":  "Asset packs",
-                       "lines":  [
-                                     "Provided by Francesca Dumary",
-                                     "Kenney (kenney.nl), CC0:",
-                                     "Tiny Dungeon, Pixel Platformer Industrial Expansion,",
-                                     "Particle Pack, Smoke Particles, Splat Pack, Emote Pack,",
-                                     "Foliage Sprites, Generic Items, Input Prompts Pixel,",
-                                     "UI Pack Pixel Adventure, Impact Sounds, RPG Audio,",
-                                     "Sci-Fi Sounds, Desert Shooter Pack"
-                                 ]
-                   },
-                   {
-                       "heading":  "Rain and thunder",
-                       "lines":  [
-                                     "\"Rain + Long Thunder\" by WuxiaScrub",
-                                     "OpenGameArt.org, CC0"
-                                 ]
-                   },
-                   {
-                       "heading":  "Typefaces",
-                       "lines":  [
-                                     "UnifrakturMaguntia and Pirata One",
-                                     "SIL Open Font License"
-                                 ]
-                   },
-                   {
-                       "heading":  "Made with",
-                       "lines":  [
-                                     "Godot Engine"
-                                 ]
-                   },
-                   {
-                       "heading":  "Dedicated To",
-                       "lines":  [
-                                     "You, all the aspiring game developers,",
-                                     "everyone the tower kept."
-                                 ]
-                   },
-                   {
-                       "heading":  "Special Thanks",
-                       "lines":  [
-                                     "All my family, all my friends,",
-                                     "everyone met along the journey,",
-                                     "FAU, Video Game Club at FAU,",
-                                     "Claude, Codex,",
-                                     "and above all,",
-                                     "",
-                                     "The Lord Jesus Christ"
-                                 ]
-                   },
-                   {
-                       "heading":  "A Final Thought",
-                       "lines":  [
-                                     "â€œAll that is gold does not glitter,",
-                                     "Not all those who wander are lost.â€",
-                                     "",
-                                     "â€” J. R. R. Tolkien",
-                                     "The Fellowship of the Ring",
-                                     "",
-                                     "â€œDoesnâ€™t matter how dark it gets,",
-                                     "the sun will always come out again.",
-                                     "",
-                                     "Let the sun be a reminder to you that",
-                                     "the negative feelings and emotions shall pass.",
-                                     "",
-                                     "Let it be a reminder that you will outshine",
-                                     "all that try to take you off your path.",
-                                     "",
-                                     "You are a star.",
-                                     "",
-                                     "You are divine.",
-                                     "",
-                                     "Your life is your own,",
-                                     "and your purpose is yours to choose.â€",
-                                     "",
-                                     "â€” Jahseh Onfroy (XXXTentacion)"
-                                 ]
-                   }
-               ],
-    "closing":  "THANK YOU FOR PLAYING"
+  "_comment": "End credits, read by scripts/finale.gd. Edit freely: each block is a heading and its lines.",
+  "title": "Miro",
+  "subtitle": "Last Man Standing",
+  "blocks": [
+    {
+      "heading": "Story by",
+      "lines": [
+        "Ethan Risden"
+      ]
+    },
+    {
+      "heading": "Lead Software Engineer",
+      "lines": [
+        "Ethan Risden"
+      ]
+    },
+    {
+      "heading": "Level Design",
+      "lines": [
+        "Ethan Risden"
+      ]
+    },
+    {
+      "heading": "Creative Director",
+      "lines": [
+        "Ethan Risden"
+      ]
+    },
+    {
+      "heading": "Creative Lead",
+      "lines": [
+        "Julia S."
+      ]
+    },
+    {
+      "heading": "Character sprites, animations and tile art",
+      "lines": [
+        "Julia S."
+      ]
+    },
+    {
+      "heading": "App icon artwork",
+      "lines": [
+        "Lindsey-Anne Rattray"
+      ]
+    },
+    {
+      "heading": "Playtesting",
+      "lines": [
+        "Francesca Dumary"
+      ]
+    },
+    {
+      "heading": "Music composed and produced by RXLA",
+      "lines": [
+        "YZ33",
+        "DOPE2",
+        "swag",
+        "BOBBLEHEAD2",
+        "cyberpunk_2",
+        "plane drums nig",
+        "sum crazy shi_4",
+        "shit crashed 2",
+        "hot shit_23",
+        "set me free_2",
+        "LIL UZI2",
+        "drill shxt",
+        "robot attack",
+        "birthday melody YZ",
+        "not new jazz x pinkghost",
+        "jazzyhall_4",
+        "dancehall yf_2....ðŸ“Œ",
+        "drill2_3",
+        "reaper beat2",
+        "OX",
+        "destroyed lonely",
+        "dancehall lonesome 3 155 rxla fmaj",
+        "dancehallbeat64",
+        "new age dancehall_52",
+        "spanish guitarhall",
+        "evilhall2",
+        "project_dancehall_hard_af_2",
+        "Project_14",
+        "ken carson",
+        "egyptian beat_2_rxla_emaj_11bpm",
+        "space_dancehall_yf_tagged",
+        "house_cyah_skate",
+        "skillibeng type beat",
+        "qwella1",
+        "relapse_3",
+        "driffannnn",
+        "fell_from_heaven",
+        "B!6",
+        "ready 3 go3",
+        "carson jbau"
+      ]
+    },
+    {
+      "heading": "Loop credits",
+      "lines": [
+        "carson jbau — prodbybeven",
+        "ken carson â€” probbybeven",
+        "destroyed lonely â€” prod.aarjav",
+        "evilhall2 â€” Die Sonne Satan: Pleurotomaria",
+        "drill2_3 â€” prodbycarduh x 1llokebeats",
+        "drill shxt â€” nihil2free prodarmaan allslo4u",
+        "Some fire dancehall â€” jmizzy x Coopthetruth",
+        "dancehall lonesome 3 155 rxla fmaj â€” maxximsorry",
+        "Project_14 â€” delenquent",
+        "jazzyhall_4 â€” Thats Why - udoyeleg, co produced with Mantaana"
+      ]
+    },
+    {
+      "heading": "Secret track",
+      "lines": [
+        "FOREVA",
+        "Performed by Mantaana",
+        "â„— 2024 Master Key Music, RXLA",
+        "music.apple.com/us/album/foreva/1756854079"
+      ]
+    },
+    {
+      "heading": "Voices",
+      "lines": [
+        "Generated with ElevenLabs"
+      ]
+    },
+    {
+      "heading": "Asset packs",
+      "lines": [
+        "Provided by Francesca Dumary",
+        "Kenney (kenney.nl), CC0:",
+        "Tiny Dungeon, Pixel Platformer Industrial Expansion,",
+        "Particle Pack, Smoke Particles, Splat Pack, Emote Pack,",
+        "Foliage Sprites, Generic Items, Input Prompts Pixel,",
+        "UI Pack Pixel Adventure, Impact Sounds, RPG Audio,",
+        "Sci-Fi Sounds, Desert Shooter Pack"
+      ]
+    },
+    {
+      "heading": "Rain and thunder",
+      "lines": [
+        "\"Rain + Long Thunder\" by WuxiaScrub",
+        "OpenGameArt.org, CC0"
+      ]
+    },
+    {
+      "heading": "Typefaces",
+      "lines": [
+        "UnifrakturMaguntia and Pirata One",
+        "SIL Open Font License"
+      ]
+    },
+    {
+      "heading": "Made with",
+      "lines": [
+        "Godot Engine"
+      ]
+    },
+    {
+      "heading": "Dedicated To",
+      "lines": [
+        "You, all the aspiring game developers,",
+        "everyone the tower kept."
+      ]
+    },
+    {
+      "heading": "Special Thanks",
+      "lines": [
+        "All my family, all my friends,",
+        "everyone met along the journey,",
+        "FAU, Video Game Club at FAU,",
+        "Claude, Codex,",
+        "and above all,",
+        "",
+        "The Lord Jesus Christ"
+      ]
+    },
+    {
+      "heading": "A Final Thought",
+      "lines": [
+        "â€œAll that is gold does not glitter,",
+        "Not all those who wander are lost.â€",
+        "",
+        "â€” J. R. R. Tolkien",
+        "The Fellowship of the Ring",
+        "",
+        "â€œDoesnâ€™t matter how dark it gets,",
+        "the sun will always come out again.",
+        "",
+        "Let the sun be a reminder to you that",
+        "the negative feelings and emotions shall pass.",
+        "",
+        "Let it be a reminder that you will outshine",
+        "all that try to take you off your path.",
+        "",
+        "You are a star.",
+        "",
+        "You are divine.",
+        "",
+        "Your life is your own,",
+        "and your purpose is yours to choose.â€",
+        "",
+        "â€” Jahseh Onfroy (XXXTentacion)"
+      ]
+    }
+  ],
+  "closing": "THANK YOU FOR PLAYING"
 }

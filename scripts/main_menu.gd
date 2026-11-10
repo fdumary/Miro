@@ -49,8 +49,11 @@ func show_screen(id: String) -> void:
 			SCREENS.level_select(page, launch_level)
 			back_button()
 		"settings":
-			SCREENS.settings(page, Rect2(130, 70, 380, 180), false, func(): show_screen("controller"))
+			SCREENS.settings(page, Rect2(130, 40, 380, 260), false, func(): show_screen("controller"), func(): show_screen("display"))
 			back_button()
+		"display":
+			var display_box := SCREENS.display_settings(page, Rect2(110, 40, 420, 260))
+			SCREENS.button(display_box, "Back to settings", func(): show_screen("settings"))
 		"controller":
 			SCREENS.controller_settings(page, Rect2(110, 35, 420, 265), func(): show_screen("settings"))
 		"beats":
@@ -146,7 +149,7 @@ func review_picker() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if screen != "title" and event.is_action_pressed("ui_cancel"):
-		show_screen("settings" if screen == "controller" else "title")
+		show_screen("settings" if screen in ["controller", "display"] else "title")
 		get_viewport().set_input_as_handled()
 
 func launch_level(number: int) -> void:

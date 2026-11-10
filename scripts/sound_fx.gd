@@ -4,6 +4,8 @@ var muted := false
 var voices: Array[AudioStreamPlayer] = []
 var next_voice := 0
 var streams: Dictionary = {}
+var spatial_voices: Array[Node2D] = []
+var next_spatial_voice := 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -23,6 +25,12 @@ func _ready() -> void:
 		voice.process_mode = Node.PROCESS_MODE_PAUSABLE
 		add_child(voice)
 		voices.append(voice)
+	if "--controller-radio-worker" not in OS.get_cmdline_user_args():
+		for index in range(8):
+			var spatial_voice := preload("res://scripts/world_audio_source.gd").new()
+			spatial_voice.linear_db_drop=22.0
+			add_child(spatial_voice)
+			spatial_voices.append(spatial_voice)
 	var settings := ConfigFile.new()
 	if settings.load("user://settings.cfg") == OK:
 		muted = settings.get_value("audio", "muted", false)
@@ -44,7 +52,16 @@ func play_near(cue: String, from: Vector2, listener: Vector2, base_db := -8.0, r
 	var distance := from.distance_to(listener)
 	if distance >= reach:
 		return
-	play_sound(cue, base_db - 22.0 * distance / reach, pitch)
+	if muted or DisplayServer.get_name() == "headless" or not streams.has(cue) or spatial_voices.is_empty(): return
+	var voice=spatial_voices[next_spatial_voice]
+	next_spatial_voice=(next_spatial_voice+1)%spatial_voices.size()
+	voice.stop()
+	voice.global_position=from
+	voice.max_distance=reach
+	voice.stream=streams[cue]
+	voice.volume_db=base_db
+	voice.pitch_scale=pitch
+	voice.play()
 
 func cough_near(from: Vector2, listener: Vector2, variation: int) -> void:
 	play_near("cough_%d" % (1 + posmod(variation, 3)), from, listener, -9.0, 560.0, 0.92 + 0.04 * posmod(variation, 4))
@@ -54,6 +71,7 @@ func _exit_tree() -> void:
 		voice.stop()
 		voice.stream = null
 	voices.clear()
+	spatial_voices.clear()
 	streams.clear()
 
 func _unhandled_input(event: InputEvent) -> void:

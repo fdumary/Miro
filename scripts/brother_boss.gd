@@ -21,6 +21,7 @@ var retreat_left := 0.0
 
 func _ready() -> void:
 	add_to_group("guards")
+	sync_discoverable_group()
 	health = start_health if start_health > 0 else max_health
 	alert_state = State.ALERT
 	sees_player = true

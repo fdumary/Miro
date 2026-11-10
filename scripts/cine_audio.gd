@@ -4,6 +4,7 @@ extends Node
 ## tools/generate_cine_sfx_elevenlabs.py). A missing file is skipped silently.
 const DIR := "res://assets/audio/cine/%s"
 var cues: Array = []
+const EFFECTS_TRIM_DB := -4.0
 
 ## Field recordings ship as .wav (rain, thunder); everything else is .ogg.
 static func stream(id: String) -> AudioStream:
@@ -21,6 +22,7 @@ func at(time: float, action: Callable) -> void:
 	cues.append([time, action])
 
 func tick(clock: float) -> void:
+	if cues.is_empty(): return
 	for cue in cues.duplicate():
 		if clock >= cue[0]:
 			cues.erase(cue)
@@ -33,7 +35,7 @@ func play(id: String, volume_db := -6.0, pitch := 1.0) -> AudioStreamPlayer:
 	var player := AudioStreamPlayer.new()
 	player.bus = "Effects"
 	player.stream = source
-	player.volume_db = volume_db
+	player.volume_db = volume_db + EFFECTS_TRIM_DB
 	player.pitch_scale = pitch
 	add_child(player)
 	if audible():
@@ -66,6 +68,7 @@ func loop(id: String, volume_db := -10.0, fade_in := 1.0, bus := "Effects") -> A
 func fade(player: AudioStreamPlayer, to_db: float, seconds: float, free_after := false) -> void:
 	if player == null:
 		return
+	if player.bus == &"Effects": to_db += EFFECTS_TRIM_DB
 	var tween := player.create_tween()
 	tween.tween_property(player, "volume_db", to_db, maxf(0.01, seconds))
 	if free_after:

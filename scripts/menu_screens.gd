@@ -132,7 +132,7 @@ class LevelCard extends Button:
 
 ## Difficulty buttons and the three volume sliders. `in_run` adds a note that difficulty takes
 ## effect from the next floor or restart.
-static func settings(parent: Node, rect: Rect2, in_run := false, open_controller := Callable()) -> VBoxContainer:
+static func settings(parent: Node, rect: Rect2, in_run := false, open_controller := Callable(), open_display := Callable()) -> VBoxContainer:
 	var box := column(parent, rect, 5)
 	box.name = "Settings"
 	heading(box, "SETTINGS", 16)
@@ -167,6 +167,7 @@ static func settings(parent: Node, rect: Rect2, in_run := false, open_controller
 			progress.set_difficulty(id)
 			refresh.call())
 	refresh.call()
+	var volume_sliders: Dictionary = {}
 	for bus in ["Music", "Effects", "Voice"]:
 		var line := HBoxContainer.new()
 		box.add_child(line)
@@ -183,14 +184,87 @@ static func settings(parent: Node, rect: Rect2, in_run := false, open_controller
 		slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		slider.custom_minimum_size.x = 180
 		line.add_child(slider)
+		volume_sliders[bus] = slider
 		var director = music(parent)
 		slider.value_changed.connect(func(value): director.set_volume(bus, value))
+	var mix_button := button(box, "Music-forward mix", func():
+		music(parent).apply_balanced_mix()
+		for bus in volume_sliders: volume_sliders[bus].set_value_no_signal(AudioServer.get_bus_volume_db(AudioServer.get_bus_index(bus))))
+	mix_button.name = "MusicForwardMix"
+	mix_button.tooltip_text = "Music -4 dB · Effects -1 dB · Voice -2 dB. Speech ducking remains active."
 	note(box, "M mutes all audio. Music lowers during speech; overheard lines have subtitles.", 9)
 	if open_controller.is_valid():
 		var controllers := button(box, "Controls and controller settings", open_controller)
 		controllers.name = "ControllerSettingsButton"
 		controllers.call_deferred("grab_focus")
+	if open_display.is_valid():
+		button(box, "Display and frame rate", open_display).name = "DisplaySettingsButton"
 	return box
+
+static func display_settings(parent: Node, rect: Rect2) -> VBoxContainer:
+	var outer := column(parent, rect, 3)
+	outer.name = "DisplaySettings"
+	heading(outer, "DISPLAY", 16)
+	var scroll := ScrollContainer.new()
+	scroll.follow_focus = true
+	scroll.custom_minimum_size.y = rect.size.y - 65
+	outer.add_child(scroll)
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 3)
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(box)
+	var display = parent.get_node("/root/DisplaySettings")
+	var selectors: Dictionary = {}
+	var controls := [
+		["window_mode", "Window", ["Windowed", "Borderless Fullscreen", "Fullscreen"], [0, 1, 2]],
+		["frame_cap", "FPS limit", ["Match display", "Display minus 3 (VRR)", "30", "60", "120", "144", "165", "180", "240", "360", "Unlimited"], display.CAPS],
+		["vsync", "V-Sync", ["Off", "On", "Adaptive"], [0, 1, 2]],
+	]
+	for spec in controls:
+		var row := HBoxContainer.new()
+		box.add_child(row)
+		var label := Label.new()
+		label.text = spec[1]
+		label.custom_minimum_size.x = 75
+		row.add_child(label)
+		var choice := OptionButton.new()
+		choice.name = str(spec[0])
+		choice.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		choice.add_theme_font_size_override("font_size", 12)
+		for index in range(spec[2].size()): choice.add_item(str(spec[2][index]), int(spec[3][index]) + 2)
+		choice.select(spec[3].find(display.preferences[spec[0]]))
+		row.add_child(choice)
+		selectors[spec[0]] = choice
+		var key: String = spec[0]
+		choice.item_selected.connect(func(index): display.set_preference(key, choice.get_item_id(index) - 2))
+	var presets := HBoxContainer.new()
+	box.add_child(presets)
+	for vrr in [false, true]:
+		var preset := button(presets, "VRR / low latency" if vrr else "Smooth / tear-free", func():
+			display.set_preset(vrr)
+			for key in selectors:
+				var selector: OptionButton = selectors[key]
+				selector.select(selector.get_item_index(int(display.preferences[key]) + 2)))
+		preset.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var counter := CheckButton.new()
+	counter.name = "ShowFPS"
+	counter.text = "Show FPS"
+	counter.button_pressed = display.preferences.show_fps == 1
+	counter.toggled.connect(func(pressed): display.set_preference("show_fps", int(pressed)))
+	box.add_child(counter)
+	var refresh_label := note(box, "Current display: %d Hz. FPS limits do not change your monitor refresh rate." % roundi(display.refresh_rate()), 10)
+	note(box, "G-SYNC / FreeSync: enable VRR on your monitor and in the graphics driver. Display minus 3 keeps the FPS cap below refresh.", 10)
+	note(box, "V-Sync On can limit FPS to display refresh. VRR preset requires driver / monitor VRR. Adaptive support varies.", 10)
+	var update_controls := func():
+		for key in selectors:
+			var selector: OptionButton = selectors[key]
+			selector.select(selector.get_item_index(int(display.preferences[key]) + 2))
+		counter.set_pressed_no_signal(display.preferences.show_fps == 1)
+		refresh_label.text = "Current display: %d Hz. FPS limits do not change your monitor refresh rate." % roundi(display.refresh_rate())
+	display.changed.connect(update_controls)
+	outer.tree_exiting.connect(func():
+		if display.changed.is_connected(update_controls): display.changed.disconnect(update_controls))
+	return outer
 
 static func controller_settings(parent: Node, rect: Rect2, back: Callable) -> VBoxContainer:
 	var scroll := ScrollContainer.new()

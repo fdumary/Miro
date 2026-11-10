@@ -26,7 +26,7 @@ class BeatAnalysisChecks(unittest.TestCase):
         self.assertLess(abs(float(np.asarray(tempo).item()) - 120), 4)
 
     def test_catalog_covers_unmodified_sources(self):
-        report = json.loads(Path('data/music/beat_analysis.json').read_text())
+        report = json.loads(Path('data/music/beat_analysis.json').read_text(encoding="utf-8-sig"))
         sources = {p.name: p for p in Path('soundselection/beats').iterdir()
                    if p.suffix.lower() in {'.mp3', '.wav', '.ogg', '.flac'}}
         self.assertEqual({t['filename'] for t in report['tracks']}, set(sources))

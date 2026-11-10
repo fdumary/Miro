@@ -84,7 +84,10 @@ func toggle_side(id: String, force := false) -> void:
 	for child in side.get_children():
 		child.queue_free()
 	if id == "settings":
-		SCREENS.settings(side, Rect2(220, 60, 390, 200), true, func(): toggle_side("controller"))
+		SCREENS.settings(side, Rect2(220, 60, 390, 200), true, func(): toggle_side("controller"), func(): toggle_side("display"))
+	elif id == "display":
+		var box := SCREENS.display_settings(side, Rect2(218, 34, 402, 285))
+		SCREENS.button(box, "Back to settings", func(): toggle_side("settings"))
 	elif id == "controller":
 		SCREENS.controller_settings(side, Rect2(218, 34, 402, 285), func(): toggle_side("settings"))
 	else:

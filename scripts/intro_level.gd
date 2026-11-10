@@ -263,13 +263,13 @@ func _process(delta: float) -> void:
 			if niro_line and anchor == player:
 				radio.say(str(line[1]))
 			elif niro_line:
-				radio.say_in_room(str(line[1]))
+				radio.say_in_room(str(line[1]), "niro", "Voice", 0.0, anchor)
 			elif str(line[0]) == "TOWER PA":
 				radio.say_in_room(str(line[1]), "pa")
 			elif str(line[0]) == "JUDAS":
-				radio.say_in_room(str(line[1]), "judas")
+				radio.say_in_room(str(line[1]), "judas", "Voice", 0.0, anchor)
 			elif str(line[0]) in ["PRISONER", "THE PRISONER"]:
-				radio.say_in_room(str(line[1]), "prisoner")
+				radio.say_in_room(str(line[1]), "prisoner", "Voice", 0.0, anchor)
 			elif str(line[0]) == "MIRO":
 				radio.say_in_room(str(line[1]), "miro", "Thought" if dialogue_panel.thought else "Voice")
 			else:
@@ -277,7 +277,7 @@ func _process(delta: float) -> void:
 			line_lock = 0.0
 			if radio.audible() and niro_line:
 				var length: float = radio.speaking_left
-				if radio.room.playing and radio.room.stream != null:
+				if (radio.room.playing or radio.room_is_spatial()) and radio.room.stream != null:
 					length = maxf(length, radio.room.stream.get_length())
 				line_lock = minf(length, 14.0)
 		# The MP3 pops up at the side of the screen while his brother's voice comes through it.
@@ -552,8 +552,9 @@ func nearby(kind: String, maximum: float = 48.0):
 	return null
 
 func context_hint() -> String:
-	if world_features and not world_features.hint().is_empty():
-		return world_features.hint()
+	if world_features:
+		var feature_hint: String = world_features.hint()
+		if not feature_hint.is_empty(): return feature_hint
 	if controls_locked() or player.is_dead:
 		return ""
 	if nearby("bed") and not player.has_supplies:

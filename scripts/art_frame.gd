@@ -20,10 +20,11 @@ var time := 0.0
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	set_process(false)
 
 func _process(delta: float) -> void:
 	time += delta
-	if inspected or not assigned:
+	if inspected or not assigned or thumbnail != null:
 		return
 	queue_redraw()
 
@@ -36,14 +37,19 @@ func hang(entry: Dictionary, image: Texture2D, chosen_branch: String) -> void:
 	texture = image
 	thumbnail = null
 	assigned = true
-	if image != null:
-		var picture := image.get_image()
-		if picture != null:
-			if picture.is_compressed():
-				picture.decompress()
-			var fit := minf(CANVAS.x / picture.get_width(), CANVAS.y / picture.get_height())
-			picture.resize(maxi(4, int(picture.get_width() * fit)), maxi(4, int(picture.get_height() * fit)), Image.INTERPOLATE_LANCZOS)
-			thumbnail = ImageTexture.create_from_image(picture)
+	var small_path := "res://assets/art/thumbnails/%s.png" % art_id
+	if image != null and ResourceLoader.exists(small_path):
+		thumbnail = load(small_path)
+	else:
+		if image != null:
+			var picture := image.get_image()
+			if picture != null:
+				if picture.is_compressed():
+					picture.decompress()
+				var fit := minf(CANVAS.x / picture.get_width(), CANVAS.y / picture.get_height())
+				picture.resize(maxi(4, int(picture.get_width() * fit)), maxi(4, int(picture.get_height() * fit)), Image.INTERPOLATE_LANCZOS)
+				thumbnail = ImageTexture.create_from_image(picture)
+	set_process(not inspected and thumbnail == null)
 	queue_redraw()
 
 func covered() -> bool:

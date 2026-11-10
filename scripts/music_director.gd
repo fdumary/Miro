@@ -28,9 +28,19 @@ const MENU_TRACK := "drill_shxt"
 const MENU_COMPLETED_TRACK := "lil_uzi2"
 const BEATS_PER_BAR := 4
 const OPEN_CUTOFF := 20500.0
+const DEFAULT_BUS_DB := {"Music": -4.0, "Effects": -1.0, "Voice": -2.0}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	var has_peak_limiter := false
+	for index in range(AudioServer.get_bus_effect_count(0)):
+		if AudioServer.get_bus_effect(0,index) is AudioEffectHardLimiter: has_peak_limiter = true
+	if not has_peak_limiter:
+		var limiter := AudioEffectHardLimiter.new()
+		limiter.ceiling_db = -2.0
+		limiter.pre_gain_db = 0.0
+		limiter.release = 0.05
+		AudioServer.add_bus_effect(0,limiter)
 	for bus in ["Music", "Effects", "Voice"]:
 		if AudioServer.get_bus_index(bus) < 0:
 			AudioServer.add_bus()
@@ -38,7 +48,7 @@ func _ready() -> void:
 	var config := ConfigFile.new()
 	config.load("user://settings.cfg")
 	for bus in ["Music", "Effects", "Voice"]:
-		AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), config.get_value("audio", bus, -6.0 if bus == "Music" else 0.0))
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), config.get_value("audio", bus, DEFAULT_BUS_DB[bus]))
 	# Miro's thoughts: a far, spacey reverb on its own bus that feeds the Voice bus.
 	if AudioServer.get_bus_index("Thought") < 0:
 		AudioServer.add_bus()
@@ -244,3 +254,11 @@ func _exit_tree() -> void:
 		voice.stop()
 		voice.stream = null
 	voices.clear()
+
+func apply_balanced_mix() -> void:
+	var config := ConfigFile.new()
+	config.load("user://settings.cfg")
+	for bus in DEFAULT_BUS_DB:
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), DEFAULT_BUS_DB[bus])
+		config.set_value("audio", bus, DEFAULT_BUS_DB[bus])
+	config.save("user://settings.cfg")

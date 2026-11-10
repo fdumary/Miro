@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 			remaining = 300.0
 			position = hit.position + direction * 6.0
 			level.emit_effect("hit", global_position)
-			get_node("/root/SoundFX").play_sound("hit", -10, 1.6)
+			get_node("/root/SoundFX").play_near("hit", global_position, level.player.global_position, -10, 560.0, 1.6)
 			return
 		elif enemy and target is IntroPlayer:
 			# A pistol round or a turret bolt takes a heart; an SMG round takes half of one.
@@ -128,9 +128,16 @@ func guard_damage(guard: Node2D, point: Vector2) -> int:
 func strike_guard(from: Vector2, to: Vector2) -> bool:
 	var length := from.distance_to(to)
 	var steps := maxi(1, ceili(length / 2.0))
+	# Build a conservative broad phase once; preserve legacy sample spacing and tree order.
+	var candidates: Array[Node] = []
+	var sweep := Rect2(from, to - from).abs().grow(0.01)
+	for guard in level.guards():
+		if not is_instance_valid(guard) or guard.is_dead or guard == shooter or not guard is IntroGuard: continue
+		var bounds := Rect2(guard.global_position + Vector2(-24, -30), Vector2(48, 48))
+		if sweep.intersects(bounds.grow(0.01)): candidates.append(guard)
 	for step in range(steps + 1):
 		var point := from.lerp(to, float(step) / steps)
-		for guard in level.guards():
+		for guard in candidates:
 			if not is_instance_valid(guard) or guard.is_dead or guard == shooter or not guard is IntroGuard:
 				continue
 			var local: Vector2 = point - guard.global_position

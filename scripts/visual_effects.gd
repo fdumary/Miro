@@ -26,6 +26,8 @@ func emit_burst(cue: String, point: Vector2) -> void:
 func _process(delta: float) -> void:
 	if not is_instance_valid(level) or level.controls_locked():
 		return
+	if particles.is_empty(): return
+	var alive := 0
 	for particle in particles:
 		particle.life -= delta
 		if particle.id != "splat":
@@ -33,7 +35,10 @@ func _process(delta: float) -> void:
 			particle.velocity.y += delta * (12 if particle.id == "smoke" else 90)
 			if particle.position.y > particle.origin_y:
 				particle.position.y = particle.origin_y
-	particles = particles.filter(func(particle): return particle.life > 0)
+		if particle.life > 0:
+			particles[alive] = particle
+			alive += 1
+	particles.resize(alive)
 	queue_redraw()
 
 func _draw() -> void:

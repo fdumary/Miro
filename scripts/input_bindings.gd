@@ -59,6 +59,9 @@ func apply() -> void:
 				InputMap.action_erase_event(action,event)
 				event.axis = (0 if action in ["move_left","move_right"] else 1) + (2 if preset == "Southpaw" else 0)
 				InputMap.action_add_event(action,event)
+	var controller := get_node_or_null("/root/ControllerSettings")
+	if controller != null:
+		controller.refresh_bound_prompts()
 func pad_button(original: int) -> int:
 	var mapping := {}
 	if preset in ["Bumper Jumper","Bumper Jumper Tactical"]:

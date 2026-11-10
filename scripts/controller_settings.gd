@@ -16,6 +16,8 @@ var using_controller := false:
 		if is_inside_tree():
 			refresh_bound_prompts()
 		changed.emit()
+const PROMPT_CACHE_LIMIT := 128
+var _prompt_cache: Dictionary = {}
 var keyboard: CanvasLayer
 var active_device := -1
 
@@ -69,7 +71,16 @@ func playstation() -> bool:
 	return name.is_empty() or ["ps4", "ps5", "playstation", "dual", "wireless controller"].any(func(part): return part in name)
 
 func prompt(text: String) -> String:
-	return pad_prompt(text) if using_controller else get_node("/root/InputBindings").keyboard_prompt(text.replace("A/D Move · W/S Ladders", "A/D Move · Shift Quiet walk · W/S Ladders"))
+	if _prompt_cache.has(text):
+		return _prompt_cache[text]
+	var result: String = pad_prompt(text) if using_controller else get_node("/root/InputBindings").keyboard_prompt(text.replace("A/D Move · W/S Ladders", "A/D Move · Shift Quiet walk · W/S Ladders"))
+	# Fixed FIFO bound also covers dynamic hint text; no ever-growing HUD cache.
+	if _prompt_cache.size() >= PROMPT_CACHE_LIMIT:
+		for oldest in _prompt_cache:
+			_prompt_cache.erase(oldest)
+			break
+	_prompt_cache[text] = result
+	return result
 
 static func controller_text(text: String, ps := true) -> String:
 	var cross := "Cross" if ps else "A"
@@ -116,6 +127,7 @@ func apply_bound_prompt(control: Control) -> void:
 	control.set("text", pad_prompt(pad) if using_controller and not pad.is_empty() else prompt(base))
 
 func refresh_bound_prompts() -> void:
+	_prompt_cache.clear()
 	for control in get_tree().get_nodes_in_group("device_prompts"):
 		apply_bound_prompt(control)
 

@@ -8,8 +8,11 @@ const BUS := "Radio"
 const STATIC_RATE := 22050.0
 var voice: AudioStreamPlayer
 var room: AudioStreamPlayer
+var room_spatial
+var room_anchor: Node2D
 var hiss: AudioStreamPlayer
 var hiss_playback: AudioStreamGeneratorPlayback
+var hiss_frames := PackedVector2Array()
 var speaking_left := 0.0
 var burst_left := 0.0
 var clock := 0.0
@@ -54,6 +57,11 @@ func _ready() -> void:
 	room.bus = "Voice"
 	room.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(room)
+	if not controller_worker:
+		room_spatial=preload("res://scripts/world_audio_source.gd").new()
+		room_spatial.bus="Voice"
+		room_spatial.max_distance=560.0
+		add_child(room_spatial)
 	var generator := AudioStreamGenerator.new()
 	generator.mix_rate = STATIC_RATE
 	generator.buffer_length = 0.25
@@ -77,13 +85,21 @@ static func has_clip(text: String, prefix := "niro") -> bool:
 
 ## Same clips, no radio: Niro face to face, the tower PA, Judas, or Miro himself
 ## (his thoughts go through the reverb "Thought" bus).
-func say_in_room(text: String, prefix := "niro", bus := "Voice", volume_db := 0.0) -> void:
+func say_in_room(text: String, prefix := "niro", bus := "Voice", volume_db := 0.0, actor: Node2D = null) -> void:
 	stop()
 	room.volume_db = volume_db
 	if has_clip(text, prefix) and audible():
 		room.bus = bus if AudioServer.get_bus_index(bus) >= 0 else "Voice"
 		room.stream = load(clip_path(text, prefix))
-		room.play()
+		if is_instance_valid(actor) and is_instance_valid(room_spatial):
+			room_anchor=actor
+			room_spatial.global_position=actor.global_position
+			room_spatial.bus=room.bus
+			room_spatial.volume_db=volume_db
+			room_spatial.stream=room.stream
+			room_spatial.play()
+		else:
+			room.play()
 
 ## Plays one line over the remote. Returns how long it lasts, so a bubble can match it.
 func say(text: String) -> float:
@@ -121,6 +137,8 @@ func stop() -> void:
 	burst_left = 0.0
 	if is_instance_valid(room):
 		room.stop()
+	if is_instance_valid(room_spatial): room_spatial.stop()
+	room_anchor=null
 
 func _exit_tree() -> void:
 	controller_link.close()
@@ -136,7 +154,11 @@ func noise() -> float:
 	noise_state = (noise_state * 1103515245 + 12345) & 0x7fffffff
 	return float(noise_state) / float(0x3fffffff) - 1.0
 
+func room_is_spatial() -> bool:
+	return is_instance_valid(room_spatial) and room_spatial.playing
+
 func _process(delta: float) -> void:
+	if is_instance_valid(room_anchor) and is_instance_valid(room_spatial): room_spatial.global_position=room_anchor.global_position
 	if not controller_worker:
 		var config: Dictionary = get_node("/root/ControllerSettings").preferences
 		controller_link.update(delta, get_tree().paused, config.speaker_enabled, config.speaker_endpoint)
@@ -157,12 +179,19 @@ func _process(delta: float) -> void:
 	voice.pitch_scale = 0.93 if dropout else 1.0
 	if hiss_playback == null:
 		return
+	if speaking_left <= 0.0 and burst_left <= 0.0 and not voice.playing:
+		hiss.stop()
+		hiss_playback = null
+		return
 	var level := 0.0
 	if burst_left > 0 or dropout:
 		level = 0.32
 	elif speaking_left > 0:
 		level = 0.05
 	var frames := hiss_playback.get_frames_available()
+	if frames <= 0: return
+	hiss_frames.resize(frames)
 	for i in range(frames):
 		var sample := noise() * level
-		hiss_playback.push_frame(Vector2(sample, sample))
+		hiss_frames[i] = Vector2(sample, sample)
+	hiss_playback.push_buffer(hiss_frames)

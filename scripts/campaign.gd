@@ -680,3 +680,31 @@ func completed_super_hard() -> bool:
 		if not floor_stats.has(number) or floor_stats[number].get("difficulty", "") != "super_hard":
 			return false
 	return true
+
+## Commit both parts of the trapdoor reward together, with one progress-file write.
+func record_trapdoor_use() -> bool:
+	const ID := "trapdoor_used"
+	const TRACK := "trapdoor_bonus"
+	var persist := can_persist()
+	var progress := ConfigFile.new()
+	var earned: Array = achievements_earned.keys()
+	var tracks: Array = session_unlocks.duplicate()
+	if persist:
+		progress.load(progress_path())
+		earned = Array(progress.get_value("achievements", "earned", []))
+		tracks = Array(progress.get_value("mp3", "unlocked", []))
+	var first := not earned.has(ID)
+	var new_track := not tracks.has(TRACK)
+	if not first and not new_track: return false
+	if first: earned.append(ID)
+	if new_track:
+		tracks.append(TRACK)
+		fresh_unlocks.append(TRACK)
+	achievements_earned[ID] = true
+	if persist:
+		progress.set_value("achievements", "earned", earned)
+		progress.set_value("mp3", "unlocked", tracks)
+		progress.save(progress_path())
+	else:
+		session_unlocks = tracks
+	return first

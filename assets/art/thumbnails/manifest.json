@@ -1,0 +1,191 @@
+{
+	"A01": {
+		"height": 34,
+		"source": "res://assets/art/A01_prisoners_exercising.jpg",
+		"source_sha256": "7984540a9f343239fb89a74da621ca950d35f2aa9ed49211a4c7381d3c4804d8",
+		"thumbnail": "res://assets/art/thumbnails/A01.png",
+		"width": 26
+	},
+	"A02": {
+		"height": 34,
+		"source": "res://assets/art/A02_the_round_tower.jpg",
+		"source_sha256": "3bd6b386715cc2473a14ab05d5987d8a9dc2edfeede141abc8cefa4b22f3f69d",
+		"thumbnail": "res://assets/art/thumbnails/A02.png",
+		"width": 26
+	},
+	"A03": {
+		"height": 29,
+		"source": "res://assets/art/A03_the_monk_by_the_sea.jpg",
+		"source_sha256": "f8bf3343884026d60b025c1ecdd6fc8320cf20f75280ab873d2e1aaa6efd7216",
+		"thumbnail": "res://assets/art/thumbnails/A03.png",
+		"width": 46
+	},
+	"A04": {
+		"height": 34,
+		"source": "res://assets/art/A04_the_bedroom.jpg",
+		"source_sha256": "cb5839d854aa1a092801939b8d732fa653f22a1c87fdbbd7248c9882250ce400",
+		"thumbnail": "res://assets/art/thumbnails/A04.png",
+		"width": 43
+	},
+	"A05": {
+		"height": 34,
+		"source": "res://assets/art/A05_the_fortune_teller.jpg",
+		"source_sha256": "94eece912b3e590f9a02087492fdea3b7d6c0449b7f529685b8c463dbfa8b7ae",
+		"thumbnail": "res://assets/art/thumbnails/A05.png",
+		"width": 41
+	},
+	"A06": {
+		"height": 34,
+		"source": "res://assets/art/A06_the_railway.jpg",
+		"source_sha256": "c419e92e1b3ab738026c65609e6e645eb0c447ee01064475cd818597fde3129b",
+		"thumbnail": "res://assets/art/thumbnails/A06.png",
+		"width": 41
+	},
+	"A07": {
+		"height": 34,
+		"source": "res://assets/art/A07_paris_street_rainy_day.jpg",
+		"source_sha256": "f5d9c180247acb3fe0977135ae80f4da65c41dc5163be06ed0e0be1172d0bf16",
+		"thumbnail": "res://assets/art/thumbnails/A07.png",
+		"width": 43
+	},
+	"A08": {
+		"height": 30,
+		"source": "res://assets/art/A08_a_sunday_on_la_grande_jatte_1884.jpg",
+		"source_sha256": "90197c037e6041fcae1c35606b921b5b626d868c2ff21cd653edb640b3f6e2dd",
+		"thumbnail": "res://assets/art/thumbnails/A08.png",
+		"width": 46
+	},
+	"A09": {
+		"height": 34,
+		"source": "res://assets/art/A09_the_kiss_of_judas.jpg",
+		"source_sha256": "6456245ddb5845f654d9652c2f020516c28dcceb848a0e5009564180c463edfd",
+		"thumbnail": "res://assets/art/thumbnails/A09.png",
+		"width": 25
+	},
+	"A10": {
+		"height": 34,
+		"source": "res://assets/art/A10_the_denial_of_saint_peter.jpg",
+		"source_sha256": "eeb68ec1b9ae4ee73e6257ab6a8c7ed51fa40dda413eab9f02507dd73b608cea",
+		"thumbnail": "res://assets/art/thumbnails/A10.png",
+		"width": 45
+	},
+	"A11": {
+		"height": 34,
+		"source": "res://assets/art/A11_the_flight_into_egypt.jpg",
+		"source_sha256": "33dc72cca431d45e5f2bed6afa588f41b38d9711fc3708c6a55933f34cee4c30",
+		"thumbnail": "res://assets/art/thumbnails/A11.png",
+		"width": 32
+	},
+	"A12": {
+		"height": 34,
+		"source": "res://assets/art/A12_wheat_field_with_cypresses.jpg",
+		"source_sha256": "af0e3486621c210b54932d055294051b5601aa3362af4b84ab97e2831f8163bc",
+		"thumbnail": "res://assets/art/thumbnails/A12.png",
+		"width": 42
+	},
+	"A13": {
+		"height": 34,
+		"source": "res://assets/art/A13_bridge_over_a_pond_of_water_lili.jpg",
+		"source_sha256": "ae0de62c4c1e21a8e146d7102fd2ceb698c7ef83c94ef112cb00bd5a6235acae",
+		"thumbnail": "res://assets/art/thumbnails/A13.png",
+		"width": 27
+	},
+	"A14": {
+		"height": 34,
+		"source": "res://assets/art/A14_the_starry_night.jpg",
+		"source_sha256": "a2759458dbc9cf1150ddc8b5d16453aba4790ed6fe826c29f4cf59471d07e629",
+		"thumbnail": "res://assets/art/thumbnails/A14.png",
+		"width": 42
+	},
+	"A15": {
+		"height": 34,
+		"source": "res://assets/art/A15_cypresses.jpg",
+		"source_sha256": "c99b08ce3ac261099f6e548f2b566889aeeb69ec1d9b9c9a9d4dbe011ebdaa59",
+		"thumbnail": "res://assets/art/thumbnails/A15.png",
+		"width": 26
+	},
+	"A16": {
+		"height": 34,
+		"source": "res://assets/art/A16_the_sleep_of_reason_produces_mon.jpg",
+		"source_sha256": "1dba27ba95ae78f62690de3fb8a2fcf3350306cdf9118e793f29802ae7c8360d",
+		"thumbnail": "res://assets/art/thumbnails/A16.png",
+		"width": 24
+	},
+	"A17": {
+		"height": 31,
+		"source": "res://assets/art/A17_the_temptation_of_saint_anthony.jpg",
+		"source_sha256": "30e38ad49e833c6dde0c4bf153e587c4cd7c3be2ae8932fd296148791a363e37",
+		"thumbnail": "res://assets/art/thumbnails/A17.png",
+		"width": 46
+	},
+	"A18": {
+		"height": 28,
+		"source": "res://assets/art/A18_the_gulf_stream.jpg",
+		"source_sha256": "02654950ebb27b6ca47d7e84cf3a9072bd55ea5f034c5f3c7061e44366e159b9",
+		"thumbnail": "res://assets/art/thumbnails/A18.png",
+		"width": 46
+	},
+	"A19": {
+		"height": 30,
+		"source": "res://assets/art/A19_the_voyage_of_life_manhood.jpg",
+		"source_sha256": "01f00deaa8c5b2223f48dad6af5a3e9cee9b0a69a91359b7b18d697eb8f9fa27",
+		"thumbnail": "res://assets/art/thumbnails/A19.png",
+		"width": 46
+	},
+	"A20": {
+		"height": 30,
+		"source": "res://assets/art/A20_the_death_of_socrates.jpg",
+		"source_sha256": "7d8d840424e3747c14b203b67192fff726c897bb05cf9d3f7fa227e1ee4510de",
+		"thumbnail": "res://assets/art/thumbnails/A20.png",
+		"width": 46
+	},
+	"A21": {
+		"height": 34,
+		"source": "res://assets/art/A21_joan_of_arc.jpg",
+		"source_sha256": "f1ed331cc7b492262b9fd79c09f9abe12361a6056116fa50bdf78250e0337db2",
+		"thumbnail": "res://assets/art/thumbnails/A21.png",
+		"width": 37
+	},
+	"A22": {
+		"height": 34,
+		"source": "res://assets/art/A22_the_alchemist.jpg",
+		"source_sha256": "e8e033693c923216bbc1d2151bd6223f59c6609f436dcf8f9e00882f70654440",
+		"thumbnail": "res://assets/art/thumbnails/A22.png",
+		"width": 45
+	},
+	"A23": {
+		"height": 31,
+		"source": "res://assets/art/A23_under_the_wave_off_kanagawa.jpg",
+		"source_sha256": "f01508db940f3fae63a864b68ebdcf25f5b9734842ffdf81606648e4703e3ec3",
+		"thumbnail": "res://assets/art/thumbnails/A23.png",
+		"width": 46
+	},
+	"A24": {
+		"height": 34,
+		"source": "res://assets/art/A24_wanderer_above_the_sea_of_fog.jpg",
+		"source_sha256": "2ca3b90ed75a991e32050dbc2ad60ad93f70d3eaa4965a829e046ad998543db8",
+		"thumbnail": "res://assets/art/thumbnails/A24.png",
+		"width": 26
+	},
+	"A25": {
+		"height": 30,
+		"source": "res://assets/art/A25_the_voyage_of_life_old_age.jpg",
+		"source_sha256": "e2b96a0f4fe530982ec6c1ea258706fb420193dadf7a6cd08ac3e220f43e15c8",
+		"thumbnail": "res://assets/art/thumbnails/A25.png",
+		"width": 46
+	},
+	"A26": {
+		"height": 34,
+		"source": "res://assets/art/A26_saint_jerome_in_his_study.jpg",
+		"source_sha256": "cc60362597e6c1fe66c7c71d4edcb315aa7443993c79fcf119daf303a58e89eb",
+		"thumbnail": "res://assets/art/thumbnails/A26.png",
+		"width": 26
+	},
+	"A27": {
+		"height": 34,
+		"source": "res://assets/art/A27_the_milkmaid.jpg",
+		"source_sha256": "75ff14af65f5c2c030f7a92d8290ffbac89f46f697022d7a7b999dd6ee69cc01",
+		"thumbnail": "res://assets/art/thumbnails/A27.png",
+		"width": 30
+	}
+}

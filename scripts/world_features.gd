@@ -16,7 +16,7 @@ var conversation_started := false
 var line_left := 0.0
 var retry_left := 0.0
 var last_line: Dictionary = {}
-var voice: AudioStreamPlayer2D
+var voice: Node2D
 var voice_speaker: Node2D
 var subtitle: Label
 var speech_bubble: Control
@@ -60,7 +60,7 @@ func setup(owner_level: Node2D, number: int) -> void:
 	level = owner_level
 	floor_number = number
 	config = JSON.parse_string(FileAccess.get_file_as_string("res://data/guard_dialogue.json"))
-	voice = AudioStreamPlayer2D.new()
+	voice = preload("res://scripts/world_audio_source.gd").new()
 	voice.bus = "Voice"
 	voice.process_mode = Node.PROCESS_MODE_PAUSABLE
 	# Heard clearly from the whole conversation range; fading, never cut, with distance.
