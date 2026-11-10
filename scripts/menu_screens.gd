@@ -147,7 +147,7 @@ static func settings(parent: Node, rect: Rect2, in_run := false, open_controller
 	row.add_child(label)
 	var detail := note(box, "", 10)
 	var choices: Array[Button] = []
-	for id in ["easy", "medium", "hard"]:
+	for id in ["easy", "medium", "hard", "super_hard"]:
 		var choice := Button.new()
 		choice.name = "Difficulty_" + id
 		choice.text = progress.DIFFICULTIES[id].label

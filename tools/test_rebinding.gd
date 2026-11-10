@@ -85,6 +85,12 @@ func run() -> void:
 	binding.custom=previous
 	binding.preset=previous_preset
 	binding.apply()
+	var menu=load("res://scenes/main_menu.tscn").instantiate()
+	root.add_child(menu)
+	menu.show_screen("settings")
+	await frames(3)
+	check(menu.page.find_child("Difficulty_super_hard",true,false)!=null,"Settings exposes Super Hard alongside Easy, Medium and Hard")
+	menu.queue_free()
 	binding.open()
 	await frames(3)
 	check(binding.rows.size()==binding.KEYS.size(),"Settings exposes every keyboard and mouse action")
