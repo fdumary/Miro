@@ -492,7 +492,7 @@ func _draw() -> void:
 		draw_arc(Vector2(0, -20), 5, 0, PI, 8, Color("c69fa5"), 1)
 
 func update_crouch() -> void:
-	var requested: bool = (Input.is_physical_key_pressed(KEY_CTRL) or controls.wants_pad_crouch()) and is_on_floor()
+	var requested: bool = (Input.is_action_pressed("crouch") or controls.wants_pad_crouch()) and is_on_floor()
 	if crouching and not requested:
 		var shape := RectangleShape2D.new()
 		shape.size = Vector2(12, 27)

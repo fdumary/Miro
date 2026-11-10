@@ -106,14 +106,14 @@ func _input(event: InputEvent) -> void:
 		pad_device = event.device
 		pad_prompts = true
 		player.mouse_aim = false
-		if handle_pad_button(event.button_index):
+		if handle_pad_button(get_node("/root/InputBindings").canonical_pad(event.button_index)):
 			get_viewport().set_input_as_handled()
 		return
-	if event is InputEventKey and not event.echo:
+	if (event is InputEventKey and not event.echo) or event is InputEventMouseButton:
 		if not event.pressed:
 			return
 		pad_prompts = false
-		var key: int = event.physical_keycode
+		var key: int = get_node("/root/InputBindings").canonical_key(event)
 		if locked():
 			if key == KEY_ESCAPE or (key == KEY_N and inventory_open):
 				close_panels()
@@ -192,7 +192,7 @@ func handle_pad_button(button: int) -> bool:
 func wants_pad_crouch() -> bool:
 	if controller_settings.preferences.hold_crouch:
 		player.pad_crouch = false
-		return pad_device >= 0 and Input.is_joy_button_pressed(pad_device, JOY_BUTTON_LEFT_STICK)
+		return pad_device >= 0 and Input.is_joy_button_pressed(pad_device, get_node("/root/InputBindings").pad_button(JOY_BUTTON_LEFT_STICK))
 	return player.pad_crouch
 
 func cycle_item(step: int) -> void:
@@ -216,13 +216,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		pad_aim = false
 		pad_prompts = false
 		player.mouse_aim = true
-	if event is InputEventMouseButton:
+	if (event is InputEventKey or event is InputEventMouseButton) and (get_node("/root/InputBindings").matches(event, "use_item") or get_node("/root/InputBindings").matches(event, "focus_item")):
 		pad_aim = false
 		pad_prompts = false
 		player.mouse_aim = true
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if get_node("/root/InputBindings").matches(event, "use_item") and event.pressed:
 			use_item()
-		elif event.button_index == MOUSE_BUTTON_RIGHT:
+		elif get_node("/root/InputBindings").matches(event, "focus_item"):
 			focus = event.pressed and active != "c4"
 			if event.pressed and active == "c4":
 				drop_charge()
@@ -246,10 +246,10 @@ func _physics_process(delta: float) -> void:
 	if not pads.is_empty():
 		if pad_device not in pads:
 			pad_device = pads[0]
-		update_pad_aim(Vector2(Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_X), Input.get_joy_axis(pad_device, JOY_AXIS_RIGHT_Y)))
+		update_pad_aim(Vector2(Input.get_joy_axis(pad_device, (JOY_AXIS_LEFT_X if get_node("/root/InputBindings").preset == "Southpaw" else JOY_AXIS_RIGHT_X)), Input.get_joy_axis(pad_device, (JOY_AXIS_LEFT_Y if get_node("/root/InputBindings").preset == "Southpaw" else JOY_AXIS_RIGHT_Y))))
 	else:
 		pad_aim = false
-	focus = (focus and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)) or (player.guns.has(active) and Input.is_action_pressed("pad_focus"))
+	focus = (focus and Input.is_action_pressed("focus_item")) or (player.guns.has(active) and Input.is_action_pressed("pad_focus"))
 	if active == "c4" and Input.is_action_just_pressed("pad_focus"):
 		drop_charge()
 	if reload_left > 0:
@@ -262,7 +262,7 @@ func _physics_process(delta: float) -> void:
 	strum_cooldown = maxf(0, strum_cooldown - delta)
 	strum_flash = maxf(0, strum_flash - delta)
 	progress = 1.0 - reload_left
-	if Input.is_action_just_pressed("pad_use") or (active == "smg" and (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_action_pressed("pad_use"))):
+	if Input.is_action_just_pressed("pad_use") or (active == "smg" and (Input.is_action_pressed("use_item") or Input.is_action_pressed("pad_use"))):
 		use_item()
 
 func use_item() -> void:

@@ -57,7 +57,7 @@ func _exit_tree() -> void:
 	streams.clear()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_M:
+	if not is_instance_valid(get_node("/root/InputBindings").panel) and event.is_pressed() and get_node("/root/InputBindings").matches(event,"mute"):
 		muted = not muted
 		AudioServer.set_bus_mute(0, muted)
 		var settings := ConfigFile.new()

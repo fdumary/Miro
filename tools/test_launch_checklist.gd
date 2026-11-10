@@ -241,7 +241,7 @@ func run() -> void:
 		roles[block.heading] = block.lines
 	check(roles.get("Lead Software Engineer") == ["Ethan Risden"] and roles.get("Level Design") == ["Ethan Risden"], "Engineering and Level Design name Ethan Risden")
 	check(roles.get("Creative Director") == ["Ethan Risden"] and roles.get("Creative Lead") == ["Julia S."], "Creative roles retain requested names")
-	check(roles.get("Music composition, production, mixing and mastering") == ["RXLA"] and roles.has("Music composed and produced by RXLA"), "RXLA is credited specifically for music roles and tracklist")
+	check(not roles.has("Music composition, production, mixing and mastering") and roles.has("Music composed and produced by RXLA"), "RXLA tracklist credit appears once without a duplicate music block")
 	check(roles.has("Loop credits") and roles.get("Playtesting") == ["Francesca Dumary"], "Loop maker and playtesting attributions remain")
 	print("LAUNCH_CHECKLIST_RESULT: ", checks - failures.size(), "/", checks, " passed")
 	quit(0 if failures.is_empty() else 1)

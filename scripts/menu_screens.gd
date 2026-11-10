@@ -187,16 +187,26 @@ static func settings(parent: Node, rect: Rect2, in_run := false, open_controller
 		slider.value_changed.connect(func(value): director.set_volume(bus, value))
 	note(box, "M mutes all audio. Music lowers during speech; overheard lines have subtitles.", 9)
 	if open_controller.is_valid():
-		var controllers := button(box, "Controller settings", open_controller)
+		var controllers := button(box, "Controls and controller settings", open_controller)
 		controllers.name = "ControllerSettingsButton"
 		controllers.call_deferred("grab_focus")
 	return box
 
 static func controller_settings(parent: Node, rect: Rect2, back: Callable) -> VBoxContainer:
-	var box := column(parent, rect, 3)
+	var scroll := ScrollContainer.new()
+	scroll.position=rect.position
+	scroll.size=rect.size
+	scroll.follow_focus=true
+	parent.add_child(scroll)
+	var box := VBoxContainer.new()
+	box.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	scroll.add_child(box)
 	box.name = "ControllerSettings"
 	box.set_script(load("res://scripts/controller_settings_panel.gd"))
 	box.setup(back)
+	var bindings := button(box, "Reassign keyboard / mouse · Controller presets", func(): parent.get_node("/root/InputBindings").open())
+	bindings.name = "ReassignBindings"
+	box.move_child(bindings,1)
 	return box
 
 static func describe(tuning: Dictionary) -> String:

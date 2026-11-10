@@ -18,6 +18,8 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
 
+InputBindings="*res://scripts/input_bindings.gd"
+
 Typeface="*res://scripts/typeface.gd"
 Campaign="*res://scripts/campaign.gd"
 MusicDirector="*res://scripts/music_director.gd"

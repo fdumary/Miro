@@ -69,7 +69,7 @@ func playstation() -> bool:
 	return name.is_empty() or ["ps4", "ps5", "playstation", "dual", "wireless controller"].any(func(part): return part in name)
 
 func prompt(text: String) -> String:
-	return controller_text(text, playstation()) if using_controller else text.replace("A/D Move · W/S Ladders", "A/D Move · Shift Quiet walk · W/S Ladders")
+	return pad_prompt(text) if using_controller else get_node("/root/InputBindings").keyboard_prompt(text.replace("A/D Move · W/S Ladders", "A/D Move · Shift Quiet walk · W/S Ladders"))
 
 static func controller_text(text: String, ps := true) -> String:
 	var cross := "Cross" if ps else "A"
@@ -113,7 +113,7 @@ func bind_prompt(control: Control, text: String, pad_text := "") -> void:
 func apply_bound_prompt(control: Control) -> void:
 	var base: String = control.get_meta("keyboard_prompt", "")
 	var pad: String = control.get_meta("controller_prompt", "")
-	control.set("text", controller_text(pad, playstation()) if using_controller and not pad.is_empty() else prompt(base))
+	control.set("text", pad_prompt(pad) if using_controller and not pad.is_empty() else prompt(base))
 
 func refresh_bound_prompts() -> void:
 	for control in get_tree().get_nodes_in_group("device_prompts"):
@@ -147,4 +147,16 @@ func save() -> void:
 
 func controls_help(tuning: Dictionary) -> String:
 	var text := "Left stick Move / climb · Right stick Aim\nCross Jump / interact · Circle Dash\nL3 Crouch · L1/R1 Select item\nTriangle Blanket / guitar · R2 Use\nL2 Focus / place C4 · Square Reload\nTouchpad Inventory · D-pad Up Hint\nD-pad Down Terminal · D-pad Left/Right Music\nOptions Pause · Use pause menu to retry / select levels\nBlanket: %ds active / %ds recharge" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
-	return controller_text(text, playstation())
+	return pad_prompt(text)
+
+func pad_prompt(text: String) -> String:
+	text=controller_text(text,true)
+	var binding=get_node("/root/InputBindings")
+	var names={JOY_BUTTON_A:"Cross",JOY_BUTTON_Y:"Triangle",JOY_BUTTON_LEFT_SHOULDER:"L1",JOY_BUTTON_LEFT_STICK:"L3",JOY_BUTTON_RIGHT_STICK:"R3"}
+	for original in names:
+		text=text.replace(names[original],"{PAD_%d}" % original)
+	for original in names:
+		text=text.replace("{PAD_%d}" % original,names.get(binding.pad_button(original),names[original]))
+	if binding.preset == "Southpaw":
+		text=text.replace("Left stick","{MOVE}").replace("Right stick","Left stick").replace("{MOVE}","Right stick")
+	return controller_text(text,false) if not playstation() else text

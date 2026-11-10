@@ -98,7 +98,7 @@ func apply_difficulty() -> void:
 	player.stealth_duration = float(tuning.stealth_duration)
 
 func setup_inputs() -> void:
-	var bindings := {"slow_walk": [KEY_SHIFT], "move_left": [KEY_A, KEY_LEFT], "move_right": [KEY_D, KEY_RIGHT], "climb_up": [KEY_W, KEY_UP], "climb_down": [KEY_S, KEY_DOWN], "jump": [KEY_SPACE], "dodge": [KEY_C], "attack": [], "cloak": [], "explosive": [], "fire": [], "interact": [KEY_E], "advance": [KEY_ENTER], "skip": [KEY_TAB], "pause_game": [KEY_ESCAPE], "retry": [KEY_BACKSPACE]}
+	var bindings := {"slow_walk": [KEY_SHIFT], "move_left": [KEY_A, KEY_LEFT], "move_right": [KEY_D, KEY_RIGHT], "climb_up": [KEY_W, KEY_UP], "climb_down": [KEY_S, KEY_DOWN], "jump": [KEY_SPACE], "dodge": [KEY_ALT, KEY_C], "attack": [], "cloak": [], "explosive": [], "fire": [], "interact": [KEY_E], "advance": [KEY_ENTER], "skip": [KEY_TAB], "pause_game": [KEY_ESCAPE], "retry": [KEY_BACKSPACE]}
 	for action in bindings:
 		if not InputMap.has_action(action):
 			InputMap.add_action(action)
@@ -132,6 +132,7 @@ func setup_inputs() -> void:
 		if not InputMap.action_has_event(pair[0], event):
 			InputMap.action_add_event(pair[0], event)
 
+	get_node("/root/InputBindings").apply()
 	apply_controller_deadzone()
 	var settings = get_node("/root/ControllerSettings")
 	if not settings.changed.is_connected(apply_controller_deadzone):
@@ -149,10 +150,11 @@ func add_pad_axis(action: String, axis: int, direction: float) -> void:
 	InputMap.action_add_event(action, event)
 
 func controls_locked() -> bool:
-	return (is_instance_valid(player.controls) and player.controls.locked()) or is_instance_valid(player.pending_guard) or paused or not dialogue.is_empty() or completed or (is_instance_valid(world_features) and world_features.modal_open())
+	return is_instance_valid(get_node("/root/InputBindings").panel) or (is_instance_valid(player.controls) and player.controls.locked()) or is_instance_valid(player.pending_guard) or paused or not dialogue.is_empty() or completed or (is_instance_valid(world_features) and world_features.modal_open())
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.physical_keycode == KEY_F10:
+	if is_instance_valid(get_node("/root/InputBindings").panel): return
+	if event.is_pressed() and get_node("/root/InputBindings").matches(event, "return_menu"):
 		get_tree().paused = false
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 		return
@@ -191,7 +193,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("interact") and not event.is_echo():
 		interact()
 		get_viewport().set_input_as_handled()
-	elif event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_Z and not controls_locked() and not player.is_dead:
+	elif event is InputEventKey and event.pressed and not event.echo and get_node("/root/InputBindings").matches(event, "hint") and not controls_locked() and not player.is_dead:
 		# Z: Miro thinks through what to do next, in his thought bubble.
 		if is_instance_valid(world_features):
 			world_features.think(z_hint(), "", true)
@@ -558,7 +560,7 @@ func context_hint() -> String:
 		return "[E] Search beneath the bed"
 	var guard = world_features.nearest_loot() if world_features.loot_takes_priority() else closest_guard()
 	if guard:
-		if guard.is_dead and (not guard.gun_taken or (guard.sick_guard and not guard.key_taken)):
+		if (guard.is_dead or guard.asleep) and (not guard.gun_taken or (guard.sick_guard and not guard.key_taken)):
 			return "[E] Search fallen Keeper"
 		if guard.sick_guard and not guard.key_taken:
 			return "[E] Pickpocket when he turns away   /   [1] Shank   /   [2] C4"
@@ -627,11 +629,11 @@ func interact() -> void:
 		])
 		return
 	var guard = world_features.nearest_loot() if world_features.loot_takes_priority() else closest_guard()
-	if guard and ((guard.is_dead and (not guard.gun_taken or (guard.sick_guard and not guard.key_taken))) or (guard.sick_guard and not guard.key_taken)):
+	if guard and (((guard.is_dead or guard.asleep) and (not guard.gun_taken or (guard.sick_guard and not guard.key_taken))) or (guard.sick_guard and not guard.key_taken)):
 		if not player.has_supplies:
 			notify("Gather your hidden supplies before leaving.")
 			return
-		if guard.is_dead:
+		if guard.is_dead or guard.asleep:
 			if guard.sick_guard and not guard.key_taken:
 				player.has_key = true
 				player.controls.collect_remote()
