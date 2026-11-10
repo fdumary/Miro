@@ -6,6 +6,37 @@ signal beat(index: int)
 signal bar(index: int)
 signal track_changed(id: String)
 var catalog: Dictionary = {}
+# At most one background request and one prepared, immutable stream.
+const PREPARED_STREAM_LIMIT := 48 * 1024 * 1024
+var warming_path := ""
+var desired_path := ""
+var prepared_path := ""
+var prepared_stream: AudioStream
+func prefetch_track(id: String) -> void:
+	desired_path = str(catalog[id].stream) if catalog.has(id) and id != track_id else ""
+	if prepared_path != desired_path:
+		prepared_path = ""
+		prepared_stream = null
+	poll_prefetch()
+func poll_prefetch() -> void:
+	if not warming_path.is_empty():
+		var status := ResourceLoader.load_threaded_get_status(warming_path)
+		if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS: return
+		if status == ResourceLoader.THREAD_LOAD_LOADED:
+			var loaded: AudioStream = ResourceLoader.load_threaded_get(warming_path)
+			var bytes: int = loaded.data.size() if loaded is AudioStreamMP3 or loaded is AudioStreamWAV else PREPARED_STREAM_LIMIT + 1
+			if warming_path == desired_path and bytes <= PREPARED_STREAM_LIMIT:
+				prepared_stream = loaded
+				prepared_path = warming_path
+		var completed_path := warming_path
+		warming_path = ""
+		# A failed/oversized track must not be requested every frame.
+		if completed_path == desired_path and prepared_path != desired_path: desired_path = ""
+	if not desired_path.is_empty() and prepared_path != desired_path:
+		if ResourceLoader.load_threaded_request(desired_path) == OK:
+			warming_path = desired_path
+		else: desired_path = ""
+
 var voices: Array[AudioStreamPlayer] = []
 var active := 0
 var track_id := ""
@@ -109,6 +140,7 @@ func start_floor(number: int) -> void:
 		silence()
 	else:
 		play_track(floor_track)
+	prefetch_track(GUITAR_TRACK if number == 5 and not was_second else str(SECOND.get(number,"")))
 
 func second_section(number: int) -> void:
 	if section_id == "floor_%d_second" % number or not SECOND.has(number):
@@ -143,6 +175,7 @@ func queue_track(id: String) -> void:
 	if track_id.is_empty() or bpm() <= 0:
 		play_track(id)
 		return
+	prefetch_track(id)
 	pending_track = id
 	pending_wait = seconds_to_next_bar()
 
@@ -155,7 +188,14 @@ func play_track(id: String, loop := true) -> void:
 	track_id = id
 	active = 1 - active
 	voices[active].stop()
-	var stream = load(catalog[id].stream).duplicate()
+	poll_prefetch()
+	var path: String = catalog[id].stream
+	var base: AudioStream = prepared_stream if prepared_path == path and prepared_stream != null else load(path)
+	var stream = base.duplicate()
+	if prepared_path == path:
+		prepared_stream = null
+		prepared_path = ""
+		desired_path = ""
 	if stream is AudioStreamWAV:
 		# A WAV track (Sum Crazy) loops through its sample range instead of a loop flag.
 		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD if loop else AudioStreamWAV.LOOP_DISABLED
@@ -211,6 +251,7 @@ func is_on_beat(window := 0.12) -> bool:
 	return minf(offset, 1.0 - offset) * seconds_per_beat() <= window
 
 func _process(delta: float) -> void:
+	if not warming_path.is_empty(): poll_prefetch()
 	if voices.is_empty() or get_tree().paused:
 		return
 	if not track_id.is_empty():
