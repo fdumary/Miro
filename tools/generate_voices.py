@@ -103,6 +103,7 @@ def collect_lines(cast):
     for speaker, profile in roster['keepers'].items():
         dialogue('alert', speaker, profile['alert'], '[shouting] ' + profile['delivery'])
         dialogue('body', speaker, profile['body'], '[shocked] ' + profile['delivery'])
+        dialogue('sleeping', speaker, profile['sleeping'], ('[concerned] ' if profile.get('sleep_reaction') == 'concerned' else '[dryly] ') + profile['delivery'])
         for index, text in enumerate(profile['idle'], 1):
             dialogue(f'idle_{index}', speaker, text, profile['delivery'] + ' [muttering]')
     for scene_id, scene in roster['huddles'].items():

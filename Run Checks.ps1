@@ -42,7 +42,8 @@ $checks = @(
     @('res://tools/test_combat_zones.gd', '--', '--player'),
     @('res://tools/test_quiet_walk_and_voice.gd', '--', '--player'),
     @('res://tools/test_supplies_and_closing.gd', '--', '--player'),
-    @('res://tools/test_rebinding.gd', '--', '--player')
+    @('res://tools/test_rebinding.gd', '--', '--player'),
+    @('res://tools/test_strangle_reactions.gd', '--', '--player')
 )
 New-Item -ItemType Directory -Force (Join-Path $PSScriptRoot 'tmp') | Out-Null
 & $engine --headless --editor --path $PSScriptRoot --import *> (Join-Path $PSScriptRoot 'tmp/check-import.log')

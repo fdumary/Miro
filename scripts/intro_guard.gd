@@ -31,6 +31,7 @@ var turn_wait: float = 0.0
 var time: float = 0.0
 var illness_started: bool = false
 var seen_bodies: Array[int] = []
+var seen_sleepers: Array[int] = []
 var key_taken: bool = false
 var gun_taken: bool = false
 var death_recorded: bool = false
@@ -180,17 +181,20 @@ func _physics_process(delta: float) -> void:
 		search_left = 8.0 if pursuing else 5.0
 		suspicion = maxf(0.0, suspicion - delta)
 	for body in level.guards():
-		if body != self and body.strangled and not body.is_dead and not seen_bodies.has(body.get_instance_id()) and notices_body(body.global_position):
-			# A Keeper down and out: they go and look (no grieving, no chase, no rousing the floor).
-			seen_bodies.append(body.get_instance_id())
-			if not sees_player:
+		if body != self and body.asleep and not body.is_dead and not seen_sleepers.has(body.get_instance_id()) and notices_body(body.global_position):
+			seen_sleepers.append(body.get_instance_id())
+			# A live sleeper merits a local check; a corpse below still triggers the full alarm.
+			if not sees_player and alert_state != State.ALERT and not pursuing:
+				var profile: Dictionary = level.world_features.roster.keepers.get(guard_name,{})
+				var concerned: bool = profile.get("sleep_reaction","dry") == "concerned"
 				investigate(body.global_position)
-			if alert_state != State.ALERT:
 				alert_state = State.SEARCH
-			search_left = 7.0
-			level.notify("%s found %s out cold. The Keepers are looking." % [display_name, body.display_name])
+				pursuing = false
+				search_left = 7.0 if concerned else 4.0
+				suspicion = maxf(suspicion, 0.65 if concerned else 0.35)
+			level.notify("%s found %s unconscious. A local search begins." % [display_name, body.display_name])
 			if level.world_features:
-				level.world_features.bark(self, "alert")
+				level.world_features.bark(self, "sleeping")
 		elif body != self and body.is_dead and not seen_bodies.has(body.get_instance_id()) and notices_body(body.global_position):
 			seen_bodies.append(body.get_instance_id())
 			body_reported = true

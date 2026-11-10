@@ -154,7 +154,9 @@
       "idle": [
         "I don't run a charity. The rate went up.",
         "Keep the key in the inside pocket. Trust nobody."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's breathing. Something's wrong. Check the corridor."
     },
     "Rowan": {
       "theme": "goofy",
@@ -165,7 +167,9 @@
       "idle": [
         "Four laps. If I beat my record I get absolutely nothing.",
         "I'll race my shadow. It cheats on the corners."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Lovely. I'll just guard the whole tower, shall I?"
     },
     "Ivo": {
       "theme": "serious",
@@ -176,7 +180,9 @@
       "idle": [
         "Same boot prints as yesterday. Different direction.",
         "A clean report starts with the things you can't explain."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "That's one way to avoid the night shift."
     },
     "Bram": {
       "theme": "stupid",
@@ -187,7 +193,9 @@
       "idle": [
         "The arrow points down, but someone hung it upside down.",
         "I'd read the handbook if I knew which end to start."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Out cold. Keep your eyes open."
     },
     "Alden": {
       "theme": "serious",
@@ -198,7 +206,9 @@
       "idle": [
         "Three beds on the transfer sheet. Only two blankets.",
         "I should have asked where they took the coughing one."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Excellent patrol technique. Very stationary."
     },
     "Corin": {
       "theme": "goofy",
@@ -209,7 +219,9 @@
       "idle": [
         "Coin in this hand. No, the other hand. Ruined it again.",
         "The trick is to look at the audience. The rats never look back."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "I'll put you down as on your break. Again."
     },
     "Dane": {
       "theme": "stern",
@@ -220,7 +232,9 @@
       "idle": [
         "Rust starts where you stop looking.",
         "Someone used my polishing rag to wipe a plate."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's alive. Who did this?"
     },
     "Ellis": {
       "theme": "funny",
@@ -231,7 +245,9 @@
       "idle": [
         "The uniform is free. They take it out of your pay.",
         "If we're all essential, how come none of us gets a chair?"
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "At least somebody's enjoying the shift."
     },
     "Garrow": {
       "theme": "stupid",
@@ -242,7 +258,9 @@
       "idle": [
         "No running on wet stairs. What about running up them?",
         "Fire drill on Thursday. Hope the fire knows."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Sleeping on the job. Bold career move."
     },
     "Hollis": {
       "theme": "serious",
@@ -253,7 +271,9 @@
       "idle": [
         "If I close my eyes this smells almost like home. Almost.",
         "I forgot what bread sounds like when you cut the crust."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Easy. He's breathing. I'll check around."
     },
     "Jory": {
       "theme": "funny",
@@ -264,7 +284,9 @@
       "idle": [
         "Leak in the laundry, rat in the oats. Two more and I win.",
         "My prize for a perfect shift is another shift."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "That's one way to avoid the night shift."
     },
     "Kell": {
       "theme": "stern",
@@ -275,7 +297,9 @@
       "idle": [
         "Left, right. If the floor can keep time, so can you.",
         "One more step out of time and I'll march the stairs myself."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "If he's dreaming about a pay rise, wake him gently."
     },
     "Lusk": {
       "theme": "goofy",
@@ -286,7 +310,9 @@
       "idle": [
         "The beast was this big. Bigger when I tell it upstairs.",
         "I could make captain if they'd just ask about my record."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's breathing. Something's wrong. Check the corridor."
     },
     "Marek": {
       "theme": "stern",
@@ -297,7 +323,9 @@
       "idle": [
         "Every door is a bulkhead if you do your job.",
         "I miss a floor that moves for a reason."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "I'll put you down as on your break. Again."
     },
     "Oren": {
       "theme": "funny",
@@ -308,7 +336,9 @@
       "idle": [
         "A study in wet socks, by Keeper Oren.",
         "Portrait of a man waiting for a bell that hates him."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Another exhausting day of standing about."
     },
     "Pavel": {
       "theme": "serious",
@@ -319,7 +349,9 @@
       "idle": [
         "If the latch needs a kick, the latch is broken.",
         "I put the good screws in a separate tin. Someone mixed them."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Out cold. Keep your eyes open."
     },
     "Silas": {
       "theme": "goofy",
@@ -330,7 +362,9 @@
       "idle": [
         "On your left, the tower's second most disappointing window.",
         "Questions at the end, please. There is no end."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Sleeping on the job. Bold career move."
     },
     "Teodor": {
       "theme": "stupid",
@@ -341,7 +375,9 @@
       "idle": [
         "If I start with the bottom step, I won't get the top one wrong.",
         "I've been weighing lunch since breakfast."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Lovely. I'll just guard the whole tower, shall I?"
     },
     "Ansel": {
       "theme": "stern",
@@ -352,7 +388,9 @@
       "idle": [
         "I wrote the report twice. Neither version said why I left.",
         "I don't trade shifts. I don't owe anyone another favor."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's alive. Who did this?"
     },
     "Brin": {
       "theme": "funny",
@@ -363,7 +401,9 @@
       "idle": [
         "A bird hit the window. Probably wants a transfer.",
         "If the candle goes out, that's my excuse to go home."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "If he's dreaming about a pay rise, wake him gently."
     },
     "Cato": {
       "theme": "serious",
@@ -374,7 +414,9 @@
       "idle": [
         "The best books have the dullest labels.",
         "If I file it under inventory, nobody opens it."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Excellent patrol technique. Very stationary."
     },
     "Dov": {
       "theme": "goofy",
@@ -385,7 +427,9 @@
       "idle": [
         "I practiced saying access denied in the mirror.",
         "The terminal doesn't laugh either. That's reassuring."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Easy. He's breathing. I'll check around."
     },
     "Tomas": {
       "theme": "serious",
@@ -396,7 +440,9 @@
       "idle": [
         "Names go in the ledger. Numbers come back out.",
         "The worst part is how quiet the doors are."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Another exhausting day of standing about."
     },
     "Ulric": {
       "theme": "stern",
@@ -407,7 +453,9 @@
       "idle": [
         "The lock is only as good as the Keeper checking it.",
         "I listen for the click. Other people just pull the handle."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "At least somebody's enjoying the shift."
     },
     "Venn": {
       "theme": "goofy",
@@ -418,7 +466,9 @@
       "idle": [
         "Morning, valve three. You sound dreadful today.",
         "One knock means steam. Two knocks means Venn needs lunch."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's breathing. Something's wrong. Check the corridor."
     },
     "Wren": {
       "theme": "funny",
@@ -429,7 +479,9 @@
       "idle": [
         "They sent me three forms and one bandage.",
         "The medicine cabinet has more locks than medicine."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Lovely. I'll just guard the whole tower, shall I?"
     },
     "Edric": {
       "theme": "stupid",
@@ -440,7 +492,9 @@
       "idle": [
         "It says isolate the chamber. I haven't spoken to it all day.",
         "I was told to take inventory. Nobody said where to take it."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "That's one way to avoid the night shift."
     },
     "Fane": {
       "theme": "serious",
@@ -451,7 +505,9 @@
       "idle": [
         "Two lanterns work. Which means we have one spare.",
         "If the water stops, open the barrel before the taps run dry."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Out cold. Keep your eyes open."
     },
     "Gil": {
       "theme": "goofy",
@@ -462,7 +518,9 @@
       "idle": [
         "Ward door, stone floor. That's not enough for a chorus.",
         "Someone told me to sing under my breath. I'm trying."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Excellent patrol technique. Very stationary."
     },
     "Hask": {
       "theme": "stern",
@@ -473,7 +531,9 @@
       "idle": [
         "I brief the next shift even when it's the same shift.",
         "Don't say all clear unless you've looked."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "I'll put you down as on your break. Again."
     },
     "Ivar": {
       "theme": "funny",
@@ -484,7 +544,9 @@
       "idle": [
         "I keep a list of things worse than this job. It's short.",
         "They say the lower you go, the closer you are to promotion."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's alive. Who did this?"
     },
     "Yorick": {
       "theme": "stern",
@@ -495,7 +557,9 @@
       "idle": [
         "You hear that? The whole tower settling on our heads.",
         "I keep one boot pointed at the exit."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "At least somebody's enjoying the shift."
     },
     "Zane": {
       "theme": "goofy",
@@ -506,7 +570,9 @@
       "idle": [
         "I volunteered for the basement. What a tremendous decision.",
         "Bet I can make it back before anybody notices I left."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Sleeping on the job. Bold career move."
     },
     "Arlen": {
       "theme": "serious",
@@ -517,7 +583,9 @@
       "idle": [
         "Know the person behind you. That's who brings you home.",
         "I count heads at the top and the bottom."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Easy. He's breathing. I'll check around."
     },
     "Beck": {
       "theme": "funny",
@@ -528,7 +596,9 @@
       "idle": [
         "He said this post was quiet. Maybe he meant afterward.",
         "When the boss whispers, the rest of us run."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "That's one way to avoid the night shift."
     },
     "Cass": {
       "theme": "stupid",
@@ -539,7 +609,9 @@
       "idle": [
         "Tie a string to the left glove. Now where's the string?",
         "They told me to cover the rear. Rear of what?"
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "If he's dreaming about a pay rise, wake him gently."
     },
     "Doran": {
       "theme": "stern",
@@ -550,7 +622,9 @@
       "idle": [
         "They issue one spare for everything except people.",
         "If anyone asks, there were six rounds in that box."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's breathing. Something's wrong. Check the corridor."
     },
     "Elm": {
       "theme": "goofy",
@@ -561,7 +635,9 @@
       "idle": [
         "This copper will make a good ring if I can bend it.",
         "Don't throw away a good spring just because it's sprung."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "I'll put you down as on your break. Again."
     },
     "Fenn": {
       "theme": "serious",
@@ -572,7 +648,9 @@
       "idle": [
         "A dry crack is stone. A wet one means get out.",
         "The little sounds matter before the big ones start."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Another exhausting day of standing about."
     },
     "Pike": {
       "theme": "serious",
@@ -583,7 +661,9 @@
       "idle": [
         "Read it slowly. You miss the good part if you rush.",
         "A bell can call you to more than a shift."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Out cold. Keep your eyes open."
     },
     "Moss": {
       "theme": "stupid",
@@ -594,7 +674,9 @@
       "idle": [
         "If we all share the bread, does the last man get the crust?",
         "I can remember the verse if I remember what's for lunch."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Sleeping on the job. Bold career move."
     },
     "Tibb": {
       "theme": "funny",
@@ -605,7 +687,9 @@
       "idle": [
         "If heaven has a night shift, they can keep my place.",
         "I tease Pike because he keeps reading anyway."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Lovely. I'll just guard the whole tower, shall I?"
     },
     "Hale": {
       "theme": "stern",
@@ -616,7 +700,9 @@
       "idle": [
         "Fresh dust on the hinge. Someone went through.",
         "I don't need a face if I've got a trail."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's alive. Who did this?"
     },
     "Rusk": {
       "theme": "serious",
@@ -627,7 +713,9 @@
       "idle": [
         "If I get the arrest, I get out of booth duty.",
         "The trick is to wait where a runner stops to breathe."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "If he's dreaming about a pay rise, wake him gently."
     },
     "Soren": {
       "theme": "stern",
@@ -638,7 +726,9 @@
       "idle": [
         "Read the order again. My hands won't stop shaking.",
         "They didn't tell me what he looked like until they shut the gate."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Excellent patrol technique. Very stationary."
     },
     "Gideon": {
       "theme": "serious",
@@ -649,7 +739,9 @@
       "idle": [
         "Long hall, straight shot. If I can get my hands still.",
         "Someone keeps putting crates in the firing lanes."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Easy. He's breathing. I'll check around."
     },
     "Fenwick": {
       "theme": "funny",
@@ -660,7 +752,9 @@
       "idle": [
         "I write the hours on my cuff. The ledger lies.",
         "Don't call it voluntary if they lock the door behind us."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Another exhausting day of standing about."
     },
     "Osric": {
       "theme": "stern",
@@ -671,7 +765,9 @@
       "idle": [
         "Learn the rule before you need to break it.",
         "They never put the hard cases on the exam."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "At least somebody's enjoying the shift."
     },
     "Leif": {
       "theme": "serious",
@@ -682,7 +778,9 @@
       "idle": [
         "Whoever framed this door didn't own a square.",
         "I could fix the stair if they gave me a saw worth using."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's breathing. Something's wrong. Check the corridor."
     },
     "Quill": {
       "theme": "funny",
@@ -693,7 +791,9 @@
       "idle": [
         "They swapped my pen for a pistol. The pen jammed less.",
         "If I get out of this, I'm filing one very long complaint."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Lovely. I'll just guard the whole tower, shall I?"
     },
     "Nash": {
       "theme": "goofy",
@@ -704,7 +804,9 @@
       "idle": [
         "Never answer the second echo. It isn't yours.",
         "I count four footsteps when there should be three."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "That's one way to avoid the night shift."
     },
     "Bastian": {
       "theme": "stern",
@@ -715,7 +817,9 @@
       "idle": [
         "If the ceiling gets any lower, I'm taking the stairs.",
         "I can fight a man. I can't fight a locked room."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Out cold. Keep your eyes open."
     },
     "Reeve": {
       "theme": "funny",
@@ -726,7 +830,9 @@
       "idle": [
         "I had my boots off when they rang the bell.",
         "An extra shift is fine. It's the missing sleep I mind."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Excellent patrol technique. Very stationary."
     },
     "Seth": {
       "theme": "serious",
@@ -737,7 +843,9 @@
       "idle": [
         "Deliver the order and walk away. That's all I have to do.",
         "I prefer notes. Nobody asks a note why it's shaking."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "I'll put you down as on your break. Again."
     },
     "Vale": {
       "theme": "stern",
@@ -748,7 +856,9 @@
       "idle": [
         "Nobody remembers your orders if you say them quietly.",
         "I learned to shout before I learned what to say."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "He's alive. Who did this?"
     },
     "Tarin": {
       "theme": "serious",
@@ -759,7 +869,9 @@
       "idle": [
         "The east stairs are faster if the door is open.",
         "Thirty steps. Thirty-one if I miss the turn."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "At least somebody's enjoying the shift."
     },
     "Ewan": {
       "theme": "goofy",
@@ -770,7 +882,9 @@
       "idle": [
         "I put my boots on for this. It had better be a drill.",
         "Do they grade you on how fast you get to the wrong landing?"
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "Sleeping on the job. Bold career move."
     },
     "Niall": {
       "theme": "stern",
@@ -781,7 +895,9 @@
       "idle": [
         "If the watcher blinks twice, I check both doors.",
         "A blind post is still a post. I stand it."
-      ]
+      ],
+      "sleep_reaction": "concerned",
+      "sleeping": "Easy. He's breathing. I'll check around."
     },
     "Ames": {
       "theme": "funny",
@@ -792,7 +908,9 @@
       "idle": [
         "I bring cold soup. It saves the tower the trouble.",
         "The watcher always sees someone when I sit down."
-      ]
+      ],
+      "sleep_reaction": "dry",
+      "sleeping": "That's one way to avoid the night shift."
     },
     "Mott": {
       "alert": "Down here? Nobody comes down here. Except you, apparently.",
@@ -803,7 +921,9 @@
         "If that support cracks, I'm not the one explaining it."
       ],
       "personality": "resents being stationed at the bottom",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "If he's dreaming about a pay rise, wake him gently."
     },
     "Pell": {
       "alert": "Back in your cell! I said back!",
@@ -814,7 +934,9 @@
         "They say it doesn't spread to us. They say a lot."
       ],
       "personality": "tired of pretending the sick are dangerous",
-      "theme": "stern"
+      "theme": "stern",
+      "sleep_reaction": "concerned",
+      "sleeping": "He's breathing. Something's wrong. Check the corridor."
     },
     "Crane": {
       "alert": "Wrong floor, prisoner. Wrong life, too.",
@@ -825,7 +947,9 @@
         "Nobody visits the vault. That's the appeal."
       ],
       "personality": "takes pride in a floor nobody sees",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "I'll put you down as on your break. Again."
     },
     "Stroud": {
       "alert": "You! Don't make me run, my knee's gone!",
@@ -836,7 +960,9 @@
         "My knee says rain. My knee is always right."
       ],
       "personality": "blames everything on his bad knee",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "Another exhausting day of standing about."
     },
     "Thane": {
       "alert": "Halt! Halt, I think that's the word!",
@@ -847,7 +973,9 @@
         "If I stand very still maybe they'll forget I'm here."
       ],
       "personality": "new recruit terrified of being noticed",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "concerned",
+      "sleeping": "Out cold. Keep your eyes open."
     },
     "Holt": {
       "alert": "There you are. I bet Mott you'd come this way.",
@@ -858,7 +986,9 @@
         "I'd bet on the rats, honestly."
       ],
       "personality": "bets on everything",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "Sleeping on the job. Bold career move."
     },
     "Wick": {
       "alert": "Get back in line! All of you, in line!",
@@ -869,7 +999,9 @@
         "Wash your hands. I said wash them."
       ],
       "personality": "obsessed with not catching anything",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "Lovely. I'll just guard the whole tower, shall I?"
     },
     "Garth": {
       "alert": "Oi! Visiting hours ended years ago!",
@@ -880,7 +1012,9 @@
         "I used to know their names."
       ],
       "personality": "has stopped learning prisoners names",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "concerned",
+      "sleeping": "He's alive. Who did this?"
     },
     "Rook": {
       "alert": "Up here? Clever. Not clever enough.",
@@ -891,7 +1025,9 @@
         "They told me nobody climbs up here. So why am I up here?"
       ],
       "personality": "likes watching everyone from above",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "If he's dreaming about a pay rise, wake him gently."
     },
     "Rhea": {
       "alert": "Intruder! Hold the pose, I mean, hold still!",
@@ -902,7 +1038,9 @@
         "Twelve hours standing. My core has never been stronger."
       ],
       "personality": "pilates devotee who stretches mid-patrol",
-      "theme": "funny"
+      "theme": "funny",
+      "sleep_reaction": "dry",
+      "sleeping": "Excellent patrol technique. Very stationary."
     },
     "Marta": {
       "alert": "Hey! Put that down, you'll ruin my sourdough! I mean, stop!",
@@ -913,7 +1051,9 @@
         "Cinnamon rolls on my day off. Ten tower guards, ten rolls."
       ],
       "personality": "bakes in her head all shift",
-      "theme": "funny"
+      "theme": "funny",
+      "sleep_reaction": "concerned",
+      "sleeping": "Easy. He's breathing. I'll check around."
     },
     "Odette": {
       "alert": "Stop! You're the most interesting thing that's happened to me all year!",
@@ -924,7 +1064,9 @@
         "Maybe the next prisoner will be handsome. A girl can dream."
       ],
       "personality": "lonely and desperate to meet someone",
-      "theme": "funny"
+      "theme": "funny",
+      "sleep_reaction": "dry",
+      "sleeping": "Another exhausting day of standing about."
     },
     "Sunniva": {
       "alert": "Not now! Eleven days left on my contract. Eleven!",
@@ -935,7 +1077,9 @@
         "I've already named the goats. Don't laugh."
       ],
       "personality": "counts the days to the end of her contract",
-      "theme": "funny"
+      "theme": "funny",
+      "sleep_reaction": "dry",
+      "sleeping": "At least somebody's enjoying the shift."
     },
     "Calla": {
       "alert": "Oh my, a real runaway! This is going straight into my podcast!",
@@ -946,7 +1090,9 @@
         "Everyone here has a motive. Everyone. Even Garrow."
       ],
       "personality": "obsessed with true crime podcasts",
-      "theme": "funny"
+      "theme": "funny",
+      "sleep_reaction": "concerned",
+      "sleeping": "He's breathing. Something's wrong. Check the corridor."
     },
     "Ingrid": {
       "alert": "Intruder in the stacks! Quiet, please! Quiet!",
@@ -957,7 +1103,9 @@
         "Alphabetical. Chronological. Then by whom I like less."
       ],
       "personality": "treats the tower like a library she runs",
-      "theme": "funny"
+      "theme": "funny",
+      "sleep_reaction": "dry",
+      "sleeping": "Lovely. I'll just guard the whole tower, shall I?"
     },
     "Noor": {
       "alert": "Well, well. Look who's out past curfew. Shame about the handcuffs.",
@@ -968,7 +1116,9 @@
         "I wore the good boots today and nobody even looked."
       ],
       "personality": "bored and flirts with everyone, even prisoners",
-      "theme": "funny"
+      "theme": "funny",
+      "sleep_reaction": "dry",
+      "sleeping": "That's one way to avoid the night shift."
     },
     "Dara": {
       "alert": "Records are off limits! Step away from the screen!",
@@ -979,7 +1129,9 @@
         "Nobody reads the old files. That's the only reason I guard them."
       ],
       "personality": "guards the records like they were his own diary",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "concerned",
+      "sleeping": "Out cold. Keep your eyes open."
     },
     "Vesna": {
       "alert": "Hands off the port! That's maintenance property!",
@@ -990,7 +1142,9 @@
         "Two cables, one spare. That's my whole job."
       ],
       "personality": "proud of a job nobody understands",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "Excellent patrol technique. Very stationary."
     },
     "Ilse": {
       "alert": "You! Away from the terminal!",
@@ -1001,7 +1155,9 @@
         "If the screen flickers, it's the ghost. I don't believe in ghosts."
       ],
       "personality": "superstitious about the terminals",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "I'll put you down as on your break. Again."
     },
     "Bryn": {
       "alert": "Hey! That terminal is logged, you know!",
@@ -1012,7 +1168,9 @@
         "I've read the whole nine-page manual. Twice."
       ],
       "personality": "quotes the terminal manual",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "concerned",
+      "sleeping": "He's alive. Who did this?"
     },
     "Odell": {
       "alert": "Stop right there! Records terminal!",
@@ -1023,7 +1181,9 @@
         "I log everyone who sits down. Except the dead ones."
       ],
       "personality": "keeps a tally of who sits at the terminal",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "At least somebody's enjoying the shift."
     },
     "Corra": {
       "alert": "Away from the checkpoint terminal! Now!",
@@ -1034,7 +1194,9 @@
         "If the cameras fail, I'm the backup. Lucky me."
       ],
       "personality": "takes the checkpoint terminal personally",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "Sleeping on the job. Bold career move."
     },
     "Wren2": {
       "alert": "Don't touch that screen!",
@@ -1045,7 +1207,9 @@
         "I read the first line of a record once. Never again."
       ],
       "personality": "afraid of what the records say",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "concerned",
+      "sleeping": "Easy. He's breathing. I'll check around."
     },
     "Fenna": {
       "alert": "Halt! Don't read that file!",
@@ -1056,7 +1220,9 @@
         "I memorise each log. It helps the night pass."
       ],
       "personality": "memorises every record",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "That's one way to avoid the night shift."
     },
     "Marl": {
       "alert": "That log is classified! Stand down!",
@@ -1067,7 +1233,9 @@
         "I read the cover pages and pretend I understand."
       ],
       "personality": "pretends to understand the logs",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "dry",
+      "sleeping": "If he's dreaming about a pay rise, wake him gently."
     },
     "Pru": {
       "alert": "Intruder at the ward terminal!",
@@ -1078,7 +1246,9 @@
         "Nobody loves the ward terminal like I do."
       ],
       "personality": "fond of the ward terminal like a pet",
-      "theme": "serious"
+      "theme": "serious",
+      "sleep_reaction": "concerned",
+      "sleeping": "He's breathing. Something's wrong. Check the corridor."
     },
     "Garrick": {
       "alert": "Hands off the foundation terminal!",
@@ -1089,7 +1259,9 @@
         "Twenty years on the lowest floor. The roof has never fallen. Yet."
       ],
       "personality": "a gruff foundation veteran who guards the last terminal like a bridge",
-      "theme": "stern"
+      "theme": "stern",
+      "sleep_reaction": "dry",
+      "sleeping": "I'll put you down as on your break. Again."
     },
     "Brandt": {
       "alert": "Hold that corridor! Intruder in my section!",
@@ -1100,7 +1272,9 @@
         "If I hear one wrong footstep on three, someone runs laps."
       ],
       "personality": "a commander who barks every patrol like a drill",
-      "theme": "stern"
+      "theme": "stern",
+      "sleep_reaction": "dry",
+      "sleeping": "Another exhausting day of standing about."
     },
     "Sable": {
       "alert": "Found you. Your file says you'd run.",
@@ -1111,7 +1285,9 @@
         "They told me the filing was temporary. That was nine years ago."
       ],
       "personality": "a records clerk with a dry wit who reads everyone's files",
-      "theme": "dry"
+      "theme": "dry",
+      "sleep_reaction": "concerned",
+      "sleeping": "Out cold. Keep your eyes open."
     },
     "Tolliver": {
       "alert": "There. By the sealed door. Quietly now.",
@@ -1122,7 +1298,9 @@
         "I never raise my voice down here. The walls listen."
       ],
       "personality": "a night watchman who speaks in a near-whisper",
-      "theme": "quiet"
+      "theme": "quiet",
+      "sleep_reaction": "dry",
+      "sleeping": "Sleeping on the job. Bold career move."
     },
     "Maren": {
       "alert": "Oh no. Not on my shift. Stop right there.",
@@ -1133,7 +1311,9 @@
         "If I close my eyes for one second, wake me. Or don't."
       ],
       "personality": "an exhausted night-shift guard who barely stays awake",
-      "theme": "sleepy"
+      "theme": "sleepy",
+      "sleep_reaction": "dry",
+      "sleeping": "Lovely. I'll just guard the whole tower, shall I?"
     },
     "Voss": {
       "alert": "Not on my corridor, friend. Stop!",
@@ -1144,7 +1324,9 @@
         "If a cabinet moves on my shift, I'm filing it as a ghost."
       ],
       "personality": "a sarcastic corridor guard who hates the job and trusts no cabinet",
-      "theme": "dry"
+      "theme": "dry",
+      "sleep_reaction": "concerned",
+      "sleeping": "He's alive. Who did this?"
     },
     "Hobb": {
       "alert": "Not on my last shift, you don't! Stop!",
@@ -1155,7 +1337,9 @@
         "I have seen three prisoners escape. I mention none of them."
       ],
       "personality": "a grumbling old-timer counting days to retirement",
-      "theme": "grumbling"
+      "theme": "grumbling",
+      "sleep_reaction": "dry",
+      "sleeping": "If he's dreaming about a pay rise, wake him gently."
     },
     "Tamsin": {
       "alert": "Come on, then. Show me what you've got.",
@@ -1166,7 +1350,9 @@
         "Try me on the laundry floor. Everyone else already has."
       ],
       "personality": "a fearless smoky-voiced guard who dares everyone to try her",
-      "theme": "bold"
+      "theme": "bold",
+      "sleep_reaction": "dry",
+      "sleeping": "Excellent patrol technique. Very stationary."
     },
     "Corvin": {
       "alert": "Intruder! Section four, on the double!",
@@ -1177,7 +1363,9 @@
         "Report every cough. Including your own. Especially your own."
       ],
       "personality": "a clipped by-the-book disciplinarian",
-      "theme": "strict"
+      "theme": "strict",
+      "sleep_reaction": "concerned",
+      "sleeping": "Easy. He's breathing. I'll check around."
     },
     "Ilka": {
       "alert": "I see you. Stop where you are.",
@@ -1188,7 +1376,9 @@
         "I keep the lowest post. Everything above rests on it."
       ],
       "personality": "a quiet commander who never raises her voice",
-      "theme": "calm"
+      "theme": "calm",
+      "sleep_reaction": "dry",
+      "sleeping": "Another exhausting day of standing about."
     },
     "Dunmore": {
       "alert": "I've seen worse than you. Halt!",
@@ -1199,7 +1389,9 @@
         "Every corridor is the same corridor. Ask me how I know."
       ],
       "personality": "a war-weary sergeant with too many stories",
-      "theme": "veteran"
+      "theme": "veteran",
+      "sleep_reaction": "dry",
+      "sleeping": "At least somebody's enjoying the shift."
     },
     "Perrin": {
       "alert": "Well, I'll be. Hold it right there, friend!",
@@ -1210,7 +1402,9 @@
         "They promised me a rotation home. That was two winters ago."
       ],
       "personality": "a raspy homesick guard from the southern farms",
-      "theme": "homesick"
+      "theme": "homesick",
+      "sleep_reaction": "concerned",
+      "sleeping": "He's breathing. Something's wrong. Check the corridor."
     },
     "Yara": {
       "alert": "Not in my corridor. Stop at once!",
@@ -1221,7 +1415,9 @@
         "Straighten your belt. The tower is watching."
       ],
       "personality": "a commanding aunt of a supervisor who inspects everything",
-      "theme": "stern"
+      "theme": "stern",
+      "sleep_reaction": "dry",
+      "sleeping": "Lovely. I'll just guard the whole tower, shall I?"
     },
     "Rocco": {
       "alert": "Hey! Hey, you! Get back here!",
@@ -1232,7 +1428,9 @@
         "Second floor's the quiet floor. That's why I like it."
       ],
       "personality": "a cocky Brooklyn gambler who bets on everything",
-      "theme": "goofy"
+      "theme": "goofy",
+      "sleep_reaction": "dry",
+      "sleeping": "That's one way to avoid the night shift."
     },
     "Ormond": {
       "alert": "Oi! Over here, everyone, he's on the ledge!",
@@ -1243,7 +1441,9 @@
         "If the records go missing again, nobody tell the Commander I was chatting."
       ],
       "personality": "a warm chatty northerner who watches the ledge",
-      "theme": "goofy"
+      "theme": "goofy",
+      "sleep_reaction": "concerned",
+      "sleeping": "Out cold. Keep your eyes open."
     },
     "Delphine": {
       "alert": "There you are. I knew the tower would give you away.",
@@ -1254,7 +1454,9 @@
         "Every prisoner believes they are the exception. None of them are."
       ],
       "personality": "a cold believer in the tower's order",
-      "theme": "stern"
+      "theme": "stern",
+      "sleep_reaction": "dry",
+      "sleeping": "Excellent patrol technique. Very stationary."
     }
   },
   "hunted": {

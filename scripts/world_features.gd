@@ -1,5 +1,10 @@
 extends Node2D
 ## Small additive props, finite overheard scenes and offline spatial guard speech.
+const STRANGLE_TIME := 0.24
+var strangle_victim: IntroGuard
+var strangle_left := 0.0
+var strangle_health := 0
+var previous_hold := false
 var level: Node2D
 var floor_number := 1
 var props: Array[Node2D] = []
@@ -617,6 +622,7 @@ func _process(delta: float) -> void:
 	update_bubbles(delta)
 	if not is_instance_valid(level) or level.paused:
 		return
+	update_strangle(delta)
 	if is_instance_valid(voice_speaker):
 		voice.global_position = voice_speaker.global_position
 		if voice_speaker.is_dead:
@@ -827,7 +833,7 @@ func bark(actor: Node2D, kind: String, force := false) -> void:
 		voice.stop()
 		line_left = 0.0
 	var profile: Dictionary = roster.keepers.get(actor.guard_name, {})
-	var text: String = profile.get(kind, config.barks[kind].text)
+	var text: String = profile.get(kind, config.barks.get(kind, {"text": "Sleeping on the job."}).text)
 	speak(actor, kind, text)
 
 func abort_conversation() -> void:
@@ -1056,3 +1062,41 @@ func placement_clear(point: Vector2) -> bool:
 	query.collision_mask = 1
 	query.margin = 0
 	return get_world_2d().direct_space_state.intersect_shape(query).is_empty()
+
+func strangle_active() -> bool:
+	return is_instance_valid(strangle_victim) and strangle_left > 0.0
+
+func begin_strangle(victim: IntroGuard) -> void:
+	if strangle_active(): return
+	strangle_victim=victim
+	strangle_left=STRANGLE_TIME
+	strangle_health=level.player.health
+	previous_hold=victim.conversation_hold
+	victim.conversation_hold=true
+	victim.velocity.x=0
+	level.player.velocity=Vector2.ZERO
+	queue_redraw()
+
+func cancel_strangle() -> void:
+	if is_instance_valid(strangle_victim): strangle_victim.conversation_hold=previous_hold
+	strangle_victim=null
+	strangle_left=0
+	queue_redraw()
+
+func update_strangle(delta: float) -> void:
+	if not strangle_active(): return
+	var victim := strangle_victim
+	if level.player.is_dead or level.player.health < strangle_health or victim.is_dead or victim.asleep or level.player.global_position.distance_to(victim.global_position)>34.0 or not level.can_melee_reach(level.player.global_position,victim.global_position):
+		cancel_strangle()
+		return
+	strangle_left=maxf(0,strangle_left-delta)
+	if strangle_left<=0:
+		cancel_strangle()
+		level.finish_strangle(victim)
+
+func _draw() -> void:
+	if not strangle_active(): return
+	var center := to_local(strangle_victim.global_position+Vector2(22,-24))
+	draw_circle(center,6,Color("272744"))
+	draw_arc(center,0,TAU,5,24,Color("494d7e"),1.5,true)
+	draw_arc(center,-PI/2,-PI/2+TAU*(1.0-strangle_left/STRANGLE_TIME),5,24,Color("f2d3ab"),1.5,true)

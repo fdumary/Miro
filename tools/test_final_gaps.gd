@@ -135,6 +135,7 @@ func run() -> void:
 	check(level.world_features.strangle_target() == victim, "Strangle is offered from behind")
 	var kills_before: int = level.player.casualty_count
 	level.interact()
+	await frames(18)
 	check(victim.asleep and victim.strangled and not victim.is_dead and level.player.casualty_count == kills_before, "Strangling leaves him out cold, not dead, and costs no casualty")
 	# Controller: skip has a pad button, and retry is never bound to a pad button mid-play.
 	var has_pad_skip := InputMap.action_get_events("skip").any(func(event): return event is InputEventJoypadButton)

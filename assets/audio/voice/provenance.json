@@ -20466,5 +20466,2833 @@
       "output_lufs": "-18.07",
       "output_true_peak_dbtp": "-1.98"
     }
+  },
+  "judas_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger - Laid-Back, Casual, Resonant",
+    "model_id": "eleven_v3",
+    "text": "He's breathing. Something's wrong. Check the corridor.",
+    "delivery": "[concerned] [clipped] [hoarse]",
+    "signature": "7455a173b34721781255fb1ca5cef54cdc9805a1eaae234cb080f59a8061f877",
+    "leveling": {
+      "source_sha256": "c5c09313801a5883822007ff3559d6afe09e5e8143fa78472d63958038a14b14",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.58",
+        "input_tp": "-2.32",
+        "input_lra": "1.70",
+        "input_thresh": "-30.47",
+        "output_i": "-16.96",
+        "output_tp": "-2.00",
+        "output_lra": "0.60",
+        "output_thresh": "-27.98",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.04"
+      },
+      "output_lufs": "-17.66",
+      "output_true_peak_dbtp": "-1.91"
+    }
+  },
+  "rowan_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam - Energetic, Social Media Creator",
+    "model_id": "eleven_v3",
+    "text": "Lovely. I'll just guard the whole tower, shall I?",
+    "delivery": "[dryly] [bright] [quickly]",
+    "signature": "ab5c453005ba5a24947fe1f0226ba9d49cc2b32fa89a2c4a1cb5c0dfe412634b",
+    "leveling": {
+      "source_sha256": "2e724f0c9cadd8367f12741afca4886811af49c728d120b535265aa45240b3e3",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.02",
+        "input_tp": "-3.66",
+        "input_lra": "0.00",
+        "input_thresh": "-31.57",
+        "output_i": "-19.38",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.94",
+        "normalization_type": "linear",
+        "target_offset": "1.38"
+      },
+      "output_lufs": "-19.38",
+      "output_true_peak_dbtp": "-1.95"
+    }
+  },
+  "ivo_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "NNl6r8mD7vthiJatiJt1",
+    "voice_name": "Bradford - Expressive and Articulate",
+    "model_id": "eleven_v3",
+    "text": "That's one way to avoid the night shift.",
+    "delivery": "[dryly] [measured]",
+    "signature": "211c8cc4ed5c493a79630403c7132532ca161a0d7a0a774aa2b8e20cb4af66d7",
+    "leveling": {
+      "source_sha256": "7277c9ddf11104707d44ead9ecf16475aeb51f3954da5a0756c3f29b0c56fb08",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.47",
+        "input_tp": "-2.67",
+        "input_lra": "0.00",
+        "input_thresh": "-30.47",
+        "output_i": "-19.79",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.79",
+        "normalization_type": "linear",
+        "target_offset": "1.79"
+      },
+      "output_lufs": "-19.79",
+      "output_true_peak_dbtp": "-2.02"
+    }
+  },
+  "bram_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "J5iaaqzR5zn6HFG4jV3b",
+    "voice_name": "Joseph - Nasally and Steady",
+    "model_id": "eleven_v3",
+    "text": "Out cold. Keep your eyes open.",
+    "delivery": "[concerned] [hesitant]",
+    "signature": "3fd22fa60a020363f3831268aa7258f31a88ac22a187bc0a98ac39f75bc520cc",
+    "leveling": {
+      "source_sha256": "fcf8e62e047898936f79c87a1491b212f774c60b9b201e1bf4bc2288488a81b0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.37",
+        "input_tp": "-4.13",
+        "input_lra": "0.00",
+        "input_thresh": "-31.02",
+        "output_i": "-17.98",
+        "output_tp": "-2.76",
+        "output_lra": "0.00",
+        "output_thresh": "-29.63",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.79"
+    }
+  },
+  "alden_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "G17SuINrv2H9FC6nvetn",
+    "voice_name": "Christopher - Gentle and Trustworthy",
+    "model_id": "eleven_v3",
+    "text": "Excellent patrol technique. Very stationary.",
+    "delivery": "[dryly] [low] [concerned]",
+    "signature": "705eb16b2772dc39a3edf08282e23c1c6d75b2e15b3a2715a5ec6a4ce19739af",
+    "leveling": {
+      "source_sha256": "755212d2ea8492258ce19325e4077dc2d1de26b8fcb9558aaf76cbfb854827b1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.88",
+        "input_tp": "-1.54",
+        "input_lra": "1.70",
+        "input_thresh": "-28.57",
+        "output_i": "-17.59",
+        "output_tp": "-2.00",
+        "output_lra": "1.60",
+        "output_thresh": "-28.20",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.41"
+      },
+      "output_lufs": "-18.43",
+      "output_true_peak_dbtp": "-2.10"
+    }
+  },
+  "corin_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "o2zd9K5QOO7ppTb04Lx0",
+    "voice_name": "Gabriel Ripley - Facetious, Quick-Spoken",
+    "model_id": "eleven_v3",
+    "text": "I'll put you down as on your break. Again.",
+    "delivery": "[dryly] [animated]",
+    "signature": "b3c701e060c691100bc430934b6f1bf2a35c910445fe01946aeff4f6db2cf5f7",
+    "leveling": {
+      "source_sha256": "17c4c1cdfccebcb46509f3a5362ed1f9f0ebba14effdd9d58b72dda615469611",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.40",
+        "input_tp": "-2.56",
+        "input_lra": "0.70",
+        "input_thresh": "-30.28",
+        "output_i": "-17.27",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.04",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.73"
+      },
+      "output_lufs": "-17.40",
+      "output_true_peak_dbtp": "-1.95"
+    }
+  },
+  "ellis_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "aGkVQvWUZi16EH8aZJvT",
+    "voice_name": "Steve - Australian Male",
+    "model_id": "eleven_v3",
+    "text": "At least somebody's enjoying the shift.",
+    "delivery": "[dryly] [dry]",
+    "signature": "e320a8f550cd39632ef2ec8526d587e3032d43ca49d09774d039c126425b96e6",
+    "leveling": {
+      "source_sha256": "7ae74ce79929d119a1c431242d0bf2a257f8ce06f64f47730305363496aefa25",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.78",
+        "input_tp": "-5.86",
+        "input_lra": "0.00",
+        "input_thresh": "-32.78",
+        "output_i": "-18.90",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.90",
+        "normalization_type": "linear",
+        "target_offset": "0.90"
+      },
+      "output_lufs": "-18.88",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "garrow_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "UgBBYS2sOqTuMpoF3BR0",
+    "voice_name": "Mark - Natural Conversations",
+    "model_id": "eleven_v3",
+    "text": "Sleeping on the job. Bold career move.",
+    "delivery": "[dryly] [uncertain]",
+    "signature": "48edbf615ac7ee990a45fa431bc8ce001afb928f7ec46a22a5a589b830f66a80",
+    "leveling": {
+      "source_sha256": "35f0e3a5da36c5cf90b2467b0d3e143c884bbaaf4b75c10e5d6f70827b23a512",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.70",
+        "input_tp": "-2.18",
+        "input_lra": "0.00",
+        "input_thresh": "-27.44",
+        "output_i": "-18.00",
+        "output_tp": "-3.48",
+        "output_lra": "0.00",
+        "output_thresh": "-28.74",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.52"
+    }
+  },
+  "hollis_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "AeRdCCKzvd23BpJoofzx",
+    "voice_name": "Nathaniel - Engaging, British and Calm",
+    "model_id": "eleven_v3",
+    "text": "Easy. He's breathing. I'll check around.",
+    "delivery": "[concerned] [soft]",
+    "signature": "4993763a3a40b2f6e25add1b68c2d4ea787a4fdfcb825b4af1579bfc95972969",
+    "leveling": {
+      "source_sha256": "8b31eb82d491098ca5fd4146ee50ca456fccd4e1baac4db158a05d7dbbc77e34",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.49",
+        "input_tp": "-1.00",
+        "input_lra": "3.00",
+        "input_thresh": "-27.74",
+        "output_i": "-17.38",
+        "output_tp": "-2.24",
+        "output_lra": "0.00",
+        "output_thresh": "-28.55",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.62"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.35"
+    }
+  },
+  "jory_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "15CVCzDByBinCIoCblXo",
+    "voice_name": "Lucan Rook  - Energetic Male",
+    "model_id": "eleven_v3",
+    "text": "That's one way to avoid the night shift.",
+    "delivery": "[dryly] [wry]",
+    "signature": "83299fac8f45f0e245ff7a7ef33b0bd31e80ee72fd213cb2b8e7de81aa6dea40",
+    "leveling": {
+      "source_sha256": "648f02d781cc74877ade2464adefd3ac3955e682bd2e81fa13de79f3d5824e75",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.35",
+        "input_tp": "-1.59",
+        "input_lra": "0.00",
+        "input_thresh": "-29.35",
+        "output_i": "-19.75",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.75",
+        "normalization_type": "linear",
+        "target_offset": "1.75"
+      },
+      "output_lufs": "-19.75",
+      "output_true_peak_dbtp": "-1.89"
+    }
+  },
+  "kell_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "NYC9WEgkq1u4jiqBseQ9",
+    "voice_name": "Russell - Dramatic British TV",
+    "model_id": "eleven_v3",
+    "text": "If he's dreaming about a pay rise, wake him gently.",
+    "delivery": "[dryly] [commanding]",
+    "signature": "a936e4e065adbf2a63685e2d4e1aff0f03120cffd259795abb7d04b4568627eb",
+    "leveling": {
+      "source_sha256": "427ddf804d3d10f83d697692f8c548aabc4e52ae19cc475a6aa67e908985179b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.53",
+        "input_tp": "-2.91",
+        "input_lra": "2.10",
+        "input_thresh": "-29.47",
+        "output_i": "-17.39",
+        "output_tp": "-2.17",
+        "output_lra": "0.20",
+        "output_thresh": "-28.06",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.61"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.36"
+    }
+  },
+  "marek_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+    "voice_name": "Harry - Fierce Warrior",
+    "model_id": "eleven_v3",
+    "text": "I'll put you down as on your break. Again.",
+    "delivery": "[dryly] [gruff]",
+    "signature": "b80d018bd05ac4ab410a6bcf249cf9e1a4235dbb3039b99eea92e53b73b21f32",
+    "leveling": {
+      "source_sha256": "e81ea97292f776458456e6c7e54a85b910d94c2347603713c2f264b2641d0246",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.50",
+        "input_tp": "-2.15",
+        "input_lra": "3.30",
+        "input_thresh": "-29.11",
+        "output_i": "-17.55",
+        "output_tp": "-2.00",
+        "output_lra": "2.50",
+        "output_thresh": "-28.09",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.45"
+      },
+      "output_lufs": "-18.80",
+      "output_true_peak_dbtp": "-2.50"
+    }
+  },
+  "pavel_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "2iAXJEMO2o0PqUHzvZwQ",
+    "voice_name": "Ranbir - Neutral and Clean",
+    "model_id": "eleven_v3",
+    "text": "Out cold. Keep your eyes open.",
+    "delivery": "[concerned] [precise]",
+    "signature": "61fa3c2537824ef74d6ef45f9e8fc6c6eb0d40c68fc797608155f3354b81ff36",
+    "leveling": {
+      "source_sha256": "fcdc8a756207fef0fe59619ea214839c7a3d38c3d64e812321e2927e5beb22cb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.22",
+        "input_tp": "-2.52",
+        "input_lra": "0.00",
+        "input_thresh": "-30.00",
+        "output_i": "-18.72",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.67",
+        "normalization_type": "linear",
+        "target_offset": "0.72"
+      },
+      "output_lufs": "-18.73",
+      "output_true_peak_dbtp": "-2.10"
+    }
+  },
+  "silas_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "siw1N9V8LmYeEWKyWBxv",
+    "voice_name": "Ruhaan - Clear, Loud and Cheerful",
+    "model_id": "eleven_v3",
+    "text": "Sleeping on the job. Bold career move.",
+    "delivery": "[dryly] [sunny]",
+    "signature": "06ec6b57b66fd618a9437b437f25a5beeb8f2b0dad1253adc50c2176b8805936",
+    "leveling": {
+      "source_sha256": "ef6818ac3300340af4786c2581510e14668894cc414f509613f10e7ccb0edda1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-12.52",
+        "input_tp": "-0.79",
+        "input_lra": "0.00",
+        "input_thresh": "-23.10",
+        "output_i": "-18.02",
+        "output_tp": "-6.27",
+        "output_lra": "0.00",
+        "output_thresh": "-28.59",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-5.99"
+    }
+  },
+  "teodor_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "1U02n4nD6AdIZ9CjF053",
+    "voice_name": "Viraj - Smooth and Gentle",
+    "model_id": "eleven_v3",
+    "text": "Lovely. I'll just guard the whole tower, shall I?",
+    "delivery": "[dryly] [halting]",
+    "signature": "979d99d6a91ee27be06300933900fae9694c67051fb12892d7411ed87ac2958f",
+    "leveling": {
+      "source_sha256": "2ff7f0a34759a1991e09bf651783cdb5edfa4555a70fe10ab58ba2e6cb8d2b86",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.28",
+        "input_tp": "-0.64",
+        "input_lra": "0.30",
+        "input_thresh": "-23.63",
+        "output_i": "-17.70",
+        "output_tp": "-5.22",
+        "output_lra": "0.30",
+        "output_thresh": "-28.09",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.30"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-5.21"
+    }
+  },
+  "ansel_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "e5WNhrdI30aXpS2RSGm1",
+    "voice_name": "Ian Cartwell - Suspense and Mystery",
+    "model_id": "eleven_v3",
+    "text": "He's alive. Who did this?",
+    "delivery": "[concerned] [tense]",
+    "signature": "a76bdeb3fdf4fa3231803357d89798965f3e45a806f1f1055e80e956ac61620a",
+    "leveling": {
+      "source_sha256": "27cdd3b777203adf2ad5c4cc9bb3501e45554c4b5d9aaffafa8d913b64d9551b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.89",
+        "input_tp": "-1.23",
+        "input_lra": "0.00",
+        "input_thresh": "-29.90",
+        "output_i": "-19.65",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.66",
+        "normalization_type": "linear",
+        "target_offset": "1.65"
+      },
+      "output_lufs": "-19.65",
+      "output_true_peak_dbtp": "-2.15"
+    }
+  },
+  "brin_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+    "voice_name": "Callum - Husky Trickster",
+    "model_id": "eleven_v3",
+    "text": "If he's dreaming about a pay rise, wake him gently.",
+    "delivery": "[dryly] [wry]",
+    "signature": "cac352ab5f83b1ed6eeec72e1b70a2834ce7353fd095b75e2b654099b293a924",
+    "leveling": {
+      "source_sha256": "d99593acd5e7d044ec56f6907a4efb80ec50587ca72ef0f2d10546e88a798226",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.04",
+        "input_tp": "-2.38",
+        "input_lra": "5.00",
+        "input_thresh": "-29.35",
+        "output_i": "-18.44",
+        "output_tp": "-2.15",
+        "output_lra": "4.50",
+        "output_thresh": "-28.66",
+        "normalization_type": "dynamic",
+        "target_offset": "0.44"
+      },
+      "output_lufs": "-18.29",
+      "output_true_peak_dbtp": "-1.91"
+    }
+  },
+  "cato_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "2UMI2FME0FFUFMlUoRER",
+    "voice_name": "Hugh - Natural Conversational Agent",
+    "model_id": "eleven_v3",
+    "text": "Excellent patrol technique. Very stationary.",
+    "delivery": "[dryly] [quiet] [focused]",
+    "signature": "38158fe3cbd4b6f197c4fd45cbdfee862713104cd987299c3f45f5316e93147c",
+    "leveling": {
+      "source_sha256": "acc31d7f385cd69ca276a750eaa6823316b707a498dcb5faa81676e7b13f805c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.82",
+        "input_tp": "-2.67",
+        "input_lra": "0.20",
+        "input_thresh": "-30.44",
+        "output_i": "-17.78",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.40",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.22"
+      },
+      "output_lufs": "-18.05",
+      "output_true_peak_dbtp": "-1.90"
+    }
+  },
+  "ulric_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "IRHApOXLvnW57QJPQH2P",
+    "voice_name": "Adam - American, Dark and Tough",
+    "model_id": "eleven_v3",
+    "text": "At least somebody's enjoying the shift.",
+    "delivery": "[dryly] [hard]",
+    "signature": "4430690de011975acef8393a08b4465b952dd8d166573342140a4cef5119ad7d",
+    "leveling": {
+      "source_sha256": "beaedfaebf03119395b72608323cf38b2392dc9b7886aee617b118f996be49d7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.40",
+        "input_tp": "-1.89",
+        "input_lra": "0.00",
+        "input_thresh": "-27.40",
+        "output_i": "-18.01",
+        "output_tp": "-2.49",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.52"
+    }
+  },
+  "venn_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "6OzrBCQf8cjERkYgzSg8",
+    "voice_name": "Young Jamal",
+    "model_id": "eleven_v3",
+    "text": "He's breathing. Something's wrong. Check the corridor.",
+    "delivery": "[concerned] [playful]",
+    "signature": "8c01c306dc1e2c7a8ca34ee7eaac85a02b9d65e10af1c7977b8671956a9ff6a0",
+    "leveling": {
+      "source_sha256": "202e71e6dae9ad4601fe227f65faf1744ce8fecbec956b7fe09bb3b062320412",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.52",
+        "input_tp": "-0.72",
+        "input_lra": "0.20",
+        "input_thresh": "-30.80",
+        "output_i": "-18.30",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.56",
+        "normalization_type": "dynamic",
+        "target_offset": "0.30"
+      },
+      "output_lufs": "-18.29",
+      "output_true_peak_dbtp": "-1.63"
+    }
+  },
+  "wren_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "j9jfwdrw7BRfcR43Qohk",
+    "voice_name": "Frederick Surrey - Smooth and Velvety",
+    "model_id": "eleven_v3",
+    "text": "Lovely. I'll just guard the whole tower, shall I?",
+    "delivery": "[dryly] [dry] [soft]",
+    "signature": "875ca4035f6909c71b93cefb18583c7dfb40f6537a2bd73e55af616b0f8f3ac6",
+    "leveling": {
+      "source_sha256": "00b0e8e137f534074e30f843921339be7928c93ed8586ef5b7320ca8ad53c25a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.99",
+        "input_tp": "-0.92",
+        "input_lra": "0.00",
+        "input_thresh": "-27.69",
+        "output_i": "-18.08",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.79",
+        "normalization_type": "linear",
+        "target_offset": "0.08"
+      },
+      "output_lufs": "-18.08",
+      "output_true_peak_dbtp": "-1.95"
+    }
+  },
+  "edric_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "bIHbv24MWmeRgasZH58o",
+    "voice_name": "Will - Relaxed Optimist",
+    "model_id": "eleven_v3",
+    "text": "That's one way to avoid the night shift.",
+    "delivery": "[dryly] [puzzled]",
+    "signature": "1e4b1c02cdfc0cabea6b73579376ee7acd64d1e97a5f1722bf875c1bbf5f8a40",
+    "leveling": {
+      "source_sha256": "11df0685253db3be94127dde822f4915b37d46c44ed4354474667bc6d2b8565c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.09",
+        "input_tp": "-1.64",
+        "input_lra": "0.00",
+        "input_thresh": "-29.09",
+        "output_i": "-19.45",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.45",
+        "normalization_type": "linear",
+        "target_offset": "1.45"
+      },
+      "output_lufs": "-19.44",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "fane_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "Gfpl8Yo74Is0W6cPUWWT",
+    "voice_name": "Max - Elearning and Documentary",
+    "model_id": "eleven_v3",
+    "text": "Out cold. Keep your eyes open.",
+    "delivery": "[concerned] [steady]",
+    "signature": "86e2be28b6e6bcc915000c73a7a0453dcfac827386f37114dcd6a2b081f90345",
+    "leveling": {
+      "source_sha256": "20320b9ad290281dfb4e6553ebd8d1efd68f05401ab5d7227bfb91e822f14317",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.08",
+        "input_tp": "-1.76",
+        "input_lra": "0.00",
+        "input_thresh": "-30.80",
+        "output_i": "-20.33",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-31.06",
+        "normalization_type": "linear",
+        "target_offset": "2.33"
+      },
+      "output_lufs": "-20.35",
+      "output_true_peak_dbtp": "-2.03"
+    }
+  },
+  "gil_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "7EzWGsX10sAS4c9m9cPf",
+    "voice_name": "Jack John - Conversational and Upbeat",
+    "model_id": "eleven_v3",
+    "text": "Excellent patrol technique. Very stationary.",
+    "delivery": "[dryly] [tuneful] [quickly]",
+    "signature": "682ccabaffef4856d2987cb0ef11cd56afa920c97824f68d88ce07a8ff12d024",
+    "leveling": {
+      "source_sha256": "11337f5f44de82dcc29bad2d074897f1fcc785d5f21c48d86cbd2163cc43b484",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.06",
+        "input_tp": "-6.27",
+        "input_lra": "0.00",
+        "input_thresh": "-33.83",
+        "output_i": "-18.78",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.56",
+        "normalization_type": "linear",
+        "target_offset": "0.78"
+      },
+      "output_lufs": "-18.76",
+      "output_true_peak_dbtp": "-2.09"
+    }
+  },
+  "hask_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "Ock0AL5DBkvTUDePt4Hm",
+    "voice_name": "Viraj - Bold & Commanding Banking Agent",
+    "model_id": "eleven_v3",
+    "text": "I'll put you down as on your break. Again.",
+    "delivery": "[dryly] [clipped]",
+    "signature": "9352d8bc9944c9ac0a2a43a4c0b5a02677f1f03f60995089da2b163e88530982",
+    "leveling": {
+      "source_sha256": "818d1daf6439e973f335a551d8ee2fb2072b064522e849f88c8f65f87042247b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.40",
+        "input_tp": "-0.69",
+        "input_lra": "0.50",
+        "input_thresh": "-25.96",
+        "output_i": "-15.90",
+        "output_tp": "-2.17",
+        "output_lra": "0.00",
+        "output_thresh": "-27.33",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.10"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-4.28"
+    }
+  },
+  "yorick_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "Bj9UqZbhQsanLzgalpEG",
+    "voice_name": "Austin - Deep, Raspy and Authentic",
+    "model_id": "eleven_v3",
+    "text": "At least somebody's enjoying the shift.",
+    "delivery": "[dryly] [gravelly]",
+    "signature": "0251d6cd263a603081789bc65355168b841dc23cf68ba81027c991733a85f6c1",
+    "leveling": {
+      "source_sha256": "9ad5cc4ee6ee8d2f4c97be59fe5d06a6b64e425a173e20ba2a9ae0cf76abcd2e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.10",
+        "input_tp": "-2.78",
+        "input_lra": "0.00",
+        "input_thresh": "-28.10",
+        "output_i": "-18.00",
+        "output_tp": "-2.67",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.67"
+    }
+  },
+  "zane_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "IKne3meq5aSn9XLyUdCD",
+    "voice_name": "Charlie - Deep, Confident, Energetic",
+    "model_id": "eleven_v3",
+    "text": "Sleeping on the job. Bold career move.",
+    "delivery": "[dryly] [buoyant]",
+    "signature": "d397c5211d5fa9cfdae9d4962c658120e84ed4f5457aa590b00986c5e58dc60b",
+    "leveling": {
+      "source_sha256": "6e5afa6f4e5dc40c4880d6d6be7717f3f7899ab5c611c607d8e6c1b2404b10c1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.12",
+        "input_tp": "-4.71",
+        "input_lra": "0.00",
+        "input_thresh": "-28.67",
+        "output_i": "-18.00",
+        "output_tp": "-4.59",
+        "output_lra": "0.00",
+        "output_thresh": "-28.55",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.60"
+    }
+  },
+  "arlen_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "MFZUKuGQUsGJPQjTS4wC",
+    "voice_name": "Jon - Warm & Grounded Storyteller",
+    "model_id": "eleven_v3",
+    "text": "Easy. He's breathing. I'll check around.",
+    "delivery": "[concerned] [calm]",
+    "signature": "d46ec4f683dbe06325511a594fd6855e00c85d2c78de5d571138bcbe4cafa081",
+    "leveling": {
+      "source_sha256": "05b543e14c0232a6c33bdf290f13245323e4a6bad0262172ba4d3518547e3d22",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.51",
+        "input_tp": "-3.50",
+        "input_lra": "0.00",
+        "input_thresh": "-29.16",
+        "output_i": "-17.09",
+        "output_tp": "-2.15",
+        "output_lra": "0.00",
+        "output_thresh": "-27.76",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.91"
+      },
+      "output_lufs": "-18.07",
+      "output_true_peak_dbtp": "-3.08"
+    }
+  },
+  "beck_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "Fahco4VZzobUeiPqni1S",
+    "voice_name": "Archer - Conversational",
+    "model_id": "eleven_v3",
+    "text": "That's one way to avoid the night shift.",
+    "delivery": "[dryly] [acid] [dry]",
+    "signature": "3ac06f389c6ee8c431a031869aa5ad4c9aba5eba5180dc4d5fd9c85a1026dadb",
+    "leveling": {
+      "source_sha256": "83f8dc9340209178ae3b8f93f2b7430b3530bd3584021d59c61bf7a9556befe4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.02",
+        "input_tp": "-1.68",
+        "input_lra": "0.00",
+        "input_thresh": "-26.02",
+        "output_i": "-18.00",
+        "output_tp": "-3.66",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.67"
+    }
+  },
+  "cass_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "rU18Fk3uSDhmg5Xh41o4",
+    "voice_name": "Ryan Kurk - Pleasant and Smooth",
+    "model_id": "eleven_v3",
+    "text": "If he's dreaming about a pay rise, wake him gently.",
+    "delivery": "[dryly] [flustered]",
+    "signature": "b5146f0a9d7a1a4d864cae654994aeabfecc02f229b276923eb204a67d488ee4",
+    "leveling": {
+      "source_sha256": "a7769e927c0f8b518dd97e6545ab985c739747454460c8f2ee69291e55d07c34",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.59",
+        "input_tp": "-2.46",
+        "input_lra": "0.70",
+        "input_thresh": "-29.81",
+        "output_i": "-18.01",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.31",
+        "normalization_type": "dynamic",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-1.79"
+    }
+  },
+  "doran_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "dPah2VEoifKnZT37774q",
+    "voice_name": "Knox Dark - Serious, Deep, and Steady",
+    "model_id": "eleven_v3",
+    "text": "He's breathing. Something's wrong. Check the corridor.",
+    "delivery": "[concerned] [stern]",
+    "signature": "7389379495f6833b2ebfd64dba05cef5657daa84f17d62076003832f20a7a0ce",
+    "leveling": {
+      "source_sha256": "420a3507ba6345a68e10402459792389805f08b43a63f6b7504c2cbe5f12c9d6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.56",
+        "input_tp": "-0.99",
+        "input_lra": "0.80",
+        "input_thresh": "-27.01",
+        "output_i": "-17.26",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.68",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.74"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.44"
+    }
+  },
+  "elm_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "nzFihrBIvB34imQBuxub",
+    "voice_name": "Josh - Teacher for Kids",
+    "model_id": "eleven_v3",
+    "text": "I'll put you down as on your break. Again.",
+    "delivery": "[dryly] [quick] [nervous]",
+    "signature": "69492a7bc41063dee0dea2b1a10330e3d560030b45c2cb4d84a62f14114dcc6c",
+    "leveling": {
+      "source_sha256": "a6424b1702cd78bbf1c1201edc2125f6d1433cd0c63371d7086a5c22c28d6eb9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.63",
+        "input_tp": "-3.02",
+        "input_lra": "2.30",
+        "input_thresh": "-30.33",
+        "output_i": "-17.13",
+        "output_tp": "-2.00",
+        "output_lra": "1.60",
+        "output_thresh": "-27.73",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.87"
+      },
+      "output_lufs": "-18.32",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "fenn_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "kqVT88a5QfII1HNAEPTJ",
+    "voice_name": "Declan Sage - Wise and Captivating",
+    "model_id": "eleven_v3",
+    "text": "Another exhausting day of standing about.",
+    "delivery": "[dryly] [measured] [low]",
+    "signature": "fd41ade31160b6c07bcc2d8e3b78938b9a1214e243fbe9c36b45959d73a3c49d",
+    "leveling": {
+      "source_sha256": "c443ec9c7d8b34b0d48943cebf030a79a78c7cb375eb14ee01a54261363a974f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.44",
+        "input_tp": "-1.12",
+        "input_lra": "4.00",
+        "input_thresh": "-27.85",
+        "output_i": "-17.83",
+        "output_tp": "-2.44",
+        "output_lra": "3.30",
+        "output_thresh": "-28.26",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.17"
+      },
+      "output_lufs": "-18.88",
+      "output_true_peak_dbtp": "-2.70"
+    }
+  },
+  "pike_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George - Warm, Captivating Storyteller",
+    "model_id": "eleven_v3",
+    "text": "Out cold. Keep your eyes open.",
+    "delivery": "[concerned] [gentle] [reverent]",
+    "signature": "6b77b1642c149f22ac639af180b6894f49d000a7f62a065dcec5be2239073ff1",
+    "leveling": {
+      "source_sha256": "fa46ddb645b281d2f3277fc53776a5d0869378add42c39b94ce5fce886c9a2a1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.81",
+        "input_tp": "-3.80",
+        "input_lra": "0.00",
+        "input_thresh": "-30.50",
+        "output_i": "-18.01",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.70",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.04"
+    }
+  },
+  "moss_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "8z82LG47qQ2qjeeQB8lk",
+    "voice_name": "Kenneth - Storyteller",
+    "model_id": "eleven_v3",
+    "text": "Sleeping on the job. Bold career move.",
+    "delivery": "[dryly] [earnest] [confused]",
+    "signature": "5b9dc95ca94af733a5bf1c5b30f0188e5bee04f2a188ae4934da26d18e5f8bcc",
+    "leveling": {
+      "source_sha256": "89c3427bf9088d8aebc0f96acb0c313e6b6babccdec8029c0df8b61a597b63a1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.14",
+        "input_tp": "-0.65",
+        "input_lra": "0.40",
+        "input_thresh": "-24.82",
+        "output_i": "-16.88",
+        "output_tp": "-3.56",
+        "output_lra": "0.00",
+        "output_thresh": "-27.56",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.12"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-4.47"
+    }
+  },
+  "tibb_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "8Ln42OXYupYsag45MAUy",
+    "voice_name": "Jay Wayne - Wise University Professor",
+    "model_id": "eleven_v3",
+    "text": "Lovely. I'll just guard the whole tower, shall I?",
+    "delivery": "[dryly] [wry] [tired]",
+    "signature": "558e73e8da7a36377136db4844fa218be054212039b924bf9246059fd944b5c7",
+    "leveling": {
+      "source_sha256": "7a9eac69ae1b7a6619dd72da3fc3141640c3a57b7e69ab7bdad3d9d97da96339",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.98",
+        "input_tp": "-4.93",
+        "input_lra": "0.00",
+        "input_thresh": "-33.90",
+        "output_i": "-20.07",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.98",
+        "normalization_type": "linear",
+        "target_offset": "2.07"
+      },
+      "output_lufs": "-20.07",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "hale_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "dtSEyYGNJqjrtBArPCVZ",
+    "voice_name": "Titan - Deep, Bold, and Powerful",
+    "model_id": "eleven_v3",
+    "text": "He's alive. Who did this?",
+    "delivery": "[concerned] [intense]",
+    "signature": "c723dcdc6df2fe30b245ff222b1a4b3d61fb0f50e1c58d44eca650ebdb08b9bc",
+    "leveling": {
+      "source_sha256": "02c1fded8c5e294c89373358fc418a940a2e237837f45bd13831ef76cdfa5ce2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.47",
+        "input_tp": "-1.33",
+        "input_lra": "0.00",
+        "input_thresh": "-30.92",
+        "output_i": "-20.12",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-31.57",
+        "normalization_type": "linear",
+        "target_offset": "2.12"
+      },
+      "output_lufs": "-20.10",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "rusk_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "mtrellq69YZsNwzUSyXh",
+    "voice_name": "Rex Thunder - Deep N Tough",
+    "model_id": "eleven_v3",
+    "text": "If he's dreaming about a pay rise, wake him gently.",
+    "delivery": "[dryly] [sharp]",
+    "signature": "ec13e504e2e441c7a3354730d1f6bfde6b7d320d51b36b34c78356b54f9223b0",
+    "leveling": {
+      "source_sha256": "847f531ed2a8651d06589fb918ab58fb9437d7de91dc87676ff601b60e02abb4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.50",
+        "input_tp": "-1.52",
+        "input_lra": "0.00",
+        "input_thresh": "-25.50",
+        "output_i": "-18.00",
+        "output_tp": "-4.02",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.95",
+      "output_true_peak_dbtp": "-4.00"
+    }
+  },
+  "soren_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "3gsg3cxXyFLcGIfNbM6C",
+    "voice_name": "Raju - Authentic and Relatable",
+    "model_id": "eleven_v3",
+    "text": "Excellent patrol technique. Very stationary.",
+    "delivery": "[dryly] [tight]",
+    "signature": "a90c53c8afbb4d0d22c0d2d23834f2aca4386130a12c4729669deba66de25e50",
+    "leveling": {
+      "source_sha256": "86108c12a66bf9bef064d6b7bdb00903d9475deebd0f0f5946c8823562887731",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.55",
+        "input_tp": "-0.23",
+        "input_lra": "0.00",
+        "input_thresh": "-26.48",
+        "output_i": "-17.98",
+        "output_tp": "-2.67",
+        "output_lra": "0.00",
+        "output_thresh": "-28.90",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.70"
+    }
+  },
+  "gideon_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "8Es4wFxsDlHBmFWAOWRS",
+    "voice_name": "William Shanks - Rich and Deep",
+    "model_id": "eleven_v3",
+    "text": "Easy. He's breathing. I'll check around.",
+    "delivery": "[concerned] [slow] [steady]",
+    "signature": "ae2ca3f138fa66c319524f2d18e3bec594ca8c8b886d1fbf6b31fd4f43bef2ff",
+    "leveling": {
+      "source_sha256": "0ea3a335f96ce8e4fad9ccb6b764f85d26944115bea1223fbf5013d2031e9f5b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.07",
+        "input_tp": "-2.63",
+        "input_lra": "0.40",
+        "input_thresh": "-29.93",
+        "output_i": "-17.46",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.34",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.54"
+      },
+      "output_lufs": "-17.92",
+      "output_true_peak_dbtp": "-1.93"
+    }
+  },
+  "fenwick_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "wAGzRVkxKEs8La0lmdrE",
+    "voice_name": "Sully - Mature, Deep and Intriguing",
+    "model_id": "eleven_v3",
+    "text": "Another exhausting day of standing about.",
+    "delivery": "[dryly] [bitter]",
+    "signature": "e763e17a0cc5e7a98e28ddf0b9e63648c51a5d83b89544afef4f47fe3efac4a9",
+    "leveling": {
+      "source_sha256": "c6236fcfabb011e4475ddcd94492781ac3d72acd4a8d4f08d0fdbb47ef1fa4dd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.69",
+        "input_tp": "-0.89",
+        "input_lra": "0.30",
+        "input_thresh": "-26.69",
+        "output_i": "-17.90",
+        "output_tp": "-2.16",
+        "output_lra": "0.00",
+        "output_thresh": "-27.90",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.10"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.14"
+    }
+  },
+  "osric_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "uju3wxzG5OhpWcoi3SMy",
+    "voice_name": "Michael C. Vincent - Confident, Expressive",
+    "model_id": "eleven_v3",
+    "text": "At least somebody's enjoying the shift.",
+    "delivery": "[dryly] [crisp]",
+    "signature": "6e18af02ad902775829ce8eb15f224b9c79d137dea42728615276e81d46c1ef8",
+    "leveling": {
+      "source_sha256": "f7d950b5e4f28e5591d00584a4c8b986c26737de1266fadf0828b33257ddba46",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.31",
+        "input_tp": "-1.56",
+        "input_lra": "0.00",
+        "input_thresh": "-28.31",
+        "output_i": "-18.74",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.74",
+        "normalization_type": "linear",
+        "target_offset": "0.74"
+      },
+      "output_lufs": "-18.73",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "leif_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "iP95p4xoKVk53GoZ742B",
+    "voice_name": "Chris - Charming, Down-to-Earth",
+    "model_id": "eleven_v3",
+    "text": "He's breathing. Something's wrong. Check the corridor.",
+    "delivery": "[concerned] [plain]",
+    "signature": "13c4aa4d31e23ef1dff584e49a15349af7e9bfc212a6bc7a7fbb9b719cec080b",
+    "leveling": {
+      "source_sha256": "c141e769b7f5dd1c106c49f32e23dded368d2ea509c0c119e02ed9866c0c4279",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.40",
+        "input_tp": "-1.65",
+        "input_lra": "0.00",
+        "input_thresh": "-27.40",
+        "output_i": "-18.00",
+        "output_tp": "-2.25",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.25"
+    }
+  },
+  "quill_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "gUABw7pXQjhjt0kNFBTF",
+    "voice_name": "Andrew - Smooth, Smart and Clear",
+    "model_id": "eleven_v3",
+    "text": "Lovely. I'll just guard the whole tower, shall I?",
+    "delivery": "[dryly] [dry] [precise]",
+    "signature": "fa5fe2e76373d1f70cef8a3ac0fb975f74a59e1f3bcd3baa1863c7ec4a5104b9",
+    "leveling": {
+      "source_sha256": "b1469e141bcad74b2130333255f36fbd68b91e4156d79970532d5e0bb4d61acc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.56",
+        "input_tp": "-0.50",
+        "input_lra": "2.70",
+        "input_thresh": "-31.19",
+        "output_i": "-18.56",
+        "output_tp": "-2.00",
+        "output_lra": "1.30",
+        "output_thresh": "-30.08",
+        "normalization_type": "dynamic",
+        "target_offset": "0.56"
+      },
+      "output_lufs": "-18.83",
+      "output_true_peak_dbtp": "-1.78"
+    }
+  },
+  "nash_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "GUDYcgRAONiI1nXDcNQQ",
+    "voice_name": "Milo - Calm, Soothing and Meditative",
+    "model_id": "eleven_v3",
+    "text": "That's one way to avoid the night shift.",
+    "delivery": "[dryly] [breathy]",
+    "signature": "5f220a9247e4b8ba9e5be690ad7353a7f426c3184302ad0099630f93e79ea564",
+    "leveling": {
+      "source_sha256": "789c040a9f42153687e62eb70452c6797e6dac20a05e81e13c8effa2817b0cfe",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.53",
+        "input_tp": "-1.72",
+        "input_lra": "10.60",
+        "input_thresh": "-27.46",
+        "output_i": "-17.38",
+        "output_tp": "-3.22",
+        "output_lra": "8.70",
+        "output_thresh": "-28.00",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.62"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.18"
+    }
+  },
+  "bastian_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "EkK5I93UQWFDigLMpZcX",
+    "voice_name": "James - Husky, Engaging and Bold",
+    "model_id": "eleven_v3",
+    "text": "Out cold. Keep your eyes open.",
+    "delivery": "[concerned] [rough]",
+    "signature": "e42e61e8760607ca893baab65e6b7612b5cd6cddf7bb5bf61bd30d8b11a34abf",
+    "leveling": {
+      "source_sha256": "db6fc3bd57a73e0b752e695b84dff78487a5b82667db3f7df9e4f756fc838f98",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.74",
+        "input_tp": "-2.11",
+        "input_lra": "0.00",
+        "input_thresh": "-29.40",
+        "output_i": "-18.64",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.30",
+        "normalization_type": "linear",
+        "target_offset": "0.64"
+      },
+      "output_lufs": "-18.64",
+      "output_true_peak_dbtp": "-1.86"
+    }
+  },
+  "reeve_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "XjLkpWUlnhS8i7gGz3lZ",
+    "voice_name": "David Castlemore - Newsreader and Educator",
+    "model_id": "eleven_v3",
+    "text": "Excellent patrol technique. Very stationary.",
+    "delivery": "[dryly] [tired] [firm]",
+    "signature": "bc07e405853cadf7eb9566f9df16f8a3c4d5449c844f585e3c0ed7cb8e214ed7",
+    "leveling": {
+      "source_sha256": "5be1dd44c92bba141c26cce540a704bd4f70973722521950c62c2b13b6e2a3a1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.24",
+        "input_tp": "-1.68",
+        "input_lra": "0.90",
+        "input_thresh": "-29.74",
+        "output_i": "-17.20",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.66",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.80"
+      },
+      "output_lufs": "-18.08",
+      "output_true_peak_dbtp": "-1.74"
+    }
+  },
+  "seth_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "6FiCmD8eY5VyjOdG5Zjk",
+    "voice_name": "Adam - Deep English Story Voice",
+    "model_id": "eleven_v3",
+    "text": "I'll put you down as on your break. Again.",
+    "delivery": "[dryly] [hushed] [tense]",
+    "signature": "590cd47fa0fe3f4ba9927a685ef0d138f9e8343e14daecd824532319638c47a9",
+    "leveling": {
+      "source_sha256": "480bc8757e7d30712a0269f33bf801d270d28baec09aa2a39e8070c27da9fccf",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.30",
+        "input_tp": "-2.09",
+        "input_lra": "0.00",
+        "input_thresh": "-27.66",
+        "output_i": "-18.00",
+        "output_tp": "-2.78",
+        "output_lra": "0.00",
+        "output_thresh": "-28.36",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.85"
+    }
+  },
+  "vale_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "DMyrgzQFny3JI1Y1paM5",
+    "voice_name": "Donovan - Articulate, Strong and Deep",
+    "model_id": "eleven_v3",
+    "text": "He's alive. Who did this?",
+    "delivery": "[concerned] [brisk]",
+    "signature": "7cca42dd59a586ad96dfa18c8ec3bdd95d01896b18fef2fe485b0f731e43890d",
+    "leveling": {
+      "source_sha256": "8a59bdc69a4ffa67512600437ec06760112c2c2ce25637528a0af52c1f3a0f4d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.40",
+        "input_tp": "-0.98",
+        "input_lra": "0.00",
+        "input_thresh": "-28.47",
+        "output_i": "-18.42",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.49",
+        "normalization_type": "linear",
+        "target_offset": "0.42"
+      },
+      "output_lufs": "-18.41",
+      "output_true_peak_dbtp": "-1.93"
+    }
+  },
+  "tarin_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "SF9uvIlY93SJRMdV5jeP",
+    "voice_name": "Andrew Griffin - Football Commentator",
+    "model_id": "eleven_v3",
+    "text": "At least somebody's enjoying the shift.",
+    "delivery": "[dryly] [quick] [focused]",
+    "signature": "867a378f7c068fd326f2752d70b088babb96ab91d392cdaf31a254be4ba6c5cc",
+    "leveling": {
+      "source_sha256": "2151a3fd8e6df902ccf5b96704798fd06b80ce54b5d6d9ccea02f8fbee50abc6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.82",
+        "input_tp": "-5.57",
+        "input_lra": "0.00",
+        "input_thresh": "-32.14",
+        "output_i": "-18.22",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.54",
+        "normalization_type": "linear",
+        "target_offset": "0.22"
+      },
+      "output_lufs": "-18.25",
+      "output_true_peak_dbtp": "-2.02"
+    }
+  },
+  "ewan_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "alFofuDn3cOwyoz1i44T",
+    "voice_name": "Dallin - Positive, Inspiring and Clear",
+    "model_id": "eleven_v3",
+    "text": "Sleeping on the job. Bold career move.",
+    "delivery": "[dryly] [breathless]",
+    "signature": "21d4155f8e2a7c6f2eca587003894d9d84d68c61560b10895533b92125dd4675",
+    "leveling": {
+      "source_sha256": "cf8ad76d9031763c59fb7acc82783ada0619d6c311c759486755d60909560189",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.37",
+        "input_tp": "-1.39",
+        "input_lra": "3.00",
+        "input_thresh": "-29.48",
+        "output_i": "-17.29",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.33",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.71"
+      },
+      "output_lufs": "-18.80",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "niall_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "wyWA56cQNU2KqUW4eCsI",
+    "voice_name": "Clyde - Full, Diplomatic and Inviting",
+    "model_id": "eleven_v3",
+    "text": "Easy. He's breathing. I'll check around.",
+    "delivery": "[concerned] [commanding]",
+    "signature": "66ab49fcbdaa3ed785992e0cb85732da924692afe6241b17212a209eb6736944",
+    "leveling": {
+      "source_sha256": "16515f192a94835c54b3f2eae294eb59f0c33de0a6f1f7735ba35db52d68350a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.74",
+        "input_tp": "-1.04",
+        "input_lra": "0.20",
+        "input_thresh": "-27.25",
+        "output_i": "-17.18",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.70",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.82"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.18"
+    }
+  },
+  "ames_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "iZURAYccQtQd12U8kEcq",
+    "voice_name": "Roland Rodriguez - Smooth Storyteller",
+    "model_id": "eleven_v3",
+    "text": "That's one way to avoid the night shift.",
+    "delivery": "[dryly] [dry]",
+    "signature": "e5b6c5109c5803184d4e4ee592c8ad71f41e8570a06bdb21e971507e0f96c2c1",
+    "leveling": {
+      "source_sha256": "cce84802c5f8c1e018f74c1a1e39e0c188458a871ac23c6fdada6b2130c62956",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.88",
+        "input_tp": "-0.96",
+        "input_lra": "0.00",
+        "input_thresh": "-26.88",
+        "output_i": "-18.00",
+        "output_tp": "-2.09",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.04"
+    }
+  },
+  "mott_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "2EiwWnXFnvU5JabPnv8n",
+    "voice_name": "Clyde (premade)",
+    "model_id": "eleven_v3",
+    "text": "If he's dreaming about a pay rise, wake him gently.",
+    "delivery": "[dryly] [gruff]",
+    "signature": "4dbc3c1be9195e4ad3ad826e1e4c9cdf3763f4179b4b00640104ef17c892eb30",
+    "leveling": {
+      "source_sha256": "e605409733e17fc2d85bf93a8dc5faf89999aa2e7de385d63390fb2fba30b8a4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.11",
+        "input_tp": "-3.06",
+        "input_lra": "0.10",
+        "input_thresh": "-28.11",
+        "output_i": "-17.73",
+        "output_tp": "-2.77",
+        "output_lra": "0.00",
+        "output_thresh": "-27.73",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.27"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.73"
+    }
+  },
+  "pell_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "GBv7mTt0atIp3Br8iCZE",
+    "voice_name": "Thomas (premade)",
+    "model_id": "eleven_v3",
+    "text": "He's breathing. Something's wrong. Check the corridor.",
+    "delivery": "[concerned] [stern] [tired]",
+    "signature": "0a1cf78d65d398ac537150bccb31b8c22fe07d4c0426720cc6e9a145bda40075",
+    "leveling": {
+      "source_sha256": "544b73f6bd1831cf9ee6df0e75216e536a4bbc53e8324b4db11d5d8e16e5fa32",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.30",
+        "input_tp": "-1.20",
+        "input_lra": "1.90",
+        "input_thresh": "-27.41",
+        "output_i": "-15.56",
+        "output_tp": "-2.00",
+        "output_lra": "1.50",
+        "output_thresh": "-26.77",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.44"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.86"
+    }
+  },
+  "crane_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "pNInz6obpgDQGcFmaJgB",
+    "voice_name": "Adam (premade)",
+    "model_id": "eleven_v3",
+    "text": "I'll put you down as on your break. Again.",
+    "delivery": "[dryly] [dry]",
+    "signature": "60b7c8ff3984cf921b11c258d4bee61935a48c1e97d847b6a4a56f4ef83af17e",
+    "leveling": {
+      "source_sha256": "30faf3bf040371b4c43abaa4b34e34a7318b72aeff518612473dbec172ad36f0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.73",
+        "input_tp": "-1.35",
+        "input_lra": "0.00",
+        "input_thresh": "-26.10",
+        "output_i": "-18.00",
+        "output_tp": "-3.62",
+        "output_lra": "0.00",
+        "output_thresh": "-28.37",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.53"
+    }
+  },
+  "stroud_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "VR6AewLTigWG4xSOukaG",
+    "voice_name": "Arnold (premade)",
+    "model_id": "eleven_v3",
+    "text": "Another exhausting day of standing about.",
+    "delivery": "[dryly] [wheezing]",
+    "signature": "252dac3a0998df3a15b0ff2a5ff49d9eede745baf811d013a4bfcdddcecddcb8",
+    "leveling": {
+      "source_sha256": "6a713ec2d92914d64640d9813190b22e5e0239be464a988868af76454b772094",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.34",
+        "input_tp": "-2.18",
+        "input_lra": "0.00",
+        "input_thresh": "-26.34",
+        "output_i": "-18.01",
+        "output_tp": "-3.84",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.80"
+    }
+  },
+  "thane_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "TxGEqnHWrfWFTfGW9XjX",
+    "voice_name": "Josh (premade)",
+    "model_id": "eleven_v3",
+    "text": "Out cold. Keep your eyes open.",
+    "delivery": "[concerned] [nervous]",
+    "signature": "99f43444828bfe53c91e455ce994d5c39862e8e1f35a009ce242e12c44cbe491",
+    "leveling": {
+      "source_sha256": "40060878cdff3e111765b871f090860d740360fbdc2944cc6ff7a63566ec5ee9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.79",
+        "input_tp": "-2.80",
+        "input_lra": "0.00",
+        "input_thresh": "-31.00",
+        "output_i": "-18.99",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.20",
+        "normalization_type": "linear",
+        "target_offset": "0.99"
+      },
+      "output_lufs": "-19.24",
+      "output_true_peak_dbtp": "-2.05"
+    }
+  },
+  "holt_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "ErXwobaYiN019PkySvjV",
+    "voice_name": "Antoni (premade)",
+    "model_id": "eleven_v3",
+    "text": "Sleeping on the job. Bold career move.",
+    "delivery": "[dryly] [smug]",
+    "signature": "946e89e50b7a173e995b1174f6885151ec6d2d44e331f900119dd2e7926962a3",
+    "leveling": {
+      "source_sha256": "8c0901ccc006faf1843781e0663b894b46935fec1d71787097a2e635ff9b50cd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.46",
+        "input_tp": "-2.27",
+        "input_lra": "0.30",
+        "input_thresh": "-25.76",
+        "output_i": "-17.59",
+        "output_tp": "-4.42",
+        "output_lra": "0.00",
+        "output_thresh": "-27.89",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.41"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.76"
+    }
+  },
+  "wick_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "yoZ06aMxZJJ28mfd3POQ",
+    "voice_name": "Sam (premade)",
+    "model_id": "eleven_v3",
+    "text": "Lovely. I'll just guard the whole tower, shall I?",
+    "delivery": "[dryly] [barking]",
+    "signature": "6b13c1d848c60ef1a48951a5c43ce120ee491d8cecc3a4665790d293d72d8f31",
+    "leveling": {
+      "source_sha256": "2513a239a834e227963c5b2e1f9d87c6cede3ff376f061354c62fa092fb33c3e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.97",
+        "input_tp": "-0.91",
+        "input_lra": "0.50",
+        "input_thresh": "-29.52",
+        "output_i": "-18.23",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.85",
+        "normalization_type": "dynamic",
+        "target_offset": "0.23"
+      },
+      "output_lufs": "-18.28",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "garth_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "29vD33N1CtxCmqQRPOHJ",
+    "voice_name": "Drew (premade)",
+    "model_id": "eleven_v3",
+    "text": "He's alive. Who did this?",
+    "delivery": "[concerned] [flat]",
+    "signature": "8f9aaf8a07b3a1f331315071da2b8e0056960ae4461383958f782055970397d4",
+    "leveling": {
+      "source_sha256": "f74a90153db3363bd13a081d798074c84d166d1fe4e3410da22338a4e6c60029",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.39",
+        "input_tp": "-5.24",
+        "input_lra": "0.00",
+        "input_thresh": "-30.84",
+        "output_i": "-18.01",
+        "output_tp": "-3.85",
+        "output_lra": "0.00",
+        "output_thresh": "-29.47",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-3.77"
+    }
+  },
+  "rook_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "nPczCjzI2devNBz1zQrb",
+    "voice_name": "Brian (premade)",
+    "model_id": "eleven_v3",
+    "text": "If he's dreaming about a pay rise, wake him gently.",
+    "delivery": "[dryly] [smug]",
+    "signature": "7f69dfd7b0ef1918fe9ff3d50ff2d24418dedd1b2f4486ae2b87b22fc21c84c0",
+    "leveling": {
+      "source_sha256": "d40ae524fe7a516ba46b8d3addab085dab44653788eb4316e9348d45a2aaf491",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.07",
+        "input_tp": "-1.00",
+        "input_lra": "1.00",
+        "input_thresh": "-28.07",
+        "output_i": "-18.20",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.20",
+        "normalization_type": "dynamic",
+        "target_offset": "0.20"
+      },
+      "output_lufs": "-18.28",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "rhea_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "21m00Tcm4TlvDq8ikWAM",
+    "voice_name": "Rachel (premade)",
+    "model_id": "eleven_v3",
+    "text": "Excellent patrol technique. Very stationary.",
+    "delivery": "[dryly] [bright]",
+    "signature": "0404cdf035706b807edaa82157d832b39c66fbfb0ec468c5c92ba7bd56e2f450",
+    "leveling": {
+      "source_sha256": "56f81d9d1aa3a6be9c23a6645d574468d4731fd1be098a882d3658d2f4ed3c45",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.94",
+        "input_tp": "-1.87",
+        "input_lra": "0.40",
+        "input_thresh": "-27.43",
+        "output_i": "-17.55",
+        "output_tp": "-2.54",
+        "output_lra": "0.00",
+        "output_thresh": "-28.05",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.45"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.09"
+    }
+  },
+  "marta_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "AZnzlk1XvdvUeBnXmlld",
+    "voice_name": "Domi (premade)",
+    "model_id": "eleven_v3",
+    "text": "Easy. He's breathing. I'll check around.",
+    "delivery": "[concerned] [warm]",
+    "signature": "bd518d5279a523dcbe2775c36b8985bc34b9012c1cec07e4e2c0f488368c9498",
+    "leveling": {
+      "source_sha256": "6b48bd6e773083a274cf416c252f0e7428ff14781170938f5a3a08c81dd421a7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.28",
+        "input_tp": "-2.44",
+        "input_lra": "0.10",
+        "input_thresh": "-28.45",
+        "output_i": "-17.56",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.72",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.44"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.17"
+    }
+  },
+  "odette_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "MF3mGyEYCl7XYWbV9V6O",
+    "voice_name": "Elli (premade)",
+    "model_id": "eleven_v3",
+    "text": "Another exhausting day of standing about.",
+    "delivery": "[dryly] [wistful]",
+    "signature": "4c9a9b8c1778258bb2068015d044192c3baa423870fdeb92f373884b8ea0bf81",
+    "leveling": {
+      "source_sha256": "380c5f0aca584ffe0e3d3e6195a3dfe718bc080cac9d9dd9f579bea21d738151",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.36",
+        "input_tp": "-3.47",
+        "input_lra": "0.50",
+        "input_thresh": "-29.42",
+        "output_i": "-18.00",
+        "output_tp": "-2.23",
+        "output_lra": "0.00",
+        "output_thresh": "-28.12",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-2.12"
+    }
+  },
+  "sunniva_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "ThT5KcBeYPX3keUQqHPh",
+    "voice_name": "Dorothy (premade)",
+    "model_id": "eleven_v3",
+    "text": "At least somebody's enjoying the shift.",
+    "delivery": "[dryly] [determined]",
+    "signature": "6a8a0eb81d36d3ebad5253a3b4f974f8391541a8f9bdaf8eb77ec45e916d132f",
+    "leveling": {
+      "source_sha256": "a5d9f240a5c379d091b4cc45c58cc08038e57a892294694c3bc7d97d946b89fc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.07",
+        "input_tp": "-3.02",
+        "input_lra": "0.00",
+        "input_thresh": "-26.07",
+        "output_i": "-17.99",
+        "output_tp": "-4.95",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-4.79"
+    }
+  },
+  "calla_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "XB0fDUnXU5powFXDhCwa",
+    "voice_name": "Charlotte (premade)",
+    "model_id": "eleven_v3",
+    "text": "He's breathing. Something's wrong. Check the corridor.",
+    "delivery": "[concerned] [excited]",
+    "signature": "98321f527a9c5e6894db610bee83d708737ed7ecf165cdddac1aeb8eba33ae82",
+    "leveling": {
+      "source_sha256": "895144b03cd51d9f01a72a3769819312749fdf1986a3b475e9e2e3311b150a01",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.01",
+        "input_tp": "-3.87",
+        "input_lra": "0.70",
+        "input_thresh": "-28.30",
+        "output_i": "-17.24",
+        "output_tp": "-3.39",
+        "output_lra": "0.00",
+        "output_thresh": "-27.64",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.76"
+      },
+      "output_lufs": "-17.96",
+      "output_true_peak_dbtp": "-3.91"
+    }
+  },
+  "ingrid_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "voice_name": "Matilda (premade)",
+    "model_id": "eleven_v3",
+    "text": "Lovely. I'll just guard the whole tower, shall I?",
+    "delivery": "[dryly] [prim]",
+    "signature": "050b5b252047659f3f2662d751a2e1fe7d09f99c69dada35b85e214b40d03306",
+    "leveling": {
+      "source_sha256": "5a0cd48bd7970baf13c3039fc7798ed19be447ab1bfb9e3bdc7b0cee77c7e57f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.35",
+        "input_tp": "-0.58",
+        "input_lra": "0.00",
+        "input_thresh": "-25.88",
+        "output_i": "-18.01",
+        "output_tp": "-3.23",
+        "output_lra": "0.00",
+        "output_thresh": "-28.55",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.18"
+    }
+  },
+  "noor_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "piTKgcLEGmPE4e6mEKli",
+    "voice_name": "Nicole (premade)",
+    "model_id": "eleven_v3",
+    "text": "That's one way to avoid the night shift.",
+    "delivery": "[dryly] [husky]",
+    "signature": "5d5528087418f42ecc036c9f76ba3ab46157c760ed204cd171e8a7df6ea5d87b",
+    "leveling": {
+      "source_sha256": "7ea75a1020d8ae43ef6f8368a1666ee3275174b6f6b4fb595dd46fd6f2e06f85",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.85",
+        "input_tp": "-1.30",
+        "input_lra": "0.00",
+        "input_thresh": "-23.85",
+        "output_i": "-17.97",
+        "output_tp": "-5.44",
+        "output_lra": "0.00",
+        "output_thresh": "-27.97",
+        "normalization_type": "linear",
+        "target_offset": "-0.03"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-5.46"
+    }
+  },
+  "dara_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww",
+    "voice_name": "River (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Out cold. Keep your eyes open.",
+    "delivery": "[concerned] [stern]",
+    "signature": "59fe8c9ef731159655ba67e04f01ac5c5250634ed665dd3b59968972e567c27e",
+    "leveling": {
+      "source_sha256": "640fb563398c6683d606ee8aa77f0dd01d59b2ad4dc5ce5abbe1457834209db1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.80",
+        "input_tp": "-4.26",
+        "input_lra": "0.00",
+        "input_thresh": "-28.06",
+        "output_i": "-18.00",
+        "output_tp": "-4.45",
+        "output_lra": "0.00",
+        "output_thresh": "-28.26",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.40"
+    }
+  },
+  "vesna_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "oWAxZDx7w5VEj9dCyTzz",
+    "voice_name": "Grace (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Excellent patrol technique. Very stationary.",
+    "delivery": "[dryly] [brisk]",
+    "signature": "fd5bfc8118a12247485801b035b8d96e0b2421faf0ce8bd116d130a7dc290d19",
+    "leveling": {
+      "source_sha256": "e7f024bb569413832e853e443bd1a526dd60ea295c071ace577d2e68a950dd4e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.05",
+        "input_tp": "-0.63",
+        "input_lra": "0.80",
+        "input_thresh": "-28.36",
+        "output_i": "-18.12",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.43",
+        "normalization_type": "dynamic",
+        "target_offset": "0.12"
+      },
+      "output_lufs": "-18.26",
+      "output_true_peak_dbtp": "-1.86"
+    }
+  },
+  "ilse_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "jBpfuIE2acCO8z3wKNLl",
+    "voice_name": "Gigi (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I'll put you down as on your break. Again.",
+    "delivery": "[dryly] [sharp]",
+    "signature": "176b81883cec67ba3b0e1dbc0960a7ee429da62c02aee75ffb1e298f2dcc5ab6",
+    "leveling": {
+      "source_sha256": "4a23931a26f3ac869cb64beab208c71652125a05e05c851d47f1fe64f926ff4c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.52",
+        "input_tp": "-0.95",
+        "input_lra": "0.40",
+        "input_thresh": "-24.23",
+        "output_i": "-16.82",
+        "output_tp": "-4.38",
+        "output_lra": "0.00",
+        "output_thresh": "-27.53",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.18"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-5.39"
+    }
+  },
+  "bryn_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "jsCqWAovK2LkecY7zXl4",
+    "voice_name": "Freya (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "He's alive. Who did this?",
+    "delivery": "[concerned] [wry]",
+    "signature": "f4c23b63199eb45c1ab9d28b33764e3de60750104b6f3ff6ca6f80117a540d88",
+    "leveling": {
+      "source_sha256": "604ee9092cd1c293dc8ecdff97ddd964a075de0aa99e9d2f53770d47cf9673c1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.28",
+        "input_tp": "-3.28",
+        "input_lra": "0.00",
+        "input_thresh": "-28.46",
+        "output_i": "-18.02",
+        "output_tp": "-4.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.20",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.25"
+    }
+  },
+  "odell_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+    "voice_name": "Lily (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "At least somebody's enjoying the shift.",
+    "delivery": "[dryly] [gruff]",
+    "signature": "b4d8c0417e3b4596e63ce4c85d22c5b2ce659cc7527556eac775356e7ed8e73b",
+    "leveling": {
+      "source_sha256": "ced1334b79830523d97053d5f7d7149810efd80167d5c8b0e4ab324422682ca6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.07",
+        "input_tp": "-2.65",
+        "input_lra": "0.00",
+        "input_thresh": "-29.07",
+        "output_i": "-18.42",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.42",
+        "normalization_type": "linear",
+        "target_offset": "0.42"
+      },
+      "output_lufs": "-18.41",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "corra_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+    "voice_name": "Alice (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Sleeping on the job. Bold career move.",
+    "delivery": "[dryly] [firm]",
+    "signature": "e4c07630ff15598dce366ee9e5b1e70bce552776de1c02e1b651faa91150dfd5",
+    "leveling": {
+      "source_sha256": "62dcf674bf158a94ea0153ad14190a0d1f34bcaa3b0fcbe0c2b6d9bcc771735e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.27",
+        "input_tp": "-2.60",
+        "input_lra": "0.20",
+        "input_thresh": "-28.42",
+        "output_i": "-17.52",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.67",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.48"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.38"
+    }
+  },
+  "wren2_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "cgSgspJ2msm6clMCkdW9",
+    "voice_name": "Jessica (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Easy. He's breathing. I'll check around.",
+    "delivery": "[concerned] [tense]",
+    "signature": "89e021d1aa62c66d0843f81cc1a7949d5450c2b66c71bea7e8085e97b1d5f5d3",
+    "leveling": {
+      "source_sha256": "f869dcaa789787acdc8bf1594d566f7e38addb10528b3e03720c84a58c8f28e5",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.79",
+        "input_tp": "-7.53",
+        "input_lra": "1.00",
+        "input_thresh": "-34.13",
+        "output_i": "-16.46",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.93",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.54"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.78"
+    }
+  },
+  "fenna_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "9BWtsMINqrJLrRacOk9x",
+    "voice_name": "Aria (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "That's one way to avoid the night shift.",
+    "delivery": "[dryly] [firm]",
+    "signature": "48a1f90d9c149bdcb39615f68e31886f8450bdbe466a7d55dc9dc884809aa78f",
+    "leveling": {
+      "source_sha256": "bc1570545078484e7c010136548409a38816e20fbbc59c31bb5ce4031b04f1b9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.01",
+        "input_tp": "-1.30",
+        "input_lra": "0.00",
+        "input_thresh": "-26.01",
+        "output_i": "-18.00",
+        "output_tp": "-3.29",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.32"
+    }
+  },
+  "marl_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+    "voice_name": "Laura (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "If he's dreaming about a pay rise, wake him gently.",
+    "delivery": "[dryly] [crisp]",
+    "signature": "4aa0e6edc1e6263f4901ae8987bf419e4b9ae3dd869dbeacda75e81bd050034c",
+    "leveling": {
+      "source_sha256": "96757e7043f1239d8751515aff782a0e04148acb206bbfb252c9c87e69363c4f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.68",
+        "input_tp": "-3.03",
+        "input_lra": "0.40",
+        "input_thresh": "-30.83",
+        "output_i": "-18.06",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.22",
+        "normalization_type": "dynamic",
+        "target_offset": "0.06"
+      },
+      "output_lufs": "-18.11",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "pru_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "voice_name": "Sarah (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "He's breathing. Something's wrong. Check the corridor.",
+    "delivery": "[concerned] [urgent]",
+    "signature": "e07b33a2196685aa45a08465a40a0d5c61464372549746e8660c6bdeaf9d6aa5",
+    "leveling": {
+      "source_sha256": "3677334239735ecc2d9c9a5326254df1b7ac54be8772e4ef0ff0946f9f5d5c86",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-11.58",
+        "input_tp": "-0.38",
+        "input_lra": "0.00",
+        "input_thresh": "-21.58",
+        "output_i": "-17.99",
+        "output_tp": "-6.80",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-6.65"
+    }
+  },
+  "garrick_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "2ajXGJNYBR0iNHpS4VZb",
+    "voice_name": "Rob - Tough & Calloused (Level 5 terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "I'll put you down as on your break. Again.",
+    "delivery": "[dryly] [gruff]",
+    "signature": "066e6dc4e4cc1e7f473863e581bf761873f2e0677e48107fbbf0bfec74b45660",
+    "leveling": {
+      "source_sha256": "8ba057d3b11d859e58e8b5ae491d0aefd8b8a556bdf143c57de158169df8ed9e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.28",
+        "input_tp": "-0.99",
+        "input_lra": "0.70",
+        "input_thresh": "-29.09",
+        "output_i": "-17.44",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.18",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.56"
+      },
+      "output_lufs": "-17.82",
+      "output_true_peak_dbtp": "-1.51"
+    }
+  },
+  "brandt_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "TxWZERZ5Hc6h9dGxVmXa",
+    "voice_name": "Brandt (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Another exhausting day of standing about.",
+    "delivery": "[dryly] [commanding]",
+    "signature": "efe8b9c9ba0abb31a82b5716a2a772436e612019665dce17748f19187bafab58",
+    "leveling": {
+      "source_sha256": "142ccd96840cffb8a4cd5b1b72ddcf6b1dbc7b0d8c2b096de433b244449afb63",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.58",
+        "input_tp": "-2.72",
+        "input_lra": "0.00",
+        "input_thresh": "-27.58",
+        "output_i": "-17.99",
+        "output_tp": "-3.14",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.14"
+    }
+  },
+  "sable_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "XEoBW4iDmiawQP72xnAF",
+    "voice_name": "Sable (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Out cold. Keep your eyes open.",
+    "delivery": "[concerned] [dry]",
+    "signature": "2384781f3a210b5c829be0feb299b7be94ac61750f2270140434ca3c9b18bd77",
+    "leveling": {
+      "source_sha256": "26f11e08c307b35169a810825190e394b408efa50a84cc27944d8a7042a7772d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.33",
+        "input_tp": "-4.89",
+        "input_lra": "0.00",
+        "input_thresh": "-30.99",
+        "output_i": "-18.00",
+        "output_tp": "-2.56",
+        "output_lra": "0.00",
+        "output_thresh": "-28.66",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.57"
+    }
+  },
+  "tolliver_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "7squ7rvxEIZ2rYy7KYPP",
+    "voice_name": "Tolliver (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Sleeping on the job. Bold career move.",
+    "delivery": "[dryly] [whispers]",
+    "signature": "30988fda95ef8088a32732ee94ab8ce290517aa57fbddcfada8b6452d8ea4163",
+    "leveling": {
+      "source_sha256": "9bb4203b3655ac9ad7a4dd0aeb934d29d3fa88263e18cfd3de8264407c8b2fcf",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.12",
+        "input_tp": "-4.00",
+        "input_lra": "0.40",
+        "input_thresh": "-28.56",
+        "output_i": "-17.64",
+        "output_tp": "-3.67",
+        "output_lra": "0.00",
+        "output_thresh": "-28.08",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.36"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.98"
+    }
+  },
+  "maren_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "psJnoAClXdhH5gn8uKNb",
+    "voice_name": "Maren (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Lovely. I'll just guard the whole tower, shall I?",
+    "delivery": "[dryly] [tired]",
+    "signature": "87b9ec70e941b497adfc39029f2f65d3ebcbef54997e304d31e2c42209c0f23b",
+    "leveling": {
+      "source_sha256": "5390f89e0c72d5a4be5666e814edbd651c5076f0c3f17501fae8f67615d0c7f4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.80",
+        "input_tp": "-1.13",
+        "input_lra": "0.70",
+        "input_thresh": "-24.80",
+        "output_i": "-18.19",
+        "output_tp": "-4.66",
+        "output_lra": "0.00",
+        "output_thresh": "-28.19",
+        "normalization_type": "dynamic",
+        "target_offset": "0.19"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.31"
+    }
+  },
+  "voss_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "2vubyVoGjNJ5HPga4SkV",
+    "voice_name": "Voss - Chris (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "He's alive. Who did this?",
+    "delivery": "[concerned] [sarcastic]",
+    "signature": "7f65fa5d4413e44618a11069956386e6688576fa636e1b82f130f4243c7bb423",
+    "leveling": {
+      "source_sha256": "2a047e0e44a8eb684d62de5ac5d0084cfd39c2b680744bf34276aac7f9c51785",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.92",
+        "input_tp": "-4.34",
+        "input_lra": "0.00",
+        "input_thresh": "-30.65",
+        "output_i": "-18.00",
+        "output_tp": "-2.42",
+        "output_lra": "0.00",
+        "output_thresh": "-28.72",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.42"
+    }
+  },
+  "hobb_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "mSOmKHC6GZcZbSTGlqHO",
+    "voice_name": "Hobb (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "If he's dreaming about a pay rise, wake him gently.",
+    "delivery": "[dryly] [grumbling]",
+    "signature": "352135d3d2b602054f14404e4bd7515b7b5e9027933a30bda363b68489bda692",
+    "leveling": {
+      "source_sha256": "016dbe6527740dc20bbd56e7d7f522ff345e5b9ede256653402080b08bc82e8f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.22",
+        "input_tp": "-4.67",
+        "input_lra": "0.50",
+        "input_thresh": "-32.50",
+        "output_i": "-18.06",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.33",
+        "normalization_type": "dynamic",
+        "target_offset": "0.06"
+      },
+      "output_lufs": "-18.15",
+      "output_true_peak_dbtp": "-1.78"
+    }
+  },
+  "tamsin_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "y3UNfL9XC5Bb5htg8B0q",
+    "voice_name": "Tamsin (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Excellent patrol technique. Very stationary.",
+    "delivery": "[dryly] [confident]",
+    "signature": "6c5e191ea738342995743e1c4982c685aebd1de72b72feb5b77d509d83e6fa90",
+    "leveling": {
+      "source_sha256": "79041ad6cfa8d66f5abfbc090b6a291870bfcd03c1d0adde995fc41ca5a6a2dd",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.08",
+        "input_tp": "-2.20",
+        "input_lra": "0.30",
+        "input_thresh": "-29.85",
+        "output_i": "-17.17",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.90",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.83"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "corvin_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "h1IssowVS2h4nL5ZbkkK",
+    "voice_name": "Corvin (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Easy. He's breathing. I'll check around.",
+    "delivery": "[concerned] [clipped]",
+    "signature": "f18a76862284dfadaf4644fc341b05255a4d71d909c2db7e3bb06698c0507e60",
+    "leveling": {
+      "source_sha256": "986e9b6120aa62e85575215cac8c506ee09fff4717b9c6708a2b3feac769bb57",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.21",
+        "input_tp": "-2.82",
+        "input_lra": "0.00",
+        "input_thresh": "-27.10",
+        "output_i": "-18.01",
+        "output_tp": "-4.60",
+        "output_lra": "0.00",
+        "output_thresh": "-28.90",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.71"
+    }
+  },
+  "ilka_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "TNI5EQSCUrYwvhb2wpzt",
+    "voice_name": "Ilka (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Another exhausting day of standing about.",
+    "delivery": "[dryly] [calm]",
+    "signature": "647e0f9cc2cdb9333f5c3a07c9963391c1b6bc1734720a62bbdebdaf83fb5067",
+    "leveling": {
+      "source_sha256": "00963c42906cd6e10ca3a1a2768b8789f83107f206bd9381ffe0729b55a8f4ac",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-10.72",
+        "input_tp": "-0.84",
+        "input_lra": "1.10",
+        "input_thresh": "-21.18",
+        "output_i": "-17.52",
+        "output_tp": "-8.12",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.48"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-7.99"
+    }
+  },
+  "dunmore_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "GLSWsaquVBsIPLPPRi2s",
+    "voice_name": "Dunmore (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "At least somebody's enjoying the shift.",
+    "delivery": "[dryly] [gruff]",
+    "signature": "da131a5f51d64ed21b4dced8cd1ea16b9c29db7c851835b92ca1d1a4ec27af4f",
+    "leveling": {
+      "source_sha256": "1f7c5755e4991e16a8d4c8502f5d56325cf1cd40c5327a69b30f4ad7f3b6c222",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.22",
+        "input_tp": "-6.77",
+        "input_lra": "0.00",
+        "input_thresh": "-35.22",
+        "output_i": "-20.45",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.45",
+        "normalization_type": "linear",
+        "target_offset": "2.45"
+      },
+      "output_lufs": "-20.45",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "perrin_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "YEkUdc7PezGaXaRslSHB",
+    "voice_name": "Perrin (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "He's breathing. Something's wrong. Check the corridor.",
+    "delivery": "[concerned] [drawling]",
+    "signature": "a8471eacb62ee0addcd54c9b5b9b8a0737a07be9a7d71cbf6e44ef5ec7b423be",
+    "leveling": {
+      "source_sha256": "652a442ec8b2f0d6ce5899c45f85d299bee501e64b9adc22f2cca2c48a6c41dc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.00",
+        "input_tp": "-5.15",
+        "input_lra": "0.70",
+        "input_thresh": "-32.97",
+        "output_i": "-16.68",
+        "output_tp": "-2.00",
+        "output_lra": "0.70",
+        "output_thresh": "-27.62",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.32"
+      },
+      "output_lufs": "-17.72",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "yara_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "gDQfVolj9RbmXgumLcOq",
+    "voice_name": "Yara (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Lovely. I'll just guard the whole tower, shall I?",
+    "delivery": "[dryly] [stern]",
+    "signature": "b802321ae315a9a8d0ee5e0a46a8da57bc6bf0c0a1a734d97f8e990ed29b140c",
+    "leveling": {
+      "source_sha256": "00080cb53beccc814152597891cf975f342309402a4736e2dfb473fc2c95fd01",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.01",
+        "input_tp": "-0.77",
+        "input_lra": "0.80",
+        "input_thresh": "-24.80",
+        "output_i": "-16.46",
+        "output_tp": "-3.25",
+        "output_lra": "0.00",
+        "output_thresh": "-27.06",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.54"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.81"
+    }
+  },
+  "rocco_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "ICwKbPHDHAM3eal5tHEZ",
+    "voice_name": "Rocco - Tony (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "That's one way to avoid the night shift.",
+    "delivery": "[dryly] [cocky]",
+    "signature": "5d1a8e04d606c8566f45279cece57c8780036d7e692de963ed267f7faf9ddb52",
+    "leveling": {
+      "source_sha256": "bc83617b44ba16f25ea17630aaa77c03cf73b3998dff98c57be893c2f2d3ccf4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.51",
+        "input_tp": "-5.80",
+        "input_lra": "0.00",
+        "input_thresh": "-33.51",
+        "output_i": "-19.71",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.71",
+        "normalization_type": "linear",
+        "target_offset": "1.71"
+      },
+      "output_lufs": "-19.71",
+      "output_true_peak_dbtp": "-2.03"
+    }
+  },
+  "ormond_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "7rQX8r6PVq3gfJ8rZzyE",
+    "voice_name": "Ormond - John North (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Out cold. Keep your eyes open.",
+    "delivery": "[concerned] [chatty]",
+    "signature": "bf1d207d98446168683d36b2cdc51ba30b0a866c41e66f7d88d92c1c81ca6467",
+    "leveling": {
+      "source_sha256": "af564bf25f58e33c8fe89fce4ee973001368695738ea5740ff1f0a6e86924665",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.90",
+        "input_tp": "-3.43",
+        "input_lra": "0.00",
+        "input_thresh": "-28.44",
+        "output_i": "-18.01",
+        "output_tp": "-3.53",
+        "output_lra": "0.00",
+        "output_thresh": "-28.55",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.71",
+      "output_true_peak_dbtp": "-3.32"
+    }
+  },
+  "delphine_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "esy0r39YPLQjOczyOib8",
+    "voice_name": "Delphine - Britney (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Excellent patrol technique. Very stationary.",
+    "delivery": "[dryly] [cold]",
+    "signature": "d089e6e84157b46f1b29716606b91f044ba071848aca9d2aeea2a3adee8f03f6",
+    "leveling": {
+      "source_sha256": "bd04cb69c040af1b94c443a6726d835caf131f48fa7b1cd2df1e49a955ef2495",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.14",
+        "input_tp": "-2.08",
+        "input_lra": "2.30",
+        "input_thresh": "-31.21",
+        "output_i": "-17.62",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.78",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.38"
+      },
+      "output_lufs": "-18.65",
+      "output_true_peak_dbtp": "-1.88"
+    }
+  },
+  "ivar_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "cjVigY5qzO86Huf0OWal",
+    "voice_name": "Eric - Smooth, Trustworthy",
+    "model_id": "eleven_v3",
+    "text": "He's alive. Who did this?",
+    "delivery": "[concerned] [dry] [low]",
+    "signature": "f27fddaa875dae9ae8fc69f417b7bf0671d21e9d9b6e03c214213af7c5e5052f",
+    "leveling": {
+      "source_sha256": "2b98369d113c23dc35232c466436c2979d31fbe81a857826ac76c0a99fd3c32a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.35",
+        "input_tp": "-6.68",
+        "input_lra": "1.00",
+        "input_thresh": "-33.09",
+        "output_i": "-14.80",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-26.54",
+        "normalization_type": "dynamic",
+        "target_offset": "-3.20"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.33"
+    }
+  },
+  "oren_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "goT3UYdM9bhm0n2lmKQx",
+    "voice_name": "Edward - British, Dark, Seductive, Low",
+    "model_id": "eleven_v3",
+    "text": "Another exhausting day of standing about.",
+    "delivery": "[dryly] [deadpan]",
+    "signature": "2a20878cd662ae8285452434e455030990d524a991e2d8c8a00016eb1ff219b1",
+    "leveling": {
+      "source_sha256": "d6d0d354d4369d8a3f4d3ff8a90c6f90d9f851d3dde63145448c256c85cdd275",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.56",
+        "input_tp": "-3.14",
+        "input_lra": "0.00",
+        "input_thresh": "-25.56",
+        "output_i": "-17.99",
+        "output_tp": "-5.58",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-5.65"
+    }
+  },
+  "dov_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "24EI9FmmGvJruwUi7TJM",
+    "voice_name": "Lowy - Kind, Warm and Hopeful",
+    "model_id": "eleven_v3",
+    "text": "Easy. He's breathing. I'll check around.",
+    "delivery": "[concerned] [sheepish]",
+    "signature": "2f734c6dec03e6f199eb95e0c7f5639e538d1da16ab675ffa446f760c6176ed3",
+    "leveling": {
+      "source_sha256": "d1f91a0739557d445e40175f3b2fa638a0875d9ca0ae543bdae7f301423aa55f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.15",
+        "input_tp": "-0.75",
+        "input_lra": "0.00",
+        "input_thresh": "-23.53",
+        "output_i": "-17.98",
+        "output_tp": "-5.60",
+        "output_lra": "0.00",
+        "output_thresh": "-28.36",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-5.58"
+    }
+  },
+  "tomas_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill - Wise, Mature, Balanced",
+    "model_id": "eleven_v3",
+    "text": "Another exhausting day of standing about.",
+    "delivery": "[dryly] [weary]",
+    "signature": "3a22c095e2036170ff64f598bda2c0c98d2f522711b131ec44143bdd1069b9ec",
+    "leveling": {
+      "source_sha256": "9bf4d8af2f52326818b7a515dbd4f38954c24ce8ac99cff8d0680fc7f210e258",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.29",
+        "input_tp": "-4.18",
+        "input_lra": "0.40",
+        "input_thresh": "-26.29",
+        "output_i": "-17.98",
+        "output_tp": "-6.06",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-5.86"
+    }
+  },
+  "lusk_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "yl2ZDV1MzN4HbQJbMihG",
+    "voice_name": "Alex - Upbeat, Energetic and Clear",
+    "model_id": "eleven_v3",
+    "text": "He's breathing. Something's wrong. Check the corridor.",
+    "delivery": "[concerned] [eager]",
+    "signature": "00263563327519c21797b9e9afeb1cd3028c0516c0511901ceec5760e1cc6a7d",
+    "leveling": {
+      "source_sha256": "3064a51c32159517039278d47f3b88083935416f3758c4d855baf40fa13741d8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.17",
+        "input_tp": "-0.71",
+        "input_lra": "0.10",
+        "input_thresh": "-27.62",
+        "output_i": "-17.55",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.45"
+      },
+      "output_lufs": "-17.96",
+      "output_true_peak_dbtp": "-1.69"
+    }
+  },
+  "dane_sleeping": {
+    "provider": "ElevenLabs",
+    "voice_id": "ib8aaABAPZQpTo6hx8Jr",
+    "voice_name": "Severin - Powerful & Commanding",
+    "model_id": "eleven_v3",
+    "text": "He's alive. Who did this?",
+    "delivery": "[concerned] [firm]",
+    "signature": "e86995134052b122cddc0f9c75463cc7b80d819d1c619077de5e0cc52b6b158f",
+    "leveling": {
+      "source_sha256": "1f0b537497cd8a7582ab6b313f1050356699fcb53a829b7f87fb82cbe9970a18",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.61",
+        "input_tp": "-2.47",
+        "input_lra": "0.00",
+        "input_thresh": "-28.24",
+        "output_i": "-18.01",
+        "output_tp": "-2.87",
+        "output_lra": "0.00",
+        "output_thresh": "-28.64",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.96"
+    }
   }
 }

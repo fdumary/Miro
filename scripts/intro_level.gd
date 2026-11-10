@@ -588,11 +588,17 @@ func on_keeper_killed(guard) -> void:
 
 ## E behind an unaware Keeper strangles him: out cold, no blood, not a casualty.
 func try_strangle() -> bool:
+	if world_features != null and world_features.strangle_active():
+		return true
 	if world_features == null or world_features.loot_takes_priority():
 		return false
 	var victim = world_features.strangle_target()
 	if victim == null:
 		return false
+	world_features.begin_strangle(victim)
+	return true
+
+func finish_strangle(victim: IntroGuard) -> void:
 	victim.strangle()
 	stealth_bonus += 1
 	# A quiet takedown feeds the ghost branch (the artwork), never the offense one.
@@ -605,7 +611,6 @@ func try_strangle() -> bool:
 	var campaign = get_node("/root/Campaign")
 	var is_named: bool = not str(victim.get("guard_name")).is_empty()
 	campaign.on_keeper_strangled(str(victim.get("guard_name")), is_named)
-	return true
 
 func interact() -> void:
 	if controls_locked() or player.is_dead:

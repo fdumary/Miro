@@ -97,7 +97,7 @@ func select_item(item: String) -> void:
 		player.select_gun(player.guns.find(item))
 
 func _input(event: InputEvent) -> void:
-	if not is_instance_valid(player.level):
+	if not is_instance_valid(player.level) or (is_instance_valid(player.level.world_features) and player.level.world_features.strangle_active()):
 		return
 	if event is InputEventJoypadMotion and absf(event.axis_value) > float(controller_settings.preferences.deadzone):
 		pad_device = event.device
@@ -210,7 +210,7 @@ func cycle_item(step: int) -> void:
 	select_item(items[posmod(index + step, items.size())])
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_instance_valid(player.level) or player.level.controls_locked() or player.is_dead or player.in_hiding_spot:
+	if not is_instance_valid(player.level) or player.level.controls_locked() or player.is_dead or player.in_hiding_spot or player.level.world_features.strangle_active():
 		return
 	if event is InputEventMouseMotion and event.relative.length() > 3:
 		pad_aim = false
@@ -238,7 +238,7 @@ func _physics_process(delta: float) -> void:
 		refresh_slots()
 	if panel == null and is_instance_valid(player.level.hud):
 		build_panels()
-	if player.level.controls_locked() or player.is_dead or player.in_hiding_spot:
+	if player.level.controls_locked() or player.is_dead or player.in_hiding_spot or player.level.world_features.strangle_active():
 		focus = false
 		reload_left = 0
 		return
