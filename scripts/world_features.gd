@@ -447,8 +447,12 @@ func hide_egg() -> void:
 
 func nearby_prop():
 	var best = null
-	var distance := minf(36, story_distance())
+	var story_range := story_distance()
+	var distance := minf(36, story_range)
 	for prop in props:
+		# A full-health tonic must not consume E beside a required story interaction.
+		if prop.kind == "potion" and level.player.health >= level.player.max_health and story_range < 48.0:
+			continue
 		var candidate: float = level.player.global_position.distance_to(prop.global_position)
 		if candidate < distance and reachable(prop.global_position) and not (prop.kind in ["case", "potion", "note"] and prop.used):
 			best = prop

@@ -10,7 +10,7 @@ func _process(_delta: float) -> bool:
 		quit(2)
 	return false
 func frames(count: int) -> void:
-	for i in range(count): await physics_frame
+	for i in range(ceili(count * Engine.physics_ticks_per_second / 60.0)): await physics_frame
 	await process_frame
 func check(ok: bool, label_: String) -> void:
 	checks += 1

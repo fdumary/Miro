@@ -31,14 +31,14 @@ func run() -> void:
 	guard.heard_time = 0
 	player.velocity.x = normal_speed
 	var heard := false
-	for tick in range(40):
+	for tick in range(ceili(40 * Engine.physics_ticks_per_second / 60.0)):
 		heard = guard.hears_player() or heard
 		await frames(1)
 	check(heard, "A nearby guard can hear sustained normal movement from behind")
 	guard.heard_time = 0
 	player.velocity.x = quiet_speed
 	heard = false
-	for tick in range(40):
+	for tick in range(ceili(40 * Engine.physics_ticks_per_second / 60.0)):
 		heard = guard.hears_player() or heard
 		await frames(1)
 	check(not heard, "Shift quiet-walking does not trigger the full-speed footstep cue")

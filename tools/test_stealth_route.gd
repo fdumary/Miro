@@ -8,6 +8,10 @@ func tick(count: int = 1) -> void:
 	for i in range(count):
 		await physics_frame
 		await process_frame
+		if level.player.is_dead:
+			push_error("FAIL: Stealth route player died")
+			quit(1)
+			return
 		for extra_guard in level.get_node("Guards").get_children():
 			if str(extra_guard.name).begins_with("TerminalGuard") and extra_guard.is_physics_processing():
 				extra_guard.set_physics_process(false)
@@ -72,7 +76,9 @@ func run() -> void:
 	if not level.player.is_concealed and level.player.stealth_cooldown_left <= 0:
 		level.player.toggle_stealth()
 	check(level.player.is_concealed, "Timed stealth persists while crossing the gallery")
-	await walk(575)
+	# Wait inside the shelf, rather than on the 40px vertical-vision boundary.
+	# Substeps change the last walking increment; this margin works at all fixed rates.
+	await walk(570)
 	await tick(10)
 	check(level.player.position.y < 200, "Upper staggered shelves provide high route")
 	while level.player.is_concealed or level.player.stealth_cooldown_left > 0:

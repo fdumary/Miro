@@ -1,6 +1,7 @@
 class_name IntroPlayer
 extends BaseCharacter
 
+const GRAVITY := 850.0
 var controls: Node
 var jumps_used := 0
 const DOUBLE_JUMP_COOLDOWN := 3.0
@@ -21,8 +22,7 @@ var pad_jump_queued := false
 var level: Node2D
 var facing: float = 1.0
 var is_concealed: bool = false
-# At 60 Hz with gravity 850, two apex-timed impulses reproduce Fran's
-# approximately 65.17px total rise, including the floor contact margin.
+# Authored at 60 Hz. Jump impulses preserve that apex at other fixed rates.
 @export var jump_velocity := -242.37
 @export var stealth_duration := 5.0
 @export var stealth_cooldown := 8.0
@@ -83,8 +83,10 @@ func _physics_process(delta: float) -> void:
 		return
 	invulnerability_left = maxf(0.0, invulnerability_left - delta)
 	attack_cooldown = maxf(0.0, attack_cooldown - delta)
+	if attack_cooldown < 0.000001: attack_cooldown = 0.0
 	dodge_cooldown = maxf(0.0, dodge_cooldown - delta)
 	dodge_left = maxf(0.0, dodge_left - delta)
+	if dodge_left < 0.000001: dodge_left = 0.0
 	attack_flash = maxf(0.0, attack_flash - delta)
 	melee_anim = maxf(0.0, melee_anim - delta)
 	if level.controls_locked() or is_dead or (is_instance_valid(level.world_features) and level.world_features.strangle_active()):
@@ -136,13 +138,13 @@ func _physics_process(delta: float) -> void:
 			if jumps_used == 0 or (jumps_used == 1 and double_jump_cooldown_left <= 0.0):
 				if jumps_used == 1:
 					double_jump_cooldown_left = DOUBLE_JUMP_COOLDOWN
-				velocity.y = jump_velocity
+				velocity.y = jump_impulse()
 				jumps_used += 1
 				climbing = false
 	if direction != 0.0:
 		facing = signf(direction)
 	if Input.is_action_just_pressed("dodge") and dodge_cooldown <= 0.0:
-		dodge_left = 0.22
+		dodge_left = 14.0 / 60.0
 		dodge_cooldown = 0.85
 		end_stealth()
 	var speed_multiplier := stealth_speed_multiplier if is_concealed else 1.0
@@ -158,7 +160,7 @@ func _physics_process(delta: float) -> void:
 		if direction == 0.0:
 			global_position.x = move_toward(global_position.x, ladder.global_position.x, delta * 120.0)
 	else:
-		velocity.y += 850.0 * delta
+		velocity.y += GRAVITY * delta
 	var was_grounded := is_on_floor()
 	var previous_wall_side := signf(get_wall_normal().x) if is_on_wall() else 0.0
 	var was_sliding := wall_sliding
@@ -373,7 +375,7 @@ func fire_gun() -> void:
 	if attack_cooldown > 0 or controls.reload_left > 0:
 		return
 	ammunition -= 1
-	attack_cooldown = 0.65 if equipped_gun == "pistol" else 0.13
+	attack_cooldown = 0.65 if equipped_gun == "pistol" else 8.0 / 60.0
 	attack_flash = 0.2
 	get_node("/root/SoundFX").play_sound("shot", -22, 1.25 if equipped_gun == "smg" else 1.0)
 	end_stealth()
@@ -516,9 +518,9 @@ func try_wall_jump() -> bool:
 		return false
 	last_wall_jump_side = wall_jump_side
 	wall_jump_window_left = 0.0
-	wall_jump_push_left = WALL_JUMP_PUSH_TIME
+	wall_jump_push_left = ceilf(WALL_JUMP_PUSH_TIME * 60.0) / 60.0
 	dodge_left = 0.0
-	velocity.y = jump_velocity
+	velocity.y = jump_impulse()
 	return true
 
 func try_mantle() -> bool:
@@ -540,7 +542,7 @@ func try_mantle() -> bool:
 	# The same forward shove a wall jump uses, so input doesn't cancel the sideways motion.
 	last_wall_jump_side = facing
 	wall_jump_push_left = 0.2
-	velocity = Vector2(facing * 150.0, jump_velocity * 1.1)
+	velocity = Vector2(facing * 150.0, jump_impulse(1.1))
 	jumps_used = 1
 	return true
 
@@ -554,3 +556,15 @@ func focus_reticle_position() -> Vector2:
 
 func guitar_sound_origin() -> Vector2:
 	return Vector2(-6 if weapon_aim_direction().x < 0 else 6, -2)
+
+## Match the discrete 60 Hz apex while allowing more frequent collision/input updates.
+## Computed only on a jump, rather than adding work to every physics tick.
+func jump_impulse(multiplier := 1.0) -> float:
+	var authored := -jump_velocity * multiplier
+	var rate := float(Engine.physics_ticks_per_second)
+	if rate == 60.0: return -authored
+	var reference_ticks := floorf(authored * 60.0 / GRAVITY)
+	var height := reference_ticks * authored / 60.0 - GRAVITY * reference_ticks * (reference_ticks + 1.0) / (2.0 * 60.0 * 60.0)
+	var delta := 1.0 / rate
+	var ticks := maxf(1.0, ceilf((sqrt(1.0 + 8.0 * height / (GRAVITY * delta * delta)) - 1.0) / 2.0))
+	return -(height / (ticks * delta) + GRAVITY * delta * (ticks + 1.0) / 2.0)
