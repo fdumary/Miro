@@ -78,6 +78,46 @@ func launch_floor() -> int:
 			return clampi(argument.trim_prefix("--level=").to_int(), 1, 5)
 	return 1
 
+## Start the story again without deleting permanent unlocks or settings.
+func start_new_playthrough() -> void:
+	checkpoint.clear()
+	floor_snapshots.clear()
+	floor_stats.clear()
+	case_anchors.clear()
+	completed_sigils.clear()
+	narrative_milestones.clear()
+	carried_kit.clear()
+	carried_from = 0
+	remote_owned = false
+	remote_unlocked = false
+	inventory_layout.assign(["pistol", "smg", "c4", "shank"])
+	current_floor = 1
+	played_from_start = true
+	boss_defeated = false
+	ending_complete = false
+	launch_consumed = false
+	fresh_unlocks.clear()
+	var behavior = get_node_or_null("/root/PlayerBehavior")
+	if behavior != null: behavior.begin_floor(1)
+	if can_persist():
+		var progress := ConfigFile.new()
+		progress.load(progress_path())
+		for section in ["checkpoint", "snapshots"]:
+			if progress.has_section(section): progress.erase_section(section)
+		progress.save(progress_path())
+
+## Level Select replays from the floor entry, not a later retry checkpoint.
+func prepare_floor_replay(number: int) -> void:
+	if number <= 1:
+		start_new_playthrough()
+		return
+	checkpoint.clear()
+	save_checkpoint()
+	case_anchors.clear()
+	completed_sigils.clear()
+	narrative_milestones.clear()
+	restore_floor_snapshot(number)
+
 func enter_floor(number: int) -> void:
 	if int(checkpoint.get("floor", 0)) != number:
 		checkpoint.clear()

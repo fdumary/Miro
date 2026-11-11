@@ -99,3 +99,7 @@ Niro's last engagement gains three health points scaled by difficulty (Medium: s
 ## C4 correction
 
 Miro receives three optional C4 charges per level. All three can be deployed before completing the sigil/story objective. The story placement uses a separate reserve and does not consume optional inventory; exhausting all three never blocks the story. A fourth optional charge is unavailable.
+
+## New playthrough and level replays
+
+Level Select offers New Playthrough, which starts Level 1 and clears the current run's checkpoints, snapshots, story, carried equipment and branch history. Personal achievements, artwork, music, settings and previously unlocked floors remain. Selecting an individual floor replays it from its saved entry equipment, not its mid-floor checkpoint; choosing Level 3 and then Level 4 independently restores each floor's own entry kit. In-game Retry still uses checkpoints. Saves live in each player's external user-data folder; the downloadable ZIP contains only the executable.

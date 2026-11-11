@@ -156,15 +156,7 @@ func launch_level(number: int) -> void:
 	var campaign = get_node("/root/Campaign")
 	if not campaign.level_unlocked(number):
 		return
-	# Resume from the floor's last checkpoint if there is one.
-	campaign.checkpoint = campaign.saved_checkpoint(number).duplicate(true)
-	if not campaign.checkpoint.is_empty():
-		campaign.checkpoint["retry"] = true
-	campaign.case_anchors.clear()
-	campaign.completed_sigils.clear()
-	campaign.narrative_milestones.clear()
-	if number > 1:
-		campaign.restore_floor_snapshot(number)
+	campaign.prepare_floor_replay(number)
 	campaign.launch_consumed = true
 	# A new run from the cell opens on the cinematic, which hands over to Level 1.
 	get_tree().change_scene_to_file("res://scenes/opening_cinematic.tscn" if number == 1 else "res://scenes/levels/level_%02d.tscn" % number)

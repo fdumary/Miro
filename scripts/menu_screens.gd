@@ -82,9 +82,16 @@ static func level_select(parent: Node, pick: Callable) -> Control:
 			if card.unlocked:
 				pick.call(number))
 		row.add_child(card)
-	var footer := note(root, "Dev build: every floor is open." if progress.dev_mode() else "Finish a floor to open the next one.", 10)
+	var footer := note(root, "Dev build: every floor is open." if progress.dev_mode() else "Replays start the floor over with your previous floor's equipment.", 10)
 	footer.position = Vector2(0, 282)
 	footer.size = Vector2(640, 16)
+	var new_game := button(root, "New Playthrough", func():
+		progress.start_new_playthrough()
+		pick.call(1))
+	new_game.name = "NewPlaythrough"
+	new_game.position = Vector2(230,306)
+	new_game.size = Vector2(180,28)
+	new_game.tooltip_text = "Start from Level 1. Resets this run's checkpoints and story; keeps achievements, music, artwork and settings."
 	return root
 
 class LevelCard extends Button:
