@@ -28,6 +28,8 @@ var facing: float = 1.0
 var suspicion: float = 0.0
 var last_known_position := Vector2.ZERO
 var search_left: float = 0.0
+var sweep_origin := INF
+var sweep_side := 1.0
 var attack_timer: float = 0.0
 var windup: float = 0.0
 var turn_wait: float = 0.0
@@ -169,6 +171,7 @@ func _physics_process(delta: float) -> void:
 	turn_wait = maxf(0.0, turn_wait - delta)
 	sees_player = detect_player()
 	if sees_player:
+		sweep_origin = INF
 		suspicion = minf(1.0, suspicion + delta * (3.0 if level.get("hunted") else 2.5) * suspicion_rate)
 		last_known_position = level.player.global_position
 		search_left = 5.0
@@ -269,12 +272,17 @@ func _physics_process(delta: float) -> void:
 			velocity.x = facing * chase_speed
 	elif alert_state == State.SEARCH:
 		search_left -= delta
-		if absf(last_known_position.x - global_position.x) > 12:
-			facing = signf(last_known_position.x - global_position.x)
+		var distance := last_known_position.x - global_position.x
+		if sweep_origin == INF and absf(distance) <= 12 and absf(last_known_position.y - global_position.y) < 40 and is_on_floor():
+			begin_sweep(facing)
+		if sweep_origin != INF:
+			if (global_position.x - sweep_origin) * sweep_side >= 56:
+				sweep_side *= -1
+			facing = sweep_side
+			velocity.x = facing * 42.0
+		elif absf(distance) > 12:
+			facing = signf(distance)
 			velocity.x = facing * (chase_speed if pursuing else 42.0)
-		else:
-			pursuing = false
-			facing = 1.0 if int(time) % 2 == 0 else -1.0
 		if search_left <= 0:
 			pursuing = false
 			alert_state = State.PATROL
@@ -312,7 +320,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		facing *= -1
 		if alert_state == State.SEARCH:
-			last_known_position.x = global_position.x
+			begin_sweep(facing)
 	# A chasing Keeper hops over anything one tile high instead of giving up at it.
 	var searching := alert_state == State.SEARCH or alert_state == State.ALERT
 	var hopping := searching and velocity.x * facing > 0 and is_on_floor() and can_hop()
@@ -323,12 +331,17 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall() and not hopping and is_on_floor():
 		if searching:
 			# A crouch passage or tall wall is impassable to this guard.
-			pursuing = false
 			alert_state = State.SEARCH
-			last_known_position = global_position
-			search_left = minf(search_left, 2.0)
+			begin_sweep(-facing)
 		else:
 			facing *= -1
+
+func begin_sweep(direction: float) -> void:
+	pursuing = false
+	if sweep_origin == INF:
+		sweep_origin = global_position.x
+	last_known_position = global_position
+	sweep_side = 1.0 if direction >= 0 else -1.0
 
 ## Ladders: a hunting Keeper climbs after Miro; an unaware one near the ladder glances up (or down).
 var glance_left := 0.0
@@ -460,7 +473,7 @@ func ladder_search(delta: float) -> bool:
 			# An impassable vault or another Keeper cannot hold a chase forever.
 			pursuing = false
 			alert_state = State.SEARCH
-			last_known_position = global_position
+			begin_sweep(-facing)
 			search_left = 3.0
 			ladder_stall_time = 0.0
 		return true
@@ -606,6 +619,7 @@ func investigate(point: Vector2) -> void:
 	if is_dead or asleep or sees_player:
 		return
 	distracted = false
+	sweep_origin = INF
 	last_known_position = point
 	search_left = 6.0
 	alert_state = State.SEARCH

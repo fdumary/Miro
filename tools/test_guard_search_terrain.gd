@@ -38,6 +38,7 @@ func run() -> void:
 				center.y -= 16 # Miro can crouch here; the standing guard cannot.
 			var terrain := block(level, center, size)
 			guard.position = origin + Vector2(-56, -15)
+			guard.sweep_origin = INF
 			guard.velocity = Vector2.ZERO
 			guard.conversation_hold = false
 			guard.alert_state = guard.State.SEARCH
@@ -45,10 +46,14 @@ func run() -> void:
 			guard.pursuing = true
 			guard.search_left = 8
 			var peak := 0.0
+			var closest := -INF
+			var retreat := 0.0
 			for tick in range(rate * 2):
 				await physics_frame
+				closest = maxf(closest, guard.position.x)
+				retreat = maxf(retreat, closest - guard.position.x)
 				peak = maxf(peak, origin.y - 15 - guard.position.y)
-			var passed: bool = guard.position.x > origin.x + 24 if obstacle == "step" else guard.position.x < origin.x and peak < 2 and not guard.pursuing
+			var passed: bool = closest > origin.x + 24 if obstacle == "step" else guard.position.x < origin.x and peak < 2 and retreat > 24 and not guard.pursuing
 			if not passed:
 				failed = true
 				push_error("%s at %d Hz: position=%s rise=%f pursuing=%s" % [obstacle, rate, guard.position-origin, peak, guard.pursuing])
@@ -60,6 +65,7 @@ func run() -> void:
 	for i in group.size():
 		var g = group[i]
 		g.position = origin + Vector2(-48 - i * 3, -15)
+		g.sweep_origin = INF
 		g.velocity = Vector2.ZERO
 		g.conversation_hold = false
 		g.alert_state = g.State.SEARCH
