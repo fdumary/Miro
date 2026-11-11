@@ -93,7 +93,7 @@ static func controller_text(text: String, ps := true) -> String:
 	var use := "R2" if ps else "RT"
 	var focus := "L2" if ps else "LT"
 	if text.begins_with("A / D  Move") or text.begins_with("A/D Move"):
-		return "Left stick Move/Climb · %s twice Double jump · %s Dash\nL3 Crouch · L1 Blanket · R1 Melee · %s Pause" % [cross, circle, options]
+		return "Left stick Move/Climb · %s twice Double jump · %s Dash\nL3 Crouch · L1 Blanket · R1 Melee\nHold R3 Quiet walk / faster blanket · %s Pause" % [cross, circle, options]
 	text = text.replace("[1] [2] Choose", "[D-pad] Choose")
 	text = text.replace("[Z] replace", "[L1] replace").replace("[X] replace", "[R1] replace")
 	text = text.replace("[N / Esc]", "[Touchpad / Circle]" if ps else "[View / B]")
@@ -159,7 +159,7 @@ func save() -> void:
 	config.save(PATH)
 
 func controls_help(tuning: Dictionary) -> String:
-	var text := "Left stick Move / climb · Right stick Aim\nCross Jump/interact · Circle Dash\nNear guards: tap Cross Ammo / hold Cross Strangle\nL3 Crouch · L1 Blanket · R1 Melee\nTriangle tap Weapons / hold C4 · R2 Use\nL2 Focus / place C4 · Square Reload\nTouchpad Inventory · D-pad Up Hint\nD-pad Down tap MP3 / hold Shuffle · Left Previous / Right Next\nOptions Pause · Use pause menu to retry / select levels\nBlanket: %ds active / %ds recharge" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
+	var text := "Left stick Move / climb · Right stick Aim\nCross Jump/interact · Circle Dash\nNear guards: tap Cross Ammo / hold Cross Strangle\nL3 Crouch · L1 Blanket · R1 Melee\nHold R3 Quiet walk / faster blanket\nTriangle tap Weapons / hold C4 · R2 Use\nL2 Focus / place C4 · Square Reload\nTouchpad Inventory · D-pad Up Hint\nD-pad Down tap MP3 / hold Shuffle · Left Previous / Right Next\nOptions Pause · Use pause menu to retry / select levels\nBlanket: %ds active / %ds recharge" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
 	return pad_prompt(text)
 
 func pad_prompt(text: String) -> String:

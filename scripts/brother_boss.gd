@@ -11,6 +11,7 @@ var attack_number := 0
 var projectile := Vector2.ZERO
 var projectile_velocity := Vector2.ZERO
 var projectile_live := false
+var projectile_reflected := false
 ## 1–3: he retreats when health reaches retreat_at[engagement - 1]. 4: the final fight.
 var engagement := 4
 var retreat_at: Array = [9, 6, 3]
@@ -48,7 +49,7 @@ func telegraph_time() -> float:
 func recovery_time() -> float:
 	if music().beat_position() < 0:
 		return 1.6
-	return music().seconds_per_bar() * (1.0 if engagement < 4 else 0.75)
+	return music().seconds_per_bar() * (1.0 if engagement < 4 else 0.7)
 
 func attacks() -> Array:
 	match engagement:
@@ -70,6 +71,8 @@ func next_attack() -> String:
 		return forced
 	var list := attacks()
 	var attack: String = list[randi() % list.size()]
+	if engagement >= 2 and is_instance_valid(level) and absf(level.player.position.x-position.x)>150 and randf()<0.65:
+		attack = "throw"
 	if attack == last_attack and list.size() > 1 and randf() < 0.6:
 		attack = list[(list.find(attack) + 1) % list.size()]
 	if attack == "call" and calls_left <= 0:
@@ -96,6 +99,11 @@ func _physics_process(delta: float) -> void:
 		return
 	if current_phase == Phase.TELEGRAPH:
 		facing = 1 if level.player.position.x > position.x else -1
+		if engagement >= 3:
+			var gap := absf(level.player.position.x-position.x)
+			var step_direction := facing if gap>170 else -facing if gap<70 else 0.0
+			if step_direction != 0 and level.has_floor_below(global_position+Vector2(step_direction*20,0)):
+				velocity.x = step_direction * (40.0 if engagement >= 4 else 30.0)
 		if phase_left <= 0:
 			var chosen := next_attack() if not forced_attack.is_empty() else planned_attack
 			last_attack = chosen
@@ -105,8 +113,10 @@ func _physics_process(delta: float) -> void:
 					phase_left = 0.65
 				"throw":
 					projectile = global_position + Vector2(facing * 15, -5)
-					projectile_velocity = (level.player.global_position - projectile).normalized() * 210
+					projectile_velocity = (level.player.global_position - projectile).normalized() * (330.0 if engagement >= 4 else 260.0)
+					projectile_reflected = false
 					projectile_live = true
+					fire_volley()
 					begin_recovery()
 				"call":
 					calls_left -= 1
@@ -115,11 +125,12 @@ func _physics_process(delta: float) -> void:
 					begin_recovery()
 	elif current_phase == Phase.RUSH:
 		if level.has_floor_below(global_position + Vector2(facing * 20, 0)):
-			velocity.x = facing * 230
+			velocity.x = facing * (265.0 if engagement >= 4 else 250.0)
 		elif phase_left > 0.3:
 			# No floor to rush along: throw instead of standing there.
 			projectile = global_position + Vector2(facing * 15, -5)
-			projectile_velocity = (level.player.global_position - projectile).normalized() * 230
+			projectile_velocity = (level.player.global_position - projectile).normalized() * (330.0 if engagement >= 4 else 260.0)
+			projectile_reflected = false
 			projectile_live = true
 			phase_left = 0.0
 		if global_position.distance_to(level.player.global_position) < 28:
@@ -147,13 +158,39 @@ func _physics_process(delta: float) -> void:
 		else:
 			var zones = load("res://scripts/weapon_projectile.gd")
 			var hit: Dictionary = zones.find_player_hit(level.player, projectile, next)
-			if not hit.is_empty():
-				level.player.take_damage(zones.player_damage(level.player, hit.position))
-				projectile_live = false
+			if projectile_reflected:
+				if Geometry2D.get_closest_point_to_segment(global_position,projectile,next).distance_to(global_position)<18:
+					take_damage(1)
+					projectile_live = false
+			elif not hit.is_empty():
+				if level.player.controls.has_guitar and level.player.controls.active == "guitar":
+					projectile_velocity = -projectile_velocity
+					projectile_reflected = true
+				else:
+					level.player.take_damage(zones.player_damage(level.player, hit.position))
+					projectile_live = false
 		projectile = next
 		if projectile.distance_to(global_position) > 600:
 			projectile_live = false
 	queue_redraw()
+
+func fire_volley() -> void:
+	var count := 2 if engagement >= 4 else 1
+	for index in range(count):
+		var shot := preload("res://scripts/weapon_projectile.gd").new()
+		shot.level = level
+		shot.shooter = self
+		shot.enemy = true
+		shot.niro_round = true
+		shot.damage = 1
+		shot.speed = 330.0 if engagement >= 4 else 260.0
+		shot.remaining = 600
+		var spread := (float(index)-float(count-1)/2.0)*0.11
+		# Keep the central throw, with extra readable lanes on both sides.
+		if absf(spread)<0.01: spread = 0.11
+		shot.direction = projectile_velocity.normalized().rotated(spread)
+		shot.position = projectile
+		level.add_child(shot)
 
 func begin_recovery() -> void:
 	current_phase = Phase.RECOVERY

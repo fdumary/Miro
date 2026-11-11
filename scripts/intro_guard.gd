@@ -30,6 +30,12 @@ var last_known_position := Vector2.ZERO
 var search_left: float = 0.0
 var sweep_origin := INF
 var sweep_side := 1.0
+var search_route: Array[Dictionary] = []
+var route_goal := Vector2.INF
+var route_attempt := Vector2.INF
+var route_stall := 0.0
+var route_previous := Vector2.INF
+const GuardRoutes = preload("res://scripts/guard_navigation.gd")
 var attack_timer: float = 0.0
 var windup: float = 0.0
 var turn_wait: float = 0.0
@@ -172,6 +178,8 @@ func _physics_process(delta: float) -> void:
 	sees_player = detect_player()
 	if sees_player:
 		sweep_origin = INF
+		search_route.clear()
+		route_goal = Vector2.INF
 		suspicion = minf(1.0, suspicion + delta * (3.0 if level.get("hunted") else 2.5) * suspicion_rate)
 		last_known_position = level.player.global_position
 		search_left = 5.0
@@ -272,19 +280,32 @@ func _physics_process(delta: float) -> void:
 			velocity.x = facing * chase_speed
 	elif alert_state == State.SEARCH:
 		search_left -= delta
-		var distance := last_known_position.x - global_position.x
-		if sweep_origin == INF and absf(distance) <= 12 and absf(last_known_position.y - global_position.y) < 40 and is_on_floor():
+		if is_on_floor() and level.ladder_at(global_position) == null and sweep_origin == INF and last_known_position.distance_to(route_attempt)>28:
+			route_attempt = last_known_position
+			plan_search_route(last_known_position)
+		update_search_route(delta)
+		var goal := movement_goal()
+		var distance := goal.x - global_position.x
+		if sweep_origin == INF and search_route.is_empty() and absf(distance) <= 12 and absf(goal.y - global_position.y) < 40 and is_on_floor():
 			begin_sweep(facing)
-		if sweep_origin != INF:
-			if (global_position.x - sweep_origin) * sweep_side >= 56:
+		if not search_route.is_empty():
+			goal = movement_goal()
+			facing = signf(goal.x - global_position.x) if absf(goal.x-global_position.x)>2 else facing
+			velocity.x = facing * (chase_speed if pursuing else 42.0)
+		elif sweep_origin != INF:
+			# No usable route in this direction: look, then try the other side.
+			if (global_position.x-sweep_origin)*sweep_side>196:
 				sweep_side *= -1
 			facing = sweep_side
 			velocity.x = facing * 42.0
-		elif absf(distance) > 12:
-			facing = signf(distance)
-			velocity.x = facing * (chase_speed if pursuing else 42.0)
+		else:
+			if absf(distance) > 12:
+				facing = signf(distance)
+				velocity.x = facing * (chase_speed if pursuing else 42.0)
 		if search_left <= 0:
 			pursuing = false
+			search_route.clear()
+			sweep_origin = INF
 			alert_state = State.PATROL
 			suspicion = 0
 	elif alert_state == State.PATROL:
@@ -332,9 +353,48 @@ func _physics_process(delta: float) -> void:
 		if searching:
 			# A crouch passage or tall wall is impassable to this guard.
 			alert_state = State.SEARCH
-			begin_sweep(-facing)
+			if not plan_search_route(last_known_position):
+				begin_sweep(-facing)
 		else:
-			facing *= -1
+			turn_patrol_from_obstacle()
+
+func turn_patrol_from_obstacle() -> void:
+	# A chase can leave a guard on the opposite side of an impassable wall
+	# from his old patrol. Keep his replacement patrol on the reachable side.
+	var span := clampf(patrol_right-patrol_left,56.0,196.0)
+	if facing > 0:
+		patrol_right = minf(patrol_right,global_position.x)
+		patrol_left = minf(patrol_left,patrol_right-span)
+	else:
+		patrol_left = maxf(patrol_left,global_position.x)
+		patrol_right = maxf(patrol_right,patrol_left+span)
+	facing *= -1
+	turn_wait = beat_wait(0.8)
+
+func navigation() -> RefCounted:
+	if not level.has_meta("guard_navigation") or level.get_meta("guard_navigation").geometry_state != GuardRoutes.signature(level):
+		level.set_meta("guard_navigation", GuardRoutes.new(level))
+	return level.get_meta("guard_navigation")
+
+func movement_goal() -> Vector2:
+	return search_route[0].point if not search_route.is_empty() else last_known_position
+
+func plan_search_route(target: Vector2) -> bool:
+	var path: Array[Dictionary] = navigation().route(global_position, target)
+	if path.is_empty() or path[-1].point.distance_to(target) > 28:
+		return false
+	if sweep_origin == INF:
+		var length := 0.0
+		var previous := global_position
+		for step in path:
+			length += previous.distance_to(step.point)
+			previous = step.point
+		search_left = maxf(search_left,minf(30.0,length/42.0+3.0))
+	search_route = path
+	route_goal = target
+	route_stall = 0
+	route_previous = global_position
+	return true
 
 func begin_sweep(direction: float) -> void:
 	pursuing = false
@@ -342,6 +402,29 @@ func begin_sweep(direction: float) -> void:
 		sweep_origin = global_position.x
 	last_known_position = global_position
 	sweep_side = 1.0 if direction >= 0 else -1.0
+	var goal: Vector2 = navigation().search_goal(global_position,sweep_side,get_instance_id())
+	if not plan_search_route(goal):
+		goal = navigation().search_goal(global_position,-sweep_side,get_instance_id())
+		if plan_search_route(goal): sweep_side *= -1
+
+func update_search_route(delta: float) -> void:
+	while not search_route.is_empty() and global_position.distance_to(search_route[0].point)<18:
+		search_route.pop_front()
+	if search_route.is_empty():
+		if route_goal != Vector2.INF:
+			route_goal = Vector2.INF
+			begin_sweep(-sweep_side)
+		return
+	# Bound a jam by elapsed time rather than tick count; don't replan every frame.
+	if route_previous != Vector2.INF and global_position.distance_to(route_previous)<1:
+		route_stall += delta
+	else:
+		route_stall = 0
+		route_previous = global_position
+	if route_stall>1.5:
+		search_route.clear()
+		route_goal = Vector2.INF
+		begin_sweep(-sweep_side)
 
 ## Ladders: a hunting Keeper climbs after Miro; an unaware one near the ladder glances up (or down).
 var glance_left := 0.0
@@ -406,7 +489,7 @@ func ladder_search(delta: float) -> bool:
 		return true
 	if alert_state == State.PATROL and not pursuing:
 		return false
-	var target := last_known_position
+	var target := movement_goal()
 	# A hunting Keeper tracks Miro himself, so he follows him up and down a ladder without stopping.
 	if (alert_state == State.ALERT or pursuing) and sees_player and is_instance_valid(level.player) and not level.player.is_dead:
 		target = level.player.global_position
@@ -425,7 +508,7 @@ func ladder_search(delta: float) -> bool:
 	var on_ladder := level.ladder_at(global_position) != null
 	if not on_ladder:
 		ladder_exit_side = 0.0
-	if absf(dy) < (16.0 if on_ladder else 70.0):
+	if absf(dy) < (16.0 if on_ladder else 35.0 if not search_route.is_empty() and search_route[0].ladder != null else 70.0):
 		if on_ladder:
 			# At the top: hop up and over the lip onto the floor, toward whoever he is after.
 			if ladder_exit_side == 0.0:
@@ -442,15 +525,19 @@ func ladder_search(delta: float) -> bool:
 			velocity = Vector2(ladder_exit_side * 120.0, -190.0)
 			move_and_slide()
 			return true
-		return false
+		if search_route.is_empty() or search_route[0].ladder == null:
+			return false
 	var best = null
 	var best_gap := INF
+	var route_ladder = search_route[0].ladder if not search_route.is_empty() else null
 	for area in level.areas.get_children():
+		if route_ladder != null and area != route_ladder:
+			continue
 		if area.kind != "ladder":
 			continue
 		var rect := Rect2(area.global_position - area.area_size / 2.0, area.area_size)
 		var near_here := global_position.y >= rect.position.y - 40.0 and global_position.y <= rect.end.y + 40.0
-		var goes_toward := rect.position.y < global_position.y - 32.0 if dy < 0.0 else rect.end.y > global_position.y + 32.0
+		var goes_toward: bool = area == route_ladder or (rect.position.y < global_position.y - 32.0 if dy < 0.0 else rect.end.y > global_position.y + 32.0)
 		if near_here and goes_toward:
 			var gap := absf(area.global_position.x - global_position.x)
 			if gap < best_gap:
@@ -620,6 +707,9 @@ func investigate(point: Vector2) -> void:
 		return
 	distracted = false
 	sweep_origin = INF
+	route_attempt = Vector2.INF
+	search_route.clear()
+	route_goal = Vector2.INF
 	last_known_position = point
 	search_left = 6.0
 	alert_state = State.SEARCH

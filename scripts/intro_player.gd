@@ -149,9 +149,9 @@ func _physics_process(delta: float) -> void:
 		dodge_left = 14.0 / 60.0
 		dodge_cooldown = 0.85
 		end_stealth()
-	var blanket_fast := is_concealed and Input.is_action_pressed("slow_walk")
+	var blanket_fast: bool = is_concealed and controls.wants_quiet_modifier()
 	var speed_multiplier := (0.8 if blanket_fast else stealth_speed_multiplier) if is_concealed else 1.0
-	var walk_multiplier := 0.55 if Input.is_action_pressed("slow_walk") and not is_concealed else 1.0
+	var walk_multiplier := 0.55 if controls.wants_quiet_modifier() and not is_concealed else 1.0
 	velocity.x = direction * movement_speed * speed_multiplier * walk_multiplier * (0.45 if crouching else (0.6 if controls.focus else 1.0))
 	if dodge_left > 0.0:
 		velocity.x = facing * 245.0
@@ -191,7 +191,7 @@ func _physics_process(delta: float) -> void:
 		level.emit_effect("dust", global_position + Vector2(0, 14))
 	footstep_left = maxf(0, footstep_left - delta)
 	if is_on_floor() and absf(velocity.x) > 20 and footstep_left <= 0:
-		var quiet_footsteps := is_concealed or crouching or Input.is_action_pressed("slow_walk")
+		var quiet_footsteps: bool = is_concealed or crouching or controls.wants_quiet_modifier()
 		get_node("/root/SoundFX").play_sound("step", -25 if quiet_footsteps else -19)
 		footstep_left = 0.32 if blanket_fast else (0.5 if quiet_footsteps else 0.32)
 	if Input.is_action_just_pressed("cloak"):

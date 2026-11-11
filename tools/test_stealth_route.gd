@@ -107,11 +107,8 @@ func run() -> void:
 	level.interact()
 	level.finish_dialogue()
 	check(level.brother_heard, "Quiet route reaches mysterious voice")
-	for i in range(900):
-		var keeper = level.get_node("Guards/GalleryKeeper")
-		if keeper.alert_state == IntroGuard.State.PATROL and keeper.facing < 0:
-			break
-		await tick()
+	# Leave the conversation toward the ladder while the distant patrol is still
+	# out of range; waiting in the open here lets him walk straight into Miro.
 	await walk(728)
 	Input.action_press("climb_down")
 	await tick(260)

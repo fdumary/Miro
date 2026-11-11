@@ -265,9 +265,9 @@ func unlock_achievement(id: String) -> bool:
 		earned.append(id)
 		progress.set_value("achievements", "earned", earned)
 		progress.save(progress_path())
-	for reward in [["acquire_smg", "pinkghost"], ["guard_trapdoor", "dancehall"]]:
-		if id == reward[0]:add_track_unlock(reward[1])
+	grant_achievement_track(id)
 	queue_achievement_notice(id)
+	if id != "all_achievements": check_all_achievements()
 	return true
 
 ## A secret beat (the Foreva note) goes onto the MP3 for good.
@@ -288,13 +288,48 @@ func add_track_unlock(track: String) -> void:
 		else:
 			session_unlocks = current_unlocks
 
-## Hot Shit is earned via the defeat_niro achievement; it always appears in unlocked_tracks().
+## Achievement definitions are the authority for both the tracker and rewards.
+var achievement_definitions: Array = []
+func achievement_data() -> Array:
+	if achievement_definitions.is_empty():
+		achievement_definitions = JSON.parse_string(FileAccess.get_file_as_string("res://data/achievements.json")).get("achievements", [])
+	return achievement_definitions
+
+func grant_achievement_track(id: String) -> void:
+	for entry in achievement_data():
+		if entry.id == id and not str(entry.get("track", "")).is_empty():
+			add_track_unlock(str(entry.track))
+			return
+
+func check_all_achievements() -> void:
+	var earned: Array = achievements_earned.keys()
+	if can_persist():
+		var progress := ConfigFile.new()
+		progress.load(progress_path())
+		earned = Array(progress.get_value("achievements", "earned", []))
+	if earned.has("all_achievements"): return
+	for entry in achievement_data():
+		if entry.id == "all_achievements": continue
+		if not earned.has(entry.id) and not (entry.id == "foreva_secret" and earned.has("foreva")):
+			return
+	unlock_achievement("all_achievements")
+
 func unlocked_tracks() -> Array:
-	# Repair rewards for achievements earned before these two beats were assigned.
-	for reward in [["acquire_smg", "pinkghost"], ["guard_trapdoor", "dancehall"]]:
-		if has_achievement(reward[0]) and not stored_unlocks().has(reward[1]):
-			add_track_unlock(reward[1])
-	return stored_unlocks()
+	check_all_achievements()
+	# Keep previously unlocked music, and repair rewards when an earned
+	# achievement is assigned its corrected track in a later release.
+	var tracks := stored_unlocks()
+	var earned: Array = achievements_earned.keys()
+	if can_persist():
+		var progress := ConfigFile.new()
+		progress.load(progress_path())
+		earned = Array(progress.get_value("achievements", "earned", []))
+	if earned.has("foreva") and not earned.has("foreva_secret"): earned.append("foreva_secret")
+	for entry in achievement_data():
+		if earned.has(str(entry.id)) and not str(entry.get("track", "")).is_empty() and not tracks.has(entry.track):
+			add_track_unlock(str(entry.track))
+			tracks.append(entry.track)
+	return tracks
 
 func stored_unlocks() -> Array:
 	if not can_persist():
@@ -411,12 +446,12 @@ func on_keeper_killed(guard_name: String, is_named: bool) -> void:
 	kill_count = maxi(kill_count, total("kills")) + 1
 	_check_kill_achievement("kill_1", "drill2", kill_count, 1)
 	_check_kill_achievement("kill_10", "evilhall2", kill_count, 10)
-	_check_kill_achievement("kill_50", "reaper", kill_count, 50)
+	_check_kill_achievement("kill_50", "new_age_dancehall", kill_count, 50)
 	_check_kill_achievement("kill_100", "ox", kill_count, 100)
 	if is_named:
 		named_killed[guard_name] = true
 	if _all_named_recorded(named_killed) and unlock_achievement("kill_named"):
-		add_track_unlock("destroyed_lonely")
+		grant_achievement_track("kill_named")
 	_save_achievement_progress()
 
 func _check_kill_achievement(id: String, track: String, count: int, threshold: int) -> void:
@@ -685,7 +720,7 @@ func check_peaceful_achievements() -> void:
 	for stats in floor_stats.values():
 		if int(stats.get("kills", 0)) == 0:
 			peaceful += 1
-	for entry in [["ghost_1", "destroyed_lonely", 1], ["ghost_2", "dancehall64", 2], ["ghost_3", "jazzyhall", 3], ["ghost_4", "new_age_dancehall", 4]]:
+	for entry in [["ghost_1", "pinkghost", 1], ["ghost_2", "destroyed_lonely", 2], ["ghost_3", "jazzyhall", 3], ["ghost_4", "reaper", 4]]:
 		if peaceful >= int(entry[2]) and unlock_achievement(entry[0]):
 			add_track_unlock(entry[1])
 	if ending_complete and peaceful == 5 and total("kills") == 0 and unlock_achievement("ghost_full"):
@@ -725,6 +760,7 @@ func record_trapdoor_use() -> bool:
 	else:
 		session_unlocks = tracks
 	if first: queue_achievement_notice(ID)
+	check_all_achievements()
 	return first
 
 var pending_achievement_notices: Array[String] = []

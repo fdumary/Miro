@@ -329,6 +329,7 @@ static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 			level_entries.append({"track": track, "reach_floor": number})
 	# Completion and secret tracks.
 	var completion_entries: Array = [
+		{"track": director.MENU_TRACK, "starting_theme": true, "requirement": "Starting menu theme"},
 		{"track": director.MENU_COMPLETED_TRACK, "completion": true, "mood": "menu"},
 		{"track": "hot_shit", "niro_completion": true, "mood": "combat"},
 		{"track": "set_me_free", "forest_completion": true, "mood": "outro"},
@@ -346,6 +347,9 @@ static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 			listed_tracks[entry.track] = true
 			unique_entries.append(entry)
 	all_entries = unique_entries
+	# Preserve the original 41-track display order; append the new reward last.
+	var display_order: Array = ["birthday_melody", "destroyed_lonely", "pinkghost", "dancehall64", "jazzyhall", "new_age_dancehall", "dancehall_lonesome", "dancehall", "drill2", "drill_shxt", "reaper", "ox", "yz33", "dope2", "swag", "bobblehead", "cyberpunk", "plane_drums", "sumcrazy", "hot_shit", "evilhall2", "driffannnn", "fell_from_heaven", "b6", "ready_3_go3", "project_dancehall_hard_af_2", "project_14", "ken_carson", "egyptian_beat_2", "space_dancehall_yf", "house_cyah_skate", "skillibeng_type_beat", "qwella1", "relapse_3", "spanish_guitarhall", "robot_attack", "trapdoor_bonus", "foreva", "shit_crashed", "lil_uzi2", "set_me_free", "all_achievements"]
+	all_entries.sort_custom(func(a,b): return display_order.find(a.track) < display_order.find(b.track))
 
 	var owned := 0
 	for entry in all_entries:
@@ -406,7 +410,7 @@ static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 		var display_name: String = str(director.catalog.get(track, {}).get("source", track)).get_basename()
 		item.tooltip_text = display_name + " · " + requirement(entry, achievement_data)
 		if have:
-			item.text = "%s   · %s" % [display_name, requirement(entry, achievement_data) if entry.has("achievement_id") else mood_word(entry)]
+			item.text = "%s   · %s" % [display_name, requirement(entry, achievement_data)]
 			item.add_theme_color_override("font_color", SAND)
 			item.pressed.connect(func():
 				director.review_override = true
@@ -426,6 +430,13 @@ static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 		row.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		row.custom_minimum_size.x = 250
 		grid.add_child(row)
+
+	# Keep the completion reward last, including after non-musical achievements.
+	var final_beat := grid.get_node_or_null("Beat_all_achievements")
+	if final_beat != null:
+		grid.remove_child(final_beat)
+		if grid.get_child_count() % 2 != 0: grid.add_child(Control.new())
+		grid.add_child(final_beat)
 
 	note(beats_panel, "MP3: [V] previous · [B] next · [H] shuffle. Checkpoint music takes priority.", 9)
 
@@ -505,6 +516,7 @@ static func open_artwork(parent: Node, work: Dictionary, texture: Texture2D) -> 
 	viewer.open(work, texture)
 
 static func beat_owned(progress: Node, unlocked: Array, entry: Dictionary) -> bool:
+	if entry.get("starting_theme",false): return true
 	if entry.get("completion", false):
 		return progress.game_completed()
 	if entry.get("niro_completion", false):

@@ -96,7 +96,11 @@ func run() -> void:
  sleeper.free();opponent.free()
  # Two approaching live guards keep distinct bodies; sleeping bodies remain passable.
  var a=load("res://scenes/guard.tscn").instantiate();var b=load("res://scenes/guard.tscn").instantiate();a.level=level;b.level=level;a.position=Vector2(500,-1400);b.position=Vector2(540,-1400);level.get_node("Guards").add_child(a);level.get_node("Guards").add_child(b);a.set_physics_process(false);b.set_physics_process(false);await frames()
- for i in range(100):a.velocity=Vector2(80,0);b.velocity=Vector2(-80,0);a.move_and_slide();b.move_and_slide();await physics_frame
+ block(Vector2(520,-1375),Vector2(240,20))
+ a.position=Vector2(500,-1400);b.position=Vector2(500,-1400)
+ for g in [a,b]:g.conversation_hold=false;g.alert_state=g.State.SEARCH;g.last_known_position=Vector2(550,-1400);g.search_left=5;g.set_physics_process(true)
+ await frames(ceili(Engine.physics_ticks_per_second*0.8))
+ a.set_physics_process(false);b.set_physics_process(false)
  check(absf(a.position.x-b.position.x)>=13,"Two living guards cannot merge into one visual position")
  b.fall_asleep();check(b.collision_layer==0,"Unconscious guard cannot block ladder or service access")
  var trap:=StaticBody2D.new();trap.set_script(preload("res://scripts/trapdoor.gd"));trap.level=level;trap.position=Vector2(600,-1600);level.add_child(trap);a.position=trap.position+Vector2(0,-20);trap.activate();a.position=trap.position+Vector2(0,5);trap.check_guard_crossings()

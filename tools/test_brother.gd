@@ -108,13 +108,17 @@ func run() -> void:
 		if not guard.is_dead and not guard.asleep and guard != boss:
 			guard.fall_asleep()
 	check(await descend_ladder(952, 200, 830), "Climb down to the deepest floor")
-	level.player.health = 3
+	level.player.health = 6
 	await frames(150)
 	boss = level.brother
-	check(boss.engagement == 4 and boss.health == 3, "Final fight on the deepest floor")
+	check(boss.engagement == 4 and boss.health == 6, "Final fight on the deepest floor")
 	check(level.dialogue_event == "niro_4" and str(level.dialogue[0][1]).length() > 10, "Final meeting opens with the branch line")
 	level.finish_dialogue()
 	await fight_brother()
+	if not boss.is_dead or level.player.is_dead:
+		print("BROTHER_RESULT: failed final encounter")
+		quit(1)
+		return
 	check(boss.is_dead and not boss.is_queued_for_deletion(), "Niro is beaten but not killed")
 	check(level.milestones.has("BrotherEncounter") and level.pending_milestone == "DefeatExchange", "Defeat starts the defeat exchange")
 	check(music.track_id.is_empty(), "Music falls away for the exchange")
@@ -148,7 +152,7 @@ func descend_ladder(x: float, hold: int, expected_y: float) -> bool:
 
 func fight_brother() -> void:
 	var boss = level.brother
-	level.player.controls.select_item("shank")
+	level.player.controls.select_item("guitar")
 	for tick in range(2400):
 		if boss.is_dead or level.player.is_dead:
 			break
@@ -156,6 +160,8 @@ func fight_brother() -> void:
 		Input.action_release("move_left")
 		Input.action_release("move_right")
 		if boss.is_vulnerable:
+			if absf(offset) <= 120 and level.player.controls.strum_cooldown <= 0:
+				level.player.controls.strum()
 			if absf(offset) > 32:
 				Input.action_press("move_right" if offset > 0 else "move_left")
 			level.player.facing = signf(offset)
@@ -171,4 +177,5 @@ func fight_brother() -> void:
 		Input.action_release("jump")
 	Input.action_release("move_left")
 	Input.action_release("move_right")
-	check(boss.is_dead and not level.player.is_dead, "Final fight won with movement and shank")
+	print("FINAL_FIGHT_PROBE boss_hp=",boss.health," player_hp=",level.player.health," gear=",level.player.controls.active)
+	check(boss.is_dead and not level.player.is_dead, "Final fight won with movement, melee and guitar deflection")

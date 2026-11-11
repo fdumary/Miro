@@ -83,3 +83,15 @@ These are fictional, allowlisted in-game commands; no shell/network execution is
 New controls/movement checks: 24/24. Remote acquisition and early/mandatory hacking checks: 11/11. Full later-level traversal: 128/128. Music/world/suppressor integration: 42/42. Existing intro, physical input, security, projectile, weapon inventory, dialogue, stealth, narrative and ending checks also pass. Native automated screenshots verify the new bar, rearrangement panel and terminal; these are not a claimed manual playthrough.
 
 Review focus: whether one-second reload/attachment feels right, mantle reach, the clarity of reserved C4, and optional-camera difficulty on Level 2. SVG weapon/remote art remains review art. Existing guard recordings are unchanged; this work adds no generated voice clips.
+
+## November 11 controller modifier
+
+Hold R3 (RS) for keyboard Shift behavior: quiet walking while uncovered, faster movement under the blanket. Tactical and Bumper Jumper Tactical swap the stick clicks: hold L3 (LS) for this modifier, R3 (RS) for crouch. Releasing the modifier restores the usual movement speed.
+
+## November 11 guard routes
+
+Searches use a shared standing-height terrain graph, one-tile steps and authored ladders. A guard routes to the last sighting when reachable, then searches a wider reachable section, with different distances for different guards. Two-tile walls and crawlspaces are not traversable; a guard searches its accessible side unless an existing ladder route connects the destination. Visible Miro standing on an obstacle remains a valid ranged target. No ladder assets or map geometry were added.
+
+## November 11 final encounter
+
+Niro's last engagement gains three health points scaled by difficulty (Medium: six health instead of three). Final throws produce three projectiles instead of one, at 330 px/s instead of 210; intermediate throws use two at 260 px/s. Final rush speed is 265 px/s and recovery is 0.7 bars rather than 0.75. Later encounters reposition during telegraphs, and Niro favors throws at long range. All Niro shots can be reflected by the equipped guitar; reflected boss rounds deal one damage during vulnerability windows. The four meetings and ending sequence remain intact.

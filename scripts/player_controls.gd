@@ -253,6 +253,9 @@ func wants_pad_crouch() -> bool:
 		return pad_device >= 0 and Input.is_joy_button_pressed(pad_device, get_node("/root/InputBindings").pad_button(JOY_BUTTON_LEFT_STICK))
 	return player.pad_crouch
 
+func wants_quiet_modifier() -> bool:
+	return Input.is_action_pressed("slow_walk") or (pad_device >= 0 and Input.is_joy_button_pressed(pad_device, get_node("/root/InputBindings").pad_button(JOY_BUTTON_RIGHT_STICK)))
+
 func cycle_item(step: int) -> void:
 	var items: Array[String] = []
 	for item in slots:

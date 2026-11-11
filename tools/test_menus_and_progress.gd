@@ -93,14 +93,18 @@ func run() -> void:
 	check(huddle_voice != null and huddle_voice.resource_path.ends_with("/pike_john316_1.mp3"), "Pike reads in his own voice")
 	check(huddle.all(func(guard): return guard.alert_state == IntroGuard.State.PATROL), "Absorbed huddle doesn't notice Miro from a distance")
 
-	# Beats: calm for stealth, aggressive for kills; [B] steps through them on the MP3.
+	# Action achievements, not legacy point totals, grant the matching tracks.
 	campaign.floor_stats.clear()
 	campaign.session_unlocks = []
-	campaign.floor_stats[2] = campaign.score_floor({"kills": 3, "detections": 1})
-	campaign.floor_stats[3] = campaign.score_floor({"kills": 0, "detections": 0, "stealth_bonus": 1})
-	var earned: Array = campaign.update_unlocks()
-	check(earned.has("drill2") and earned.has("drill_shxt") and not earned.has("reaper"), "3 kills unlock Drill 2 and Drill Shxt, not Reaper")
-	check(earned.has("birthday_melody") and earned.has("destroyed_lonely") and not earned.has("pinkghost"), "3 stealth points unlock the first calm beats")
+	campaign.achievements_earned.clear()
+	campaign.kill_count = 0
+	campaign.on_keeper_killed("WaveKeeper",false)
+	campaign.on_keeper_strangled("WaveKeeper",false)
+	campaign.floor_stats[3] = campaign.score_floor({"kills":0,"detections":0})
+	campaign.check_peaceful_achievements()
+	var earned: Array = campaign.unlocked_tracks()
+	check(earned.has("drill2") and not earned.has("drill_shxt") and not earned.has("reaper"), "First kill grants Drill 2; menu and four-floor rewards stay separate")
+	check(earned.has("birthday_melody") and earned.has("pinkghost") and not earned.has("dancehall64"), "Strangle and peaceful-floor achievements grant Ghost rewards, never named-kill reward")
 	level.player.controls.has_remote = true
 	level.player.controls.remote_unlocked = true
 	var floor_track: String = music.track_id

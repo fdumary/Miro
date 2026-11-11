@@ -111,12 +111,16 @@ func use_station(id: String) -> bool:
 	if not await walk(float(station.position[0])):
 		return false
 	await frames(6)
-	level.interact()
-	if id == "RemoteTerminal":
-		level.world_features.submit_password("root")
-		await frames(70)
-	if not level.dialogue.is_empty():
-		level.finish_dialogue()
+	# A guard who followed this combat route can intercept E with a takedown
+	# or loot action. Finish that real interaction before trying the station.
+	for attempt in range(20):
+		level.interact()
+		if id == "RemoteTerminal":
+			level.world_features.submit_password("root")
+			await frames(70)
+		if not level.dialogue.is_empty(): level.finish_dialogue()
+		if level.milestones.has(id): break
+		await frames(30)
 	await frames(2)
 	print("ROUTE station ", id, " done=", level.milestones.has(id))
 	return level.milestones.has(id)

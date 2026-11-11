@@ -70,9 +70,9 @@ func pad_button(original: int) -> int:
 		mapping[JOY_BUTTON_Y]=JOY_BUTTON_A
 	if preset in ["Tactical","Bumper Jumper Tactical"]:
 		mapping[JOY_BUTTON_LEFT_STICK]=JOY_BUTTON_RIGHT_STICK
+		mapping[JOY_BUTTON_RIGHT_STICK]=JOY_BUTTON_LEFT_STICK
 	return int(mapping.get(original,original))
 func canonical_pad(button: int) -> int:
-	if preset in ["Tactical","Bumper Jumper Tactical"] and button == JOY_BUTTON_LEFT_STICK: return -1
 	for original in range(21):
 		if pad_button(original)==button: return original
 	return button

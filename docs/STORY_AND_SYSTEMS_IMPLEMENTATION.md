@@ -27,7 +27,7 @@ Office (guitar, final sigil) → wave 1 → Niro #1 (reveal, rush) → retreat a
 - HUNTED if total kills ≥ 3 or offense > stealth, else MISSING. Level 1 is neutral.
 - Reactions: PA line, Niro's remote call, entry thought, poster, guard lines, an extra armed Keeper and faster suspicion on HUNTED, an extra wave Keeper in L5, the boss pre-fight line and the ending PA/thought.
 - Kills: Niro's disappointment over the remote (once per floor), noise, body discovery.
-- MP3 beats (`mp3_unlocks`, saved): calm beats for stealth points (Birthday Melody 2, Destroyed Lonely 3, Pink Ghost 5, Dancehall 64 6, Jazzy Hall 8, New Age Dancehall 9, Dancehall Lonesome 10, Dancehall YF 11); aggressive beats for Keepers killed (Drill 2 1, Drill Shxt 3, Reaper Beat 5, OX 8, Hot Shit 12). LIL UZI2 is the reward for finishing the game.
+- MP3 rewards are defined in `data/achievements.json`, using the approved achievement-to-track assignments. The Beats screen keeps its original ordering and has no path headings. Legacy stealth-point/kill-point music thresholds are disabled. Named kills award dancehallbeat64; 50 kills award new age dancehall_52; two peaceful floors award destroyed lonely; four peaceful floors award reaper beat2. One peaceful floor awards not new jazz x pinkghost. Niro's defeat awards set me free_2. Drill shxt is menu music, not a kill reward. Earn all 32 other listed gameplay achievements to unlock YZ2 as the final, 42nd beat. Existing owned tracks remain owned; earned achievements receive their corrected rewards. The catalog source filename supplies the exact display and credit title without its extension.
 - On a floor, [B] (or `next` on the remote) steps through the unlocked beats, then back to the floor's own music; `music` and `play <n>` still work.
 
 ## UI

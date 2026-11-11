@@ -46,9 +46,8 @@ def main():
         catalog['tracks'][ident] = {'title': Path(name).stem, 'stream': 'res://' + str(out), 'source': name, 'role': role, 'leveling': level(Path('soundselection/beats') / name, out, -20)}
         if ident in BPM:
             catalog['tracks'][ident]['bpm'] = BPM[ident]
-    for ident, title in TITLES.items():
-        if ident in catalog['tracks']:
-            catalog['tracks'][ident]['title'] = title
+    for entry in catalog['tracks'].values():
+        entry['title'] = Path(entry['source']).stem
     catalog_path.write_text(json.dumps(catalog, indent=2) + '\n')
 
 if __name__ == '__main__':

@@ -749,6 +749,31 @@
         "output_true_peak_dbtp": "-10.56"
       },
       "bpm": 99.38401442307692
+    },
+    "all_achievements": {
+      "title": "YZ2",
+      "stream": "res://assets/audio/music/all_achievements.mp3",
+      "source": "YZ2.mp3",
+      "role": "mp3_unlock",
+      "leveling": {
+        "source_sha256": "efd2dfd8ace6a8d7eeba120703894bc9f2d644e3aeb442b81a3e23cc17d0858a",
+        "target_lufs": -20,
+        "true_peak_target_dbtp": -2,
+        "input": {
+          "input_i": "-12.16",
+          "input_tp": "0.59",
+          "input_lra": "10.70",
+          "input_thresh": "-22.80",
+          "output_i": "-18.40",
+          "output_tp": "-2.00",
+          "output_lra": "10.00",
+          "output_thresh": "-28.81",
+          "normalization_type": "dynamic",
+          "target_offset": "-1.60"
+        },
+        "output_lufs": "-20.00",
+        "output_true_peak_dbtp": "-7.18"
+      }
     }
   },
   "music_bus_db": -6,

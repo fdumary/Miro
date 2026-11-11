@@ -20,7 +20,7 @@
       "label": "Kill 50 Guards",
       "event": "keeper_killed",
       "threshold": 50,
-      "track": "reaper"
+      "track": "new_age_dancehall"
     },
     {
       "id": "kill_100",
@@ -33,7 +33,7 @@
       "id": "kill_named",
       "label": "Kill all Named Guards",
       "event": "named_guard_killed_all",
-      "track": "destroyed_lonely"
+      "track": "dancehall64"
     },
     {
       "id": "strangle_1",
@@ -80,21 +80,21 @@
       "id": "defeat_niro",
       "label": "Defeat Niro & Blow Up Tower",
       "event": "niro_defeated",
-      "track": "hot_shit"
+      "track": "set_me_free"
     },
     {
       "id": "ghost_1",
       "label": "Go 1 Level without killing",
       "event": "floor_completed_no_kills",
       "threshold": 1,
-      "track": "destroyed_lonely"
+      "track": "pinkghost"
     },
     {
       "id": "ghost_2",
       "label": "Go 2 Levels without killing",
       "event": "floor_completed_no_kills",
       "threshold": 2,
-      "track": "dancehall64"
+      "track": "destroyed_lonely"
     },
     {
       "id": "ghost_3",
@@ -108,7 +108,7 @@
       "label": "Go 4 Levels without killing",
       "event": "floor_completed_no_kills",
       "threshold": 4,
-      "track": "new_age_dancehall"
+      "track": "reaper"
     },
     {
       "id": "ghost_full",
@@ -179,15 +179,14 @@
     },
     {
       "id": "trapdoor_used",
-      "label": "Down the Hatch \u00b7 Use a Trapdoor",
+      "label": "Down the Hatch · Use a Trapdoor",
       "event": "trapdoor_traversed",
       "track": "trapdoor_bonus"
     },
     {
       "id": "acquire_smg",
-      "label": "Automatic Advantage \u00b7 Acquire an SMG",
-      "event": "smg_acquired",
-      "track": "pinkghost"
+      "label": "Automatic Advantage · Acquire an SMG",
+      "event": "smg_acquired"
     },
     {
       "id": "foreva_peaceful",
@@ -197,7 +196,7 @@
     },
     {
       "id": "guard_trapdoor",
-      "label": "Watch Your Step \u00b7 Drop a Guard Through a Trapdoor",
+      "label": "Watch Your Step · Drop a Guard Through a Trapdoor",
       "event": "guard_trapdoor_crossed",
       "track": "dancehall"
     },
@@ -206,6 +205,12 @@
       "label": "Pick Up the Guitar",
       "event": "guitar_acquired",
       "track": "shit_crashed"
+    },
+    {
+      "id": "all_achievements",
+      "label": "Earn All Achievements",
+      "event": "all_achievements_earned",
+      "track": "all_achievements"
     }
   ]
 }

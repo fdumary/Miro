@@ -8,6 +8,7 @@ var speed := 700.0
 var remaining := 420.0
 var damage := 2
 var enemy := false
+var niro_round := false
 ## SMG rounds lose punch over distance (down to 40% at long range); pistols don't.
 var falloff := false
 var travelled := 0.0
@@ -39,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		global_position = hit.position
 		var target = hit.collider
 		if target is IntroGuard and not target.is_dead:
-			target.take_damage(guard_damage(target, hit.position), true)
+			target.take_damage(1 if niro_round and target.has_method("begin_recovery") else guard_damage(target, hit.position), true)
 		elif not enemy and target.is_in_group("tower_turrets"):
 			target.take_turret_hit()
 			queue_free()

@@ -13,7 +13,7 @@ func run() -> void:
  var campaign=Session.new();root.add_child(campaign)
  var definitions=JSON.parse_string(FileAccess.get_file_as_string("res://data/achievements.json")).achievements
  var director=root.get_node("MusicDirector")
- for pair in [["acquire_smg","pinkghost"],["guard_trapdoor","dancehall"]]:
+ for pair in [["ghost_1","pinkghost"],["guard_trapdoor","dancehall"]]:
   check(campaign.unlock_achievement(pair[0]),"Achievement earns once")
   check(campaign.unlocked_tracks().has(pair[1]),"Reward unlocks immediately")
   check(director.catalog.has(pair[1]) and load(director.catalog[pair[1]].stream) is AudioStream,"Reward audio is playable")

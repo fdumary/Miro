@@ -154,7 +154,7 @@ func spawn_niro() -> void:
 	engagement += 1
 	var boss = load("res://scenes/brother_boss.tscn").instantiate()
 	boss.engagement = engagement if engagement <= 3 else 4
-	boss.start_health = niro_health
+	boss.start_health = niro_health + (roundi(3 * float(campaign().tuning().niro_health)) if engagement >= 4 else 0)
 	boss.level = level
 	var side := 1.0 if level.player.position.x < 560 else -1.0
 	boss.position = Vector2(clampf(level.player.position.x + side * 150, 90, 1030), ROW_FLOOR_Y[mini(row, 3)] - 4)

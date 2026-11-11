@@ -22,7 +22,7 @@ func run() -> void:
 	check(not level.hunted and not level.has_node("Guards/HuntedKeeper") and not level.poster.wanted, "MISSING floor: normal patrols and a MISSING poster")
 	check(level.world_features.thoughts["2"][0].text.begins_with("If nobody sees me"), "MISSING entry thought")
 	check(level.world_features.conversation.any(func(line): return "on our shift" in line.text), "MISSING guards suspect each other")
-	check("birthday melody" in level.floor_report(), "Floor report previews the next MP3 unlock")
+	check(not "birthday melody" in level.floor_report(), "Stealth points do not advertise the strangle-only achievement reward")
 	# Retry-safe: kills only count once a floor is completed.
 	campaign.enter_floor(2)
 	campaign.complete_floor(2, true, {}, {"kills": 3, "detections": 2})
