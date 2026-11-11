@@ -49,6 +49,7 @@ func run() -> void:
 	world.actors.clear()
 	world.casual_scenes.clear()
 	world.mutter_wait = 1000
+	world.recent_guard_lines.clear() # This explicit duration probe starts a fresh line.
 	world.speak(guard, "idle_1", world.roster.keepers[guard.guard_name].idle[0])
 	check(world.voice.stream != null and world.line_left >= world.voice.stream.get_length() + 0.3, "Guard dialogue timing includes the complete clip plus a small gap")
 	world.voice.play()

@@ -282,6 +282,9 @@ func find_spot(point: Vector2) -> Vector2:
 	return Vector2.INF
 
 func spot_clear(stand: Vector2) -> bool:
+	var poster = level.get("poster")
+	if is_instance_valid(poster) and poster.global_position.distance_to(stand + Vector2(0, -44)) < 72.0:
+		return false
 	var features = level.world_features
 	if is_instance_valid(features) and not features.placement_clear(stand):
 		return false
@@ -322,8 +325,10 @@ func usable_prop():
 		var kind := str(area.get("kind"))
 		if kind != "cover" and kind != "ladder" and area.global_position.distance_to(player_point) < 48:
 			return null
-	if level.has_method("closest_guard") and level.closest_guard() != null:
-		return null
+	if level.has_method("closest_guard"):
+		var guard = level.closest_guard()
+		if guard != null and not guard.is_dead and not guard.asleep:
+			return null
 	var best = null
 	var distance := REACH
 	for prop in lore_props():
@@ -337,7 +342,7 @@ func update_hint() -> void:
 	var prop = usable_prop()
 	if prop == null:
 		return
-	var text := "[E] Look at the painting" if prop == frame else "[E] Read records  •  [T] Open security console"
+	var text := "[E] Look at the painting" if prop == frame else ("[E] Open terminal · MP3 connects nearby" if level.player.controls.pad_prompts else "[E] Read records  •  [T] Open security console")
 	level.hint_label.text = get_node("/root/ControllerSettings").prompt(text)
 	level.hint_icon.texture = VISUALS.hint_texture(text)
 	level.hint_icon.visible = level.hint_icon.texture != null
@@ -501,7 +506,7 @@ func track_play(delta: float) -> void:
 				cameras.append(child)
 	for index in range(cameras.size()):
 		var camera = cameras[index]
-		if is_instance_valid(camera) and not camera.is_active and not camera_seen_off.has(index):
+		if is_instance_valid(camera) and not camera.is_active and not camera.get_meta("pre_disabled",false) and not camera_seen_off.has(index):
 			camera_seen_off[index] = true
 			behavior.record("camera_%d" % index, "blackhat", 3, "camera", 2)
 	var milestones = level.get("milestones")

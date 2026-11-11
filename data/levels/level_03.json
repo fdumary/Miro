@@ -535,7 +535,7 @@
       "lines": [
         [
           "PERSONNEL RECORD",
-          "Miro — former Keeper. Access revoked.\nCharge: treason."
+          "Miro \u2014 former Keeper. Access revoked.\nCharge: treason."
         ],
         [
           "MIRO",
@@ -599,11 +599,11 @@
   "sources": [
     {
       "path": "docs/mirospec.md",
-      "section": "Level progression — 3: The Order"
+      "section": "Level progression \u2014 3: The Order"
     },
     {
       "path": "docs/miroguide.pdf",
-      "section": "Page 8 — five-floor progression and narrative flow"
+      "section": "Page 8 \u2014 five-floor progression and narrative flow"
     },
     {
       "path": "docs/class.md",
@@ -3680,13 +3680,6 @@
       {
         "kind": "turret",
         "position": [
-          882,
-          1260
-        ]
-      },
-      {
-        "kind": "turret",
-        "position": [
           1302,
           672
         ],
@@ -3732,14 +3725,28 @@
       {
         "kind": "turret",
         "position": [
-          1190,
+          140,
           1064
         ]
       },
       {
         "kind": "turret",
         "position": [
-          400,
+          1540,
+          1064
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          140,
+          1260
+        ]
+      },
+      {
+        "kind": "turret",
+        "position": [
+          1540,
           1260
         ]
       }

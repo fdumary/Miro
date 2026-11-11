@@ -332,7 +332,7 @@ static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 		{"track": director.MENU_COMPLETED_TRACK, "completion": true, "mood": "menu"},
 		{"track": "hot_shit", "niro_completion": true, "mood": "combat"},
 		{"track": "set_me_free", "forest_completion": true, "mood": "outro"},
-		{"track": "foreva", "achievement_id": "foreva_secret", "requirement": "Find the Foreva note"},
+		{"track": "foreva", "achievement_id": "foreva_peaceful", "requirement": "Find the Foreva note without killing a guard in this run"},
 	]
 
 	var all_entries: Array = threshold_entries.duplicate()
@@ -416,7 +416,17 @@ static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 			item.modulate = Color(1, 1, 1, 0.45)
 		grid.add_child(item)
 
-	note(beats_panel, "On a floor, [B] skips to the next beat on Miro's MP3 (or type next on the remote).", 9)
+	for achievement in achievement_data:
+		if not str(achievement.get("track", "")).is_empty():continue
+		var row := Label.new()
+		row.name = "Achievement_" + str(achievement.id)
+		row.text = ("UNLOCKED · " if progress.has_achievement(str(achievement.id)) else "LOCKED · ") + str(achievement.label)
+		row.add_theme_font_size_override("font_size", 10)
+		row.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		row.custom_minimum_size.x = 250
+		grid.add_child(row)
+
+	note(beats_panel, "MP3: [V] previous · [B] next · [H] shuffle. Checkpoint music takes priority.", 9)
 
 	# Artwork panel (hidden by default)
 	var art_panel := ScrollContainer.new()

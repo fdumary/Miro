@@ -61,13 +61,15 @@ func _process(_delta: float) -> void:
 	if open:
 		var music = get_node("/root/MusicDirector")
 		var title: String = music.catalog.get(music.track_id, {}).get("title", "silence")
-		now_playing.text = get_node("/root/ControllerSettings").prompt("Now playing: %s\n%s · [B] next beat on the MP3" % [title, get_node("/root/Campaign").tuning().label])
+		now_playing.text = get_node("/root/ControllerSettings").prompt("Now playing: %s\n%s · [V] previous · [B] next · [H] shuffle" % [title, get_node("/root/Campaign").tuning().label])
 
 func resume_game() -> void:
 	level.paused = false
 	get_tree().paused = false
 
 func restart() -> void:
+	var saved: Dictionary = get_node("/root/Campaign").checkpoint
+	if not saved.is_empty():saved["retry"] = true
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
@@ -94,7 +96,7 @@ func toggle_side(id: String, force := false) -> void:
 		var box := SCREENS.column(side, Rect2(220, 60, 390, 200), 2)
 		SCREENS.heading(box, "CONTROLS", 14)
 		var tuning: Dictionary = get_node("/root/Campaign").tuning()
-		var text := "A/D Move · W/S Ladders · Space twice Double jump\nHold toward wall to slide · Space on contact to bounce\nC Dash · Left Ctrl Crouch (crawl under walls) · E Interact\n1–5 Select · Q Blanket · N Inventory · R Reload\nLeft click Use · Right click Focus / place C4\nZ Think it through (up to 3 hints per objective)\nT Open a nearby terminal · B Next beat · M Mute\nBlanket: use it to hide · %ds active / %ds recharge\nEsc Resume · Backspace Retry · F10 Menu" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
+		var text := "A/D Move · W/S Ladders · Space twice Double jump\nHold toward wall to slide · Space on contact to bounce\nC Dash · Left Ctrl Crouch (crawl under walls) · E Interact\nNear guards: tap [E] Ammo / hold [E] Strangle · [E] Hide in crates\n1–3 Weapons · 4 Knife · F Melee · Q Blanket · X MP3\nN Inventory · R Reload · Shift Quiet walk / faster under blanket\nLeft click Use · Right click Focus / place C4\nZ Think it through (up to 3 hints per objective)\nT Open terminal · V Previous · B Next · H Shuffle · M Mute\nBlanket: use it to hide · %ds active / %ds recharge\nEsc Resume · Backspace Retry · F10 Menu" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
 		if get_node("/root/ControllerSettings").using_controller:
 			text = get_node("/root/ControllerSettings").controls_help(tuning)
 		SCREENS.note(box, text, 10, SCREENS.SAND)

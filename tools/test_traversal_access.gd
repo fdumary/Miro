@@ -115,9 +115,13 @@ func run() -> void:
 			level.milestones["BrotherOffer"] = true  # the offer plays on its own near that spot
 		for guard in level.guards():
 			guard.set_physics_process(false)
+		# This probes ladder geometry independently of the combat tests.
+		for hazard in get_nodes_in_group("tower_turrets"):
+			if level.is_ancestor_of(hazard):hazard.set_physics_process(false)
 		var world = level.world_features
 		var clean := true
 		for prop in world.props:
+			if prop.get_meta("lab_flask", false):continue # Table surface supports this collectible.
 			clean = clean and world.placement_clear(prop.position)
 			clean = clean and level.has_floor_below(prop.position + Vector2(0, 13))
 		check(clean, "Floor %d crates, hides and service ports have clear standing space and ladder clearance" % number)
@@ -158,6 +162,7 @@ func run() -> void:
 				Input.action_release("climb_up")
 				Input.action_release(toward)
 				await frames(30)
+				if not (level.player.position.y < top and level.player.is_on_floor()):print("LADDER_FAILURE_STATE ",number," ",ladder.name," pos=",level.player.position," health=",level.player.health," dead=",level.player.is_dead," locked=",level.controls_locked())
 				check(level.player.position.y < top and level.player.is_on_floor(), "Floor %d %s can be climbed upward and exited onto its landing" % [number, ladder.name])
 			for hatch in world.trapdoors:
 				check(not is_instance_valid(hatch.route_gate), "Floor %d hatches are placed so they never drop Miro past a locked gate" % number)
@@ -179,6 +184,7 @@ func run() -> void:
 			var terminal = level.areas.get_node("RemoteTerminal")
 			level.player.position = terminal.position + Vector2(0, 2)
 			level.interact()
+			if not world.password_panel.visible:print("TERMINAL_FAILURE_STATE dead=",level.player.is_dead," pos=",level.player.position," strangle=",world.strangle_active()," hint=",world.hint())
 			check(world.password_panel.visible, "Terminal wins E interaction over adjacent trapdoor")
 			world.password_panel.hide()
 	print("TRAVERSAL_ACCESS_RESULT: ", checks - failures.size(), "/", checks, " passed")

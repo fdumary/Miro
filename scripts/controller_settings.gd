@@ -89,21 +89,22 @@ static func controller_text(text: String, ps := true) -> String:
 	var triangle := "Triangle" if ps else "Y"
 	var select := "Share" if ps else "View"
 	var options := "Options" if ps else "Menu"
-	var shoulder := "L1/R1" if ps else "LB/RB"
+	var shoulder := "Triangle" if ps else "Y"
 	var use := "R2" if ps else "RT"
 	var focus := "L2" if ps else "LT"
-	if text.begins_with("A / D  Move"):
-		return "Left stick Move/Climb   %s Jump/Interact   %s Dash   %s Pause" % [cross, circle, options]
+	if text.begins_with("A / D  Move") or text.begins_with("A/D Move"):
+		return "Left stick Move/Climb · %s twice Double jump · %s Dash\nL3 Crouch · L1 Blanket · R1 Melee · %s Pause" % [cross, circle, options]
 	text = text.replace("[1] [2] Choose", "[D-pad] Choose")
 	text = text.replace("[Z] replace", "[L1] replace").replace("[X] replace", "[R1] replace")
 	text = text.replace("[N / Esc]", "[Touchpad / Circle]" if ps else "[View / B]")
-	text = text.replace("[Q, left click]", "[%s, %s]" % [triangle, use])
-	text = text.replace("[Q + click]", "[%s + %s]" % [triangle, use])
-	text = text.replace("[1, left click]", "[%s + %s]" % [shoulder, use])
+	text = text.replace("[Q, left click]", "[L1]")
+	text = text.replace("[Q + click]", "[L1]")
+	text = text.replace("[1, left click]", "[R1]")
 	text = text.replace("STEALTH READY [2]", "STEALTH READY [%s]" % triangle)
-	for key in ["[1]", "[2]", "[3]", "[4]", "[5]"]:
+	text = text.replace("[3]", "[Hold Triangle]" if ps else "[Hold Y]")
+	for key in ["[1]", "[2]", "[4]", "[5]"]:
 		text = text.replace(key, "[%s]" % shoulder)
-	var replacements := {"[C]": "[%s]" % circle, "[R]": "[%s]" % square, "[Space]": "[%s]" % cross, "[E]": "[%s]" % cross, "[Enter]": "[%s]" % cross, "[Tab]": "[%s]" % select, "[Backspace]": "[%s]" % square, "[Esc]": "[%s]" % circle, "[Q]": "[%s]" % triangle, "[N]": "[Touchpad]" if ps else "[View]", "[Z]": "[D-pad Up]", "[T]": "[D-pad Down]", "[B]": "[D-pad Left/Right]", "[W / S]": "[Left stick]", "Press Backspace": "Press %s" % square, "right click": focus, "left click": use, "Left click": use, "Right click": focus, "Space": cross, "press Enter": "press %s" % cross, "STEALTH READY [2]": "STEALTH READY [%s]" % triangle}
+	var replacements := {"[C]": "[%s]" % circle, "[R]": "[%s]" % square, "[Space]": "[%s]" % cross, "[E]": "[%s]" % cross, "[Enter]": "[%s]" % cross, "[Tab]": "[%s]" % select, "[Backspace]": "[%s]" % square, "[Esc]": "[%s]" % circle, "[Q]": "[L1]", "[F]": "[R1]", "[X]": "[D-pad Down]", "[N]": "[Touchpad]" if ps else "[View]", "[Z]": "[D-pad Up]", "[T]": "[MP3 + %s]" % use, "[B]": "[D-pad Right]", "[V]": "[D-pad Left]", "[H]": "[Hold D-pad Down]", "[W / S]": "[Left stick]", "Press Backspace": "Press %s" % square, "right click": focus, "left click": use, "Left click": use, "Right click": focus, "Space": cross, "press Enter": "press %s" % cross, "STEALTH READY [2]": "STEALTH READY [%s]" % triangle}
 	# Stealth is selected with Triangle/Y, not the item-cycle buttons.
 	text = text.replace("STEALTH READY [2]", "STEALTH READY [%s]" % triangle)
 	for key in replacements:
@@ -158,7 +159,7 @@ func save() -> void:
 	config.save(PATH)
 
 func controls_help(tuning: Dictionary) -> String:
-	var text := "Left stick Move / climb · Right stick Aim\nCross Jump / interact · Circle Dash\nL3 Crouch · L1/R1 Select item\nTriangle Blanket / guitar · R2 Use\nL2 Focus / place C4 · Square Reload\nTouchpad Inventory · D-pad Up Hint\nD-pad Down Terminal · D-pad Left/Right Music\nOptions Pause · Use pause menu to retry / select levels\nBlanket: %ds active / %ds recharge" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
+	var text := "Left stick Move / climb · Right stick Aim\nCross Jump/interact · Circle Dash\nNear guards: tap Cross Ammo / hold Cross Strangle\nL3 Crouch · L1 Blanket · R1 Melee\nTriangle tap Weapons / hold C4 · R2 Use\nL2 Focus / place C4 · Square Reload\nTouchpad Inventory · D-pad Up Hint\nD-pad Down tap MP3 / hold Shuffle · Left Previous / Right Next\nOptions Pause · Use pause menu to retry / select levels\nBlanket: %ds active / %ds recharge" % [int(tuning.stealth_duration), int(tuning.stealth_cooldown)]
 	return pad_prompt(text)
 
 func pad_prompt(text: String) -> String:

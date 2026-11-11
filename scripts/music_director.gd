@@ -44,6 +44,9 @@ var section_id := ""
 var fade_progress := 1.0
 var duck_db := 0.0
 var review_override := false
+var shuffle_enabled := false
+var shuffle_bag: Array[String] = []
+var shuffle_rng := RandomNumberGenerator.new()
 var pending_track := ""
 var pending_wait := 0.0
 var track_time := 0.0
@@ -63,6 +66,7 @@ const DEFAULT_BUS_DB := {"Music": -4.0, "Effects": -1.0, "Voice": -2.0}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	shuffle_rng.randomize()
 	var has_peak_limiter := false
 	for index in range(AudioServer.get_bus_effect_count(0)):
 		if AudioServer.get_bus_effect(0,index) is AudioEffectHardLimiter: has_peak_limiter = true
@@ -105,6 +109,7 @@ func _ready() -> void:
 		voice.process_mode = Node.PROCESS_MODE_PAUSABLE
 		add_child(voice)
 		voices.append(voice)
+		voice.finished.connect(shuffle_finished.bind(index))
 
 func set_volume(bus: String, db: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), db)
@@ -117,6 +122,7 @@ func set_volume(bus: String, db: float) -> void:
 var floor_track := ""
 
 func resume_floor() -> void:
+	cancel_shuffle()
 	review_override = false
 	if floor_track.is_empty():
 		silence()
@@ -124,6 +130,7 @@ func resume_floor() -> void:
 		play_track(floor_track)
 
 func start_floor(number: int) -> void:
+	cancel_shuffle()
 	review_override = false
 	pending_track = ""
 	# Re-entering the same floor from its second section (a retry) resumes that second track;
@@ -147,6 +154,9 @@ func second_section(number: int) -> void:
 		return
 	section_id = "floor_%d_second" % number
 	floor_track = SECOND[number]
+	if shuffle_enabled:
+		cancel_shuffle()
+		review_override = false
 	# A beat Miro picked on the MP3 keeps playing; the floor's beat comes back on "next".
 	if not review_override:
 		queue_track(SECOND[number])
@@ -155,6 +165,9 @@ func second_section(number: int) -> void:
 func guitar_section() -> void:
 	if section_id == "floor_5_guitar":
 		return
+	if shuffle_enabled:
+		cancel_shuffle()
+		review_override = false
 	section_id = "floor_5_guitar"
 	floor_track = GUITAR_TRACK
 	if review_override:
@@ -163,6 +176,7 @@ func guitar_section() -> void:
 	play_track(GUITAR_TRACK)
 
 func play_outro() -> void:
+	cancel_shuffle()
 	review_override = false
 	pending_track = ""
 	section_id = "outro"
@@ -179,8 +193,9 @@ func queue_track(id: String) -> void:
 	pending_track = id
 	pending_wait = seconds_to_next_bar()
 
-func play_track(id: String, loop := true) -> void:
-	if id == track_id:
+func play_track(id: String, loop := true, shuffle_play := false) -> void:
+	if not shuffle_play:cancel_shuffle()
+	if id == track_id and not shuffle_play:
 		return
 	if not catalog.has(id):
 		return
@@ -213,6 +228,7 @@ func play_track(id: String, loop := true) -> void:
 	track_changed.emit(id)
 
 func silence() -> void:
+	cancel_shuffle()
 	track_id = ""
 	pending_track = ""
 	fade_progress = 0
@@ -313,3 +329,38 @@ func apply_balanced_mix() -> void:
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), DEFAULT_BUS_DB[bus])
 		config.set_value("audio", bus, DEFAULT_BUS_DB[bus])
 	config.save("user://settings.cfg")
+
+func cancel_shuffle() -> void:
+	shuffle_enabled = false
+	shuffle_bag.clear()
+
+func toggle_shuffle() -> String:
+	if shuffle_enabled:
+		resume_floor()
+		return "MP3 · shuffle off. Back to the floor's beat."
+	var unlocked: Array = get_node("/root/Campaign").unlocked_tracks().filter(func(id): return catalog.has(id))
+	if unlocked.is_empty():return "No unlocked beats to shuffle yet."
+	shuffle_enabled = true
+	review_override = true
+	shuffle_bag.clear()
+	play_shuffle_track()
+	return "MP3 · shuffle on [H]. Checkpoint music takes priority."
+
+func play_shuffle_track() -> void:
+	if not shuffle_enabled:return
+	var unlocked: Array = get_node("/root/Campaign").unlocked_tracks().filter(func(id): return catalog.has(id))
+	if unlocked.is_empty():resume_floor();return
+	shuffle_bag = shuffle_bag.filter(func(id):return unlocked.has(id))
+	if shuffle_bag.is_empty():
+		for id in unlocked:
+			if unlocked.size()==1 or str(id)!=track_id:shuffle_bag.append(str(id))
+	var index := shuffle_rng.randi_range(0, shuffle_bag.size()-1)
+	var next: String = shuffle_bag[index]
+	shuffle_bag.remove_at(index)
+	play_track(next, false, true)
+
+func shuffle_finished(index: int) -> void:
+	if shuffle_enabled and index == active:play_shuffle_track()
+
+func checkpoint_music() -> void:
+	if shuffle_enabled:resume_floor()

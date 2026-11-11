@@ -1,7 +1,7 @@
 extends Node
 ## Session progress; floor results commit only when descending, so retries restore entry state.
 var case_anchors: Dictionary = {}
-var inventory_layout: Array[String] = ["shank", "c4", "gun_1", "gun_2", "remote"]
+var inventory_layout: Array[String] = ["pistol", "smg", "c4", "shank"]
 var remote_owned := false
 var remote_unlocked := false
 var current_floor := 1
@@ -247,10 +247,11 @@ var achievements_earned: Dictionary = {}
 
 func has_achievement(id: String) -> bool:
 	if not can_persist():
-		return achievements_earned.has(id)
+		return achievements_earned.has(id) or (id in ["foreva", "foreva_secret"] and (achievements_earned.has("foreva") or achievements_earned.has("foreva_secret")))
 	var progress := ConfigFile.new()
 	progress.load(progress_path())
-	return Array(progress.get_value("achievements", "earned", [])).has(id)
+	var earned: Array = Array(progress.get_value("achievements", "earned", []))
+	return earned.has(id) or (id in ["foreva", "foreva_secret"] and (earned.has("foreva") or earned.has("foreva_secret")))
 
 ## True the first time only.
 func unlock_achievement(id: String) -> bool:
@@ -264,6 +265,7 @@ func unlock_achievement(id: String) -> bool:
 		earned.append(id)
 		progress.set_value("achievements", "earned", earned)
 		progress.save(progress_path())
+	queue_achievement_notice(id)
 	return true
 
 ## A secret beat (the Foreva note) goes onto the MP3 for good.
@@ -311,7 +313,7 @@ func preview_unlocks(floor_stealth: int, floor_kills := 0) -> Array:
 	var unlocked := unlocked_tracks()
 	for entry in branch().get("mp3_unlocks", []):
 		if earns(entry, total("stealth") + floor_stealth, total("kills") + floor_kills) and not unlocked.has(entry.track):
-			names.append(entry.track.replace("_", " "))
+			names.append(track_title(str(entry.track)))
 	return names
 
 ## Beats earned when the last floor ended; the next floor announces them once.
@@ -365,7 +367,7 @@ func level_music_tracks(number: int) -> Array:
 	if director == null:
 		return []
 	var tracks: Array = []
-	var first: String = director.GUITAR_TRACK if number == 5 else str(director.FIRST.get(number, ""))
+	var first: String = str(director.FIRST.get(number, ""))
 	if not first.is_empty():
 		tracks.append(first)
 	if director.SECOND.has(number):
@@ -620,6 +622,15 @@ func set_difficulty(id: String) -> void:
 	config.set_value("game", "difficulty", id)
 	config.save("user://settings.cfg")
 
+## Scale pickups only: magazine capacity and existing ammunition stay unchanged.
+func ammo_amount(base: int) -> int:
+	if base <= 0: return 0
+	match difficulty():
+		"easy": return ceili(base * 1.5)
+		"hard": return maxi(1, floori(base * 2.0 / 3.0))
+		"super_hard": return maxi(1, floori(base / 3.0))
+	return base
+
 func tuning() -> Dictionary:
 	return DIFFICULTIES[difficulty()]
 
@@ -707,4 +718,56 @@ func record_trapdoor_use() -> bool:
 		progress.save(progress_path())
 	else:
 		session_unlocks = tracks
+	if first: queue_achievement_notice(ID)
 	return first
+
+var pending_achievement_notices: Array[String] = []
+var achievement_notice: CanvasLayer
+
+func track_title(track: String) -> String:
+	var director = get_node_or_null("/root/MusicDirector")
+	if director != null and director.catalog.has(track):
+		return str(director.catalog[track].get("source", director.catalog[track].get("title", track))).get_basename()
+	return track
+
+func queue_achievement_notice(id: String) -> void:
+	pending_achievement_notices.append(id)
+	if DisplayServer.get_name() != "headless":
+		call_deferred("show_next_achievement_notice")
+
+func show_next_achievement_notice() -> void:
+	if is_instance_valid(achievement_notice) or pending_achievement_notices.is_empty():return
+	var id: String = pending_achievement_notices.pop_front()
+	var label_text := "Painting discovered" if id.begins_with("art_") else id.replace("_", " ").capitalize()
+	var track := ""
+	var lookup := "foreva_secret" if id == "foreva" else id
+	var definitions: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/achievements.json"))
+	for entry in definitions.get("achievements", []):
+		if entry.id == lookup:
+			label_text = str(entry.label)
+			track = str(entry.get("track", ""))
+			break
+	achievement_notice = CanvasLayer.new()
+	achievement_notice.name = "AchievementToast"
+	achievement_notice.layer = 150
+	achievement_notice.process_mode = Node.PROCESS_MODE_ALWAYS
+	achievement_notice.set_meta("achievement_id", id)
+	add_child(achievement_notice)
+	var panel := PanelContainer.new()
+	panel.position = Vector2(350, 250)
+	panel.custom_minimum_size = Vector2(282, 64)
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_theme_stylebox_override("panel", preload("res://scripts/visual_assets.gd").panel_style())
+	achievement_notice.add_child(panel)
+	var label := Label.new()
+	label.name = "AchievementText"
+	label.text = "ACHIEVEMENT UNLOCKED\n" + label_text + ("\nBeat: " + track_title(track) + " · [B] Cycle beats" if not track.is_empty() else "")
+	label.add_theme_font_size_override("font_size", 10)
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.custom_minimum_size.x = 250
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(label)
+	get_tree().create_timer(4.5, true).timeout.connect(func():
+		if is_instance_valid(achievement_notice):achievement_notice.queue_free()
+		achievement_notice = null
+		show_next_achievement_notice())

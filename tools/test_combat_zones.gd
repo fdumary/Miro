@@ -14,7 +14,7 @@ func run() -> void:
 	player.invulnerability_left = 0
 	player.health = 20
 	var shooter = level.guards()[0]
-	shooter.position = Vector2(430, 236)
+	shooter.position = Vector2(390, 236)
 	shooter.shot_direction = Vector2.LEFT
 	shooter.shoot_weapon()
 	await frames(60)

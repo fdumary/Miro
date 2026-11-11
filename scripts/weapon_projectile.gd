@@ -23,6 +23,7 @@ func _physics_process(delta: float) -> void:
 	var distance := minf(remaining, speed * delta)
 	var destination := global_position + direction * distance
 	var query := PhysicsRayQueryParameters2D.create(global_position, destination, 1 | (2 if enemy else 4 | TURRET_LAYER))
+	query.hit_from_inside = true
 	query.collide_with_areas = not enemy
 	if is_instance_valid(shooter):
 		query.exclude = [shooter.get_rid()]

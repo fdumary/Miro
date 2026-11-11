@@ -3,9 +3,11 @@ var checks:=0
 var failures:Array[String]=[]
 class DummyPlayer extends Node2D:
 	var is_dead:=false
+	var controls:Dictionary={"planted": []}
 class Fixture extends Node2D:
 	var player:DummyPlayer
 	var messages:Array=[]
+	func guards() -> Array[Node]: return []
 	func controls_locked() -> bool: return false
 	func notify(text:String,_duration:=4.0) -> void: messages.append(text)
 class PersistentCampaign extends "res://scripts/campaign.gd":

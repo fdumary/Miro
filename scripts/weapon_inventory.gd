@@ -7,11 +7,13 @@ func _draw() -> void:
 	if not is_instance_valid(player) or not is_instance_valid(player.controls):
 		return
 	var controls = player.controls
-	for i in range(5):
+	var bindings = get_node("/root/InputBindings")
+	for i in range(4):
 		var item: String = controls.slots[i]
 		var x := i * 53.0
 		draw_style_box(panel_style(controls.active == item and item != ""), Rect2(x, 0, 50, 38))
-		draw_string(ThemeDB.fallback_font, Vector2(x + 4, 11), ("" if controls.pad_prompts else str(i + 1)), HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
+		var slot_caption: String = controls.controller_settings.prompt("R1" if item=="shank" else "") if controls.pad_prompts else (bindings.label("slot_%d" % (i+1)) + ("/"+bindings.label("melee") if item=="shank" else ""))
+		draw_string(ThemeDB.fallback_font, Vector2(x + 4, 11), slot_caption, HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
 		if item != "":
 			var available: bool = controls.has_remote if item == "remote" else (player.has_supplies if item in ["shank", "c4"] else true)
 			draw_texture_rect(ART.TEXTURES[item], Rect2(x + 17, 2, 27, 27), false, Color.WHITE if available else Color(1, 1, 1, 0.25))
@@ -21,21 +23,15 @@ func _draw() -> void:
 			elif item in player.guns:
 				count = "%d / %d" % [player.ammunition if item == player.equipped_gun else player.gun_ammo.get(item, 0), controls.reserves.get(item, 0)]
 			draw_string(ThemeDB.fallback_font, Vector2(x + 12, 35), count, HORIZONTAL_ALIGNMENT_LEFT, -1, 9)
-	# On the last floor the guitar takes the blanket's place on Q.
-	var guitar_on_q: bool = controls.has_guitar and get_node("/root/Campaign").current_floor == 5
-	draw_style_box(panel_style(controls.active == ("guitar" if guitar_on_q else "blanket")), Rect2(274, 0, 50, 38))
-	draw_string(ThemeDB.fallback_font, Vector2(277, 11), ("△" if controls.controller_settings.playstation() else "Y") if controls.pad_prompts else "Q", HORIZONTAL_ALIGNMENT_LEFT, -1, 8)
-	if guitar_on_q:
-		draw_texture_rect(ART.TEXTURES.guitar, Rect2(291, 3, 27, 27), false)
-	elif not controls.blanket_removed():
-		draw_texture_rect(ART.TEXTURES.blanket, Rect2(291, 3, 27, 27), false)
-	var inventory_x := 335.0
-	if controls.has_guitar and not guitar_on_q:
-		draw_style_box(panel_style(controls.active == "guitar"), Rect2(327, 0, 50, 38))
-		draw_string(ThemeDB.fallback_font, Vector2(331, 11), "" if controls.pad_prompts else "6", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
-		draw_guitar(Vector2(352, 18), Color("f2d3ab") if controls.strum_flash <= 0 else Color("fbf5ef"))
-		inventory_x = 388.0
-	draw_string(ThemeDB.fallback_font, Vector2(inventory_x, 14), controls.controller_settings.prompt("L1/R1 Equip · Touchpad Inventory") if controls.pad_prompts else "[N] Inventory", HORIZONTAL_ALIGNMENT_LEFT, -1, 11)
+	var quick := [["blanket", "blanket", "L1"], ["remote", "mp3", "D-pad Down"]]
+	for i in range(2):
+		var x := 220.0 + i * 53.0
+		var item: String = quick[i][0]
+		draw_style_box(panel_style(item == "blanket" and player.is_concealed), Rect2(x, 0, 50, 38))
+		var caption: String = controls.controller_settings.prompt(quick[i][2]) if controls.pad_prompts else bindings.label(quick[i][1])
+		draw_string(ThemeDB.fallback_font, Vector2(x + 3, 10), caption, HORIZONTAL_ALIGNMENT_LEFT, -1, 8)
+		draw_texture_rect(ART.TEXTURES[item], Rect2(x + 17, 7, 25, 25), false, Color.WHITE if item != "remote" or controls.has_remote else Color(1,1,1,0.25))
+	draw_string(ThemeDB.fallback_font, Vector2(335, 14), controls.controller_settings.prompt("Triangle Weapons · Touchpad Inventory") if controls.pad_prompts else bindings.keyboard_prompt("[N] Inventory"), HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
 	var hint := "Left click: use"
 	if controls.active == "c4":
 		hint = "Right click: place · Left click: detonate · E: recover"
@@ -44,7 +40,7 @@ func _draw() -> void:
 	elif controls.active == "guitar":
 		hint = "Left click: strum (puts Keepers to sleep; hurts Niro when exposed) · on the beat reaches further"
 	elif controls.active == "remote":
-		hint = "Left click: open remote / MP3"
+		hint = "Left click: open MP3 · [V] previous · [B] next · [H] shuffle"
 	if controls.pad_prompts:
 		hint = hint.replace("Left click", "R2").replace("Right click", "L2").replace("E: recover", "Cross: recover").replace("R: reload", "Square: reload")
 	hint = controls.controller_settings.prompt(hint)
@@ -53,11 +49,6 @@ func _draw() -> void:
 		var center := Vector2(340, 32)
 		draw_arc(center, 9, -PI / 2, -PI / 2 + TAU * controls.progress, 24, Color(1, 1, 1, 0.75), 2)
 		draw_string(ThemeDB.fallback_font, Vector2(355, 35), "Reloading", HORIZONTAL_ALIGNMENT_LEFT, -1, 10)
-	if is_instance_valid(player.pending_guard):
-		draw_style_box(panel_style(true), Rect2(120, 75, 372, 86))
-		draw_string(ThemeDB.fallback_font, Vector2(136, 96), "Take %s? Carry limit: two guns." % player.pending_guard.weapon_kind.to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 13)
-		draw_string(ThemeDB.fallback_font, Vector2(136, 119), ("[%s] Replace %s   [%s] Replace %s" % ["L1" if controls.pad_prompts else "Z", player.guns[0], "R1" if controls.pad_prompts else "X", player.guns[1]]), HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
-		draw_string(ThemeDB.fallback_font, Vector2(136, 145), "[Circle] Keep current guns" if controls.pad_prompts else "[Esc] Keep current guns", HORIZONTAL_ALIGNMENT_LEFT, -1, 12)
 ## Placeholder guitar icon. Hook: drop art at res://assets/weapons/guitar.png and it is used instead.
 func draw_guitar(center: Vector2, color: Color) -> void:
 	if ResourceLoader.exists("res://assets/weapons/guitar.png"):

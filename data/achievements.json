@@ -179,9 +179,31 @@
     },
     {
       "id": "trapdoor_used",
-      "label": "Down the Hatch · Use a Trapdoor",
+      "label": "Down the Hatch \u00b7 Use a Trapdoor",
       "event": "trapdoor_traversed",
       "track": "trapdoor_bonus"
+    },
+    {
+      "id": "acquire_smg",
+      "label": "Automatic Advantage \u00b7 Acquire an SMG",
+      "event": "smg_acquired"
+    },
+    {
+      "id": "foreva_peaceful",
+      "label": "Foreva Without Bloodshed",
+      "event": "foreva_found_without_kills",
+      "track": "foreva"
+    },
+    {
+      "id": "guard_trapdoor",
+      "label": "Watch Your Step \u00b7 Drop a Guard Through a Trapdoor",
+      "event": "guard_trapdoor_crossed"
+    },
+    {
+      "id": "guitar_acquired",
+      "label": "Pick Up the Guitar",
+      "event": "guitar_acquired",
+      "track": "shit_crashed"
     }
   ]
 }

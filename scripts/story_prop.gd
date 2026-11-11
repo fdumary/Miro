@@ -45,4 +45,5 @@ func _draw() -> void:
 		var art = preload("res://scripts/visual_assets.gd")
 		draw_texture_rect(art.texture("microscope"), Rect2(-54, -37, 28, 32), false)
 		draw_texture_rect(art.texture("bottle"), Rect2(-18, -25, 16, 20), false)
-		draw_texture_rect(art.texture("flask"), Rect2(2, -25, 16, 20), false)
+		if not get_meta("collectible_flask", false):
+			draw_texture_rect(art.texture("flask"), Rect2(2, -25, 16, 20), false)

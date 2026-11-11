@@ -79,6 +79,7 @@ func run() -> void:
 	# Wait inside the shelf, rather than on the 40px vertical-vision boundary.
 	# Substeps change the last walking increment; this margin works at all fixed rates.
 	await walk(570)
+	Input.action_press("crouch")
 	await tick(10)
 	check(level.player.position.y < 200, "Upper staggered shelves provide high route")
 	while level.player.is_concealed or level.player.stealth_cooldown_left > 0:
@@ -88,6 +89,7 @@ func run() -> void:
 		if guard.facing < 0 and guard.position.x < 575:
 			break
 		await tick()
+	Input.action_release("crouch")
 	Input.action_press("jump")
 	await tick(1)
 	Input.action_release("jump")
@@ -116,6 +118,7 @@ func run() -> void:
 	Input.action_release("climb_down")
 	check(level.player.position.y > 420, "Stealth route descends first ladder")
 	await walk(590)
+	Input.action_press("crouch")
 	await tick(8)
 	check(level.player.position.y < 400, "Middle raised route bypasses floor patrol")
 	while level.player.is_concealed or level.player.stealth_cooldown_left > 0:
@@ -126,6 +129,7 @@ func run() -> void:
 			break
 		await tick()
 	# The passage torch (x=470) breaks the blanket's cover, so cross it unhidden while the guard faces away.
+	Input.action_release("crouch")
 	await walk(375)
 	if not level.player.is_concealed and level.player.stealth_cooldown_left <= 0:
 		level.player.toggle_stealth()
@@ -143,6 +147,7 @@ func run() -> void:
 		level.player.toggle_stealth()
 	await tick(45)
 	await walk(850)
+	Input.action_press("crouch")
 	await tick(8)
 	check(level.player.position.y < 630, "Lower high route passes above guard")
 	while level.player.stealth_cooldown_left > 0:
@@ -152,6 +157,7 @@ func run() -> void:
 		if guard.facing < 0 and guard.position.x < 830:
 			break
 		await tick()
+	Input.action_release("crouch")
 	Input.action_press("jump")
 	await tick(1)
 	Input.action_release("jump")

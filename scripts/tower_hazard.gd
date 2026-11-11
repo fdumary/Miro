@@ -84,7 +84,7 @@ func target_point() -> Vector2:
 func take_turret_hit(amount := 1) -> void:
 	if health <= 0:
 		return
-	health -= amount
+	health = maxi(0, health - amount)
 	level.emit_effect("hit", target_point())
 	if health <= 0:
 		# Achievement wiring for destruction, including C4 overkill.
@@ -93,10 +93,12 @@ func take_turret_hit(amount := 1) -> void:
 			if kind == "turret":
 				campaign.unlock_achievement("destroy_turret")
 				campaign.add_track_unlock("qwella1")
-	if health == 0:
+	if health <= 0:
+		if level.has_method("record_security_checkpoint"): level.record_security_checkpoint(self, true)
 		queue_free()
 
 func disable() -> void:
+	if level.has_method("record_security_checkpoint"): level.record_security_checkpoint(self, false)
 	disabled = true
 	charge = 0.0
 	queue_redraw()

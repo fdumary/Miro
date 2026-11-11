@@ -2,6 +2,7 @@ extends VBoxContainer
 const SCREENS = preload("res://scripts/menu_screens.gd")
 var preferences: Node
 var status: Label
+var controls_legend: Label
 var speaker_status: Label
 var deadzone: HSlider
 var deadzone_value: Label
@@ -43,7 +44,7 @@ func setup(back: Callable) -> void:
 	add_child(endpoint)
 	endpoint.item_selected.connect(func(index: int): preferences.set_preference("speaker_endpoint", endpoint.get_item_metadata(index)))
 	speaker_status = SCREENS.note(self, "", 9)
-	SCREENS.note(self, "Cross: jump / interact · Square: reload · Triangle: blanket · Circle: dodge\nD-pad Left/Right: music · Up: hint · L3: crouch · Options: pause\nSticks: move / aim · L1/R1: equip · L2/R2: alternate / use · Touchpad: inventory", 9)
+	controls_legend = SCREENS.note(self, preferences.controls_help(get_node("/root/Campaign").tuning()), 9)
 	var buttons := HBoxContainer.new()
 	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
 	add_child(buttons)
@@ -67,6 +68,9 @@ func refresh_status() -> void:
 
 func refresh() -> void:
 	refresh_status()
+	if is_instance_valid(crouch): crouch.text = preferences.pad_prompt("Hold L3 to crouch")
+	if is_instance_valid(invert): invert.text = preferences.pad_prompt("Invert Right stick Y")
+	if is_instance_valid(controls_legend): controls_legend.text = preferences.controls_help(get_node("/root/Campaign").tuning())
 	var config: Dictionary = preferences.preferences
 	deadzone.set_value_no_signal(config.deadzone)
 	deadzone_value.text = "%d%%" % roundi(config.deadzone * 100)

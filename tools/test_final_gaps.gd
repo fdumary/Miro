@@ -94,11 +94,11 @@ func run() -> void:
 	current_scene = level
 	await frames(10)
 	level.finish_dialogue()
-	level.player.controls.has_guitar = true
+	level.player.controls.collect_guitar()
 	level.player.controls.select_item("blanket")
-	check(level.player.controls.active != "blanket", "The blanket cannot be selected on the last floor")
+	check(not level.player.controls.blanket_removed(), "Blanket remains available on the last floor")
 	level.player.controls.select_item("guitar")
-	check(level.player.controls.active == "guitar" and level.player.stealth_status() == "", "Q is the guitar and the blanket HUD is gone on the last floor")
+	check(level.player.controls.active == "guitar" and level.player.controls.slots.has("guitar") and not level.player.controls.blanket_removed(), "Guitar uses a weapon slot and Q remains blanket")
 	var flow = level.flow
 	flow.engagement = 3
 	flow.spawn_niro()

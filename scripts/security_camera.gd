@@ -34,14 +34,15 @@ func target_point() -> Vector2:
 func take_turret_hit(amount := 1) -> void:
 	if health <= 0:
 		return
-	health -= amount
+	health = maxi(0, health - amount)
 	level.emit_effect("hit", global_position)
 	if health <= 0:
 		var campaign = get_node_or_null("/root/Campaign")
 		if campaign != null:
 			campaign.unlock_achievement("destroy_mosswatcher")
 			campaign.add_track_unlock("relapse_3")
-	if health == 0:
+	if health <= 0:
+		if level.has_method("record_security_checkpoint"): level.record_security_checkpoint(self, true)
 		queue_free()
 
 func stun() -> bool:
@@ -77,6 +78,7 @@ func detects_player() -> bool:
 	return offset.length() <= detection_range and absf(wrapf(offset.angle() - direction_angle(), -PI, PI)) <= half_angle and level.clear_sight(global_position, level.player.global_position)
 
 func disable() -> void:
+	if level.has_method("record_security_checkpoint"): level.record_security_checkpoint(self, false)
 	is_active = false
 	queue_redraw()
 	var campaign = get_node_or_null("/root/Campaign")

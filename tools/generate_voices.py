@@ -171,6 +171,7 @@ def collect_lines(cast):
             walk(json.loads(path.read_text(encoding='utf-8')))
         # Miro's two-option replies become MIRO lines when picked.
         for choice in json.loads((ROOT / 'data/dialogue_choices.json').read_text(encoding='utf-8'))['choices']:
+            spoken.append(choice['prompt'])
             spoken += [option['text'] for option in choice['options']]
         for path in sorted((ROOT / 'scripts').glob('*.gd')):
             for text in re.findall(r'\["MIRO", "((?:[^"\\]|\\.)*)"', path.read_text(encoding='utf-8')):
@@ -200,6 +201,9 @@ def collect_lines(cast):
         block = re.search(r'const L1_HINTS := [{](.*?)[\n][}]', level_one, re.S)
         if block:
             extra += [t.replace(chr(92) + 'n', chr(10)) for t in re.findall(r'"([^"]+)"', block.group(1)) if len(t) > 24]
+        # Named gameplay hints are spoken thoughts as well as subtitles.
+        world_features = (ROOT / 'scripts/world_features.gd').read_text(encoding='utf-8')
+        extra += re.findall(r'const (?:TURRET_HINT|CAMERA_HACK_HINT) := "([^"]+)"', world_features)
         for text in extra:
             if text.strip() and text.strip() not in said:
                 said.add(text.strip())

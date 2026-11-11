@@ -5,6 +5,8 @@ var strangle_victim: IntroGuard
 var strangle_left := 0.0
 var strangle_health := 0
 var previous_hold := false
+var next_strangle_requires_hold := false
+var strangle_requires_hold := false
 var level: Node2D
 var floor_number := 1
 var props: Array[Node2D] = []
@@ -44,7 +46,8 @@ var trapdoors: Array[Node2D] = []
 ## Miro's inner voice plays on the Thought bus (long, spacey reverb). Drop clips at
 ## res://assets/audio/voice/thought_<floor>_<id>.mp3 to voice a thought.
 var thought_voice: AudioStreamPlayer
-const TURRET_HINT := "I smell a turret. Maybe I can use one of my C4 to destroy it."
+const CAMERA_HACK_HINT := "Maybe I can hack the cameras from a terminal, or use my MP3 nearby."
+const TURRET_HINT := "Maybe I can hack that turret from a terminal, or use my MP3 nearby. C4 would work too."
 var turret_hinted := false
 ## Individual Keeper profiles and authored casting (data/guard_roster.json).
 var roster: Dictionary = {}
@@ -65,7 +68,7 @@ func setup(owner_level: Node2D, number: int) -> void:
 	voice.process_mode = Node.PROCESS_MODE_PAUSABLE
 	# Heard clearly from the whole conversation range; fading, never cut, with distance.
 	voice.max_distance = 560
-	voice.attenuation = 1.0
+	voice.attenuation = 2.0
 	add_child(voice)
 	thought_voice = AudioStreamPlayer.new()
 	thought_voice.bus = "Thought" if AudioServer.get_bus_index("Thought") >= 0 else "Voice"
@@ -192,18 +195,17 @@ func add_props() -> void:
 ## lockers (never beside another hide or crate, never on a ladder landing).
 func convert_cover_zones() -> void:
 	spawn_easter_eggs()
-	# The ward and foundation lab tables carry real tonics: one beside each chamber.
+	# The red flask on each science table is the collectible itself.
 	for piece in level.definition.get("props", []) if level.get("definition") != null else []:
-		for offset in [-80.0, 80.0]:
-			var from := Vector2(float(piece.position[0]) + offset, float(piece.position[1]) - 20.0)
-			var drop := PhysicsRayQueryParameters2D.create(from, from + Vector2(0, 160), 1)
-			var found := get_world_2d().direct_space_state.intersect_ray(drop)
-			if found.is_empty():
-				continue
-			var spot := Vector2(from.x, found.position.y - 16.0)
-			if placement_clear(spot) and not spot_taken(spot, "potion"):
-				spawn_prop(spot, "potion", "TONIC")
-				break
+		if piece.kind != "ward_chamber":continue
+		var table_at := Vector2(piece.position[0], piece.position[1])
+		var flask := spawn_prop(table_at + Vector2(10, -25), "potion", "RED TONIC")
+		flask.set_meta("heal_amount", 2)
+		flask.set_meta("lab_flask", true)
+		for decoration in level.find_children("*", "", true, false):
+			if decoration.get_script() == preload("res://scripts/story_prop.gd") and decoration.position.distance_to(table_at) < 1.0:
+				decoration.set_meta("collectible_flask", true)
+				decoration.queue_redraw()
 	if floor_number == 5:
 		# The Foundation is three open rows: a few tonics along each, since the waves are relentless.
 		for row in [236.0, 432.0, 656.0]:
@@ -330,7 +332,7 @@ func spawn_crate(point: Vector2) -> void:
 	body.add_child(shape)
 	add_child(body)
 
-func spawn_prop(point: Vector2, kind: String, title: String) -> void:
+func spawn_prop(point: Vector2, kind: String, title: String) -> Node2D:
 	if kind in ["case", "hide", "crate"]:
 		point = free_spot(point, kind)
 	var prop := Node2D.new()
@@ -340,13 +342,14 @@ func spawn_prop(point: Vector2, kind: String, title: String) -> void:
 	prop.title = title
 	add_child(prop)
 	props.append(prop)
+	return prop
 
 func reachable(point: Vector2, distance := 36.0) -> bool:
 	return level.player.global_position.distance_to(point) <= distance and level.clear_sight(level.player.global_position + Vector2(0, -8), point + Vector2(0, -8))
 
-func security_terminal() -> Node2D:
+func security_terminal(radius := 48.0) -> Node2D:
 	var nearest: Node2D
-	var distance := 48.0
+	var distance := radius
 	var terminals := get_tree().get_nodes_in_group("security_terminals")
 	var checkpoint: Node2D = level.areas.get_node_or_null("RemoteTerminal")
 	if checkpoint != null:
@@ -434,7 +437,12 @@ func show_egg(entry: Dictionary) -> void:
 	# The achievement, and the secret beat if there is one.
 	var campaign = get_node("/root/Campaign")
 	var first: bool = campaign.unlock_achievement(str(entry.id))
-	if entry.has("unlock_track"):
+	if entry.id == "foreva":
+		campaign.add_track_unlock("spanish_guitarhall")
+		if campaign.total("kills") == 0 and level.player.casualty_count == 0:
+			campaign.unlock_achievement("foreva_peaceful")
+			campaign.add_track_unlock("foreva")
+	elif entry.has("unlock_track"):
 		campaign.add_track_unlock(str(entry.unlock_track))
 	if first:
 		level.notify("ACHIEVEMENT UNLOCKED: %s · %s" % [entry.achievement, entry.achievement_text], 6.0)
@@ -507,17 +515,19 @@ func strangle_target():
 	if level.player.is_dead or level.player.in_hiding_spot:
 		return null
 	var best = null
-	var distance := 30.0
+	var distance := 40.0
 	for guard in level.guards():
 		if guard.is_dead or guard.asleep or guard.has_method("begin_recovery"):
 			continue
 		if guard.get("sick_guard") and not guard.get("key_taken"):
 			continue  # Judas keeps his own pickpocket
 		var gap: Vector2 = level.player.global_position - guard.global_position
-		var behind: bool = gap.x * guard.facing < -6.0
-		if behind and absf(gap.y) < 26.0 and absf(gap.x) < distance and guard.alert_state != IntroGuard.State.ALERT and level.can_melee_reach(level.player.global_position, guard.global_position):
+		var behind: bool = gap.x * guard.facing < -4.0 or (absf(gap.x) <= 6.0 and level.player.facing == guard.facing)
+		var above: bool = gap.y < -8.0 and gap.y >= -38.0 and absf(gap.x) <= 16.0
+		var in_reach: bool = ((behind and absf(gap.y) < 26.0 and absf(gap.x) <= 36.0) or above) and gap.length() <= distance
+		if in_reach and guard.alert_state != IntroGuard.State.ALERT and level.can_melee_reach(level.player.global_position, guard.global_position):
 			best = guard
-			distance = absf(gap.x)
+			distance = gap.length()
 	return best
 
 func nearest_loot():
@@ -536,7 +546,7 @@ func loot_takes_priority() -> bool:
 		return false
 	var distance: float = guard.global_position.distance_to(level.player.global_position)
 	var prop = nearby_prop()
-	return distance <= story_distance() and (prop == null or distance <= prop.global_position.distance_to(level.player.global_position))
+	return not (prop != null and prop.kind == "access") and distance <= story_distance() and (prop == null or distance <= prop.global_position.distance_to(level.player.global_position))
 
 func hint() -> String:
 	if level.controls_locked():
@@ -548,7 +558,7 @@ func hint() -> String:
 	if loot_takes_priority():
 		return ""
 	if strangle_target() != null:
-		return "[E] Strangle (from behind)"
+		return "[E] Pickpocket ammo · hold [E] Strangle" if not strangle_target().ammo_pickpocketed and strangle_target().remaining_ammo()>0 else "Hold [E] Strangle (from behind)"
 	var trap = nearby_trapdoor()
 	if trap != null:
 		if not trap.available():
@@ -556,14 +566,14 @@ func hint() -> String:
 		return "Trapdoor open · closes when clear" if trap.is_open else "[E] Open trapdoor · 5 seconds"
 	var prop = nearby_prop()
 	if prop and prop.kind == "access":
-		return "[E] Service port · select remote to connect"
+		return "[E] Service port · [X] Wireless MP3"
 	if prop:
 		if prop.kind == "egg":
 			return "[E] Read the note"
 		if prop.kind == "note":
 			return "[E] Read the note"
 		if prop.kind == "potion":
-			return "[E] Drink tonic (+half a heart)" if level.player.health < level.player.max_health else "Tonic (you're not hurt)"
+			return ("[E] Drink red tonic (+one heart)" if int(prop.get_meta("heal_amount", 1)) == 2 else "[E] Drink tonic (+half a heart)") if level.player.health < level.player.max_health else "Tonic (you're not hurt)"
 		return "[E] Take ammunition" if prop.kind == "case" else "[E] Hide in " + prop.title.to_lower()
 	return ""
 
@@ -605,11 +615,11 @@ user: keeper    password: root
 		if level.player.health >= level.player.max_health:
 			level.notify("You're not hurt. Save it for later.")
 		else:
-			level.player.health = mini(level.player.max_health, level.player.health + 1)
+			level.player.health = mini(level.player.max_health, level.player.health + int(prop.get_meta("heal_amount", 1)))
 			prop.used = true
 			prop.queue_redraw()
 			get_node("/root/SoundFX").play_sound("sigil", -14, 1.7)
-			level.notify("You drink the tonic. Half a heart comes back.")
+			level.notify("You drink the red tonic. A heart comes back." if int(prop.get_meta("heal_amount", 1)) == 2 else "You drink the tonic. Half a heart comes back.")
 	elif prop.kind == "case":
 		if level.player.controls.collect_ammo_case():
 			prop.used = true
@@ -627,11 +637,17 @@ func _process(delta: float) -> void:
 	if not is_instance_valid(level) or level.paused:
 		return
 	update_strangle(delta)
+	thought_voice.stream_paused = level.controls_locked() or level.player.is_dead or voice_audible()
 	if is_instance_valid(voice_speaker):
 		voice.global_position = voice_speaker.global_position
-		if voice_speaker.is_dead:
+		var voice_target_db := -7.0 if (level.player.is_concealed or level.player.in_hiding_spot) else 0.0
+		if absf(voice_speaker.global_position.y - level.player.global_position.y) >= 96.0:voice_target_db -= 8.0
+		voice.volume_db = move_toward(voice.volume_db, voice_target_db, delta * 32.0)
+		if voice_speaker.is_dead or voice_speaker.asleep:
 			voice.stop()
 			subtitle.text = ""
+			line_left = 0.0
+			last_line = {}
 		elif not last_line.is_empty():
 			subtitle.visible = voice_speaker.global_position.distance_to(level.player.global_position) < 230 and not level.controls_locked()
 			if subtitle.visible and last_line.has("clue"):
@@ -651,7 +667,7 @@ func _process(delta: float) -> void:
 		update_casual(delta)
 	if conversation_done or actors.is_empty():
 		return
-	if actors.any(func(actor): return actor.is_dead or actor.alert_state != IntroGuard.State.PATROL):
+	if actors.any(func(actor): return actor.is_dead or actor.asleep or actor.alert_state != IntroGuard.State.PATROL):
 		abort_conversation()
 		retry_left = 8
 		return
@@ -744,7 +760,7 @@ func update_casual(delta: float) -> void:
 		if scene.done:
 			continue
 		var cast: Array = scene.actors
-		if cast.any(func(actor): return not is_instance_valid(actor) or actor.is_dead or actor.alert_state != IntroGuard.State.PATROL):
+		if cast.any(func(actor): return not is_instance_valid(actor) or actor.is_dead or actor.asleep or actor.alert_state != IntroGuard.State.PATROL):
 			scene.done = true
 			for actor in cast:
 				if is_instance_valid(actor):
@@ -799,7 +815,16 @@ func update_mutters(delta: float) -> void:
 		speak(keeper, "idle_%d" % (choice + 1), idle[choice])
 		return
 
+var recent_guard_lines: Dictionary = {}
+
 func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> void:
+	if not is_instance_valid(actor) or actor.is_dead or actor.asleep:
+		return
+	var repeat_key := "%s:%s" % [actor.get_instance_id(), id]
+	var now := Time.get_ticks_msec()
+	if now - int(recent_guard_lines.get(repeat_key, -12000)) < 12000:
+		return
+	recent_guard_lines[repeat_key] = now
 	voice.stop()
 	voice_speaker = actor
 	speech_bubble.actor = actor
@@ -824,6 +849,10 @@ func keeper_clip_path(keeper_name: String, line_id: String) -> String:
 	return "res://assets/audio/voice/%s_%s.mp3" % [keeper_name.to_lower(), line_id]
 
 func bark(actor: Node2D, kind: String, force := false) -> void:
+	if not is_instance_valid(actor) or actor.is_dead or actor.asleep:
+		return
+	if Time.get_ticks_msec() - int(recent_guard_lines.get("%s:%s" % [actor.get_instance_id(), kind], -12000)) < 12000:
+		return
 	# A Keeper far from Miro and from the talkers must not cut an overheard conversation short.
 	var near_player: bool = actor.global_position.distance_to(level.player.global_position) < 340.0
 	var is_talker: bool = actors.has(actor)
@@ -853,7 +882,7 @@ func abort_conversation() -> void:
 		actor.conversation_hold = false
 
 func voice_audible() -> bool:
-	return line_left > 0 and is_instance_valid(voice_speaker) and not voice_speaker.is_dead and voice_speaker.global_position.distance_to(level.player.global_position) < 230
+	return line_left > 0 and is_instance_valid(voice_speaker) and not voice_speaker.is_dead and not voice_speaker.asleep and voice_speaker.global_position.distance_to(level.player.global_position) < 230
 
 func update_bubbles(delta: float) -> void:
 	if not is_instance_valid(level):
@@ -879,13 +908,6 @@ func update_bubbles(delta: float) -> void:
 			var next_thought: Array = pending_thoughts.pop_front()
 			think(str(next_thought[0]), str(next_thought[1]))
 		return
-	# The first time a live turret comes into view, Miro sizes it up.
-	if not turret_hinted:
-		for turret in get_tree().get_nodes_in_group("tower_turrets"):
-			if level.is_ancestor_of(turret) and not turret.is_in_group("security_cameras") and turret.health > 0 and not turret.disabled and turret.target_point().distance_to(level.player.global_position) < 230 and level.clear_sight(level.player.global_position, turret.target_point()):
-				turret_hinted = true
-				think(TURRET_HINT)
-				return
 	for entry in thoughts.get(str(floor_number), []):
 		if thought_seen.has(entry.id):
 			continue
@@ -899,6 +921,26 @@ func update_bubbles(delta: float) -> void:
 			think(entry.text, "thought_%d_%s" % [floor_number, entry.id])
 			break
 
+## Called only when Miro asks for a hint [Z]. Devices never announce these automatically.
+func security_hint() -> String:
+	var connected := level.player.controls.connection_target() != null
+	if not thought_seen.has("camera_hack_hint"):
+		for camera in get_tree().get_nodes_in_group("security_cameras"):
+			if not level.is_ancestor_of(camera) or not camera.is_active:continue
+			var nearby: bool = camera.global_position.distance_to(level.player.global_position) < 230.0
+			if nearby or connected:
+				thought_seen["camera_hack_hint"] = true
+				return CAMERA_HACK_HINT
+	if not thought_seen.has("turret_hint"):
+		for turret in get_tree().get_nodes_in_group("tower_turrets"):
+			if not level.is_ancestor_of(turret) or turret.is_in_group("security_cameras") or turret.health <= 0 or turret.disabled:continue
+			var nearby: bool = turret.target_point().distance_to(level.player.global_position) < 230.0
+			if nearby or connected:
+				thought_seen["turret_hint"] = true
+				turret_hinted = true
+				return TURRET_HINT
+	return ""
+
 ## Thoughts queue: a new one waits for the one on screen to finish (and be heard in full)
 ## unless it is Miro's own Z hint, which cuts in.
 var pending_thoughts: Array = []
@@ -909,6 +951,7 @@ func think(text: String, clip := "", cut_in := false) -> void:
 	if thought_left > 0 and not cut_in:
 		pending_thoughts.append([text, clip])
 		return
+	thought_voice.stop()
 	thought_bubble.text_label.text = text
 	thought_left = maxf(4, text.length() * 0.07)
 	var path := "res://assets/audio/voice/%s.mp3" % clip
@@ -1067,10 +1110,24 @@ func placement_clear(point: Vector2) -> bool:
 	query.margin = 0
 	return get_world_2d().direct_space_state.intersect_shape(query).is_empty()
 
+func pickpocket_ammo(guard: IntroGuard) -> int:
+	if guard != strangle_target() or guard.ammo_pickpocketed: return 0
+	var amount := mini(guard.remaining_ammo(), get_node("/root/Campaign").ammo_amount(3 if guard.weapon_kind == "pistol" else 6))
+	if amount <= 0: return 0
+	guard.ammunition -= amount
+	guard.stolen_ammo += amount
+	guard.ammo_pickpocketed = true
+	var c = level.player.controls
+	c.reserves[guard.weapon_kind] = int(c.reserves.get(guard.weapon_kind,0)) + amount
+	level.notify("Pickpocketed %d %s rounds. [R] Reload · hold [E] to strangle." % [amount,guard.weapon_kind],4)
+	if level.has_method("record_guard_ammo_checkpoint"):level.record_guard_ammo_checkpoint()
+	return amount
+
 func strangle_active() -> bool:
 	return is_instance_valid(strangle_victim) and strangle_left > 0.0
 
 func begin_strangle(victim: IntroGuard) -> void:
+	strangle_requires_hold = next_strangle_requires_hold
 	if strangle_active(): return
 	strangle_victim=victim
 	strangle_left=STRANGLE_TIME
@@ -1090,9 +1147,19 @@ func cancel_strangle() -> void:
 func update_strangle(delta: float) -> void:
 	if not strangle_active(): return
 	var victim := strangle_victim
-	if level.player.is_dead or level.player.health < strangle_health or victim.is_dead or victim.asleep or level.player.global_position.distance_to(victim.global_position)>34.0 or not level.can_melee_reach(level.player.global_position,victim.global_position):
+	if level.player.is_dead or level.player.health < strangle_health or victim.is_dead or victim.asleep or level.player.global_position.distance_to(victim.global_position)>44.0 or not level.can_melee_reach(level.player.global_position,victim.global_position):
 		cancel_strangle()
 		return
+	if strangle_requires_hold:
+		var c = level.player.controls
+		var held: bool = Input.is_action_pressed("interact") or (c.pad_device >= 0 and Input.is_joy_button_pressed(c.pad_device,get_node("/root/InputBindings").pad_button(JOY_BUTTON_A)))
+		if level.paused or not (DisplayServer.get_name()=="headless" or DisplayServer.window_is_focused()):
+			cancel_strangle()
+			return
+		if not held:
+			cancel_strangle()
+			pickpocket_ammo(victim)
+			return
 	strangle_left=maxf(0,strangle_left-delta)
 	if strangle_left<=0:
 		cancel_strangle()
@@ -1104,3 +1171,7 @@ func _draw() -> void:
 	draw_circle(center,6,Color("272744"))
 	draw_arc(center,0,TAU,5,24,Color("494d7e"),1.5,true)
 	draw_arc(center,-PI/2,-PI/2+TAU*(1.0-strangle_left/STRANGLE_TIME),5,24,Color("f2d3ab"),1.5,true)
+
+func _notification(what: int) -> void:
+	if what in [NOTIFICATION_WM_WINDOW_FOCUS_OUT, NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_PAUSED] and strangle_requires_hold and strangle_active():
+		cancel_strangle()

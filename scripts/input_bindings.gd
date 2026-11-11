@@ -1,6 +1,6 @@
 extends Node
 const PATH := "user://settings.cfg"
-const KEYS := {"move_left":KEY_A,"move_right":KEY_D,"climb_up":KEY_W,"climb_down":KEY_S,"jump":KEY_SPACE,"dodge":KEY_ALT,"slow_walk":KEY_SHIFT,"crouch":KEY_CTRL,"interact":KEY_E,"advance":KEY_ENTER,"skip":KEY_TAB,"pause_game":KEY_ESCAPE,"retry":KEY_BACKSPACE,"blanket":KEY_Q,"guitar":KEY_G,"inventory":KEY_N,"reload":KEY_R,"music_next":KEY_B,"terminal":KEY_T,"hint":KEY_Z,"mute":KEY_M,"return_menu":KEY_F10,"slot_1":KEY_1,"slot_2":KEY_2,"slot_3":KEY_3,"slot_4":KEY_4,"slot_5":KEY_5,"use_item":0,"focus_item":0}
+const KEYS := {"move_left":KEY_A,"move_right":KEY_D,"climb_up":KEY_W,"climb_down":KEY_S,"jump":KEY_SPACE,"dodge":KEY_ALT,"slow_walk":KEY_SHIFT,"crouch":KEY_CTRL,"interact":KEY_E,"advance":KEY_ENTER,"skip":KEY_TAB,"pause_game":KEY_ESCAPE,"retry":KEY_BACKSPACE,"blanket":KEY_Q,"melee":KEY_F,"mp3":KEY_X,"guitar":KEY_G,"inventory":KEY_N,"reload":KEY_R,"music_next":KEY_B,"music_previous":KEY_V,"music_shuffle":KEY_H,"terminal":KEY_T,"hint":KEY_Z,"mute":KEY_M,"return_menu":KEY_F10,"slot_1":KEY_1,"slot_2":KEY_2,"slot_3":KEY_3,"slot_4":KEY_4,"use_item":0,"focus_item":0}
 var settings_path := PATH
 var custom: Dictionary = {}
 var preset := "Default"
@@ -31,7 +31,7 @@ func label(action: String) -> String:
 	if event is InputEventKey and event.physical_keycode == KEY_ALT: return "Left Alt"
 	return ("Mouse %d" % event.button_index) if event is InputEventMouseButton else OS.get_keycode_string(event.physical_keycode)
 func matches(event: InputEvent, action: String) -> bool:
-	return event_for(action).is_match(event)
+	return event_for(action).is_match(event, false)
 func canonical_key(event: InputEvent) -> int:
 	for action in KEYS:
 		if matches(event,action): return int(KEYS[action])
@@ -128,6 +128,10 @@ func open() -> void:
 	notice.text="CONTROLS · Select a binding, then press a key or mouse button. Esc cancels."
 	notice.add_theme_font_size_override("font_size",12)
 	box.add_child(notice)
+	var summary := Label.new()
+	summary.add_theme_font_size_override("font_size",11)
+	summary.text=keyboard_prompt("[F] Melee · [Q] Blanket · [X] MP3 · [1]/[2]/[3] Weapons · [4] Knife\nLeft click Fire/use · Right click Aim/place C4 · [Space] twice Double jump\nLeft Ctrl Crouch · Shift Quiet walk / faster under blanket\nNear guards: tap [E] Ammo / hold [E] Strangle · [E] Hide in crates")
+	box.add_child(summary)
 	var choices := OptionButton.new()
 	for name in ["Default","Bumper Jumper","Tactical","Bumper Jumper Tactical","Southpaw"]:
 		choices.add_item(name)
@@ -136,7 +140,7 @@ func open() -> void:
 	box.add_child(choices)
 	choices.item_selected.connect(func(index): preset=choices.get_item_text(index); save(); refresh_controller_help())
 	var help := Label.new()
-	help.text="Bumper Jumper: L1 Jump/Interact, Triangle Previous item, R1 Next item, Cross Blanket/Guitar.\nTactical: R3 Crouch. Other actions stay mapped. Southpaw swaps sticks. C remains alternate dash."
+	help.text="Presets remap the controller labels below. C remains an alternate dash."
 	help.add_theme_font_size_override("font_size",10)
 	box.add_child(help)
 	var tabs := TabContainer.new()
@@ -156,6 +160,8 @@ func open() -> void:
 	var list := VBoxContainer.new()
 	list.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	scroll.add_child(list)
+	summary.reparent(list)
+	list.move_child(summary,0)
 	rows.clear()
 	for action in KEYS:
 		var row := HBoxContainer.new()
@@ -190,15 +196,16 @@ func close() -> void:
 	if is_instance_valid(previous_focus): previous_focus.grab_focus.call_deferred()
 
 func keyboard_prompt(text: String) -> String:
-	var replacements := {"[C]":"["+label("dodge")+" / C]", "[Q]":"["+label("blanket")+"]", "[R]":"["+label("reload")+"]", "[E]":"["+label("interact")+"]", "[Space]":"["+label("jump")+"]", "[N]":"["+label("inventory")+"]", "[T]":"["+label("terminal")+"]", "[Z]":"["+label("hint")+"]"}
+	text=text.replace("[Q, left click]","[Q]").replace("[Q + click]","[Q]").replace("[1, left click]","[F]").replace("The charges [2]","The charges [3]")
+	var replacements := {"[C]":"["+label("dodge")+" / C]", "[Q]":"["+label("blanket")+"]", "[F]":"["+label("melee")+"]", "[X]":"["+label("mp3")+"]", "[R]":"["+label("reload")+"]", "[E]":"["+label("interact")+"]", "[Space]":"["+label("jump")+"]", "[N]":"["+label("inventory")+"]", "[T]":"["+label("terminal")+"]", "[Z]":"["+label("hint")+"]", "[V]":"["+label("music_previous")+"]", "[B]":"["+label("music_next")+"]", "[H]":"["+label("music_shuffle")+"]"}
 	for key in replacements: text=text.replace(key,replacements[key])
 	text=text.replace("C Dash",label("dodge")+" / C Dash").replace("C  Dash",label("dodge")+" / C  Dash")
-	for action in ["slot_1","slot_2","slot_3","slot_4","slot_5"]:
+	for action in ["slot_1","slot_2","slot_3","slot_4"]:
 		text=text.replace("["+action.trim_prefix("slot_")+"]","["+label(action)+"]")
 	text=text.replace("A/D",label("move_left")+"/"+label("move_right")).replace("A / D",label("move_left")+" / "+label("move_right"))
 	text=text.replace("W/S",label("climb_up")+"/"+label("climb_down"))
 	text=text.replace("Space",label("jump")).replace("Left Ctrl",label("crouch")).replace("Shift Quiet",label("slow_walk")+" Quiet")
-	for pair in [["Q Blanket","blanket"],["N Inventory","inventory"],["R Reload","reload"],["E Interact","interact"],["T Open","terminal"],["B Next","music_next"],["Z Think","hint"],["M Mute","mute"],["M mutes","mute"]]:
+	for pair in [["4 Knife","slot_4"],["F Melee","melee"],["X MP3","mp3"],["Q Blanket","blanket"],["N Inventory","inventory"],["R Reload","reload"],["E Interact","interact"],["T Open","terminal"],["B Next","music_next"],["V Previous","music_previous"],["H Shuffle","music_shuffle"],["Z Think","hint"],["M Mute","mute"],["M mutes","mute"]]:
 		text=text.replace(pair[0],label(pair[1])+str(pair[0]).substr(1))
 	text=text.replace("F10",label("return_menu"))
 	text=text.replace("Left click",label("use_item")).replace("left click",label("use_item")).replace("Right click",label("focus_item")).replace("right click",label("focus_item"))

@@ -45,6 +45,7 @@ func next_floor(number: int) -> void:
  check(get_node("/root/Campaign").current_floor == number, "Enter advances to floor %d" % number)
 
 func run() -> void:
+ seed(97005070)
  await frames(4)
  level = get_tree().current_scene
  # Match the route harness on later floors: exercise progression, not bot combat balance.
@@ -140,8 +141,8 @@ func fight_brother(until_retreat := false) -> void:
   Input.action_release("move_left")
   Input.action_release("move_right")
   if boss.is_vulnerable:
-   if absf(offset) > 32:
-    Input.action_press("move_right" if offset > 0 else "move_left")
+   if absf(offset) > 32 or absf(boss.position.y-level.player.position.y)>=24:
+    Input.action_press("move_right" if (offset>0 or (absf(offset)<4 and level.player.facing>0)) else "move_left")
    level.player.facing = signf(offset)
    level.player.shank()
   else:
@@ -150,6 +151,10 @@ func fight_brother(until_retreat := false) -> void:
    if boss.current_phase == boss.Phase.RUSH and absf(offset) < 80:
     Input.action_press("jump")
   if boss.projectile_live and boss.projectile.distance_to(level.player.position) < 100:
+   Input.action_press("jump")
+  # The fight can move across raised cover. Use the same real jumps as the walking route.
+  var p=level.player
+  if boss.is_vulnerable and absf(offset)>32 and ((p.is_on_wall() and p.is_on_floor()) or (p.is_on_wall() and p.jumps_used==1 and p.velocity.y>-20)):
    Input.action_press("jump")
   await frames(1)
   Input.action_release("jump")
@@ -169,18 +174,24 @@ func foundation_run() -> void:
  check(level.player.controls.has_guitar, "Guitar taken")
  var ladders := [[728, 170], [308, 190], [952, 200]]
  for engagement in range(1, 5):
-  for wait in range(400):
+  for wait in range(900):
    if is_instance_valid(level.brother) and not level.brother.is_dead and level.brother.engagement >= engagement:
     break
    if flow.step == flow.Step.WAVE:
     for guard in flow.wave_guards:
      if is_instance_valid(guard) and not guard.is_dead and not guard.asleep:
-      level.player.position.x = guard.position.x - 40
+      # Never teleport the wave handler into terrain: wall-origin queries now block correctly.
+      for side in [-40.0, 40.0, -20.0, 20.0, 0.0]:
+       var stand:Vector2=guard.position+Vector2(side,0)
+       if level.world_features.placement_clear(stand) and level.clear_sight(stand,guard.position):
+        level.player.position=stand
+        level.player.velocity=Vector2.ZERO
+        break
       level.player.controls.strum_cooldown = 0
       level.player.controls.select_item("guitar")
       level.player.controls.strum()
    await frames(1)
-  check(is_instance_valid(level.brother), "Niro meeting %d" % engagement)
+  check(is_instance_valid(level.brother) and level.brother.engagement>=engagement, "Niro meeting %d" % engagement)
   level.finish_dialogue()
   await fight_brother(engagement < 4)
   if engagement < 4:

@@ -1,9 +1,9 @@
 extends Node
 ## Unified item selection, reload and inventory modal.
 var player: IntroPlayer
-var slots: Array[String] = ["shank", "c4", "", "", "remote"]
+var slots: Array[String] = ["", "", "c4", "shank"]
 var layout: Array[String] = []
-var active := "blanket"
+var active := "shank"
 var inventory_open := false
 var remote_open := false
 var local_console := false
@@ -13,6 +13,7 @@ var console_title: Label
 var console_icon: TextureRect
 var console_echo: Label
 var has_remote := false
+var smg_achievement_checked := false
 var remote_unlocked := false
 var focus := false
 var pad_aim := false
@@ -40,6 +41,9 @@ var planted: Array[Node2D] = []
 var progress := 0.0
 ## Level 5 guitar. Key 6 (or G) selects it; left click strums. Existing bindings are unchanged.
 var has_guitar := false
+var melee_left := 0.0
+var held_buttons: Dictionary = {}
+const HOLD_SECONDS := 0.35
 var strum_cooldown := 0.0
 var strum_flash := 0.0
 var strum_direction := Vector2.RIGHT
@@ -49,6 +53,7 @@ const STRUM_RADIUS_ON_BEAT := 170.0
 
 func _ready() -> void:
 	player = get_parent()
+	camera_base_zoom = player.get_node("Camera2D").zoom
 	controller_settings = get_node("/root/ControllerSettings")
 	Input.joy_connection_changed.connect(on_pad_connection)
 	layout.assign(get_node("/root/Campaign").inventory_layout)
@@ -64,31 +69,48 @@ func on_pad_connection(device: int, connected: bool) -> void:
 func locked() -> bool:
 	return inventory_open or remote_open
 
+func normalize_layout() -> void:
+	var result: Array[String] = []
+	for token in layout:
+		if layout.size() == 5 and token == "shank": continue
+		var item: String = str(token)
+		if item in ["gun_1", "gun_2"]:
+			var index := 0 if item == "gun_1" else 1
+			item = player.guns[index] if player.guns.size() > index else ("pistol" if index == 0 else "smg")
+		if item == "guitar": item = "pistol"
+		if item in ["pistol", "smg", "c4", "shank"] and item not in result: result.append(item)
+	for item in ["pistol", "smg", "c4", "shank"]:
+		if item not in result: result.append(item)
+	layout.assign(result)
+	get_node("/root/Campaign").inventory_layout.assign(layout)
+
 func sync_slots() -> void:
-	for i in range(layout.size()):
-		var token := layout[i]
-		if token in ["gun_1", "gun_2"]:
-			var gun_index := 0 if token == "gun_1" else 1
-			slots[i] = player.guns[gun_index] if player.guns.size() > gun_index else ""
-		else:
-			slots[i] = token
+	normalize_layout()
+	for i in range(4):
+		var item: String = layout[i]
+		slots[i] = "guitar" if item == "pistol" and has_guitar else (item if item in ["c4","shank"] or item in player.guns else "")
 	for gun in player.guns:
-		if not reserves.has(gun):
-			reserves[gun] = capacity(gun) * 2
-	if active in ["pistol", "smg"] and not player.guns.has(active):
-		active = "blanket"
-	if active == "blanket" and blanket_removed():
-		active = "shank"
+		if gun == "smg" and not smg_achievement_checked:
+			smg_achievement_checked = true
+			get_node("/root/Campaign").unlock_achievement("acquire_smg")
+		if not reserves.has(gun): reserves[gun] = capacity(gun) if gun == "smg" else capacity(gun) * 2
+	if active not in slots and active not in ["shank", "blanket", "remote"]: active = "c4"
 
 func capacity(gun: String) -> int:
 	return 8 if gun == "pistol" else 24
 
 ## The last floor takes the blanket away: Q is the guitar there.
 func blanket_removed() -> bool:
-	return get_node("/root/Campaign").current_floor == 5
+	return false
+
+func select_slot(index: int) -> void:
+	if slots[index].is_empty():
+		player.level.notify("No loaded weapon. A fallen Keeper may carry one.")
+		return
+	select_item(slots[index])
 
 func select_item(item: String) -> void:
-	if item.is_empty() or (item == "blanket" and blanket_removed()):
+	if item.is_empty() or (item == "guitar" and not has_guitar):
 		return
 	reload_left = 0
 	focus = false
@@ -96,56 +118,85 @@ func select_item(item: String) -> void:
 	if player.guns.has(item):
 		player.select_gun(player.guns.find(item))
 
+func gameplay_ready() -> bool:
+	return is_instance_valid(player.level) and not get_tree().paused and (DisplayServer.get_name() == "headless" or DisplayServer.window_is_focused()) and not locked() and not player.level.controls_locked() and not player.is_dead and not player.in_hiding_spot and not player.level.world_features.strangle_active()
+
+func direct_melee() -> void:
+	if not gameplay_ready() or melee_left > 0: return
+	reload_left = 0
+	focus = false
+	player.attack_cooldown = 0
+	player.shank()
+	melee_left = 0.5
+
+func direct_blanket() -> void:
+	if gameplay_ready(): player.toggle_stealth()
+
 func _input(event: InputEvent) -> void:
-	if not is_instance_valid(player.level) or (is_instance_valid(player.level.world_features) and player.level.world_features.strangle_active()):
-		return
+	if not is_instance_valid(player.level): return
 	if event is InputEventJoypadMotion and absf(event.axis_value) > float(controller_settings.preferences.deadzone):
 		pad_device = event.device
 		pad_prompts = true
-	if event is InputEventJoypadButton and event.pressed:
+	if event is InputEventJoypadButton:
+		var button: int = get_node("/root/InputBindings").canonical_pad(event.button_index)
 		pad_device = event.device
 		pad_prompts = true
+		if not event.pressed:
+			if held_buttons.has(button):
+				var held: float = held_buttons[button]
+				held_buttons.erase(button)
+				if held >= 0 and gameplay_ready():
+					if button == JOY_BUTTON_Y: cycle_item(1)
+					elif button == JOY_BUTTON_DPAD_DOWN: open_remote()
+				get_viewport().set_input_as_handled()
+			return
 		player.mouse_aim = false
-		if handle_pad_button(get_node("/root/InputBindings").canonical_pad(event.button_index)):
+		if inventory_open and handle_inventory_button(event.button_index):
 			get_viewport().set_input_as_handled()
+			return
+		if gameplay_ready() and button in [JOY_BUTTON_Y, JOY_BUTTON_DPAD_DOWN]:
+			held_buttons[button] = 0.0
+			get_viewport().set_input_as_handled()
+		elif handle_pad_button(button): get_viewport().set_input_as_handled()
 		return
 	if (event is InputEventKey and not event.echo) or event is InputEventMouseButton:
-		if not event.pressed:
-			return
+		if not event.pressed: return
 		pad_prompts = false
 		var key: int = get_node("/root/InputBindings").canonical_key(event)
 		if locked():
-			if key == KEY_ESCAPE or (key == KEY_N and inventory_open):
-				close_panels()
-				get_viewport().set_input_as_handled()
+			if key == KEY_ESCAPE or (key == KEY_N and inventory_open): close_panels()
 			return
-		if player.level.controls_locked() or player.is_dead:
-			return
-		if key >= KEY_1 and key <= KEY_5:
-			select_item(slots[key - KEY_1])
-		elif key == KEY_Q:
-			# On the last floor the guitar replaces the blanket on Q.
-			select_item("guitar" if (has_guitar and get_node("/root/Campaign").current_floor == 5) else "blanket")
-		elif (key == KEY_6 or key == KEY_G) and has_guitar:
-			select_item("guitar")
-		elif key == KEY_N:
-			show_inventory()
-		elif key == KEY_R:
-			start_reload()
-		elif key == KEY_B:
-			next_beat()
-		elif key == KEY_T:
-			open_local_console()
-		else:
-			return
+		if not gameplay_ready(): return
+		if key >= KEY_1 and key <= KEY_4: select_slot(key - KEY_1)
+		elif key == KEY_Q: direct_blanket()
+		elif key == KEY_F: direct_melee()
+		elif key == KEY_X: open_remote()
+		elif key == KEY_G and has_guitar: select_item("guitar")
+		elif key == KEY_N: show_inventory()
+		elif key == KEY_R: start_reload()
+		elif key == KEY_B: next_beat()
+		elif key == KEY_V: next_beat(-1)
+		elif key == KEY_H: shuffle_beats()
+		elif key == KEY_T: open_local_console()
+		else: return
 		get_viewport().set_input_as_handled()
 
-func handle_pad_button(button: int) -> bool:
-	if is_instance_valid(player.pending_guard):
-		if button in [JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER, JOY_BUTTON_B]:
-			player.resolve_weapon_choice(0 if button == JOY_BUTTON_LEFT_SHOULDER else (1 if button == JOY_BUTTON_RIGHT_SHOULDER else -1))
+func handle_inventory_button(button: int) -> bool:
+	if not inventory_open:return false
+	if button in [JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER, JOY_BUTTON_DPAD_LEFT, JOY_BUTTON_DPAD_RIGHT, JOY_BUTTON_DPAD_UP, JOY_BUTTON_DPAD_DOWN]:
+		var step := -1 if button in [JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_DPAD_LEFT, JOY_BUTTON_DPAD_UP] else 1
+		var index := buttons.find(get_viewport().gui_get_focus_owner())
+		if index < 0:index = -1 if step > 0 else 0
+		buttons[posmod(index + step, buttons.size())].grab_focus()
+		return true
+	if button == JOY_BUTTON_A:
+		var focused := get_viewport().gui_get_focus_owner()
+		if focused in buttons:
+			focused.pressed.emit()
 			return true
-		return false
+	return false
+
+func handle_pad_button(button: int) -> bool:
 	if locked():
 		if button == JOY_BUTTON_B or (inventory_open and button in [JOY_BUTTON_TOUCHPAD, JOY_BUTTON_BACK]):
 			close_panels()
@@ -155,18 +206,25 @@ func handle_pad_button(button: int) -> bool:
 		return false
 	match button:
 		JOY_BUTTON_A:
+			var terminal := connection_target(36.0, true)
+			var checkpoint: Node2D = player.level.areas.get_node_or_null("RemoteTerminal")
+			if player.is_on_floor() and terminal != null and terminal != checkpoint and terminal.global_position.distance_to(player.global_position) <= player.level.world_features.story_distance():
+				open_local_console()
+				return true
 			var director := player.level.get_node_or_null("InnerConflict")
 			var lore = director.usable_prop() if director != null and player.is_on_floor() else null
 			if lore != null:
 				director.open_prop(lore)
 			elif player.in_hiding_spot or (player.is_on_floor() and "[E]" in player.level.context_hint()):
+				player.level.world_features.next_strangle_requires_hold = true
 				player.level.interact()
+				player.level.world_features.next_strangle_requires_hold = false
 			else:
 				player.pad_jump_queued = true
 		JOY_BUTTON_X:
 			start_reload()
 		JOY_BUTTON_Y:
-			select_item("guitar" if (has_guitar and get_node("/root/Campaign").current_floor == 5) else "blanket")
+			cycle_item(1)
 		JOY_BUTTON_LEFT_STICK:
 			if not controller_settings.preferences.hold_crouch:
 				player.pad_crouch = not player.pad_crouch
@@ -175,13 +233,13 @@ func handle_pad_button(button: int) -> bool:
 		JOY_BUTTON_DPAD_RIGHT:
 			next_beat()
 		JOY_BUTTON_DPAD_DOWN:
-			open_local_console()
+			shuffle_beats()
 		JOY_BUTTON_DPAD_UP:
 			player.level.world_features.think(player.level.z_hint(), "", true)
 		JOY_BUTTON_LEFT_SHOULDER:
-			cycle_item(-1)
+			direct_blanket()
 		JOY_BUTTON_RIGHT_SHOULDER:
-			cycle_item(1)
+			direct_melee()
 		JOY_BUTTON_TOUCHPAD, JOY_BUTTON_BACK:
 			show_inventory()
 			buttons[0].grab_focus()
@@ -198,15 +256,10 @@ func wants_pad_crouch() -> bool:
 func cycle_item(step: int) -> void:
 	var items: Array[String] = []
 	for item in slots:
-		if not item.is_empty() and (item != "remote" or has_remote):
-			items.append(item)
-	if not blanket_removed():
-		items.append("blanket")
-	if has_guitar:
-		items.append("guitar")
+		if item in ["pistol", "smg", "guitar", "shank"]: items.append(item)
+	if items.is_empty(): return
 	var index := items.find(active)
-	if index < 0:
-		index = -1 if step > 0 else 0
+	if index < 0: index = -1 if step > 0 else 0
 	select_item(items[posmod(index + step, items.size())])
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -233,6 +286,21 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(player.level):
 		return
+	var camera: Camera2D = player.get_node("Camera2D")
+	var ads: bool = focus and player.guns.has(active) and gameplay_ready()
+	if not is_instance_valid(player.level.card) or player.level.card.mode != "floor":
+		camera.zoom = camera.zoom.lerp(camera_base_zoom * (1.08 if ads else 1.0), 1.0 - exp(-12.0 * delta))
+	update_mouse_cursor()
+	melee_left = maxf(0, melee_left - delta)
+	if not gameplay_ready(): held_buttons.clear()
+	else:
+		for button in held_buttons.keys():
+			if held_buttons[button] < 0: continue
+			held_buttons[button] += delta
+			if held_buttons[button] >= HOLD_SECONDS:
+				held_buttons[button] = -1.0
+				if button == JOY_BUTTON_Y: select_item("c4")
+				elif button == JOY_BUTTON_DPAD_DOWN: shuffle_beats()
 	sync_slots()
 	if inventory_open:
 		refresh_slots()
@@ -250,6 +318,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		pad_aim = false
 	focus = (focus and Input.is_action_pressed("focus_item")) or (player.guns.has(active) and Input.is_action_pressed("pad_focus"))
+	update_mouse_cursor()
 	if active == "c4" and Input.is_action_just_pressed("pad_focus"):
 		drop_charge()
 	if reload_left > 0:
@@ -266,7 +335,7 @@ func _physics_process(delta: float) -> void:
 		use_item()
 
 func use_item() -> void:
-	if reload_left > 0:
+	if reload_left > 0 or melee_left > 0:
 		return
 	if (player.mouse_aim or pad_aim) and absf(player.aim_direction.x) > 0.01:
 		player.facing = signf(player.aim_direction.x)
@@ -274,7 +343,7 @@ func use_item() -> void:
 		"blanket":
 			if not blanket_removed():
 				player.toggle_stealth()
-		"shank": player.shank()
+		"shank": direct_melee()
 		"c4": detonate_charges()
 		"remote": open_remote()
 		"guitar": strum()
@@ -290,6 +359,9 @@ func start_reload() -> void:
 
 func collect_guitar() -> void:
 	has_guitar = true
+	if get_node("/root/Campaign").unlock_achievement("guitar_acquired"):
+		get_node("/root/Campaign").add_track_unlock("shit_crashed")
+	sync_slots()
 	select_item("guitar")
 
 ## A strum puts ordinary Keepers in range to sleep for the rest of the floor and can hurt an
@@ -332,10 +404,11 @@ func collect_ammo_case() -> bool:
 		player.level.notify("Ammunition. Useless without a gun; leave it for now.")
 		return false
 	var gun: String = player.equipped_gun
-	reserves[gun] = reserves.get(gun, 0) + capacity(gun)
+	var amount: int = get_node("/root/Campaign").ammo_amount(12 if gun == "smg" else capacity(gun))
+	reserves[gun] = reserves.get(gun, 0) + amount
 	# The case also holds a field dressing: one full heart.
 	player.health = mini(player.max_health, player.health + 2)
-	player.level.notify("Ammunition case: +%d %s rounds, and a full heart" % [capacity(gun), gun])
+	player.level.notify("Ammunition case: +%d %s rounds, and a full heart" % [amount, gun])
 	return true
 
 ## [B] or "next" on the remote: skip to the next unlocked beat on Miro's MP3, then back to the floor.
@@ -343,10 +416,9 @@ func next_beat(step := 1) -> String:
 	var campaign = get_node("/root/Campaign")
 	var music = get_node("/root/MusicDirector")
 	var text := ""
+	music.cancel_shuffle()
 	if not has_remote:
 		text = "No player on me."
-	elif not remote_unlocked and not local_console:
-		text = "The MP3 is locked. Open the remote [5] and type hack."
 	else:
 		var unlocked: Array = campaign.unlocked_tracks()
 		var position: int = unlocked.find(music.track_id) if music.review_override else -1
@@ -359,9 +431,15 @@ func next_beat(step := 1) -> String:
 			var index := posmod(position + 1 + step, unlocked.size() + 1) - 1
 			music.review_override = true
 			music.play_track(unlocked[index])
-			text = "MP3 · %d/%d %s" % [index + 1, unlocked.size(), music.catalog[unlocked[index]].title]
+			text = "MP3 · %d/%d %s" % [index + 1, unlocked.size(), campaign.track_title(str(unlocked[index]))]
 	if is_instance_valid(player.level):
 		player.level.notify(text, 3)
+	return text
+
+func shuffle_beats() -> String:
+	var music = get_node("/root/MusicDirector")
+	var text: String = "No player on me." if not has_remote else music.toggle_shuffle()
+	if is_instance_valid(player.level):player.level.notify(text, 4.0)
 	return text
 
 func collect_remote() -> void:
@@ -371,7 +449,7 @@ func collect_remote() -> void:
 	get_node("/root/Campaign").remote_owned = true
 	if player.level.get("hud"):
 		player.level.hud.add_child(preload("res://scripts/remote_pickup_card.gd").new())
-	player.level.notify("Taken: Keeper MP3 player. Select its slot, then click to inspect.", 8)
+	player.level.notify("Taken: Keeper MP3 player. [X] opens wireless hacking.", 8)
 
 func build_panels() -> void:
 	panel = player.level.panel_at(Vector2(70, 115), Vector2(500, 150))
@@ -379,16 +457,18 @@ func build_panels() -> void:
 	panel.add_child(box)
 	var title := Label.new()
 	inventory_title = title
-	title.text = "INVENTORY · Click two slots to swap · Q always selects blanket"
+	title.text = "INVENTORY · Drag or click two weapon slots to swap"
 	title.add_theme_font_size_override("font_size", 12)
 	box.add_child(title)
 	var row := HBoxContainer.new()
 	box.add_child(row)
-	for i in range(5):
+	for i in range(4):
 		var button := Button.new()
 		button.custom_minimum_size = Vector2(72, 45)
 		button.add_theme_font_size_override("font_size", 11)
-		button.pressed.connect(swap_slot.bind(i))
+		button.set_script(preload("res://scripts/inventory_slot.gd"))
+		button.controls = self
+		button.slot_index = i
 		row.add_child(button)
 		buttons.append(button)
 	guitar_button = Button.new()
@@ -400,7 +480,7 @@ func build_panels() -> void:
 	guitar_button.custom_minimum_size = Vector2(72, 45)
 	guitar_button.pressed.connect(func(): select_item("guitar"); close_panels())
 	row.add_child(guitar_button)
-	guitar_button.visible = has_guitar
+	guitar_button.visible = false
 	var close := Button.new()
 	controller_settings.bind_prompt(close, "Done [N / Esc]")
 	close.pressed.connect(close_panels)
@@ -450,18 +530,19 @@ func build_panels() -> void:
 	remote_panel.hide()
 
 func show_inventory() -> void:
+	held_buttons.clear()
 	inventory_open = true
 	panel.show()
 	refresh_slots()
 
 func refresh_slots() -> void:
 	if is_instance_valid(guitar_button):
-		guitar_button.visible = has_guitar
+		guitar_button.visible = false
 	if is_instance_valid(inventory_title):
-		var item := "guitar" if has_guitar else "blanket"
-		inventory_title.text = controller_settings.controller_text("INVENTORY · D-pad navigate · Cross swap · Triangle " + item, controller_settings.playstation()) if pad_prompts else ("INVENTORY · Click two slots to swap · Q " + item)
-	for i in range(5):
-		buttons[i].text = "%d\n%s%s" % [i + 1, slots[i] if not slots[i].is_empty() else "empty", " *" if swap_from == i else ""]
+		var item := "blanket"
+		inventory_title.text = controller_settings.controller_text("INVENTORY · R1/D-pad navigate · Cross pick/swap · L1 " + item, controller_settings.playstation()) if pad_prompts else ("INVENTORY · Drag or click to swap · " + get_node("/root/InputBindings").label("blanket") + " " + item)
+	for i in range(4):
+		buttons[i].text = "%s\n%s%s" % [get_node("/root/InputBindings").label("slot_%d" % (i + 1)), slots[i] if not slots[i].is_empty() else "empty", " *" if swap_from == i else ""]
 
 func swap_slot(index: int) -> void:
 	if swap_from < 0:
@@ -470,7 +551,11 @@ func swap_slot(index: int) -> void:
 		var item := layout[index]
 		layout[index] = layout[swap_from]
 		layout[swap_from] = item
-		get_node("/root/Campaign").inventory_layout.assign(layout)
+		var campaign = get_node("/root/Campaign")
+		campaign.inventory_layout.assign(layout)
+		if campaign.checkpoint.get("floor",0)==campaign.current_floor and campaign.checkpoint.has("player"):
+			campaign.checkpoint.player["layout"] = Array(layout)
+			campaign.save_checkpoint()
 		sync_slots()
 		swap_from = -1
 	refresh_slots()
@@ -484,13 +569,14 @@ func close_panels() -> void:
 	swap_from = -1
 
 func open_remote(at_port := false) -> void:
+	held_buttons.clear()
 	if not has_remote:
 		player.level.notify("Judas, the first Keeper, carries an MP3 player. Loot or pickpocket him.")
 		return
 	show_console(false, at_port)
 
 func open_local_console() -> void:
-	if player.level.world_features.security_terminal() == null:
+	if connection_target(48.0, true) == null:
 		player.level.notify("Get within reach of a records or checkpoint terminal. [T]")
 		return
 	show_console(true)
@@ -509,6 +595,9 @@ func show_console(local: bool, terminal_look := false) -> void:
 	command.clear()
 	command.secret = false
 	command.grab_focus()
+	if not local:
+		var target := connection_target()
+		output.text += "\nNearby signal: " + connection_name(target) + ". Type scan." if target != null else "\nNo terminal signal nearby."
 
 ## A tiny pretend file system: each floor's records are readable text files (ls, cat).
 var above_floor := false
@@ -533,6 +622,16 @@ func floor_files() -> Dictionary:
 	files["readme.txt"] = "TOWER RECORDS TERMINAL
 Floor %02d archive. Access is logged. Type ls to list files, cat <file> to read one." % floor_number
 	return files
+
+## Reading the same archive via the console counts just like reading its physical terminal.
+func record_terminal_read(contents: String) -> void:
+	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/terminal_logs.json"))
+	for entry in data.get("terminals", []):
+		if int(entry.get("floor",0)) != get_node("/root/Campaign").current_floor:continue
+		if "\n\n".join(PackedStringArray(entry.get("pages",[]))) != contents:continue
+		get_node("/root/PlayerBehavior").record("lore_"+str(entry.id), "seeker", 2, "lore", 2)
+		for terminal in get_tree().get_nodes_in_group("security_terminals"):
+			if terminal.get_script()==preload("res://scripts/lore_terminal.gd") and terminal.log_entry.id==entry.id:terminal.read=true
 
 func show_page() -> void:
 	output.text = str(pager[pager_index])
@@ -563,8 +662,8 @@ func run_command(raw: String) -> void:
 		output.text = "Unknown command. Type help."
 		return
 	if text == "whoami":
-		var terminal: Node2D = player.level.world_features.security_terminal()
-		output.text = "root" if terminal != null and logged_in.has(terminal.get_instance_id()) else "guest"
+		var terminal: Node2D = connected_terminal()
+		output.text = "root" if (terminal != null and logged_in.has(terminal.get_instance_id())) or (at_early_port() and player.level.world_features.early_authenticated) or (at_checkpoint() and player.level.world_features.terminal_authenticated) else "guest"
 		return
 	var floor_dir := "floor%02d" % int(get_node("/root/Campaign").current_floor)
 	if text == "pwd":
@@ -591,6 +690,7 @@ func run_command(raw: String) -> void:
 		if not files.has(name):
 			output.text = "cat: %s: No such file or directory" % name
 			return
+		record_terminal_read(str(files[name]))
 		# Long files page through the console one screen at a time.
 		pager = str(files[name]).split("
 
@@ -601,7 +701,7 @@ func run_command(raw: String) -> void:
 	if text == "hack" or text == "./unlock.sh":
 		remote_unlocked = true
 		get_node("/root/Campaign").remote_unlocked = true
-		output.text = "Service mode unlocked. Your scripts survived.\nMP3 playback active. Type help."
+		output.text = "Service mode unlocked. Your scripts survived.\nMP3 playback active. Type scan to find a nearby terminal."
 	elif not remote_unlocked and not local_console:
 		output.text = "Service port locked. Type hack to run your unlock script."
 	elif text == "help":
@@ -610,7 +710,7 @@ func run_command(raw: String) -> void:
 		output.text = next_beat()
 	elif text == "music":
 		var unlocked: Array = get_node("/root/Campaign").unlocked_tracks()
-		var listing := "MP3 · 0. floor soundtrack"
+		var listing := "MP3 · [V] Previous · [B] Next · [H] Shuffle\n0. floor soundtrack"
 		for index in range(unlocked.size()):
 			listing += "\n%d. %s" % [index + 1, get_node("/root/MusicDirector").catalog[unlocked[index]].title]
 		output.text = listing + ("\nType play <number>." if not unlocked.is_empty() else "\nUnseen floors unlock more tracks.")
@@ -624,11 +724,11 @@ func run_command(raw: String) -> void:
 		elif index >= 1 and index <= unlocked.size():
 			music.review_override = true
 			music.play_track(unlocked[index - 1])
-			output.text = "Now playing: " + music.catalog[unlocked[index - 1]].title
+			output.text = "Now playing: " + get_node("/root/Campaign").track_title(str(unlocked[index - 1]))
 		else:
 			output.text = "No track %d. Type music to list them." % index
 	elif text == "scan":
-		var terminal: Node2D = player.level.world_features.security_terminal()
+		var terminal: Node2D = connected_terminal()
 		if at_checkpoint():
 			output.text = "checkpoint.local · linked cameras and floor turrets · login required"
 		elif terminal != null:
@@ -638,7 +738,7 @@ func run_command(raw: String) -> void:
 		else:
 			output.text = "No writable access point in range."
 	elif is_login:
-		var terminal: Node2D = player.level.world_features.security_terminal()
+		var terminal: Node2D = connected_terminal()
 		if terminal == null and not at_checkpoint() and not at_early_port():
 			output.text = "No local connection. Move beside an access point."
 		elif text != "login root":
@@ -652,8 +752,8 @@ func run_command(raw: String) -> void:
 				logged_in[terminal.get_instance_id()] = true
 			output.text = "Authenticated."
 	elif text == "turrets off":
-		var terminal: Node2D = player.level.world_features.security_terminal()
-		if terminal == null or (not logged_in.has(terminal.get_instance_id()) and not (at_checkpoint() and player.level.world_features.terminal_authenticated)):
+		var terminal: Node2D = connected_terminal()
+		if not ((terminal != null and logged_in.has(terminal.get_instance_id())) or (at_checkpoint() and player.level.world_features.terminal_authenticated) or (at_early_port() and player.level.world_features.early_authenticated)):
 			output.text = "Stay at an authenticated terminal: login <password>"
 			return
 		var count: int = player.level.world_features.disable_turrets()
@@ -667,7 +767,17 @@ func run_command(raw: String) -> void:
 		else:
 			output.text = "Connect at the service port and login root first."
 	elif text == "cameras off":
-		if at_early_port() and player.level.world_features.early_authenticated and is_instance_valid(player.level.world_features.practice_camera):
+		if at_checkpoint() and player.level.world_features.terminal_authenticated:
+			record_mp3_hack()
+			close_panels()
+			player.level.hack_remaining = 1.0
+			return
+		if at_early_port() and player.level.world_features.early_authenticated:
+			if not is_instance_valid(player.level.world_features.practice_camera):
+				var count: int = player.level.world_features.disable_cameras() if get_node("/root/Campaign").current_floor > 1 else 0
+				if count > 0: record_mp3_hack()
+				output.text = "Cameras disabled on this floor: %d" % count if count > 0 else "Authenticated. No active cameras are linked to this service port."
+				return
 			var was_active: bool = player.level.world_features.practice_camera.is_active
 			player.level.world_features.practice_camera.disable()
 			if was_active:
@@ -680,7 +790,7 @@ func run_command(raw: String) -> void:
 			player.level.hack_remaining = 1.0
 			return
 		# Any records terminal you've logged into controls this floor's cameras too.
-		var terminal: Node2D = player.level.world_features.security_terminal()
+		var terminal: Node2D = connected_terminal()
 		if terminal != null and logged_in.has(terminal.get_instance_id()):
 			var count: int = player.level.world_features.disable_cameras()
 			if count > 0:
@@ -695,11 +805,50 @@ func record_mp3_hack() -> void:
 	if has_remote and not local_console:
 		get_node("/root/Campaign").on_mp3_hack()
 
-func at_early_port() -> bool:
-	return get_node("/root/Campaign").current_floor in [1, 2] and player.level.world_features.reachable(player.level.world_features.access_point, 48)
+const MP3_CONNECTION_RADIUS := 480.0
+const MP3_FLOOR_TOLERANCE := 64.0
+
+func connection_radius() -> float:
+	return 48.0 if local_console else MP3_CONNECTION_RADIUS
+
+## The MP3 sees terminals in the current corridor, even beyond the camera or behind cover.
+## Physical interaction still needs a clear path and arm's reach.
+func connection_target(radius := -1.0, physical := false) -> Node2D:
+	if radius < 0.0:radius = connection_radius()
+	physical = physical or local_console
+	var candidates: Array[Node] = get_tree().get_nodes_in_group("security_terminals")
+	var checkpoint: Node2D = player.level.areas.get_node_or_null("RemoteTerminal")
+	if checkpoint != null:candidates.append(checkpoint)
+	for prop in player.level.world_features.props:
+		if is_instance_valid(prop) and prop.kind == "access":candidates.append(prop)
+	var nearest: Node2D
+	var best := radius
+	for terminal in candidates:
+		if not is_instance_valid(terminal) or not player.level.is_ancestor_of(terminal):continue
+		var delta: Vector2 = terminal.global_position - player.global_position
+		var gap := delta.length()
+		if absf(delta.y) > MP3_FLOOR_TOLERANCE or gap > best:continue
+		if physical and not player.level.world_features.reachable(terminal.global_position, radius):continue
+		nearest = terminal
+		best = gap
+	return nearest
+
+func connection_name(target: Node2D) -> String:
+	if target == null:return "none"
+	if target == player.level.areas.get_node_or_null("RemoteTerminal"):return "checkpoint.local"
+	return "service.local" if target.get_script() == preload("res://scripts/review_prop.gd") else "records.local"
+
+func connected_terminal() -> Node2D:
+	var target := connection_target()
+	return target if target != null and connection_name(target) != "service.local" else null
+
+func at_early_port(radius := -1.0) -> bool:
+	var target := connection_target(radius)
+	return target != null and connection_name(target) == "service.local"
 
 func at_checkpoint() -> bool:
-	return get_node("/root/Campaign").current_floor == 3 and player.level.world_features.reachable(player.level.areas.get_node("RemoteTerminal").global_position, 48)
+	var target := connection_target()
+	return target != null and target == player.level.areas.get_node_or_null("RemoteTerminal")
 
 const THROW_SPEED := 190.0
 const BLAST_RADIUS := 130.0
@@ -724,6 +873,7 @@ func drop_charge() -> void:
 		player.level.notify("Out of C4. A spare charge turns up in your pack.")
 	var charge := Node2D.new()
 	charge.set_script(preload("res://scripts/dropped_charge.gd"))
+	charge.set_meta("inventory_charge", not spare)
 	charge.position = player.position + Vector2(0, -6)
 	# A short lunge toward the aim (mouse or right stick), or forward and a little up.
 	var direction: Vector2 = player.aim_direction if (player.mouse_aim or pad_aim) else Vector2(player.facing, 0)
@@ -755,7 +905,8 @@ func recover_charge() -> bool:
 		return false
 	planted.erase(charge)
 	charge.queue_free()
-	player.c4_count += 1
+	if bool(charge.get_meta("inventory_charge", true)):
+		player.c4_count += 1
 	player.level.notify("C4 recovered.")
 	return true
 
@@ -771,7 +922,7 @@ func detonate_charges() -> void:
 		var point := charge.global_position
 		player.level.emit_effect("breach", point)
 		player.level.make_noise(point, 700)
-		get_node("/root/SoundFX").play_sound("collapse", -20)
+		get_node("/root/SoundFX").play_near("collapse", point, player.global_position, -20, 900.0)
 		if get_node("/root/Campaign").current_floor == 1 and not player.level.door_open and point.distance_to(player.level.get_node("Interactables/CellLock").global_position) < 100:
 			player.level.route = "C4 breach"
 			player.level.open_door()
@@ -802,3 +953,45 @@ func update_pad_aim(stick: Vector2) -> void:
 	pad_prompts = true
 	player.mouse_aim = false
 	player.aim_direction = stick.normalized()
+
+func charge_snapshot() -> Array:
+	var saved: Array = []
+	for charge in planted:
+		if is_instance_valid(charge):
+			saved.append({"position": charge.position, "velocity": charge.velocity, "stuck": charge.stuck, "inventory_charge": bool(charge.get_meta("inventory_charge", true))})
+	return saved
+
+func restore_charges(saved: Array) -> void:
+	for charge in planted:
+		if is_instance_valid(charge):charge.queue_free()
+	planted.clear()
+	for entry in saved:
+		var charge := Node2D.new()
+		charge.set_script(preload("res://scripts/dropped_charge.gd"))
+		charge.position = entry.position
+		charge.velocity = entry.get("velocity", Vector2.ZERO)
+		charge.stuck = bool(entry.get("stuck", true))
+		charge.set_meta("inventory_charge", bool(entry.get("inventory_charge", true)))
+		player.level.add_child(charge)
+		planted.append(charge)
+
+var cursor_hidden := false
+var camera_base_zoom := Vector2.ONE
+
+func update_mouse_cursor() -> void:
+	var hide: bool = not get_tree().paused and DisplayServer.window_get_mode()!=DisplayServer.WINDOW_MODE_MINIMIZED and not player.level.controls_locked() and not player.is_dead and not player.in_hiding_spot and (DisplayServer.get_name() == "headless" or DisplayServer.window_is_focused())
+	if hide != cursor_hidden:
+		cursor_hidden = hide
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN if hide else Input.MOUSE_MODE_VISIBLE
+
+func _notification(what: int) -> void:
+	if what in [NOTIFICATION_WM_WINDOW_FOCUS_OUT, NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_PAUSED]:
+		held_buttons.clear()
+		focus = false
+		if is_instance_valid(player): player.get_node("Camera2D").zoom = camera_base_zoom
+	if what in [NOTIFICATION_WM_WINDOW_FOCUS_OUT, NOTIFICATION_PAUSED] and cursor_hidden:
+		cursor_hidden = false
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _exit_tree() -> void:
+	if cursor_hidden:Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

@@ -31,7 +31,7 @@ func run() -> void:
 	p.fire_gun()
 	check(p.ammunition == 2 and guards[0].alert_state == IntroGuard.State.SEARCH, "Pistol shot is always audible")
 	p.select_gun(1)
-	check(p.equipped_gun == "smg" and p.ammunition == 24, "Switching back preserves SMG magazine (a full mag)")
+	check(p.equipped_gun == "smg" and p.ammunition == 12, "Switching back preserves the scarce SMG pickup magazine")
 	p.ammunition = 0
 	p.attack_cooldown = 0
 	p.fire_gun()

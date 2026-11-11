@@ -16,6 +16,9 @@ enum State { PATROL, SUSPICIOUS, ALERT, SEARCH }
 @export var patrol_right: float = 500.0
 @export var sick_guard: bool = false
 @export_enum("pistol", "smg") var weapon_kind := "pistol"
+var ammunition := -1
+var ammo_pickpocketed := false
+var stolen_ammo := 0
 var burst_left := 0
 var burst_timer := 0.0
 var shot_direction := Vector2.RIGHT
@@ -59,6 +62,7 @@ var asleep := false:
 	set(value):
 		if asleep == value: return
 		asleep = value
+		collision_layer = 0 if asleep else 4
 		sync_discoverable_group()
 ## Spawned by a Level 5 wave or by Niro calling for help.
 var wave_guard := false
@@ -81,6 +85,11 @@ const BODY_NEARBY := 190.0
 const HOP_SPEED := 300.0
 
 func _ready() -> void:
+	if is_instance_valid(level) and level.get("checkpoint_grace_until") != null and Time.get_ticks_msec() < int(level.get("checkpoint_grace_until")):
+		for body in level.guards():
+			if body.is_dead:seen_bodies[body.get_instance_id()] = true
+			elif body.asleep:seen_sleepers[body.get_instance_id()] = true
+	collision_mask |= 4
 	add_to_group("guards")
 	sync_discoverable_group()
 	var campaign = get_node_or_null("/root/Campaign")
@@ -100,7 +109,10 @@ func _ready() -> void:
 
 func can_see_point(point: Vector2, distance_limit: float = 165.0) -> bool:
 	var difference := point - global_position
-	return difference.length() < distance_limit and absf(difference.y) < (80 if not is_on_floor() else (70 if absf(difference.x) < 40 else 45)) and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
+	var vertical_limit := 80.0 if not is_on_floor() else (70.0 if absf(difference.x) < 40.0 else 45.0)
+	if is_instance_valid(level) and is_instance_valid(level.player) and point == level.player.global_position and not level.player.crouching and difference.y < 0.0 and level.player.is_on_floor():
+		vertical_limit = maxf(vertical_limit, 64.0)
+	return difference.length() < distance_limit and absf(difference.y) < vertical_limit and difference.x * facing >= -8 and level.clear_sight(global_position + Vector2(0, -8), point + Vector2(0, -8))
 
 
 func detect_player() -> bool:
@@ -248,6 +260,8 @@ func _physics_process(delta: float) -> void:
 				if absf(gap.x) < STRIKE_REACH and absf(gap.y) < 20:
 					strike_left = windup_time * 0.5 + STRIKE_SLASH
 					strike_landed = false
+				elif remaining_ammo() <= 0:
+					velocity.x = facing * chase_speed
 				else:
 					windup = windup_time
 					shot_direction = (level.player.get_node("CollisionShape2D").global_position - (global_position + Vector2(0, -4))).normalized()
@@ -305,8 +319,13 @@ func _physics_process(delta: float) -> void:
 
 ## Ladders: a hunting Keeper climbs after Miro; an unaware one near the ladder glances up (or down).
 var glance_left := 0.0
+var ladder_exit_side := 0.0
+var ladder_exit_left := 0.0
+var ladder_stall_time := 0.0
 
 func ladder_follow(delta: float) -> bool:
+	if ladder_exit_left > 0.0:
+		return false
 	var player = level.player
 	if not is_instance_valid(player) or player.is_dead or not player.climbing:
 		return false
@@ -324,7 +343,9 @@ func ladder_follow(delta: float) -> bool:
 		return false
 	var dy: float = player.global_position.y - global_position.y
 	if absf(dy) < 14.0:
-		return false
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return true
 	global_position.x = move_toward(global_position.x, ladder.global_position.x, 120.0 * delta)
 	velocity = Vector2(0.0, signf(dy) * 92.0)
 	move_and_slide()
@@ -333,6 +354,14 @@ func ladder_follow(delta: float) -> bool:
 ## A searching or hunting Keeper whose target is on another floor walks to the nearest ladder that
 ## joins the two floors and climbs it all the way, then carries on looking.
 func ladder_search(delta: float) -> bool:
+	if ladder_exit_left > 0.0:
+		ladder_exit_left = maxf(0.0, ladder_exit_left - delta)
+		velocity.x = ladder_exit_side * 120.0
+		velocity.y += 850.0 * delta
+		move_and_slide()
+		if is_on_floor():
+			ladder_exit_left = 0.0
+		return true
 	if alert_state == State.PATROL and not pursuing:
 		return false
 	var target := last_known_position
@@ -341,16 +370,34 @@ func ladder_search(delta: float) -> bool:
 		target = level.player.global_position
 		last_known_position = target
 	var dy := target.y - global_position.y
+	var current_ladder = level.ladder_at(global_position)
+	if current_ladder != null:ladder_stall_time = 0.0
+	if current_ladder != null:
+		var edge: float = current_ladder.global_position.y + (-1.0 if dy < 0.0 else 1.0) * current_ladder.area_size.y / 2.0
+		if (dy < 0.0 and target.y < edge) or (dy > 0.0 and target.y > edge):
+			var landing := ladder_landing(current_ladder, dy < 0.0, target)
+			if landing != Vector2.INF:
+				target = landing
+				dy = target.y - global_position.y
 	# Once on a ladder he keeps going until he is level with the target floor.
 	var on_ladder := level.ladder_at(global_position) != null
+	if not on_ladder:
+		ladder_exit_side = 0.0
 	if absf(dy) < (16.0 if on_ladder else 70.0):
-		if on_ladder and dy <= 0.0:
+		if on_ladder:
 			# At the top: hop up and over the lip onto the floor, toward whoever he is after.
-			var step_to := signf(target.x - global_position.x)
-			if step_to == 0.0:
-				step_to = facing
-			facing = step_to
-			velocity = Vector2(step_to * 120.0, -190.0)
+			if ladder_exit_side == 0.0:
+				ladder_exit_side = signf(target.x - global_position.x)
+				if ladder_exit_side == 0.0:
+					ladder_exit_side = facing
+				var landing := Vector2(global_position.x + ladder_exit_side * 36.0, target.y + 12.0)
+				var opposite := Vector2(global_position.x - ladder_exit_side * 36.0, target.y + 12.0)
+				if not level.has_floor_below(landing) and level.has_floor_below(opposite):
+					ladder_exit_side *= -1.0
+			# Commit to one side of the lip; re-aiming every substep oscillates around Miro.
+			facing = ladder_exit_side
+			ladder_exit_left = 0.35
+			velocity = Vector2(ladder_exit_side * 120.0, -190.0)
 			move_and_slide()
 			return true
 		return false
@@ -362,33 +409,62 @@ func ladder_search(delta: float) -> bool:
 		if area.kind != "ladder":
 			continue
 		var rect := Rect2(area.global_position - area.area_size / 2.0, area.area_size)
-		if rect.position.y <= low + 40.0 and rect.end.y >= high - 40.0:
+		var near_here := global_position.y >= rect.position.y - 40.0 and global_position.y <= rect.end.y + 40.0
+		var goes_toward := rect.position.y < global_position.y - 32.0 if dy < 0.0 else rect.end.y > global_position.y + 32.0
+		if near_here and goes_toward:
 			var gap := absf(area.global_position.x - global_position.x)
 			if gap < best_gap:
 				best_gap = gap
 				best = area
 	if best == null:
 		return false
+	search_left = maxf(search_left, 2.0)
 	var ladder_x: float = best.global_position.x
 	if absf(global_position.x - ladder_x) > 14.0 and level.ladder_at(global_position) == null:
 		# Walk to the foot (or top) of the ladder on this floor.
+		var before_x := global_position.x
 		facing = signf(ladder_x - global_position.x)
 		velocity.x = facing * chase_speed
+		if is_on_floor() and can_hop():velocity.y = -HOP_SPEED
 		velocity.y += 850.0 * delta
 		move_and_slide()
+		ladder_stall_time = ladder_stall_time + delta if absf(global_position.x-before_x)<0.01 else 0.0
+		if ladder_stall_time > 1.5:
+			# An impassable vault or another Keeper cannot hold a chase forever.
+			pursuing = false
+			alert_state = State.SEARCH
+			last_known_position = global_position
+			search_left = 3.0
+			ladder_stall_time = 0.0
 		return true
 	global_position.x = move_toward(global_position.x, ladder_x, 120.0 * delta)
 	velocity = Vector2(0.0, signf(dy) * 92.0)
 	move_and_slide()
 	return true
 
-func solid_between(from: Vector2, to: Vector2) -> bool:
-	return not get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(from, to, 1)).is_empty()
+func ladder_landing(ladder: Node2D, upward: bool, goal: Vector2) -> Vector2:
+	var edge: float = ladder.global_position.y + (-1.0 if upward else 1.0) * ladder.area_size.y / 2.0
+	var best := Vector2.INF
+	for side in [-1.0, 1.0]:
+		var x: float = ladder.global_position.x + side * (ladder.area_size.x / 2.0 + 20.0)
+		var from := Vector2(x, edge - (28.0 if upward else 72.0))
+		var to := Vector2(x, edge + (80.0 if upward else 24.0))
+		var hit := get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(from, to, 1))
+		if hit.is_empty():continue
+		var point := Vector2(x, hit.position.y - 16.0)
+		if best == Vector2.INF or absf(point.x - goal.x) < absf(best.x - goal.x):best = point
+	return best
+
+func solid_between(from: Vector2, to: Vector2, mask := 1) -> bool:
+	var query := PhysicsRayQueryParameters2D.create(from, to, mask)
+	query.exclude = [get_rid()]
+	query.hit_from_inside = true
+	return not get_world_2d().direct_space_state.intersect_ray(query).is_empty()
 
 ## Something knee-high directly ahead, with clear space above it to land on.
 func can_hop() -> bool:
 	var ahead := Vector2(facing * 20, 0)
-	return solid_between(global_position + Vector2(0, 8), global_position + Vector2(0, 8) + ahead) and not solid_between(global_position + Vector2(0, -24), global_position + Vector2(0, -24) + ahead)
+	return solid_between(global_position + Vector2(0, 8), global_position + Vector2(0, 8) + ahead, 1 | 4) and not solid_between(global_position + Vector2(0, -24), global_position + Vector2(0, -24) + ahead, 1 | 4)
 
 ## Patrols keep time with the music: a Keeper turns at the end of his beat on a beat line
 ## (sick Keepers on every other beat) and leans into each step on the beat.
@@ -413,7 +489,18 @@ func stride() -> float:
 	var offset := fmod(clock.beat_position(), 1.0)
 	return 0.7 + 0.6 * (1.0 - offset)
 
+func remaining_ammo() -> int:
+	if ammunition < 0: ammunition = 8 if weapon_kind == "pistol" else 24
+	return ammunition
+
+func dropped_ammo() -> int:
+	return mini(remaining_ammo(), maxi(0, get_node("/root/Campaign").ammo_amount(3 if weapon_kind == "pistol" else 12) - stolen_ammo))
+
 func shoot_weapon() -> void:
+	if remaining_ammo() <= 0:
+		burst_left = 0
+		return
+	ammunition -= 1
 	burst_left -= 1
 	burst_timer = 0.14
 	var bullet := Node2D.new()
@@ -498,6 +585,7 @@ func receive_shank() -> void:
 
 ## A Keeper who was already dead at the checkpoint stays dead (no new casualty, no new alarm).
 func restore_dead(point: Vector2, looted: bool) -> void:
+	collision_layer = 0
 	global_position = point
 	death_recorded = true
 	health = 0
@@ -508,6 +596,7 @@ func restore_dead(point: Vector2, looted: bool) -> void:
 	queue_redraw()
 
 func die() -> void:
+	collision_layer = 0
 	if death_recorded:
 		return
 	death_recorded = true

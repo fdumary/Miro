@@ -147,8 +147,9 @@ func _physics_process(delta: float) -> void:
 		dodge_left = 14.0 / 60.0
 		dodge_cooldown = 0.85
 		end_stealth()
-	var speed_multiplier := stealth_speed_multiplier if is_concealed else 1.0
-	var walk_multiplier := 0.55 if Input.is_action_pressed("slow_walk") else 1.0
+	var blanket_fast := is_concealed and Input.is_action_pressed("slow_walk")
+	var speed_multiplier := (0.8 if blanket_fast else stealth_speed_multiplier) if is_concealed else 1.0
+	var walk_multiplier := 0.55 if Input.is_action_pressed("slow_walk") and not is_concealed else 1.0
 	velocity.x = direction * movement_speed * speed_multiplier * walk_multiplier * (0.45 if crouching else (0.6 if controls.focus else 1.0))
 	if dodge_left > 0.0:
 		velocity.x = facing * 245.0
@@ -188,8 +189,9 @@ func _physics_process(delta: float) -> void:
 		level.emit_effect("dust", global_position + Vector2(0, 14))
 	footstep_left = maxf(0, footstep_left - delta)
 	if is_on_floor() and absf(velocity.x) > 20 and footstep_left <= 0:
-		get_node("/root/SoundFX").play_sound("step", -25 if is_concealed else -19)
-		footstep_left = 0.5 if is_concealed else 0.32
+		var quiet_footsteps := is_concealed or crouching or Input.is_action_pressed("slow_walk")
+		get_node("/root/SoundFX").play_sound("step", -25 if quiet_footsteps else -19)
+		footstep_left = 0.32 if blanket_fast else (0.5 if quiet_footsteps else 0.32)
 	if Input.is_action_just_pressed("cloak"):
 		toggle_stealth()
 	check_guard_contact()
@@ -257,8 +259,8 @@ func stealth_status() -> String:
 	if stealth_cooldown_left > 0:
 		return "STEALTH %.1fs cooldown" % stealth_cooldown_left
 	if not is_instance_valid(level) or not level.in_cover(global_position):
-		return "BLANKET [Q + click] · too bright here"
-	return "BLANKET READY [Q + click]"
+		return "BLANKET [Q] · too bright here"
+	return "BLANKET READY [Q]"
 
 func shank() -> void:
 	if in_hiding_spot or level.controls_locked() or is_dead:
@@ -275,6 +277,7 @@ func shank() -> void:
 	get_node("/root/SoundFX").play_sound("swing", -18)
 	var target: Node2D
 	var reach := INF
+	var target_priority := -1
 	var targets: Array[Node] = level.guards()
 	targets.append_array(get_tree().get_nodes_in_group("tower_turrets"))
 	for candidate in targets:
@@ -284,8 +287,10 @@ func shank() -> void:
 		var point: Vector2 = candidate.target_point() if turret else candidate.global_position
 		var difference := point - global_position
 		if absf(difference.y) < 24 and absf(difference.x) <= 46 and difference.x * facing >= -5:
-			if difference.length_squared() < reach and level.can_melee_reach(global_position, point):
+			var priority := 0 if candidate is IntroGuard and candidate.asleep else 1
+			if (priority > target_priority or (priority == target_priority and difference.length_squared() < reach)) and level.can_melee_reach(global_position, point):
 				target = candidate
+				target_priority = priority
 				reach = difference.length_squared()
 	if target != null:
 		if target.is_in_group("tower_turrets"):
@@ -307,12 +312,12 @@ func loot_weapon(guard: IntroGuard) -> void:
 		guns.append(equipped_gun)
 	gun_ammo[equipped_gun] = ammunition
 	if guns.has(guard.weapon_kind):
-		controls.reserves[guard.weapon_kind] = controls.reserves.get(guard.weapon_kind, 0) + weapon_ammo(guard.weapon_kind)
+		controls.reserves[guard.weapon_kind] = controls.reserves.get(guard.weapon_kind, 0) + guard.dropped_ammo()
 		ammunition = gun_ammo.get(equipped_gun, 0)
 		guard.gun_taken = true
 	elif guns.size() < 2:
 		guns.append(guard.weapon_kind)
-		gun_ammo[guard.weapon_kind] = weapon_ammo(guard.weapon_kind)
+		gun_ammo[guard.weapon_kind] = guard.dropped_ammo()
 		equipped_gun = guard.weapon_kind
 		ammunition = gun_ammo[equipped_gun]
 		has_gun = true
@@ -320,57 +325,18 @@ func loot_weapon(guard: IntroGuard) -> void:
 		# A newly picked-up gun goes straight into his hand, so what you see is what you fire.
 		controls.sync_slots()
 		controls.select_item(equipped_gun)
-	else:
-		pending_guard = guard
-		level.notify("Take %s? [Z] replace %s / [X] replace %s / [Esc] cancel" % [guard.weapon_kind, guns[0], guns[1]], 30)
-
 ## Bullets a fallen Keeper drops: at least 3 for a pistol, a full magazine for an SMG.
 func weapon_ammo(kind: String) -> int:
-	return 3 if kind == "pistol" else controls.capacity("smg")
+	return 3 if kind == "pistol" else 12
 
-func resolve_weapon_choice(slot: int) -> void:
-	if not is_instance_valid(pending_guard):
-		return
-	if slot >= 0 and slot < guns.size():
-		gun_ammo[equipped_gun] = ammunition
-		controls.reserves.erase(guns[slot])
-		gun_ammo.erase(guns[slot])
-		guns[slot] = pending_guard.weapon_kind
-		equipped_gun = guns[slot]
-		gun_ammo[equipped_gun] = weapon_ammo(equipped_gun)
-		ammunition = gun_ammo[equipped_gun]
-		pending_guard.gun_taken = true
+func resolve_weapon_choice(_slot: int) -> void:
 	pending_guard = null
-	controls.sync_slots()
-	controls.select_item(equipped_gun)
-	level.notify("Weapon choice saved and equipped.")
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventJoypadButton and event.pressed and is_instance_valid(pending_guard):
-		match event.button_index:
-			JOY_BUTTON_LEFT_SHOULDER:
-				resolve_weapon_choice(0)
-			JOY_BUTTON_RIGHT_SHOULDER:
-				resolve_weapon_choice(1)
-			JOY_BUTTON_B:
-				resolve_weapon_choice(-1)
-			_:
-				return
-		get_viewport().set_input_as_handled()
-		return
-	if not event is InputEventKey or not event.pressed or event.echo:
-		return
-	if is_instance_valid(pending_guard):
-		if event.physical_keycode in [KEY_Z, KEY_X, KEY_ESCAPE]:
-			resolve_weapon_choice(0 if event.physical_keycode == KEY_Z else (1 if event.physical_keycode == KEY_X else -1))
-			get_viewport().set_input_as_handled()
-
 
 func fire_gun() -> void:
 	if in_hiding_spot or level.controls_locked() or is_dead:
 		return
 	if not has_gun or ammunition <= 0:
-		level.notify("No loaded weapon. A fallen Keeper may carry one.")
+		level.notify("Out of ammo. [R] Reload." if int(controls.reserves.get(equipped_gun,0))>0 else "Out of ammo. Find ammunition: tap [E] behind an unaware Keeper, or search a fallen Keeper.")
 		return
 	if attack_cooldown > 0 or controls.reload_left > 0:
 		return
@@ -382,17 +348,20 @@ func fire_gun() -> void:
 	# Gunfire is always loud: kills cost noise.
 	level.make_noise(global_position, 600.0)
 	aim_direction = weapon_aim_direction()
+	var spread := (0.006 if controls.focus else 0.018) if equipped_gun == "pistol" else (0.014 if controls.focus else 0.04)
+	if climbing and not is_on_floor():spread += 0.09 if controls.focus else 0.14
+	var bullet_direction := aim_direction.rotated(randf_range(-spread, spread))
 	if absf(aim_direction.x) > 0.01:
 		facing = signf(aim_direction.x)
 	var bullet := Node2D.new()
 	bullet.set_script(load("res://scripts/weapon_projectile.gd"))
 	bullet.level = level
 	bullet.shooter = self
-	bullet.direction = aim_direction
+	bullet.direction = bullet_direction
 	bullet.damage = 4 if equipped_gun == "pistol" else 3
 	bullet.falloff = equipped_gun != "pistol"
 	# Start at the body so a muzzle offset cannot spawn beyond a nearby wall.
-	bullet.position = position + Vector2(0, -4)
+	bullet.position = position + Vector2(0, 5 if crouching else -4)
 	level.add_child(bullet)
 	level.emit_effect("hit", global_position + aim_direction * 12)
 	var casing := Node2D.new()
@@ -471,6 +440,10 @@ func _draw() -> void:
 		var head_angle := clampf(atan2(aim_direction.y, absf(aim_direction.x)), -0.3, 0.3) * head_facing if (mouse_aim or controls.pad_aim) and not wall_sliding else lean
 		draw_set_transform(origin + Vector2(0, -5 * scale_y), head_angle, Vector2(head_facing, scale_y))
 		draw_texture_rect_region(sprite.texture, Rect2(-16, -11, 32, 13), Rect2(frame_x, 0, 32, 13), sprite.modulate)
+		draw_set_transform(Vector2.ZERO)
+	if has_supplies and controls.active == "shank" and not is_dead and not in_hiding_spot and melee_anim <= 0:
+		draw_set_transform(Vector2(facing*8, 2), facing*.25, Vector2(facing,1))
+		draw_texture_rect(preload("res://scripts/weapon_art.gd").TEXTURES.shank,Rect2(0,-13,18,18),false)
 		draw_set_transform(Vector2.ZERO)
 	if has_gun and controls.active in guns and not is_dead and not in_hiding_spot:
 		var direction := weapon_aim_direction()

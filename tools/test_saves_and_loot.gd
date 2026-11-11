@@ -76,7 +76,7 @@ func run() -> void:
 	await load_floor()
 	check(level.player.guns == ["pistol", "smg"] and level.player.ammunition == magazine and level.player.controls.reserves == reserves, "Disk checkpoint restores exact weapons and ammunition")
 	check(level.player.controls.has_remote and level.player.controls.remote_unlocked, "Disk checkpoint retains MP3 ownership and unlock")
-	check(level.player.controls.layout[0] == "remote", "Disk checkpoint restores inventory order")
+	check(level.player.controls.layout == ["c4","pistol","smg","shank"], "Disk checkpoint migrates old inventory order into four weapon slots")
 	check(level.get_node("Guards/" + victim_name).is_dead and level.get_node("Guards/" + victim_name).gun_taken, "Dead and looted authored guard remains dead and looted")
 	check(level.get_node("Guards/" + looted_name).gun_taken, "Looted living guard does not produce a second gun or ammo pickup")
 	var restored_cases: Array = level.world_features.props.filter(func(prop): return prop.kind == "case")

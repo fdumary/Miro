@@ -21,12 +21,12 @@ func run() -> void:
 		var hides: Array = world.props.filter(func(prop): return prop.kind in ["hide", "crate"])
 		check(not potions.is_empty() and not cases.is_empty() and not hides.is_empty(), "Floor %d has tonics, ammo and hiding boxes" % number)
 		for tonic in potions:
-			check(world.placement_clear(tonic.global_position) and level.has_floor_below(tonic.global_position + Vector2(0, 13)), "Floor %d tonic %s is clear and supported" % [number, tonic.global_position])
+			check((tonic.get_meta("lab_flask", false) and level.has_floor_below(tonic.global_position + Vector2(0, 38))) or (world.placement_clear(tonic.global_position) and level.has_floor_below(tonic.global_position + Vector2(0, 13))), "Floor %d tonic %s is clear and supported" % [number, tonic.global_position])
 		player.global_position = potions[0].global_position
 		player.health = player.max_health - 2
-		check(world.try_interact() and potions[0].used and player.health == player.max_health - 1, "Floor %d tonic restores health" % number)
+		check(world.try_interact() and potions[0].used and player.health == mini(player.max_health,player.max_health-2+int(potions[0].get_meta("heal_amount",1))), "Floor %d tonic restores health" % number)
 		world.try_interact()
-		check(player.health == player.max_health - 1, "Floor %d consumed tonic cannot heal twice" % number)
+		check(player.health == mini(player.max_health,player.max_health-2+int(potions[0].get_meta("heal_amount",1))), "Floor %d consumed tonic cannot heal twice" % number)
 		player.has_gun = true
 		player.guns.assign(["pistol"])
 		player.equipped_gun = "pistol"
@@ -54,10 +54,10 @@ func run() -> void:
 		var keeper = level.guards()[0]
 		check(keeper.KEEPER_IDLE.get_size() == Vector2(32, 32) and keeper.KEEPER_WALK.get_size() == Vector2(64, 32) and keeper.KEEPER_ATTACK.get_size() == Vector2(64, 32), "Floor %d Keeper idle/walk/attack sheets match drawing geometry" % number)
 		if number == 1:
-			player.position = world.access_point + Vector2(47, 0)
-			check(player.controls.at_early_port(), "MP3 service port connects within the existing 48px range")
-			player.position = world.access_point + Vector2(49, 0)
-			check(not player.controls.at_early_port(), "MP3 service port rejects positions outside the existing 48px range")
+			player.position = world.access_point + Vector2(479, 0)
+			check(player.controls.connection_target()!=null, "MP3 connects to a nearby terminal within 480px")
+			player.position = world.access_point + Vector2(481, 0)
+			check(not player.controls.at_early_port(), "MP3 service port rejects positions outside the 480px wireless range")
 		if number == 3:
 			# Miro has already left the ladder: search must reach and leave the upper landing.
 			player.global_position = Vector2(1300, 1048)

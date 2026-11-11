@@ -5,6 +5,7 @@ var flow
 var music
 
 func run() -> void:
+	seed(97005070)
 	music = root.get_node("MusicDirector")
 	level = load("res://scenes/levels/level_05.tscn").instantiate()
 	root.add_child(level)
@@ -33,7 +34,7 @@ func run() -> void:
 	level.finish_dialogue()
 	check(level.player.controls.has_guitar and level.player.controls.active == "guitar", "Guitar is taken and selected")
 	level.player.controls.show_inventory()
-	check(level.player.controls.guitar_button.visible and level.player.controls.guitar_button.icon == preload("res://scripts/weapon_art.gd").TEXTURES.guitar, "Guitar appears as an inventory item with its art")
+	check(level.player.controls.slots.has("guitar") and not level.player.controls.blanket_removed(), "Guitar occupies a weapon slot while blanket stays available")
 	level.player.controls.guitar_button.pressed.emit()
 	check(level.player.controls.active == "guitar" and not level.player.controls.inventory_open, "Inventory guitar entry equips it")
 	# Fixture: the scripted section checks the flow, not survival; the final fight below uses normal health.

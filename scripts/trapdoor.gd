@@ -8,6 +8,7 @@ var collision: CollisionShape2D
 var previous_player_position := Vector2.ZERO
 var crossing_armed := false
 var reward_checked := false
+var previous_guard_positions: Dictionary = {}
 const ART = preload("res://assets/environment/connector.png")
 func _ready() -> void:
 	set_physics_process(false)
@@ -31,6 +32,8 @@ func activate() -> void:
 	is_open = true
 	previous_player_position = level.player.global_position
 	crossing_armed = true
+	for guard in level.guards():
+		previous_guard_positions[guard.get_instance_id()] = guard.global_position
 	set_physics_process(true)
 	open_left = 5.0
 	collision.set_deferred("disabled", true)
@@ -54,6 +57,7 @@ func _physics_process(delta: float) -> void:
 		previous_player_position = level.player.global_position
 		return
 	check_player_crossing()
+	check_guard_crossings()
 	open_left = maxf(0, open_left - delta)
 	if open_left <= 0 and not occupied():
 		is_open = false
@@ -83,3 +87,21 @@ func _draw() -> void:
 		draw_line(Vector2(-13, -13), Vector2(-13, 8), Color("e6a24f"), 3)
 		draw_line(Vector2(13, -13), Vector2(13, 8), Color("e6a24f"), 3)
 		draw_arc(Vector2(0, -20), 4, -PI / 2, -PI / 2 + TAU * open_left / 5, 16, Color("f2d3ab"), 1)
+
+func check_guard_crossings() -> void:
+	for guard in level.guards():
+		if guard.is_dead:continue
+		var id: int = guard.get_instance_id()
+		var now: Vector2 = guard.global_position
+		var before: Vector2 = previous_guard_positions.get(id, now)
+		previous_guard_positions[id] = now
+		if before.y < global_position.y and now.y >= global_position.y and now.distance_squared_to(before) < 96.0 * 96.0:
+			var t := (global_position.y - before.y) / (now.y - before.y)
+			if absf(lerpf(before.x, now.x, t) - global_position.x) < 14.0:
+				get_node("/root/Campaign").unlock_achievement("guard_trapdoor")
+				if not guard.asleep:
+					guard.alert_state = IntroGuard.State.ALERT
+					guard.suspicion = 1.0
+					guard.pursuing = true
+					guard.last_known_position = level.player.global_position
+					guard.search_left = 8.0

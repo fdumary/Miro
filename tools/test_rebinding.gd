@@ -61,21 +61,21 @@ func run() -> void:
 		level.player.equipped_gun="pistol"
 		for strangled in [false,true]:
 			var guard=level.guards()[0]
-			guard.position=Vector2(400,432)
+			guard.position=Vector2(600,-1000)
 			guard.weapon_kind="pistol"
 			guard.asleep=false
 			guard.strangled=false
 			if strangled: guard.strangle()
 			else:
 				if number==5:
-					level.player.position=Vector2(385,432)
+					level.player.position=Vector2(585,-1000)
 					level.player.controls.has_guitar=true
 					level.player.controls.strum_cooldown=0
 					check(level.player.controls.strum()>0,"Actual guitar strum puts a level 5 guard to sleep")
 				else: guard.fall_asleep()
 			check(guard.asleep and not guard.is_dead and guard.strangled==strangled,"Unconscious pose is activated by the real sleep/strangle method")
 			guard.gun_taken=false
-			level.player.position=Vector2(385,432)
+			level.player.position=Vector2(585,-1000)
 			var before: int=level.player.controls.reserves.get("pistol",0)
 			level.interact()
 			check(guard.gun_taken and level.player.controls.reserves.get("pistol",0)>before,"Floor %d ammo loots from %s guard" % [number,"strangled" if strangled else "sleeping"])
@@ -98,13 +98,13 @@ func run() -> void:
 	binding.waiting="dodge"
 	paused=true
 	var paused_key:=InputEventKey.new()
-	paused_key.physical_keycode=KEY_H
+	paused_key.physical_keycode=KEY_J
 	paused_key.pressed=true
 	Input.parse_input_event(paused_key)
 	await process_frame
 	await process_frame
 	paused=false
-	check(binding.custom.get("dodge")==["key",KEY_H],"Rebinding captures and saves keys while the game is paused")
+	check(binding.custom.get("dodge")==["key",KEY_J],"Rebinding captures and saves keys while the game is paused")
 	binding.close()
 	binding.custom=previous
 	binding.preset=previous_preset

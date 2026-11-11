@@ -107,7 +107,7 @@ func run() -> void:
 		var player = level.player
 		var controls = player.controls
 		var expected_tracks: Array = campaign.level_music_tracks(number)
-		check(expected_tracks.size() == (1 if number == 1 else 2), "Floor %d has the correct basic music reward count" % number)
+		check(expected_tracks.size() == (1 if number in [1, 5] else 2), "Floor %d has the correct basic music reward count" % number)
 		for track in expected_tracks:
 			check(campaign.unlocked_tracks().has(track), "Reaching floor %d unlocks %s on the MP3" % [number, track])
 		player.has_supplies = true
@@ -125,6 +125,18 @@ func run() -> void:
 			check(bound, "Floor %d: controller axis assigned for %s" % [number, binding[0]])
 		await frames(4)
 		level.finish_dialogue()
+		# Exercise jumping at a clear floor point, away from relocated paintings and other interactions.
+		if number != 5:
+			var free_spot := false
+			for x in [400.0, 600.0, 800.0, 100.0]:
+				player.position = Vector2(x, 236)
+				var lore = level.get_node("InnerConflict").usable_prop()
+				if lore == null and not "[E]" in level.context_hint() and level.has_floor_below(player.position + Vector2(0, 12)):
+					free_spot = true
+					break
+			check(free_spot, "Floor %d: controller movement fixture is clear of interactions" % number)
+			player.velocity = Vector2.ZERO
+			await frames(4)
 		await press(JOY_BUTTON_A)
 		check(player.velocity.y < 0, "Floor %d: Cross/A jumps away from interactions" % number)
 		await press(JOY_BUTTON_B)
@@ -134,13 +146,16 @@ func run() -> void:
 		await press(JOY_BUTTON_LEFT_STICK)
 		if number == 5:
 			controls.has_guitar = true
+		controls.sync_slots()
+		controls.select_item("c4")
 		await press(JOY_BUTTON_Y)
-		check(controls.active == ("guitar" if number == 5 else "blanket"), "Floor %d: Triangle/Y selects the correct tool" % number)
-		controls.select_item("shank")
+		check(controls.active == ("guitar" if number == 5 else "pistol"), "Floor %d: Triangle/Y cycles available weapons" % number)
+		var selected: String = controls.active
+		controls.melee_left=0
 		await press(JOY_BUTTON_RIGHT_SHOULDER)
-		check(controls.active == "c4", "Floor %d: R1/RB cycles items" % number)
+		check(controls.melee_left > 0 and controls.active == selected, "Floor %d: R1/RB performs melee without switching" % number)
 		await press(JOY_BUTTON_LEFT_SHOULDER)
-		check(controls.active == "shank", "Floor %d: L1/LB cycles back" % number)
+		check(controls.active == selected, "Floor %d: L1/LB blanket preserves selected weapon" % number)
 		await press(JOY_BUTTON_TOUCHPAD)
 		check(controls.inventory_open, "Floor %d: Touchpad opens inventory" % number)
 		check(not "[Esc]" in controls.panel.get_child(0).get_children().back().text, "Floor %d: Inventory close prompt follows controller mode" % number)

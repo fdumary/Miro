@@ -4,7 +4,7 @@ extends Node2D
 @onready var player: IntroPlayer = $Player
 @onready var areas: Node2D = $Interactables
 var radio_line := ""
-## Seconds left of the voiced line on screen; E / advance waits so the whole line is heard (Tab still skips).
+## Remaining voiced-line time; manual advance may interrupt it, while Tab skips the conversation.
 var line_lock := 0.0
 ## A cinematic card over the start of a floor or a story beat (scripts/floor_card.gd).
 var card: Control
@@ -180,9 +180,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	elif not dialogue.is_empty() and not paused:
 		if event.is_action_pressed("advance") or event.is_action_pressed("interact"):
-			if line_lock > 0.0:
-				get_viewport().set_input_as_handled()
-				return
 			dialogue_index += 1
 			if dialogue_index >= dialogue.size():
 				finish_dialogue()
@@ -191,7 +188,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			finish_dialogue()
 			get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("interact") and not event.is_echo():
+		world_features.next_strangle_requires_hold = true
 		interact()
+		world_features.next_strangle_requires_hold = false
 		get_viewport().set_input_as_handled()
 	elif event is InputEventKey and event.pressed and not event.echo and get_node("/root/InputBindings").matches(event, "hint") and not controls_locked() and not player.is_dead:
 		# Z: Miro thinks through what to do next, in his thought bubble.
@@ -213,7 +212,7 @@ func _process(delta: float) -> void:
 	for guard in guards():
 		if not guard.is_dead:
 			pursuing = pursuing or (guard.sees_player and guard.alert_state == IntroGuard.State.ALERT)
-			searching = searching or guard.alert_state != IntroGuard.State.PATROL
+			searching = searching or guard.alert_state != IntroGuard.State.PATROL or guard.pursuing or guard.windup > 0 or guard.burst_left > 0
 	if pursuing and not was_spotted and counts_detection():
 		floor_detections += 1
 	was_spotted = pursuing
@@ -221,7 +220,7 @@ func _process(delta: float) -> void:
 	if pursuing:
 		spotted_at = elapsed
 	searching = searching or (spotted_at >= 0.0 and elapsed - spotted_at < 8.0)
-	player.detection_state = "SPOTTED" if pursuing else ("HIDDEN" if player.is_concealed else ("SEARCHING" if searching else "UNSEEN"))
+	player.detection_state = "SPOTTED" if pursuing else ("HIDDEN" if (player.is_concealed or player.in_hiding_spot) else ("SEARCHING" if searching else ("CLEAR" if spotted_at >= 0.0 or floor_detections > 0 else "UNSEEN")))
 	var status := player.detection_state
 	if player.has_key:
 		status += " · KEY"
@@ -255,7 +254,11 @@ func _process(delta: float) -> void:
 		dialogue_label.text = get_node("/root/ControllerSettings").prompt(str(line[1]))
 		dialogue_panel.follow_actor()
 		# Niro's lines over the remote come out of the radio: bitcrushed, static, dropouts.
-		var key := "%d:%s" % [dialogue_index, str(line[1])]
+		var spoken_text := str(line[1])
+		if line.size() > 3 and str(line[3]).begins_with("choice:"):
+			var choice: Dictionary = get_node("InnerConflict").current_choice()
+			spoken_text = str(choice.get("prompt", spoken_text))
+		var key := "%d:%s" % [dialogue_index, spoken_text]
 		if key != radio_line:
 			radio_line = key
 			var radio = get_node("/root/RemoteRadio")
@@ -271,7 +274,7 @@ func _process(delta: float) -> void:
 			elif str(line[0]) in ["PRISONER", "THE PRISONER"]:
 				radio.say_in_room(str(line[1]), "prisoner", "Voice", 0.0, anchor)
 			elif str(line[0]) == "MIRO":
-				radio.say_in_room(str(line[1]), "miro", "Thought" if dialogue_panel.thought else "Voice")
+				radio.say_in_room(spoken_text, "miro", "Thought" if dialogue_panel.thought else "Voice")
 			else:
 				radio.stop()
 			line_lock = 0.0
@@ -321,7 +324,7 @@ const L1_HINTS := {
 	"door": ["Judas has a key. Or the lock could just stop existing.",
 		"Wait for him to turn away and take the key [E]. Or set a charge on the lock: [2], right click.",
 		"Stand behind Judas while he faces away and press E. Or select C4 [2], right click the lock, step back, left click."],
-	"brother": ["The gallery leads to a barred gate. Someone's waiting there.",
+	"brother": ["Maybe I can use my blanket to hide.", "The gallery leads to a barred gate. Someone's waiting there.",
 		"Go right along the gallery, past the cells, to the bars.",
 		"Walk right to the barred gate and press E."],
 	"sigil": ["'Leave a mark.' Down where the tower holds itself up.",
@@ -347,6 +350,9 @@ func hint_lines(key: String) -> Array:
 	return L1_HINTS.get(key, [])
 
 func z_hint() -> String:
+	if is_instance_valid(world_features):
+		var security_tip: String = world_features.security_hint()
+		if not security_tip.is_empty():return security_tip
 	var key := hint_key()
 	var lines: Array = hint_lines(key)
 	if lines.is_empty():
@@ -522,6 +528,7 @@ func ladder_at(point: Vector2):
 
 func clear_sight(from: Vector2, to: Vector2) -> bool:
 	var query := PhysicsRayQueryParameters2D.create(from, to, 1)
+	query.hit_from_inside = true
 	return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
 
 func has_floor_below(point: Vector2) -> bool:
@@ -564,9 +571,9 @@ func context_hint() -> String:
 		if (guard.is_dead or guard.asleep) and (not guard.gun_taken or (guard.sick_guard and not guard.key_taken)):
 			return "[E] Search fallen Keeper"
 		if guard.sick_guard and not guard.key_taken:
-			return "[E] Pickpocket when he turns away   /   [1] Shank   /   [2] C4"
+			return "[E] Pickpocket when he turns away   /   [F] Melee   /   [3] C4"
 	if nearby("door", 65) and not door_open:
-		return "[E] Unlock with key   /   [2] C4 with C4"
+		return "[E] Unlock with key   /   [3] C4"
 	if nearby("sigil"):
 		return "The mark is set." if sigil_placed else "[E] Set your mark on the support"
 	if nearby("exit", 65):
@@ -578,10 +585,10 @@ func context_hint() -> String:
 	if player.is_concealed:
 		return "Move carefully • touching a Keeper breaks stealth"
 	if ladder_at(player.global_position):
-		return "[W / S] Climb. Keepers cannot use ladders."
+		return "[W / S] Climb. Keepers can follow you."
 	if stuck():
 		return "Not sure where to go? [Z] Think it through"
-	return "A / D  Move    Space  Jump    C  Dash    Esc  Controls"
+	return "A/D Move · [Space] twice Double jump · [C] Dash\nLeft Ctrl Crouch · Shift Quiet walk · [Q] Blanket · [Esc] Controls"
 
 ## Achievement hook shared with later floors; combat behavior remains in IntroGuard.
 func on_keeper_killed(guard) -> void:
@@ -666,7 +673,7 @@ func interact() -> void:
 	if nearby("door", 65) and not door_open:
 		if player.has_key:
 			open_door()
-			notify("A quiet click. Shadow alcoves can hide you: select Q and click.", 7)
+			notify("A quiet click. Shadow alcoves can hide you: press [Q].", 7)
 		else:
 			notify("Locked. Steal the key from Judas, loot him, or use C4 [2].")
 		return

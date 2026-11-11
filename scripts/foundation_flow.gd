@@ -61,7 +61,7 @@ func on_guitar() -> void:
 	level.player.controls.collect_guitar()
 	music().guitar_section()
 	get_node("/root/SoundFX").play_sound("gate", -12)
-	level.notify("An alarm. They know exactly where you are. [Q] Guitar: click to strum.", 7)
+	level.notify("An alarm. They know exactly where you are. Guitar equipped: Left click to strum. [Q] Blanket.", 7)
 	guitar_taken.emit()
 	level.show_card("alarm", "", "", "", Color.RED, 2.4)
 	request_wave(0)
@@ -289,7 +289,7 @@ func objective() -> String:
 		Step.OFFICE:
 			return ""
 		Step.WAVE_PENDING, Step.WAVE:
-			return "05 / THE FOUNDATION\nSurvive the Keepers. Strum [Q] to put them to sleep."
+			return "05 / THE FOUNDATION\nSurvive the Keepers. Left click: strum to put them to sleep."
 		Step.NIRO_PENDING, Step.NIRO:
 			return "05 / THE FOUNDATION\nFace Niro. Hit him while he recovers."
 		Step.DESCEND:
@@ -311,4 +311,4 @@ func hint_step() -> String:
 	return ""
 
 func niro_fight_hint() -> String:
-	return "[1] Shank or [Q] strum during RECOVER • [C] Dodge • Space Jump"
+	return "[F] Melee or guitar + Left click during RECOVER • [C] Dodge • Space Jump"
