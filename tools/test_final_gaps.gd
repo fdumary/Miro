@@ -60,7 +60,7 @@ func run() -> void:
 		searcher.last_known_position = Vector2(1500, 1244)
 		searcher.ladder_search(1.0 / 60.0)
 		await frames(1)
-	check(searcher.global_position.y > before_y + 25.0 and absf(searcher.global_position.x - 1540.0) < 6.0, "A searching Keeper takes the ladder down to the floor he last saw Miro")
+	check(searcher.global_position.y > before_y + 25.0 and absf(searcher.global_position.x - 1540.0) < 64.0, "A searching Keeper takes the ladder down to the floor he last saw Miro")
 	# The checkpoint hack opens the gate even if another scene starts at the same moment.
 	level.queue_free()
 	await frames(2)

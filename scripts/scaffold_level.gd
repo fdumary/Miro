@@ -31,7 +31,7 @@ func _ready() -> void:
 	player.get_node("Camera2D").limit_right = int(definition.world_size[0])
 	player.get_node("Camera2D").limit_bottom = int(definition.world_size[1])
 	player.has_supplies = true
-	player.c4_count = int(definition.get("demolition_charges", 1)) + 3 # Three charges to use freely; story supports stay reserved.
+	player.c4_count = 3 # Carried explosives; authored support placements are story events.
 	door_open = true
 	brother_heard = true
 	for guard in guards():
@@ -111,6 +111,8 @@ func _ready() -> void:
 	var accents := {2: Color("c69fa5"), 3: Color("8bb5c9"), 4: Color("d8e3ea"), 5: Color("f2d3ab")}
 	var report: String = get_node("/root/Campaign").branch()[reputation].report if int(definition.number) > 2 else ""
 	show_card("floor", "%02d" % int(definition.number), str(definition.title).to_upper(), report, accents.get(int(definition.number), Color("c69fa5")))
+	player.get_node("Camera2D").reset_smoothing()
+	player.get_node("Camera2D").force_update_scroll()
 
 ## Each storey of a floor is a checkpoint: the first time Miro stands on a deeper one it is
 ## saved, and a retry puts him back there with the floor's progress, with every Keeper
@@ -298,7 +300,7 @@ func apply_carried_kit() -> void:
 	player.equipped_gun = str(kit.get("equipped_gun", player.equipped_gun))
 	player.ammunition = int(kit.get("ammunition", 0))
 	if kit.has("c4_count"):
-		player.c4_count = maxi(int(definition.get("demolition_charges", 1)), int(kit.get("c4_count", 0)))
+		player.c4_count = 3 # A new floor supplies three carried charges.
 	c.reserves = Dictionary(kit.get("reserves", {})).duplicate()
 	player.health = clampi(int(kit.get("health", player.health)), 1, player.max_health)
 	c.sync_slots()
@@ -311,6 +313,9 @@ func apply_checkpoint() -> void:
 		return
 	saved.erase("retry")
 	player.global_position = saved.position
+	player.reset_physics_interpolation()
+	player.get_node("Camera2D").reset_smoothing()
+	player.get_node("Camera2D").force_update_scroll()
 	# Resuming past the point where the floor's second song starts: that song, not the first.
 	if definition.has("music_region"):
 		var entry: Dictionary = definition.music_region.entry
@@ -620,11 +625,6 @@ func interact() -> void:
 		if flow != null and station.id in ["FinalOffer", "BrotherEncounter", "DefeatExchange"]:
 			notify("Niro will come to you.")
 			return
-		if station.kind == "sigil":
-			var needed: int = int(station.get("charge_count", 1))
-			if player.c4_count < needed:
-				notify("Not enough C4. Recover placed charges first.")
-				return
 		pending_milestone = station.id
 		if station.id == "ForestViewpoint":
 			pending_milestone = ""
@@ -680,7 +680,7 @@ func finish_dialogue() -> void:
 			for station in definition.stations:
 				if station.id == pending_milestone:
 					charge_count = int(station.get("charge_count", 1))
-			player.c4_count = maxi(0, player.c4_count - charge_count)
+			# Authored support placement does not consume carried explosives.
 			make_noise(node.global_position, 220)
 		pending_milestone = ""
 	dialogue = []

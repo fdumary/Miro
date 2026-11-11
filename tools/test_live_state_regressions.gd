@@ -47,19 +47,20 @@ func run() -> void:
   c.close_panels()
   # Isolate range and wall cases from authored obstacles.
   if port.get_script()!=load("res://scripts/review_prop.gd"):port=w.spawn_prop(Vector2(600,-1000),"access","TEST PORT")
-  port.position=Vector2(600,-1000);level.player.position=port.position+Vector2(479,0);c.local_console=false
-  check(c.at_early_port(),"479px wireless in range floor %d"%number)
-  level.player.position.x+=2;check(not c.at_early_port(),"481px wireless out of range floor %d"%number)
+  port.position=Vector2(600,-1000);level.player.position=port.position+Vector2(639,0);c.local_console=false
+  check(c.at_early_port(),"639px wireless in range floor %d"%number)
+  level.player.position.x+=2;check(not c.at_early_port(),"641px wireless out of range floor %d"%number)
   level.player.position=port.position+Vector2(80,0);c.local_console=true;check(not c.at_early_port(),"Physical terminal keeps 48px reach floor %d"%number);c.local_console=false
   var wall:=StaticBody2D.new();wall.position=port.position+Vector2(40,-8);var col:=CollisionShape2D.new();var shape:=RectangleShape2D.new();shape.size=Vector2(16,80);col.shape=shape;wall.add_child(col);level.add_child(wall);await frames()
   check(c.at_early_port(),"Wireless works through corridor cover floor %d"%number)
-  level.player.position=port.position+Vector2(0,196);check(not c.at_early_port(),"Wireless excludes terminal on another storey floor %d"%number)
+  level.player.position=port.position+Vector2(0,196);check(c.at_early_port(),"Wireless includes terminal on adjacent storey floor %d"%number)
+  level.player.position=port.position+Vector2(0,392);check(not c.at_early_port(),"Wireless excludes terminal two storeys away floor %d"%number)
   level.player.position=port.position+Vector2(400,0);c.show_console(false);check("Nearby signal: service.local" in c.output.text,"MP3 announces terminal beyond camera edge floor %d"%number)
   wall.queue_free();c.close_panels()
  await scene(3)
  var p=level.player;var c=p.controls;var w=level.world_features
- p.position=Vector2(600,-1000);p.c4_count=1;c.drop_charge();c.planted[0].position=p.position;c.planted[0].set_physics_process(false)
- check(p.c4_count==1 and c.recover_charge() and p.c4_count==1,"Reserved spare C4 recovery never duplicates inventory")
+ p.position=Vector2(600,-1000);p.c4_count=1;c.drop_charge()
+ check(p.c4_count==1 and c.planted.is_empty(),"Reserved last C4 cannot be used or duplicated")
  await frames();p.c4_count=4;c.drop_charge();c.planted[0].position=p.position;c.planted[0].set_physics_process(false)
  check(p.c4_count==3 and c.recover_charge() and p.c4_count==4,"Inventory C4 recovery refunds exactly one")
  await frames();c.drop_charge();c.planted[0].position=p.position+Vector2(20,0);c.planted[0].stuck=true;c.planted[0].set_physics_process(false)

@@ -636,7 +636,7 @@ func interact() -> void:
 	var bed = nearby("bed")
 	if bed and not player.has_supplies:
 		player.has_supplies = true
-		player.c4_count = 4 # Three to use freely, one for the support below.
+		player.c4_count = 3 # Two optional charges and one reserved for the sigil.
 		bed.activated = true
 		bed.queue_redraw()
 		start_dialogue([

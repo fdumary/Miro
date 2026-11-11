@@ -297,8 +297,20 @@ func _physics_process(delta: float) -> void:
 			facing = -1
 		if turn_wait <= 0:
 			velocity.x = facing * movement_speed * stride()
+	update_guard_contacts()
 	if ladder_follow(delta) or ladder_search(delta):
 		return
+	# Separate crowds horizontally without physical bodies launching one another.
+	if is_on_floor() and is_instance_valid(level):
+		var spacing := 0.0
+		for other in level.guards():
+			if other == self or not is_instance_valid(other) or other.is_dead or other.asleep:continue
+			if absf(other.global_position.y-global_position.y)>20.0:continue
+			var gap:float=global_position.x-other.global_position.x
+			if absf(gap)<36.0:
+				var side:float=signf(gap) if absf(gap)>0.1 else (1.0 if get_instance_id()>other.get_instance_id() else -1.0)
+				spacing+=side*(36.0-absf(gap))*4.0
+		velocity.x=clampf(velocity.x+spacing,-chase_speed,chase_speed)
 	# Do not walk off a floor or chase between tiers (ladders are followed above).
 	var foot := global_position + Vector2(signf(velocity.x) * 15, 12)
 	var chasing := velocity.x != 0 and (alert_state == State.ALERT or pursuing)
@@ -315,7 +327,13 @@ func _physics_process(delta: float) -> void:
 	velocity.y += 850.0 * delta
 	move_and_slide()
 	if is_on_wall() and not hopping and not (chasing and not is_on_floor()):
-		facing *= -1
+		if chasing:
+			# A crouch passage or tall wall is impassable to this guard.
+			pursuing=false
+			alert_state=State.SEARCH
+			last_known_position=global_position
+			search_left=maxf(search_left,2.0)
+		else:facing *= -1
 
 ## Ladders: a hunting Keeper climbs after Miro; an unaware one near the ladder glances up (or down).
 var glance_left := 0.0
@@ -353,7 +371,16 @@ func ladder_follow(delta: float) -> bool:
 
 ## A searching or hunting Keeper whose target is on another floor walks to the nearest ladder that
 ## joins the two floors and climbs it all the way, then carries on looking.
+func update_guard_contacts() -> void:
+	# Guards block each other sideways, never as floors or launching platforms.
+	for other in level.guards():
+		if other == self or not is_instance_valid(other):continue
+		if absf(other.global_position.y-global_position.y)>8.0 or not is_on_floor() or not other.is_on_floor() or is_on_wall() or other.is_on_wall():
+			add_collision_exception_with(other)
+		else:remove_collision_exception_with(other)
+
 func ladder_search(delta: float) -> bool:
+	update_guard_contacts()
 	if ladder_exit_left > 0.0:
 		ladder_exit_left = maxf(0.0, ladder_exit_left - delta)
 		velocity.x = ladder_exit_side * 120.0
@@ -401,6 +428,9 @@ func ladder_search(delta: float) -> bool:
 			move_and_slide()
 			return true
 		return false
+	# A ladder route cannot be blocked by another guard parked on its landing.
+	for other in level.guards():
+		if other != self and is_instance_valid(other):add_collision_exception_with(other)
 	var low := minf(global_position.y, target.y)
 	var high := maxf(global_position.y, target.y)
 	var best = null

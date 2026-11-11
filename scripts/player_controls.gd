@@ -805,8 +805,8 @@ func record_mp3_hack() -> void:
 	if has_remote and not local_console:
 		get_node("/root/Campaign").on_mp3_hack()
 
-const MP3_CONNECTION_RADIUS := 480.0
-const MP3_FLOOR_TOLERANCE := 64.0
+const MP3_CONNECTION_RADIUS := 640.0
+const MP3_FLOOR_TOLERANCE := 256.0
 
 func connection_radius() -> float:
 	return 48.0 if local_console else MP3_CONNECTION_RADIUS
@@ -859,21 +859,13 @@ func drop_charge() -> void:
 		return
 	# Reserve authored charges so optional explosives cannot soft-lock the story.
 	var reserve := 1
-	if get_node("/root/Campaign").current_floor == 4 and player.level.get("definition") != null:
-		reserve = 0
-		for station in player.level.definition.stations:
-			if station.kind == "sigil" and not player.level.milestones.has(station.id):
-				reserve += int(station.get("charge_count", 1))
-	elif player.level.sigil_placed:
-		reserve = 0
+	if player.level.sigil_placed:reserve = 0
 	# Every floor gives three charges to use freely (story supports keep their own). Out of
 	# them, the floor hands over a spare, one at a time, so a stuck player always has one.
-	var spare := player.c4_count <= reserve
-	if spare:
-		if planted.any(func(placed): return is_instance_valid(placed)):
-			player.level.notify("Out of C4. Detonate or recover the charge you placed first.")
-			return
-		player.level.notify("Out of C4. A spare charge turns up in your pack.")
+	var spare := false
+	if player.c4_count <= reserve:
+		player.level.notify("Last C4 reserved for the sigil.")
+		return
 	var charge := Node2D.new()
 	charge.set_script(preload("res://scripts/dropped_charge.gd"))
 	charge.set_meta("inventory_charge", not spare)

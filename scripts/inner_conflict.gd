@@ -434,9 +434,28 @@ func _input(event: InputEvent) -> void:
 
 func assign_frame(include_pending: bool) -> void:
 	var branch: String = behavior.select_branch(include_pending)
-	var slot_art: Dictionary = frame_slot.get("art", {})
-	var picks: Array = [str(slot_art.get(branch, "")), str(slot_art.get("neutral", ""))]
-	var shown_id: String = picks[0] if catalog.has(picks[0]) else picks[1]
+	var campaign = get_node("/root/Campaign")
+	var themes: Dictionary = {"neutral":["trapped","alienation"],"ghost":["loneliness","isolation","escape"],"blackhat":["blackhat","distrust","confusion"],"defiant":["defiance","betrayal"],"survivor":["survival","escape"],"seeker":["faith","confusion"]}
+	var matching: Array = []
+	var weights: Dictionary = {}
+	for id in catalog:
+		var affinity := 0
+		for theme in catalog[id].get("themes", []):
+			if themes.get(branch, themes.neutral).has(theme):affinity += 1
+		if affinity > 0:
+			matching.append(id)
+			weights[id] = affinity
+	var fresh: Array = matching.filter(func(id):return not campaign.has_achievement("art_" + str(id)))
+	var pool: Array = fresh if not fresh.is_empty() else matching
+	var weighted: Array = []
+	for id in pool:
+		for weight in range(int(weights[id])):weighted.append(id)
+	var picks: Array = []
+	if not weighted.is_empty():picks.append(weighted.pick_random())
+	pool.shuffle()
+	for id in pool:
+		if not picks.has(id):picks.append(id)
+	var shown_id: String = str(picks[0]) if not picks.is_empty() else ""
 	var image: Texture2D = null
 	for id in picks:
 		if not catalog.has(id):
