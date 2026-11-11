@@ -405,7 +405,7 @@ static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 		item.add_theme_font_size_override("font_size", 10)
 		var display_name: String = str(director.catalog.get(track, {}).get("source", track)).get_basename()
 		if have:
-			item.text = "%s   · %s" % [display_name, mood_word(entry)]
+			item.text = "%s   · %s" % [display_name, requirement(entry, achievement_data) if entry.has("achievement_id") else mood_word(entry)]
 			item.add_theme_color_override("font_color", SAND)
 			item.pressed.connect(func():
 				director.review_override = true

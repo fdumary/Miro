@@ -265,6 +265,8 @@ func unlock_achievement(id: String) -> bool:
 		earned.append(id)
 		progress.set_value("achievements", "earned", earned)
 		progress.save(progress_path())
+	for reward in [["acquire_smg", "pinkghost"], ["guard_trapdoor", "dancehall"]]:
+		if id == reward[0]:add_track_unlock(reward[1])
 	queue_achievement_notice(id)
 	return true
 
@@ -288,6 +290,10 @@ func add_track_unlock(track: String) -> void:
 
 ## Hot Shit is earned via the defeat_niro achievement; it always appears in unlocked_tracks().
 func unlocked_tracks() -> Array:
+	# Repair rewards for achievements earned before these two beats were assigned.
+	for reward in [["acquire_smg", "pinkghost"], ["guard_trapdoor", "dancehall"]]:
+		if has_achievement(reward[0]) and not stored_unlocks().has(reward[1]):
+			add_track_unlock(reward[1])
 	return stored_unlocks()
 
 func stored_unlocks() -> Array:

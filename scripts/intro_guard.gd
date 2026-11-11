@@ -464,7 +464,8 @@ func solid_between(from: Vector2, to: Vector2, mask := 1) -> bool:
 ## Something knee-high directly ahead, with clear space above it to land on.
 func can_hop() -> bool:
 	var ahead := Vector2(facing * 20, 0)
-	return solid_between(global_position + Vector2(0, 8), global_position + Vector2(0, 8) + ahead, 1 | 4) and not solid_between(global_position + Vector2(0, -24), global_position + Vector2(0, -24) + ahead, 1 | 4)
+	# Only terrain is a step; another Keeper must never become a jumping platform.
+	return solid_between(global_position + Vector2(0, 8), global_position + Vector2(0, 8) + ahead, 1) and not solid_between(global_position + Vector2(0, -24), global_position + Vector2(0, -24) + ahead, 1)
 
 ## Patrols keep time with the music: a Keeper turns at the end of his beat on a beat line
 ## (sick Keepers on every other beat) and leans into each step on the beat.

@@ -186,7 +186,8 @@
     {
       "id": "acquire_smg",
       "label": "Automatic Advantage \u00b7 Acquire an SMG",
-      "event": "smg_acquired"
+      "event": "smg_acquired",
+      "track": "pinkghost"
     },
     {
       "id": "foreva_peaceful",
@@ -197,7 +198,8 @@
     {
       "id": "guard_trapdoor",
       "label": "Watch Your Step \u00b7 Drop a Guard Through a Trapdoor",
-      "event": "guard_trapdoor_crossed"
+      "event": "guard_trapdoor_crossed",
+      "track": "dancehall"
     },
     {
       "id": "guitar_acquired",

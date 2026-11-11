@@ -574,6 +574,8 @@ func station_nearby() -> Dictionary:
 	return nearest
 
 func context_hint() -> String:
+	if int(definition.number) == 4 and not milestones.has("WardRelease") and has_node("Gates/WardSeal") and player.global_position.distance_to($Gates/WardSeal.global_position + Vector2(0, 68)) < 80.0:
+		return "Ward sealed. Manual release: upper floor, far left, on the raised gantry. Double jump up, then interact."
 	if world_features and not world_features.hint().is_empty():
 		return world_features.hint()
 	if is_instance_valid(brother) and not brother.is_dead:
