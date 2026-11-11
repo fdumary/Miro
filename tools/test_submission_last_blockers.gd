@@ -37,7 +37,7 @@ func run() -> void:
  a.global_position=Vector2(1100,1244);b.global_position=Vector2(1120,1244);a.facing=1
  await frames()
  check(not a.can_hop(),"Adjacent guard never becomes a hop platform")
- check(a.collision_mask & 4 != 0,"Live guard spacing remains enabled")
+ check(a.collision_mask & 4 == 0,"Another guard cannot serve as a physical floor")
  var removed:=true
  for hide in level.definition.features.hides:
   if hide.title=="VENT" and Vector2(hide.position[0],hide.position[1]).distance_to(Vector2(1003,852))<1:removed=false

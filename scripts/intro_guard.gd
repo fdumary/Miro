@@ -89,7 +89,6 @@ func _ready() -> void:
 		for body in level.guards():
 			if body.is_dead:seen_bodies[body.get_instance_id()] = true
 			elif body.asleep:seen_sleepers[body.get_instance_id()] = true
-	collision_mask |= 4
 	add_to_group("guards")
 	sync_discoverable_group()
 	var campaign = get_node_or_null("/root/Campaign")
@@ -277,6 +276,7 @@ func _physics_process(delta: float) -> void:
 			pursuing = false
 			facing = 1.0 if int(time) % 2 == 0 else -1.0
 		if search_left <= 0:
+			pursuing = false
 			alert_state = State.PATROL
 			suspicion = 0
 	elif alert_state == State.PATROL:
@@ -297,20 +297,13 @@ func _physics_process(delta: float) -> void:
 			facing = -1
 		if turn_wait <= 0:
 			velocity.x = facing * movement_speed * stride()
-	update_guard_contacts()
 	if ladder_follow(delta) or ladder_search(delta):
 		return
-	# Separate crowds horizontally without physical bodies launching one another.
-	if is_on_floor() and is_instance_valid(level):
-		var spacing := 0.0
-		for other in level.guards():
-			if other == self or not is_instance_valid(other) or other.is_dead or other.asleep:continue
-			if absf(other.global_position.y-global_position.y)>20.0:continue
-			var gap:float=global_position.x-other.global_position.x
-			if absf(gap)<36.0:
-				var side:float=signf(gap) if absf(gap)>0.1 else (1.0 if get_instance_id()>other.get_instance_id() else -1.0)
-				spacing+=side*(36.0-absf(gap))*4.0
-		velocity.x=clampf(velocity.x+spacing,-chase_speed,chase_speed)
+	var requested := velocity.x
+	velocity.x = spaced_speed(requested)
+	if alert_state == State.PATROL and requested * facing > 0 and velocity.x * facing < 1.0:
+		facing *= -1
+		turn_wait = beat_wait(0.8)
 	# Do not walk off a floor or chase between tiers (ladders are followed above).
 	var foot := global_position + Vector2(signf(velocity.x) * 15, 12)
 	var chasing := velocity.x != 0 and (alert_state == State.ALERT or pursuing)
@@ -321,19 +314,21 @@ func _physics_process(delta: float) -> void:
 		if alert_state == State.SEARCH:
 			last_known_position.x = global_position.x
 	# A chasing Keeper hops over anything one tile high instead of giving up at it.
-	var hopping := chasing and is_on_floor() and can_hop()
+	var searching := alert_state == State.SEARCH or alert_state == State.ALERT
+	var hopping := searching and velocity.x * facing > 0 and is_on_floor() and can_hop()
 	if hopping:
 		velocity.y = -HOP_SPEED
 	velocity.y += 850.0 * delta
 	move_and_slide()
-	if is_on_wall() and not hopping and not (chasing and not is_on_floor()):
-		if chasing:
+	if is_on_wall() and not hopping and is_on_floor():
+		if searching:
 			# A crouch passage or tall wall is impassable to this guard.
-			pursuing=false
-			alert_state=State.SEARCH
-			last_known_position=global_position
-			search_left=maxf(search_left,2.0)
-		else:facing *= -1
+			pursuing = false
+			alert_state = State.SEARCH
+			last_known_position = global_position
+			search_left = minf(search_left, 2.0)
+		else:
+			facing *= -1
 
 ## Ladders: a hunting Keeper climbs after Miro; an unaware one near the ladder glances up (or down).
 var glance_left := 0.0
@@ -364,23 +359,30 @@ func ladder_follow(delta: float) -> bool:
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return true
-	global_position.x = move_toward(global_position.x, ladder.global_position.x, 120.0 * delta)
-	velocity = Vector2(0.0, signf(dy) * 92.0)
-	move_and_slide()
+	climb_toward(ladder.global_position.x, dy, delta)
 	return true
 
-## A searching or hunting Keeper whose target is on another floor walks to the nearest ladder that
-## joins the two floors and climbs it all the way, then carries on looking.
-func update_guard_contacts() -> void:
-	# Guards block each other sideways, never as floors or launching platforms.
+## Bound the requested speed by the room on each side. A faster follower slows
+## before contact; exactly coincident guards choose a stable order and spread out.
+func spaced_speed(requested: float) -> float:
+	if not is_on_floor():
+		return requested
+	var left := -chase_speed
+	var right := chase_speed
 	for other in level.guards():
-		if other == self or not is_instance_valid(other):continue
-		if absf(other.global_position.y-global_position.y)>8.0 or not is_on_floor() or not other.is_on_floor() or is_on_wall() or other.is_on_wall():
-			add_collision_exception_with(other)
-		else:remove_collision_exception_with(other)
+		if other == self or other.is_dead or other.asleep or absf(other.position.y - position.y) > 20.0:
+			continue
+		var gap: float = other.position.x - position.x
+		var limit := (absf(gap) - 36.0) * 4.0
+		if gap > 0 or (gap == 0 and other.get_instance_id() > get_instance_id()):
+			right = minf(right, limit)
+		else:
+			left = maxf(left, -limit)
+	if left > right:
+		return clampf((left + right) * 0.5, -chase_speed, chase_speed)
+	return clampf(requested, left, right)
 
 func ladder_search(delta: float) -> bool:
-	update_guard_contacts()
 	if ladder_exit_left > 0.0:
 		ladder_exit_left = maxf(0.0, ladder_exit_left - delta)
 		velocity.x = ladder_exit_side * 120.0
@@ -428,11 +430,6 @@ func ladder_search(delta: float) -> bool:
 			move_and_slide()
 			return true
 		return false
-	# A ladder route cannot be blocked by another guard parked on its landing.
-	for other in level.guards():
-		if other != self and is_instance_valid(other):add_collision_exception_with(other)
-	var low := minf(global_position.y, target.y)
-	var high := maxf(global_position.y, target.y)
 	var best = null
 	var best_gap := INF
 	for area in level.areas.get_children():
@@ -454,8 +451,8 @@ func ladder_search(delta: float) -> bool:
 		# Walk to the foot (or top) of the ladder on this floor.
 		var before_x := global_position.x
 		facing = signf(ladder_x - global_position.x)
-		velocity.x = facing * chase_speed
-		if is_on_floor() and can_hop():velocity.y = -HOP_SPEED
+		velocity.x = spaced_speed(facing * chase_speed)
+		if velocity.x * facing > 0 and is_on_floor() and can_hop():velocity.y = -HOP_SPEED
 		velocity.y += 850.0 * delta
 		move_and_slide()
 		ladder_stall_time = ladder_stall_time + delta if absf(global_position.x-before_x)<0.01 else 0.0
@@ -467,10 +464,23 @@ func ladder_search(delta: float) -> bool:
 			search_left = 3.0
 			ladder_stall_time = 0.0
 		return true
-	global_position.x = move_toward(global_position.x, ladder_x, 120.0 * delta)
-	velocity = Vector2(0.0, signf(dy) * 92.0)
-	move_and_slide()
+	climb_toward(ladder_x, dy, delta)
 	return true
+
+func climb_toward(ladder_x: float, dy: float, delta: float) -> void:
+	var direction := signf(dy)
+	var speed := 92.0
+	for other in level.guards():
+		if other == self or other.is_dead or other.asleep or absf(other.position.x - ladder_x) > 14 or other.is_on_floor():
+			continue
+		# Opposing climbers must be able to pass instead of waiting on each other.
+		if (other.last_known_position.y - other.position.y) * direction <= 0:
+			continue
+		var gap: float = (other.position.y - position.y) * direction
+		if gap > 0 or (gap == 0 and other.get_instance_id() < get_instance_id()):
+			speed = minf(speed, maxf(0, (gap - 28.0) * 4.0))
+	velocity = Vector2(clampf((ladder_x - position.x) / delta, -120, 120), direction * speed)
+	move_and_slide()
 
 func ladder_landing(ladder: Node2D, upward: bool, goal: Vector2) -> Vector2:
 	var edge: float = ladder.global_position.y + (-1.0 if upward else 1.0) * ladder.area_size.y / 2.0
@@ -494,8 +504,12 @@ func solid_between(from: Vector2, to: Vector2, mask := 1) -> bool:
 ## Something knee-high directly ahead, with clear space above it to land on.
 func can_hop() -> bool:
 	var ahead := Vector2(facing * 20, 0)
-	# Only terrain is a step; another Keeper must never become a jumping platform.
-	return solid_between(global_position + Vector2(0, 8), global_position + Vector2(0, 8) + ahead, 1) and not solid_between(global_position + Vector2(0, -24), global_position + Vector2(0, -24) + ahead, 1)
+	if not solid_between(global_position + Vector2(0, 8), global_position + Vector2(0, 8) + ahead):
+		return false
+	# Sweep the standing body up and across one tile. A knee ray alone can
+	# mistake a step under a low ceiling for a usable landing.
+	var lift := Vector2.UP * 30.0
+	return not test_move(global_transform, lift) and not test_move(global_transform.translated(lift), ahead)
 
 ## Patrols keep time with the music: a Keeper turns at the end of his beat on a beat line
 ## (sick Keepers on every other beat) and leans into each step on the beat.
