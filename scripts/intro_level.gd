@@ -636,7 +636,7 @@ func interact() -> void:
 	var bed = nearby("bed")
 	if bed and not player.has_supplies:
 		player.has_supplies = true
-		player.c4_count = 3 # Two optional charges and one reserved for the sigil.
+		player.c4_count = 3 # Three optional charges; the sigil has a separate story reserve.
 		bed.activated = true
 		bed.queue_redraw()
 		start_dialogue([
@@ -688,7 +688,7 @@ func interact() -> void:
 		start_dialogue([["QUARANTINE ORDER", "Keepers: report every cough, including your own.\nNo names. Record the cell numbers only.\nTransfer all marked prisoners to the lower ward."]])
 		return
 	if nearby("sigil") and not sigil_placed:
-		if not player.has_supplies or player.c4_count < 1:
+		if not player.has_supplies:
 			notify("The materials are hidden beneath your bed.")
 			return
 		if not brother_heard:
@@ -696,7 +696,7 @@ func interact() -> void:
 			return
 		sigil_placed = true
 		get_node("/root/SoundFX").play_sound("sigil", -16)
-		player.c4_count -= 1
+		# The reserved story charge is separate from the three optional charges.
 		var anchor = nearby("sigil")
 		anchor.activated = true
 		anchor.queue_redraw()
@@ -728,7 +728,7 @@ func plant_c4() -> void:
 		notify("Keep the remaining charge. Find the marked support below.")
 	elif not nearby("door", 65):
 		notify("Move close to the cell lock to place C4.")
-	elif player.c4_count > 1:
+	elif player.c4_count > 0:
 		player.c4_count -= 1
 		player.end_stealth()
 		route = "C4 breach"
@@ -740,7 +740,7 @@ func plant_c4() -> void:
 		make_noise(player.global_position, 700)
 		notify("The lock bursts. Keepers heard it! Find shadow or fight your way through.", 7)
 	else:
-		notify("Keep the remaining charge. Find the marked support below.")
+		notify("Out of optional C4. The marked support still has its story charge.")
 
 func open_door() -> void:
 	get_node("/root/SoundFX").play_sound("gate", -17)

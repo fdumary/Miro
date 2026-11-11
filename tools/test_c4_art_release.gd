@@ -15,9 +15,10 @@ func run() -> void:
  check(p.c4_count==3,"Level four starts with three carried C4")
  p.position=Vector2(600,-1000);p.controls.drop_charge();check(p.c4_count==2,"First optional charge consumes one")
  p.controls.drop_charge();check(p.c4_count==1,"Second optional charge consumes one")
- p.controls.drop_charge();check(p.c4_count==1 and p.controls.planted.size()==2,"Last charge reserved; no free spare appears")
+ p.controls.drop_charge();check(p.c4_count==0 and p.controls.planted.size()==3,"Third optional charge is usable before the story support")
+ p.controls.drop_charge();check(p.c4_count==0 and p.controls.planted.size()==3,"Fourth optional charge is unavailable")
  level.milestones["BrotherWarning"]=true;p.global_position=level.areas.get_node("WardChargeWest").global_position
- level.interact();level.finish_dialogue();check(level.milestones.has("WardChargeWest") and p.c4_count==1,"Story supports activate without consuming carried inventory")
+ level.interact();level.finish_dialogue();check(level.milestones.has("WardChargeWest") and p.c4_count==0,"Story reserve works after all three optional charges are spent")
  var inner=level.get_node("InnerConflict");var behavior=root.get_node("PlayerBehavior")
  behavior.committed.clear();behavior.pending_scores={"defiant":10};behavior.last_selected="defiant"
  var picks:Dictionary={}

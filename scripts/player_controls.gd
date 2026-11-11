@@ -860,26 +860,17 @@ func drop_charge() -> void:
 	if not player.has_supplies or player.c4_count <= 0:
 		player.level.notify("Out of C4.")
 		return
-	# Reserve authored charges so optional explosives cannot soft-lock the story.
-	var reserve := 1
-	if player.level.sigil_placed:reserve = 0
-	# Every floor gives three charges to use freely (story supports keep their own). Out of
-	# them, the floor hands over a spare, one at a time, so a stuck player always has one.
-	var spare := false
-	if player.c4_count <= reserve:
-		player.level.notify("Last C4 reserved for the sigil.")
-		return
+	# Three optional carried charges. Story supports have a separate reserve.
 	var charge := Node2D.new()
 	charge.set_script(preload("res://scripts/dropped_charge.gd"))
-	charge.set_meta("inventory_charge", not spare)
+	charge.set_meta("inventory_charge", true)
 	charge.position = player.position + Vector2(0, -6)
 	# A short lunge toward the aim (mouse or right stick), or forward and a little up.
 	var direction: Vector2 = player.aim_direction if (player.mouse_aim or pad_aim) else Vector2(player.facing, 0)
 	charge.velocity = (direction.normalized() + Vector2(0, -0.35)).normalized() * THROW_SPEED
 	player.level.add_child(charge)
 	planted.append(charge)
-	if not spare:
-		player.c4_count -= 1
+	player.c4_count -= 1
 	player.end_stealth()
 
 func nearest_charge():

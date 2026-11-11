@@ -1,6 +1,7 @@
 $ErrorActionPreference = 'Stop'
 $engine = 'C:\towerdefense\tools\godot\Godot_v4.7.2-stable_win64_console.exe'
 $checks = @(
+    @('res://tools/test_three_optional_c4.gd'),
     @('res://tools/test_achievement_paths.gd'),
     @('res://tools/test_submission_beat_rewards.gd'),
     @('res://tools/test_guard_intelligence.gd'),

@@ -210,6 +210,7 @@ func run() -> void:
 	Input.action_release("climb_down")
 	check(level.player.position.y > 640 and level.player.position.y < 680, "Second ladder descends to lower tier")
 	check(await move_to(620, 600, true), "Cross lower shelf to sigil support")
+	level.player.c4_count = 0 # Optional inventory can be exhausted before the story placement.
 	level.interact()
 	level.finish_dialogue()
 	check(level.sigil_placed, "Set required sigil with reserved charge")

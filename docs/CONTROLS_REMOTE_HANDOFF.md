@@ -95,3 +95,7 @@ Searches use a shared standing-height terrain graph, one-tile steps and authored
 ## November 11 final encounter
 
 Niro's last engagement gains three health points scaled by difficulty (Medium: six health instead of three). Final throws produce three projectiles instead of one, at 330 px/s instead of 210; intermediate throws use two at 260 px/s. Final rush speed is 265 px/s and recovery is 0.7 bars rather than 0.75. Later encounters reposition during telegraphs, and Niro favors throws at long range. All Niro shots can be reflected by the equipped guitar; reflected boss rounds deal one damage during vulnerability windows. The four meetings and ending sequence remain intact.
+
+## C4 correction
+
+Miro receives three optional C4 charges per level. All three can be deployed before completing the sigil/story objective. The story placement uses a separate reserve and does not consume optional inventory; exhausting all three never blocks the story. A fourth optional charge is unavailable.
