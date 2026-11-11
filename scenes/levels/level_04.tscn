@@ -269,13 +269,6 @@ area_size = Vector2(46, 60)
 
 [node name="Gates" type="Node2D" parent="." unique_id=24229320]
 
-[node name="WardSeal" type="StaticBody2D" parent="Gates" unique_id=1563327011 instance=ExtResource("11_8m3pt")]
-position = Vector2(854, 560)
-collision_mask = 6
-script = ExtResource("12_vwuh2")
-unlock_milestone = "WardRelease"
-gate_size = Vector2(18, 168)
-
 [node name="StoryProps" type="Node2D" parent="." unique_id=1074709850]
 
 [node name="IsolationChamber" type="Node2D" parent="StoryProps" unique_id=171428938 instance=ExtResource("13_ec0pt")]

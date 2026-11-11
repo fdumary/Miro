@@ -404,6 +404,7 @@ static func beats(parent: Node, rect: Rect2) -> VBoxContainer:
 		item.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		item.add_theme_font_size_override("font_size", 10)
 		var display_name: String = str(director.catalog.get(track, {}).get("source", track)).get_basename()
+		item.tooltip_text = display_name + " · " + requirement(entry, achievement_data)
 		if have:
 			item.text = "%s   · %s" % [display_name, requirement(entry, achievement_data) if entry.has("achievement_id") else mood_word(entry)]
 			item.add_theme_color_override("font_color", SAND)
