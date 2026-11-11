@@ -37,6 +37,7 @@ $checks = @(
     @('res://tools/test_guard_ladder_routes.gd'),
     @('res://tools/test_direct_action_controls.gd'),
     @('res://tools/test_ammo_pickpocket.gd'),
+    @('res://tools/test_julia_assets_cursor.gd'),
     @('res://tools/test_dialogue_layout.gd'),
     @('res://tools/test_audio.gd'),
     @('res://tools/test_music_and_world.gd'),

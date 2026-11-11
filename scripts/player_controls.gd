@@ -979,10 +979,15 @@ var cursor_hidden := false
 var camera_base_zoom := Vector2.ONE
 
 func update_mouse_cursor() -> void:
-	var hide: bool = not get_tree().paused and DisplayServer.window_get_mode()!=DisplayServer.WINDOW_MODE_MINIMIZED and not player.level.controls_locked() and not player.is_dead and not player.in_hiding_spot and (DisplayServer.get_name() == "headless" or DisplayServer.window_is_focused())
-	if hide != cursor_hidden:
+	# Spoken dialogue and stationary hiding remain part of the game, not cursor UI.
+	var bindings = get_node("/root/InputBindings")
+	var menu_open: bool = get_tree().paused or player.level.paused or player.level.completed or player.is_dead or locked() or is_instance_valid(bindings.panel) or player.level.world_features.modal_open()
+	var focused: bool = DisplayServer.get_name() == "headless" or DisplayServer.window_is_focused()
+	var hide: bool = not menu_open and focused and DisplayServer.window_get_mode()!=DisplayServer.WINDOW_MODE_MINIMIZED
+	var mode: int = Input.MOUSE_MODE_HIDDEN if hide else Input.MOUSE_MODE_VISIBLE
+	if hide != cursor_hidden or Input.mouse_mode != mode:
 		cursor_hidden = hide
-		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN if hide else Input.MOUSE_MODE_VISIBLE
+		Input.mouse_mode = mode
 
 func _notification(what: int) -> void:
 	if what in [NOTIFICATION_WM_WINDOW_FOCUS_OUT, NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_PAUSED]:

@@ -25,3 +25,11 @@ Guard physics shapes, sight rules, patrols, damage, loot, conversations and stea
 - Direct `--level=N` launching from the newly added menu initially produced nested scene-change errors through the intro. `scripts/main_menu.gd` now launches the requested chapter directly, matching its existing level buttons; all five standalone checks then passed.
 
 Local release: `build/windows/Miro.exe` (ignored by Git). Rebuild with `Build Windows.ps1`; use `Check Windows Build.ps1` and `Check Exported Playthrough.ps1` for packaged verification. Runtime captures under `tmp/` are also ignored.
+
+## November 10 submission correction
+
+The equipped knife and shared HUD/inventory icon now use `assets/weapons/julia_knife.png`, lifted from Julia's original `miro_attack.png` sheet at `(14, 8, 12, 12)`. Its 50 opaque pixels retain the original metal/edge colors; the surrounding character pixels are transparent. The original sheet is unchanged (SHA256 `5c03c4e1e02472eba630d7025e5c92845124fb9086dbee5e0edd20ec60ec46ae`). Both the held knife and the HUD use the shared `WeaponArt.TEXTURES.shank` entry.
+
+The supplied Miro, Keeper and Kael idle/walk/attack/jump art, heart, key, crates, mushrooms, torches, standard/cracked/connector tiles, spikes, turret parts/projectile and watcher animation are already connected to their gameplay scenes. Tile references are in `assets/environment/prison_tiles.tres`. No standalone Julia replacements for the pistol, SMG, blanket, C4 or MP3 icons are present in the supplied assets; those existing review icons remain in use. No Julia art was redrawn or regenerated.
+
+`tools/test_julia_assets_cursor.gd` checks the shared knife texture, source pixel colors/hash and Julia tile mappings. Its native Windows run also checks pointer visibility during dialogue in windowed and fullscreen modes, and restores the pointer for inventory, terminals, settings and pause. Headless runs verify assets only because Godot reports its dummy window as minimized.
