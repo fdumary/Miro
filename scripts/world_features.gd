@@ -199,13 +199,16 @@ func convert_cover_zones() -> void:
 	for piece in level.definition.get("props", []) if level.get("definition") != null else []:
 		if piece.kind != "ward_chamber":continue
 		var table_at := Vector2(piece.position[0], piece.position[1])
-		var flask := spawn_prop(table_at + Vector2(10, -25), "potion", "RED TONIC")
-		flask.set_meta("heal_amount", 2)
-		flask.set_meta("lab_flask", true)
+		spawn_red_flask(table_at + Vector2(10, -25))
 		for decoration in level.find_children("*", "", true, false):
 			if decoration.get_script() == preload("res://scripts/story_prop.gd") and decoration.position.distance_to(table_at) < 1.0:
 				decoration.set_meta("collectible_flask", true)
 				decoration.queue_redraw()
+	if floor_number == 4:
+		var carts: Array = preload("res://scripts/scaffold_art.gd").CART_X
+		for row in range(carts.size()):
+			for cart_x: float in carts[row]:
+				spawn_red_flask(Vector2(cart_x + 10, float(level.definition.storeys[row]) - 39))
 	if floor_number == 5:
 		# The Foundation is three open rows: a few tonics along each, since the waves are relentless.
 		for row in [236.0, 432.0, 656.0]:
@@ -236,6 +239,11 @@ func convert_cover_zones() -> void:
 			continue
 		spawn_prop(point, "hide", titles[made % titles.size()])
 		made += 1
+
+func spawn_red_flask(point: Vector2) -> void:
+	var flask: Node2D = spawn_prop(point, "potion", "RED TONIC")
+	flask.set_meta("heal_amount", 2)
+	flask.set_meta("lab_flask", true)
 
 func add_authored_props() -> void:
 	level.player.set_collision_mask_value(6, true)  # crates and window sills
@@ -458,8 +466,8 @@ func nearby_prop():
 	var story_range := story_distance()
 	var distance := minf(36, story_range)
 	for prop in props:
-		# A full-health tonic must not consume E beside a required story interaction.
-		if prop.kind == "potion" and level.player.health >= level.player.max_health and story_range < 48.0:
+		# A bottle must never consume E beside a story interaction.
+		if prop.kind == "potion" and story_range < 48.0:
 			continue
 		var candidate: float = level.player.global_position.distance_to(prop.global_position)
 		if candidate < distance and reachable(prop.global_position) and not (prop.kind in ["case", "potion", "note"] and prop.used):
@@ -663,6 +671,8 @@ func _process(delta: float) -> void:
 	if line_left == 0:
 		subtitle.text = ""
 		last_line = {}
+		if not voice.playing and not pending_search_speakers.is_empty():
+			play_next_search_bark()
 	if conversation_done or actors.is_empty() or not conversation_started:
 		update_casual(delta)
 	if conversation_done or actors.is_empty():
@@ -816,6 +826,32 @@ func update_mutters(delta: float) -> void:
 		return
 
 var recent_guard_lines: Dictionary = {}
+# A shared spatial voice plays one Keeper at a time. Store IDs so changing scenes
+# or removing a guard cannot leave us holding a dead speaker.
+var pending_search_speakers: Array[int] = []
+
+func queue_search_bark(actor: IntroGuard) -> void:
+	if actor.global_position.distance_to(level.player.global_position) >= 340.0:
+		return
+	var speaker_id := actor.get_instance_id()
+	if not pending_search_speakers.has(speaker_id):
+		pending_search_speakers.append(speaker_id)
+
+func play_next_search_bark() -> void:
+	while not pending_search_speakers.is_empty():
+		var speaker_id: int = pending_search_speakers.pop_front()
+		var actor := instance_from_id(speaker_id) as IntroGuard
+		if not is_instance_valid(actor) or actor.asleep or actor.is_dead or actor.sees_player:
+			continue
+		if actor.global_position.distance_to(level.player.global_position) >= 340.0:
+			continue
+		var profile: Dictionary = roster.keepers.get(actor.guard_name, {})
+		if not profile.has("lost"):
+			continue
+		abort_conversation()
+		speak(actor, "lost", str(profile.lost))
+		if line_left > 0.0:
+			break
 
 func speak(actor: Node2D, id: String, text: String, extra: Dictionary = {}) -> void:
 	if not is_instance_valid(actor) or actor.is_dead or actor.asleep:

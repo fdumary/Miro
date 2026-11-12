@@ -84,7 +84,6 @@ var chase_speed := 78.0
 ## True while a Keeper who lost sight of Miro is still running after him.
 var pursuing := false
 var lost_barked := false
-const LOST_LINES := ["Where did he go?", "He was just here!", "Where'd he get to?", "He can't have just vanished.", "Check the shadows. He's close."]
 ## Keepers take 4 pistol shots, two face-to-face stabs, or one stab from behind.
 const MAX_HEALTH := 16
 const BODY_SIGHT := 260.0
@@ -165,8 +164,12 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 	if not level or level.controls_locked():
 		return
+	if is_dead or asleep:
+		release_crossing()
 	if is_dead:
 		return
+	if is_on_floor():
+		hop_landing = Vector2.INF
 	if asleep:
 		sees_player = false
 		velocity = Vector2(0, velocity.y + 850.0 * delta)
@@ -198,7 +201,7 @@ func _physics_process(delta: float) -> void:
 		# Miro vanished into the dark, a vent or a crate: say so.
 		if (level.player.is_concealed or level.player.in_hiding_spot) and level.world_features and not lost_barked:
 			lost_barked = true
-			level.world_features.speak(self, "lost", LOST_LINES[randi() % LOST_LINES.size()])
+			level.world_features.queue_search_bark(self)
 		if pursuing:
 			var heading := signf(level.player.velocity.x)
 			if heading == 0:
@@ -263,7 +266,7 @@ func _physics_process(delta: float) -> void:
 			burst_left = 1 if weapon_kind == "pistol" else 3
 			shoot_weapon()
 	elif alert_state == State.ALERT and sees_player:
-		facing = signf(last_known_position.x - global_position.x)
+		face_toward(last_known_position.x)
 		if global_position.distance_to(last_known_position) < 150:
 			if attack_timer <= 0:
 				var gap: Vector2 = level.player.global_position - global_position
@@ -280,10 +283,11 @@ func _physics_process(delta: float) -> void:
 			velocity.x = facing * chase_speed
 	elif alert_state == State.SEARCH:
 		search_left -= delta
-		if is_on_floor() and level.ladder_at(global_position) == null and sweep_origin == INF and last_known_position.distance_to(route_attempt)>28:
+		if crossing == null and is_on_floor() and level.ladder_at(global_position) == null and sweep_origin == INF and last_known_position.distance_to(route_attempt)>28:
 			route_attempt = last_known_position
 			plan_search_route(last_known_position)
-		update_search_route(delta)
+		if crossing == null and not waiting_at_ladder:
+			update_search_route(delta)
 		var goal := movement_goal()
 		var distance := goal.x - global_position.x
 		if sweep_origin == INF and search_route.is_empty() and absf(distance) <= 12 and absf(goal.y - global_position.y) < 40 and is_on_floor():
@@ -326,7 +330,8 @@ func _physics_process(delta: float) -> void:
 			facing = -1
 		if turn_wait <= 0:
 			velocity.x = facing * movement_speed * stride()
-	if ladder_follow(delta) or ladder_search(delta):
+	waiting_at_ladder = false
+	if crossing == null and ladder_follow(delta) or ladder_search(delta):
 		return
 	var requested := velocity.x
 	velocity.x = spaced_speed(requested)
@@ -431,6 +436,50 @@ var glance_left := 0.0
 var ladder_exit_side := 0.0
 var ladder_exit_left := 0.0
 var ladder_stall_time := 0.0
+var crossing: IntroArea
+var crossing_goal := Vector2.INF
+var waiting_at_ladder := false
+var hop_landing := Vector2.INF
+const SHAFT_OWNER := &"guard_crossing"
+
+func face_toward(x: float) -> void:
+	# An exactly vertical sightline must not collapse the sprite to zero width.
+	if absf(x - global_position.x) > 3.0:
+		facing = signf(x - global_position.x)
+
+func _exit_tree() -> void:
+	release_crossing()
+
+func release_crossing() -> void:
+	if is_instance_valid(crossing) and crossing.get_meta(SHAFT_OWNER, 0) == get_instance_id():
+		crossing.remove_meta(SHAFT_OWNER)
+	crossing = null
+	crossing_goal = Vector2.INF
+
+func wait_for_crossing(ladder: IntroArea, goal: Vector2, delta: float) -> bool:
+	if crossing == ladder:
+		return false
+	var gap := absf(ladder.global_position.x - global_position.x)
+	if gap > 68.0:
+		return false
+	var owner := instance_from_id(int(ladder.get_meta(SHAFT_OWNER, 0))) as IntroGuard if ladder.has_meta(SHAFT_OWNER) else null
+	if is_instance_valid(owner) and owner.is_inside_tree() and not owner.is_dead and not owner.asleep and owner.crossing == ladder:
+		waiting_at_ladder = true
+		search_left = maxf(search_left, 2.0)
+		ladder_stall_time = 0.0
+		route_stall = 0.0
+		face_toward(ladder.global_position.x)
+		# Leave a full body width of clearance for the climber stepping off.
+		var side := -1.0 if global_position.x < ladder.global_position.x else 1.0
+		velocity.x = spaced_speed(side * clampf((52.0 - gap) * 4.0, -42.0, 78.0))
+		velocity.y += 850.0 * delta
+		move_and_slide()
+		return true
+	if gap <= 48.0:
+		crossing = ladder
+		crossing_goal = goal
+		ladder.set_meta(SHAFT_OWNER, get_instance_id())
+	return false
 
 func ladder_follow(delta: float) -> bool:
 	if ladder_exit_left > 0.0:
@@ -442,7 +491,7 @@ func ladder_follow(delta: float) -> bool:
 	if ladder == null:
 		return false
 	var hunting := alert_state == State.ALERT or pursuing
-	if not hunting:
+	if not hunting or not sees_player:
 		if alert_state == State.PATROL and absf(player.global_position.x - global_position.x) < 160.0 and absf(player.global_position.y - global_position.y) < 140.0 and not conversation_hold:
 			glance_left = 0.6
 			facing = signf(player.global_position.x - global_position.x) if absf(player.global_position.x - global_position.x) > 4.0 else facing
@@ -454,6 +503,8 @@ func ladder_follow(delta: float) -> bool:
 	if absf(dy) < 14.0:
 		velocity = Vector2.ZERO
 		move_and_slide()
+		return true
+	if wait_for_crossing(ladder, player.global_position, delta):
 		return true
 	climb_toward(ladder.global_position.x, dy, delta)
 	return true
@@ -484,18 +535,27 @@ func ladder_search(delta: float) -> bool:
 		velocity.x = ladder_exit_side * 120.0
 		velocity.y += 850.0 * delta
 		move_and_slide()
-		if is_on_floor():
+		if is_on_floor() or ladder_exit_left <= 0.0:
 			ladder_exit_left = 0.0
+			release_crossing()
 		return true
-	if alert_state == State.PATROL and not pursuing:
+	if crossing == null and alert_state == State.PATROL and not pursuing:
 		return false
 	var target := movement_goal()
 	# A hunting Keeper tracks Miro himself, so he follows him up and down a ladder without stopping.
 	if (alert_state == State.ALERT or pursuing) and sees_player and is_instance_valid(level.player) and not level.player.is_dead:
 		target = level.player.global_position
 		last_known_position = target
+	if crossing != null:
+		if sees_player and level.player.climbing and crossing.contains(level.player.global_position):
+			crossing_goal = level.player.global_position
+			if global_position.distance_to(crossing_goal) < 14.0:
+				velocity = Vector2.ZERO
+				move_and_slide()
+				return true
+		target = crossing_goal
 	var dy := target.y - global_position.y
-	var current_ladder = level.ladder_at(global_position)
+	var current_ladder: IntroArea = level.ladder_at(global_position)
 	if current_ladder != null:ladder_stall_time = 0.0
 	if current_ladder != null:
 		var edge: float = current_ladder.global_position.y + (-1.0 if dy < 0.0 else 1.0) * current_ladder.area_size.y / 2.0
@@ -522,14 +582,15 @@ func ladder_search(delta: float) -> bool:
 			# Commit to one side of the lip; re-aiming every substep oscillates around Miro.
 			facing = ladder_exit_side
 			ladder_exit_left = 0.35
-			velocity = Vector2(ladder_exit_side * 120.0, -190.0)
+			var near_bottom := global_position.y > current_ladder.global_position.y + current_ladder.area_size.y * 0.5 - 48.0
+			velocity = Vector2(ladder_exit_side * 120.0, 0.0 if near_bottom else -190.0)
 			move_and_slide()
 			return true
 		if search_route.is_empty() or search_route[0].ladder == null:
 			return false
 	var best = null
 	var best_gap := INF
-	var route_ladder = search_route[0].ladder if not search_route.is_empty() else null
+	var route_ladder: IntroArea = crossing if crossing != null else search_route[0].ladder if not search_route.is_empty() else null
 	for area in level.areas.get_children():
 		if route_ladder != null and area != route_ladder:
 			continue
@@ -546,6 +607,8 @@ func ladder_search(delta: float) -> bool:
 	if best == null:
 		return false
 	search_left = maxf(search_left, 2.0)
+	if wait_for_crossing(best, target, delta):
+		return true
 	var ladder_x: float = best.global_position.x
 	if absf(global_position.x - ladder_x) > 14.0 and level.ladder_at(global_position) == null:
 		# Walk to the foot (or top) of the ladder on this floor.
@@ -557,6 +620,7 @@ func ladder_search(delta: float) -> bool:
 		move_and_slide()
 		ladder_stall_time = ladder_stall_time + delta if absf(global_position.x-before_x)<0.01 else 0.0
 		if ladder_stall_time > 1.5:
+			release_crossing()
 			# An impassable vault or another Keeper cannot hold a chase forever.
 			pursuing = false
 			alert_state = State.SEARCH
@@ -604,12 +668,26 @@ func solid_between(from: Vector2, to: Vector2, mask := 1) -> bool:
 ## Something knee-high directly ahead, with clear space above it to land on.
 func can_hop() -> bool:
 	var ahead := Vector2(facing * 20, 0)
-	if not solid_between(global_position + Vector2(0, 8), global_position + Vector2(0, 8) + ahead):
+	var knee := global_position + Vector2(0, 8)
+	var hit := get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(knee, knee + ahead, 1))
+	if hit.is_empty():
 		return false
 	# Sweep the standing body up and across one tile. A knee ray alone can
 	# mistake a step under a low ceiling for a usable landing.
 	var lift := Vector2.UP * 30.0
-	return not test_move(global_transform, lift) and not test_move(global_transform.translated(lift), ahead)
+	if test_move(global_transform, lift) or test_move(global_transform.translated(lift), ahead):
+		return false
+	# Reserve the first 28px of landing, not an entire wide platform.
+	var landing := Vector2(float(hit.position.x) + facing * 14.0, global_position.y - 28.0)
+	for other: IntroGuard in level.guards():
+		if other == self or other.is_dead or other.asleep:
+			continue
+		if absf(other.global_position.x - landing.x) < 25.0 and absf(other.global_position.y - landing.y) < 19.0:
+			return false
+		if other.hop_landing.distance_squared_to(landing) < 25.0 * 25.0:
+			return false
+	hop_landing = landing
+	return true
 
 ## Patrols keep time with the music: a Keeper turns at the end of his beat on a beat line
 ## (sick Keepers on every other beat) and leans into each step on the beat.
@@ -729,7 +807,7 @@ func receive_shank() -> void:
 		alert_state = State.ALERT
 		suspicion = 1.0
 		last_known_position = level.player.global_position
-		facing = signf(last_known_position.x - global_position.x)
+		face_toward(last_known_position.x)
 		level.notify("The Keeper turns. One more hit; dodge his wind-up with C.")
 
 ## A Keeper who was already dead at the checkpoint stays dead (no new casualty, no new alarm).

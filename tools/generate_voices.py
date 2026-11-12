@@ -102,6 +102,7 @@ def collect_lines(cast):
                 dialogue(clip, speakers[line['speaker']], line['text'], '[quietly]')
     for speaker, profile in roster['keepers'].items():
         dialogue('alert', speaker, profile['alert'], '[shouting] ' + profile['delivery'])
+        dialogue('lost', speaker, profile['lost'], '[quietly] ' + profile['delivery'])
         dialogue('body', speaker, profile['body'], '[shocked] ' + profile['delivery'])
         dialogue('sleeping', speaker, profile['sleeping'], ('[concerned] ' if profile.get('sleep_reaction') == 'concerned' else '[dryly] ') + profile['delivery'])
         for index, text in enumerate(profile['idle'], 1):

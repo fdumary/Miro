@@ -33,9 +33,13 @@ func run() -> void:
  check(world.nearby_prop()!=tonic,"Full-health tonic leaves the required story interaction available")
  check(level.station_nearby().get("id","")=="SecondSigil","Required sigil is in reach at regression position")
  p.health=p.max_health-1
- check(world.nearby_prop()==tonic,"An injured player can still select the nearby tonic")
+ check(world.nearby_prop()!=tonic,"Story interaction also takes priority when injured")
+ tonic.global_position=Vector2(700,1244)
+ p.global_position=tonic.global_position
  check(world.try_interact() and p.health==p.max_health and tonic.used,"A usable tonic heals and consumes normally")
  tonic.used=false
+ tonic.global_position=Vector2(464.7706,1244.924)
+ p.global_position=tonic.global_position
  level.milestones["BrotherOffer"]=true
  level.milestones["TransferLedger"]=true
  level.interact()

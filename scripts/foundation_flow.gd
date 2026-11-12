@@ -157,7 +157,24 @@ func spawn_niro() -> void:
 	boss.start_health = niro_health + (roundi(3 * float(campaign().tuning().niro_health)) if engagement >= 4 else 0)
 	boss.level = level
 	var side := 1.0 if level.player.position.x < 560 else -1.0
-	boss.position = Vector2(clampf(level.player.position.x + side * 150, 90, 1030), ROW_FLOOR_Y[mini(row, 3)] - 4)
+	var floor_y: float = ROW_FLOOR_Y[mini(row, 3)]
+	var wanted := Vector2(clampf(level.player.position.x + side * 150, 90, 1030), floor_y)
+	# The nominal offset can land inside the office shelf, or in midair on row 2.
+	# Reuse the floor's standing-height graph once per appearance.
+	var terrain = boss.navigation()
+	var best := INF
+	for candidate: Vector2 in terrain.points:
+		if absf(candidate.y - floor_y) > 3.0 or absf(candidate.x - level.player.position.x) < 78.0:
+			continue
+		var cost := absf(candidate.x - wanted.x)
+		if cost < best:
+			best = cost
+			boss.position = candidate
+	if best == INF:
+		boss.free()
+		wait_left = MAX_WAIT
+		engagement -= 1
+		return
 	boss.retreated.connect(_on_niro_gone)
 	level.add_child(boss)
 	level.brother = boss
@@ -246,7 +263,7 @@ func update_taunts(delta: float) -> void:
 	level.world_features.remote_say(line)
 	taunt_wait = music().seconds_per_bar() * TAUNT_BARS if music().bpm() > 0 else 12.0
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not is_instance_valid(level) or level.controls_locked() or level.player.is_dead:
 		return
 	update_taunts(delta)

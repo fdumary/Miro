@@ -177,15 +177,7 @@ script = ExtResource("5_vqqq3")
 kind = "note"
 area_size = Vector2(40, 54)
 
-[node name="ForestViewpoint" type="Area2D" parent="Interactables" unique_id=1200911089 instance=ExtResource("7_d4rua")]
-position = Vector2(880, 846)
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("5_vqqq3")
-kind = "note"
-area_size = Vector2(40, 54)
-
-[node name="StairGate" type="Area2D" parent="Interactables" unique_id=746571843 instance=ExtResource("10_amq1l")]
+[node name="ForestViewpoint" type="Area2D" parent="Interactables" unique_id=746571843 instance=ExtResource("10_amq1l")]
 position = Vector2(1043, 836)
 collision_layer = 0
 collision_mask = 2
@@ -284,13 +276,13 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Label_ForestViewpoint" type="Label" parent="." unique_id=389997201]
-offset_left = 830.0
-offset_top = 781.0
-offset_right = 1037.0
+offset_left = 978.0
+offset_top = 771.0
+offset_right = 1108.0
 offset_bottom = 813.0
 theme_override_colors/font_color = Color(0.7764706, 0.62352943, 0.64705884, 1)
 theme_override_font_sizes/font_size = 9
-text = "Reach the forest viewpoint"
+text = "Leave through the forest door"
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -330,7 +322,7 @@ position = Vector2(430, 852)
 metadata/purpose = "Defeat exchange; Miro leaves alone"
 
 [node name="08_ForestViewpoint" type="Marker2D" parent="LevelPlan" unique_id=1871559390]
-position = Vector2(880, 852)
+position = Vector2(1043, 852)
 metadata/purpose = "Woods, remote detonation, collapse, Set Me Free"
 
 [node name="ForestBackdrop" type="Marker2D" parent="LevelPlan" unique_id=776976161]

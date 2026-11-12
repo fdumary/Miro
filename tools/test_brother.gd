@@ -124,9 +124,12 @@ func run() -> void:
 	check(music.track_id.is_empty(), "Music falls away for the exchange")
 	level.finish_dialogue()
 	check(level.milestones.has("DefeatExchange"), "Skip preserves defeat exchange completion")
-	check(await move_to(880, 800), "Reach the forest viewpoint")
+	check(await move_to(level.areas.get_node("ForestViewpoint").position.x, 800), "Reach the final door")
 	level.interact()
-	check(is_instance_valid(level.cinematic), "Forest viewpoint starts the ending")
+	check(is_instance_valid(level.cinematic), "One interaction at the final door starts the ending")
+	if not is_instance_valid(level.cinematic):
+		quit(1)
+		return
 	level.cinematic.finish()
 	check(level.completed, "The Foundation completes")
 	print("BROTHER_RESULT: ", checks - failures.size(), "/", checks, " passed")

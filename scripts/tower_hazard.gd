@@ -105,7 +105,7 @@ func disable() -> void:
 	var campaign = get_node_or_null("/root/Campaign")
 	if campaign == null:
 		return
-	campaign.on_security_disabled(kind, position)
+	campaign.on_security_disabled(kind, get_meta("security_origin", position))
 
 func stun() -> bool:
 	if disabled or health <= 0:

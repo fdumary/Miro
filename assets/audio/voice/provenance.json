@@ -23630,5 +23630,2861 @@
       "output_lufs": "-17.99",
       "output_true_peak_dbtp": "-2.20"
     }
+  },
+  "judas_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "CwhRBWXzGAHq8TQ4Fs17",
+    "voice_name": "Roger - Laid-Back, Casual, Resonant",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [clipped] [hoarse]",
+    "signature": "dd910693a048875979a4956ecb5e6ec93b5e244263fff7b17f131b2a173366d2",
+    "leveling": {
+      "source_sha256": "bb949735c7433cde1e036eff09c65c97de50043bf6675d8523096fe8cf868326",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.24",
+        "input_tp": "-5.95",
+        "input_lra": "0.00",
+        "input_thresh": "-33.24",
+        "output_i": "-19.26",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.26",
+        "normalization_type": "linear",
+        "target_offset": "1.26"
+      },
+      "output_lufs": "-19.29",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "rowan_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "TX3LPaxmHKxFdv7VOQHJ",
+    "voice_name": "Liam - Energetic, Social Media Creator",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [bright] [quickly]",
+    "signature": "de7f2f28ff01b538d9690ccb4e66c35e941585c47e7fbcf30dc05c0c2f443a19",
+    "leveling": {
+      "source_sha256": "2512ec78e4447b3b76a9b49c7b850cc580a160fe86074009b2000daf962056e6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.46",
+        "input_tp": "-13.22",
+        "input_lra": "0.00",
+        "input_thresh": "-36.46",
+        "output_i": "-17.98",
+        "output_tp": "-4.75",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-4.74"
+    }
+  },
+  "ivo_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "NNl6r8mD7vthiJatiJt1",
+    "voice_name": "Bradford - Expressive and Articulate",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [measured]",
+    "signature": "5fa732f1d5bad7ee1ef37987d2aa4fdf3083032d2203e34e9e35e41633311542",
+    "leveling": {
+      "source_sha256": "6549b63fb88d251ee1992ac08170ffb59f8fac474b162626a77d8a0f132f9427",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.09",
+        "input_tp": "-11.72",
+        "input_lra": "0.00",
+        "input_thresh": "-36.09",
+        "output_i": "-18.00",
+        "output_tp": "-3.63",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.54"
+    }
+  },
+  "bram_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "J5iaaqzR5zn6HFG4jV3b",
+    "voice_name": "Joseph - Nasally and Steady",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [hesitant]",
+    "signature": "17237a4022e46fee258c38666d3ff0a56003c5c50008e92f11e5da39fef43eb1",
+    "leveling": {
+      "source_sha256": "508937df2c77057e7d89d7c8a4e22c21a55c4aea3963d23a9a20734a2d1b6956",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.13",
+        "input_tp": "-8.72",
+        "input_lra": "0.00",
+        "input_thresh": "-35.13",
+        "output_i": "-18.43",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.43",
+        "normalization_type": "linear",
+        "target_offset": "0.43"
+      },
+      "output_lufs": "-18.40",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "alden_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "G17SuINrv2H9FC6nvetn",
+    "voice_name": "Christopher - Gentle and Trustworthy",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [low] [concerned]",
+    "signature": "36bd85433f47ed9521c9db7e5437e30ff3a45ff27481d9d896a709ea6f4f3961",
+    "leveling": {
+      "source_sha256": "4cfb0de0bc67396ed5eee70d361efd61251d7204e876b0efda81e1504aa94306",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.11",
+        "input_tp": "-5.70",
+        "input_lra": "0.00",
+        "input_thresh": "-29.59",
+        "output_i": "-17.99",
+        "output_tp": "-4.59",
+        "output_lra": "0.00",
+        "output_thresh": "-28.48",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-4.28"
+    }
+  },
+  "corin_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "o2zd9K5QOO7ppTb04Lx0",
+    "voice_name": "Gabriel Ripley - Facetious, Quick-Spoken",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [animated]",
+    "signature": "220d2dbba00942a2e18d8e2a5f08ce232d2d066a5481e0a2e4986db368143e84",
+    "leveling": {
+      "source_sha256": "1d11814eec200f39358a19b4450584325c3389dff59b75016a73d706f3386d77",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-27.74",
+        "input_tp": "-11.04",
+        "input_lra": "0.00",
+        "input_thresh": "-37.74",
+        "output_i": "-18.71",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.71",
+        "normalization_type": "linear",
+        "target_offset": "0.71"
+      },
+      "output_lufs": "-18.68",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "dane_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "ib8aaABAPZQpTo6hx8Jr",
+    "voice_name": "Severin - Powerful & Commanding",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [firm]",
+    "signature": "bf2bb7b0e2deffc4e78b31dc4bd3e1f2449fb87be090a3fb67fdb0175d353b9a",
+    "leveling": {
+      "source_sha256": "9743deeb1f42a1c6f7ab632728089a1821e94c4b8a1bb509165a76dd0f157a40",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.77",
+        "input_tp": "-2.30",
+        "input_lra": "0.00",
+        "input_thresh": "-26.77",
+        "output_i": "-17.99",
+        "output_tp": "-3.53",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.47"
+    }
+  },
+  "ellis_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "aGkVQvWUZi16EH8aZJvT",
+    "voice_name": "Steve - Australian Male",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [dry]",
+    "signature": "c1c0e9b2f5b7ce8106924f0ec67a430af2abd50e5427850b82f74c087b70c04d",
+    "leveling": {
+      "source_sha256": "841ce47ee7871b6556647017f93dbaf924595b39a9121bc22c4434259d422853",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-31.26",
+        "input_tp": "-15.11",
+        "input_lra": "0.00",
+        "input_thresh": "-44.03",
+        "output_i": "-18.16",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.93",
+        "normalization_type": "linear",
+        "target_offset": "0.16"
+      },
+      "output_lufs": "-18.16",
+      "output_true_peak_dbtp": "-1.78"
+    }
+  },
+  "garrow_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "UgBBYS2sOqTuMpoF3BR0",
+    "voice_name": "Mark - Natural Conversations",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [uncertain]",
+    "signature": "777ef0d19e87fb376d251c150eb963d9ac7761d1682dd0a300f82a7239534305",
+    "leveling": {
+      "source_sha256": "11c1bea0b8ac17e71c402f00b6aedf5ae318dd6fb53b0b7cc4516c742f972c76",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.83",
+        "input_tp": "-4.54",
+        "input_lra": "0.00",
+        "input_thresh": "-29.83",
+        "output_i": "-17.97",
+        "output_tp": "-2.71",
+        "output_lra": "0.00",
+        "output_thresh": "-27.97",
+        "normalization_type": "linear",
+        "target_offset": "-0.03"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-2.71"
+    }
+  },
+  "hollis_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "AeRdCCKzvd23BpJoofzx",
+    "voice_name": "Nathaniel - Engaging, British and Calm",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [soft]",
+    "signature": "e99a5f6bdfb8cae825d2cf3415a1970a212c72985d9bda781e2b47f893a4ffcb",
+    "leveling": {
+      "source_sha256": "495b76ca03362c92656755c8aee2dfe5310e2bc6696076c8c0f958fced650b53",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.70",
+        "input_tp": "-1.19",
+        "input_lra": "0.00",
+        "input_thresh": "-27.14",
+        "output_i": "-18.00",
+        "output_tp": "-3.50",
+        "output_lra": "0.00",
+        "output_thresh": "-29.45",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.45"
+    }
+  },
+  "jory_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "15CVCzDByBinCIoCblXo",
+    "voice_name": "Lucan Rook  - Energetic Male",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [wry]",
+    "signature": "81af7fd225be44a185100eeed15a4c186513107ee9d6430ca5ca051ee58f915a",
+    "leveling": {
+      "source_sha256": "33ad6aa743689f81ade39dd7ae7a46a45403a62bd92be2fccd99f9dba027d880",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.12",
+        "input_tp": "-10.90",
+        "input_lra": "0.00",
+        "input_thresh": "-34.12",
+        "output_i": "-18.02",
+        "output_tp": "-4.78",
+        "output_lra": "0.00",
+        "output_thresh": "-28.02",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-4.74"
+    }
+  },
+  "kell_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "NYC9WEgkq1u4jiqBseQ9",
+    "voice_name": "Russell - Dramatic British TV",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [commanding]",
+    "signature": "5abbda58ea1f0a20e172608287da042ae1308950923392564621028c05f8ab9a",
+    "leveling": {
+      "source_sha256": "d44dbcd98bebfcb9bc11ef4ccfcac4bad05c4264ac38cdc2de95a709bd6a9bf3",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.57",
+        "input_tp": "-5.98",
+        "input_lra": "0.00",
+        "input_thresh": "-30.57",
+        "output_i": "-18.00",
+        "output_tp": "-3.41",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.23"
+    }
+  },
+  "lusk_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "yl2ZDV1MzN4HbQJbMihG",
+    "voice_name": "Alex - Upbeat, Energetic and Clear",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [eager]",
+    "signature": "b783d37c652068ff6d750fb4db0351f75acf66661c88b0bf3197b0527faf0cdf",
+    "leveling": {
+      "source_sha256": "f5c29ab600087e85cc7498ad912db5611d84d9db5e659bb714c7b115d61e6610",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.85",
+        "input_tp": "-5.43",
+        "input_lra": "0.00",
+        "input_thresh": "-32.85",
+        "output_i": "-19.40",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.40",
+        "normalization_type": "linear",
+        "target_offset": "1.40"
+      },
+      "output_lufs": "-19.33",
+      "output_true_peak_dbtp": "-1.75"
+    }
+  },
+  "marek_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "SOYHLrjzK2X1ezoPC6cr",
+    "voice_name": "Harry - Fierce Warrior",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [gruff]",
+    "signature": "7e9b0bd837ad2045917ef974484d6b89dc0accca2e9d5e52e3224c9ab5f397bd",
+    "leveling": {
+      "source_sha256": "acc128bee54cbd49f117f189473cda78bde772762e01f175f7b151eefecc2147",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.35",
+        "input_tp": "-4.23",
+        "input_lra": "0.00",
+        "input_thresh": "-30.92",
+        "output_i": "-18.12",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.69",
+        "normalization_type": "linear",
+        "target_offset": "0.12"
+      },
+      "output_lufs": "-18.11",
+      "output_true_peak_dbtp": "-1.81"
+    }
+  },
+  "oren_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "goT3UYdM9bhm0n2lmKQx",
+    "voice_name": "Edward - British, Dark, Seductive, Low",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [deadpan]",
+    "signature": "b6143fe41377c2d6888af3303d54816e1eb98d8aa6ea83e48fb6aa13ca2c104b",
+    "leveling": {
+      "source_sha256": "6ba05d88ab34c548e97ff194caf8764682bd3a76e09cf376ec879124c1a77b7c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.01",
+        "input_tp": "-5.86",
+        "input_lra": "0.00",
+        "input_thresh": "-33.01",
+        "output_i": "-19.16",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.42",
+        "normalization_type": "linear",
+        "target_offset": "1.16"
+      },
+      "output_lufs": "-19.19",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "pavel_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "2iAXJEMO2o0PqUHzvZwQ",
+    "voice_name": "Ranbir - Neutral and Clean",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [precise]",
+    "signature": "71e2cc9023692862eb014b2c71fba081491a159c7eb4f50f03f09fb8072f8dd5",
+    "leveling": {
+      "source_sha256": "d9f19ded1950f9b6e4e0d6b28160424cf6d9adaf56f90acadb88656455463acf",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.35",
+        "input_tp": "-9.07",
+        "input_lra": "0.00",
+        "input_thresh": "-34.35",
+        "output_i": "-18.01",
+        "output_tp": "-2.72",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.75"
+    }
+  },
+  "silas_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "siw1N9V8LmYeEWKyWBxv",
+    "voice_name": "Ruhaan - Clear, Loud and Cheerful",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [sunny]",
+    "signature": "318f0f83f0ea5707dd8575066e2ca5445657761625838f493c9e427c5c76438f",
+    "leveling": {
+      "source_sha256": "731af99d427bcbd774b38b3b60064a1c7bb47988457dd38e54b4587e2849b8bb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.63",
+        "input_tp": "-2.82",
+        "input_lra": "0.00",
+        "input_thresh": "-28.63",
+        "output_i": "-18.01",
+        "output_tp": "-2.18",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.17"
+    }
+  },
+  "teodor_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "1U02n4nD6AdIZ9CjF053",
+    "voice_name": "Viraj - Smooth and Gentle",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [halting]",
+    "signature": "d57ce65406e2829c7a8e220ec348296455106e126f949a0170a3ae50a1a6063a",
+    "leveling": {
+      "source_sha256": "c97f1c46a2be1ec062471957438d134111043c96cc57f846e796115eb366fa74",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.26",
+        "input_tp": "-2.70",
+        "input_lra": "0.00",
+        "input_thresh": "-25.26",
+        "output_i": "-18.00",
+        "output_tp": "-5.44",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-5.50"
+    }
+  },
+  "ansel_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "e5WNhrdI30aXpS2RSGm1",
+    "voice_name": "Ian Cartwell - Suspense and Mystery",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [tense]",
+    "signature": "04b575031dba4e87930a6067790bae46fd41aba9e1dd763d0ef987b2c0acc3e8",
+    "leveling": {
+      "source_sha256": "c47894522ca4370fdec9f6b96040f02be8aa65390af4d367916e58fd3f50f5e8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.97",
+        "input_tp": "-6.50",
+        "input_lra": "0.00",
+        "input_thresh": "-29.97",
+        "output_i": "-18.01",
+        "output_tp": "-4.53",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.49"
+    }
+  },
+  "brin_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "N2lVS1w4EtoT3dr4eOWO",
+    "voice_name": "Callum - Husky Trickster",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [wry]",
+    "signature": "c67012c47155d684ef2d463f95026a467843f1ebd9b4aeea63dd8f5f14a3b7ea",
+    "leveling": {
+      "source_sha256": "31e97eea1d971677f5877a1829d32e5d3469990e80199089833f9e8433b687a0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.23",
+        "input_tp": "-3.98",
+        "input_lra": "0.00",
+        "input_thresh": "-31.23",
+        "output_i": "-19.26",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.26",
+        "normalization_type": "linear",
+        "target_offset": "1.26"
+      },
+      "output_lufs": "-19.25",
+      "output_true_peak_dbtp": "-1.90"
+    }
+  },
+  "cato_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "2UMI2FME0FFUFMlUoRER",
+    "voice_name": "Hugh - Natural Conversational Agent",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [quiet] [focused]",
+    "signature": "e40779b64e5576d6dca40348e9dddefc04879d64f07d0de62893347e28f97133",
+    "leveling": {
+      "source_sha256": "f6abaef9ce9f7465da123df20983b84cf1a6d4975cfe09e7f2cff192a95d5dd6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.04",
+        "input_tp": "-7.94",
+        "input_lra": "0.00",
+        "input_thresh": "-32.37",
+        "output_i": "-18.00",
+        "output_tp": "-3.90",
+        "output_lra": "0.00",
+        "output_thresh": "-28.33",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.87"
+    }
+  },
+  "dov_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "24EI9FmmGvJruwUi7TJM",
+    "voice_name": "Lowy - Kind, Warm and Hopeful",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [sheepish]",
+    "signature": "7d420235a938e1506d20bdac6780507a4a2024bf9504ba2fbeb11d906a8c2889",
+    "leveling": {
+      "source_sha256": "8dcef7f83d6aa91f20328a24f98176597a3df7e0e3f522166abb32701d41c75d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-13.00",
+        "input_tp": "-0.86",
+        "input_lra": "0.00",
+        "input_thresh": "-23.83",
+        "output_i": "-18.00",
+        "output_tp": "-5.86",
+        "output_lra": "0.00",
+        "output_thresh": "-28.84",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-5.84"
+    }
+  },
+  "tomas_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "pqHfZKP75CvOlQylNhV4",
+    "voice_name": "Bill - Wise, Mature, Balanced",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [weary]",
+    "signature": "86177b51faaad429cc278c4c73cab1cdad16c6b25639feada2aefce64523420a",
+    "leveling": {
+      "source_sha256": "274429dfa7381325224bf13b0040efea412969a1667cdb4f716ee1b926083b8e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.93",
+        "input_tp": "-3.21",
+        "input_lra": "0.00",
+        "input_thresh": "-30.15",
+        "output_i": "-18.01",
+        "output_tp": "-2.28",
+        "output_lra": "0.00",
+        "output_thresh": "-29.23",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.35"
+    }
+  },
+  "ulric_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "IRHApOXLvnW57QJPQH2P",
+    "voice_name": "Adam - American, Dark and Tough",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [hard]",
+    "signature": "4cc7c0b688c6ea8d2e65d251f395f57dab7e131ed2ba8b4f4a1b3246708230a8",
+    "leveling": {
+      "source_sha256": "a8f31a5b0f5b24fb117ab6c50dd37422b90c8c4ef528e05aa6c70bb33f6ddb70",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.61",
+        "input_tp": "-7.03",
+        "input_lra": "0.00",
+        "input_thresh": "-32.61",
+        "output_i": "-18.00",
+        "output_tp": "-2.42",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.63"
+    }
+  },
+  "venn_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "6OzrBCQf8cjERkYgzSg8",
+    "voice_name": "Young Jamal",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [playful]",
+    "signature": "d36ef5c7c4a89bac9c19069e9324ee617f9f294131a4e5984c196caf634bf277",
+    "leveling": {
+      "source_sha256": "403c7727b85cab4ec57a15f37544e0d93d481993185312bb2a281e9f01b6e7c9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.68",
+        "input_tp": "-3.14",
+        "input_lra": "0.00",
+        "input_thresh": "-33.30",
+        "output_i": "-21.52",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-32.15",
+        "normalization_type": "linear",
+        "target_offset": "3.52"
+      },
+      "output_lufs": "-21.49",
+      "output_true_peak_dbtp": "-1.65"
+    }
+  },
+  "wren_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "j9jfwdrw7BRfcR43Qohk",
+    "voice_name": "Frederick Surrey - Smooth and Velvety",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [dry] [soft]",
+    "signature": "04dea1e71d84b6261e5e01a4e8d1576bf2f405b1d3549d0d6df96209e1ecabc5",
+    "leveling": {
+      "source_sha256": "c9e18ed94a570cadd605133f1f8cb9470d3935496f54fe9a11f56e9d3f044e74",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.74",
+        "input_tp": "-10.99",
+        "input_lra": "0.00",
+        "input_thresh": "-34.74",
+        "output_i": "-17.99",
+        "output_tp": "-4.25",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.35"
+    }
+  },
+  "edric_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "bIHbv24MWmeRgasZH58o",
+    "voice_name": "Will - Relaxed Optimist",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [puzzled]",
+    "signature": "6c3122c769610a2f6824839677d000a9150fc1b22371985e640b68d2e796672b",
+    "leveling": {
+      "source_sha256": "4f7f9d28178f215b301d4ff3726c9c315a4ed9faafd73869c99854ea39543c27",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.92",
+        "input_tp": "-6.38",
+        "input_lra": "0.00",
+        "input_thresh": "-30.92",
+        "output_i": "-18.01",
+        "output_tp": "-3.46",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-3.22"
+    }
+  },
+  "fane_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "Gfpl8Yo74Is0W6cPUWWT",
+    "voice_name": "Max - Elearning and Documentary",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [steady]",
+    "signature": "03cc649fb36fbde1c7dc6107bb4f804082e1ffc5ca4eb02b15592bba2ca698d9",
+    "leveling": {
+      "source_sha256": "5039f79ea42411fe0bf72e4abcb9a7eb71f0e9269739d72ea886ce53c933c28a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.68",
+        "input_tp": "-6.04",
+        "input_lra": "0.00",
+        "input_thresh": "-33.10",
+        "output_i": "-18.65",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.07",
+        "normalization_type": "linear",
+        "target_offset": "0.65"
+      },
+      "output_lufs": "-18.65",
+      "output_true_peak_dbtp": "-1.59"
+    }
+  },
+  "gil_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "7EzWGsX10sAS4c9m9cPf",
+    "voice_name": "Jack John - Conversational and Upbeat",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [tuneful] [quickly]",
+    "signature": "8d83bb93b83dcc3d4aa62b845cb83b1505e853b388c60ad9b3a92e827795f1f0",
+    "leveling": {
+      "source_sha256": "a47ff3edee0a0ca67281519f2fce81e4784edd81b12d75a748bdac8f2207d1c2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-33.09",
+        "input_tp": "-15.92",
+        "input_lra": "0.00",
+        "input_thresh": "-43.09",
+        "output_i": "-19.16",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.16",
+        "normalization_type": "linear",
+        "target_offset": "1.16"
+      },
+      "output_lufs": "-19.14",
+      "output_true_peak_dbtp": "-1.84"
+    }
+  },
+  "hask_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "Ock0AL5DBkvTUDePt4Hm",
+    "voice_name": "Viraj - Bold & Commanding Banking Agent",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [clipped]",
+    "signature": "f9a64cf8e19263ea9857793e80c6f0b1cc6998113bfab5c0a43ffef7ac0f2309",
+    "leveling": {
+      "source_sha256": "f047c1954ab97d810dd87d01e15388008949a36285162b5538a6ea8d16bedb23",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.46",
+        "input_tp": "-1.16",
+        "input_lra": "1.30",
+        "input_thresh": "-29.33",
+        "output_i": "-15.63",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-26.46",
+        "normalization_type": "dynamic",
+        "target_offset": "-2.37"
+      },
+      "output_lufs": "-17.75",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "ivar_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "cjVigY5qzO86Huf0OWal",
+    "voice_name": "Eric - Smooth, Trustworthy",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [dry] [low]",
+    "signature": "70b086c22d31acaa1c6b8273e2c11202a91e5798657acc534b767c792c81c42f",
+    "leveling": {
+      "source_sha256": "9fbbe800dd192b195f2a3bd37b19c569cafe322696437474cd1dba2173e222e8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.00",
+        "input_tp": "-10.65",
+        "input_lra": "0.00",
+        "input_thresh": "-33.00",
+        "output_i": "-18.00",
+        "output_tp": "-5.65",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-5.64"
+    }
+  },
+  "yorick_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "Bj9UqZbhQsanLzgalpEG",
+    "voice_name": "Austin - Deep, Raspy and Authentic",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [gravelly]",
+    "signature": "17d601b28fda3dff4b53366227cfc98deb220cdca10e89effa95632292db44e9",
+    "leveling": {
+      "source_sha256": "d63e32ecd055e2f254ae51753b3b104a13d60d7225e5ea3bcba36b84a36c8470",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.99",
+        "input_tp": "-1.50",
+        "input_lra": "0.00",
+        "input_thresh": "-30.46",
+        "output_i": "-20.49",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.96",
+        "normalization_type": "linear",
+        "target_offset": "2.49"
+      },
+      "output_lufs": "-20.51",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "zane_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "IKne3meq5aSn9XLyUdCD",
+    "voice_name": "Charlie - Deep, Confident, Energetic",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [buoyant]",
+    "signature": "4204fa9745fd8a6409f16a613083dfecd84e35d8d342ceb6f3f644a4adbaa13b",
+    "leveling": {
+      "source_sha256": "0ce2e34c891c0d31d8ec3f677d2a6c9d57acc72e9e681acd3862770dcddc2e0d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-30.47",
+        "input_tp": "-16.33",
+        "input_lra": "0.00",
+        "input_thresh": "-41.58",
+        "output_i": "-18.00",
+        "output_tp": "-3.85",
+        "output_lra": "0.00",
+        "output_thresh": "-29.10",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.74"
+    }
+  },
+  "arlen_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "MFZUKuGQUsGJPQjTS4wC",
+    "voice_name": "Jon - Warm & Grounded Storyteller",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [calm]",
+    "signature": "c7287b1c533b94edb431d0a78530de64635b603bbbea3c2a5204051649ffe6f5",
+    "leveling": {
+      "source_sha256": "4a2e23bf357af7b3195954c1f1d7cd887e908524ce95f868f80cd5923fe64859",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.39",
+        "input_tp": "-4.94",
+        "input_lra": "0.00",
+        "input_thresh": "-31.39",
+        "output_i": "-18.45",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.45",
+        "normalization_type": "linear",
+        "target_offset": "0.45"
+      },
+      "output_lufs": "-18.42",
+      "output_true_peak_dbtp": "-1.96"
+    }
+  },
+  "beck_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "Fahco4VZzobUeiPqni1S",
+    "voice_name": "Archer - Conversational",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [acid] [dry]",
+    "signature": "6ec12459bc0707b396ca648868cd371018e24080a7a50a6a25599a20cfd3e23b",
+    "leveling": {
+      "source_sha256": "03e610f842d100f3ea38e36c72d208b510ffdf2c4362809943458121d2b1969c",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.08",
+        "input_tp": "-1.65",
+        "input_lra": "0.00",
+        "input_thresh": "-31.53",
+        "output_i": "-21.44",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-31.89",
+        "normalization_type": "linear",
+        "target_offset": "3.44"
+      },
+      "output_lufs": "-21.38",
+      "output_true_peak_dbtp": "-2.11"
+    }
+  },
+  "cass_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "rU18Fk3uSDhmg5Xh41o4",
+    "voice_name": "Ryan Kurk - Pleasant and Smooth",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [flustered]",
+    "signature": "0db645735899622a647ac22c70e9b6664d80ce607c9f05b85f80d403db66557c",
+    "leveling": {
+      "source_sha256": "39daf913d5131ab5062189061481941c14a3179194b5f56f6b28f364d7682534",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-35.99",
+        "input_tp": "-19.08",
+        "input_lra": "0.00",
+        "input_thresh": "-45.99",
+        "output_i": "-18.91",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.91",
+        "normalization_type": "linear",
+        "target_offset": "0.91"
+      },
+      "output_lufs": "-18.89",
+      "output_true_peak_dbtp": "-2.05"
+    }
+  },
+  "doran_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "dPah2VEoifKnZT37774q",
+    "voice_name": "Knox Dark - Serious, Deep, and Steady",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [stern]",
+    "signature": "465d880ee1b812fb62ef338b23aa0b71af372042420ca5bb7ce352c176f5a785",
+    "leveling": {
+      "source_sha256": "4a9c1604cdcd37ca970aca3bcd508d48eb8657c3ca3de149bd719187d352d17e",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.31",
+        "input_tp": "-2.48",
+        "input_lra": "0.00",
+        "input_thresh": "-26.55",
+        "output_i": "-18.00",
+        "output_tp": "-4.18",
+        "output_lra": "0.00",
+        "output_thresh": "-28.24",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.18"
+    }
+  },
+  "elm_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "nzFihrBIvB34imQBuxub",
+    "voice_name": "Josh - Teacher for Kids",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [quick] [nervous]",
+    "signature": "366976fe3dc2d73682e6fa65b309f2bd96ac69d7cef227a4e1a2f43b47f434c4",
+    "leveling": {
+      "source_sha256": "cebb125e88ae15e3d08136139fd19cccf43659723b6fda8e73672d0cf1531df2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.73",
+        "input_tp": "-3.26",
+        "input_lra": "0.00",
+        "input_thresh": "-31.25",
+        "output_i": "-18.46",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.99",
+        "normalization_type": "linear",
+        "target_offset": "0.46"
+      },
+      "output_lufs": "-18.31",
+      "output_true_peak_dbtp": "-1.68"
+    }
+  },
+  "fenn_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "kqVT88a5QfII1HNAEPTJ",
+    "voice_name": "Declan Sage - Wise and Captivating",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [measured] [low]",
+    "signature": "95968a6b13d4a156c45aca8461c58d4db9ca24bc16efed68f219d6751f111d26",
+    "leveling": {
+      "source_sha256": "7346c7bd3fbf7550b86a7bda1116933061b496170dd5b5c058de587425ac7297",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.96",
+        "input_tp": "-3.70",
+        "input_lra": "0.00",
+        "input_thresh": "-29.96",
+        "output_i": "-18.25",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.25",
+        "normalization_type": "linear",
+        "target_offset": "0.25"
+      },
+      "output_lufs": "-18.26",
+      "output_true_peak_dbtp": "-2.25"
+    }
+  },
+  "pike_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "JBFqnCBsd6RMkjVDRZzb",
+    "voice_name": "George - Warm, Captivating Storyteller",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [gentle] [reverent]",
+    "signature": "4f734d90ef06122728fa7b032493ecfdb3bcc40e0977effe4fe73a3623b8d92c",
+    "leveling": {
+      "source_sha256": "5419e6ea32fadf999fc207f8ba730881d872096224276e3e49dc005b0e0ac957",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.48",
+        "input_tp": "-9.55",
+        "input_lra": "0.00",
+        "input_thresh": "-35.97",
+        "output_i": "-18.00",
+        "output_tp": "-2.08",
+        "output_lra": "0.00",
+        "output_thresh": "-28.50",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "moss_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "8z82LG47qQ2qjeeQB8lk",
+    "voice_name": "Kenneth - Storyteller",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [earnest] [confused]",
+    "signature": "85e7e80533c5398713ba834ea140b76cb1882c546558057c495ff7feda29cc53",
+    "leveling": {
+      "source_sha256": "d910ba26abfd9e58ffd4947d4d189534cdf20672081fefa8c008510403485e4a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.62",
+        "input_tp": "-5.47",
+        "input_lra": "0.00",
+        "input_thresh": "-31.99",
+        "output_i": "-18.13",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.51",
+        "normalization_type": "linear",
+        "target_offset": "0.13"
+      },
+      "output_lufs": "-18.13",
+      "output_true_peak_dbtp": "-2.07"
+    }
+  },
+  "tibb_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "8Ln42OXYupYsag45MAUy",
+    "voice_name": "Jay Wayne - Wise University Professor",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [wry] [tired]",
+    "signature": "1650b9b8718051b396108107cd3235e9a13c4b610720d85593c0fdb54b26ad2e",
+    "leveling": {
+      "source_sha256": "806bef3965894eb0b8313860db3287e70824942341f4621a8be473679e2747b7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.97",
+        "input_tp": "-9.60",
+        "input_lra": "0.00",
+        "input_thresh": "-36.97",
+        "output_i": "-19.37",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.37",
+        "normalization_type": "linear",
+        "target_offset": "1.37"
+      },
+      "output_lufs": "-19.34",
+      "output_true_peak_dbtp": "-1.94"
+    }
+  },
+  "hale_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "dtSEyYGNJqjrtBArPCVZ",
+    "voice_name": "Titan - Deep, Bold, and Powerful",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [intense]",
+    "signature": "c86091a01750d4bf12c5972045c12452bb7e39fb009209ab3204b046e69119b6",
+    "leveling": {
+      "source_sha256": "275dc8bf472e03adf941aa986a454e60af940b02af56490a569d221f91c36170",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-30.28",
+        "input_tp": "-14.12",
+        "input_lra": "0.00",
+        "input_thresh": "-40.28",
+        "output_i": "-18.17",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.17",
+        "normalization_type": "linear",
+        "target_offset": "0.17"
+      },
+      "output_lufs": "-18.11",
+      "output_true_peak_dbtp": "-2.09"
+    }
+  },
+  "rusk_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "mtrellq69YZsNwzUSyXh",
+    "voice_name": "Rex Thunder - Deep N Tough",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [sharp]",
+    "signature": "86510ab8c03c1ae3916fb05790736560f7b12c53a3377c58075dd9f72925de30",
+    "leveling": {
+      "source_sha256": "530c43def24a993e98ef5f74a6a53346e39021c04890d304704c233bd1a30b20",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-14.76",
+        "input_tp": "-1.33",
+        "input_lra": "0.00",
+        "input_thresh": "-25.18",
+        "output_i": "-18.00",
+        "output_tp": "-4.57",
+        "output_lra": "0.00",
+        "output_thresh": "-28.43",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.42"
+    }
+  },
+  "soren_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "3gsg3cxXyFLcGIfNbM6C",
+    "voice_name": "Raju - Authentic and Relatable",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [tight]",
+    "signature": "287197016d489abdb6713b9f6e64ec02f9304900b47e700ccf36c0d84e2cc4d8",
+    "leveling": {
+      "source_sha256": "822687075c66232ccf348352ef54ef10aa3c8c3165aef3b5e67ef36c937d8c23",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.77",
+        "input_tp": "-9.87",
+        "input_lra": "0.00",
+        "input_thresh": "-37.60",
+        "output_i": "-18.90",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.74",
+        "normalization_type": "linear",
+        "target_offset": "0.90"
+      },
+      "output_lufs": "-18.91",
+      "output_true_peak_dbtp": "-1.81"
+    }
+  },
+  "gideon_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "8Es4wFxsDlHBmFWAOWRS",
+    "voice_name": "William Shanks - Rich and Deep",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [slow] [steady]",
+    "signature": "f7edaa2427d8b0fa91fd55a035e8fde77286afec9073eb61b44ca3a9de4f74da",
+    "leveling": {
+      "source_sha256": "7e5bc707e58023f5ba4815dce4a6e997af9b73bcd40f10488c679db72a933642",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.57",
+        "input_tp": "-12.89",
+        "input_lra": "0.00",
+        "input_thresh": "-37.01",
+        "output_i": "-18.03",
+        "output_tp": "-4.32",
+        "output_lra": "0.00",
+        "output_thresh": "-28.47",
+        "normalization_type": "linear",
+        "target_offset": "0.03"
+      },
+      "output_lufs": "-18.03",
+      "output_true_peak_dbtp": "-4.27"
+    }
+  },
+  "fenwick_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "wAGzRVkxKEs8La0lmdrE",
+    "voice_name": "Sully - Mature, Deep and Intriguing",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [bitter]",
+    "signature": "48a118459510da2d382110d4455783b6fe70275a791b9e55c69d53a34a19f359",
+    "leveling": {
+      "source_sha256": "64fe169912a4df1a22ce258eada30554cb9f674f130a96398ce8f2969c3e3508",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.36",
+        "input_tp": "-2.25",
+        "input_lra": "0.00",
+        "input_thresh": "-31.86",
+        "output_i": "-21.10",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-31.60",
+        "normalization_type": "linear",
+        "target_offset": "3.10"
+      },
+      "output_lufs": "-21.10",
+      "output_true_peak_dbtp": "-2.33"
+    }
+  },
+  "osric_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "uju3wxzG5OhpWcoi3SMy",
+    "voice_name": "Michael C. Vincent - Confident, Expressive",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [crisp]",
+    "signature": "09d8cb5a8df61084548861b778b680dec4e68a2488e0fb603fa96490bd7d3db1",
+    "leveling": {
+      "source_sha256": "9e31b8cfe0500e69d4f9ae6022763055883827d33b1747fefb57817b2970eb05",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.68",
+        "input_tp": "-6.37",
+        "input_lra": "0.00",
+        "input_thresh": "-33.68",
+        "output_i": "-19.32",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.32",
+        "normalization_type": "linear",
+        "target_offset": "1.32"
+      },
+      "output_lufs": "-19.29",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "leif_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "iP95p4xoKVk53GoZ742B",
+    "voice_name": "Chris - Charming, Down-to-Earth",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [plain]",
+    "signature": "41c20695ecddee093660c14381086c862c9d261fc1acb4d378d1d376193ea893",
+    "leveling": {
+      "source_sha256": "c1ae2e765716247b4b036a91c850cd58cc5962dca41255761dbb0be62a3bf1c7",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.94",
+        "input_tp": "-9.36",
+        "input_lra": "0.00",
+        "input_thresh": "-37.17",
+        "output_i": "-19.57",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.80",
+        "normalization_type": "linear",
+        "target_offset": "1.57"
+      },
+      "output_lufs": "-19.58",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "quill_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "gUABw7pXQjhjt0kNFBTF",
+    "voice_name": "Andrew - Smooth, Smart and Clear",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [dry] [precise]",
+    "signature": "9edaa90b3747b55624e6ac993eff68ebcacbf536d0de2deb4ee0219090ae90f2",
+    "leveling": {
+      "source_sha256": "3423eacd46e430b99b8da0a59835222e27315c246722181249e13d38b831eae9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-27.94",
+        "input_tp": "-12.46",
+        "input_lra": "0.90",
+        "input_thresh": "-39.77",
+        "output_i": "-16.16",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.84"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-2.50"
+    }
+  },
+  "nash_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "GUDYcgRAONiI1nXDcNQQ",
+    "voice_name": "Milo - Calm, Soothing and Meditative",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [breathy]",
+    "signature": "86837cf422c9b0f583a54ec8214bde5547ce6a2acee6a1db8acda909633671e6",
+    "leveling": {
+      "source_sha256": "7063b69b11ea2ccfbfdb90bcad7b00b903bff1f557e19a3f5076b543fd2628ce",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.97",
+        "input_tp": "-1.52",
+        "input_lra": "0.00",
+        "input_thresh": "-30.27",
+        "output_i": "-20.45",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.75",
+        "normalization_type": "linear",
+        "target_offset": "2.45"
+      },
+      "output_lufs": "-20.47",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "bastian_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "EkK5I93UQWFDigLMpZcX",
+    "voice_name": "James - Husky, Engaging and Bold",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [rough]",
+    "signature": "845941f56c075051747f879bd9d5c396189cdaf3077f319677d751e9b4e820db",
+    "leveling": {
+      "source_sha256": "90b72d3216b37289e327ff86718b7bdbcdbe4ea71158fba4b2f07a54c64919d6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.72",
+        "input_tp": "-6.58",
+        "input_lra": "0.00",
+        "input_thresh": "-31.25",
+        "output_i": "-18.00",
+        "output_tp": "-3.86",
+        "output_lra": "0.00",
+        "output_thresh": "-28.53",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.02"
+    }
+  },
+  "reeve_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "XjLkpWUlnhS8i7gGz3lZ",
+    "voice_name": "David Castlemore - Newsreader and Educator",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [tired] [firm]",
+    "signature": "0660038ccbf3d33b79971fa4dea864f78783389381744013cdaccf5816838c0a",
+    "leveling": {
+      "source_sha256": "a9baa291ed6caf95b283b126fb2fe7b1f37927ceb9f47be17e35efda8a8d3b50",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.40",
+        "input_tp": "-4.74",
+        "input_lra": "0.00",
+        "input_thresh": "-33.40",
+        "output_i": "-20.67",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.67",
+        "normalization_type": "linear",
+        "target_offset": "2.67"
+      },
+      "output_lufs": "-20.67",
+      "output_true_peak_dbtp": "-1.93"
+    }
+  },
+  "seth_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "6FiCmD8eY5VyjOdG5Zjk",
+    "voice_name": "Adam - Deep English Story Voice",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [hushed] [tense]",
+    "signature": "f5457d455190adc306790b0017730336e5d0cd226f2304c56f4526f59a79c8c7",
+    "leveling": {
+      "source_sha256": "b9bbfac72cfb56df14d77636a28b6d81279b86b9ddd4d13f7bcbeb105f7536e0",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.18",
+        "input_tp": "-1.15",
+        "input_lra": "0.00",
+        "input_thresh": "-27.45",
+        "output_i": "-18.04",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.32",
+        "normalization_type": "linear",
+        "target_offset": "0.04"
+      },
+      "output_lufs": "-18.03",
+      "output_true_peak_dbtp": "-1.93"
+    }
+  },
+  "vale_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "DMyrgzQFny3JI1Y1paM5",
+    "voice_name": "Donovan - Articulate, Strong and Deep",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [brisk]",
+    "signature": "167a3e0f2e4fda6122497f5c3207f7f7a32c84e68153005662901edcd2d5d665",
+    "leveling": {
+      "source_sha256": "14b7a34d0c6b894c75839d9207fef9b75918bf331b5fa817575d16e0208e0af9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.66",
+        "input_tp": "-3.72",
+        "input_lra": "0.00",
+        "input_thresh": "-31.09",
+        "output_i": "-18.94",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.38",
+        "normalization_type": "linear",
+        "target_offset": "0.94"
+      },
+      "output_lufs": "-18.93",
+      "output_true_peak_dbtp": "-1.60"
+    }
+  },
+  "tarin_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "SF9uvIlY93SJRMdV5jeP",
+    "voice_name": "Andrew Griffin - Football Commentator",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [quick] [focused]",
+    "signature": "35567df843234c748feda4cad0c449cb34c424a1932f2ada7d9d8d7f6228d16f",
+    "leveling": {
+      "source_sha256": "a442bbab9f1091482ac1fdd86f9c070e9ec612ee47df790d3b040b2839ef9506",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-29.78",
+        "input_tp": "-15.52",
+        "input_lra": "0.00",
+        "input_thresh": "-39.78",
+        "output_i": "-18.01",
+        "output_tp": "-3.74",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.67"
+    }
+  },
+  "ewan_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "alFofuDn3cOwyoz1i44T",
+    "voice_name": "Dallin - Positive, Inspiring and Clear",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [breathless]",
+    "signature": "f12c08e695e7b5bc2b7fae6bb8f43cd14dce01c985c204ef5aaf3433ed79c005",
+    "leveling": {
+      "source_sha256": "7b70ba8a5faac8ec5c332d74f04d395e12a4ea3ee5466d4d18866431373b6399",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.72",
+        "input_tp": "-5.85",
+        "input_lra": "0.00",
+        "input_thresh": "-30.72",
+        "output_i": "-18.02",
+        "output_tp": "-3.13",
+        "output_lra": "0.00",
+        "output_thresh": "-28.02",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-17.93",
+      "output_true_peak_dbtp": "-2.86"
+    }
+  },
+  "niall_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "wyWA56cQNU2KqUW4eCsI",
+    "voice_name": "Clyde - Full, Diplomatic and Inviting",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [commanding]",
+    "signature": "8abc33ba2ec4cbdf438a818272de45fa20da3c1ce36b7f4ea96ec09ee3f91ff1",
+    "leveling": {
+      "source_sha256": "b53515e1efb714a5d1789d03ea6161a0dc800580fbcefbad725258dac4c6e98d",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.91",
+        "input_tp": "-2.32",
+        "input_lra": "0.00",
+        "input_thresh": "-28.91",
+        "output_i": "-18.59",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.59",
+        "normalization_type": "linear",
+        "target_offset": "0.59"
+      },
+      "output_lufs": "-18.59",
+      "output_true_peak_dbtp": "-1.97"
+    }
+  },
+  "ames_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "iZURAYccQtQd12U8kEcq",
+    "voice_name": "Roland Rodriguez - Smooth Storyteller",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [dry]",
+    "signature": "e6fa62cf28cfd62d577e44cb494dfbf16c16cd9088008aec89afbe34bb4d7221",
+    "leveling": {
+      "source_sha256": "18906fb2c18cc13ff9caa9aee7356dcda9cbeb2017df89752c19ce6e6323aea9",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.18",
+        "input_tp": "-1.05",
+        "input_lra": "0.00",
+        "input_thresh": "-26.18",
+        "output_i": "-17.99",
+        "output_tp": "-2.87",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.81"
+    }
+  },
+  "mott_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "2EiwWnXFnvU5JabPnv8n",
+    "voice_name": "Clyde (premade)",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [gruff]",
+    "signature": "0c07a7fc3d6b1893b465d9c2df349e75a2dbff248d667a3a8c595bfac87e0c14",
+    "leveling": {
+      "source_sha256": "367961ae925ecf0a68a474f26ff0722d7d41e553271685d27fc8175237f6fdc4",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-17.40",
+        "input_tp": "-1.76",
+        "input_lra": "0.00",
+        "input_thresh": "-27.61",
+        "output_i": "-18.00",
+        "output_tp": "-2.36",
+        "output_lra": "0.00",
+        "output_thresh": "-28.21",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.43"
+    }
+  },
+  "pell_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "GBv7mTt0atIp3Br8iCZE",
+    "voice_name": "Thomas (premade)",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [stern] [tired]",
+    "signature": "e082090d997113817c1c3f44f822c22743a71b5cf3a4d3943ab2e1580b6035ad",
+    "leveling": {
+      "source_sha256": "c5235ad1875d0b62a505da4352181973da5e747fc6500cf56584b7e2e6cf776b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.51",
+        "input_tp": "-1.70",
+        "input_lra": "0.00",
+        "input_thresh": "-29.51",
+        "output_i": "-19.81",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.81",
+        "normalization_type": "linear",
+        "target_offset": "1.81"
+      },
+      "output_lufs": "-19.82",
+      "output_true_peak_dbtp": "-2.02"
+    }
+  },
+  "crane_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "pNInz6obpgDQGcFmaJgB",
+    "voice_name": "Adam (premade)",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [dry]",
+    "signature": "ae309bed3e4d124695a5461a0795c637e6e10fb84510020f54e65c7d35e4aede",
+    "leveling": {
+      "source_sha256": "06d380405f0dfb78e32d50fb9a64fc11e2db197fadfcfb8c97cfb10b6b91c7ab",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-19.02",
+        "input_tp": "-3.91",
+        "input_lra": "0.00",
+        "input_thresh": "-29.02",
+        "output_i": "-18.02",
+        "output_tp": "-2.88",
+        "output_lra": "0.00",
+        "output_thresh": "-28.02",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-18.05",
+      "output_true_peak_dbtp": "-2.90"
+    }
+  },
+  "stroud_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "VR6AewLTigWG4xSOukaG",
+    "voice_name": "Arnold (premade)",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [wheezing]",
+    "signature": "689e9558f978f76bc7d220d4c397d5f568255cca2f8b090f237c3a973f1d928e",
+    "leveling": {
+      "source_sha256": "4e0bf63088043172f0012283cdf81c2d31d3444567172e0906cd2db6e3630c21",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.16",
+        "input_tp": "-8.80",
+        "input_lra": "0.00",
+        "input_thresh": "-32.16",
+        "output_i": "-18.02",
+        "output_tp": "-4.63",
+        "output_lra": "0.00",
+        "output_thresh": "-28.02",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-4.68"
+    }
+  },
+  "thane_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "TxGEqnHWrfWFTfGW9XjX",
+    "voice_name": "Josh (premade)",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [nervous]",
+    "signature": "f60a25b2812d1dbab095a76d12a67d6cb04adaf335b9e527d0d7943d2f0bbc98",
+    "leveling": {
+      "source_sha256": "6f31607f5dd940f247700eb27f9424fc4bb42e2744eec7b8240f7078c1efd8f6",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.06",
+        "input_tp": "-10.51",
+        "input_lra": "0.00",
+        "input_thresh": "-34.06",
+        "output_i": "-17.99",
+        "output_tp": "-4.45",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-4.45"
+    }
+  },
+  "holt_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "ErXwobaYiN019PkySvjV",
+    "voice_name": "Antoni (premade)",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [smug]",
+    "signature": "93ebdec6e4bc109719c0c9460ca4d08fa2677aeb8de04b593677d78491d6208e",
+    "leveling": {
+      "source_sha256": "998e1dc9c62d15968f9cddefe7d5468b808fcedd23f1d649d9f297862f0d6498",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.19",
+        "input_tp": "-6.06",
+        "input_lra": "0.00",
+        "input_thresh": "-34.19",
+        "output_i": "-20.14",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.14",
+        "normalization_type": "linear",
+        "target_offset": "2.14"
+      },
+      "output_lufs": "-20.10",
+      "output_true_peak_dbtp": "-1.99"
+    }
+  },
+  "wick_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "yoZ06aMxZJJ28mfd3POQ",
+    "voice_name": "Sam (premade)",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [barking]",
+    "signature": "1ef6fdb069ccb8c03e01a395dcf98861da6733996e5f6415a5f5b037209d05fe",
+    "leveling": {
+      "source_sha256": "410ffda71b07e10a0f56d144bc0d937cbd21741ceff22b39b0481f3592b3af81",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.10",
+        "input_tp": "-3.68",
+        "input_lra": "0.00",
+        "input_thresh": "-32.10",
+        "output_i": "-20.43",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.43",
+        "normalization_type": "linear",
+        "target_offset": "2.43"
+      },
+      "output_lufs": "-20.44",
+      "output_true_peak_dbtp": "-1.83"
+    }
+  },
+  "garth_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "29vD33N1CtxCmqQRPOHJ",
+    "voice_name": "Drew (premade)",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [flat]",
+    "signature": "1669e58fb58f17e1fc03ccec260fa58657da11eb1aff741778073a96e4f6ab09",
+    "leveling": {
+      "source_sha256": "5d500ad4632a1df0d2e9e7cdde71d4e6db272a6713fe92b1c8c871870a750f91",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.51",
+        "input_tp": "-8.86",
+        "input_lra": "0.00",
+        "input_thresh": "-33.51",
+        "output_i": "-17.99",
+        "output_tp": "-3.35",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.44"
+    }
+  },
+  "rook_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "nPczCjzI2devNBz1zQrb",
+    "voice_name": "Brian (premade)",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [smug]",
+    "signature": "4806859c867ef7811fa1978dbc9be8222dfdeb4a8017d5c825887457b5382891",
+    "leveling": {
+      "source_sha256": "5f2514d1f4e14c6834b4b3e09f128abd3bc0cae191d3f2609374f3e1f2b0e8d1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.67",
+        "input_tp": "-5.99",
+        "input_lra": "0.00",
+        "input_thresh": "-31.54",
+        "output_i": "-18.01",
+        "output_tp": "-3.31",
+        "output_lra": "0.00",
+        "output_thresh": "-28.88",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-3.53"
+    }
+  },
+  "rhea_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "21m00Tcm4TlvDq8ikWAM",
+    "voice_name": "Rachel (premade)",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [bright]",
+    "signature": "d69606f69f04121d9a65769a7c6798c33af9897703906fd72e48d96254c11c3e",
+    "leveling": {
+      "source_sha256": "4234ea5691e6c54356072d953cbf32b1b7db26c653c0f44461c53ac0b2604f0b",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.51",
+        "input_tp": "-4.87",
+        "input_lra": "0.00",
+        "input_thresh": "-28.51",
+        "output_i": "-18.01",
+        "output_tp": "-4.35",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-4.36"
+    }
+  },
+  "marta_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "AZnzlk1XvdvUeBnXmlld",
+    "voice_name": "Domi (premade)",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [warm]",
+    "signature": "a00886549c4dcca79cda0b0fee6c7274142cd08923f2d3b5b9fe993c55d90995",
+    "leveling": {
+      "source_sha256": "8d8d56ee8c2e9e49023f18f7dd5fb388fd7a7679b41556a4e407e1931726ceca",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.42",
+        "input_tp": "-3.75",
+        "input_lra": "0.00",
+        "input_thresh": "-31.66",
+        "output_i": "-19.67",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.91",
+        "normalization_type": "linear",
+        "target_offset": "1.67"
+      },
+      "output_lufs": "-19.68",
+      "output_true_peak_dbtp": "-1.82"
+    }
+  },
+  "odette_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "MF3mGyEYCl7XYWbV9V6O",
+    "voice_name": "Elli (premade)",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [wistful]",
+    "signature": "c59b6cdca79484a848488258cd0b68f4e74bebe1935723025be49c8f39203a90",
+    "leveling": {
+      "source_sha256": "08a95520dc94412fffd603ec99944c65e84b7f5b3a9005e07f7c7a288918a65f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.94",
+        "input_tp": "-13.27",
+        "input_lra": "0.00",
+        "input_thresh": "-37.72",
+        "output_i": "-18.01",
+        "output_tp": "-4.33",
+        "output_lra": "0.00",
+        "output_thresh": "-28.79",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-4.35"
+    }
+  },
+  "sunniva_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "ThT5KcBeYPX3keUQqHPh",
+    "voice_name": "Dorothy (premade)",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [determined]",
+    "signature": "8c27769b107d4ee16fffef60efec4e2e3e712ec519fa3bb2bb64ec967de495a7",
+    "leveling": {
+      "source_sha256": "93c19197b73966c2b55c592510a53d48cc1657a70cc5de7d911fad599dfa95db",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.58",
+        "input_tp": "-7.31",
+        "input_lra": "0.00",
+        "input_thresh": "-33.58",
+        "output_i": "-18.27",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.27",
+        "normalization_type": "linear",
+        "target_offset": "0.27"
+      },
+      "output_lufs": "-18.23",
+      "output_true_peak_dbtp": "-2.11"
+    }
+  },
+  "calla_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "XB0fDUnXU5powFXDhCwa",
+    "voice_name": "Charlotte (premade)",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [excited]",
+    "signature": "0ce9939ab05cfc6a55d89057923a15d3c31f232f102012906289e259c3b235e8",
+    "leveling": {
+      "source_sha256": "5a9535ebde1a73f7e2567cdc57b776000cab5ae535fd9608265591e4b120ad67",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.25",
+        "input_tp": "-4.71",
+        "input_lra": "0.00",
+        "input_thresh": "-30.25",
+        "output_i": "-17.98",
+        "output_tp": "-2.46",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-2.51"
+    }
+  },
+  "ingrid_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "voice_name": "Matilda (premade)",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [prim]",
+    "signature": "0eda60d08c056c89629a72534b91d863500a9a38060d1b589df96b40d80b8629",
+    "leveling": {
+      "source_sha256": "3be43c69dcff9080cdf632958d763be0b4c1c4b8cdf723a7690d32786d0520be",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.11",
+        "input_tp": "-8.26",
+        "input_lra": "0.00",
+        "input_thresh": "-32.44",
+        "output_i": "-17.99",
+        "output_tp": "-4.15",
+        "output_lra": "0.00",
+        "output_thresh": "-28.32",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-4.12"
+    }
+  },
+  "noor_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "piTKgcLEGmPE4e6mEKli",
+    "voice_name": "Nicole (premade)",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [husky]",
+    "signature": "0beb9f89011efac7cbdd390addf41cb2324252532d1ab0cc012d4494915663d4",
+    "leveling": {
+      "source_sha256": "932b5db6dac6bbe44e04108ff21911a43aba598dfd200fdbbbe4fcab8db14b53",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.51",
+        "input_tp": "-4.15",
+        "input_lra": "0.00",
+        "input_thresh": "-28.51",
+        "output_i": "-17.99",
+        "output_tp": "-3.64",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.58"
+    }
+  },
+  "dara_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "SAz9YHcvj6GT2YYXdXww",
+    "voice_name": "River (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [stern]",
+    "signature": "4f39258f0e471dd842fb483fb24a3912711c8081c06704e079e62f274858ace7",
+    "leveling": {
+      "source_sha256": "82713549cafdf541991168178a1a2cc2b1797cd73de7f85aae347f993c013178",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-32.37",
+        "input_tp": "-6.59",
+        "input_lra": "0.00",
+        "input_thresh": "-42.37",
+        "output_i": "-27.77",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-37.77",
+        "normalization_type": "linear",
+        "target_offset": "9.77"
+      },
+      "output_lufs": "-27.78",
+      "output_true_peak_dbtp": "-2.08"
+    }
+  },
+  "vesna_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "oWAxZDx7w5VEj9dCyTzz",
+    "voice_name": "Grace (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [brisk]",
+    "signature": "2c1135d360e6e54febb9048c8f5574f1b27c6daf407023b03549d3117fc3663d",
+    "leveling": {
+      "source_sha256": "a054ed3b2c5c57e3a2e251eba18b820d7b85599e14a89ccfa57a5f9d540f1e38",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.18",
+        "input_tp": "-7.09",
+        "input_lra": "0.00",
+        "input_thresh": "-31.18",
+        "output_i": "-18.02",
+        "output_tp": "-3.91",
+        "output_lra": "0.00",
+        "output_thresh": "-28.02",
+        "normalization_type": "linear",
+        "target_offset": "0.02"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-4.00"
+    }
+  },
+  "ilse_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "jBpfuIE2acCO8z3wKNLl",
+    "voice_name": "Gigi (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [sharp]",
+    "signature": "478545b11c9f262e344014a58124cb2f9f4aa3be53d08dfdc26ed140a4461543",
+    "leveling": {
+      "source_sha256": "bbb3bc32a8c861278a078aa73e5f090d971a1a2f780c7fdf86816b7f9e7f881f",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.48",
+        "input_tp": "-4.12",
+        "input_lra": "0.00",
+        "input_thresh": "-29.34",
+        "output_i": "-17.99",
+        "output_tp": "-3.63",
+        "output_lra": "0.00",
+        "output_thresh": "-28.85",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-3.69"
+    }
+  },
+  "bryn_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "jsCqWAovK2LkecY7zXl4",
+    "voice_name": "Freya (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [wry]",
+    "signature": "748b537fc5093e6ce6ada806ad8cfc019a9b34c904cfb0005eb3e1f70406b59f",
+    "leveling": {
+      "source_sha256": "d663b73fea6ce2eb697b29c4ce26ff7b70ca1592032c92e4d230b0b31eec4dd8",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-15.53",
+        "input_tp": "-2.42",
+        "input_lra": "0.00",
+        "input_thresh": "-25.53",
+        "output_i": "-17.98",
+        "output_tp": "-4.89",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-4.93"
+    }
+  },
+  "odell_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "pFZP5JQG7iQjIQuC4Bku",
+    "voice_name": "Lily (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [gruff]",
+    "signature": "09c09a51faa03d3521803a7729db1709eec35a672c67d944b64ad7e77e9c946a",
+    "leveling": {
+      "source_sha256": "66a46d2d99aab58bf13b9436648d179a29ef175aa51da78acb740e45e14b6802",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.16",
+        "input_tp": "-6.05",
+        "input_lra": "0.00",
+        "input_thresh": "-34.53",
+        "output_i": "-20.11",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-30.67",
+        "normalization_type": "linear",
+        "target_offset": "2.11"
+      },
+      "output_lufs": "-20.07",
+      "output_true_peak_dbtp": "-2.01"
+    }
+  },
+  "corra_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+    "voice_name": "Alice (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [firm]",
+    "signature": "3b724f5783bb85a41a3514bab1e13be92d7803533f1b324736fbaa6dbdae71f4",
+    "leveling": {
+      "source_sha256": "ef6782fe6a43df5d7c9c9c1a6e84b9abfc91fadbaa273d1d22bdd98ef1bbc860",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-22.04",
+        "input_tp": "-7.68",
+        "input_lra": "0.00",
+        "input_thresh": "-32.36",
+        "output_i": "-17.99",
+        "output_tp": "-3.64",
+        "output_lra": "0.00",
+        "output_thresh": "-28.31",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.97",
+      "output_true_peak_dbtp": "-3.71"
+    }
+  },
+  "wren2_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "cgSgspJ2msm6clMCkdW9",
+    "voice_name": "Jessica (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [tense]",
+    "signature": "d2825fc69a55afa3bf0ab36c5965daa0630a3a769365ec05ab96fe6668e80a1b",
+    "leveling": {
+      "source_sha256": "6a9b5f080d412ecdae9ec56dcefaa4dd21f0de5e2f440cceff7ce67d79815db5",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-25.40",
+        "input_tp": "-10.23",
+        "input_lra": "0.00",
+        "input_thresh": "-35.40",
+        "output_i": "-18.00",
+        "output_tp": "-2.83",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-2.90"
+    }
+  },
+  "fenna_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "9BWtsMINqrJLrRacOk9x",
+    "voice_name": "Aria (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [firm]",
+    "signature": "1dfaddc775845e6ed70dc5ac18bf4f56b04894f0e8e8c3fff441d0982c9b585e",
+    "leveling": {
+      "source_sha256": "fd3c832bcf87c89ae8a7c7ecdafe007c5323b6f956cb88d5288e45545d7b8f51",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-29.15",
+        "input_tp": "-13.46",
+        "input_lra": "0.00",
+        "input_thresh": "-39.15",
+        "output_i": "-17.98",
+        "output_tp": "-2.31",
+        "output_lra": "0.00",
+        "output_thresh": "-27.98",
+        "normalization_type": "linear",
+        "target_offset": "-0.02"
+      },
+      "output_lufs": "-18.01",
+      "output_true_peak_dbtp": "-2.09"
+    }
+  },
+  "marl_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "FGY2WhTYpPnrIDTdsKH5",
+    "voice_name": "Laura (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [crisp]",
+    "signature": "7b2f356d6bb95d0ef276dcb72f542a958147ddef28ba5854c162e0ede8b6fc51",
+    "leveling": {
+      "source_sha256": "5de40dbdc5654ff5325f12a5ae3a2aa4bc5bdf005aac9b3af604b0e3ee190d18",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.28",
+        "input_tp": "-9.88",
+        "input_lra": "0.00",
+        "input_thresh": "-33.28",
+        "output_i": "-18.01",
+        "output_tp": "-4.59",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-4.62"
+    }
+  },
+  "pru_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "voice_name": "Sarah (premade, terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [urgent]",
+    "signature": "b29924338813b52a8908c268a67c610fe50f257167d8175ef8c90ca70378feb2",
+    "leveling": {
+      "source_sha256": "932d4d3a2ae9c2eafb885df2739a429b1817fdd52b2647f124b44635479f9942",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.60",
+        "input_tp": "-3.66",
+        "input_lra": "0.00",
+        "input_thresh": "-28.60",
+        "output_i": "-18.00",
+        "output_tp": "-3.06",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.93"
+    }
+  },
+  "garrick_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "2ajXGJNYBR0iNHpS4VZb",
+    "voice_name": "Rob - Tough & Calloused (Level 5 terminal guard)",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [gruff]",
+    "signature": "d74cf81ba1dc2bf556c393bdcfa6dbba58e6ae75ee70b2993c0b3760bebbec71",
+    "leveling": {
+      "source_sha256": "259e1350727efec9ee93e70a3972c6dc9c7d286506a88e3d1836c951d4d23676",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.78",
+        "input_tp": "-6.06",
+        "input_lra": "0.00",
+        "input_thresh": "-35.11",
+        "output_i": "-20.71",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-31.36",
+        "normalization_type": "linear",
+        "target_offset": "2.71"
+      },
+      "output_lufs": "-20.70",
+      "output_true_peak_dbtp": "-1.98"
+    }
+  },
+  "brandt_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "TxWZERZ5Hc6h9dGxVmXa",
+    "voice_name": "Brandt (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [commanding]",
+    "signature": "1cce348bf330af8d535e45eb0fa31efafdc2f01afe7c2f74a52a9c14c71b7306",
+    "leveling": {
+      "source_sha256": "8f6f8645428141d53aebc4f1ae1f86d315d1db154cba3c1cd586337f758bfd1a",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.48",
+        "input_tp": "-6.35",
+        "input_lra": "0.00",
+        "input_thresh": "-33.48",
+        "output_i": "-19.12",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.12",
+        "normalization_type": "linear",
+        "target_offset": "1.12"
+      },
+      "output_lufs": "-19.12",
+      "output_true_peak_dbtp": "-2.27"
+    }
+  },
+  "sable_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "XEoBW4iDmiawQP72xnAF",
+    "voice_name": "Sable (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [dry]",
+    "signature": "4216dae2bfd79aadcab2304f6253a4145ba10de1fe7fb5f64715ef7e73c68f5d",
+    "leveling": {
+      "source_sha256": "4a21cc7ed91e68475e239abe935f8e1433eae9deaef5c9450734d8005907e6d1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.93",
+        "input_tp": "-12.34",
+        "input_lra": "0.00",
+        "input_thresh": "-37.98",
+        "output_i": "-18.00",
+        "output_tp": "-3.40",
+        "output_lra": "0.00",
+        "output_thresh": "-29.34",
+        "normalization_type": "linear",
+        "target_offset": "-0.00"
+      },
+      "output_lufs": "-18.00",
+      "output_true_peak_dbtp": "-3.41"
+    }
+  },
+  "tolliver_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "7squ7rvxEIZ2rYy7KYPP",
+    "voice_name": "Tolliver (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [whispers]",
+    "signature": "ef57302a1cb65522022eb9418cae401ba121aa2d0be1c99bc5e18a07897dd75a",
+    "leveling": {
+      "source_sha256": "557bfb09548d8609dae91525e09363891e805f4c73f5512b96c58820d81fe363",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.48",
+        "input_tp": "-2.13",
+        "input_lra": "0.00",
+        "input_thresh": "-28.48",
+        "output_i": "-18.35",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.35",
+        "normalization_type": "linear",
+        "target_offset": "0.35"
+      },
+      "output_lufs": "-18.34",
+      "output_true_peak_dbtp": "-2.02"
+    }
+  },
+  "maren_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "psJnoAClXdhH5gn8uKNb",
+    "voice_name": "Maren (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [tired]",
+    "signature": "d0bf12da9cc6f432eaefe0cba734aac6b59dc9072fcd195de5cc9382d07da7ad",
+    "leveling": {
+      "source_sha256": "b1cf9652548bc2b6448e01870247cf3a3c3d4ecff0c2ec617751be753c9b9485",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-21.06",
+        "input_tp": "-7.02",
+        "input_lra": "0.30",
+        "input_thresh": "-31.54",
+        "output_i": "-17.42",
+        "output_tp": "-3.48",
+        "output_lra": "0.00",
+        "output_thresh": "-27.91",
+        "normalization_type": "dynamic",
+        "target_offset": "-0.58"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-3.88"
+    }
+  },
+  "voss_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "2vubyVoGjNJ5HPga4SkV",
+    "voice_name": "Voss - Chris (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [sarcastic]",
+    "signature": "a91678b8426aee1f55058cfd5d490efcc2047fa3bc0c761b4498fae31274c023",
+    "leveling": {
+      "source_sha256": "0f88fa65b55634bc6cb550b7617ffd7eebb33b2fcabe9cf8d85d26a1244b7933",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.91",
+        "input_tp": "-10.62",
+        "input_lra": "0.00",
+        "input_thresh": "-34.86",
+        "output_i": "-18.01",
+        "output_tp": "-4.71",
+        "output_lra": "0.00",
+        "output_thresh": "-28.96",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-4.71"
+    }
+  },
+  "hobb_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "mSOmKHC6GZcZbSTGlqHO",
+    "voice_name": "Hobb (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [grumbling]",
+    "signature": "b0fc5d39022bc2e9f9b33a084509143542c166b9620d260cff17c8e4ec1875d6",
+    "leveling": {
+      "source_sha256": "a0f5e7a8bed3ffcda5fcededdabd4889d8b6a3aec62fbfa87030a7c5312e2f27",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.59",
+        "input_tp": "-7.35",
+        "input_lra": "0.00",
+        "input_thresh": "-34.86",
+        "output_i": "-19.23",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.50",
+        "normalization_type": "linear",
+        "target_offset": "1.23"
+      },
+      "output_lufs": "-19.23",
+      "output_true_peak_dbtp": "-1.80"
+    }
+  },
+  "tamsin_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "y3UNfL9XC5Bb5htg8B0q",
+    "voice_name": "Tamsin (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [confident]",
+    "signature": "665fb838e38512cd00b16abccb496155f17a899aee814a745629747cd44a8f29",
+    "leveling": {
+      "source_sha256": "ef53b1aeb5bcd2ffe612635c2cb5e9323665b992f6be6390b14b79586e6c67cc",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.73",
+        "input_tp": "-2.05",
+        "input_lra": "0.00",
+        "input_thresh": "-35.11",
+        "output_i": "-25.06",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-35.06",
+        "normalization_type": "linear",
+        "target_offset": "7.06"
+      },
+      "output_lufs": "-24.60",
+      "output_true_peak_dbtp": "-1.95"
+    }
+  },
+  "corvin_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "h1IssowVS2h4nL5ZbkkK",
+    "voice_name": "Corvin (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [clipped]",
+    "signature": "99c35beeb0817d9cc7c6550baac03d30641f9e08f853e55530cbc9117d3c9aac",
+    "leveling": {
+      "source_sha256": "de8ef2f1ac6ac88985c53663bb63295ce87ce2a791c3e0ba091f384821726105",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-24.29",
+        "input_tp": "-7.16",
+        "input_lra": "0.00",
+        "input_thresh": "-34.77",
+        "output_i": "-19.12",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.60",
+        "normalization_type": "linear",
+        "target_offset": "1.12"
+      },
+      "output_lufs": "-19.12",
+      "output_true_peak_dbtp": "-2.02"
+    }
+  },
+  "ilka_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "TNI5EQSCUrYwvhb2wpzt",
+    "voice_name": "Ilka (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [calm]",
+    "signature": "199c3ea74eb394eb62f71f73aae5f38793a8c627faed9b450565fe288a41fd33",
+    "leveling": {
+      "source_sha256": "2994aab052f17cb919eac54a5b28a57d39203f506e4e7636bfaa3d44309d9abb",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-20.60",
+        "input_tp": "-5.26",
+        "input_lra": "0.60",
+        "input_thresh": "-31.59",
+        "output_i": "-16.57",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-27.71",
+        "normalization_type": "dynamic",
+        "target_offset": "-1.43"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-2.59"
+    }
+  },
+  "dunmore_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "GLSWsaquVBsIPLPPRi2s",
+    "voice_name": "Dunmore (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [gruff]",
+    "signature": "a628a902c5673525d0abf71ada1600b12c21430b860abc6c16060e4d98efcb82",
+    "leveling": {
+      "source_sha256": "02a427d8924ce2dbcab91851b513f3881a26185dae770a78c673da5ee3062c42",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-27.36",
+        "input_tp": "-12.10",
+        "input_lra": "0.00",
+        "input_thresh": "-37.36",
+        "output_i": "-17.99",
+        "output_tp": "-2.74",
+        "output_lra": "0.00",
+        "output_thresh": "-27.99",
+        "normalization_type": "linear",
+        "target_offset": "-0.01"
+      },
+      "output_lufs": "-17.98",
+      "output_true_peak_dbtp": "-3.04"
+    }
+  },
+  "perrin_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "YEkUdc7PezGaXaRslSHB",
+    "voice_name": "Perrin (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "He was just here!",
+    "delivery": "[quietly] [drawling]",
+    "signature": "6ab19b2570b7dc032630d9ceea61b731646887c4476187fcdac47430d1b00aa9",
+    "leveling": {
+      "source_sha256": "9a8fd8a1d427df926eee6a4a8527af18a92d20fc57d65a8c9d5f2cf2fa2f38e1",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.49",
+        "input_tp": "-11.00",
+        "input_lra": "0.00",
+        "input_thresh": "-36.49",
+        "output_i": "-18.00",
+        "output_tp": "-2.52",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.96",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "yara_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "gDQfVolj9RbmXgumLcOq",
+    "voice_name": "Yara (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Where'd he get to?",
+    "delivery": "[quietly] [stern]",
+    "signature": "fb85e6319aa79b807ff00c7d5d147654bd34de9982e6e1ef5b42aa2096f8f883",
+    "leveling": {
+      "source_sha256": "0ee5b970764add0e9dc2a7b2ee43fef330b7c8b7c82af117782117b6b8d23936",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-18.19",
+        "input_tp": "-2.18",
+        "input_lra": "0.00",
+        "input_thresh": "-28.19",
+        "output_i": "-18.01",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-28.01",
+        "normalization_type": "linear",
+        "target_offset": "0.01"
+      },
+      "output_lufs": "-18.02",
+      "output_true_peak_dbtp": "-2.12"
+    }
+  },
+  "rocco_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "ICwKbPHDHAM3eal5tHEZ",
+    "voice_name": "Rocco - Tony (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "He can't have just vanished.",
+    "delivery": "[quietly] [cocky]",
+    "signature": "e22a65092dd249e070106c64a181a556e04e5354e3409bea1f1fd6854adb767f",
+    "leveling": {
+      "source_sha256": "004dda6c892b22349e45cd8c3cb1f90d5fa5468c2d00882bb71a910be095f316",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-26.97",
+        "input_tp": "-9.61",
+        "input_lra": "0.00",
+        "input_thresh": "-36.97",
+        "output_i": "-19.36",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.36",
+        "normalization_type": "linear",
+        "target_offset": "1.36"
+      },
+      "output_lufs": "-19.36",
+      "output_true_peak_dbtp": "-2.08"
+    }
+  },
+  "ormond_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "7rQX8r6PVq3gfJ8rZzyE",
+    "voice_name": "Ormond - John North (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Check the shadows. He's close.",
+    "delivery": "[quietly] [chatty]",
+    "signature": "3d0485e310905f9654c4a26e1f6b525ce4303796ebd275f3e1f6f7982ffc69b0",
+    "leveling": {
+      "source_sha256": "4cea379723f4b4a92016409efae74ae83b88d73cfce1190e4c060777ed0923f2",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-23.61",
+        "input_tp": "-6.71",
+        "input_lra": "0.00",
+        "input_thresh": "-34.05",
+        "output_i": "-18.89",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-29.34",
+        "normalization_type": "linear",
+        "target_offset": "0.89"
+      },
+      "output_lufs": "-18.89",
+      "output_true_peak_dbtp": "-2.00"
+    }
+  },
+  "delphine_lost": {
+    "provider": "ElevenLabs",
+    "voice_id": "esy0r39YPLQjOczyOib8",
+    "voice_name": "Delphine - Britney (extra guard)",
+    "model_id": "eleven_v3",
+    "text": "Where did he go?",
+    "delivery": "[quietly] [cold]",
+    "signature": "752666e64b465b3a7bcb18b30fdd14ce082c51e19112ce473d20854bdeeb445e",
+    "leveling": {
+      "source_sha256": "e62801a5c3b89fc5bf82e6ad1dea9aef78f027919e880d7b6bfe2e612452d606",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-32.35",
+        "input_tp": "-12.04",
+        "input_lra": "0.00",
+        "input_thresh": "-44.63",
+        "output_i": "-22.34",
+        "output_tp": "-2.00",
+        "output_lra": "0.00",
+        "output_thresh": "-34.62",
+        "normalization_type": "linear",
+        "target_offset": "4.34"
+      },
+      "output_lufs": "-22.33",
+      "output_true_peak_dbtp": "-1.95"
+    }
+  },
+  "miro_e8c3e6619c": {
+    "provider": "ElevenLabs",
+    "voice_id": "d3qrd1ge6zWDvUxIeXiH",
+    "voice_name": "Miro (voice chosen by RXLA)",
+    "model_id": "eleven_v3",
+    "text": "Press E at the door on the far right.",
+    "delivery": "[whispers]",
+    "signature": "856e5fbf22c30dcbc02a2a57226b85607733cd2aa5413a2c75b6a523d4e95a5f",
+    "leveling": {
+      "source_sha256": "0711b4c86537652e8203b7822b5793f4dd6dff5cf274f1bb82c6934dadec4790",
+      "target_lufs": -18,
+      "true_peak_target_dbtp": -2,
+      "input": {
+        "input_i": "-16.41",
+        "input_tp": "-1.15",
+        "input_lra": "0.00",
+        "input_thresh": "-26.41",
+        "output_i": "-18.00",
+        "output_tp": "-2.75",
+        "output_lra": "0.00",
+        "output_thresh": "-28.00",
+        "normalization_type": "linear",
+        "target_offset": "0.00"
+      },
+      "output_lufs": "-17.99",
+      "output_true_peak_dbtp": "-2.76"
+    }
   }
 }

@@ -204,7 +204,7 @@ func foundation_run() -> void:
    await frames(30)
  level.finish_dialogue()
  check(level.milestones.has("DefeatExchange"), "Complete DefeatExchange")
- check(await move_to(880, 800, true), "Reach ForestViewpoint")
+ check(await move_to(level.areas.get_node("ForestViewpoint").position.x, 800, true), "Reach ForestViewpoint")
  level.interact()
  for tick in range(1100):
   if level.completed:

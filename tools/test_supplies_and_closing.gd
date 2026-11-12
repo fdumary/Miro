@@ -22,11 +22,16 @@ func run() -> void:
 		check(not potions.is_empty() and not cases.is_empty() and not hides.is_empty(), "Floor %d has tonics, ammo and hiding boxes" % number)
 		for tonic in potions:
 			check((tonic.get_meta("lab_flask", false) and level.has_floor_below(tonic.global_position + Vector2(0, 38))) or (world.placement_clear(tonic.global_position) and level.has_floor_below(tonic.global_position + Vector2(0, 13))), "Floor %d tonic %s is clear and supported" % [number, tonic.global_position])
-		player.global_position = potions[0].global_position
+		var selected = potions[0]
 		player.health = player.max_health - 2
-		check(world.try_interact() and potions[0].used and player.health == mini(player.max_health,player.max_health-2+int(potions[0].get_meta("heal_amount",1))), "Floor %d tonic restores health" % number)
+		for tonic in potions:
+			player.global_position = tonic.global_position
+			if world.nearby_prop() == tonic:
+				selected = tonic
+				break
+		check(world.try_interact() and selected.used and player.health == mini(player.max_health,player.max_health-2+int(selected.get_meta("heal_amount",1))), "Floor %d tonic restores health" % number)
 		world.try_interact()
-		check(player.health == mini(player.max_health,player.max_health-2+int(potions[0].get_meta("heal_amount",1))), "Floor %d consumed tonic cannot heal twice" % number)
+		check(player.health == mini(player.max_health,player.max_health-2+int(selected.get_meta("heal_amount",1))), "Floor %d consumed tonic cannot heal twice" % number)
 		player.has_gun = true
 		player.guns.assign(["pistol"])
 		player.equipped_gun = "pistol"

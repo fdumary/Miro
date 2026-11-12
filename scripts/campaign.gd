@@ -461,6 +461,13 @@ func unlock_level_music(number: int) -> void:
 		add_track_unlock(track)
 
 func unlock_reached_level_music() -> void:
+	# Level 1 is selectable by default, but has not been reached on a fresh profile.
+	# Repair existing rewards only; entering the floor grants the first achievement.
+	if can_persist() and highest_level() == 1:
+		var progress := ConfigFile.new()
+		progress.load(progress_path())
+		if not "reach_level_1" in progress.get_value("achievements", "earned", []):
+			return
 	for number in range(1, highest_level() + 1):
 		unlock_level_music(number)
 
@@ -550,7 +557,8 @@ func security_targets() -> Dictionary:
 				targets[security_device_id(number, "camera", point)] = true
 		for hazard in features.get("hazards", []):
 			if hazard.kind == "turret" and not hazard.get("disabled", false):
-				var point := Vector2(hazard.position[0], hazard.position[1])
+				var origin: Array = hazard.get("legacy_position", hazard.position)
+				var point := Vector2(origin[0], origin[1])
 				targets[security_device_id(number, "turret", point)] = true
 		# Compatibility for the original practice/checkpoint layouts.
 		if number == 2 and features.get("ports", []).is_empty():

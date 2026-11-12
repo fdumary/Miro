@@ -44,7 +44,7 @@ func run() -> void:
 			names[keeper_name] = true
 			personalities[guard.personality] = true
 			voices[voice] = true
-			for line_id in ["alert", "body", "idle_1", "idle_2"]:
+			for line_id in ["alert", "body", "sleeping", "lost", "idle_1", "idle_2"]:
 				check(ResourceLoader.exists(world.keeper_clip_path(keeper_name, line_id)), "%s has %s audio" % [keeper_name, line_id])
 	check(names.size() == level.world_features.roster.keepers.size(), "All authored Keepers can appear in game")
 	print("KEEPER_CAST_RESULT: %d/%d passed" % [checks - failures.size(), checks])

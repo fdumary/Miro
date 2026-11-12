@@ -54,7 +54,7 @@ func run() -> void:
 	check(level.door_open and p.c4_count == start_count, "Detonating placed C4 breaches cell while preserving story charge")
 	p.c4_count = 1
 	c.drop_charge()
-	check(c.planted.is_empty() and p.c4_count == 1, "Last C4 remains reserved; no free spare is created")
+	check(c.planted.size() == 1 and p.c4_count == 0, "Last optional C4 can be placed without creating a spare")
 	p.position = Vector2(350, 236)
 	await frames(4)
 	Input.action_press("jump")

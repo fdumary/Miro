@@ -14,6 +14,11 @@ var world := Vector2(1120, 756)
 var storeys: Array = []
 var authored := false
 
+# Only shift low furniture; ceiling art, platforms and story stations keep their anchors.
+const BARRACKS_X := {220:188, 1210:1220, 587:674, 917:851, 1247:1292, 1284:1210, 405:378}
+const CABINET_X := {370:332, 1223:1194, 476:492, 929:960, 635:594}
+# Left edge of each existing lab cart. Pickups and cart art share these positions.
+const CART_X := [[338, 760, 1170, 1580], [452, 801, 1176, 1602], [432, 842, 1252]]
 const THEMES := {
 	2: {"wall": Color("3a3354"), "mortar": Color("272744"), "light": Color(0.95, 0.78, 0.55), "accent": Color("c69fa5"), "deep": Color("4a3b4f")},
 	3: {"wall": Color("2f3a56"), "mortar": Color("1f2640"), "light": Color(0.62, 0.86, 0.95), "accent": Color("8bb5c9"), "deep": Color("2b2f4f")},
@@ -175,6 +180,7 @@ func dress_barracks(index: int, ceiling: float, floor_y: float, second_half: boo
 		var x := 220.0 + step * 330 + index * 37
 		if x > world.x - 120:
 			continue
+		x = BARRACKS_X.get(int(x), x)
 		if second_half:
 			for locker in range(3):
 				var rect := Rect2(x + locker * 18, floor_y - 52, 16, 52)
@@ -204,7 +210,7 @@ func dress_surveillance(index: int, ceiling: float, floor_y: float, second_half:
 			var glow: Color = look.light.darkened(0.35 + 0.15 * ((screen + index + step) % 3))
 			draw_rect(Rect2(bank.position + Vector2(2 + screen * 28, 2), Vector2(24, 30)), Color(glow.r, glow.g, glow.b, 0.55))
 		# Background furniture is tinted down so it never reads as something to pick up.
-		stamp("cabinet", Rect2(x + 110, floor_y - 44, 26, 44), Color(0.45, 0.45, 0.6, 0.7))
+		stamp("cabinet", Rect2(float(CABINET_X.get(int(x + 110), x + 110)), floor_y - 44, 26, 44), Color(0.45, 0.45, 0.6, 0.7))
 		if second_half:
 			stamp("warning", Rect2(x + 150, ceiling + 44, 22, 22), Color(1, 1, 1, 0.7))
 			stamp("beacon", Rect2(x + 180, ceiling + 6, 22, 22), Color(1, 1, 1, 0.8))
@@ -237,8 +243,8 @@ func dress_ward(index: int, ceiling: float, floor_y: float, second_half: bool) -
 			draw_rect(glass.grow(3), Color("8b9bb4"))
 			draw_rect(glass, Color(0.75, 0.86, 0.95, 0.18))
 			draw_line(glass.position + Vector2(12, 34), glass.position + Vector2(34, 6), Color(1, 1, 1, 0.25), 2)
-			draw_rect(Rect2(x + 110, floor_y - 20, 40, 4), Color("8b9bb4"))
-			stamp("flask", Rect2(x + 112, floor_y - 36, 16, 16), Color(1, 1, 1, 0.8))
-			stamp("microscope", Rect2(x + 130, floor_y - 38, 18, 18), Color(1, 1, 1, 0.8))
-			draw_rect(Rect2(x + 112, floor_y - 16, 3, 16), Color("8b9bb4"))
-			draw_rect(Rect2(x + 145, floor_y - 16, 3, 16), Color("8b9bb4"))
+			var cart_x: float = CART_X[index][step]
+			draw_rect(Rect2(cart_x, floor_y - 20, 40, 4), Color("8b9bb4"))
+			stamp("microscope", Rect2(cart_x + 20, floor_y - 38, 18, 18), Color(1, 1, 1, 0.8))
+			draw_rect(Rect2(cart_x + 2, floor_y - 16, 3, 16), Color("8b9bb4"))
+			draw_rect(Rect2(cart_x + 35, floor_y - 16, 3, 16), Color("8b9bb4"))

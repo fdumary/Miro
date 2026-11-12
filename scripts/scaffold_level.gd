@@ -77,6 +77,8 @@ func _ready() -> void:
 		hazard.level = self
 		hazard.kind = str(entry.kind)
 		hazard.position = Vector2(entry.position[0], entry.position[1])
+		if entry.has("legacy_position"):
+			hazard.set_meta("security_origin", Vector2(entry.legacy_position[0], entry.legacy_position[1]))
 		hazard.rotation = HAZARD_ROTATIONS.get(entry.get("mount", "floor"), 0.0)
 		hazard.disabled = bool(entry.get("disabled", false))
 		add_child(hazard)
@@ -607,13 +609,16 @@ func context_hint() -> String:
 func interact() -> void:
 	if controls_locked() or player.is_dead:
 		return
-	if player.controls.recover_charge():
-		return
-	if try_strangle():
-		return
-	if world_features and world_features.try_interact():
-		return
 	var station := station_nearby()
+	# The final door owns its prompt even if Niro or dropped gear is beside it.
+	var final_door: bool = station.get("id", "") == "ForestViewpoint"
+	if not final_door:
+		if player.controls.recover_charge():
+			return
+		if try_strangle():
+			return
+		if world_features and world_features.try_interact():
+			return
 	if not station.is_empty():
 		if milestones.has(station.id):
 			notify("Already complete: " + station.title)
@@ -780,7 +785,7 @@ var checkpoint_grace_until := 0
 func record_security_checkpoint(device: Node2D, destroyed: bool) -> void:
 	var kind := "camera" if device.get_script() == preload("res://scripts/security_camera.gd") else "turret"
 	var campaign = get_node("/root/Campaign")
-	var id: String = campaign.security_device_id(int(definition.number), kind, device.position)
+	var id: String = campaign.security_device_id(int(definition.number), kind, device.get_meta("security_origin", device.position))
 	security_checkpoint[id] = {"destroyed": destroyed, "kind": kind, "position": device.position}
 	if int(campaign.checkpoint.get("floor", 0)) == int(definition.number):
 		campaign.checkpoint["security"] = security_checkpoint.duplicate(true)
@@ -793,7 +798,7 @@ func restore_checkpoint_security(saved: Dictionary) -> void:
 		if not is_ancestor_of(device):continue
 		var camera: bool = device.get_script() == preload("res://scripts/security_camera.gd")
 		var kind := "camera" if camera else "turret"
-		var id: String = campaign.security_device_id(int(definition.number), kind, device.position)
+		var id: String = campaign.security_device_id(int(definition.number), kind, device.get_meta("security_origin", device.position))
 		if not security_checkpoint.has(id):continue
 		if bool(security_checkpoint[id].get("destroyed", false)):
 			device.queue_free()

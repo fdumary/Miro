@@ -1,6 +1,10 @@
+param([ValidateRange(1, 1000)][int]$StartAt = 1)
 $ErrorActionPreference = 'Stop'
 $engine = 'C:\towerdefense\tools\godot\Godot_v4.7.2-stable_win64_console.exe'
 $checks = @(
+    @('res://tools/test_final_gameplay.gd'),
+    @('res://tools/test_final_dialogue.gd'),
+    @('res://tools/test_guard_chokepoints.gd'),
     @('res://tools/test_new_playthrough.gd'),
     @('res://tools/test_three_optional_c4.gd'),
     @('res://tools/test_achievement_paths.gd'),
@@ -87,6 +91,7 @@ if ($LASTEXITCODE -ne 0) { Get-Content (Join-Path $PSScriptRoot 'tmp/check-voice
 $index = 0
 foreach ($check in $checks) {
     $index += 1
+    if ($index -lt $StartAt) { continue }
     $arguments = @('--headless', '--path', $PSScriptRoot, '--fixed-fps', '60', '--script') + $check
     $ErrorActionPreference = 'Continue'
     $result = & $engine @arguments 2>&1

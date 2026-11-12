@@ -2,10 +2,12 @@ extends IntroGuard
 ## Niro, the tower physician (docs/class.md Brother; Level 5 "The Foundation").
 ## Four meetings share one health pool: he retreats at each threshold, then is beaten
 ## but NOT killed on the deepest floor. Attacks are timed to the beat when music plays.
-enum Phase { TELEGRAPH, RUSH, RECOVERY, RETREAT, DEFEATED }
+enum Phase { TELEGRAPH, RUSH, RELEASE, RECOVERY, REPOSITION, RETREAT, DEFEATED }
 signal retreated(engagement: int)
 var current_phase := Phase.TELEGRAPH
-var is_vulnerable := false
+var is_vulnerable: bool:
+	get: return current_phase == Phase.RECOVERY and not is_dead
+var flank_target_x := 0.0
 var phase_left := 1.1
 var attack_number := 0
 var projectile := Vector2.ZERO
@@ -102,8 +104,8 @@ func _physics_process(delta: float) -> void:
 		if engagement >= 3:
 			var gap := absf(level.player.position.x-position.x)
 			var step_direction := facing if gap>170 else -facing if gap<70 else 0.0
-			if step_direction != 0 and level.has_floor_below(global_position+Vector2(step_direction*20,0)):
-				velocity.x = step_direction * (40.0 if engagement >= 4 else 30.0)
+			if step_direction != 0:
+				move_across(step_direction, 75.0 if engagement >= 4 else 30.0)
 		if phase_left <= 0:
 			var chosen := next_attack() if not forced_attack.is_empty() else planned_attack
 			last_attack = chosen
@@ -117,16 +119,14 @@ func _physics_process(delta: float) -> void:
 					projectile_reflected = false
 					projectile_live = true
 					fire_volley()
-					begin_recovery()
+					begin_release()
 				"call":
 					calls_left -= 1
 					if level.has_method("niro_calls_guard"):
 						level.niro_calls_guard(global_position)
-					begin_recovery()
+					begin_release()
 	elif current_phase == Phase.RUSH:
-		if level.has_floor_below(global_position + Vector2(facing * 20, 0)):
-			velocity.x = facing * (265.0 if engagement >= 4 else 250.0)
-		elif phase_left > 0.3:
+		if not move_across(facing, 265.0 if engagement >= 4 else 250.0) and phase_left > 0.3:
 			# No floor to rush along: throw instead of standing there.
 			projectile = global_position + Vector2(facing * 15, -5)
 			projectile_velocity = (level.player.global_position - projectile).normalized() * (330.0 if engagement >= 4 else 260.0)
@@ -144,12 +144,23 @@ func _physics_process(delta: float) -> void:
 			else:
 				combo = 0
 				begin_recovery()
-	elif phase_left <= 0:
-		is_vulnerable = false
+	elif current_phase == Phase.RELEASE and phase_left <= 0:
+		begin_recovery()
+	elif current_phase == Phase.REPOSITION:
+		var distance := flank_target_x - global_position.x
+		facing = signf(distance)
+		if absf(distance) < 12.0 or phase_left <= 0 or not move_across(facing, 250.0):
+			begin_telegraph()
+	elif current_phase == Phase.RECOVERY and phase_left <= 0:
 		attack_number += 1
-		current_phase = Phase.TELEGRAPH
-		phase_left = telegraph_time()
-		planned_attack = next_attack()
+		if engagement == 4 and attack_number % 2 == 0:
+			# The deepest row is a continuous runway. Commit to a flank instead of
+			# following every small player movement and camping one half forever.
+			flank_target_x = 910.0 if global_position.x < 560.0 else 210.0
+			current_phase = Phase.REPOSITION
+			phase_left = 3.65
+		else:
+			begin_telegraph()
 	move_and_slide()
 	if projectile_live:
 		var next := projectile + projectile_velocity * delta
@@ -194,14 +205,39 @@ func fire_volley() -> void:
 
 func begin_recovery() -> void:
 	current_phase = Phase.RECOVERY
-	is_vulnerable = true
 	phase_left = recovery_time()
+
+func begin_release() -> void:
+	# A throw remains guarded through the release animation. Reflected shots are
+	# judged on impact, so a shot can connect when the subsequent opening begins.
+	current_phase = Phase.RELEASE
+	phase_left = 0.18
+
+func begin_telegraph() -> void:
+	current_phase = Phase.TELEGRAPH
+	phase_left = telegraph_time()
+	planned_attack = next_attack()
+
+func move_across(direction: float, speed: float) -> bool:
+	if is_zero_approx(direction):
+		return false
+	if is_on_floor():
+		var ahead := Vector2(direction * 20.0, 0)
+		if solid_between(global_position + Vector2(0, 8), global_position + ahead + Vector2(0, 8)):
+			var lift := Vector2.UP * 30.0
+			if test_move(global_transform, lift) or test_move(global_transform.translated(lift), ahead):
+				return false
+			velocity.y = -HOP_SPEED
+		elif not solid_between(global_position + ahead, global_position + ahead + Vector2(0, 48)):
+			return false
+	velocity.x = direction * speed
+	return true
 
 func receive_shank() -> void:
 	take_damage(1)
 
 func take_damage(amount: int, _ignore_recovery := false) -> void:
-	if not is_vulnerable or current_phase == Phase.RETREAT or is_dead:
+	if not is_vulnerable:
 		return
 	if invulnerability_left > 0:
 		return
@@ -216,7 +252,6 @@ func take_damage(amount: int, _ignore_recovery := false) -> void:
 
 func begin_retreat() -> void:
 	current_phase = Phase.RETREAT
-	is_vulnerable = false
 	projectile_live = false
 	retreat_left = 0.8
 	if level.has_method("niro_retreating"):
@@ -228,7 +263,6 @@ func die() -> void:
 		return
 	is_dead = true
 	current_phase = Phase.DEFEATED
-	is_vulnerable = false
 	projectile_live = false
 	velocity = Vector2.ZERO
 	level.brother_defeated()
@@ -257,15 +291,15 @@ func _draw() -> void:
 		return
 	var tint := Color("f2d3ab") if is_vulnerable else Color.WHITE
 	var winding_up := current_phase == Phase.TELEGRAPH and phase_left < 0.3 and telegraph_attack() != "call"
-	if current_phase == Phase.RUSH:
+	if current_phase in [Phase.RUSH, Phase.RELEASE]:
 		draw_kael(KAEL_ATTACK, 2, 1, tint)
 	elif winding_up:
 		draw_kael(KAEL_ATTACK, 2, 0, tint)
-	elif current_phase == Phase.RETREAT:
+	elif current_phase in [Phase.RETREAT, Phase.REPOSITION]:
 		draw_kael(KAEL_WALK, 2, int(time * 8) % 2, tint)
 	else:
 		draw_kael(KAEL_IDLE, 1, 0, tint)
-	var cue := "RECOVER" if is_vulnerable else ("RETREATING" if current_phase == Phase.RETREAT else telegraph_attack().to_upper())
+	var cue := "RECOVER" if is_vulnerable else ("RETREATING" if current_phase == Phase.RETREAT else ("FLANK" if current_phase == Phase.REPOSITION else telegraph_attack().to_upper()))
 	draw_string(ThemeDB.fallback_font, Vector2(-30, -43), "NIRO · " + cue, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color("fbf5ef"))
 	for index in range(health):
 		draw_rect(Rect2(-36 + index * 6, -36, 4, 3), Color("f2d3ab"))

@@ -59,7 +59,6 @@ func run() -> void:
 		boss_damage.append(12 - boss.health)
 	check(boss_damage[0] > boss_damage[1] and boss_damage[1] > boss_damage[2] and boss_damage[2] > 0, "Niro head/body/leg damage is ordered: " + str(boss_damage))
 	boss.health = 12
-	boss.is_vulnerable = false
 	boss.current_phase = boss.Phase.TELEGRAPH
 	boss.invulnerability_left = 0
 	await fire_at(boss.global_position + Vector2(0, -23), player, false)

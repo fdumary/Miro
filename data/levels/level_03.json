@@ -3732,9 +3732,14 @@
       {
         "kind": "turret",
         "position": [
+          1652,
+          1022
+        ],
+        "legacy_position": [
           1540,
           1064
-        ]
+        ],
+        "mount": "left"
       },
       {
         "kind": "turret",
@@ -3746,9 +3751,14 @@
       {
         "kind": "turret",
         "position": [
+          1652,
+          1204
+        ],
+        "legacy_position": [
           1540,
           1260
-        ]
+        ],
+        "mount": "left"
       }
     ],
     "cases": [

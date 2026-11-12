@@ -150,6 +150,7 @@
       "personality": "petty racketeer guarding his side business",
       "delivery": "[clipped] [hoarse]",
       "alert": "Back in your cell. We had a deal.",
+      "lost": "Where did he go?",
       "body": "Who saw this? Tell me who saw.",
       "idle": [
         "I don't run a charity. The rate went up.",
@@ -163,6 +164,7 @@
       "personality": "fills silence with imaginary games",
       "delivery": "[bright] [quickly]",
       "alert": "Time out! You're not supposed to be playing!",
+      "lost": "He was just here!",
       "body": "Come on. Say I lose. Say something.",
       "idle": [
         "Four laps. If I beat my record I get absolutely nothing.",
@@ -176,6 +178,7 @@
       "personality": "quietly documents every irregularity",
       "delivery": "[measured]",
       "alert": "Prisoner out of bounds. Stop at the next line.",
+      "lost": "Where'd he get to?",
       "body": "Mark the time. Nobody move the body.",
       "idle": [
         "Same boot prints as yesterday. Different direction.",
@@ -189,6 +192,7 @@
       "personality": "trusts signs more than his own eyes",
       "delivery": "[hesitant]",
       "alert": "The sign says stay inside. That's you, right?",
+      "lost": "He can't have just vanished.",
       "body": "It says sleeping quarters upstairs. This can't be right.",
       "idle": [
         "The arrow points down, but someone hung it upside down.",
@@ -202,6 +206,7 @@
       "personality": "worries about patients under his care",
       "delivery": "[low] [concerned]",
       "alert": "Stop there. Are you hurt, or are you running?",
+      "lost": "Check the shadows. He's close.",
       "body": "Get a cloth. No, a clean one. Hurry.",
       "idle": [
         "Three beds on the transfer sheet. Only two blankets.",
@@ -215,6 +220,7 @@
       "personality": "turns chores into bad stage magic",
       "delivery": "[animated]",
       "alert": "And for my next trick... wait, where did you come from?",
+      "lost": "Where did he go?",
       "body": "That's blood. I can't make that disappear.",
       "idle": [
         "Coin in this hand. No, the other hand. Ruined it again.",
@@ -228,6 +234,7 @@
       "personality": "takes spotless equipment as a moral duty",
       "delivery": "[firm]",
       "alert": "Hands off the rail. Face the wall.",
+      "lost": "He was just here!",
       "body": "Seal the corridor. I don't want a boot through this scene.",
       "idle": [
         "Rust starts where you stop looking.",
@@ -241,6 +248,7 @@
       "personality": "quiet labor organizer with a dry wit",
       "delivery": "[dry]",
       "alert": "I'd let it slide, but that's how they dock my pay.",
+      "lost": "Where'd he get to?",
       "body": "He was owed two weeks. Someone needs to tell his family.",
       "idle": [
         "The uniform is free. They take it out of your pay.",
@@ -254,6 +262,7 @@
       "personality": "misapplies elaborate safety rules",
       "delivery": "[uncertain]",
       "alert": "Hold on. Do I blow the whistle before I shout?",
+      "lost": "He can't have just vanished.",
       "body": "Don't touch him. Unless the rule says touch him first.",
       "idle": [
         "No running on wet stairs. What about running up them?",
@@ -267,6 +276,7 @@
       "personality": "homesick and protective of small comforts",
       "delivery": "[soft]",
       "alert": "Stop. Please don't make me raise the alarm.",
+      "lost": "Check the shadows. He's close.",
       "body": "He had a letter in his pocket. It never got sent.",
       "idle": [
         "If I close my eyes this smells almost like home. Almost.",
@@ -280,6 +290,7 @@
       "personality": "keeps score of the tower's minor absurdities",
       "delivery": "[wry]",
       "alert": "An escape. That's a new square on my card.",
+      "lost": "Where did he go?",
       "body": "No. Cross that one off. I never wanted to see it.",
       "idle": [
         "Leak in the laundry, rat in the oats. Two more and I win.",
@@ -293,6 +304,7 @@
       "personality": "old drill instructor counting everyone's cadence",
       "delivery": "[commanding]",
       "alert": "Heel down. Face front. That's an order.",
+      "lost": "He was just here!",
       "body": "One down. Form up before we lose another.",
       "idle": [
         "Left, right. If the floor can keep time, so can you.",
@@ -306,6 +318,7 @@
       "personality": "desperate to impress with tall stories",
       "delivery": "[eager]",
       "alert": "I caught three like you last week! Wait up!",
+      "lost": "Where'd he get to?",
       "body": "I said I'd keep him safe. I really said that.",
       "idle": [
         "The beast was this big. Bigger when I tell it upstairs.",
@@ -319,6 +332,7 @@
       "personality": "sees the tower as his ship to keep watertight",
       "delivery": "[gruff]",
       "alert": "Breach on this deck. Stand fast.",
+      "lost": "He can't have just vanished.",
       "body": "Close both ends of the passage. Nobody else goes down.",
       "idle": [
         "Every door is a bulkhead if you do your job.",
@@ -332,6 +346,7 @@
       "personality": "compulsively gives every inconvenience a title",
       "delivery": "[deadpan]",
       "alert": "And now, the escape artist. Hold the applause.",
+      "lost": "Check the shadows. He's close.",
       "body": "No clever title for this one. Somebody get help.",
       "idle": [
         "A study in wet socks, by Keeper Oren.",
@@ -345,6 +360,7 @@
       "personality": "literal-minded technician who checks his work twice",
       "delivery": "[precise]",
       "alert": "Unscheduled movement. Show me your pass.",
+      "lost": "Where did he go?",
       "body": "This wasn't a fall. Look at the angle.",
       "idle": [
         "If the latch needs a kick, the latch is broken.",
@@ -358,6 +374,7 @@
       "personality": "self-appointed tower tour guide",
       "delivery": "[sunny]",
       "alert": "Visitors go the other way. Actually, stay right there.",
+      "lost": "He was just here!",
       "body": "I show people this landing. I can't show them this.",
       "idle": [
         "On your left, the tower's second most disappointing window.",
@@ -371,6 +388,7 @@
       "personality": "overthinks simple choices until he freezes",
       "delivery": "[halting]",
       "alert": "Right. Stop. Or should I get someone? Stop anyway.",
+      "lost": "Where'd he get to?",
       "body": "I can't decide who to call. Somebody decide for me.",
       "idle": [
         "If I start with the bottom step, I won't get the top one wrong.",
@@ -384,6 +402,7 @@
       "personality": "secretly ashamed of an old lapse in discipline",
       "delivery": "[tense]",
       "alert": "Stop. I won't let it happen on my watch again.",
+      "lost": "He can't have just vanished.",
       "body": "Not again. I was here this time. I was right here.",
       "idle": [
         "I wrote the report twice. Neither version said why I left.",
@@ -397,6 +416,7 @@
       "personality": "buries fear under cheerful bad omens",
       "delivery": "[wry]",
       "alert": "I knew the creaking stair meant trouble. Halt!",
+      "lost": "Check the shadows. He's close.",
       "body": "I joked about bad luck. I didn't mean this.",
       "idle": [
         "A bird hit the window. Probably wants a transfer.",
@@ -410,6 +430,7 @@
       "personality": "protective apprentice cataloguing prohibited books",
       "delivery": "[quiet] [focused]",
       "alert": "Step away from the shelves. Let me see your hands.",
+      "lost": "Where did he go?",
       "body": "I know him. He let me finish the chapter.",
       "idle": [
         "The best books have the dullest labels.",
@@ -423,6 +444,7 @@
       "personality": "treats password duty like an embarrassing performance",
       "delivery": "[sheepish]",
       "alert": "You're not on the list. Please don't ask to see it.",
+      "lost": "He was just here!",
       "body": "I can't joke my way past this. Get the captain.",
       "idle": [
         "I practiced saying access denied in the mirror.",
@@ -436,6 +458,7 @@
       "personality": "cannot unsee the human cost of the ward",
       "delivery": "[weary]",
       "alert": "Stay out of the ward. That's for your sake too.",
+      "lost": "Where'd he get to?",
       "body": "Get the medic. Don't let them put him on the list.",
       "idle": [
         "Names go in the ledger. Numbers come back out.",
@@ -449,6 +472,7 @@
       "personality": "runs rounds like inspection of a failing fortress",
       "delivery": "[hard]",
       "alert": "Intruder in the ward. Keep the exits sealed.",
+      "lost": "He can't have just vanished.",
       "body": "First secure the door. Then we'll count our own.",
       "idle": [
         "The lock is only as good as the Keeper checking it.",
@@ -462,6 +486,7 @@
       "personality": "tries to befriend the wards' machinery",
       "delivery": "[playful]",
       "alert": "That wasn't the pipes. Hey, you there!",
+      "lost": "Check the shadows. He's close.",
       "body": "Wake up. Even the boiler makes more noise than you.",
       "idle": [
         "Morning, valve three. You sound dreadful today.",
@@ -475,6 +500,7 @@
       "personality": "soft-spoken gallows humor about medical bureaucracy",
       "delivery": "[dry] [soft]",
       "alert": "Escaping without a discharge form? Stop right there.",
+      "lost": "Where did he go?",
       "body": "He won't need a discharge form. Someone get a doctor.",
       "idle": [
         "They sent me three forms and one bandage.",
@@ -488,6 +514,7 @@
       "personality": "earnestly mistakes technical jargon for ordinary words",
       "delivery": "[puzzled]",
       "alert": "The door is under observation. Wait, so are you!",
+      "lost": "He was just here!",
       "body": "Is this what the records meant by critical? Help!",
       "idle": [
         "It says isolate the chamber. I haven't spoken to it all day.",
@@ -501,6 +528,7 @@
       "personality": "careful pragmatist checking supplies for a disaster",
       "delivery": "[steady]",
       "alert": "Stop at the red stripe. Nothing crosses it.",
+      "lost": "Where'd he get to?",
       "body": "Find the first aid tin. I checked it this morning.",
       "idle": [
         "Two lanterns work. Which means we have one spare.",
@@ -514,6 +542,7 @@
       "personality": "distracts himself by composing awful songs",
       "delivery": "[tuneful] [quickly]",
       "alert": "I had a rhyme for that. Never mind. Stop!",
+      "lost": "He can't have just vanished.",
       "body": "No song for this. Go get someone.",
       "idle": [
         "Ward door, stone floor. That's not enough for a chorus.",
@@ -527,6 +556,7 @@
       "personality": "insists on a clean handover even in a crisis",
       "delivery": "[clipped]",
       "alert": "Hold position. State your name and destination.",
+      "lost": "Check the shadows. He's close.",
       "body": "Mark his post uncovered. I'll take it until relief.",
       "idle": [
         "I brief the next shift even when it's the same shift.",
@@ -540,6 +570,7 @@
       "personality": "collects cruel sayings but goes gentle under pressure",
       "delivery": "[dry] [low]",
       "alert": "Well, you're the first interesting thing all night. Halt.",
+      "lost": "Where did he go?",
       "body": "Easy now. I'll stay with you. Somebody fetch help.",
       "idle": [
         "I keep a list of things worse than this job. It's short.",
@@ -553,6 +584,7 @@
       "personality": "grim veteran expecting the foundation to fail",
       "delivery": "[gravelly]",
       "alert": "Against the wall. Not the one that's cracking.",
+      "lost": "He was just here!",
       "body": "Get away from the stonework. I need a clear path.",
       "idle": [
         "You hear that? The whole tower settling on our heads.",
@@ -566,6 +598,7 @@
       "personality": "reckless optimist who volunteers before thinking",
       "delivery": "[buoyant]",
       "alert": "I'll get him! Wait, which way did he go?",
+      "lost": "Where'd he get to?",
       "body": "I said follow me. I shouldn't have said that.",
       "idle": [
         "I volunteered for the basement. What a tremendous decision.",
@@ -579,6 +612,7 @@
       "personality": "fixated on keeping his squad alive",
       "delivery": "[calm]",
       "alert": "Don't push your luck. Set it down and back away.",
+      "lost": "He can't have just vanished.",
       "body": "Cover me. I'm going to bring him out.",
       "idle": [
         "Know the person behind you. That's who brings you home.",
@@ -592,6 +626,7 @@
       "personality": "quietly sarcastic about Niro's leadership",
       "delivery": "[acid] [dry]",
       "alert": "The doctor's expecting you. I'm not letting you pass.",
+      "lost": "Check the shadows. He's close.",
       "body": "Where's the doctor when it's one of us?",
       "idle": [
         "He said this post was quiet. Maybe he meant afterward.",
@@ -605,6 +640,7 @@
       "personality": "well-meaning recruit who confuses left and right",
       "delivery": "[flustered]",
       "alert": "Over there! I mean here! Don't move!",
+      "lost": "Where did he go?",
       "body": "I went the wrong way. I should have been here.",
       "idle": [
         "Tie a string to the left glove. Now where's the string?",
@@ -618,6 +654,7 @@
       "personality": "resentful former quartermaster who thinks in shortages",
       "delivery": "[stern]",
       "alert": "Stay put. I'm not wasting a second round.",
+      "lost": "He was just here!",
       "body": "We're short a Keeper. Close ranks and make it count.",
       "idle": [
         "They issue one spare for everything except people.",
@@ -631,6 +668,7 @@
       "personality": "nervous scavenger making treasures from scrap",
       "delivery": "[quick] [nervous]",
       "alert": "Drop it! I mean stop! I wasn't taking anything.",
+      "lost": "Where'd he get to?",
       "body": "I found his badge. I didn't think I'd find him too.",
       "idle": [
         "This copper will make a good ring if I can bend it.",
@@ -644,6 +682,7 @@
       "personality": "patiently reads structural faults by sound",
       "delivery": "[measured] [low]",
       "alert": "Footsteps. Stop before you cross that beam.",
+      "lost": "He can't have just vanished.",
       "body": "I heard a body fall. It wasn't the ceiling.",
       "idle": [
         "A dry crack is stone. A wet one means get out.",
@@ -657,6 +696,7 @@
       "personality": "quiet believer who reads scripture to exhausted peers",
       "delivery": "[gentle] [reverent]",
       "alert": "Peace. Put that down and nobody needs to bleed.",
+      "lost": "Check the shadows. He's close.",
       "body": "Rest now. I'll stay until they come.",
       "idle": [
         "Read it slowly. You miss the good part if you rush.",
@@ -670,6 +710,7 @@
       "personality": "earnest literalist who turns theology into practical questions",
       "delivery": "[earnest] [confused]",
       "alert": "Are you looking for the stairs? Wait, that's a weapon.",
+      "lost": "Where did he go?",
       "body": "Is he hurt? I can fetch someone. Who do I fetch?",
       "idle": [
         "If we all share the bread, does the last man get the crust?",
@@ -683,6 +724,7 @@
       "personality": "tired skeptic who teases the people he cares for",
       "delivery": "[wry] [tired]",
       "alert": "You picked a rotten time for a visit. Stop.",
+      "lost": "He was just here!",
       "body": "Come on, friend. I won't laugh if you get up.",
       "idle": [
         "If heaven has a night shift, they can keep my place.",
@@ -696,6 +738,7 @@
       "personality": "overzealous tracker who treats evidence as personal",
       "delivery": "[intense]",
       "alert": "Those prints were yours. End of the trail.",
+      "lost": "Where'd he get to?",
       "body": "This is his work. Nobody touch the ground around him.",
       "idle": [
         "Fresh dust on the hinge. Someone went through.",
@@ -709,6 +752,7 @@
       "personality": "competitive checkpoint investigator eager for a clean arrest",
       "delivery": "[sharp]",
       "alert": "Caught you between posts. On your knees.",
+      "lost": "He can't have just vanished.",
       "body": "He slipped a checkpoint. Tighten the next one.",
       "idle": [
         "If I get the arrest, I get out of booth duty.",
@@ -722,6 +766,7 @@
       "personality": "fearful ward reinforcement hiding behind procedure",
       "delivery": "[tight]",
       "alert": "Stop there. I have orders to fire this time.",
+      "lost": "Check the shadows. He's close.",
       "body": "They said there'd be two of us. What do I do now?",
       "idle": [
         "Read the order again. My hands won't stop shaking.",
@@ -735,6 +780,7 @@
       "personality": "patient marksman who dislikes close quarters",
       "delivery": "[slow] [steady]",
       "alert": "Don't close the distance. Hands where I see them.",
+      "lost": "Where did he go?",
       "body": "Move to cover. He didn't have a clear lane.",
       "idle": [
         "Long hall, straight shot. If I can get my hands still.",
@@ -748,6 +794,7 @@
       "personality": "sour reservist who records every unpaid hour",
       "delivery": "[bitter]",
       "alert": "Overtime ends here. Drop it.",
+      "lost": "He was just here!",
       "body": "That's his last shift. At least write down when it ended.",
       "idle": [
         "I write the hours on my cuff. The ledger lies.",
@@ -761,6 +808,7 @@
       "personality": "young formalist who quotes regulations under stress",
       "delivery": "[crisp]",
       "alert": "By order of the tower, you will stop. Now!",
+      "lost": "Where'd he get to?",
       "body": "Section nine. The one about casualties. I can't remember it.",
       "idle": [
         "Learn the rule before you need to break it.",
@@ -774,6 +822,7 @@
       "personality": "former carpenter sizing up exits and repairs",
       "delivery": "[plain]",
       "alert": "Stay there. I've got the only clear way out.",
+      "lost": "He can't have just vanished.",
       "body": "He's pinned. Bring a bar, not a gun.",
       "idle": [
         "Whoever framed this door didn't own a square.",
@@ -787,6 +836,7 @@
       "personality": "dry clerk drafted out of the records office",
       "delivery": "[dry] [precise]",
       "alert": "First the paperwork, then the escape. Stop.",
+      "lost": "Check the shadows. He's close.",
       "body": "I know his handwriting. I don't want this to be his last entry.",
       "idle": [
         "They swapped my pen for a pistol. The pen jammed less.",
@@ -800,6 +850,7 @@
       "personality": "superstitious runner listening for warnings in echoes",
       "delivery": "[breathy]",
       "alert": "I heard you before I saw you. Don't move.",
+      "lost": "Where did he go?",
       "body": "The echo stopped. Get somebody down here.",
       "idle": [
         "Never answer the second echo. It isn't yours.",
@@ -813,6 +864,7 @@
       "personality": "brooding brawler wary of enclosed spaces",
       "delivery": "[rough]",
       "alert": "Come out where I can see you. Slowly.",
+      "lost": "He was just here!",
       "body": "Get the doors open. I need room to move him.",
       "idle": [
         "If the ceiling gets any lower, I'm taking the stairs.",
@@ -826,6 +878,7 @@
       "personality": "exasperated relief guard with a strong sense of duty",
       "delivery": "[tired] [firm]",
       "alert": "You can wait. I've been waiting all night.",
+      "lost": "Where'd he get to?",
       "body": "He was waiting for me to relieve him. I came too late.",
       "idle": [
         "I had my boots off when they rang the bell.",
@@ -839,6 +892,7 @@
       "personality": "quiet messenger trying to avoid being noticed",
       "delivery": "[hushed] [tense]",
       "alert": "I don't want a fight. Just stop there.",
+      "lost": "He can't have just vanished.",
       "body": "I'll get help. Someone stay with him.",
       "idle": [
         "Deliver the order and walk away. That's all I have to do.",
@@ -852,6 +906,7 @@
       "personality": "vain new officer afraid of losing command",
       "delivery": "[brisk]",
       "alert": "Eyes on me, prisoner. On me!",
+      "lost": "Check the shadows. He's close.",
       "body": "Look at me. Listen to me. We can still save him.",
       "idle": [
         "Nobody remembers your orders if you say them quietly.",
@@ -865,6 +920,7 @@
       "personality": "a former stair runner who counts the quickest routes",
       "delivery": "[quick] [focused]",
       "alert": "Cut him off at the next landing.",
+      "lost": "Where did he go?",
       "body": "I can reach the medic from here. Keep the stair clear.",
       "idle": [
         "The east stairs are faster if the door is open.",
@@ -878,6 +934,7 @@
       "personality": "a reluctant reserve who thinks every alarm is a drill",
       "delivery": "[breathless]",
       "alert": "All right, good drill. Wait, this is real!",
+      "lost": "He was just here!",
       "body": "This is real. Get someone down here.",
       "idle": [
         "I put my boots on for this. It had better be a drill.",
@@ -891,6 +948,7 @@
       "personality": "a checkpoint reserve who treats every search as a lockdown",
       "delivery": "[commanding]",
       "alert": "No one leaves this corridor. Halt!",
+      "lost": "Where'd he get to?",
       "body": "Seal the passage. Send a runner for help.",
       "idle": [
         "If the watcher blinks twice, I check both doors.",
@@ -904,6 +962,7 @@
       "personality": "a reserve who jokes about interrupted meals until things turn serious",
       "delivery": "[dry]",
       "alert": "You could have waited till I finished my supper. Stop!",
+      "lost": "He can't have just vanished.",
       "body": "Forget supper. Somebody get a doctor.",
       "idle": [
         "I bring cold soup. It saves the tower the trouble.",
@@ -914,6 +973,7 @@
     },
     "Mott": {
       "alert": "Down here? Nobody comes down here. Except you, apparently.",
+      "lost": "Check the shadows. He's close.",
       "body": "Bram? Bram, get up. This isn't funny.",
       "delivery": "[gruff]",
       "idle": [
@@ -927,6 +987,7 @@
     },
     "Pell": {
       "alert": "Back in your cell! I said back!",
+      "lost": "Where did he go?",
       "body": "He was coughing yesterday. Now he's not doing anything.",
       "delivery": "[stern] [tired]",
       "idle": [
@@ -940,6 +1001,7 @@
     },
     "Crane": {
       "alert": "Wrong floor, prisoner. Wrong life, too.",
+      "lost": "He was just here!",
       "body": "Somebody's going to make me write this up.",
       "delivery": "[dry]",
       "idle": [
@@ -953,6 +1015,7 @@
     },
     "Stroud": {
       "alert": "You! Don't make me run, my knee's gone!",
+      "lost": "Where'd he get to?",
       "body": "Oh, wonderful. Another one for the cart.",
       "delivery": "[wheezing]",
       "idle": [
@@ -966,6 +1029,7 @@
     },
     "Thane": {
       "alert": "Halt! Halt, I think that's the word!",
+      "lost": "He can't have just vanished.",
       "body": "Is he asleep? Tell me he's asleep.",
       "delivery": "[nervous]",
       "idle": [
@@ -979,6 +1043,7 @@
     },
     "Holt": {
       "alert": "There you are. I bet Mott you'd come this way.",
+      "lost": "Check the shadows. He's close.",
       "body": "That's a week's wages I'm never collecting.",
       "delivery": "[smug]",
       "idle": [
@@ -992,6 +1057,7 @@
     },
     "Wick": {
       "alert": "Get back in line! All of you, in line!",
+      "lost": "Where did he go?",
       "body": "Nobody touches him. Nobody touches anything.",
       "delivery": "[barking]",
       "idle": [
@@ -1005,6 +1071,7 @@
     },
     "Garth": {
       "alert": "Oi! Visiting hours ended years ago!",
+      "lost": "He was just here!",
       "body": "That's two this week. I'm keeping count.",
       "delivery": "[flat]",
       "idle": [
@@ -1018,6 +1085,7 @@
     },
     "Rook": {
       "alert": "Up here? Clever. Not clever enough.",
+      "lost": "Where'd he get to?",
       "body": "Nobody falls off a ledge that quietly.",
       "delivery": "[smug]",
       "idle": [
@@ -1031,6 +1099,7 @@
     },
     "Rhea": {
       "alert": "Intruder! Hold the pose, I mean, hold still!",
+      "lost": "He can't have just vanished.",
       "body": "Oh no. Oh no, I should've stretched him out first.",
       "delivery": "[bright]",
       "idle": [
@@ -1044,6 +1113,7 @@
     },
     "Marta": {
       "alert": "Hey! Put that down, you'll ruin my sourdough! I mean, stop!",
+      "lost": "Check the shadows. He's close.",
       "body": "Somebody help him! Somebody get the first aid, and the flour!",
       "delivery": "[warm]",
       "idle": [
@@ -1057,6 +1127,7 @@
     },
     "Odette": {
       "alert": "Stop! You're the most interesting thing that's happened to me all year!",
+      "lost": "Where did he go?",
       "body": "Of course. Even the dead ones stop to talk to me.",
       "delivery": "[wistful]",
       "idle": [
@@ -1070,6 +1141,7 @@
     },
     "Sunniva": {
       "alert": "Not now! Eleven days left on my contract. Eleven!",
+      "lost": "He was just here!",
       "body": "Nope. Not signing the incident report. Eleven days.",
       "delivery": "[determined]",
       "idle": [
@@ -1083,6 +1155,7 @@
     },
     "Calla": {
       "alert": "Oh my, a real runaway! This is going straight into my podcast!",
+      "lost": "Where'd he get to?",
       "body": "Okay, that's one for the true crime episode.",
       "delivery": "[excited]",
       "idle": [
@@ -1096,6 +1169,7 @@
     },
     "Ingrid": {
       "alert": "Intruder in the stacks! Quiet, please! Quiet!",
+      "lost": "He can't have just vanished.",
       "body": "Overdue. Everything about this is overdue.",
       "delivery": "[prim]",
       "idle": [
@@ -1109,6 +1183,7 @@
     },
     "Noor": {
       "alert": "Well, well. Look who's out past curfew. Shame about the handcuffs.",
+      "lost": "Check the shadows. He's close.",
       "body": "Aw. And I'd just gotten used to the company.",
       "delivery": "[husky]",
       "idle": [
@@ -1122,6 +1197,7 @@
     },
     "Dara": {
       "alert": "Records are off limits! Step away from the screen!",
+      "lost": "Where did he go?",
       "body": "Dara's down. Somebody tell the desk, they'll want the keys.",
       "delivery": "[stern]",
       "idle": [
@@ -1135,6 +1211,7 @@
     },
     "Vesna": {
       "alert": "Hands off the port! That's maintenance property!",
+      "lost": "He was just here!",
       "body": "Oh no. And I just got the port working.",
       "delivery": "[brisk]",
       "idle": [
@@ -1148,6 +1225,7 @@
     },
     "Ilse": {
       "alert": "You! Away from the terminal!",
+      "lost": "Where'd he get to?",
       "body": "Not at my terminal. Not on my shift.",
       "delivery": "[sharp]",
       "idle": [
@@ -1161,6 +1239,7 @@
     },
     "Bryn": {
       "alert": "Hey! That terminal is logged, you know!",
+      "lost": "He can't have just vanished.",
       "body": "I had one job: watch the screen.",
       "delivery": "[wry]",
       "idle": [
@@ -1174,6 +1253,7 @@
     },
     "Odell": {
       "alert": "Stop right there! Records terminal!",
+      "lost": "Check the shadows. He's close.",
       "body": "Nobody warned me about this posting.",
       "delivery": "[gruff]",
       "idle": [
@@ -1187,6 +1267,7 @@
     },
     "Corra": {
       "alert": "Away from the checkpoint terminal! Now!",
+      "lost": "Where did he go?",
       "body": "Somebody's going to have to explain this to the captain.",
       "delivery": "[firm]",
       "idle": [
@@ -1200,6 +1281,7 @@
     },
     "Wren2": {
       "alert": "Don't touch that screen!",
+      "lost": "He was just here!",
       "body": "This is why I asked for a transfer.",
       "delivery": "[tense]",
       "idle": [
@@ -1213,6 +1295,7 @@
     },
     "Fenna": {
       "alert": "Halt! Don't read that file!",
+      "lost": "Where'd he get to?",
       "body": "Fenna's down. The file stays closed.",
       "delivery": "[firm]",
       "idle": [
@@ -1226,6 +1309,7 @@
     },
     "Marl": {
       "alert": "That log is classified! Stand down!",
+      "lost": "He can't have just vanished.",
       "body": "Not like this. Not by the terminal.",
       "delivery": "[crisp]",
       "idle": [
@@ -1239,6 +1323,7 @@
     },
     "Pru": {
       "alert": "Intruder at the ward terminal!",
+      "lost": "Check the shadows. He's close.",
       "body": "Pru? Somebody get the nurse, now!",
       "delivery": "[urgent]",
       "idle": [
@@ -1252,6 +1337,7 @@
     },
     "Garrick": {
       "alert": "Hands off the foundation terminal!",
+      "lost": "Where did he go?",
       "body": "Garrick down at the foundation! Send the doctor!",
       "delivery": "[gruff]",
       "idle": [
@@ -1265,6 +1351,7 @@
     },
     "Brandt": {
       "alert": "Hold that corridor! Intruder in my section!",
+      "lost": "He was just here!",
       "body": "Brandt is down! Medic, move!",
       "delivery": "[commanding]",
       "idle": [
@@ -1278,6 +1365,7 @@
     },
     "Sable": {
       "alert": "Found you. Your file says you'd run.",
+      "lost": "Where'd he get to?",
       "body": "Sable down. Somebody log that, and fetch the nurse.",
       "delivery": "[dry]",
       "idle": [
@@ -1291,6 +1379,7 @@
     },
     "Tolliver": {
       "alert": "There. By the sealed door. Quietly now.",
+      "lost": "He can't have just vanished.",
       "body": "Tolliver is hurt. Keep it quiet, and get help.",
       "delivery": "[whispers]",
       "idle": [
@@ -1304,6 +1393,7 @@
     },
     "Maren": {
       "alert": "Oh no. Not on my shift. Stop right there.",
+      "lost": "Check the shadows. He's close.",
       "body": "Maren is down. Somebody wake the doctor.",
       "delivery": "[tired]",
       "idle": [
@@ -1317,6 +1407,7 @@
     },
     "Voss": {
       "alert": "Not on my corridor, friend. Stop!",
+      "lost": "Where did he go?",
       "body": "Voss is down. Great. Somebody bring a stretcher.",
       "delivery": "[sarcastic]",
       "idle": [
@@ -1330,6 +1421,7 @@
     },
     "Hobb": {
       "alert": "Not on my last shift, you don't! Stop!",
+      "lost": "He was just here!",
       "body": "Hobb's down. Somebody tell my wife I tried.",
       "delivery": "[grumbling]",
       "idle": [
@@ -1343,6 +1435,7 @@
     },
     "Tamsin": {
       "alert": "Come on, then. Show me what you've got.",
+      "lost": "Where'd he get to?",
       "body": "Tamsin is down. Lucky punch. Get the medic.",
       "delivery": "[confident]",
       "idle": [
@@ -1356,6 +1449,7 @@
     },
     "Corvin": {
       "alert": "Intruder! Section four, on the double!",
+      "lost": "He can't have just vanished.",
       "body": "Corvin is down. Section four needs relief.",
       "delivery": "[clipped]",
       "idle": [
@@ -1369,6 +1463,7 @@
     },
     "Ilka": {
       "alert": "I see you. Stop where you are.",
+      "lost": "Check the shadows. He's close.",
       "body": "Ilka is down. Quietly, now. Get help.",
       "delivery": "[calm]",
       "idle": [
@@ -1382,6 +1477,7 @@
     },
     "Dunmore": {
       "alert": "I've seen worse than you. Halt!",
+      "lost": "Where did he go?",
       "body": "Dunmore is hit. Tell the others I held the line.",
       "delivery": "[gruff]",
       "idle": [
@@ -1395,6 +1491,7 @@
     },
     "Perrin": {
       "alert": "Well, I'll be. Hold it right there, friend!",
+      "lost": "He was just here!",
       "body": "Perrin's down. Tell my mama it was quick.",
       "delivery": "[drawling]",
       "idle": [
@@ -1408,6 +1505,7 @@
     },
     "Yara": {
       "alert": "Not in my corridor. Stop at once!",
+      "lost": "Where'd he get to?",
       "body": "Yara is down. Somebody fetch the doctor, now.",
       "delivery": "[stern]",
       "idle": [
@@ -1421,6 +1519,7 @@
     },
     "Rocco": {
       "alert": "Hey! Hey, you! Get back here!",
+      "lost": "He can't have just vanished.",
       "body": "Rocco's down! Somebody get the doctor!",
       "delivery": "[cocky]",
       "idle": [
@@ -1434,6 +1533,7 @@
     },
     "Ormond": {
       "alert": "Oi! Over here, everyone, he's on the ledge!",
+      "lost": "Check the shadows. He's close.",
       "body": "Ormond's down! Somebody put the kettle on and fetch a medic!",
       "delivery": "[chatty]",
       "idle": [
@@ -1447,6 +1547,7 @@
     },
     "Delphine": {
       "alert": "There you are. I knew the tower would give you away.",
+      "lost": "Where did he go?",
       "body": "Delphine is down. The tower will remember this.",
       "delivery": "[cold]",
       "idle": [

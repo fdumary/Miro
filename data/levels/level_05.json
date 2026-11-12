@@ -71,10 +71,15 @@
       {
         "kind": "turret",
         "position": [
+          28,
+          406
+        ],
+        "disabled": true,
+        "legacy_position": [
           250,
           448
         ],
-        "disabled": true
+        "mount": "right"
       }
     ],
     "cameras": [
@@ -423,18 +428,6 @@
     },
     {
       "name": "ForestViewpoint",
-      "kind": "note",
-      "position": [
-        880,
-        846
-      ],
-      "size": [
-        40,
-        54
-      ]
-    },
-    {
-      "name": "StairGate",
       "kind": "exit",
       "position": [
         1043,
@@ -507,7 +500,7 @@
     {
       "name": "08_ForestViewpoint",
       "position": [
-        880,
+        1043,
         852
       ],
       "purpose": "Woods, remote detonation, collapse, Set Me Free"
@@ -693,13 +686,13 @@
     },
     {
       "id": "ForestViewpoint",
-      "title": "Reach the forest viewpoint",
+      "title": "Leave through the forest door",
       "position": [
-        880,
-        846
+        1043,
+        836
       ],
-      "kind": "note",
-      "objective": "Reach the forest viewpoint",
+      "kind": "exit",
+      "objective": "Leave through the forest door",
       "lines": [
         [
           "MIRO",
@@ -938,7 +931,7 @@
     "ForestViewpoint": [
       "The woods. Out.",
       "Right side of the deepest floor.",
-      "Walk right to the opening and press E."
+      "Press E at the door on the far right."
     ],
     "exit": [
       "Out.",

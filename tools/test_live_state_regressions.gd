@@ -60,7 +60,9 @@ func run() -> void:
  await scene(3)
  var p=level.player;var c=p.controls;var w=level.world_features
  p.position=Vector2(600,-1000);p.c4_count=1;c.drop_charge()
- check(p.c4_count==1 and c.planted.is_empty(),"Reserved last C4 cannot be used or duplicated")
+ check(p.c4_count==0 and c.planted.size()==1,"Last optional C4 remains usable with the separate story reserve")
+ c.planted[0].position=p.position;c.planted[0].set_physics_process(false)
+ check(c.recover_charge() and p.c4_count==1,"Last optional charge refunds once")
  await frames();p.c4_count=4;c.drop_charge();c.planted[0].position=p.position;c.planted[0].set_physics_process(false)
  check(p.c4_count==3 and c.recover_charge() and p.c4_count==4,"Inventory C4 recovery refunds exactly one")
  await frames();c.drop_charge();c.planted[0].position=p.position+Vector2(20,0);c.planted[0].stuck=true;c.planted[0].set_physics_process(false)
